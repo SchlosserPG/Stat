@@ -1708,5 +1708,75 @@
     "crumbs": [
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>Summary</span>"
     ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Probability And Business Statistics",
+    "section": "",
+    "text": "1 Installing R and R Studio",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installing R and R Studio</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#installing-r-on-windows",
+    "href": "index.html#installing-r-on-windows",
+    "title": "Probability And Business Statistics",
+    "section": "1.1 Installing R on Windows",
+    "text": "1.1 Installing R on Windows\n\nOpen an internet browser and go to https://www.r-project.org/.\nClick CRAN hyperlink underneath Download on the left.\nSelect a CRAN location (a mirror site) and click the corresponding link. I selected O-cloud. This brings you to the following link: https://cloud.r-project.org/\nClick on the “Download R for Windows” link at the top of the page if you have a Windows computer.\n\nClick on the “install R for the first time” link at the top of the page.\nClick “Download R for Windows” and save the executable file somewhere on your computer.\nRun the .exe file\nAccept all defaults and follow the installation instructions\nNow that R is installed, you need to download and install RStudio.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installing R and R Studio</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#installing-r-on-a-mac",
+    "href": "index.html#installing-r-on-a-mac",
+    "title": "Probability And Business Statistics",
+    "section": "1.2 Installing R on a Mac",
+    "text": "1.2 Installing R on a Mac\n\nOpen an internet browser and go to https://www.r-project.org/.\nClick CRAN hyperlink underneath Download on the left.\nSelect a CRAN location (a mirror site) and click the corresponding link. I selected O-cloud. This brings you to the following link: https://cloud.r-project.org/\nClick on the “Download R for (Mac) OS X” link at the top of the page.\nClick on the file containing the latest version of R under “Files.”\nSave the .pkg file, double-click it to open, and follow the installation instructions.\nAccept the license agreement and all subsequent defaults\nWhen the installation completes, click Close.\nNow that R is installed, you need to download and install RStudio.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installing R and R Studio</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#downloading-rstudio-for-mac-or-pc",
+    "href": "index.html#downloading-rstudio-for-mac-or-pc",
+    "title": "Probability And Business Statistics",
+    "section": "1.3 Downloading RStudio For Mac or PC",
+    "text": "1.3 Downloading RStudio For Mac or PC\n\nGo to the following URL: https://www.rstudio.com/products/rstudio/download/\nClick the Download button for Install RStudio.\nIt should recognize your operating system. If you see different an Installers for Supported Platforms section, click the version that is appropriate for your operating system. When the download is complete, run the install program, accepting all defaults.\nNote, RStudio might conflict with some Mac antivirus programs. Ensure your antivirus is not blocking it from installing. Only worry about this if you have difficulty installing the program.\n\n\n\n\nRStudio",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installing R and R Studio</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#setting-options-to-your-liking",
+    "href": "index.html#setting-options-to-your-liking",
+    "title": "Probability And Business Statistics",
+    "section": "5.1 Setting Options to Your Liking",
+    "text": "5.1 Setting Options to Your Liking\n\nYou have many options to customize R Studio.\nGo to Tools &gt; Global Options to see the list of options for you to customize.\nA few are listed below.\n\nYou can set your general information including your default working directory (when not in a project).\nYou can customize the appearance to a theme that accommodates your learning style and visual preferences.\nYou can turn on a spell check.\n\n\n\n\n\nTools &gt; Global Options.R",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installing R and R Studio</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#quick-keys-in-r",
+    "href": "index.html#quick-keys-in-r",
+    "title": "Probability And Business Statistics",
+    "section": "5.2 Quick Keys in R",
+    "text": "5.2 Quick Keys in R\n\nThere are a lot of quick keys in R to make you able to use it faster and more effectively. You may look over these and try on your own.\n\n\n\n\nConsole Quick Keys\n\n\n\n\n\nSource Quick Keys\n\n\n\n\n\nEditing Quick Keys",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installing R and R Studio</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#getting-help-in-r",
+    "href": "index.html#getting-help-in-r",
+    "title": "Probability And Business Statistics",
+    "section": "5.3 Getting Help in R",
+    "text": "5.3 Getting Help in R\n\nThere are lots of ways to get help in R.\nIn R, use the help search box to find information on a function, parameter, or package.\n\n?mean\nhelp.search(‘swirl’)\nhelp(package = ‘MASS’)\n?install.packages\n\n\n\n\n\nGetting Help\n\n\n\nYou should try to look up the tapply command to see what it does.\n\nUse ?tapply in your .R file to pull up tapply() command or type tapply in the Help box. * Formally, you should see that the command applies a function to each cell of a ragged array, that is to each (non-empty) group of values given by a unique combination of the levels of certain factors. This means that the command does some math calculation (mean, sum, etc.) on a continuous variable after dividing the data by group.\n\nThe format is tapply(x, index, and fun), where x is a continuous variable, index is a grouping variable or factor, and fun is a function like mean.\nMore on that function later in Chapter 1.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installing R and R Studio</span>"
+    ]
   }
 ]
