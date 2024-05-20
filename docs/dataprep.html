@@ -395,16 +395,15 @@ window.Quarto = {
 <li>Numerical data types: A Vector of Numbers (Real or Integer)</li>
 </ol>
 <ul>
-<li>Continuous (Real) variables can take any value along some continuum, hence continuous.
+<li><p>Continuous (Real) variables can take any value along some continuum, hence continuous.</p>
 <ul>
 <li>We can force a variable into a numerical data type by using the as.numeric() command.</li>
 <li>For example, we could collect information on a participants age, height, weight, or distance traveled.</li>
 </ul></li>
-<li>Two ways to create:
+<li><p>Two ways to create:</p>
 <ul>
 <li>We can also create a numeric variable by ensuring our value we assign is a number!</li>
 <li>We can force a variable into an real number data type by using the as.numeric() command.</li>
-</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign Rhode Island limit for medical marijuana in ounces per</span></span>
@@ -415,14 +414,13 @@ window.Quarto = {
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
-</div>
-<ul>
-<li>Discrete (Integer) Variables:
+</div></li>
+<li><p>Discrete (Integer) Variables:</p>
 <ul>
 <li>Discrete variables can only take a countable number of distinct values.</li>
 <li>We can force a variable into an integer data type by using the as.integer() command.</li>
 </ul></li>
-<li>For example, we could collect information on the number of children in a family or number of points scored in a basketball game.</li>
+<li><p>For example, we could collect information on the number of children in a family or number of points scored in a basketball game.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign the value of 4 to a constant called kTestInteger and set as</span></span>
@@ -466,10 +464,9 @@ window.Quarto = {
 <li>Logical data type: Values of TRUE and FALSE</li>
 </ol>
 <ul>
-<li>Result of some expression.
+<li><p>Result of some expression.</p>
 <ul>
 <li>A quick example is below that shows how to assign a logical value to a variable.</li>
-</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Store the result of 6 &gt; 8 in a constant called kSixEight</span></span>
@@ -484,7 +481,8 @@ window.Quarto = {
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "logical"</code></pre>
 </div>
-</div>
+</div></li>
+</ul>
 <ol start="5" type="1">
 <li>Date data type: A variable that should be a date.</li>
 </ol>
@@ -892,10 +890,9 @@ window.Quarto = {
 </div>
 </div>
 <ul>
-<li>Many functions in R include parameters that will ignore NAs for you.
+<li><p>Many functions in R include parameters that will ignore NAs for you.</p>
 <ul>
 <li>sum() and mean() are examples of this, and most summary statistics like median() and var() also use the na.rm parameter to ignore the NAs. Always check the help to determine if na.rm is a parameter.</li>
-</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(y, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -908,7 +905,8 @@ window.Quarto = {
 </div>
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># na.omit removes the NAs from the data set.</span></span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+</div></li>
+</ul>
 </section>
 <section id="is.na" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="is.na"><span class="header-section-number">11.3</span> is.na()</h2>
@@ -975,8 +973,8 @@ window.Quarto = {
 <section id="na.omit-vs.-drop_na" class="level2" data-number="11.5">
 <h2 data-number="11.5" class="anchored" data-anchor-id="na.omit-vs.-drop_na"><span class="header-section-number">11.5</span> na.omit() vs.&nbsp;drop_na()</h2>
 <ul>
-<li>Both functions return a new object with the rows containing missing values removed.</li>
-<li>na.omit() is a base R function, so it doesn’t require any additional package installation where drop_na() requires loading the tidyr package, which is part of the tidyverse ecosystem.</li>
+<li><p>Both functions return a new object with the rows containing missing values removed.</p></li>
+<li><p>na.omit() is a base R function, so it doesn’t require any additional package installation where drop_na() requires loading the tidyr package, which is part of the tidyverse ecosystem.</p></li>
 <li><pre><code>drop_na() fits well into tidyverse pipelines, making it easy to integrate with other tidyverse functions where na.omit() can also be used in pipelines but might require additional steps to fit seamlessly.</code></pre></li>
 </ul>
 <div class="cell">
@@ -1052,11 +1050,10 @@ window.Quarto = {
 </div>
 </div>
 <ul>
-<li>You try to load the airquality dataset from base R and look at a summary of the dataset.
+<li><p>You try to load the airquality dataset from base R and look at a summary of the dataset.</p>
 <ul>
 <li>Sum the number of NAs in airquality.</li>
 <li>Omit all the NAs from airquality and save it in a new data object called airqual and take a new summary of it.</li>
-</ul></li>
 </ul>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -1075,7 +1072,7 @@ window.Quarto = {
  Mean   :6.993   Mean   :15.8  
  3rd Qu.:8.000   3rd Qu.:23.0  
  Max.   :9.000   Max.   :31.0  
-                               </code></pre>
+</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 44</code></pre>
@@ -1096,7 +1093,8 @@ window.Quarto = {
  3rd Qu.:9.000   3rd Qu.:22.50  
  Max.   :9.000   Max.   :31.00  </code></pre>
 </div>
-</div>
+</div></li>
+</ul>
 </section>
 </section>
 <section id="summarize" class="level1" data-number="12">
@@ -1213,7 +1211,8 @@ window.Quarto = {
 <section id="gss.2016-data-cleaning" class="level3" data-number="15.0.1">
 <h3 data-number="15.0.1" class="anchored" data-anchor-id="gss.2016-data-cleaning"><span class="header-section-number">15.0.1</span> gss.2016 Data Cleaning</h3>
 <ul>
-<li>First, because we made some edits to the data set, reread in version a using the read.csv command. This brings the data set back to its original form. It is always a good idea to read the dataset back in when you are unsure about whether you have made a mistake during data preparation that could cause a lack of data integrity.</li>
+<li>First, because we made some edits to the data set, reread in version a using the read.csv command. This brings the data set back to its original form. It is always a good idea to read the dataset back in when you are unsure about whether you have made a mistake during data preparation that could cause a lack of data integrity.<br>
+</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span> <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"data/gss2016.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1265,11 +1264,10 @@ window.Quarto = {
 <section id="drop-levels" class="level3" data-number="15.0.3">
 <h3 data-number="15.0.3" class="anchored" data-anchor-id="drop-levels"><span class="header-section-number">15.0.3</span> Drop Levels</h3>
 <ul>
-<li>The droplevels function is part of base R and is used to drop unused levels from factor variables in a data frame. It works by removing any levels from a factor variable that are not present in the data.</li>
-<li>Next, we want to edit our code to convert IAP and DK to NA values and drop levels that have are empty.
+<li><p>The droplevels function is part of base R and is used to drop unused levels from factor variables in a data frame. It works by removing any levels from a factor variable that are not present in the data.</p></li>
+<li><p>Next, we want to edit our code to convert IAP and DK to NA values and drop levels that have are empty.</p>
 <ul>
 <li>Note the Piping operator added to the end of the DK line so you can keep going with new commands editing gss.2016.cleaned.</li>
-</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>gss.<span class="fl">2016.</span>cleaned <span class="ot">&lt;-</span> gss<span class="fl">.2016</span> <span class="sc">%&gt;%</span></span>
@@ -1288,12 +1286,14 @@ window.Quarto = {
  NOT LEGAL: 717   Class :character  
  NA's     :1024   Mode  :character  </code></pre>
 </div>
-</div>
+</div></li>
+</ul>
 </section>
 <section id="coercing-to-numeric" class="level3" data-number="15.0.4">
 <h3 data-number="15.0.4" class="anchored" data-anchor-id="coercing-to-numeric"><span class="header-section-number">15.0.4</span> Coercing to Numeric</h3>
 <ul>
-<li>Next, we handle a numerical variable, age. Age again has an issue being able to be numerical data type because it has “89 OR OLDER” as a value. Before using the as.numeric() command, we need to recode it. We did this above as a stand-alone statement.</li>
+<li>Next, we handle a numerical variable, age. Age again has an issue being able to be numerical data type because it has “89 OR OLDER” as a value. Before using the as.numeric() command, we need to recode it. We did this above as a stand-alone statement.<br>
+</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>gss.<span class="fl">2016.</span>cleaned <span class="ot">&lt;-</span> gss<span class="fl">.2016</span> <span class="sc">%&gt;%</span></span>
@@ -1327,7 +1327,6 @@ window.Quarto = {
 <li>This also ensures that anyone above 89 is coded correctly in a category instead of as the value 89. This again brings back data integrity.</li>
 <li>The cut() function generates class limits and bins used in frequency distributions (and histograms) for quantitative data.</li>
 <li>Here, we are using it to cut age into a categorical variable.</li>
-</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>gss.<span class="fl">2016.</span>cleaned <span class="ot">&lt;-</span> gss<span class="fl">.2016</span> <span class="sc">%&gt;%</span></span>
@@ -1354,7 +1353,8 @@ window.Quarto = {
                   Max.   :89.00                 
                   NA's   :10                    </code></pre>
 </div>
-</div>
+</div></li>
+</ul>
 </section>
 <section id="brfss-data-cleaning" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="brfss-data-cleaning"><span class="header-section-number">15.1</span> brfss Data Cleaning</h2>
@@ -1586,18 +1586,17 @@ window.Quarto = {
 <section id="using-filters-example" class="level3" data-number="15.1.3">
 <h3 data-number="15.1.3" class="anchored" data-anchor-id="using-filters-example"><span class="header-section-number">15.1.3</span> Using Filters Example</h3>
 <ul>
-<li>Below takes an example of the brfss data to filter by certain variable statuses.
+<li><p>Below takes an example of the brfss data to filter by certain variable statuses.</p>
 <ul>
 <li>The first filter() chose observations that were any one of the three categories of transgender included in the data. Used the | “or” operator for this filter().</li>
 <li>The second filter chose people in an age category above category 4 but below category 12, in the age categories 5 through 11.</li>
 <li>The last filter used the !is.na to choose observations where HADMAM variable was not NA.</li>
 </ul></li>
-<li>Next, we reduce data set to contain only variables used to create table by using the select() command.</li>
-<li>Next, we change all the remaining variables in data set to factors using mutate_all() command. This not only changes the strings to factors, but also changes the numerical variables to factors.</li>
-<li>Finally, we use mutate() commands to change the variable category to something meaningful(from the codebook).
+<li><p>Next, we reduce data set to contain only variables used to create table by using the select() command.</p></li>
+<li><p>Next, we change all the remaining variables in data set to factors using mutate_all() command. This not only changes the strings to factors, but also changes the numerical variables to factors.</p></li>
+<li><p>Finally, we use mutate() commands to change the variable category to something meaningful(from the codebook).</p>
 <ul>
-<li>Notice the backslash before the apostrophe in Don't in the X_INCOMG recode. This is to prevent the .R file from ending the quotations. You could use double quotes around the statement to bypass this, or add the backslash like I did here.</li>
-</ul></li>
+<li>Notice the backslash before the apostrophe in Don’t in the X_INCOMG recode. This is to prevent the .R file from ending the quotations. You could use double quotes around the statement to bypass this, or add the backslash like I did here.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>brfss_small <span class="ot">&lt;-</span> brfss.cleaned <span class="sc">%&gt;%</span></span>
@@ -1640,19 +1639,18 @@ window.Quarto = {
  35,000 to less than 50,000 :26   Graduated from college/technical school:44  
  50,000 or more             :65                                               
  Don't know/not sure/missing:22                                               
-                                                                              
+
  HLTHPLN1  HADMAM 
  Yes:198   1:198  
  No : 24   2: 22  
            9:  2  
-                  
-                  
-                  
-                  </code></pre>
+
+
+
+</code></pre>
 </div>
-</div>
-<ul>
-<li>This data set full of categorical variables is now fully cleaned and ready to be analyzed!</li>
+</div></li>
+<li><p>This data set full of categorical variables is now fully cleaned and ready to be analyzed!</p></li>
 </ul>
 </section>
 </section>

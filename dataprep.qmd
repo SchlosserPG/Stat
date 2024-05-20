@@ -4,8 +4,7 @@
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
 ```
 
-* The goal of this lesson is to teach you how to clean datasets for use in analytics. This lesson focuses on dplyr. dplyr is a package in R that provides a set of functions for data manipulation tasks. These functions are designed to be intuitive and efficient, making it easier to work with data frames or tibbles (a modern reimagining of data frames provided by the tibble package). 
-
+-   The goal of this lesson is to teach you how to clean datasets for use in analytics. This lesson focuses on dplyr. dplyr is a package in R that provides a set of functions for data manipulation tasks. These functions are designed to be intuitive and efficient, making it easier to work with data frames or tibbles (a modern reimagining of data frames provided by the tibble package).
 
 ```{r tidy=FALSE}
 ####################################
@@ -15,40 +14,39 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ####################################
 ```
 
-
-
 ## At a Glance
-* In order to succeed in this lesson, we need to be able to evaluate variables and understand how to clean and prepare data to make variables easier to use and in the correct form. This sometimes includes subsetting and filtering data alongside other techniques.
+
+-   In order to succeed in this lesson, we need to be able to evaluate variables and understand how to clean and prepare data to make variables easier to use and in the correct form. This sometimes includes subsetting and filtering data alongside other techniques.
 
 ## Lesson Objectives
-* Create variables and identify and change data types.
-* Learn how to clean data via dplyr.
+
+-   Create variables and identify and change data types.
+-   Learn how to clean data via dplyr.
 
 ## Consider While Reading
-* We often spend a considerable amount of time inspecting and preparing the data for the subsequent analysis. This includes the following:
-  + Evaluating Data Types
-  + Sorting Data
-  + Selecting Variables
-  + Filtering Data
-  + Counting Data
-  + Handling Missing Values 
-  + Summarizing
-  + Grouping Data
 
+-   We often spend a considerable amount of time inspecting and preparing the data for the subsequent analysis. This includes the following:
+    -   Evaluating Data Types
+    -   Sorting Data
+    -   Selecting Variables
+    -   Filtering Data
+    -   Counting Data
+    -   Handling Missing Values
+    -   Summarizing
+    -   Grouping Data
 
-# Evaluating Data Types  
-* There are a number of data types in R that are common to programming and statistical analysis.
-* A data type of a variable specifies the type of data that is stored inside that variable. Sometimes when you read in data it is in the correct type, and other times, you need to force it into the type you need to conduct the analysis. In this section, we are going to go over the following data types.  
-1. Factor data type:
-    + Ordinal: Contain categories that have some logical order (e.g. categories of age).
-    + Nominal: Have categories that have no logical order (e.g., religious affiliation and marital status).
-* R will treat each unique value of a factor as a different level.
+# Evaluating Data Types
 
-Ordinal Variable
-* Ordinal data may be categorized and ranked with respect to some characteristic or trait.
-* For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor).
-* This scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items).
-* You can make an ordinal factor data type in R, or you can convert the order to meaningful numbers. This is typically done with survey items where an excellent to poor = 1, 2, 3, 4 respectively. 
+-   There are a number of data types in R that are common to programming and statistical analysis.
+-   A data type of a variable specifies the type of data that is stored inside that variable. Sometimes when you read in data it is in the correct type, and other times, you need to force it into the type you need to conduct the analysis. In this section, we are going to go over the following data types.\
+
+1.  Factor data type:
+    -   Ordinal: Contain categories that have some logical order (e.g. categories of age).
+    -   Nominal: Have categories that have no logical order (e.g., religious affiliation and marital status).
+
+-   R will treat each unique value of a factor as a different level.
+
+Ordinal Variable \* Ordinal data may be categorized and ranked with respect to some characteristic or trait. \* For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor). \* This scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items). \* You can make an ordinal factor data type in R, or you can convert the order to meaningful numbers. This is typically done with survey items where an excellent to poor = 1, 2, 3, 4 respectively.
 
 ```{r}
 # Take a vector representing evaluation scores, named evaluate 
@@ -59,34 +57,34 @@ evalNumerical <- ifelse(evaluate == "excellent", 4,
 evalNumerical
 ```
 
+Nominal Variable \* With nominal variables, data are simply categories for grouping. \* For example, coding race/ethnicity might have a category value of White, Black, Native American, Asian/Pacific Islander, Other. \* Qualitative values may be converted to quantitative values for analysis purposes. + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis. + Sometimes, R does this on our behalf depending on commands used. \* We can force a variable into a factor data type using the as.factor() command. \* If we use the read.csv() command, we can sometimes do this by setting an argument $stringsAsFactors=TRUE$. We will do this later in the lesson.
 
-Nominal Variable 
-* With nominal variables, data are simply categories for grouping.
-* For example, coding race/ethnicity might have a category value of White, Black, Native American, Asian/Pacific Islander, Other.
-* Qualitative values may be converted to quantitative values for analysis purposes.
-  + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis.
-  + Sometimes, R does this on our behalf depending on commands used.
-* We can force a variable into a factor data type using the as.factor() command. 
-* If we use the read.csv() command, we can sometimes do this by setting an argument $stringsAsFactors=TRUE$. We will do this later in the lesson. 
+2.  Numerical data types: A Vector of Numbers (Real or Integer)
 
-2. Numerical data types: A Vector of Numbers (Real or Integer)
-* Continuous (Real) variables can take any value along some continuum, hence continuous.
-     + We can force a variable into a numerical data type by using the as.numeric() command. 
-     + For example, we could collect information on a participants age, height, weight, or distance traveled.
-* Two ways to create: 
-     + We can also create a numeric variable by ensuring our value we assign is a number!
-     + We can force a variable into an real number data type by using the as.numeric() command.
-```{r}
-# Assign Rhode Island limit for medical marijuana in ounces per person
-kOuncesRhode <- 2.5
-#Identify the data type 
-class(x = kOuncesRhode) 
-```
+-   Continuous (Real) variables can take any value along some continuum, hence continuous.
 
-* Discrete (Integer) Variables:
-     + Discrete variables can only take a countable number of distinct values.
-     + We can force a variable into an integer data type by using the as.integer() command. 
-* For example, we could collect information on the number of children in a family or number of points scored in a basketball game.
+    -   We can force a variable into a numerical data type by using the as.numeric() command.
+    -   For example, we could collect information on a participants age, height, weight, or distance traveled.
+
+-   Two ways to create:
+
+    -   We can also create a numeric variable by ensuring our value we assign is a number!
+    -   We can force a variable into an real number data type by using the as.numeric() command.
+
+    ```{r}
+    # Assign Rhode Island limit for medical marijuana in ounces per person
+    kOuncesRhode <- 2.5
+    #Identify the data type 
+    class(x = kOuncesRhode) 
+    ```
+
+-   Discrete (Integer) Variables:
+
+    -   Discrete variables can only take a countable number of distinct values.
+    -   We can force a variable into an integer data type by using the as.integer() command.
+
+-   For example, we could collect information on the number of children in a family or number of points scored in a basketball game.
+
 ```{r}
 # Assign the value of 4 to a constant called kTestInteger and set as an integer
 kTestInteger <- as.integer(4)
@@ -97,9 +95,9 @@ Trunc <- as.integer(kOuncesRhode); Trunc
 
 ```
 
-3. Character data type: Wrapped in either single or double quotation marks.
-    + Includes letters, words, or numbers that cannot logically be included in calculations (e.g., a zip code). 
-    + A quick example is below that shows how to assign a character value to a variable. 
+3.  Character data type: Wrapped in either single or double quotation marks.
+    -   Includes letters, words, or numbers that cannot logically be included in calculations (e.g., a zip code).
+    -   A quick example is below that shows how to assign a character value to a variable.
 
 ```{r}
 # Make constants 
@@ -112,19 +110,22 @@ kZipCode <- "97405"
 class(x = kZipCode)
 ```
 
-4. Logical data type: Values of TRUE and FALSE
-* Result of some expression. 
-  + A quick example is below that shows how to assign a logical value to a variable. 
-```{r}
-# Store the result of 6 > 8 in a constant called kSixEight
-kSixEight <- 6 > 8 
-# Can use comparison tests with the following == >= <= > < <> != 
-kSixEight # Print kSixEight
-# Determine the data type of kSixEight
-class(x = kSixEight)
-```
+4.  Logical data type: Values of TRUE and FALSE
 
-5. Date data type: A variable that should be a date. 
+-   Result of some expression.
+
+    -   A quick example is below that shows how to assign a logical value to a variable.
+
+    ```{r}
+    # Store the result of 6 > 8 in a constant called kSixEight
+    kSixEight <- 6 > 8 
+    # Can use comparison tests with the following == >= <= > < <> != 
+    kSixEight # Print kSixEight
+    # Determine the data type of kSixEight
+    class(x = kSixEight)
+    ```
+
+5.  Date data type: A variable that should be a date.
 
 ```{r}
 # Convert date info in format 'mm/dd/yyyy' using as.Date
@@ -133,7 +134,8 @@ dates <- as.Date(strDates, "%m/%d/%Y")
 str(dates)
 ```
 
-* lubridate is a package specifically for converting dates. This package makes dates a lot easier to work with. 
+-   lubridate is a package specifically for converting dates. This package makes dates a lot easier to work with.
+
 ```{r}
 # Convert date info in format 'mm/dd/yyyy' using lubridate
 library(lubridate)
@@ -142,7 +144,8 @@ dates <- mdy(strDates)
 str(dates)
 ```
 
-* If you are only given a year and a month, you can use the ym() command to turn it to a date. But take note that it will add a day to the value as a placeholder. 
+-   If you are only given a year and a month, you can use the ym() command to turn it to a date. But take note that it will add a day to the value as a placeholder.
+
 ```{r}
 # Convert date info in format 'yyyymm' using lubridate
 stryyyymm <- c("202201", "202003", "202204")
@@ -157,7 +160,6 @@ library(tidyverse)
 gss.2016 <- read_csv(file = "data/gss2016.csv") 
 ```
 
-
 ```{r}
 #Examine the variable types with summary and class functions.
 summary(gss.2016)
@@ -168,8 +170,9 @@ class(gss.2016$grass) #Confirming it is now correct.
 
 ## Numerical Example with Dataset
 
-* We need to ensure data can be coded as numeric before using the as.numeric() command. For example, to handle the variable age, it seems like numerical values except one value of "89 OR OLDER". If as.numeric() command was used on this variable, it would put all the 89 and older observations as NAs. To force it to be a numerical variable, and keep that the sample participants were the oldest value, we need to recode it and then use the as.numeric() command to coerce it into a number. 
-* Recoding the 89 and older to 89 does cause the data to lack integrity in its current form because it will treat the people over 89 years old as 89. But, we are limited here because this needs to be a numerical variable for us to proceed. We will learn a step later on in this section to transform the age variable into categories so that we bring back our data integrity. 
+-   We need to ensure data can be coded as numeric before using the as.numeric() command. For example, to handle the variable age, it seems like numerical values except one value of "89 OR OLDER". If as.numeric() command was used on this variable, it would put all the 89 and older observations as NAs. To force it to be a numerical variable, and keep that the sample participants were the oldest value, we need to recode it and then use the as.numeric() command to coerce it into a number.
+-   Recoding the 89 and older to 89 does cause the data to lack integrity in its current form because it will treat the people over 89 years old as 89. But, we are limited here because this needs to be a numerical variable for us to proceed. We will learn a step later on in this section to transform the age variable into categories so that we bring back our data integrity.
+
 ```{r}
 class(gss.2016$age)
 #Recode "89 OR OLDER" into just "89"
@@ -179,15 +182,14 @@ gss.2016$age <- as.numeric(gss.2016$age)
 summary(gss.2016) #Conduct final check confirming correct data types
 ```
 
-
-
 # Arrange
-* Sorting or arranging the dataset allows you to specify an order based on variable values. 
-* Sorting allows us to review the range of values for each variable, and we can sort based on a single or multiple variables.
-* Notice the difference between sort() and arrange() functions below. 
-     + The sort() function sorts a vector.
-     + The arrange() function sorts a dataset based on a variable.
-* To conduct an example, read in the data set called gig.csv from your working directory. 
+
+-   Sorting or arranging the dataset allows you to specify an order based on variable values.
+-   Sorting allows us to review the range of values for each variable, and we can sort based on a single or multiple variables.
+-   Notice the difference between sort() and arrange() functions below.
+    -   The sort() function sorts a vector.
+    -   The arrange() function sorts a dataset based on a variable.
+-   To conduct an example, read in the data set called gig.csv from your working directory.
 
 ```{r}
 gig <- read.csv("data/gig.csv", stringsAsFactors = TRUE, na.strings="")
@@ -195,15 +197,16 @@ dim(gig)
 head(gig)
 ```
 
-* Using the arrange() function, we add the dataset, followed by a comma and then add in the variable we want to sort. This arranges from small to large. 
+-   Using the arrange() function, we add the dataset, followed by a comma and then add in the variable we want to sort. This arranges from small to large.
 
-* Below is code to rearrange data based on Wage and save it in a new object. 
+-   Below is code to rearrange data based on Wage and save it in a new object.
+
 ```{r}
 sortTidy <- arrange(gig, Wage)
 head(sortTidy)
 ```
 
-* We can apply a desc() function inside the arrange function to re-sort from high to low like shown below.  
+-   We can apply a desc() function inside the arrange function to re-sort from high to low like shown below.
 
 ```{r}
 sortTidyDesc <- arrange(gig, desc(Wage))
@@ -211,19 +214,23 @@ head(sortTidyDesc)
 ```
 
 # Subsetting or Filtering
-* Subsetting or filtering a data frame is the process of indexing, or extracting a portion of the data set that is relevant for subsequent statistical analysis. 
-* You can also use subset() or filter() commands as part of tidyverse.
-* We use subsets to do the following: 
-  + View data based on specific data values or ranges. 
-  + Compare two or more subsets of the data. 
-  + Eliminate observations that contain missing values, low-quality data, or outliers. 
-  + Exclude variables that contain redundant information, or variables with excessive amounts of missing values.
 
-* We can use the same technique as matrices to subset out particular rows and columns. 
+-   Subsetting or filtering a data frame is the process of indexing, or extracting a portion of the data set that is relevant for subsequent statistical analysis.
 
-* Let's do an example using the customers.csv file we read in earlier as customers in the last lesson. 
+-   You can also use subset() or filter() commands as part of tidyverse.
 
-* Base R provides several methods for subsetting data structures. Below uses base R by using the square brackets dataset[row, column] format. 
+-   We use subsets to do the following:
+
+    -   View data based on specific data values or ranges.
+    -   Compare two or more subsets of the data.
+    -   Eliminate observations that contain missing values, low-quality data, or outliers.
+    -   Exclude variables that contain redundant information, or variables with excessive amounts of missing values.
+
+-   We can use the same technique as matrices to subset out particular rows and columns.
+
+-   Let's do an example using the customers.csv file we read in earlier as customers in the last lesson.
+
+-   Base R provides several methods for subsetting data structures. Below uses base R by using the square brackets dataset\[row, column\] format.
 
 ```{r, results='hide'}
 customers <- read.csv("data/customers.csv", stringsAsFactors = TRUE)
@@ -240,9 +247,10 @@ customers[1,2]
 customers[,1:3] 
 ```
 
-* Tidyverse is extremely popular when filtering data. 
-* The filter function is used to subset rows of a data frame based on certain conditions.
-* The below example filters data by the College variable when category values are "Yes" and saves the filtered dataset into an object called college. 
+-   Tidyverse is extremely popular when filtering data.
+-   The filter function is used to subset rows of a data frame based on certain conditions.
+-   The below example filters data by the College variable when category values are "Yes" and saves the filtered dataset into an object called college.
+
 ```{r}
 #Filtering by whether the customer has a "Yes" for college. 
 #Saving this filter into a new object college which you should see in your global environment. 
@@ -251,54 +259,58 @@ college <- filter(customers, College == "Yes")
 head(college)
 ```
 
+-   Using the filter command, we can add filters pretty easily by using an & for and, or an \| for or. The statement below filters by College *and* Income and save the new dataset in an object called twoFilters.
 
-* Using the filter command, we can add filters pretty easily by using an & for and, or an | for or. The statement below filters by College _and_ Income and save the new dataset in an object called twoFilters. 
 ```{r}
 twoFilters <- filter(customers, College == "Yes" & Income < 50000)
 head(twoFilters)
 ```
 
-* Next, we can do an _or_ statement. The example below uses the filter command to filter by more than one category in the same field using the | in between the categories. 
+-   Next, we can do an *or* statement. The example below uses the filter command to filter by more than one category in the same field using the \| in between the categories.
+
 ```{r}
 TwoRaces <- filter(customers, Race == "Black" | Race == "White")
 head(TwoRaces)
 ```
 
 # Select
-* In R, the select() function is part of the dplyr package, which is used for data manipulation. The select() function is specifically designed to subset or choose specific columns from a data frame. It allows you to select variables (columns) by their names or indices.
-* Both statements below select Income, Spending, and Orders variables from the customers dataset and form them into a new dataset called smallData. 
-* The statements are written with and without the chaining operator. 
+
+-   In R, the select() function is part of the dplyr package, which is used for data manipulation. The select() function is specifically designed to subset or choose specific columns from a data frame. It allows you to select variables (columns) by their names or indices.
+-   Both statements below select Income, Spending, and Orders variables from the customers dataset and form them into a new dataset called smallData.
+-   The statements are written with and without the chaining operator.
+
 ```{r}
 smallData <- select(customers, Income, Spending, Orders)
 head(smallData)
 ```
 
-
 # Piping (Chaining) Operator
-* The pipe operator takes the output of the expression on its left-hand side and passes it as the first argument to the function on its right-hand side. This enables you to chain multiple functions together, making the code easier to understand and debug.
-* If we want to keep our code tidy, we can add the piping operator (%>%) to help combine our lines of code into a new object or overwriting the same object. 
-* This operator allows us to pass the result of one function/argument to the other one in sequence.
-* The below example uses a select function to pull Income, Spending, and Orders variables fromt he customers dataset and save it as a new object called smallData. It is an identical request to the one directly above, but written with the piping operator. 
+
+-   The pipe operator takes the output of the expression on its left-hand side and passes it as the first argument to the function on its right-hand side. This enables you to chain multiple functions together, making the code easier to understand and debug.
+-   If we want to keep our code tidy, we can add the piping operator (%\>%) to help combine our lines of code into a new object or overwriting the same object.
+-   This operator allows us to pass the result of one function/argument to the other one in sequence.
+-   The below example uses a select function to pull Income, Spending, and Orders variables fromt he customers dataset and save it as a new object called smallData. It is an identical request to the one directly above, but written with the piping operator.
 
 ```{r}
 smallData <- customers %>% select(Income, Spending, Orders)
 ```
 
-
 # Counting
-* Counting allows us to gain a better understanding and insights into the data. 
-* This helps to verify that the data set is complete or determine if there are missing values. 
 
-* In R, the length() function returns the number of elements in a vector, list, or any other object with a length attribute. It essentially counts the number of elements in the specified object.
+-   Counting allows us to gain a better understanding and insights into the data.
+
+-   This helps to verify that the data set is complete or determine if there are missing values.
+
+-   In R, the length() function returns the number of elements in a vector, list, or any other object with a length attribute. It essentially counts the number of elements in the specified object.
 
 ```{r}
 #Gives the length of Industry
 length(gig$Industry)
 ```
 
-* For counting using tidyverse, we typically use the filter and count function together to filter by a value or state and then count the filtered data. 
-* In the function below, I use the piping operator to link together the filter and count functions into one command. 
-* Note that we need a piping operator (%>%) before each new function that is part of the chunk. 
+-   For counting using tidyverse, we typically use the filter and count function together to filter by a value or state and then count the filtered data.
+-   In the function below, I use the piping operator to link together the filter and count functions into one command.
+-   Note that we need a piping operator (%\>%) before each new function that is part of the chunk.
 
 ```{r}
 # Counting with a Categorical Variable
@@ -308,7 +320,9 @@ countAuto <- gig %>%
      count(Industry)
 countAuto #190
 ```
-* The pull() function extracts a single column from a data frame as a vector.
+
+-   The pull() function extracts a single column from a data frame as a vector.
+
 ```{r}
 # Counting with a Numerical Variable
 # We could also save this in an object. 
@@ -318,9 +332,10 @@ gig %>%
   length() ##536
 ```
 
-* We learned that there are 190 employees in the automotive industry and there are 536 employees who earn more than $30 per hour.
+-   We learned that there are 190 employees in the automotive industry and there are 536 employees who earn more than \$30 per hour.
 
-* We could also calculate the number of people with wages under or equal to 30. 
+-   We could also calculate the number of people with wages under or equal to 30.
+
 ```{r}
 #We find 68 Wages under or equal to 30
 WageLess30 <- gig %>%
@@ -329,7 +344,9 @@ WageLess30 <- gig %>%
   length() #
 WageLess30
 ```
-* You try to find how many Accountants are in the Job Category of the gig data set. The answer is shown below.
+
+-   You try to find how many Accountants are in the Job Category of the gig data set. The answer is shown below.
+
 ```{r, echo=FALSE}
 gig %>%
      filter(Job=="Accountant") %>%
@@ -337,25 +354,28 @@ gig %>%
 ## 83 Accountants
 ```
 
-
 # Handling Missing Data
-* After a data set is loaded, there are two common strategies for dealing with missing values. 
-1. The omission strategy recommends that observations with missing values be excluded from subsequent analysis. 
-  
-2. The imputation strategy recommends that the missing values be replaced with some reasonable imputed values. 
-    + Numeric variables: replace with the average.
-    + Categorical variables: replace with the predominant category.
+
+-   After a data set is loaded, there are two common strategies for dealing with missing values.
+
+1.  The omission strategy recommends that observations with missing values be excluded from subsequent analysis.
+
+2.  The imputation strategy recommends that the missing values be replaced with some reasonable imputed values.
+
+    -   Numeric variables: replace with the average.
+    -   Categorical variables: replace with the predominant category.
 
 ## Limitations of Using a Missing Data Technique
-* Recommended Closer Evaluation of Missing Data
-* There are limitations of both techniques listed above (omission and imputation).
-  + If a large number of values are missing, mean imputation will likely distort the relationships among variables, leading to biased results.
-  + Removing missing values could also significantly reduce your data set size.
-  * Missing data needs to be closely evaluated and verified within each variable whether the data is truly blank, has no answer, or is marked with a character value such as the text N/A. 
-  + If the variable that has many missing values is deemed unimportant or can be represented using a proxy variable that does not have missing values, the variable may be excluded from the analysis. 
-* Missing data needs to be closely evaluated to see if the missing value is meaningful or not. 
-  + For instance, getting data on how many pregnancies would only be applicable to people born of women gender, and blank value for people born of male gender, who are unable to have children, would be expected. In taking this example further, if variable 1 targeted the question, "how many pregnancies have you have had," we would expect missing data or NAs for all the men. If comparing that variable to a second variable "Incubated from COVID-19: Yes/No" we would not want to omit all the blanks in the dataset because then we would eliminate analysis of an entire gender. Thus a different technique should be chosen besides omitting the blanks to be able to evaluate more concisely.  
-* If a value is not blank and is considered missing, data needs to be mutated to be consistent with the technique of coding true missing values. 
+
+-   Recommended Closer Evaluation of Missing Data
+-   There are limitations of both techniques listed above (omission and imputation).
+    -   If a large number of values are missing, mean imputation will likely distort the relationships among variables, leading to biased results.
+    -   Removing missing values could also significantly reduce your data set size.
+    -   Missing data needs to be closely evaluated and verified within each variable whether the data is truly blank, has no answer, or is marked with a character value such as the text N/A.
+    -   If the variable that has many missing values is deemed unimportant or can be represented using a proxy variable that does not have missing values, the variable may be excluded from the analysis.
+-   Missing data needs to be closely evaluated to see if the missing value is meaningful or not.
+    -   For instance, getting data on how many pregnancies would only be applicable to people born of women gender, and blank value for people born of male gender, who are unable to have children, would be expected. In taking this example further, if variable 1 targeted the question, "how many pregnancies have you have had," we would expect missing data or NAs for all the men. If comparing that variable to a second variable "Incubated from COVID-19: Yes/No" we would not want to omit all the blanks in the dataset because then we would eliminate analysis of an entire gender. Thus a different technique should be chosen besides omitting the blanks to be able to evaluate more concisely.\
+-   If a value is not blank and is considered missing, data needs to be mutated to be consistent with the technique of coding true missing values.
 
 ## The na.rm Parameter
 
@@ -366,17 +386,20 @@ sum(y)
 mean(y)
 ```
 
-* Many functions in R include parameters that will ignore NAs for you.
-  + sum() and mean() are examples of this, and most summary statistics like median() and var() also use the na.rm parameter to ignore the NAs. Always check the help to determine if na.rm is a parameter. 
-```{r}
-sum(y, na.rm=TRUE) 
-mean(y, na.rm=TRUE)
-# na.omit removes the NAs from the data set. 
-y <- na.omit(y) 
-```
+-   Many functions in R include parameters that will ignore NAs for you.
+
+    -   sum() and mean() are examples of this, and most summary statistics like median() and var() also use the na.rm parameter to ignore the NAs. Always check the help to determine if na.rm is a parameter.
+
+    ```{r}
+    sum(y, na.rm=TRUE) 
+    mean(y, na.rm=TRUE)
+    # na.omit removes the NAs from the data set. 
+    y <- na.omit(y) 
+    ```
 
 ## is.na()
-* In R, the is.na() function is used to check for missing (NA) values in objects like vectors, data frames, or arrays. It returns a logical vector of the same length as the input object, where TRUE indicates a missing value and FALSE indicates a non-missing value.
+
+-   In R, the is.na() function is used to check for missing (NA) values in objects like vectors, data frames, or arrays. It returns a logical vector of the same length as the input object, where TRUE indicates a missing value and FALSE indicates a non-missing value.
 
 ```{r}
 
@@ -396,18 +419,26 @@ CountBlanks
 ```
 
 ## Using na_if()
-* The na_if() function in tidyr is used to replace specific values in a column with NA (missing) values. This function can be particularly useful when you want to standardize missing values across a dataset or when you want to replace certain values with NA for further data processing
+
+-   The na_if() function in tidyr is used to replace specific values in a column with NA (missing) values. This function can be particularly useful when you want to standardize missing values across a dataset or when you want to replace certain values with NA for further data processing
+
 ```{r}
 TurnNA <- gig %>%
      mutate(Job = na_if(Job, "Other"))
 head(TurnNA)
 ```
 
-
 ## na.omit() vs. drop_na()
-* Both functions return a new object with the rows containing missing values removed.
-* na.omit() is a base R function, so it doesn't require any additional package installation where drop_na() requires loading the tidyr package, which is part of the tidyverse ecosystem.
-*     drop_na() fits well into tidyverse pipelines, making it easy to integrate with other tidyverse functions where na.omit() can also be used in pipelines but might require additional steps to fit seamlessly.
+
+-   Both functions return a new object with the rows containing missing values removed.
+
+-   na.omit() is a base R function, so it doesn't require any additional package installation where drop_na() requires loading the tidyr package, which is part of the tidyverse ecosystem.
+
+-   
+
+    ```         
+    drop_na() fits well into tidyverse pipelines, making it easy to integrate with other tidyverse functions where na.omit() can also be used in pipelines but might require additional steps to fit seamlessly.
+    ```
 
 ```{r}
 #install.packages("Amelia")
@@ -426,25 +457,26 @@ summary(africa2)
 
 ```
 
+-   You try to load the airquality dataset from base R and look at a summary of the dataset.
 
+    -   Sum the number of NAs in airquality.
+    -   Omit all the NAs from airquality and save it in a new data object called airqual and take a new summary of it.
 
-
-* You try to load the airquality dataset from base R and look at a summary of the dataset.  
-  + Sum the number of NAs in airquality. 
-  + Omit all the NAs from airquality and save it in a new data object called airqual and take a new summary of it. 
-```{r, echo=FALSE}
-data("airquality")
-summary(airquality)
-sum(is.na(airquality))
-#37 + 7
-airqual <- na.omit(airquality)
-#153-111
-summary(airqual)
-```
+    ```{r, echo=FALSE}
+    data("airquality")
+    summary(airquality)
+    sum(is.na(airquality))
+    #37 + 7
+    airqual <- na.omit(airquality)
+    #153-111
+    summary(airqual)
+    ```
 
 # Summarize
-* The summarize() command is used to create summary statistics for groups of observations in a data frame. 
-* In the example below, we can summarize more than one thing into tidy output. 
+
+-   The summarize() command is used to create summary statistics for groups of observations in a data frame.
+-   In the example below, we can summarize more than one thing into tidy output.
+
 ```{r}
 gig %>%
      drop_na() %>% 
@@ -456,11 +488,11 @@ gig %>%
 
 ```
 
-
-
 # Group_by
-* group_by is used for grouping data by one or more variables. When you use group_by() on a data frame, it doesn't actually perform any computations immediately. Instead, it sets up the data frame in such a way that any subsequent operations are performed within these groups
-* summarize() is often used in combination with group_by() to calculate summary statistics within groups
+
+-   group_by is used for grouping data by one or more variables. When you use group_by() on a data frame, it doesn't actually perform any computations immediately. Instead, it sets up the data frame in such a way that any subsequent operations are performed within these groups
+-   summarize() is often used in combination with group_by() to calculate summary statistics within groups
+
 ```{r}
 ##summarize data by Industry variable. 
 groupedData <- gig %>%
@@ -479,8 +511,8 @@ groupedData
 
 # Mutate
 
-* mutate() is part of the dplyr package, which is used for data manipulation. The mutate() function is specifically designed to create new variables (columns) or modify existing variables in a data frame. It is commonly used in data wrangling tasks to add calculated columns or transform existing ones.
-* One example is below, but note that there are many things you can do with the mutate function. 
+-   mutate() is part of the dplyr package, which is used for data manipulation. The mutate() function is specifically designed to create new variables (columns) or modify existing variables in a data frame. It is commonly used in data wrangling tasks to add calculated columns or transform existing ones.
+-   One example is below, but note that there are many things you can do with the mutate function.
 
 ```{r}
 #making a new variable called calculation that multiplies gdp_pc by infl variables in the africa1 dataset. 
@@ -502,32 +534,36 @@ arranged_data <-  arrange(iris, Sepal.Length)
 mutated_data <- mutate(iris, Petal.Width_Log = log(Petal.Width))
 ```
 
-
 # Full Examples
-### gss.2016 Data Cleaning 
 
-* First, because we made some edits to the data set, reread in version a using the read.csv command. This brings the data set back to its original form. It is always a good idea to read the dataset back in when you are unsure about whether you have made a mistake during data preparation that could cause a lack of data integrity.  
+### gss.2016 Data Cleaning
+
+-   First, because we made some edits to the data set, reread in version a using the read.csv command. This brings the data set back to its original form. It is always a good idea to read the dataset back in when you are unsure about whether you have made a mistake during data preparation that could cause a lack of data integrity.\
+
 ```{r message=FALSE}
 gss.2016 <- read.csv(file = "data/gss2016.csv") 
 ```
-* Before we remove any missing data, we need it to be the correct data type. In this case, grass should be a factor.
+
+-   Before we remove any missing data, we need it to be the correct data type. In this case, grass should be a factor.
+
 ```{r}
 # We coerced this variable earlier, but the object was called gss.2016. 
 #Since we reread in the data set, this needs to be done again. 
 gss.2016$grass <- as.factor(gss.2016$grass)
 ```
 
+-   The statement below is an equivalent to the function above, but written with the piping operator. It is overwriting gss.2016 after conducting the coercion to factor.
+-   We added the mutate function because we are going to add other data cleaning tasks to this statement.
 
-* The statement below is an equivalent to the function above, but written with the piping operator. It is overwriting gss.2016 after conducting the coercion to factor. 
-* We added the mutate function because we are going to add other data cleaning tasks to this statement. 
 ```{r}
 gss.2016 <- gss.2016 %>% mutate(grass = as.factor(grass))
 ```
 
-
 ### Piping to More Functions: Missing Data
-* In the code below, the as.factor() command has been moved inside a broader mutate statement (that uses tidyverse library) and piped to it the na_if() command that handles missing data. If you use more than one data manipulation statement, the mutate() command is needed to help organize your code with one mutate() is needed for each major change you are making. 
-* In the code below, we created a new object gss.2016.cleaned to help store the cleaned version of the dataset. This helps maintain data integrity because your original dataset is still intact and each time, you rerun the entire chunk, which includes all the changes at one time. 
+
+-   In the code below, the as.factor() command has been moved inside a broader mutate statement (that uses tidyverse library) and piped to it the na_if() command that handles missing data. If you use more than one data manipulation statement, the mutate() command is needed to help organize your code with one mutate() is needed for each major change you are making.
+-   In the code below, we created a new object gss.2016.cleaned to help store the cleaned version of the dataset. This helps maintain data integrity because your original dataset is still intact and each time, you rerun the entire chunk, which includes all the changes at one time.
+
 ```{r}
 gss.2016.cleaned <- gss.2016 %>%
   #Moved coercion statement into a mutate function to keep code tidy
@@ -540,24 +576,30 @@ summary(object = gss.2016.cleaned)
 ```
 
 ### Drop Levels
-* The droplevels function is part of base R and is used to drop unused levels from factor variables in a data frame. It works by removing any levels from a factor variable that are not present in the data.
-* Next, we want to edit our code to convert IAP and DK to NA values and drop levels that have are empty.  
-  + Note the Piping operator added to the end of the DK line so you can keep going with new commands editing gss.2016.cleaned.
-```{r}
-gss.2016.cleaned <- gss.2016 %>% 
-  mutate(grass = as.factor(grass)) %>% 
-  #Added piping operator
-  mutate(grass = na_if(x = grass, y = "DK")) %>%   
-  #Turn to na if value of grass = IAP
-  mutate(grass = na_if(x = grass, y = "IAP")) %>% 
-  #Drop levels in grass that have no values
-  mutate(grass = droplevels(x = grass))  
-#Check what you just did
-summary(gss.2016.cleaned) 
-```
+
+-   The droplevels function is part of base R and is used to drop unused levels from factor variables in a data frame. It works by removing any levels from a factor variable that are not present in the data.
+
+-   Next, we want to edit our code to convert IAP and DK to NA values and drop levels that have are empty.
+
+    -   Note the Piping operator added to the end of the DK line so you can keep going with new commands editing gss.2016.cleaned.
+
+    ```{r}
+    gss.2016.cleaned <- gss.2016 %>% 
+      mutate(grass = as.factor(grass)) %>% 
+      #Added piping operator
+      mutate(grass = na_if(x = grass, y = "DK")) %>%   
+      #Turn to na if value of grass = IAP
+      mutate(grass = na_if(x = grass, y = "IAP")) %>% 
+      #Drop levels in grass that have no values
+      mutate(grass = droplevels(x = grass))  
+    #Check what you just did
+    summary(gss.2016.cleaned) 
+    ```
 
 ### Coercing to Numeric
-* Next, we handle a numerical variable, age. Age again has an issue being able to be numerical data type because it has "89 OR OLDER" as a value. Before using the as.numeric() command, we need to recode it. We did this above as a stand-alone statement.   
+
+-   Next, we handle a numerical variable, age. Age again has an issue being able to be numerical data type because it has "89 OR OLDER" as a value. Before using the as.numeric() command, we need to recode it. We did this above as a stand-alone statement.\
+
 ```{r}
 gss.2016.cleaned <- gss.2016 %>% 
   mutate(grass = as.factor(grass)) %>% 
@@ -573,35 +615,36 @@ gss.2016.cleaned <- gss.2016 %>%
 #Check what you just did
 summary(gss.2016.cleaned) 
 ```
-* The recode() command that is part of dplyr is like the ifelse() command that is in base R. There are a lot of ways to recode in R.
 
-* Finally, we want to take our numerical variable, age, and cut it at certain breaks to make categories that can be easily analyzed.
-  + This also ensures that anyone above 89 is coded correctly in a category instead of as the value 89. This again brings back data integrity. 
-  + The cut() function generates class limits and bins used in frequency distributions (and histograms) for quantitative data.
-  + Here, we are using it to cut age into a categorical variable. 
-```{r}
-gss.2016.cleaned <- gss.2016 %>% 
-  mutate(grass = as.factor(grass)) %>% 
-  mutate(grass = na_if(x = grass, y = "DK")) %>% 
-  mutate(grass = na_if(x = grass, y = "IAP")) %>% 
-  mutate(grass = droplevels(grass)) %>% 
-  mutate(age = recode(age, "89 OR OLDER" = "89")) %>% 
-  #Added piping operator
-  mutate(age = as.numeric(age)) %>% 
-  #Cut numeric variable into groupings
-  mutate(age.cat = cut(age, breaks = c(-Inf, 29, 59, 74, Inf),labels = c("< 30", "30 - 59", "60 - 74", "75+" ))) 
+-   The recode() command that is part of dplyr is like the ifelse() command that is in base R. There are a lot of ways to recode in R.
 
-#Check what you just did
-summary(gss.2016.cleaned) 
-```
+-   Finally, we want to take our numerical variable, age, and cut it at certain breaks to make categories that can be easily analyzed.
 
+    -   This also ensures that anyone above 89 is coded correctly in a category instead of as the value 89. This again brings back data integrity.
+    -   The cut() function generates class limits and bins used in frequency distributions (and histograms) for quantitative data.
+    -   Here, we are using it to cut age into a categorical variable.
+
+    ```{r}
+    gss.2016.cleaned <- gss.2016 %>% 
+      mutate(grass = as.factor(grass)) %>% 
+      mutate(grass = na_if(x = grass, y = "DK")) %>% 
+      mutate(grass = na_if(x = grass, y = "IAP")) %>% 
+      mutate(grass = droplevels(grass)) %>% 
+      mutate(age = recode(age, "89 OR OLDER" = "89")) %>% 
+      #Added piping operator
+      mutate(age = as.numeric(age)) %>% 
+      #Cut numeric variable into groupings
+      mutate(age.cat = cut(age, breaks = c(-Inf, 29, 59, 74, Inf),labels = c("< 30", "30 - 59", "60 - 74", "75+" ))) 
+
+    #Check what you just did
+    summary(gss.2016.cleaned) 
+    ```
 
 ## brfss Data Cleaning
 
-* The full codebook where this screenshot is taken is brfss_2014_codebook.pdf.
+-   The full codebook where this screenshot is taken is brfss_2014_codebook.pdf.
 
 ![Evaluate CodeBook Before Making Decisions](Pictures/Ch2/CodeBookPHYSHLTH.png "Evaluate CodeBook Before Making Decisions")
-
 
 ```{r}
 brfss <- read.csv("data/brfss.csv")
@@ -609,7 +652,9 @@ summary(brfss)
 ```
 
 ### Qualitative Variable
-* To look at an example, the one below seeks to understand the healthcare issue in reporting gender based on different definitions. The dataset is part of the Behavioral Risk Factor Surveillance System (brfss) dataset (2014), which includes lots of other variables besides reported gender. 
+
+-   To look at an example, the one below seeks to understand the healthcare issue in reporting gender based on different definitions. The dataset is part of the Behavioral Risk Factor Surveillance System (brfss) dataset (2014), which includes lots of other variables besides reported gender.
+
 ```{r}
 #Load the data
 brfss <- read.csv("data/brfss.csv")
@@ -619,12 +664,15 @@ summary(object = brfss$TRNSGNDR)
 table(brfss$TRNSGNDR) 
 ```
 
-* Since this table is not very informative, we need to do some edits.
-* Check the class of the variable to see the issue with analyzing it as a categorical variable. 
+-   Since this table is not very informative, we need to do some edits.
+-   Check the class of the variable to see the issue with analyzing it as a categorical variable.
+
 ```{r}
 class(brfss$TRNSGNDR)
 ```
-* First, we need to change the TRNSGNDR variable to a factor using as.factor(). 
+
+-   First, we need to change the TRNSGNDR variable to a factor using as.factor().
+
 ```{r}
 # Change variable from numeric to factor
 brfss$TRNSGNDR <- as.factor(brfss$TRNSGNDR)
@@ -632,7 +680,7 @@ brfss$TRNSGNDR <- as.factor(brfss$TRNSGNDR)
 class(brfss$TRNSGNDR)
 ```
 
-* Then, we need to do some data cleaning on the TRNSGNDR Variable. 
+-   Then, we need to do some data cleaning on the TRNSGNDR Variable.
 
 ```{r tidy=FALSE}
 brfss.cleaned <- brfss %>% 
@@ -645,25 +693,26 @@ brfss.cleaned <- brfss %>%
       '9' = 'Refused'))
 ```
 
-* We can use the levels() command to show the factor levels made with the mutate() command above. 
+-   We can use the levels() command to show the factor levels made with the mutate() command above.
+
 ```{r}
 levels(brfss.cleaned$TRNSGNDR)
 ```
 
-* Check the summary.
+-   Check the summary.
+
 ```{r}
 summary(brfss.cleaned$TRNSGNDR)
 ```
 
-* Take a good look at the table to interpret the frequencies in the output above. The highest percentage was the "NA's" category, followed by "Not transgender". Removing the NA's moved the "Not transgender" category to over 97% of observations. 
-
+-   Take a good look at the table to interpret the frequencies in the output above. The highest percentage was the "NA's" category, followed by "Not transgender". Removing the NA's moved the "Not transgender" category to over 97% of observations.
 
 ### Quantitative Variable
-* Let's use the cleaned dataset to make more changes to the continuous variable PHYSHLTH. 
-In the codebook, it looks like the data is most applicable to the first 2 categories. The 1-30 days coding and the 88 coding, which means 0 days of physical illness and injury. 
-  + Using cleaned data, we need to prep the variable a little more before getting an accurate plot. 
-  + Specifically, we need to null out the 77 and 99 values and make sure the 88 coding is set to be 0 for 0 days of illness and injury.
-  
+
+-   Let's use the cleaned dataset to make more changes to the continuous variable PHYSHLTH. In the codebook, it looks like the data is most applicable to the first 2 categories. The 1-30 days coding and the 88 coding, which means 0 days of physical illness and injury.
+    -   Using cleaned data, we need to prep the variable a little more before getting an accurate plot.
+    -   Specifically, we need to null out the 77 and 99 values and make sure the 88 coding is set to be 0 for 0 days of illness and injury.
+
 ```{r, fig.alt = "Histogram Generated by R of PHYSHLTH variable"}
 brfss.cleaned <- brfss %>% 
   mutate(TRNSGNDR = recode_factor(TRNSGNDR,
@@ -683,17 +732,17 @@ brfss.cleaned <- brfss %>%
 
 ```
 
-* The histogram showed most people have between 0 and 10 unhealthy days per 30 days.
+-   The histogram showed most people have between 0 and 10 unhealthy days per 30 days.
 
-* Next, evaluate mean, median, and mode for the PHYSHLTH variable after ignoring the blanks. 
+-   Next, evaluate mean, median, and mode for the PHYSHLTH variable after ignoring the blanks.
+
 ```{r}
 mean(brfss.cleaned$PHYSHLTH, na.rm=TRUE)
 median(brfss.cleaned$PHYSHLTH, na.rm=TRUE)
 names(x = sort(x = table(brfss.cleaned$PHYSHLTH), decreasing = TRUE))[1]
 ```
 
-* While the mean is higher at 4.22, the median and most common number is 0. 
-
+-   While the mean is higher at 4.22, the median and most common number is 0.
 
 ```{r}
 ## Spread to Report with the Mean
@@ -706,7 +755,6 @@ max(brfss.cleaned$PHYSHLTH, na.rm=TRUE)-min(brfss.cleaned$PHYSHLTH, na.rm=TRUE)
 IQR(brfss.cleaned$PHYSHLTH, na.rm=TRUE)
 ```
 
-
 ```{r}
 library(semTools)
 # Plot the data
@@ -718,72 +766,77 @@ kurtosis(brfss.cleaned$PHYSHLTH)
 
 ```
 
-* The skew results provide a z of 607.905 (6.079054e+02) which is much higher than 7 (for large datasets). This indicates a clear right skew which means the data is not normally distributed. 
-* The kurtosis results are also very leptokurtic with a score of 478.063. 
-
+-   The skew results provide a z of 607.905 (6.079054e+02) which is much higher than 7 (for large datasets). This indicates a clear right skew which means the data is not normally distributed.
+-   The kurtosis results are also very leptokurtic with a score of 478.063.
 
 ### Using Filters Example
-* Below takes an example of the brfss data to filter by certain variable statuses. 
-     + The first filter() chose observations that were any one of the three categories of transgender included in the data. Used the | “or” operator for this filter(). 
-     + The second filter chose people in an age category above category 4 but below category 12, in the age categories 5 through 11. 
-     + The last filter used the !is.na to choose observations where HADMAM variable was not NA.
 
-* Next, we reduce data set to contain only variables used to create table by using the select() command. 
-* Next, we change all the remaining variables in data set to factors using mutate_all() command. This not only changes the strings to factors, but also changes the numerical variables to factors. 
-* Finally, we use mutate() commands to change the variable category to something meaningful(from the codebook).
-  + Notice the backslash before the apostrophe in Don\'t in the X_INCOMG recode. This is to prevent the .R file from ending the quotations. You could use double quotes around the statement to bypass this, or add the backslash like I did here. 
-```{r}
-brfss_small <- brfss.cleaned %>%
-  filter(TRNSGNDR == 'Male to female'|
-        TRNSGNDR ==  'Female to male'|
-        TRNSGNDR ==  'Gender non-conforming') %>%
-  filter(X_AGEG5YR > 4 & X_AGEG5YR < 12) %>% 
-  filter(!is.na(HADMAM)) %>%
-  select(TRNSGNDR, X_AGEG5YR, X_RACE, X_INCOMG, X_EDUCAG, HLTHPLN1, HADMAM) %>%
-  mutate_all(as.factor) %>%
-  #The next few mutates add labels to categorical variables based on the codebook. 
-  mutate(X_AGEG5YR = recode_factor(X_AGEG5YR,
-          '5' = '40-44',
-          '6' = '45-49',
-          '7' = '50-54',
-          '8' = '55-59',
-          '9' = '60-64',
-          '10' = '65-69',
-          '11' = '70-74')) %>%
-  mutate(X_INCOMG = recode_factor(X_INCOMG,
-          '1' = 'Less than 15,000',
-          '2' = '15,000 to less than 25,000',
-          '3' = '25,000 to less than 35,000',
-          '4' = '35,000 to less than 50,000',
-          '5' = '50,000 or more',
-          '9' = 'Don\'t know/not sure/missing')) %>%
-     mutate(X_EDUCAG = recode_factor(X_EDUCAG,
-          '1' = 'Did not graduate high school',
-          '2' = 'Graduated high school',
-          '3' = 'Attended college/technical school',
-          '4' = 'Graduated from college/technical school',
-          '9' = NA_character_)) %>%
-     mutate(HLTHPLN1 = recode_factor(HLTHPLN1,
-          '1' = 'Yes',
-          '2' = 'No',
-          '7' = 'Don\'t know/not sure/missing',
-          '9' = 'Refused')) %>%
-     mutate(X_RACE = recode_factor(X_RACE,
-          '1' = 'White',
-          '2' = 'Black',
-          '3' = 'Native American',
-          '4' = 'Asian/Pacific Islander',
-          '5' = 'Other',
-          '6' = 'Other',
-          '7' = 'Other',
-          '8' = 'Other',
-          '9' = 'Other'))
-#print a summary
-summary(brfss_small)     
-```
+-   Below takes an example of the brfss data to filter by certain variable statuses.
 
-* This data set full of categorical variables is now fully cleaned and ready to be analyzed! 
+    -   The first filter() chose observations that were any one of the three categories of transgender included in the data. Used the \| “or” operator for this filter().
+    -   The second filter chose people in an age category above category 4 but below category 12, in the age categories 5 through 11.
+    -   The last filter used the !is.na to choose observations where HADMAM variable was not NA.
+
+-   Next, we reduce data set to contain only variables used to create table by using the select() command.
+
+-   Next, we change all the remaining variables in data set to factors using mutate_all() command. This not only changes the strings to factors, but also changes the numerical variables to factors.
+
+-   Finally, we use mutate() commands to change the variable category to something meaningful(from the codebook).
+
+    -   Notice the backslash before the apostrophe in Don't in the X_INCOMG recode. This is to prevent the .R file from ending the quotations. You could use double quotes around the statement to bypass this, or add the backslash like I did here.
+
+    ```{r}
+    brfss_small <- brfss.cleaned %>%
+      filter(TRNSGNDR == 'Male to female'|
+            TRNSGNDR ==  'Female to male'|
+            TRNSGNDR ==  'Gender non-conforming') %>%
+      filter(X_AGEG5YR > 4 & X_AGEG5YR < 12) %>% 
+      filter(!is.na(HADMAM)) %>%
+      select(TRNSGNDR, X_AGEG5YR, X_RACE, X_INCOMG, X_EDUCAG, HLTHPLN1, HADMAM) %>%
+      mutate_all(as.factor) %>%
+      #The next few mutates add labels to categorical variables based on the codebook. 
+      mutate(X_AGEG5YR = recode_factor(X_AGEG5YR,
+              '5' = '40-44',
+              '6' = '45-49',
+              '7' = '50-54',
+              '8' = '55-59',
+              '9' = '60-64',
+              '10' = '65-69',
+              '11' = '70-74')) %>%
+      mutate(X_INCOMG = recode_factor(X_INCOMG,
+              '1' = 'Less than 15,000',
+              '2' = '15,000 to less than 25,000',
+              '3' = '25,000 to less than 35,000',
+              '4' = '35,000 to less than 50,000',
+              '5' = '50,000 or more',
+              '9' = 'Don\'t know/not sure/missing')) %>%
+         mutate(X_EDUCAG = recode_factor(X_EDUCAG,
+              '1' = 'Did not graduate high school',
+              '2' = 'Graduated high school',
+              '3' = 'Attended college/technical school',
+              '4' = 'Graduated from college/technical school',
+              '9' = NA_character_)) %>%
+         mutate(HLTHPLN1 = recode_factor(HLTHPLN1,
+              '1' = 'Yes',
+              '2' = 'No',
+              '7' = 'Don\'t know/not sure/missing',
+              '9' = 'Refused')) %>%
+         mutate(X_RACE = recode_factor(X_RACE,
+              '1' = 'White',
+              '2' = 'Black',
+              '3' = 'Native American',
+              '4' = 'Asian/Pacific Islander',
+              '5' = 'Other',
+              '6' = 'Other',
+              '7' = 'Other',
+              '8' = 'Other',
+              '9' = 'Other'))
+    #print a summary
+    summary(brfss_small)     
+    ```
+
+-   This data set full of categorical variables is now fully cleaned and ready to be analyzed!
 
 # Summary
-* In this lesson, we worked through the basics on data cleaning. Data cleaning is so important and there are so many ways to do it. Provided are some examples using popular functions in dplyr (under tidyverse). 
 
+-   In this lesson, we worked through the basics on data cleaning. Data cleaning is so important and there are so many ways to do it. Provided are some examples using popular functions in dplyr (under tidyverse).
