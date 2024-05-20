@@ -1,6 +1,8 @@
 # Installing R and R Studio
 
-## Installing R on Windows
+## Installing R and R Studio
+
+### Installing R on Windows
 
 -   Open an internet browser and go to https://www.r-project.org/.
 -   Click CRAN hyperlink underneath Download on the left.
@@ -12,7 +14,7 @@
 -   Accept all defaults and follow the installation instructions
 -   Now that R is installed, you need to download and install RStudio.
 
-## Installing R on a Mac
+### Installing R on a Mac
 
 -   Open an internet browser and go to https://www.r-project.org/.
 -   Click CRAN hyperlink underneath Download on the left.
@@ -24,7 +26,7 @@
 -   When the installation completes, click Close.
 -   Now that R is installed, you need to download and install RStudio.
 
-## Downloading RStudio For Mac or PC
+### Downloading RStudio For Mac or PC
 
 -   Go to the following URL: https://www.rstudio.com/products/rstudio/download/
 -   Click the Download button for Install RStudio.
@@ -33,7 +35,7 @@
 
 ![RStudio](Pictures/Ch0/RStudio.png "RStudio")
 
-# Take Your First Look at R
+## Take Your First Look at R
 
 -   On the right, two windows, each with tabs
     -   There are many ways to customize the look of RStudio for accessibility purposes with a couple being the following:
@@ -44,7 +46,7 @@
 
 ![Console](Pictures/Ch0/Console.png "Screenshot of Console")
 
-# Creating a Project for Our Class
+## Creating a Project for Our Class
 
 -   The RStudio project file is a file that sits in the root directory, with the extension .Rproj. When your RStudio session is running through the project file (.Rproj), the current working directory points to the root folder where that .Rproj file is saved.
 -   Open up R Studio and Let’s Take a look around.
@@ -56,7 +58,7 @@
 
 ![Creating a New Project](Pictures/Ch0/Project.png "Creating a New Project")
 
-# R Script files (MyFirstRscript.R)
+## R Script files (MyFirstRscript.R)
 
 -   Entering and running code at the R command line is effective and simple. However, each time you want to execute a set of commands, you have to re-enter them at the command line. Nothing saves for later.
 -   Complex commands are particularly difficult causing you to re-entering the code to fix any errors typographical or otherwise. Fortunately, you can make a .R script file to solve this issue.
@@ -69,9 +71,9 @@
 
 ![Screenshot of MyFirstScript.R](Pictures/Ch0/MyFirstScript.png "Screenshot of MyFirstScript.R")
 
-# Using R More Effectively
+## Using R More Effectively
 
-## Setting Options to Your Liking
+### Setting Options to Your Liking
 
 -   You have many options to customize R Studio.
 -   Go to Tools \> Global Options to see the list of options for you to customize.
@@ -82,7 +84,7 @@
 
 ![Tools \> Global Options.R](Pictures/Ch0/Options.png "Tools > Global Options.R")
 
-## Quick Keys in R
+### Quick Keys in R
 
 -   There are a lot of quick keys in R to make you able to use it faster and more effectively. You may look over these and try on your own.
 
@@ -92,7 +94,7 @@
 
 ![Editing Quick Keys](Pictures/Ch0/QuickKeys3.png "Editing Quick Keys")
 
-## Getting Help in R
+### Getting Help in R
 
 -   There are lots of ways to get help in R.
 -   In R, use the help search box to find information on a function, parameter, or package.
@@ -108,7 +110,7 @@
 -   The format is tapply(x, index, and fun), where x is a continuous variable, index is a grouping variable or factor, and fun is a function like mean.
 -   More on that function later in Chapter 1.
 
-# Accessing Data Files for the Book
+## Accessing Data Files for the Book
 
 -   To download the data sets for the book, go to our Blackboard datasets page and download them to your computer
 -   Once downloaded, unzip the file by right-clicking and selecting "Extract All", and then move the subfolder named data to your working directory.
@@ -118,6 +120,6 @@
 
 -   We will use a number of data files plus more for homework/projects, so be prepared to use these files throughout the class.
 
-# Summary
+## Summary
 
 -   At the end of this section, you should have downloaded and browsed R in RStudio. You should have looked at the quick keys in R to make editing your R documents easier. You should set up a project folder for the course where you want to on your computer, and made your first .R script file located in that project folder. You should have tried a line of code or two as presented. Finally, you should have looked around the RStudio environment and found the help tab.

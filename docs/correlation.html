@@ -258,22 +258,24 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#lesson-objectives" id="toc-lesson-objectives" class="nav-link active" data-scroll-target="#lesson-objectives"><span class="header-section-number">10.1</span> Lesson Objectives</a></li>
-  <li><a href="#consider-while-reading" id="toc-consider-while-reading" class="nav-link" data-scroll-target="#consider-while-reading"><span class="header-section-number">10.2</span> Consider While Reading</a></li>
-  <li><a href="#covariance" id="toc-covariance" class="nav-link" data-scroll-target="#covariance"><span class="header-section-number">10.3</span> Covariance</a></li>
-  <li><a href="#correlation-coefficient" id="toc-correlation-coefficient" class="nav-link" data-scroll-target="#correlation-coefficient"><span class="header-section-number">10.4</span> Correlation Coefficient</a></li>
-  <li><a href="#rules-for-the-correlation-coefficient" id="toc-rules-for-the-correlation-coefficient" class="nav-link" data-scroll-target="#rules-for-the-correlation-coefficient"><span class="header-section-number">10.5</span> Rules for the Correlation Coefficient</a></li>
-  <li><a href="#interpreting-the-direction-of-the-correlation" id="toc-interpreting-the-direction-of-the-correlation" class="nav-link" data-scroll-target="#interpreting-the-direction-of-the-correlation"><span class="header-section-number">11</span> Interpreting the Direction of the Correlation</a>
+  <li><a href="#lesson-objectives" id="toc-lesson-objectives" class="nav-link active" data-scroll-target="#lesson-objectives"><span class="header-section-number">10.0.1</span> Lesson Objectives</a></li>
+  <li><a href="#consider-while-reading" id="toc-consider-while-reading" class="nav-link" data-scroll-target="#consider-while-reading"><span class="header-section-number">10.0.2</span> Consider While Reading</a></li>
+  <li><a href="#covariance" id="toc-covariance" class="nav-link" data-scroll-target="#covariance"><span class="header-section-number">10.1</span> Covariance</a></li>
+  <li><a href="#correlation-coefficient" id="toc-correlation-coefficient" class="nav-link" data-scroll-target="#correlation-coefficient"><span class="header-section-number">10.2</span> Correlation Coefficient</a>
   <ul class="collapse">
-  <li><a href="#scatterplots-to-visualize-relationship" id="toc-scatterplots-to-visualize-relationship" class="nav-link" data-scroll-target="#scatterplots-to-visualize-relationship"><span class="header-section-number">11.1</span> Scatterplots to Visualize Relationship</a></li>
-  <li><a href="#interpreting-the-strength-of-the-correlation" id="toc-interpreting-the-strength-of-the-correlation" class="nav-link" data-scroll-target="#interpreting-the-strength-of-the-correlation"><span class="header-section-number">11.2</span> Interpreting the Strength of the Correlation</a></li>
+  <li><a href="#rules-for-the-correlation-coefficient" id="toc-rules-for-the-correlation-coefficient" class="nav-link" data-scroll-target="#rules-for-the-correlation-coefficient"><span class="header-section-number">10.2.1</span> Rules for the Correlation Coefficient</a></li>
   </ul></li>
-  <li><a href="#hypothesis-testing-with-correlations" id="toc-hypothesis-testing-with-correlations" class="nav-link" data-scroll-target="#hypothesis-testing-with-correlations"><span class="header-section-number">12</span> Hypothesis Testing with Correlations</a>
+  <li><a href="#interpreting-the-direction-of-the-correlation" id="toc-interpreting-the-direction-of-the-correlation" class="nav-link" data-scroll-target="#interpreting-the-direction-of-the-correlation"><span class="header-section-number">10.3</span> Interpreting the Direction of the Correlation</a>
   <ul class="collapse">
-  <li><a href="#cor.test-command" id="toc-cor.test-command" class="nav-link" data-scroll-target="#cor.test-command"><span class="header-section-number">12.1</span> cor.test() Command</a></li>
+  <li><a href="#scatterplots-to-visualize-relationship" id="toc-scatterplots-to-visualize-relationship" class="nav-link" data-scroll-target="#scatterplots-to-visualize-relationship"><span class="header-section-number">10.3.1</span> Scatterplots to Visualize Relationship</a></li>
+  <li><a href="#interpreting-the-strength-of-the-correlation" id="toc-interpreting-the-strength-of-the-correlation" class="nav-link" data-scroll-target="#interpreting-the-strength-of-the-correlation"><span class="header-section-number">10.3.2</span> Interpreting the Strength of the Correlation</a></li>
   </ul></li>
-  <li><a href="#limitations-of-correlation-analysis" id="toc-limitations-of-correlation-analysis" class="nav-link" data-scroll-target="#limitations-of-correlation-analysis"><span class="header-section-number">13</span> Limitations of Correlation Analysis</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">14</span> Summary</a></li>
+  <li><a href="#hypothesis-testing-with-correlations" id="toc-hypothesis-testing-with-correlations" class="nav-link" data-scroll-target="#hypothesis-testing-with-correlations"><span class="header-section-number">10.4</span> Hypothesis Testing with Correlations</a>
+  <ul class="collapse">
+  <li><a href="#cor.test-command" id="toc-cor.test-command" class="nav-link" data-scroll-target="#cor.test-command"><span class="header-section-number">10.4.1</span> cor.test() Command</a></li>
+  </ul></li>
+  <li><a href="#limitations-of-correlation-analysis" id="toc-limitations-of-correlation-analysis" class="nav-link" data-scroll-target="#limitations-of-correlation-analysis"><span class="header-section-number">10.5</span> Limitations of Correlation Analysis</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.6</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -313,21 +315,21 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="lesson-objectives" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="lesson-objectives"><span class="header-section-number">10.1</span> Lesson Objectives</h2>
+<section id="lesson-objectives" class="level3" data-number="10.0.1">
+<h3 data-number="10.0.1" class="anchored" data-anchor-id="lesson-objectives"><span class="header-section-number">10.0.1</span> Lesson Objectives</h3>
 <ul>
 <li>Compute and interpret Pearson’s r correlation coefficient.</li>
 <li>Conduct an inferential statistical test for Pearson’s r correlation coefficient.</li>
 </ul>
 </section>
-<section id="consider-while-reading" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="consider-while-reading"><span class="header-section-number">10.2</span> Consider While Reading</h2>
+<section id="consider-while-reading" class="level3" data-number="10.0.2">
+<h3 data-number="10.0.2" class="anchored" data-anchor-id="consider-while-reading"><span class="header-section-number">10.0.2</span> Consider While Reading</h3>
 <ul>
 <li>In the lesson, we are looking at inference for correlation. We will learn how to conduct a correlation test. This will close the loop on scatterplots, which we learned in the Data Visualization lesson help us describe visually a relationship between variables. Consider what we learned and perhaps revisit the scatterplot lecture notes to then determine how visualizations can help in making inferences alongside regression and correlation results.</li>
 </ul>
 </section>
-<section id="covariance" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="covariance"><span class="header-section-number">10.3</span> Covariance</h2>
+<section id="covariance" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="covariance"><span class="header-section-number">10.1</span> Covariance</h2>
 <ul>
 <li>Covariance (<span class="math inline">\(s_{xy}\)</span> or <span class="math inline">\(cov_{xy}\)</span>) is a numerical measure that describes the direction of the linear relationship between two variables, x and y and reveals the direction of that linear relationship.</li>
 <li>The formula for covariance is as follows:
@@ -355,8 +357,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="correlation-coefficient" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="correlation-coefficient"><span class="header-section-number">10.4</span> Correlation Coefficient</h2>
+<section id="correlation-coefficient" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="correlation-coefficient"><span class="header-section-number">10.2</span> Correlation Coefficient</h2>
 <ul>
 <li>A correlation coefficient (<span class="math inline">\(r_{xy}\)</span>) describes both the direction and strength of the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. <span class="math inline">\(r_{xy} = cov_{sy}/(s_xs_y)\)</span> or using the standardized formula in the book:
 <ul>
@@ -375,9 +377,8 @@ window.Quarto = {
 <pre><code>[1] 0.7102387</code></pre>
 </div>
 </div>
-</section>
-<section id="rules-for-the-correlation-coefficient" class="level2" data-number="10.5">
-<h2 data-number="10.5" class="anchored" data-anchor-id="rules-for-the-correlation-coefficient"><span class="header-section-number">10.5</span> Rules for the Correlation Coefficient</h2>
+<section id="rules-for-the-correlation-coefficient" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="rules-for-the-correlation-coefficient"><span class="header-section-number">10.2.1</span> Rules for the Correlation Coefficient</h3>
 <ul>
 <li>The correlation coefficient has the same sign as the covariance; however, its value ranges between −1 and +1 whereas <span class="math inline">\(-1 \le r_{xy} \le +1\)</span>.</li>
 <li>The absolute value of the coefficient reflects the strength of the correlation. So a correlation of −.70 is stronger than a correlation of +.50.</li>
@@ -389,8 +390,9 @@ window.Quarto = {
 </figure>
 </div>
 </section>
-<section id="interpreting-the-direction-of-the-correlation" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Interpreting the Direction of the Correlation</h1>
+</section>
+<section id="interpreting-the-direction-of-the-correlation" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="interpreting-the-direction-of-the-correlation"><span class="header-section-number">10.3</span> Interpreting the Direction of the Correlation</h2>
 <ul>
 <li>Negative correlations occur when one variable goes up and the other goes down.</li>
 <li>No correlation happens when there is no discernible pattern in how two variables vary.</li>
@@ -402,8 +404,8 @@ window.Quarto = {
 <figcaption>Correlation Scatterplots</figcaption>
 </figure>
 </div>
-<section id="scatterplots-to-visualize-relationship" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="scatterplots-to-visualize-relationship"><span class="header-section-number">11.1</span> Scatterplots to Visualize Relationship</h2>
+<section id="scatterplots-to-visualize-relationship" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="scatterplots-to-visualize-relationship"><span class="header-section-number">10.3.1</span> Scatterplots to Visualize Relationship</h3>
 <ul>
 <li><p>Let’s do an example to first visualize the data, and then to calculate the correlation coefficient.</p></li>
 <li><p>First, read in a .csv called <em>DebtPayments.csv</em>. This data set has 26 observations and 4 variables:</p>
@@ -426,13 +428,12 @@ window.Quarto = {
 </div>
 </div>
 <ul>
-<li>Next, plot the relationship between 2 continuous variables.
+<li><p>Next, plot the relationship between 2 continuous variables.</p>
 <ul>
 <li>There are a few ways to write the plot command using ggplot. We went over these in the Data Visualization lesson. Again we said:</li>
 <li>Layer 1: ggplot() command with aes() command directly inside of it pointing to x and y variables.</li>
 <li>Layer 2: geom_point() command to add the observations as indicators in the chart.</li>
 <li>Layer 3 or more: many other optional additions like labs() command (for labels) or stat_smooth() command to generate a regression line.</li>
-</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Debt_Payments <span class="sc">%&gt;%</span></span>
@@ -445,8 +446,7 @@ window.Quarto = {
 </figure>
 </div>
 </div>
-</div>
-<ul>
+</div></li>
 <li><p>In the above plot, there is a strong positive relationship (upward trend) that should be confirmed with a correlation test.</p></li>
 <li><p>In a second example below, we look at Unemployment as the X variable. This scatterplot is much more difficult to use in determining whether the correlation will be significant. It looks negative, but there is not a strong linear trend to the data. This will also need to be confirmed with a correlation test.</p></li>
 </ul>
@@ -466,8 +466,8 @@ window.Quarto = {
 <li>In many scatterplots using big data, the observations are too numerous to see a good relationship. In that case, the statistical test can trump this visual aid. However, in a lot of cases the scatterplot does help visualize the relationship between 2 continuous variables.</li>
 </ul>
 </section>
-<section id="interpreting-the-strength-of-the-correlation" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="interpreting-the-strength-of-the-correlation"><span class="header-section-number">11.2</span> Interpreting the Strength of the Correlation</h2>
+<section id="interpreting-the-strength-of-the-correlation" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="interpreting-the-strength-of-the-correlation"><span class="header-section-number">10.3.2</span> Interpreting the Strength of the Correlation</h3>
 <ul>
 <li>Statisticians differ on what is called a strong correlation versus weak correlation, and it depends on the context. A .9 may be required for a strong correlation in one field, and a .5 in another. Generally speaking in business, the absolute value of a correlation .8 or above is considered strong, between .5 and .8 is considered moderate, and between a .2 and .5 is considered weak.</li>
 <li>The following is consistent with what is most generally used:</li>
@@ -480,8 +480,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="hypothesis-testing-with-correlations" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Hypothesis Testing with Correlations</h1>
+<section id="hypothesis-testing-with-correlations" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="hypothesis-testing-with-correlations"><span class="header-section-number">10.4</span> Hypothesis Testing with Correlations</h2>
 <ul>
 <li>Correlation values should be tested alongside a p-value to confirm whether or not there is a correlation. The null is tested using a t-distribution specifically testing whether <span class="math inline">\(r = 0\)</span> or not, like the one-sample t-test section from the lesson 6.</li>
 <li>The null and alternative are listed below.
@@ -490,8 +490,8 @@ window.Quarto = {
 <li><span class="math inline">\(H_A\)</span>: There is a relationship between the two variables (<span class="math inline">\(r \neq 0\)</span>).</li>
 </ul></li>
 </ul>
-<section id="cor.test-command" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="cor.test-command"><span class="header-section-number">12.1</span> cor.test() Command</h2>
+<section id="cor.test-command" class="level3" data-number="10.4.1">
+<h3 data-number="10.4.1" class="anchored" data-anchor-id="cor.test-command"><span class="header-section-number">10.4.1</span> cor.test() Command</h3>
 <ul>
 <li>The cor() command gives you just the correlation coefficient. This command can be useful if you are testing many correlations at one time. In the below statement, I can use <span class="math inline">\(cor(Variable1, Variable2)\)</span> to see the correlation between 2 continuous variables.</li>
 </ul>
@@ -546,8 +546,8 @@ sample estimates:
 </ul>
 </section>
 </section>
-<section id="limitations-of-correlation-analysis" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> Limitations of Correlation Analysis</h1>
+<section id="limitations-of-correlation-analysis" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="limitations-of-correlation-analysis"><span class="header-section-number">10.5</span> Limitations of Correlation Analysis</h2>
 <ul>
 <li>To determine a causal model, you need the following:</li>
 </ul>
@@ -566,8 +566,8 @@ sample estimates:
 <li>Note that a correlation is the first step in understanding causality.</li>
 </ul>
 </section>
-<section id="summary" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> Summary</h1>
+<section id="summary" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">10.6</span> Summary</h2>
 <ul>
 <li>In this lesson, we learned about correlation coefficient and how to evaluate a strong, moderate, or weak/positive or negative correlation. We also learned how to visualize a relationship using a scatterplot. We also learned how to test for a correlation being significant or not.</li>
 </ul>

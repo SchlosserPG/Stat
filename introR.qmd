@@ -14,12 +14,12 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ####################################
 ```
 
-## At a Glance
+### At a Glance
 
 -   In order to succeed in this lesson, you will need to start by having both R and RStudio downloaded. Then, the only way to learn R is to use it in various ways and to practice as much as you can.
 -   It is also important to note that this is a statistics class and that R is a statistical computing software. Because of that, we need to not only pay attention to what we are typing in, but understand why we are typing it in the ways suggested, and also how we could do it differently to get similar if not the same results. We also need to understand what important information we can pull from what we have done. Finally, to succeed in this section, we need to begin to understand how to clean data, which is a very important step for data analysts. Specifically, we learn how to count, sort, and handle missing data.
 
-## Lesson Objectives
+### Lesson Objectives
 
 -   Be Introduced to R and R Studio.
 -   Set up R and R Studio.
@@ -27,11 +27,11 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 -   Enter and load data into R.
 -   Identify and treat missing values.
 
-## Consider While Reading
+### Consider While Reading
 
 -   This material is so important because it is likely the start of your R journey and will provide the groundwork for learning a modern approach to calculating statistics. R has a fairly steep learning curve, but, once you are over it, it becomes fairly easy to figure out new things. It is important to make connections to what we are doing and why we are doing it a certain way. There are rules to learning R, and you will get better with constant practice. Try to avoid just typing in code. Instead, determine why the code was typed the way it was and try to figure out all the other ways the code could also be typed to get the same answer. Practice, practice, practice!
 
-# What is Statistics?
+## What is Statistics?
 
 -   Statistics is the methodology of extracting useful information from a data set.
 -   Numerical results are not very useful unless they are accompanied with clearly stated actionable business insights.
@@ -47,7 +47,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   Improved computational power.
     -   Development of sophisticated algorithms.
 
-## Two Main Branches of Statistics
+### Two Main Branches of Statistics
 
 -   Descriptive Statistics - collecting, organizing, and presenting the data.
 -   Inferential Statistics - drawing conclusions about a population based on sample data from that population.
@@ -58,9 +58,9 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   Too expensive to gather information on the entire population.
     -   Often impossible to gather information on the entire population.
 
-# Setting up R
+## Setting up R
 
-## Why R?
+### Why R?
 
 -   R is a very sophisticated statistical software that allows you to enter commands one-at-a-time, or write scripts using the R language.
 
@@ -90,7 +90,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 -   We can change a variable’s data type if we want, but it will inherit one based on the object assigned to it. We will learn some common ways to do this in the data preparation section.
 
-# Creating a Project for Our Class
+### Creating a Project for Our Class
 
 -   The RStudio project file is a file that sits in the root directory, with the extension .Rproj. When your RStudio session is running through the project file (.Rproj), the current working directory points to the root folder where that .Rproj file is saved.
     -   R projects are a type of file which function with RStudio.
@@ -104,7 +104,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ![CreateProject](Pictures/Ch0/CreateProject.png "Screenshot of Create Project in R Studio") ![Creating a New Project](Pictures/Ch0/Project.png "Creating a New Project")
 
-## R Script Files
+## Using R Script Files
 
 -   Using R Script Files:
     -   A .R script is simply a text file containing a set of commands and comments. The script can be saved and used later to rerun the code. The script can also be documented with comments and edited again and again to suit your needs.
@@ -112,7 +112,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   Entering and running code at the R command line is effective and simple. However, each time you want to execute a set of commands, you must re-enter them at the command line. Nothing saves for later.
 -   Complex commands are particularly difficult causing you to re-entering the code to fix any errors typographical or otherwise.R script files help to solve this issue.
 
-## Create a New R Script File: Chapter1.R
+### Create a New R Script File: Chapter1.R
 
 -   To save your notes from today's lecture, create a .R file named Chapter1.R and save it to your project file you made in the last class.
 -   There are a couple of parts to this chapter, and we can add code from today's chapter in one file so that our code is stacked nicely together.\
@@ -120,7 +120,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ![Screenshot of R Environment](Pictures/Ch1/RScript.png "Screenshot of R Environment")
 
-## Using a Prolog
+### Using a Prolog
 
 -   We should include a prolog to introduce each R Script File during the course.
 -   A prolog is a set of comments at the top of a code file that provides information about what is in the file.
@@ -157,7 +157,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 -   Then, as we work through our .R script and add data files or libraries to our code, we go back and edit the prolog.
 
-## R Handles Text in Multiple Ways
+### R Handles Text in Multiple Ways
 
 -   R can generally use single quotes or double quotes when marking text. However, if you use a single quote to start, use a single quote to end. The same for double quotes - ensure the pairing is the same quote type.
 -   You sometimes need to be careful with nested quotes, but generally it does not matter which you use.
@@ -179,7 +179,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ![Chapter 1 R File](Pictures/Ch1/Chapter1Start.png "Chapter 1 .R File")
 
-## Using Comments
+### Using Comments
 
 -   We use comments to organize and explain code in our R Script file.
 -   Be sure to write clear code that does not need a lot of comments.
@@ -187,7 +187,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 -   If something does not work, don't delete it yet. Instead, comment it out while you troubleshoot it or to try different alternatives.
 -   Notice the prolog above is in comments.
 
-## Note on R Markdown
+### Note on R Markdown
 
 -   These files were formatted with RMarkdown. RMarkdown is a simple formatting syntax for authoring documents of a variety of types, including PowerPoint and html files.
 -   On the document, RMarkdown prints the command and then follows the command with the output after 2 hashtags.
@@ -195,7 +195,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ![Reading our HTML file](Pictures/Ch1/ReadHTML.png "Reading our HTML file")
 
-## R is an Interactive Calculator
+### R is an Interactive Calculator
 
 -   An important facet of R is that it should serve as your sole calculator.
 -   Try these commands in your .R file by typing them in and clicking Ctr + Enter on each line.
@@ -226,7 +226,7 @@ print(2 + 3 * 5 - 7^2 %% 4 + (5 / 2))
 16 + 2.5 #addition: = 18.5
 ```
 
-## Running Commands
+### Running Commands
 
 -   There are a few ways to run commands via your .R file.
     -   You can click Ctr + Enter on each line.
@@ -237,7 +237,7 @@ print(2 + 3 * 5 - 7^2 %% 4 + (5 / 2))
 
 -   Now that I have asked you to add a couple lines of code, after this point, when R code is shown on this file, you should add it to your .R script file along with any notes you want. I won't explicitly say - "add this code."
 
-# Observations and Variables
+## Observations and Variables
 
 -   Going back to the basics in statistics, we need to define an observation and variable so that we can know how to use them effectively in R in creating objects.
 
@@ -269,7 +269,7 @@ nrow(vote)
 dim(vote)
 ```
 
-## The Assignment Operator in Creating Objects
+### The Assignment Operator in Creating Objects
 
 -   Entering and Storing Variables in R requires you to make an assignment.
     -   We use the assignment operator '\<-' to assign a value or expression to a variable.
@@ -290,7 +290,7 @@ B
 
 ![The Assignment Operator](Pictures/Ch1/Assignment.png "The Assignment Operator")
 
-## Naming Objects
+### Naming Objects
 
 -   Line length limit: 80
 -   Always use a consistent way of annotating code.
@@ -336,7 +336,7 @@ kStates <- 29
 -   Different R coders have different preferences, but consistency is key in making sure your code is easy to follow and for others to read. In this course, we will generally use the recommendation in the text which are listed above.
 -   We tend to use one letter variable names (i.e., x) for placeholders or for simple functions (like naming a vector).
 
-# Built-in Functions
+## Built-in Functions
 
 -   R has thousands of built-in functions including those for summary statistics. Below, we use a few built-in functions with constant numbers. The sqrt(), max(), and min() functions compute the square root of a number, and find the maximum and minimum numbers in a vector.
 
@@ -359,7 +359,7 @@ min(100,200,300)
     min(x) #Finding Smallest Element of Vector x
     ```
 
-## Built-in Functions: Setting an Argument
+### Built-in Functions: Setting an Argument
 
 -   The standard format to a built-in function is functionName(argument)
     -   For example, the square root function structure is listed as sqrt(x), where x is a numeric or complex vector or array.
@@ -376,13 +376,13 @@ sqrt(100)
 -   There are some default values set up in R in which arguments have already been set.
 -   There are a few functions with no parameters like Sys.time() which produces the date and time. If you are not sure how many parameters a function has, you should look it up in the help.
 
-## Default Values
+### Default Values
 
 -   There are many default values set up in R in which arguments have already been set to a particular value or field.
 -   Default values have been set when you see the = value in the instructions. If we don’t want to change it, we don’t need to include it in our function call.
 -   When only one argument is required, the argument is usually not set to have a default value.
 
-## Built-in Functions: Using More than One Argument
+### Built-in Functions: Using More than One Argument
 
 -   For functions with more than one parameter, we must determine what arguments we want to include, and whether a default value was set and if we want to change it. Default values have been set when you see the = value in the instructions. If we don’t want to change it, we don’t need to include it in our function call.
     -   For example, the default S3 method for the seq() function is listed as the following: seq(from = 1, to = 1, by = ((to - from)/(length.out - 1)),length.out = NULL, along.with = NULL, ...)
@@ -413,7 +413,7 @@ seq(0,30)
 
 -   There can be a little hurdle deciding when you need the argument value in the function call. The general rule is that if you don't know, include it. If it makes more sense to you to include it, include it.
 
-## Tips on Arguments
+### Tips on Arguments
 
 -   Always look up a built-in function to see the arguments you can use.
 -   Arguments are always named when you define a function.
@@ -477,9 +477,9 @@ rm(list=ls()) #Clears all variables from Global Environment
 
 ![Evalulating Your RStudio Environment](Pictures/Ch1/Environment.png "Evalulating Your RStudio Environment")
 
-# Entering and Loading Data
+## Entering and Loading Data
 
-## Creating a Vector
+### Creating a Vector
 
 -   A vector is the simplest type of data structure in R.
     -   A vector is a set of data elements that are saved together as the same type.
@@ -509,7 +509,7 @@ rep(x=1:3,times=4) #Repeat the elements of the vector 4 times
 rep(x=1:3, each=3) #Repeat the elements of a vector 3 times each
 ```
 
-## Creating a Matrix
+### Creating a Matrix
 
 -   A matrix is another type of object like a vector or a list.
 
@@ -532,7 +532,7 @@ rep(x=1:3, each=3) #Repeat the elements of a vector 3 times each
     matrix(x,3,3) 
     ```
 
-### Setting More Arguments in a Matrix
+#### Setting More Arguments in a Matrix
 
 -   The byrow argument fills the Matrix across the row
 -   Below, we can use the byrow statement and assign it to a variable m.
@@ -557,12 +557,12 @@ m2 <- matrix(1:25, nrow=5, byrow=TRUE)
 m2
 ```
 
-### Differences between Data Frames and Matrices
+#### Differences between Data Frames and Matrices
 
 -   In a data frame the columns contain different types of data, but in a matrix all the elements are the same type of data. A matrix is usually numbers.
 -   A matrix can be looked at as a vector with additional methods or dimensions, while a data frame is a list.
 
-## Creating a Data Frame
+### Creating a Data Frame
 
 -   A data frame is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column. In a data frame the rows are observations and columns are variables.
     -   Data frames are generic data objects to store tabular data.
@@ -589,7 +589,7 @@ pot.legal <- data.frame(state, year.legal, ounce.lim)
 
 ![Global Environment](Pictures/Ch1/DataFrame.png "Global Environment")
 
-## Importing a Data Frame into R
+### Importing a Data Frame into R
 
 -   When importing data from outside sources, you can do the following:
 
@@ -606,7 +606,7 @@ pot.legal <- data.frame(state, year.legal, ounce.lim)
 
 -   Each different file type requires a unique function to read in the file. With all the variety in file types, it is best to look it up in the R Community to help.
 
-### Use data() function
+#### Use data() function
 
 -   All we need is the data() function to read in a data set that is part of R. R has many built in libraries now, so there are many data sets we can use for testing and learning statistics in R.
 
@@ -630,7 +630,7 @@ data("Insurance")
 head(Insurance)
 ```
 
-### Accessing Variables
+#### Accessing Variables
 
 -   You can directly access a variable from a dataset using the \$ symbol followed by the variable name.
 -   The \$ symbol facilitates data manipulation operations by allowing easy access to variables for calculations, transformations, or other analyses. For example:
@@ -640,7 +640,7 @@ head(Insurance$Claims) #lists the first 6 Claims in the Insurance dataset.
 sd(Insurance$Claims) #provides the standard deviation of all Claims in the Insurance dataset.
 ```
 
-### Setting up a Working Directory
+#### Setting up a Working Directory
 
 -   You should have the data files from our LMS in a data folder on your computer. Your project folder would contain that data folder.
 
@@ -660,12 +660,12 @@ getwd() #Alerts you to what folder you are currently set to as your working dire
 
 ![Setting Your Working Directory](Pictures/Ch1/WorkingDir.png "Setting Your Working Directory")
 
-### Reading in Data from .csv
+#### Reading in Data from .csv
 
 -   Reading in a .csv file is extremely popular way to read in data.
 -   There are a few functions to read in .csv files. And these functions would change based on the file type you are importing.
 
-#### read.csv() function
+##### read.csv() function
 
 ```         
  + Extremely popular way to read in data.
@@ -685,9 +685,9 @@ summary(object = gss.2016)
 summary(gss.2016) 
 ```
 
-### Using tidyverse to load data
+#### Using tidyverse to load data
 
-#### read_csv function
+##### read_csv function
 
 -   read_csv() is a function from the readr package, which is part of the tidyverse ecosystem.
 -   read_csv() is generally faster than read.csv() as it's optimized for speed, making it more efficient, particularly for large datasets.
@@ -703,7 +703,7 @@ library(tidyverse)
 gss.2016b <- read_csv(file = "data/gss2016.csv")
 ```
 
-## Summarize Data
+### Summarize Data
 
 -   Use the summary() function to examine the contents of the file.
 -   The summary() function is part of base R and does not require a package.
@@ -718,7 +718,7 @@ summary(object = gss.2016)
 summary(gss.2016)
 ```
 
-### Explicit Use of Libraries
+#### Explicit Use of Libraries
 
 -   You can activate a library one time using library::function() format
 
@@ -750,6 +750,6 @@ summary(ChickWeight)
 tapply(ChickWeight$weight,ChickWeight$Diet, mean)
 ```
 
-# Summary
+## Summary
 
 -   In this lesson, we went over information to make sure you had some basics to really start learning R. There are a lot of ways to get the same things done in R; you have to find the way that works best for you. As we learn R, you will get used to doing things your way to be able to slice and evaluate the data to find rich information from the data sets we look at. As long as the data was handled properly, it does not matter how we reach our goal using R as long as we do it ourselves.

@@ -14,22 +14,22 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ####################################
 ```
 
-## At a Glance
+### At a Glance
 
 -   In order to succeed in this section, you will need to apply what you learned about variable types (quantitative versus categorical) and hypothesis testing in earlier lessons We will learn how to conduct and interpret an ANOVA, which allows us to compare groups (from a categorical/factor variable) with respect to a continuous variable. Unlike the t-test that is limited to comparing two groups, the ANOVA is meant for three or more groups. We can also follow up a significant ANOVA with post-hoc tests to see which groups are different from each other in regards to the continuous variable.
 
-## Lesson Objectives
+### Lesson Objectives
 
 -   Conduct and interpret a one-way ANOVA.
 -   Choose and use post-hoc tests and contrasts.
 -   Conduct and interpret a two-way ANOVA.
 
-## Consider While Reading
+### Consider While Reading
 
 -   In this lesson, we continue with our discussion of both hypothesis testing and using inference. However, we are no longer limiting ourselves to one or two populations. ANOVA consists of the calculations that provide information about levels of variability within a regression model and form a basis for calculating tests of significance. This means that ANOVA can be conducted as we will do here, and as part of a regression analysis.
 -   ANOVA is used to determine if there are differences among three or more populations. In cases of only two groups, an independent samples t-test should be used as was discussed in an earlier lesson. When reading, be sure to make connections back to variable data type, and know that with ANOVA, we are testing for group differences where groups are the categorical X variable or variables, and we want to see if there are group differences in regards to a continuous/numerical Y.
 
-# Analysis of Variance (ANOVA)
+## Analysis of Variance (ANOVA)
 
 -   An ANOVA is used to determine if there are differences among three or more groups. If there were only two groups, an independent samples t-test should be used.
 -   In conducting an ANOVA, we utilize a completely randomized design, comparing sample means computed for each treatment to test whether the population means differ.
@@ -41,12 +41,12 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   $H_0: \mu_1 = \mu_2 = \cdots= \mu_k$
     -   $H_A:$ Not all population means are equal
 
-## Omnibus test
+### Omnibus test
 
 -   A significant result indicates the omnibus test is significant and that there is a difference between the means. This only suggests that there is at least one group difference somewhere between groups. This is not useful in determining which means are different from each other. Therefore, for the alternative hypothesis to be supported, at least one group must be different from the rest.
 -   Then, if we find a significant omnibus test, we continue our analysis with planned contrasts and post-hoc tests, which determine which means are statistically significantly different from one another.
 
-## ANOVA Methodology
+### ANOVA Methodology
 
 1.  We first compute the amount of variability between the sample means. This is known as the *between-treatments estimate*, which compares the sample means to the overall mean, sometimes called the grand mean, or the average pf all the values from the data set.
 2.  Then, we measure how much variability there is within each sample. This is known as the *within-treatments estimate*, which is essentially a measure of error.
@@ -57,7 +57,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   The t-distribution shows how many standard errors (SE) away from the mean.
     -   The F-distribution is used to compare 2 populations’ variances.
 
-# Type I and Type II Errors
+## Type I and Type II Errors
 
 -   In any hypothesis test, including an ANOVA, it is important to acknowledge that there is error, and that it is possible to come up with the wrong conclusion. An important note is that we are calculating results and making conclusions based on probability calculated given the sample we have, the timing it was collected, and any biases that might have been used in designing and securing the data set. We could also be violating assumptions that make the findings less accurate if still accurate at all.\
 
@@ -113,7 +113,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 -   Some tests are designed to minimize Type I error, while others are designed to minimize Type II error. Selecting alpha levels that are smaller will help reduce Type I error, but at the cost of Type II error. And again, increasing sample size reduces both error.
 
-## Some Reasons For Error
+### Some Reasons For Error
 
 -   Measurement error refers to the difference between a measured quantity and its true value which could be due to random error or systematic error.
     -   Random error refers to naturally occurring errors that are to be expected.
@@ -123,11 +123,11 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   Nonresponse bias refers to a systematic difference in preferences between respondents and non-respondents to a survey or a poll.
     -   Social Desirability bias refers to a bias that refers to the systematic difference between a group’s “socially acceptable” responses to a survey or poll.
 
-# One-Way ANOVA
+## One-Way ANOVA
 
 -   One-way ANOVA compares population means based on one categorical variable.
 
-## Steps for Conducting a One-Way Anova
+### Steps for Conducting a One-Way Anova
 
 1.  Write the null and alternate hypotheses.
 2.  Compute the F-test statistic.
@@ -136,13 +136,13 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 5.  Write a conclusion.
 6.  If model is significant, run post-hoc tests.
 
-## Statistics in a One-Way ANOVA Table
+### Statistics in a One-Way ANOVA Table
 
 -   There are a number of statistics being calculated with an aov() command, with the goal of producing the F-test statistic, which corresponds to a p-value that we can interpret the same way as we did in the earlier lessons (p-value \< alpha = significant result - reject the $H_0$).
 
 ![One Way ANOVA Formulas](Pictures/Ch7/1WayANOVA.PNG "Formulas for One Way ANOVA")
 
-### Explained Variance
+#### Explained Variance
 
 -   In a one-way ANOVA, first, we compute the *explained variance*, which in a one-way ANOVA is the sum of squares due to treatments (SSTR), where the treatment is our grouping variable. The explained variance suggests that the variation in outcome can be explained by a model, or in our case, a grouping variable. In computing the SSTR, we square the deviation between each group mean ($\bar{y}_j$) and the grand mean $\bar{y}$ and multiply it by the sample size ($n_j$) and sum up all the values $\sum$. This leads to the following formula:
 
@@ -158,7 +158,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 -   Above in the overall methodology, the MSTR corresponds to the *between-treatments estimate*.
 
-### Unexplained Variance
+#### Unexplained Variance
 
 -   There is also a measure of *unexplained variance*, which we term error. In a one-way ANOVA, this unexplained variance refers to variability in the outcome that is not explained by the grouping variable. In the table, this error is called the sum of squares error (SSE). SSE is calculated by first multiplying the sample size of group and subtracting one ($n_j-1$), and then multiplying that number by its group variance ($\sigma^2_i$). Once all groups are calculated, we add it up ($\sum$). This leads to the following formula:
 
@@ -180,23 +180,23 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 -   There is a total sum of squares (SST) being calculated in an ANOVA, which refers to the total variance (explained and unexplained). This value is calculated as the total number of observations minus 1 ($n_t-1$). We don't see it explicitly in our R output, but it is needed to help understand the full model.
 
-### Calculating F
+#### Calculating F
 
 -   Finally, to calculate the F-test statistic, we take the MSTR (explained variability) and divide by the MSE (unexplained variability) considering the appropriate degrees of freedom ($k-1$ and $n_t-k$).
 -   A p-value is computed from that statistic mathematically by using the correct command in R.
     -   $F_{k-1,n_t-k} = MSTR/MSE$
 
-## Example of a One-Way ANOVA
+### Example of a One-Way ANOVA
 
 -   Like the t-test, a one-way ANOVA follows 5 steps, and then includes an optional 6th step after significance is found and confirmed in step 5.
 
-### Step 1: Set Up Null and Alternative Hypothesis
+#### Step 1: Set Up Null and Alternative Hypothesis
 
 -   The competing hypotheses for the one-way ANOVA:
     -   $H_0: \mu_{Atlanta} = \mu_{Houston}= \mu_{LosAngeles} = \mu_{SanFran} = \mu_{DC}$
     -   $H_A:$ Not all population means of congestion levels are equal among the cities
 
-### Steps 2 and 3: Compute the F-test Statistic and p-Value
+#### Steps 2 and 3: Compute the F-test Statistic and p-Value
 
 -   First, we read in the data set and give a look at what is included.
 
@@ -228,19 +228,19 @@ anova(Anova1way)
     -   We never say our p-value is 0, but instead say it is less than \_\_\_.
     -   We *do not* use .1 as a significance level, although some statisticians mark a p-value less than .1 as "marginally significant". There is a big debate about this, but I agree with the general consensus, so our threshold for this class is less than .05. Anything greater than or equal to .05 is not significant.
 
-### Steps 4 and 5: Interpret the Probability and Write a conclusion.
+#### Steps 4 and 5: Interpret the Probability and Write a conclusion.
 
 -   The F-test statistic is 37.251 and the p-value is \< 2.2e-16 \*\*\*. This p-value is \< all typical alpha values like .05 or .001. This value is very close to 0. We would state that our p-value is less than .001 by looking at the table and noting the three asterisks.\
 -   The p-value result suggests that we support the alternative $H_A$: Not all population means are equal.
 -   More specifically we reject the null hypothesis $H_0$ in support of $H_A$ and conclude that not all congestion levels are equal among the cities.
 
-### Step 6: If Model is Significant, Run Post-Hoc Tests
+#### Step 6: If Model is Significant, Run Post-Hoc Tests
 
 -   Pairwise comparisons: There are many tests to compute pairwise comparisons. The tests tend to vary in whether they minimize Type I or Type II error, and by how much. Many of the tests change the distribution in the calculation to alter the final results. We go over the following methods:
     1.  Bonferroni Method;
     2.  TukeyHSD Method
 
-#### Bonferroni Method
+##### Bonferroni Method
 
 -   The Bonferroni method is a pairwise post-hoc test that is used after finding a statistically significant ANOVA. This method conducts a t-test for each pair of means and adjusts the threshold for statistical significance to ensure that there is a small enough risk of Type I error; it is generally considered a very conservative post hoc test that only identifies the largest differences between means as statistically significant.
 -   The function has several arguments, such as $x =$ for the continuous variable (listed first); $g =$ for the grouping or categorical variable (listed 2nd); and the p-value adjustment, $p.adj =$, which can be set as \_\_bonf\_ for Bonferroni (listed 3rd).
@@ -252,7 +252,7 @@ anova(Anova1way)
 pairwise.t.test(congestionData$CongestionRating, congestionData$City, p.adj="bonf")
 ```
 
-#### Tukey HSD Method
+##### Tukey HSD Method
 
 -   The Tukey HSD method is another pairwise post-hoc test that is used after finding a statistically significant ANOVA. This method is used to determine which means are statistically significantly different from each other by comparing each pair of means. This method is less conservative than the Bonferroni post hoc test.
 -   This test is modified from the Bonferroni test using a q-distribution instead of a t-distribution to calculate the answers.
@@ -266,7 +266,7 @@ TukeyHSD(Anova1way)
 
 -   With the TukeyHSD() command, we can also determine which group mean is higher than the other by looking at the "diff" score. If you see a negative score than the second group listed in the output is higher than the first group listed. Ignoring the insignificant p-values \> .05, we find that both San Francisco and Washington has significantly less congestion than Los Angeles. We find that Los Angeles and Washington have a significantly higher group mean than Atlanta. Los Angeles and Washington DC also have a significantly higher group mean than Houston. Finally, Washington DC has a significantly higher group mean than San Francisco.
 
-# Two-Way ANOVA
+## Two-Way ANOVA
 
 -   A two-way ANOVA is called a randomized block design.
 -   The term “block” refers to a matched set of observations across the treatments.
@@ -276,7 +276,7 @@ TukeyHSD(Anova1way)
     -   Variability due to chance or SSE.
 -   In altering the methodology above, the row and column variability take place of the *between-treatment estimate* listed above, which still corresponds to *explained variance*. We still have one *within-treatment estimate* as before, or a measure of *unexplained variance*.
 
-## Steps for Conducting a Two-Way ANOVA
+### Steps for Conducting a Two-Way ANOVA
 
 1.  Write the null and alternate hypotheses for each grouping variable.
 2.  Compute the F-test statistics for each grouping variable.
@@ -287,13 +287,13 @@ TukeyHSD(Anova1way)
 
 -   The steps are the same as a one-way ANOVA listed above, with the exception that now we have 2 grouping variables, so we need 2 F-stats and 2 p-values.
 
-## Statistics in a Two-Way ANOVA Table
+### Statistics in a Two-Way ANOVA Table
 
 -   We add another row to our ANOVA table when we move from a one-way ANOVA to a two-way ANOVA. The goal is the same, which is to produce a F-test statistic. In a two-way ANOVA, we will have two F-test statistics (one for each grouping variable). Each F-test statistic corresponds to a separate p-value that we can interpret the same way as we did in the last lessons (p-value \< alpha = significant result - reject the $H_0$). So we can find one group significant and not the other, neither significant, or both significant with one test.
 
 ![Two Way ANOVA Formulas](Pictures/Ch7/2WayANOVA.PNG "Formulas for Two Way ANOVA")
 
-### Explained Variance
+#### Explained Variance
 
 -   In a two-way ANOVA, we still start by computing the *explained variance*. Since we have an additional grouping variable, or factor, we will have two sum of squares measures, a sum of squares for factor A (SSA) and a sum of squares for factor B (SSB). Factor B is typically called a row (r) factor, while Factor A is typically called a column (c) factor. However, the order of the output will depend on the order of your formula in R.
 
@@ -315,7 +315,7 @@ TukeyHSD(Anova1way)
     -   $MSB = SSB/(r-1)$
     -   $MSA = SSA/(c-1)$
 
-### Unexplained Variance
+#### Unexplained Variance
 
 -   In a two-way ANOVA, there is still only one measure of *unexplained variance*, which we term residual error.
 
@@ -335,18 +335,18 @@ TukeyHSD(Anova1way)
 
 -   There is also a total degrees of freedom in a two-way ANOVA, which is the total number of observations minus 1 ($n_t-1$). We don't see it explicitly in our R output, but it is needed to help understand the full model.
 
-### Calculating F-test Statistics
+#### Calculating F-test Statistics
 
 -   Finally, to calculate the 2 F-test statistics, given a two-way ANOVA, we take both the MSB (explained variability for factor B) and the MSA (explained variability for factor A) and divide both by the MSE (unexplained variability) considering the appropriate degrees of freedom ($c-1$ and $r-1$ and $n_t-c-r+1$).
 -   This gives us two scores to evaluate. A p-value is computed from each F-test statistic mathematically by using the correct command in R.
     -   $F1_{c-1,n_t-c-r+1 }= MSB/MSE$
     -   $F2_{r-1,n_t-c-r+1 }= MSA/MSE$
 
-## Example of a Two-way ANOVA
+### Example of a Two-way ANOVA
 
 -   Let's run an example to compare SAT scores to see if they are comparable from different instructors {Instructor 1, 2, and 3} and across 4 races {Asian.American, Black, Mexican.American, and White}.
 
-### Step 1: Set Up Null and Alternative Hypothesis
+#### Step 1: Set Up Null and Alternative Hypothesis
 
 -   The competing hypotheses for the two-way ANOVA are two-fold:
 
@@ -360,7 +360,7 @@ TukeyHSD(Anova1way)
     -   $H_0: \mu_{Asian.American} = \mu_{Black} = \mu_{Mexical.American} =  \mu_{White}$
     -   $H_A:$ Not all population means of SAT scores are equal among races
 
-### Steps 2 and 3: Compute the F-test Statistics and p-Values
+#### Steps 2 and 3: Compute the F-test Statistics and p-Values
 
 -   Like a one-way ANOVA, in a two-way ANOVA, we start with an appropriate data set.
 
@@ -372,7 +372,7 @@ TukeyHSD(Anova1way)
     summary(SATdata)
     ```
 
-### Steps 4 and 5: Interpret the Probabilities and Write a Conclusion
+#### Steps 4 and 5: Interpret the Probabilities and Write a Conclusion
 
 ```{r}
 Anova2way <- aov(SAT ~ Instructor + Race, data=SATdata) 
@@ -385,7 +385,7 @@ summary(Anova2way)
 
 -   This means that we can conduct post-hoc tests on our Race variable. If we conduct any post-hoc tests on Instructor, we should find no differences in groups (which we already found in the ANOVA results above). This means additional testing the Instructor variable is an unnecessary step.
 
-### Step 6: If Model is Significant, Run Post-Hoc Tests
+#### Step 6: If Model is Significant, Run Post-Hoc Tests
 
 -   Using the pairwise.t.test() command, we can run a Bonferroni test on just race by using the command below. This result suggest that there are group differences between all groups. We can tell that because all p-values are less than alpha at .05.\
 
@@ -400,7 +400,7 @@ pairwise.t.test(SATdata$SAT, SATdata$Race, p.adj="bonf")
 TukeyHSD(Anova2way)
 ```
 
-# choose() command
+## choose() command
 
 -   The Combination function counts the number of ways to choose objects from a total of objects. The order in which the objects are listed does not matter.
 -   Since repetition is not allowed, we use $C(n,x) = (n)!/((n-x!)*x!)$
@@ -430,6 +430,6 @@ choose(4,2)
 choose(3,2)
 ```
 
-# Summary
+## Summary
 
 -   In this section, we learned about Type I and Type II error and the importance of reducing both. We also learned about a one-way ANOVA and a two-way ANOVA, including how to conduct them, and when to evaluate post-hoc tests.

@@ -4,7 +4,7 @@
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
 ```
 
-* The goal of this lesson is to teach you how to summarize descriptive statistics for both quantitative and qualitative data in R. In order to succeed in this lesson, we need to learn how to describe data by understanding the difference between quantitative and qualitative data alongside examining its context. The context of the data gives us important information about how the data was collected, and its intended use. 
+-   The goal of this lesson is to teach you how to summarize descriptive statistics for both quantitative and qualitative data in R. In order to succeed in this lesson, we need to learn how to describe data by understanding the difference between quantitative and qualitative data alongside examining its context. The context of the data gives us important information about how the data was collected, and its intended use.
 
 ```{r tidy=FALSE}
 ####################################
@@ -14,30 +14,29 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ####################################
 ```
 
-## Lesson Objectives
-* Choose and conduct descriptive analyses for categorical (factor) variables.
-* Choose and conduct descriptive analyses for continuous (numeric) variables.
+### Lesson Objectives
 
+-   Choose and conduct descriptive analyses for categorical (factor) variables.
+-   Choose and conduct descriptive analyses for continuous (numeric) variables.
 
-## Consider While Reading
-* In any analysis, it is critically important to understand your data set by evaluating descriptive statistics. For qualitative data, you should know how to calculate frequencies and proportions and make a user-friendly display of results. For quantitative data, you should know what a histogram is and how it is used to describe quantitative data. We also should know how to describe variables by their center and spread of the distribution. 
+### Consider While Reading
 
+-   In any analysis, it is critically important to understand your data set by evaluating descriptive statistics. For qualitative data, you should know how to calculate frequencies and proportions and make a user-friendly display of results. For quantitative data, you should know what a histogram is and how it is used to describe quantitative data. We also should know how to describe variables by their center and spread of the distribution.
 
-# Summarizing Qualitative Data 
-* Qualitative data is information that cannot be easily counted, measured, or easily expressed using numbers. 
-     + Nominal variables: a type of categorical variable that represents discrete categories or groups with no inherent order or ranking
-          + gender (male, female) 
-          + marital status (single, married, divorced) 
-          + eye color (blue, brown, green)
-     + Ordinal variables: categories possess a natural order or ranking
-          + a Likert scale measuring agreement with a statement (e.g., strongly disagree, disagree, neutral, agree, strongly agree)
+## Summarizing Qualitative Data
 
-* A frequency distribution shows the number of observations in each category for a factor or categorical variable.
-* Guidelines when constructing frequency distribution:
-  + Classes or categories are mutually exclusive (they are all unique).
-  + Classes or categories are exhaustive (a full list of categories).
-
-* To calculate frequencies, first, start with a variable that has categorical data. 
+-   Qualitative data is information that cannot be easily counted, measured, or easily expressed using numbers.
+    -   Nominal variables: a type of categorical variable that represents discrete categories or groups with no inherent order or ranking
+        -   gender (male, female)
+        -   marital status (single, married, divorced)
+        -   eye color (blue, brown, green)
+    -   Ordinal variables: categories possess a natural order or ranking
+        -   a Likert scale measuring agreement with a statement (e.g., strongly disagree, disagree, neutral, agree, strongly agree)
+-   A frequency distribution shows the number of observations in each category for a factor or categorical variable.
+-   Guidelines when constructing frequency distribution:
+    -   Classes or categories are mutually exclusive (they are all unique).
+    -   Classes or categories are exhaustive (a full list of categories).
+-   To calculate frequencies, first, start with a variable that has categorical data.
 
 ```{r}
 # Create a vector with some data that could be categorical
@@ -46,8 +45,8 @@ Sample_Vector <- c("A", "B", "A", "C", "A", "B", "A", "C", "A", "B")
 data <- data.frame(Sample_Vector)
 ```
 
-* To count the number of each category value, we can use the table() command. 
-* The output shows a top row of categories and a bottom row that contains the number of observations in the category. 
+-   To count the number of each category value, we can use the table() command.
+-   The output shows a top row of categories and a bottom row that contains the number of observations in the category.
 
 ```{r}
 # Create a table of frequencies
@@ -55,16 +54,17 @@ frequencies <- table(data$Sample_Vector); frequencies
 
 ```
 
-* Relative frequency is how often something happens divided by all outcomes. 
-* The relative frequency is calculated by $f_i/n$, where $f_i$ is the frequency of class $i$ and $n$ is the total frequency.
-* We can use the prop.table() command to calculate relative frequency by dividing each category’s frequency by the sample size.
+-   Relative frequency is how often something happens divided by all outcomes.
+-   The relative frequency is calculated by $f_i/n$, where $f_i$ is the frequency of class $i$ and $n$ is the total frequency.
+-   We can use the prop.table() command to calculate relative frequency by dividing each category’s frequency by the sample size.
+
 ```{r}
 # Calculate proportions
 proportions <- prop.table(frequencies)
 ```
 
-* The cumulative relative frequency is given by $cf_i/n$, where $cf_i$ is the cumulative frequency of class $i$. 
-* The cumsum() function calculates the cumulative distribution of the data
+-   The cumulative relative frequency is given by $cf_i/n$, where $cf_i$ is the cumulative frequency of class $i$.
+-   The cumsum() function calculates the cumulative distribution of the data
 
 ```{r}
 # Calculate cumulative frequencies
@@ -73,8 +73,7 @@ cumulfreq <- cumsum(frequencies)
 cumulproportions<- cumsum(prop.table(frequencies))
 ```
 
-
-* The rbind() function is used to combine multiple data frames or matrices by row. The name "rbind" stands for "row bind". Since the data produced by the table is in rows, we can use rbind to link them together. 
+-   The rbind() function is used to combine multiple data frames or matrices by row. The name "rbind" stands for "row bind". Since the data produced by the table is in rows, we can use rbind to link them together.
 
 ```{r}
 #combine into table
@@ -83,47 +82,56 @@ frequency_table <- rbind(frequencies, proportions, cumulfreq, cumulproportions)
 frequency_table
 
 ```
-* We can transpose a table using the t() command, which flips the dataset. 
+
+-   We can transpose a table using the t() command, which flips the dataset.
+
 ```{r}
 TransposedData <- t(frequency_table)
 TransposedData
 ```
-* Finally, sometimes we need to transform our calculations into a dataset. 
-* The as.data.frame function is used to coerce or convert an object into a data frame
+
+-   Finally, sometimes we need to transform our calculations into a dataset.
+-   The as.data.frame function is used to coerce or convert an object into a data frame
+
 ```{r}
 TransposedData <- as.data.frame(TransposedData)
 TransposedData
 ```
 
+## Summarizing Quantitative Data
 
-# Summarizing Quantitative Data
-## Defining and Calculating Central Tendency 
-* The term central location refers to how numerical data tend to cluster around some middle or central value. 
-* Measures of central location attempt to find a typical or central value that describes a variable.
-* Why frequency distributions do not work for numeric variables:
-  + Numeric variables measured on a continuum.
-  + Instead, we calculate descriptive statistics including central tendency and spread of the values for a numeric variable.
-* We will examine the three mostly widely used measures of central location: mean, median and mode.
-* Then we discuss a percentile: a measure of relative position.
+### Defining and Calculating Central Tendency
 
-### Using the Mean
-* The arithmetic mean or simply the mean is a primary measure of central location. It is often referred to as the average. Simply add up all the observations and divide by the number of observations. 
-* The numerator (top of the fraction) is the sum (sigma) of all the values of x from the first value (i = 1) to the last value (n) divided by the number of values (n). 
+-   The term central location refers to how numerical data tend to cluster around some middle or central value.
+-   Measures of central location attempt to find a typical or central value that describes a variable.
+-   Why frequency distributions do not work for numeric variables:
+    -   Numeric variables measured on a continuum.
+    -   Instead, we calculate descriptive statistics including central tendency and spread of the values for a numeric variable.
+-   We will examine the three mostly widely used measures of central location: mean, median and mode.
+-   Then we discuss a percentile: a measure of relative position.
 
-* $m_x = (\sum_{i=1}^{n} x_{i})/n$
+#### Using the Mean
 
-* Consider the salaries of employees at a company:
-![Salary Data](Pictures/Ch2/Salaries.png "Salary Data")
-* We can use the mean() command to calculate the mean in R. 
+-   The arithmetic mean or simply the mean is a primary measure of central location. It is often referred to as the average. Simply add up all the observations and divide by the number of observations.
+
+-   The numerator (top of the fraction) is the sum (sigma) of all the values of x from the first value (i = 1) to the last value (n) divided by the number of values (n).
+
+-   $m_x = (\sum_{i=1}^{n} x_{i})/n$
+
+-   Consider the salaries of employees at a company: ![Salary Data](Pictures/Ch2/Salaries.png "Salary Data")
+
+-   We can use the mean() command to calculate the mean in R.
+
 ```{r}
 # Create Vector of Salaries
 salaries <- c(40000, 40000, 65000, 90000, 145000, 150000, 550000)
 #Calculate the mean using the mean() command
 mean(salaries)
 ```
-* Note that due to at least one _outlier_ this mean does not reflect the typical salary - more on that later. 
-* If we edit our vector to include NAs, we have to account for this. This is a common way to handle NAs in functions that do not allow for them. 
- 
+
+-   Note that due to at least one *outlier* this mean does not reflect the typical salary - more on that later.
+-   If we edit our vector to include NAs, we have to account for this. This is a common way to handle NAs in functions that do not allow for them.
+
 ```{r}
 salaries2 <- c(40000, 40000, 65000, 90000, 145000, 150000, 550000, NA, NA)
 #Calculate the mean using the mean() command
@@ -133,9 +141,10 @@ mean(salaries2)
 mean(salaries2, na.rm=TRUE)
 ```
 
-* Note that there are other types of means like the weighted mean or the geometric mean.  
-* The weighted mean uses weights to determine the importance of each data point of a variable. It is calculated by $\bar{x}_w = \frac{\sum_{i=1}^{n} w_i x_i}{\sum_{i=1}^{n} w_i}$, where are the weights associated to the values. 
-* An example is below. 
+-   Note that there are other types of means like the weighted mean or the geometric mean.\
+-   The weighted mean uses weights to determine the importance of each data point of a variable. It is calculated by $\bar{x}_w = \frac{\sum_{i=1}^{n} w_i x_i}{\sum_{i=1}^{n} w_i}$, where are the weights associated to the values.
+-   An example is below.
+
 ```{r}
 values <- c(4, 7, 10, 5, 6)
 weights <- c(1, 2, 3, 4, 5)
@@ -143,30 +152,35 @@ weighted_mean <- weighted.mean(values, weights)
 weighted_mean
 ```
 
+#### Using the Median
 
+-   The median is another measure of central location that is not affected by outliers.
+-   When the data are arranged in ascending order, the median is:
+    -   The middle value if the number of observations is odd, or
+    -   The average of the two middle values if the number of observations is even.
+-   Consider the sorted salaries of employees presented earlier which contains an odd number of observations.\
+-   On the same salaries vector created above, use median() command to calculate the median in R.
 
-### Using the Median
-* The median is another measure of central location that is not affected by outliers.
-* When the data are arranged in ascending order, the median is:
-  + The middle value if the number of observations is odd, or
-  + The average of the two middle values if the number of observations is even.
-* Consider the sorted salaries of employees presented earlier which contains an odd number of observations.  
-* On the same salaries vector created above, use median() command to calculate the median in R. 
 ```{r}
 # Calculate the median using the median() command
 median(salaries)
 ```
-* Now compare to the mean and note the large difference in numbers signifying that at least one outlier is most likely present.
-* Specifically, if the mean and median are different, it is likely the variable is skewed and contains outliers.
+
+-   Now compare to the mean and note the large difference in numbers signifying that at least one outlier is most likely present.
+-   Specifically, if the mean and median are different, it is likely the variable is skewed and contains outliers.
+
 ```{r}
 mean(salaries)
 ```
 
-* For another example, consider the sorted data below that contains an even number of values.
+-   For another example, consider the sorted data below that contains an even number of values.
+
 ```{r}
 GrowthFund <- c(-38.32, 1.71, 3.17, 5.99, 12.56, 13.47, 16.89, 16.96, 32.16, 36.29)
 ```
-* When data contains an even number of values, the median is the average of the 2 sorted middle numbers (12.56 and 13.47).
+
+-   When data contains an even number of values, the median is the average of the 2 sorted middle numbers (12.56 and 13.47).
+
 ```{r}
 median(GrowthFund) 
 (12.56+13.47)/2
@@ -175,116 +189,139 @@ median(GrowthFund)
 mean(GrowthFund) 
 ```
 
-### Using the Mode
-* The mode is another measure of central location.
-* The mode is the most frequently occurring value in a data set.
-* The mode is useful in summarizing categorical data.
-* A data set can have no mode, one mode (unimodal), two modes (bimodal) or many modes (multimodal).
-* The mode is less useful when there are more than three modes.
-* The mode is useful summary for a categorical variable.
+#### Using the Mode
 
-#### Example of Function with Salary Variable 
-* Consider the salary of employees presented earlier. The mode is $40,000 since this value appears most often.
+-   The mode is another measure of central location.
+-   The mode is the most frequently occurring value in a data set.
+-   The mode is useful in summarizing categorical data.
+-   A data set can have no mode, one mode (unimodal), two modes (bimodal) or many modes (multimodal).
+-   The mode is less useful when there are more than three modes.
+-   The mode is useful summary for a categorical variable.
+
+#### Example of Function with Salary Variable
+
+-   Consider the salary of employees presented earlier. The mode is \$40,000 since this value appears most often.
+
 ```{r}
 # Try this command with and without it. 
 names(sort(x = table(salaries), decreasing = TRUE))
 
 ```
-* 40,000 appears 2 times and is the mode because that occurs most often.
+
+-   40,000 appears 2 times and is the mode because that occurs most often.
 
 #### Finding No Mode
-* Look at the sort(table()) commands with the GrowthFund Vector we made earlier. 
-* I added a [1:3] at the end of the statement to produce the 3 highest frequencies found in the vector. 
+
+-   Look at the sort(table()) commands with the GrowthFund Vector we made earlier.
+-   I added a \[1:3\] at the end of the statement to produce the 3 highest frequencies found in the vector.
 
 ```{r}
 sort(table(GrowthFund), decreasing = TRUE)[1:3]
 ```
-* Even if you use this command, you still need to evaluate the data more systematically to verify the mode. If the highest frequency of the sorted table is 1, then there is no mode. 
 
+-   Even if you use this command, you still need to evaluate the data more systematically to verify the mode. If the highest frequency of the sorted table is 1, then there is no mode.
 
-# Defining and Calculating Spread
-* Spread is a measure of distance values are from the central value. 
-* Each measure of central tendency has one or more corresponding measures of spread.
-* Mean: use variance or standard deviation to measure spread.
-     + skewness and kurtosis help measure spread as well. 
-* Median: use range or interquartile range (IQR) to measure spread.
-* Mode: use the index of qualitative variation to measure spread.
-  + Not formally testing here with a function.
+## Defining and Calculating Spread
 
-## Spread to Report with the Mean
+-   Spread is a measure of distance values are from the central value.
+-   Each measure of central tendency has one or more corresponding measures of spread.
+-   Mean: use variance or standard deviation to measure spread.
+    -   skewness and kurtosis help measure spread as well.
+-   Median: use range or interquartile range (IQR) to measure spread.
+-   Mode: use the index of qualitative variation to measure spread.
+    -   Not formally testing here with a function.
 
-### Evaluating Skewness
-* Skewness is a measure of the extent to which a distribution is skewed.
-* Can evaluate skewness visually with histogram.
-  + A histogram is a visual representation of a frequency or a relative frequency distribution.
-  + Bar height represents the respective class frequency (or relative frequency).
-  + Bar width represents the class width.
+### Spread to Report with the Mean
+
+#### Evaluating Skewness
+
+-   Skewness is a measure of the extent to which a distribution is skewed.
+-   Can evaluate skewness visually with histogram.
+    -   A histogram is a visual representation of a frequency or a relative frequency distribution.
+    -   Bar height represents the respective class frequency (or relative frequency).
+    -   Bar width represents the class width.
 
 ![Evaluating Skewness Visually](Pictures/Ch2/Skewness.png "Evaluating Skewness Visually")
 
-### Skewed Distributions: Median Not Same as Mean
-* Sometimes, a histogram is difficult to tell if skewness is present or if the data is relatively normal or symmetric. 
-* If Mean is less than Median and Mode, then the variable is Left-Skewed.
-* If the Mean is greater than the Median and Mode, then the variable is Right-Skewed. 
-* If the Mean is about equal to the Median and Mode, then the variable has a symmetric distribution. 
-* In R, we can easily look at mean and median with the summary() command. 
- 
+#### Skewed Distributions: Median Not Same as Mean
+
+-   Sometimes, a histogram is difficult to tell if skewness is present or if the data is relatively normal or symmetric.
+-   If Mean is less than Median and Mode, then the variable is Left-Skewed.
+-   If the Mean is greater than the Median and Mode, then the variable is Right-Skewed.
+-   If the Mean is about equal to the Median and Mode, then the variable has a symmetric distribution.
+-   In R, we can easily look at mean and median with the summary() command.
+
 ![Evaluating Skewness Using Mean and Median](Pictures/Ch2/SkewMeanMedian.png "Evaluating Skewness Using Mean and Median")
 
-* Mean is great when data are normally distributed (data is not skewed).
-* Mean is not a good representation of skewed data where outliers are present.
-  + Adding together a set of values that includes a few very large or very small values like those on the far left of a left-skewed distribution or the far right of the right-skewed distribution will result in a large or small total value in the numerator of Equation and therefore the mean will be a large or small value relative to the actual middle of the data.
-  
-### Using skew() Command in R
-* The skew() command is from the semTools package. The install.packages() command is commented out below, but install it one time on your R before commenting it out. 
+-   Mean is great when data are normally distributed (data is not skewed).
+-   Mean is not a good representation of skewed data where outliers are present.
+    -   Adding together a set of values that includes a few very large or very small values like those on the far left of a left-skewed distribution or the far right of the right-skewed distribution will result in a large or small total value in the numerator of Equation and therefore the mean will be a large or small value relative to the actual middle of the data.
+
+#### Using skew() Command in R
+
+-   The skew() command is from the semTools package. The install.packages() command is commented out below, but install it one time on your R before commenting it out.
+
 ```{r, message=FALSE}
 # install the semTools package if necessary. 
 # install.packages("semTools")
 # Activate the library
 library(semTools)
 ```
-* After the package is installed and loaded, run the skew() command on the salaries vector made above. 
+
+-   After the package is installed and loaded, run the skew() command on the salaries vector made above.
+
 ```{r}
 
 skew(salaries) 
 
 ```
 
-### Interpreting the skew() Command Results
-  + se = standard error
-  + z = skew/se
-  + If the sample size is small (n < 50), z values outside the –2 to 2 range are a problem.
-  + If the sample size is between 50 and 300, z values outside the –3.29 to 3.29 range are a problem. 
-  + For large samples (n > 300), using a visual is recommended over the statistics, but generally z values outside the range of –7 to 7 can be considered problematic.
+#### Interpreting the skew() Command Results
 
-* Salary: Our sample size was small, <50, so the z value of 2.496 in regards to the salary vector indicates there is a problem with skewness. 
+-   se = standard error
 
-* GrowthFund: We can check the skew of GrowthFund. 
+-   z = skew/se
+
+-   If the sample size is small (n \< 50), z values outside the –2 to 2 range are a problem.
+
+-   If the sample size is between 50 and 300, z values outside the –3.29 to 3.29 range are a problem.
+
+-   For large samples (n \> 300), using a visual is recommended over the statistics, but generally z values outside the range of –7 to 7 can be considered problematic.
+
+-   Salary: Our sample size was small, \<50, so the z value of 2.496 in regards to the salary vector indicates there is a problem with skewness.
+
+-   GrowthFund: We can check the skew of GrowthFund.
+
 ```{r}
 skew(GrowthFund)
 ```
-* GrowthFund was also considered a small sample size, so the same -2/2 thresholds are used. Here, our z value is -1.78250137, which is in normal range. This indicates there is no problem with skewness.  
 
-## Histograms
-* A histogram is a graphical representation of the distribution of numerical data. 
-* It consists of a series of contiguous rectangles, or bars, where the area of each bar corresponds to the frequency of observations within a particular range or bin of values. 
-* The x-axis typically represents the range of values being measured, while the y-axis represents the frequency or count of observations falling within each range. 
-* Histograms are commonly used in statistics and data analysis to visualize the distribution of a dataset and identify patterns or trends. 
-* They are particularly useful for understanding the central tendency, variability, and shape of the data distribution - this includes our observation of skewness.
-* Works much better with larger datsets.
+-   GrowthFund was also considered a small sample size, so the same -2/2 thresholds are used. Here, our z value is -1.78250137, which is in normal range. This indicates there is no problem with skewness.
 
-### Commands to Make a Histogram
-* hist() command in base R.
-* geom_histogram() command in ggplot2 package.
+### Histograms
 
-* a hist using the GrowthFund dataset does not look that great because its sample size is so small. 
+-   A histogram is a graphical representation of the distribution of numerical data.
+-   It consists of a series of contiguous rectangles, or bars, where the area of each bar corresponds to the frequency of observations within a particular range or bin of values.
+-   The x-axis typically represents the range of values being measured, while the y-axis represents the frequency or count of observations falling within each range.
+-   Histograms are commonly used in statistics and data analysis to visualize the distribution of a dataset and identify patterns or trends.
+-   They are particularly useful for understanding the central tendency, variability, and shape of the data distribution - this includes our observation of skewness.
+-   Works much better with larger datsets.
+
+#### Commands to Make a Histogram
+
+-   hist() command in base R.
+
+-   geom_histogram() command in ggplot2 package.
+
+-   a hist using the GrowthFund dataset does not look that great because its sample size is so small.
+
 ```{r}
 hist(GrowthFund)
 ```
 
+#### hist vs geom_histogram
 
-### hist vs geom_histogram
-* In R, hist() and geom_histogram() are both used to create histograms, but they belong to different packages and have slightly different functionalities.
+-   In R, hist() and geom_histogram() are both used to create histograms, but they belong to different packages and have slightly different functionalities.
 
 ```{r}
 # Making an appropriate data.frame to use the hist() command
@@ -292,7 +329,7 @@ HousePrice <- c(430, 520, 460, 475, 670, 521, 670, 417, 533, 525, 538, 370, 530,
 HousePrice <- data.frame(HousePrice)
 ```
 
-* hist(): This function is from the base R graphics package and is used to create histograms. It provides a simple way to visualize the distribution of a single variable.
+-   hist(): This function is from the base R graphics package and is used to create histograms. It provides a simple way to visualize the distribution of a single variable.
 
 ```{r, fig.alt = "Histogram Generated by R"}
 # Using base R to create the histogram. 
@@ -303,35 +340,36 @@ hist(HousePrice$HousePrice, breaks=5, main = "A Histogram", xlab = "House Prices
 library(tidyverse)
 ```
 
-* geom_histogram(): This function is from the ggplot2 package, which is part of the tidyverse. It is used to create histograms as part of a more flexible and powerful plotting system.
+-   geom_histogram(): This function is from the ggplot2 package, which is part of the tidyverse. It is used to create histograms as part of a more flexible and powerful plotting system.
 
 ```{r, fig.alt = "Histogram Generated by R Using ggplot2"}
 # Using geom_histogram() command to create the histogram. 
 ggplot(HousePrice, aes(x=HousePrice))+geom_histogram(binwidth = 100, boundary= 300, color="black", fill="yellow")+ labs(title="A Histogram",x="House Prices (in $1,000s)", y = "Frequency")
 ```
 
-* We could add more parameters here to make the 2 histograms look identical, but this configuration of parameters is very close. Take note that there are a lot more parameters you can add to the geom_histogram() command than you can with base R to make it look more professional. Be sure to look them up and also check with the notes in the book, which focuses on geom_histogram instead of hist().  
+-   We could add more parameters here to make the 2 histograms look identical, but this configuration of parameters is very close. Take note that there are a lot more parameters you can add to the geom_histogram() command than you can with base R to make it look more professional. Be sure to look them up and also check with the notes in the book, which focuses on geom_histogram instead of hist().
 
+-   Variance is a measure of spread for numeric variables that is essentially the average of the squared differences between each observation value on some variable and the mean for that variable with population variance. $$Population Var(X) = \sigma^2 = \sum{(x_i-\mu)^2}/N$$ $$Sample Var(x) = s^2 = \sum{(x_i-\bar{x})^2}/(n-1)$$
 
-* Variance is a measure of spread for numeric variables that is essentially the average of the squared differences between each observation value on some variable and the mean for that variable with population variance.
-  $$Population Var(X) = \sigma^2 = \sum{(x_i-\mu)^2}/N$$
-  $$Sample Var(x) = s^2 = \sum{(x_i-\bar{x})^2}/(n-1)$$
-* Standard deviation is the square root of the variance.
-  + Use var() command and sd() command to calculate sample variance and sample standard deviation.  
-```{r}
-##Calculated from Small Sample
-x <- c(1,2,3,4,5)
-sum((x-mean(x))^2/(5-1))
-var(x)
-sqrt(var(x))
-sd(x)
+-   Standard deviation is the square root of the variance.
 
-sd(HousePrice$HousePrice)
-var(HousePrice$HousePrice)
+    -   Use var() command and sd() command to calculate sample variance and sample standard deviation.\
 
-```
+    ```{r}
+    ##Calculated from Small Sample
+    x <- c(1,2,3,4,5)
+    sum((x-mean(x))^2/(5-1))
+    var(x)
+    sqrt(var(x))
+    sd(x)
 
-* Looking at Spread for a Larger Dataset
+    sd(HousePrice$HousePrice)
+    var(HousePrice$HousePrice)
+
+    ```
+
+-   Looking at Spread for a Larger Dataset
+
 ```{r}
 
 customers <- read.csv("data/customers.csv")
@@ -341,18 +379,19 @@ sd(customers$Spending, na.rm=TRUE)
 var(customers$Spending, na.rm=TRUE)
 ```
 
-### Kurtosis in Evaluating Mean Spread
-* Kurtosis is the sharpness of the peak of a frequency-distribution curve or more formally a measure of how many observations are in the tails of a distribution.
-* A normal distribution will have a kurtosis value of three; 
-  + Distributions with kurtosis around 3 are described as mesokurtic. 
-  + If kurtosis is significantly above or below 3, there is excess kurtosis.
-    + Values of kurtosis significantly above 3 indicate the distribution is leptokurtic, with fewer observations in the tails than a normal distribution (the fewer observations in the tails often give a distribution a pointy look). 
-    + Values of kurtosis significantly below 3 indicate the distribution is platykurtic, with more observations in the tails than a normal distribution would have given the mean, standard deviation, and sample size.
-  + Uses kurtosis() command from the semTools package.
+#### Kurtosis in Evaluating Mean Spread
+
+-   Kurtosis is the sharpness of the peak of a frequency-distribution curve or more formally a measure of how many observations are in the tails of a distribution.
+-   A normal distribution will have a kurtosis value of three;
+    -   Distributions with kurtosis around 3 are described as mesokurtic.
+    -   If kurtosis is significantly above or below 3, there is excess kurtosis.
+        -   Values of kurtosis significantly above 3 indicate the distribution is leptokurtic, with fewer observations in the tails than a normal distribution (the fewer observations in the tails often give a distribution a pointy look).
+        -   Values of kurtosis significantly below 3 indicate the distribution is platykurtic, with more observations in the tails than a normal distribution would have given the mean, standard deviation, and sample size.
+    -   Uses kurtosis() command from the semTools package.
 
 ![Evaluate Kurtosis](Pictures/Ch2/Kurtosis.png "Evaluate Kurtosis")
 
-* The kurtosis() command subtracts 3 from the kurtosis, so positive values will be indicative to a leptokurtic distribution and negative will indicate a platykurtic distribution. To see if kurtosis (leptokurtic or platykurtic) is significant, we confirm them by first evaluating the z-score to see if the variable is normal or not. The same cutoff values from skew also apply for the z for small, medium, and large sample sizes in kurtosis. These are the same basic rules for the rules in judging skewness. 
+-   The kurtosis() command subtracts 3 from the kurtosis, so positive values will be indicative to a leptokurtic distribution and negative will indicate a platykurtic distribution. To see if kurtosis (leptokurtic or platykurtic) is significant, we confirm them by first evaluating the z-score to see if the variable is normal or not. The same cutoff values from skew also apply for the z for small, medium, and large sample sizes in kurtosis. These are the same basic rules for the rules in judging skewness.
 
 ```{r}
 # z-value is 3.0398, which is > 2 indicating leptokurtic
@@ -369,13 +408,13 @@ skew(HousePrice$HousePrice) #normal
 kurtosis(HousePrice$HousePrice) #normal
 ```
 
-* The rules of determining problematic distributions with regards to kurtosis are below. 
-  + If the sample size is small (n < 50), z values outside the –2 to 2 range are a problem.
-  + If the sample size is between 50 and 300, z values outside the –3.29 to 3.29 range are a problem. 
-  + For large samples (n > 300), using a visual is recommended over the statistics, but generally z values outside the range of –7 to 7 can be considered problematic.
-  + If kurtosis is found, then evaluate the excess kur score to see if it is positive or negative to determine whether it is leptokurtic or platykurtic. 
+-   The rules of determining problematic distributions with regards to kurtosis are below.
+    -   If the sample size is small (n \< 50), z values outside the –2 to 2 range are a problem.
+    -   If the sample size is between 50 and 300, z values outside the –3.29 to 3.29 range are a problem.
+    -   For large samples (n \> 300), using a visual is recommended over the statistics, but generally z values outside the range of –7 to 7 can be considered problematic.
+    -   If kurtosis is found, then evaluate the excess kur score to see if it is positive or negative to determine whether it is leptokurtic or platykurtic.
+-   Let's do a few more examples using the customers dataset.
 
-* Let's do a few more examples using the customers dataset. 
 ```{r}
 # Noted sample size at 200 observations or a medium sample size. Using threshold –3.29 to 3.29 to assess normality. 
 
@@ -394,25 +433,29 @@ kurtosis(customers$HHSize)
 kurtosis(customers$Orders) 
 ```
 
-  
-## Spread to Report with the Median
-* Range = Maximum Value – Minimum Value.
-    + Simplest measure.
-    + Focuses on Extreme values.
-    + Use commands diff(range()) or max() – min().
-* IQR: Difference between the first and third quartiles.
-    + Use IQR() command or quantile() command.
-```{r}
-summary(customers$Spending, na.rm=TRUE)
-diff(range(customers$Spending, na.rm=TRUE))
-max(customers$Spending, na.rm=TRUE)-min(customers$Spending, na.rm=TRUE)
-IQR(customers$Spending, na.rm=TRUE)
-```
+### Spread to Report with the Median
 
-## Spread to Report with the Mode
-* While there is no great function to test for spread, you can look at the data and see if it is concentrated around 1 or 2 frequencies. If it is, then the spread is distorted towards those high frequency values. 
+-   Range = Maximum Value – Minimum Value.
 
-# Summary
-* In this lesson, we worked through descriptive statistics including skewness and kurtosis. We learned about variables and scales of measurement, how to summarize qualitative and quantitative data. 
+    -   Simplest measure.
+    -   Focuses on Extreme values.
+    -   Use commands diff(range()) or max() – min().
 
+-   IQR: Difference between the first and third quartiles.
 
+    -   Use IQR() command or quantile() command.
+
+    ```{r}
+    summary(customers$Spending, na.rm=TRUE)
+    diff(range(customers$Spending, na.rm=TRUE))
+    max(customers$Spending, na.rm=TRUE)-min(customers$Spending, na.rm=TRUE)
+    IQR(customers$Spending, na.rm=TRUE)
+    ```
+
+### Spread to Report with the Mode
+
+-   While there is no great function to test for spread, you can look at the data and see if it is concentrated around 1 or 2 frequencies. If it is, then the spread is distorted towards those high frequency values.
+
+## Summary
+
+-   In this lesson, we worked through descriptive statistics including skewness and kurtosis. We learned about variables and scales of measurement, how to summarize qualitative and quantitative data.

@@ -1,17 +1,12 @@
 
-h1 {
-  color: darkblue;
-}
-
-
 body{margin:0px 0px;padding:0px; font-size:12pt;
         font-family:Lato, Arial, sans-serif;
         background-color:white;color:#3E3E3E}
     
-h1{color:#183028;background-color:ghostwhite; font-variant: small-caps;font-size:120%;line-height:.8; border:1px solid #B9975B;padding: 10px;}
-h2{color:#00313C;font-size:115%;line-height:.6; border:1px solid #B9975B;padding: 10px;}
-h3{font-size: 1.10em; background-color:#5B6770;margin-left:10px;color:ghostwhite; border:1px solid #B9975B; padding:10px;}
-h4{font-size: 1.05em; background-color:#84344E;color:ghostwhite; margin-left:25px;border:1px solid #B9975B;}
+h1, h2{color:#183028;background-color:ghostwhite; font-variant: small-caps;font-size:120%;line-height:.8; border:1px solid #B9975B;padding: 10px;}
+h3{color:#00313C;font-size:115%;line-height:.6; border:1px solid #B9975B;padding: 10px;}
+h4{font-size: 1.10em; background-color:#5B6770;margin-left:10px;color:ghostwhite; border:1px solid #B9975B; padding:10px;}
+h5{font-size: 1.05em; background-color:#84344E;color:ghostwhite; margin-left:25px;border:1px solid #B9975B;}
 
 .sourceCode pre{font-size:.9em;
     padding:5px; 
@@ -69,5 +64,5 @@ pre code{font-size:.7em;
 span.co { color:red; display:block; word-wrap: break-word; line-height: 1em}
 
 p.caption{text-align: center;font-size:.7em;}
-.figcaption{text-align: center}
+figcaption{text-align: center}
 a {color:#3E3E3E;}

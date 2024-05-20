@@ -4,7 +4,7 @@
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
 ```
 
-* The main goal of this section is to understand and conduct regression analysis interpret its results. In doing so, we will learn about the regression model and its components, including how to compute the slope and intercept for a simple linear regression, and the multiple slopes and intercept for a multiple linear regression. Finally, we will learn how to interpret the regression output from R.
+-   The main goal of this section is to understand and conduct regression analysis interpret its results. In doing so, we will learn about the regression model and its components, including how to compute the slope and intercept for a simple linear regression, and the multiple slopes and intercept for a multiple linear regression. Finally, we will learn how to interpret the regression output from R.
 
 ```{r tidy=FALSE}
 ####################################
@@ -15,147 +15,165 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ####################################
 ```
 
-## At a Glance
-* In order to succeed at this lesson, you will use a statistical model, called linear regression, that helps us understand an outcome variable and also allows us to make predictions for future instances, or the next occurrence. A linear regression model is quite commonly used in many fields and is often the foundation for future more advanced analysis like machine learning. Linear regression can be a fairly easy way to design and test a research model, and in doing so allows us to gauge helpful predictor variables in understanding a phenomenon. Not only can we understand a research model, but we can also make stronger predictions on the future.
+### At a Glance
 
-## Lesson Objectives
-* Explore the statistical model for a line.
-* Compute the slope and intercept in a simple linear regression.
-* Interpret a regression model significance and model fit. 
+-   In order to succeed at this lesson, you will use a statistical model, called linear regression, that helps us understand an outcome variable and also allows us to make predictions for future instances, or the next occurrence. A linear regression model is quite commonly used in many fields and is often the foundation for future more advanced analysis like machine learning. Linear regression can be a fairly easy way to design and test a research model, and in doing so allows us to gauge helpful predictor variables in understanding a phenomenon. Not only can we understand a research model, but we can also make stronger predictions on the future.
 
-## Consider While Reading
-* This lesson allows us to look at inference for correlation and inference for regression analysis. Where an ANOVA is mostly concerned about differences between means of categorical data, linear regression is mostly concerned about correctly estimating response or prediction while also forming a regression line. We will learn how to conduct a single and multiple linear regression test. This will close the loop on scatterplots, which we learned in the data visualization lesson to help us describe visually a relationship between variables. Consider what we learned and perhaps revisit the scatterplot lecture notes to then determine how visualizations can help in making inferences alongside regression and correlation results.
+### Lesson Objectives
 
-# The Linear Regression Model
+-   Explore the statistical model for a line.
+-   Compute the slope and intercept in a simple linear regression.
+-   Interpret a regression model significance and model fit.
 
-## Overview of the Linear Regression
-* Linear regression analysis is a predictive modelling technique used for building mathematical and statistical models that characterize relationships between a dependent (continuous) variable and one or more independent, or explanatory variables (continuous or categorical), all of which are numerical.
-* This technique is useful in forecasting, time series modelling, and finding the causal effect between variables. 
-* Simple linear regression involves one _explanatory variable_ and one _response variable_.
-  + Explanatory variable: The variable used to explain the dependent variable, usually denoted by X. Also known as an independent variable or a predictor variable.
-  + Response variable: The variable we wish to explain, usually denoted by Y. Also known as a dependent variable or outcome variable.
-* Multiple linear regression involves two or more _explanatory_ variables, while still only one _response_ variable.
+### Consider While Reading
 
-## Estimating Using a Simple Linear Regression Model
-  + While the correlation coefficient may establish a linear relationship, it does not suggest that one variable _causes_ the other.
-  + With regression analysis, we explicitly assume that the response variable is influenced by other explanatory variables.
-  + Using regression analysis, we may _predict_ the response variable given values for our explanatory variables.
+-   This lesson allows us to look at inference for correlation and inference for regression analysis. Where an ANOVA is mostly concerned about differences between means of categorical data, linear regression is mostly concerned about correctly estimating response or prediction while also forming a regression line. We will learn how to conduct a single and multiple linear regression test. This will close the loop on scatterplots, which we learned in the data visualization lesson to help us describe visually a relationship between variables. Consider what we learned and perhaps revisit the scatterplot lecture notes to then determine how visualizations can help in making inferences alongside regression and correlation results.
 
-## Inexact Relationships
-* If the value of the response variable is uniquely determined by the values of the explanatory variables, we say that the relationship is deterministic.
-  + But if, as we find in most fields of research, that the relationship is inexact due to omission of relevant factors, we say that the relationship is inexact.
-  + In regression analysis, we include a stochastic error term, that acknowledges that the actual relationship between the response and explanatory variables is not deterministic.
+## The Linear Regression Model
 
-## Regression as ANOVA
-* ANOVA conducts an F - test to determine whether variation in Y is due to varying levels of X.
-* ANOVA is used to test for significance of regression:
-  + $H_0$: population slope  coefficient $\beta_1$ $=$ 0
-  + $H_A$: population slope coefficient $\beta_1$ $\neq$ 0
-* R reports the p-value (Significant F).
-* Rejecting $H_0$ indicates that X explains variation in Y.
+### Overview of the Linear Regression
+
+-   Linear regression analysis is a predictive modelling technique used for building mathematical and statistical models that characterize relationships between a dependent (continuous) variable and one or more independent, or explanatory variables (continuous or categorical), all of which are numerical.
+-   This technique is useful in forecasting, time series modelling, and finding the causal effect between variables.
+-   Simple linear regression involves one *explanatory variable* and one *response variable*.
+    -   Explanatory variable: The variable used to explain the dependent variable, usually denoted by X. Also known as an independent variable or a predictor variable.
+    -   Response variable: The variable we wish to explain, usually denoted by Y. Also known as a dependent variable or outcome variable.
+-   Multiple linear regression involves two or more *explanatory* variables, while still only one *response* variable.
+
+### Estimating Using a Simple Linear Regression Model
+
+-   While the correlation coefficient may establish a linear relationship, it does not suggest that one variable *causes* the other.
+-   With regression analysis, we explicitly assume that the response variable is influenced by other explanatory variables.
+-   Using regression analysis, we may *predict* the response variable given values for our explanatory variables.
+
+### Inexact Relationships
+
+-   If the value of the response variable is uniquely determined by the values of the explanatory variables, we say that the relationship is deterministic.
+    -   But if, as we find in most fields of research, that the relationship is inexact due to omission of relevant factors, we say that the relationship is inexact.
+    -   In regression analysis, we include a stochastic error term, that acknowledges that the actual relationship between the response and explanatory variables is not deterministic.
+
+### Regression as ANOVA
+
+-   ANOVA conducts an F - test to determine whether variation in Y is due to varying levels of X.
+-   ANOVA is used to test for significance of regression:
+    -   $H_0$: population slope coefficient $\beta_1$ $=$ 0
+    -   $H_A$: population slope coefficient $\beta_1$ $\neq$ 0
+-   R reports the p-value (Significant F).
+-   Rejecting $H_0$ indicates that X explains variation in Y.
 
 ![Linear Regression Models](Pictures/Ch9/LinearReg.png "Linear Regression Models")
 
-## The Simple Linear Regression Model
-* The simple linear regression model is defined as $y= \beta_0+\beta_1 𝑥+\varepsilon_1$, where $y$ and $x$ are the response and explanatory variables, respectively and $\varepsilon_1$ is the random error term. $\beta_0$ and $\beta_1$ are the unknown parameters to be estimated. 
-* Sometimes, this equation can be represented using different variable names like $y=mx+b$ This is the same equation as above, but different notation. 
-* By fitting our data to the model, we obtain the equation $\hat{y} = b_0 + b_1*x$, where $\hat{y}$ is the estimated response variable, $b_0$ is the estimate of $\beta_0$ (Intercept) and $b_1$ is the estimate of $\beta_1$ (Slope).
-* Since the predictions cannot be totally accurate, the difference between the predicted and actual value represents the residual $e=y-\hat{y}$.
+### The Simple Linear Regression Model
+
+-   The simple linear regression model is defined as $y= \beta_0+\beta_1 𝑥+\varepsilon_1$, where $y$ and $x$ are the response and explanatory variables, respectively and $\varepsilon_1$ is the random error term. $\beta_0$ and $\beta_1$ are the unknown parameters to be estimated.
+-   Sometimes, this equation can be represented using different variable names like $y=mx+b$ This is the same equation as above, but different notation.
+-   By fitting our data to the model, we obtain the equation $\hat{y} = b_0 + b_1*x$, where $\hat{y}$ is the estimated response variable, $b_0$ is the estimate of $\beta_0$ (Intercept) and $b_1$ is the estimate of $\beta_1$ (Slope).
+-   Since the predictions cannot be totally accurate, the difference between the predicted and actual value represents the residual $e=y-\hat{y}$.
 
 ![Regression Equation](Pictures/Ch9/RegressEquation.png "Regression Equation")
 
-## The Least Squares Estimates
+### The Least Squares Estimates
 
-* The two parameters $\beta_0$ and $\beta_1$ are estimated by minimizing the sum of squared residuals. 
-  + The slope coefficient $\beta_1$ is estimated as $b_1 = \sum(x_i-\bar{x}*y_i-\bar{y})/\sum(x_i-\bar{x})^2$
-  + The intercept parameter $\beta_0$ is estimated as $b_0 = \hat{y}-b_1*\bar{x}$
-  + And we use this information to make the regression equation given the formula above: $\hat{y} = b_0 + b_1*x$,
-  
-## Goodness of Fit
-* Goodness of fit refers to how well the data fit the regression line. I will introduce three measures to judge how well the sample regression fits the data.
-  1. Standard Error of the Estimate
-  2. The Coefficient of Determination ($R^2$)
-  3. The Adjusted $R^2$
+-   The two parameters $\beta_0$ and $\beta_1$ are estimated by minimizing the sum of squared residuals.
+    -   The slope coefficient $\beta_1$ is estimated as $b_1 = \sum(x_i-\bar{x}*y_i-\bar{y})/\sum(x_i-\bar{x})^2$
+    -   The intercept parameter $\beta_0$ is estimated as $b_0 = \hat{y}-b_1*\bar{x}$
+    -   And we use this information to make the regression equation given the formula above: $\hat{y} = b_0 + b_1*x$,
 
-* In order to make sense of the goodness of fit measures, we need to go back to the idea of explained and unexplained variance we learned in Chapter 7. Variance can also be known as a difference.  
-* Unexplained Variance = SSE or Sum of Squares Error: This equals the sum of squared difference between A and B, or between the sum of squares of the difference between observation ($y_i$) and our predicted value of y ($\hat{y}$). 
-  + $SSE = \sum^n_{i=1}(y_i - \hat{y})^2$
-* Explained Variance = SSR or Sum of Squares Regression: This equals the sum of squared difference between B and C, or between the sum of squares of the difference between our predicted value ($\hat{y}$) and the mean of y ($\bar{y}$). 
-  + $SSR = \sum^n_{i=1}(\hat{y} - \bar{y})^2$
-* Total Variance = SST or Total Sum of Squares: This equals the sum of squared difference between A and C, or between the sum of squares of the difference between observation ($y_i$) and the mean of y ($\bar{y}$).
-  + The SST can be broken down into two components: the variation explained by the regression equation (the regression sum of squares or SSR) and the unexplained variation (the error sum of squares or SSE).
-  + $SST = \sum^n_{i=1}(y_i - \bar{y})^2$
+### Goodness of Fit
 
-![Visualization of Sum of Squares (SS) ](Pictures/Ch9/SS.png "Visualization of Sum of Squares")
+-   Goodness of fit refers to how well the data fit the regression line. I will introduce three measures to judge how well the sample regression fits the data.
+    1.  Standard Error of the Estimate
+    2.  The Coefficient of Determination ($R^2$)
+    3.  The Adjusted $R^2$
+-   In order to make sense of the goodness of fit measures, we need to go back to the idea of explained and unexplained variance we learned in Chapter 7. Variance can also be known as a difference.\
+-   Unexplained Variance = SSE or Sum of Squares Error: This equals the sum of squared difference between A and B, or between the sum of squares of the difference between observation ($y_i$) and our predicted value of y ($\hat{y}$).
+    -   $SSE = \sum^n_{i=1}(y_i - \hat{y})^2$
+-   Explained Variance = SSR or Sum of Squares Regression: This equals the sum of squared difference between B and C, or between the sum of squares of the difference between our predicted value ($\hat{y}$) and the mean of y ($\bar{y}$).
+    -   $SSR = \sum^n_{i=1}(\hat{y} - \bar{y})^2$
+-   Total Variance = SST or Total Sum of Squares: This equals the sum of squared difference between A and C, or between the sum of squares of the difference between observation ($y_i$) and the mean of y ($\bar{y}$).
+    -   The SST can be broken down into two components: the variation explained by the regression equation (the regression sum of squares or SSR) and the unexplained variation (the error sum of squares or SSE).
+    -   $SST = \sum^n_{i=1}(y_i - \bar{y})^2$
 
+![Visualization of Sum of Squares (SS)](Pictures/Ch9/SS.png "Visualization of Sum of Squares")
 
 ### The Standard Error of the Estimate
 
-* The Standard Error of the Estimate, also known as the Residual Standard Error (RSE) (and labelled such in R), is the variability between observed ($y_i$) and predicted ($\hat{y}$) values, targeting the unexplained variance in the figure above. This measure is a lack of fit of the model to the data. 
-* To compute the standard error of the estimate, we first compute the SSE and the MSE.
-    + Sum of Squares Error: $SSE = \sum^n_{i=1}e^2_i = \sum^n_{i=1}(y_i - \hat{y})^2$
-  + Dividing SSE by the appropriate degrees of freedom, n – k – 1, yields the mean squared error:
-    + Mean Squared Error: $MSE = SSE/(n-k-1)$
-  + The square root of the MSE is the standard error of the estimate, se.
-    + Standard Error of Estimate: $se = \sqrt(MSE) = \sqrt(SSE/(n-k-1))$
+-   The Standard Error of the Estimate, also known as the Residual Standard Error (RSE) (and labelled such in R), is the variability between observed ($y_i$) and predicted ($\hat{y}$) values, targeting the unexplained variance in the figure above. This measure is a lack of fit of the model to the data.
+-   To compute the standard error of the estimate, we first compute the SSE and the MSE.
+    -   Sum of Squares Error: $SSE = \sum^n_{i=1}e^2_i = \sum^n_{i=1}(y_i - \hat{y})^2$
+    -   Dividing SSE by the appropriate degrees of freedom, n – k – 1, yields the mean squared error:
+        -   Mean Squared Error: $MSE = SSE/(n-k-1)$
+    -   The square root of the MSE is the standard error of the estimate, se.
+        -   Standard Error of Estimate: $se = \sqrt(MSE) = \sqrt(SSE/(n-k-1))$
 
-### R Output
+#### R Output
 
-* We do not see the SSE or the SST in our R output, but we will see the Standard Error of the Estimate labelled Residual Standard Error. We will look at all these measures together in R output later on in the lecture. 
+-   We do not see the SSE or the SST in our R output, but we will see the Standard Error of the Estimate labelled Residual Standard Error. We will look at all these measures together in R output later on in the lecture.
 
 ### The Coefficient of Determination ($R^2$)
 
-* Coefficient of determination refers to the percentage of variance in one variable that is accounted for by another variable or by a group of variables.
-* This measure of R-squared is a measure of the “fit” of the line to the data.
+-   Coefficient of determination refers to the percentage of variance in one variable that is accounted for by another variable or by a group of variables.
 
-* $R^2$ = 1-SSE/SST where $SSE = \sum^n_{i=1}(y_i - \hat{y})^2$ and $SST = \sum^n_{i=1}(y_i - \bar{y})^2$
-  + $R^2$ can also be computed by SSR/SST, which provides the same answer as above. 
-  + This measure of fit targets both the unexplained and the explained variance. 
-  + $R^2$ can also be calculated using the formula for Pearson's r and squaring it. This gives us the same answer. 
-* Pearson's $r$ is a statistic that indicates the strength and direction of the relationship between two numeric variables that meet certain assumptions. 
-  + (Pearson's $r$)$^2$ = $r^2_{xy} = (cov_{xy}/(s_x*s_y))^2$.
+-   This measure of R-squared is a measure of the “fit” of the line to the data.
 
-* You need to see how all these formulas relate to see why all these formulas give you the same answer.
+-   $R^2$ = 1-SSE/SST where $SSE = \sum^n_{i=1}(y_i - \hat{y})^2$ and $SST = \sum^n_{i=1}(y_i - \bar{y})^2$
 
-### Interpreting ($R^2$)
-* This measure is easier to interpret over standard error. In particular, the ($R^2$) quantifies the fraction of variation in the response variable that is explained by changes in the explanatory variables.
-* The ($R^2$) gives you a score between 0 and 1. A score of 1 indicates that your Y variable is perfectly explained by your X variable or variables (where we only have one in simple regression).
-* The $R^2$ measure has strength of determination like the correlation coefficient, only all measures are from 0 to 1. 
-  + The closer you get to one, the more _explained variance_ we achieve. 
-  + A score of 0 indicates that no variance is explained by the X variable or variables. In this case, the variable would not be a significant predictor variable of Y. 
-  + Again, the strength of the relationship varies by field, but generally, a .2 to a .5 is considered weak, a .5 to a .8 is considered moderate, and above a .8 is considered strong. 
+    -   $R^2$ can also be computed by SSR/SST, which provides the same answer as above.
+    -   This measure of fit targets both the unexplained and the explained variance.
+    -   $R^2$ can also be calculated using the formula for Pearson's r and squaring it. This gives us the same answer.
 
-### R Output
-* We do see the $R^2$ in our R output labelled Multiple R-squared. 
+-   Pearson's $r$ is a statistic that indicates the strength and direction of the relationship between two numeric variables that meet certain assumptions.
 
-### Limitations of The Coefficient of Determination ($R^2$)
-* More explanatory variables always result in a higher $R^2$.
-* But some of these variables may be unimportant and should not be in the model.
-* This is only applicable with multiple regression, discussed below. 
-  
+    -   (Pearson's $r$)$^2$ = $r^2_{xy} = (cov_{xy}/(s_x*s_y))^2$.
+
+-   You need to see how all these formulas relate to see why all these formulas give you the same answer.
+
+#### Interpreting ($R^2$)
+
+-   This measure is easier to interpret over standard error. In particular, the ($R^2$) quantifies the fraction of variation in the response variable that is explained by changes in the explanatory variables.
+-   The ($R^2$) gives you a score between 0 and 1. A score of 1 indicates that your Y variable is perfectly explained by your X variable or variables (where we only have one in simple regression).
+-   The $R^2$ measure has strength of determination like the correlation coefficient, only all measures are from 0 to 1.
+    -   The closer you get to one, the more *explained variance* we achieve.
+    -   A score of 0 indicates that no variance is explained by the X variable or variables. In this case, the variable would not be a significant predictor variable of Y.
+    -   Again, the strength of the relationship varies by field, but generally, a .2 to a .5 is considered weak, a .5 to a .8 is considered moderate, and above a .8 is considered strong.
+
+#### R Output
+
+-   We do see the $R^2$ in our R output labelled Multiple R-squared.
+
+#### Limitations of The Coefficient of Determination ($R^2$)
+
+-   More explanatory variables always result in a higher $R^2$.
+-   But some of these variables may be unimportant and should not be in the model.
+-   This is only applicable with multiple regression, discussed below.
+
 ### The Adjusted $R^2$
-* The Adjusted $R^2$ tries to balance the raw explanatory power against the desire to include only important predictors.
-  + Adjusted $R^2 = 1-(1-R^2)*((n-1)/(n-k-1))$.
-  + The Adjusted $R^2$ penalizes the $R^2$ for adding additional explanatory variables.
 
-### R Output
-* With our other goodness-of-fit measures, we typically allow the computer to compute the Adjusted $R^2$ using commands in R.  
-* Therefore, we do see the Adjusted $R^2$ in our R output labelled Adjusted R-squared. 
+-   The Adjusted $R^2$ tries to balance the raw explanatory power against the desire to include only important predictors.
+    -   Adjusted $R^2 = 1-(1-R^2)*((n-1)/(n-k-1))$.
+    -   The Adjusted $R^2$ penalizes the $R^2$ for adding additional explanatory variables.
 
-## Example of Simple Linear Regression in R
-* The broad steps are the same as we used in Chapter 6 and 7 when setting up the t-tests and ANOVA hypothesis: 1. set up the hypothesis 2. compute the Test Statistic, 3. calculate probability 4. interpret and 5. write a conclusion. 
+#### R Output
 
-* Step 1: Set Up the Null and Alternative Hypothesis
-* $H_0$: The slope of the line is equal to zero.
-* $H_A$: The slope of the line is not equal to zero.
+-   With our other goodness-of-fit measures, we typically allow the computer to compute the Adjusted $R^2$ using commands in R.\
+-   Therefore, we do see the Adjusted $R^2$ in our R output labelled Adjusted R-squared.
 
-* Step 2 and 3: Compute the Test Statistic and Calculate Probability
+### Example of Simple Linear Regression in R
+
+-   The broad steps are the same as we used in Chapter 6 and 7 when setting up the t-tests and ANOVA hypothesis: 1. set up the hypothesis 2. compute the Test Statistic, 3. calculate probability 4. interpret and 5. write a conclusion.
+
+-   Step 1: Set Up the Null and Alternative Hypothesis
+
+-   $H_0$: The slope of the line is equal to zero.
+
+-   $H_A$: The slope of the line is not equal to zero.
+
+-   Step 2 and 3: Compute the Test Statistic and Calculate Probability
 
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(ggplot2)
 ```
-
 
 ```{r}
 Debt_Payments <- read.csv("data/DebtPayments.csv")
@@ -163,52 +181,59 @@ Simple <- lm(Debt~Income, data=Debt_Payments)
 summary(Simple)
 ```
 
-* Steps 4 and 5: Interpret the Probability and Write a Conclusion
-* We interpret the probability and write a conclusion after looking at the following:
-1. Goodness of Fit Measures
-2. The F-test statistic
-3. The p-value from the hypothesis
+-   Steps 4 and 5: Interpret the Probability and Write a Conclusion
+-   We interpret the probability and write a conclusion after looking at the following:
 
-* We then can interpret the hypothesis and make the regression equation if needed to make predictions. 
+1.  Goodness of Fit Measures
+2.  The F-test statistic
+3.  The p-value from the hypothesis
 
-### Examining the Goodness of Fit Measures
-* Like the ANOVA, we need the summary() command to see the regression output. 
-* This output includes the following:
-  + Standard Error of Estimate at 63.26
-  + a $R^2$ of 0.7526.
-  + an Adjusted $R^2$ of 0.7423
-  
-* We do not really see a difference in $R^2$ and the Adjusted $R^2$ because we only have a simple linear regression, which includes one X. The other thing that could create a difference between these measures is having a small sample size. A small sample size could adjust the $R^2$ down (like it did a little here $n=28$). In both cases, a score around .75 indicates that we are explaining about 75% of the variance in Debt Payments, which is specifically stated as 75.26% in the $R^2$ value. 
+-   We then can interpret the hypothesis and make the regression equation if needed to make predictions.
 
-* The Standard Error of Estimate - known in R as the RSE or Residual Standard Error at 63.26. Before we interpret this, we need to know the scale, and income is in 1000s. Therefore, for every 1000 dollars difference in Income we could be off on our debt payments by 63.26 dollars.
+#### Examining the Goodness of Fit Measures
 
-* Again, most statisticians interpret the $R^2$ and the adjusted $R^2$ over the RSE. 
+-   Like the ANOVA, we need the summary() command to see the regression output.
 
-### Examining the F-Test Statistic
-* The F-statistic is a ratio of explained information (in the numerator) to unexplained information (in the denominator). If a model explains more than it leaves unexplained, the numerator is larger and the F-statistic is greater than 1. F-statistics that are much greater than 1 are explaining much more of the variation in the outcome than they leave unexplained. Large F-statistics are more likely to be statistically significant.
-* We see a F-statistic in our output with a p-value of 9.66e-09, which is less than .05. This indicates that our overall model is significant, which in simple regression means that our one X predictor variable is also significant. If this F-statistic is significant, we can interpret the hypothesis. 
+-   This output includes the following:
 
-### Examining the Hypothesis
-* We see a p-value on the Income row of 9.66e-09 from a t-value. This is also significant at .05 level. This p-value is the same as the F-test statistic because we only have one X variable. 
-* This significance means our predictor variable does influence the Y variable and that we can reject the null hypothesis and show support for our alternative hypothesis. 
+    -   Standard Error of Estimate at 63.26
+    -   a $R^2$ of 0.7526.
+    -   an Adjusted $R^2$ of 0.7423
 
-### Interpreting the Hypothesis
-* A $b_1$ estimate of 10.441 indicates that for 1000 dollars of Income (again our data is in 1000s), the payment of dept will increase by 10.441. 
-* A $b_0$ estimate of 210.298 indicates where the regression line will start given a Y at 0. 
-  + This gives us a regression equation at $\hat{y} = 210.298 + 10.441*Income$
-  + We can graph this regression line using the abline() command on our plot we did earlier. 
-  + As you can see from the chart, there was no data at the Y intercept, but if I extend the chart out, it does hit the y axis at 210 like stated. 
-  + Also from the chart, we note that for each unit of income we go to the right, we go up by 10.441 units in dept payments. 
+-   We do not really see a difference in $R^2$ and the Adjusted $R^2$ because we only have a simple linear regression, which includes one X. The other thing that could create a difference between these measures is having a small sample size. A small sample size could adjust the $R^2$ down (like it did a little here $n=28$). In both cases, a score around .75 indicates that we are explaining about 75% of the variance in Debt Payments, which is specifically stated as 75.26% in the $R^2$ value.
+
+-   The Standard Error of Estimate - known in R as the RSE or Residual Standard Error at 63.26. Before we interpret this, we need to know the scale, and income is in 1000s. Therefore, for every 1000 dollars difference in Income we could be off on our debt payments by 63.26 dollars.
+
+-   Again, most statisticians interpret the $R^2$ and the adjusted $R^2$ over the RSE.
+
+#### Examining the F-Test Statistic
+
+-   The F-statistic is a ratio of explained information (in the numerator) to unexplained information (in the denominator). If a model explains more than it leaves unexplained, the numerator is larger and the F-statistic is greater than 1. F-statistics that are much greater than 1 are explaining much more of the variation in the outcome than they leave unexplained. Large F-statistics are more likely to be statistically significant.
+-   We see a F-statistic in our output with a p-value of 9.66e-09, which is less than .05. This indicates that our overall model is significant, which in simple regression means that our one X predictor variable is also significant. If this F-statistic is significant, we can interpret the hypothesis.
+
+#### Examining the Hypothesis
+
+-   We see a p-value on the Income row of 9.66e-09 from a t-value. This is also significant at .05 level. This p-value is the same as the F-test statistic because we only have one X variable.
+-   This significance means our predictor variable does influence the Y variable and that we can reject the null hypothesis and show support for our alternative hypothesis.
+
+#### Interpreting the Hypothesis
+
+-   A $b_1$ estimate of 10.441 indicates that for 1000 dollars of Income (again our data is in 1000s), the payment of dept will increase by 10.441.
+-   A $b_0$ estimate of 210.298 indicates where the regression line will start given a Y at 0.
+    -   This gives us a regression equation at $\hat{y} = 210.298 + 10.441*Income$
+    -   We can graph this regression line using the abline() command on our plot we did earlier.
+    -   As you can see from the chart, there was no data at the Y intercept, but if I extend the chart out, it does hit the y axis at 210 like stated.
+    -   Also from the chart, we note that for each unit of income we go to the right, we go up by 10.441 units in dept payments.
 
 ```{r, fig.alt="Scatterplot of Debt_Payments"}
 plot(Debt~Income, data=Debt_Payments, xlim=c(0,120), ylim=c(0,1350))
 abline(Simple)
 ```
 
+### Predictions
 
-## Predictions
-* We can calculate this using the regression equation or use the predict() command in order to calculate different values of y given values of x based on our regression equation we got in the step above.
-* The coef() function returns the model’s coefficients which are needed to make the regression equation.
+-   We can calculate this using the regression equation or use the predict() command in order to calculate different values of y given values of x based on our regression equation we got in the step above.
+-   The coef() function returns the model’s coefficients which are needed to make the regression equation.
 
 ```{r}
 #What would be your debt payments if Income was 100 ( for 100,000)
@@ -217,78 +242,86 @@ coef(Simple)
 predict(Simple, data.frame(Income=100))
 ```
 
+## Multiple Regression
 
+-   Multiple regression allows us to explore how several *explanatory* variables influence the *response* variable.
 
-# Multiple Regression 
-* Multiple regression allows us to explore how several _explanatory_ variables influence the _response_ variable.
+-   Suppose there are $k$ explanatory variables. The multiple linear regression model is defined as: $y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ ⋯ + \beta_kx_k +\varepsilon$
 
-* Suppose there are $k$ explanatory variables. The multiple linear regression model is defined as: $y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ ⋯ + \beta_kx_k +\varepsilon$
-* Where:
-  + $y$ is the dependent variable, 
-  + $x_1, ⋯, x_k$ are independent explanatory variables, 
-  + $\beta_0$ is the intercept term,
-  + $\beta_1 ⋯, \beta_k$ are the regression coefficients for the independent variables,
-  + $varepsilon$ is the random error term
+-   Where:
 
-* We estimate the regression coefficients—called partial regression coefficients — $b_0, b_1, b_2,… b_k$, then use the model: $\hat{y} = b_0 + b_1x_1 + b_2x_2 + \ ... + b_kx_k$ .
-* The partial regression coefficients represent the expected change in the dependent variable when the associated independent variable is increased by one unit while the values of all other independent variables are held constant.
-* For example, if there are $k = 3$ explanatory variables, the value $b_1$ estimates how a change in $x_1$ will influence $y$ assuming $x_2$ and $x_3$ are held constant.
+    -   $y$ is the dependent variable,
+    -   $x_1, ⋯, x_k$ are independent explanatory variables,
+    -   $\beta_0$ is the intercept term,
+    -   $\beta_1 ⋯, \beta_k$ are the regression coefficients for the independent variables,
+    -   $varepsilon$ is the random error term
 
-## Example of Multiple Linear Regression in R
-* The steps to multiple linear regression are the same as simple linear regression except we should have more than one hypothesis. 
-1. Step 1: Set up the null and alternative hypotheses
-* Hypothesis 1: Income affects Debt Payments. 
-  + $H_0$: The slope of the line in regards to Income is equal to zero.
-  + $H_A$: The slope of the line in regards to Income is not equal to zero.
+-   We estimate the regression coefficients—called partial regression coefficients — $b_0, b_1, b_2,… b_k$, then use the model: $\hat{y} = b_0 + b_1x_1 + b_2x_2 + \ ... + b_kx_k$ .
 
-* Hypothesis 2: Unemployment affects Debt Payments. 
-  + $H_0$: The slope of the line in regards to Unemployment is equal to zero.
-  + $H_A$: The slope of the line in regards to Unemployment is not equal to zero.
+-   The partial regression coefficients represent the expected change in the dependent variable when the associated independent variable is increased by one unit while the values of all other independent variables are held constant.
 
-2. Step 2 and 3: Compute the test statistic and calculate probability
+-   For example, if there are $k = 3$ explanatory variables, the value $b_1$ estimates how a change in $x_1$ will influence $y$ assuming $x_2$ and $x_3$ are held constant.
+
+### Example of Multiple Linear Regression in R
+
+-   The steps to multiple linear regression are the same as simple linear regression except we should have more than one hypothesis.
+
+1.  Step 1: Set up the null and alternative hypotheses
+
+-   Hypothesis 1: Income affects Debt Payments.
+    -   $H_0$: The slope of the line in regards to Income is equal to zero.
+    -   $H_A$: The slope of the line in regards to Income is not equal to zero.
+-   Hypothesis 2: Unemployment affects Debt Payments.
+    -   $H_0$: The slope of the line in regards to Unemployment is equal to zero.
+    -   $H_A$: The slope of the line in regards to Unemployment is not equal to zero.
+
+2.  Step 2 and 3: Compute the test statistic and calculate probability
+
 ```{r}
 Debt_Payments <- read.csv("data/DebtPayments.csv")
 Multiple <-lm(Debt~Income+Unemployment, data=Debt_Payments)
 summary(Multiple)
 ```
 
-3. Steps 4 and 5: Interpret the probability and write a conclusion
+3.  Steps 4 and 5: Interpret the probability and write a conclusion
 
-* We interpret the probability and write a conclusion after looking at the following:
-  + Goodness of Fit Measures
-  + The F-test statistic
-  + The p-values from the hypotheses
-
-* We then can interpret the hypotheses and make the regression equation if needed to make predictions. 
+-   We interpret the probability and write a conclusion after looking at the following:
+    -   Goodness of Fit Measures
+    -   The F-test statistic
+    -   The p-values from the hypotheses
+-   We then can interpret the hypotheses and make the regression equation if needed to make predictions.
 
 ### Examining the Goodness of Fit Measures
-* Like the ANOVA, we need the summary() command to see the regression output. 
-* This output includes the following:
-  + Standard error of estimate at 64.61 - was previously 63.26 with simple regression.
-  + a $R^2$ of 0.7527 - was previously 0.7526 with simple regression.
-  + an Adjusted $R^2$ of 0.7312 -  was previously 0.7423 with simple regression. 
 
-* Looking at the goodness of fit indices, they suggest that we are not explaining anything more by adding the unemployment variable over what we had with the Income variable. Our RSE and $R^2$ are about the same, and our adjusted $R^2$ has gone down - again paying the price for including an unnecessary variable. 
+-   Like the ANOVA, we need the summary() command to see the regression output.
+-   This output includes the following:
+    -   Standard error of estimate at 64.61 - was previously 63.26 with simple regression.
+    -   a $R^2$ of 0.7527 - was previously 0.7526 with simple regression.
+    -   an Adjusted $R^2$ of 0.7312 - was previously 0.7423 with simple regression.
+-   Looking at the goodness of fit indices, they suggest that we are not explaining anything more by adding the unemployment variable over what we had with the Income variable. Our RSE and $R^2$ are about the same, and our adjusted $R^2$ has gone down - again paying the price for including an unnecessary variable.
 
 ### Examining the F-Test Statistic
-* We see a overall F-statistic in our output with a p-value of 1.054e-07, which is less than .05. This indicates that our overall model is significant - which in multiple regression means that _at least one_ X predictor variable is significant. If this F-statistic is significant, we can interpret the hypotheses. 
+
+-   We see a overall F-statistic in our output with a p-value of 1.054e-07, which is less than .05. This indicates that our overall model is significant - which in multiple regression means that *at least one* X predictor variable is significant. If this F-statistic is significant, we can interpret the hypotheses.
 
 ### Examining the Hypotheses
-* Hypothesis 1: The output shows a p-value on the Income row of 2.98e-07 from a t-value. This was significant in our simple regression model, and is still significant at .05 level here. This significance means our predictor variable does influence the Y variable and that we can reject the null hypothesis and show support for our alternative hypothesis. 
-* Hypothesis 2: The output shows a p-value on the Unemployment row of 0.929 from a t-value. This is _NOT_ significant at any appropriate level of alpha. This lack of significance means our predictor variable does _NOT_ influence the Y variable and that we fail to reject the null hypothesis that there is a slope.  
+
+-   Hypothesis 1: The output shows a p-value on the Income row of 2.98e-07 from a t-value. This was significant in our simple regression model, and is still significant at .05 level here. This significance means our predictor variable does influence the Y variable and that we can reject the null hypothesis and show support for our alternative hypothesis.
+-   Hypothesis 2: The output shows a p-value on the Unemployment row of 0.929 from a t-value. This is *NOT* significant at any appropriate level of alpha. This lack of significance means our predictor variable does *NOT* influence the Y variable and that we fail to reject the null hypothesis that there is a slope.
 
 ### Interpreting the Hypothesis
-* Because Unemployment is not significant, we should drop it from the model before creating the regression equation. The extra variable is only adding _noise_ to our model and not adding anything useful in understanding debt payments. 
 
-# MR with P-value Method
-* When you have a lot of predictors, it can be difficult to come up with a good model. 
+-   Because Unemployment is not significant, we should drop it from the model before creating the regression equation. The extra variable is only adding *noise* to our model and not adding anything useful in understanding debt payments.
 
-* A common criteria is to remove based on the highest p-value.
+## The P-value Method
 
-* Remove indicators until all variables are significant, and none are insignificant.  
+-   When you have a lot of predictors, it can be difficult to come up with a good model.
 
-* As we drop variables, we also want to keep an eye on the adjusted R-Squared to make sure it does not significantly decrease. It should stay about the same if we drop variables that are not helpful in understanding the model, and could improve because we are decreasing the number of variables being evaluated.
+-   A common criteria is to remove based on the highest p-value.
 
+-   Remove indicators until all variables are significant, and none are insignificant.
+
+-   As we drop variables, we also want to keep an eye on the adjusted R-Squared to make sure it does not significantly decrease. It should stay about the same if we drop variables that are not helpful in understanding the model, and could improve because we are decreasing the number of variables being evaluated.
 
 ```{r, warning=FALSE, message=FALSE}
 library(ISLR)
@@ -307,7 +340,7 @@ summary(creditlm)
 
 ```
 
-* Education has the highest p-value, so it is removed from analysis. We use the minus sign to remove the variable in the lm function. 
+-   Education has the highest p-value, so it is removed from analysis. We use the minus sign to remove the variable in the lm function.
 
 ```{r}
 creditlm <- lm(Balance~.-Education, data=Credit)
@@ -315,7 +348,7 @@ summary(creditlm)
 # Multiple R-squared: 0.8781, Adjusted R-squared:  0.8765 
 ```
 
-* Cards has the next highest p-value, so it is removed from analysis using the - minus sign format. 
+-   Cards has the next highest p-value, so it is removed from analysis using the - minus sign format.
 
 ```{r}
 creditlm <- lm(Balance~.-Education-Cards, data=Credit)
@@ -323,7 +356,7 @@ summary(creditlm)
 # Multiple R-squared:  0.8772, Adjusted R-squared:  0.876 
 ```
 
-* Age is next to be removed because it has the next highest p-value at .06270.
+-   Age is next to be removed because it has the next highest p-value at .06270.
 
 ```{r}
 creditlm <- lm(Balance~.-Education-Cards-Age, data=Credit)
@@ -331,9 +364,9 @@ summary(creditlm)
 # Multiple R-squared:  0.8762, Adjusted R-squared:  0.8753 
 ```
 
-* Finally Limit is the next to be removed because it has the next highest (and still insignificant) p-value at .059. 
+-   Finally Limit is the next to be removed because it has the next highest (and still insignificant) p-value at .059.
 
-* Age is next to be removed because it has the next highest p-value at .06270.
+-   Age is next to be removed because it has the next highest p-value at .06270.
 
 ```{r}
 creditlm <- lm(Balance~.-Education-Cards-Age-Limit, data=Credit)
@@ -341,25 +374,24 @@ summary(creditlm)
 # Multiple R-squared:  0.8751,Adjusted R-squared:  0.8745 
 ```
 
-* In our original model with non-helpful insignificant predictors, we had an adjusted R-Squared at 0.8764. After removing insignificant predictors, we are only down to .8745. This means we can explain someones Balance best by understanding Income and Rating. 
-* The interpretation is as follows: 
-* A one unit change in Income causes a negative 7.67 change in Balance. 
-* A one unit change in Rating causes a 3.949 change in Balance. 
+-   In our original model with non-helpful insignificant predictors, we had an adjusted R-Squared at 0.8764. After removing insignificant predictors, we are only down to .8745. This means we can explain someones Balance best by understanding Income and Rating.
+-   The interpretation is as follows:
+-   A one unit change in Income causes a negative 7.67 change in Balance.
+-   A one unit change in Rating causes a 3.949 change in Balance.
 
-# Multicollinerity
-* Multicollinearity refers to the situation in which two or more predictor variables are closely related to another. 
-* Collinearity can cause significant factors to be insignificant, or insignificant factors to seem significant. Both are problematic. 
-* If sample correlation coefficient between 2 explanatory variables is more than .80 or less than -.80, we could have severe multicollinearity. Seemingly wrong signs of estimated regression coefficients may also indicate multicollinearity. 
-A good remedy may be to simply drop one of the collinear variables if we can justify it as redundant.
-* Alternatively, we could try to increase our sample size.
-* Another option would be to try to transform our variables so that they are no longer collinear.
-* Last, especially if we are interested only in maintaining a high predictive power, it may make sense to do nothing.
+## Multicollinerity
+
+-   Multicollinearity refers to the situation in which two or more predictor variables are closely related to another.
+-   Collinearity can cause significant factors to be insignificant, or insignificant factors to seem significant. Both are problematic.
+-   If sample correlation coefficient between 2 explanatory variables is more than .80 or less than -.80, we could have severe multicollinearity. Seemingly wrong signs of estimated regression coefficients may also indicate multicollinearity. A good remedy may be to simply drop one of the collinear variables if we can justify it as redundant.
+-   Alternatively, we could try to increase our sample size.
+-   Another option would be to try to transform our variables so that they are no longer collinear.
+-   Last, especially if we are interested only in maintaining a high predictive power, it may make sense to do nothing.
 
 ```{r}
 cor(Credit$Income, Credit$Rating) ##close to .8, but still under
 ```
 
+## Summary
 
-# Summary
-* In this lesson, we learned how to write and interpret the simple linear regression model and the multiple linear regression model. We learned about goodness of fit measures and how to test hypotheses using regression by interpreting the summary output from the lm() command. Finally, we learned how to use regression with both continuous and categorical variables as predictor variables.
-
+-   In this lesson, we learned how to write and interpret the simple linear regression model and the multiple linear regression model. We learned about goodness of fit measures and how to test hypotheses using regression by interpreting the summary output from the lm() command. Finally, we learned how to use regression with both continuous and categorical variables as predictor variables.
