@@ -641,7 +641,7 @@ ggplot(avg_mpg, aes(gear,
       scale_fill_manual(values=c("yellow", "brown"))
     ```
 
-#### Boxplot for Continuous Across Groups
+### Boxplot for Continuous Across Groups
 
 -   A boxplot requires one continuous variable (like we did above). When we include an additional grouping variable, we get multiple boxplots, one for each group. This allows us to directly compare distributions.
 
@@ -669,7 +669,7 @@ mtcars %>%
      theme_minimal() 
 ```
 
-### Graphs for Two Continuous Variables
+### Scatterplot for Two Continuous Variables
 
 #### Scatterplots
 
