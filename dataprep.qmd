@@ -40,13 +40,18 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 -   There are a number of data types in R that are common to programming and statistical analysis.
 -   A data type of a variable specifies the type of data that is stored inside that variable. Sometimes when you read in data it is in the correct type, and other times, you need to force it into the type you need to conduct the analysis. In this section, we are going to go over the following data types.\
 
-###  Factor data type:
-    -   Ordinal: Contain categories that have some logical order (e.g. categories of age).
-    -   Nominal: Have categories that have no logical order (e.g., religious affiliation and marital status).
+### Factor data type:
 
--   R will treat each unique value of a factor as a different level.
+* Ordinal: Contain categories that have some logical order (e.g. categories of age).
+* Nominal: Have categories that have no logical order (e.g., religious affiliation and marital status).
 
-Ordinal Variable \* Ordinal data may be categorized and ranked with respect to some characteristic or trait. \* For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor). \* This scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items). \* You can make an ordinal factor data type in R, or you can convert the order to meaningful numbers. This is typically done with survey items where an excellent to poor = 1, 2, 3, 4 respectively.
+* R will treat each unique value of a factor as a different level.
+
+#### Ordinal Variable 
+* Ordinal data may be categorized and ranked with respect to some characteristic or trait. 
+* For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor). 
+* This scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items). 
+* You can make an ordinal factor data type in R, or you can convert the order to meaningful numbers. This is typically done with survey items where an excellent to poor = 1, 2, 3, 4 respectively.
 
 ```{r}
 # Take a vector representing evaluation scores, named evaluate 
@@ -57,10 +62,16 @@ evalNumerical <- ifelse(evaluate == "excellent", 4,
 evalNumerical
 ```
 
-Nominal Variable \* With nominal variables, data are simply categories for grouping. \* For example, coding race/ethnicity might have a category value of White, Black, Native American, Asian/Pacific Islander, Other. \* Qualitative values may be converted to quantitative values for analysis purposes. + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis. + Sometimes, R does this on our behalf depending on commands used. \* We can force a variable into a factor data type using the as.factor() command. \* If we use the read.csv() command, we can sometimes do this by setting an argument $stringsAsFactors=TRUE$. We will do this later in the lesson.
+#### Nominal Variable 
+* With nominal variables, data are simply categories for grouping. 
+* For example, coding race/ethnicity might have a category value of White, Black, Native American, Asian/Pacific Islander, Other. 
+* Qualitative values may be converted to quantitative values for analysis purposes. + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis. + Sometimes, R does this on our behalf depending on commands used. 
+* We can force a variable into a factor data type using the as.factor() command. 
+* If we use the read.csv() command, we can sometimes do this by setting an argument $stringsAsFactors=TRUE$. We will do this later in the lesson.
 
-###  Numerical data types: 
-* A Vector of Numbers (Real or Integer)
+### Numerical data types:
+
+-   A Vector of Numbers (Real or Integer)
 
 -   Continuous (Real) variables can take any value along some continuum, hence continuous.
 
@@ -96,8 +107,9 @@ Trunc <- as.integer(kOuncesRhode); Trunc
 
 ```
 
-###  Character data type
-* Wrapped in either single or double quotation marks.
+### Character data type
+
+-   Wrapped in either single or double quotation marks.
     -   Includes letters, words, or numbers that cannot logically be included in calculations (e.g., a zip code).
     -   A quick example is below that shows how to assign a character value to a variable.
 
@@ -113,7 +125,8 @@ class(x = kZipCode)
 ```
 
 ### Logical data type
-* Values of TRUE and FALSE
+
+-   Values of TRUE and FALSE
 
 -   Result of some expression.
 
@@ -129,7 +142,8 @@ class(x = kZipCode)
     ```
 
 ### Date data type
-* A variable that should be a date.
+
+-   A variable that should be a date.
 
 ```{r}
 # Convert date info in format 'mm/dd/yyyy' using as.Date
@@ -187,6 +201,7 @@ summary(gss.2016) #Conduct final check confirming correct data types
 ```
 
 ## Common dplyr Functions
+
 ### Arrange
 
 -   Sorting or arranging the dataset allows you to specify an order based on variable values.
