@@ -1,12 +1,17 @@
 
+h1 {
+  color: darkblue;
+}
+
+
 body{margin:0px 0px;padding:0px; font-size:12pt;
         font-family:Lato, Arial, sans-serif;
         background-color:white;color:#3E3E3E}
     
-h1, h2{color:#183028;background-color:ghostwhite; font-variant: small-caps;font-size:120%;line-height:.8; border:1px solid #B9975B;padding: 10px;}
-h3{color:#00313C;font-size:115%;line-height:.6; border:1px solid #B9975B;padding: 10px;}
-h4{font-size: 1.10em; background-color:#5B6770;margin-left:10px;color:ghostwhite; border:1px solid #B9975B; padding:10px;}
-h5{font-size: 1.05em; background-color:#84344E;color:ghostwhite; margin-left:25px;border:1px solid #B9975B;}
+h1{color:#183028;background-color:ghostwhite; font-variant: small-caps;font-size:120%;line-height:.8; border:1px solid #B9975B;padding: 10px;}
+h2{color:#00313C;font-size:115%;line-height:.6; border:1px solid #B9975B;padding: 10px;}
+h3{font-size: 1.1em; background-color:#5B6770;margin-left:10px;color:ghostwhite; border:1px solid #B9975B; padding:10px;}
+h4{font-size: 1.05em; background-color:#84344E;color:ghostwhite; margin-left:25px;border:1px solid #B9975B;}
 
 .sourceCode pre{font-size:.9em;
     padding:5px; 
@@ -18,9 +23,9 @@ h5{font-size: 1.05em; background-color:#84344E;color:ghostwhite; margin-left:25p
         border:1px dashed #a98546;
 }
 
-code span.do, code span.co, code span.st, code span.dv, code span.f1, code span.at, code span.fl {color:#00313C;}
+code span.do, code span.co, code span.st, code span.dv, code span.f1, code span.at, code span.fl {color:#00313C; font-size: 1.1em}
 
-ul, ol{font-size:.8em;}
+ul, ol{font-size:1.0 em;}
 ul li{margin-left:15px;}
 ul li li, ol li li {color:#5B6770;list-style-type: circle;}
 
@@ -41,9 +46,9 @@ img{    display:block;
 }
 
 
-p{font-size: .8em;}
+p{font-size: 1em;}
 
-.sourceCode {font-size:.9em;
+.sourceCode {font-size:.95em;
   padding:5px;word-wrap: break-word;
     }
 
@@ -55,14 +60,19 @@ code.sourceCode.r{
 
 span{margin:0px 0px; padding 2px;}
 
-pre code{font-size:.7em;
+pre code{font-size:.95em;
   padding:5px;; 
     
 
  }
+h2 .header-section-number{color:#00313C;}
 
 span.co { color:red; display:block; word-wrap: break-word; line-height: 1em}
 
+.header-section-number{color:ghostwhite;}
+
 p.caption{text-align: center;font-size:.7em;}
-figcaption{text-align: center}
+.figcaption{text-align: center}
 a {color:#3E3E3E;}
+
+figcaption{text-align: center}
