@@ -10,7 +10,7 @@ body{margin:0px 0px;padding:0px; font-size:12pt;
     
 h1{color:#183028;background-color:ghostwhite; font-variant: small-caps;font-size:120%;line-height:.8; border:1px solid #B9975B;padding: 10px;}
 h2{color:#00313C;font-size:115%;line-height:.6; border:1px solid #B9975B;padding: 10px;}
-h3{font-size: 1.10em; background-color:#5B6770;margin-left:10px;color:ghostwhite; border:1px solid #B9975B; padding:10px;}
+h3{font-size: 1.1em; background-color:#5B6770;margin-left:10px;color:ghostwhite; border:1px solid #B9975B; padding:10px;}
 h4{font-size: 1.05em; background-color:#84344E;color:ghostwhite; margin-left:25px;border:1px solid #B9975B;}
 
 .sourceCode pre{font-size:.9em;
@@ -25,7 +25,7 @@ h4{font-size: 1.05em; background-color:#84344E;color:ghostwhite; margin-left:25p
 
 code span.do, code span.co, code span.st, code span.dv, code span.f1, code span.at, code span.fl {color:#00313C;}
 
-ul, ol{font-size:.8em;}
+ul, ol{font-size:1.0 em;}
 ul li{margin-left:15px;}
 ul li li, ol li li {color:#5B6770;list-style-type: circle;}
 
@@ -46,7 +46,7 @@ img{    display:block;
 }
 
 
-p{font-size: .8em;}
+p{font-size: 1em;}
 
 .sourceCode {font-size:.9em;
   padding:5px;word-wrap: break-word;
