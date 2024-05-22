@@ -456,6 +456,11 @@ kurtosis(customers$Orders)
 
 -   While there is no great function to test for spread, you can look at the data and see if it is concentrated around 1 or 2 frequencies. If it is, then the spread is distorted towards those high frequency values.
 
+## Using AI
+Use the following prompts on a generative AI, like chatGPT to learn more about descriptive statistics. 
+     + Explore and understand the distribution of data.
+
+
 ## Summary
 
 -   In this lesson, we worked through descriptive statistics including skewness and kurtosis. We learned about variables and scales of measurement, how to summarize qualitative and quantitative data.

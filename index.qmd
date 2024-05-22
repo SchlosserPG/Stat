@@ -1,7 +1,5 @@
 # Installing R and R Studio
 
-## Installing R and R Studio
-
 ### Installing R on Windows
 
 -   Open an internet browser and go to https://www.r-project.org/.
