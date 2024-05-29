@@ -62,8 +62,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ### Bar Graph
 
--   A bar graph depicts the frequency or the relative frequency for each category of the qualitative data as a bar rising vertically from the horizontal axis.
--   This is also known as a bar chart in which your book refers to as a visual display of data often used to examine similarities and differences across categories of things; bars can represent frequencies, percentages, means, or other statistics.
+-   A bar graph depicts the frequency or the relative frequency for each category of the qualitative data as a bar rising vertically from the horizontal axis. A bar graph is also known as a bar chart and is often used to examine similarities and differences across categories of things; bars can represent frequencies, percentages, means, or other statistics.
 -   We can learn a lot from a bar graph, like the marital status group with the highest and lowest frequencies according to the census.gov.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.alt = "Bar Chart Example"}
@@ -140,7 +139,7 @@ head(nhanes)
 summary(nhanes$AUQ300) 
 ```
 
--   The AUQ300 variable represents gun use. A screenshot of the nhanes_auditory_2012_codebook available to you via the book resources is copied below so that we can see what AUQ300 really refers to. This is always a necessary step because variable names can be convoluted and not representative of the variable definition.
+-   The AUQ300 variable represents gun use. A screenshot of the codebook is copied below so that we can see what AUQ300 really refers to. It is available on https://wwwn.cdc.gov/Nchs/Nhanes/2011-2012/AUQ_G.htm. This is always a necessary step because variable names can be convoluted and not representative of the variable definition.
 
 ![AUQ300](Pictures/Ch3/AUQ300.png "Snippit of the AUQ300 Variable in the Codebook")
 
@@ -890,7 +889,7 @@ ggplot(UScrime, aes(x=GDP, y=y)) + geom_point() + stat_smooth(method="lm")
 ## Full Example Using nhanes Dataset
 
 -   A big example of where charts are helpful is to explore the nhanes dataset, which is actually a dataset related to auditory issues, in which the number of guns fired is a variable.
--   Specifically, AUQ060 refers to "Hear a whisper from across a quiet room?" AUQ070 refers to "Hear normal voice across a quiet room?" and AUQ080 refers to "Hear a shout from across a quiet room?" While AUQ300 refers to "Ever used firearms for any reason? AUQ310 refers to "How many total rounds ever fired?" and AUQ320 refers to "Wear hearing protection when shooting?" I got these references in the nhanes_auditory_2012_codebook.html file.
+-   Specifically, AUQ060 refers to "Hear a whisper from across a quiet room?" AUQ070 refers to "Hear normal voice across a quiet room?" and AUQ080 refers to "Hear a shout from across a quiet room?" While AUQ300 refers to "Ever used firearms for any reason? AUQ310 refers to "How many total rounds ever fired?" and AUQ320 refers to "Wear hearing protection when shooting?" I got these references at the following website: https://wwwn.cdc.gov/Nchs/Nhanes/2011-2012/AUQ_G.htm.
 -   It would be interesting to determine whether there is a relationship between hearing loss and gun use. Below, I clean the data set and make some charts. All variables are categorical, and I only look at 2 categorical variables at a time - one auditory related (AUQ 060, 070, 080) and one gun related (AUQ 300, 310, 320).
 -   The first step is data cleaning, and in particular recoding the variables of interest. We did some of these before. Let's also filter out the unused variables using the select statement.\
 -   The select statement in dplyr has a conflict with the select statement in MASS. Since we used MASS earlier, we have to specify which package we want to use select from. We want to use select from dplyr, so we add dplyr:: before the function.
