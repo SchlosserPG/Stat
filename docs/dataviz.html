@@ -333,7 +333,7 @@ window.Quarto = {
 <li>Common Graphs for Two Variables at Once</li>
 </ol>
 <ul>
-<li>This lesson does not provide an exclusive list of what you can do in R, but is a good starting point presenting some of the top graphs used in statistics with some common parameters added in.</li>
+<li>This lesson does not provide an exhaustive list of what you can do in R, but is a good starting point presenting some of the top graphs used in statistics with some common parameters added in.</li>
 </ul>
 </section>
 <section id="lesson-objectives" class="level3" data-number="5.0.2">
@@ -399,7 +399,7 @@ window.Quarto = {
 </div>
 <ul>
 <li>ggplot() works in layers, so you will routinely see the <em>+</em> symbol to kick off a new layer with added functionality.</li>
-<li>Using the ggplot, we always include the aes command first inside the ggplot() command. The aes() command is a <em>quoting function</em> that describes the variables being used. From there, it depends on the plot.
+<li>Using the ggplot, we always include the aes() command first inside the ggplot() command. The aes() command is a <em>quoting function</em> that describes the variables being used. From there, it depends on the plot.
 <ul>
 <li>First layer: ggplot() and aes() which calls the dataset and variables used.</li>
 <li>Second layer: Graph type: Bar graph: geom_bar().</li>
@@ -438,13 +438,13 @@ window.Quarto = {
 <ul>
 <li>We can also use a dataset to make a bar graph.<br>
 </li>
-<li>Load the Gun related data from the nhanes survey.</li>
+<li>Load the Gun related data from the nhanes survey to run an example.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nhanes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/nhanes2012.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>Next, we need to check the import.</li>
+<li>Next, we need to check the import by looking at the summary or head of the data.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Results hidden to save space, but gives you the first 6 records in</span></span>
@@ -452,7 +452,7 @@ window.Quarto = {
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nhanes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>We can also check the summary of data of the variable of interest, AUQ300, to get a sense of what we are evaluating.</li>
+<li>We can also check the summary of data of only the variable of interest, AUQ300, to get a sense of what we are evaluating.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nhanes<span class="sc">$</span>AUQ300)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -527,7 +527,8 @@ window.Quarto = {
 <section id="add-functions-to-clean-chart" class="level4" data-number="5.1.2.3">
 <h4 data-number="5.1.2.3" class="anchored" data-anchor-id="add-functions-to-clean-chart"><span class="header-section-number">5.1.2.3</span> Add Functions to Clean Chart</h4>
 <ul>
-<li>Omit the NA category from AUQ300 variable representing gun use and plot it again.</li>
+<li>Omit the NA category from AUQ300 variable, which represents gun use. Then plot the graph below.</li>
+<li>The drop_na() function is a good way to drop NA values from either the entire dataset or just one variable. It was introduced in the data prep lesson. Since we are only interested in dropping NA values from our one variable of interest that is to be graphed (AUQ300), we can put it in the parentheses so that we do not unintentionally drop lots of observations for no reason.</li>
 <li>Add an axis labels under <em>labs(x = …, y=…)</em>.</li>
 </ul>
 <div class="cell">
@@ -553,7 +554,7 @@ window.Quarto = {
 <ul>
 <li><p>There are many ways to add color to a bar graph. Below, the color is filled in directly in the aes() command by choosing it to give a different color to each categorical value of AUQ300.</p>
 <ul>
-<li>When fill is mapped to a variable, the fill color of the geom will vary based on the values of that variable. This is useful for distinguishing different groups or categories within the data.</li>
+<li>When fill is mapped to a variable, the fill color of the geom will vary based on the values of that variable. This is useful for distinguishing different groups or categories within the data. In this case the fill=AUQ300 gives a distinct color pattern based on how many categories there are considering the fact we are using the default “scale.”</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="sc">%&gt;%</span></span>
@@ -578,7 +579,7 @@ window.Quarto = {
 <li><p>In the command below, we create a gss.2016.cleaned object to make a barplot. In doing so, we do the following:</p></li>
 <li><p>Create a bar graph using the ggplot() command, which requires an aes() quoting function. This function says that we want to use the grass variable in our bar graph.</p></li>
 <li><p>Drop all NAs from the grass variable so that legal and not legal are the only categories.</p></li>
-<li><p>We then create the bars and fill them with 2 colors, red and purple. Many color codes can be used here, and will be discussed in a later chapter.</p></li>
+<li><p>We then create the bars and fill them with 2 colors, red and purple. Many color codes can be used here, and will be discussed in a later lesson.</p></li>
 <li><p>We then add labels to our graph on both x and y axis.</p></li>
 <li><p>Finally, we print the new graph, which is saved under the legalize.bar object.</p></li>
 <li><p>Below, I brought back over the code from the last part in Data Preparation. You should still have this in your Chapter1.R file. We are going to use that file to create a graphics in R.</p></li>
@@ -730,6 +731,7 @@ window.Quarto = {
 <li>Histograms (From Lesson 2)</li>
 <li>Density plots</li>
 <li>Boxplots</li>
+<li>Violin plots</li>
 </ul>
 <section id="histograms" class="level3" data-number="5.2.1">
 <h3 data-number="5.2.1" class="anchored" data-anchor-id="histograms"><span class="header-section-number">5.2.1</span> Histograms</h3>
@@ -1011,8 +1013,12 @@ FALSE </code></pre>
 <section id="violin-plots" class="level3" data-number="5.2.5">
 <h3 data-number="5.2.5" class="anchored" data-anchor-id="violin-plots"><span class="header-section-number">5.2.5</span> Violin Plots</h3>
 <ul>
-<li><p>A visual display of data that combines features of density plots and boxplots to show the distribution of numeric variables, often across groups.</p></li>
-<li><p>We can look at the GrowthFund example we had as a boxplot above as a violin plot. In order to make the change, we alter the second layer from geom_boxplot() to geom_violin().</p></li>
+<li>A visual display of data that combines features of density plots and boxplots to show the distribution of numeric variables, often across groups.</li>
+</ul>
+<section id="growthfund-example" class="level4" data-number="5.2.5.1">
+<h4 data-number="5.2.5.1" class="anchored" data-anchor-id="growthfund-example"><span class="header-section-number">5.2.5.1</span> GrowthFund Example</h4>
+<ul>
+<li>We can look at the GrowthFund example we had as a boxplot above as a violin plot. In order to make the change, we alter the second layer from geom_boxplot() to geom_violin().</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>GrowthFund <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span>GrowthFund))<span class="sc">+</span> </span>
@@ -1025,6 +1031,9 @@ FALSE </code></pre>
 </div>
 </div>
 </div>
+</section>
+<section id="mpg-example" class="level4" data-number="5.2.5.2">
+<h4 data-number="5.2.5.2" class="anchored" data-anchor-id="mpg-example"><span class="header-section-number">5.2.5.2</span> mpg Example</h4>
 <ul>
 <li>We can also view mpg from the mtcars data set as a violin plot because it is a numerical variable. In the plot below, I graphed mpg as a violin plot. You can also embed other visual markers like mean and median or layer on another graph like a boxplot.</li>
 <li>You can see that this violin plot is vertical. The coord_flip() command we used above flips the chart horizontal the same way it flips a boxplot.</li>
@@ -1136,6 +1145,7 @@ FALSE </code></pre>
 </div>
 </div>
 </div>
+</section>
 </section>
 </section>
 <section id="graphs-for-two-variables-at-once" class="level2" data-number="5.3">
@@ -1441,7 +1451,7 @@ FALSE </code></pre>
 </div>
 </div>
 <ul>
-<li>We can change the type of trendline. The most common is the to develop the trendline using the lm method, which stands for the linear method that we are going to learn in Chapter 9. For now, lets insert _method=“lm” into our stat_smooth later to see the change.</li>
+<li>We can change the type of trendline. The most common is the to develop the trendline using the lm method, which stands for the linear method that we are going to learn in the Regression lesson. For now, lets insert _method=“lm” into our stat_smooth later to see the change.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>,</span>
@@ -1470,7 +1480,7 @@ FALSE </code></pre>
 </div>
 </div>
 <ul>
-<li>In regards to hp, below, we see another negative trend.</li>
+<li>In regards to the hp variable, below, we see another negative trend.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> hp, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
@@ -1484,7 +1494,7 @@ FALSE </code></pre>
 </div>
 </div>
 <ul>
-<li>In regards to qsec, below, we see a weak positive trend. This relationship would need to verified later on.</li>
+<li>In regards to the qsec variable, below, we see a weak positive trend. This relationship would need to verified later on.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> qsec, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
@@ -1513,7 +1523,7 @@ FALSE </code></pre>
 </div>
 </div>
 <ul>
-<li>Using ggplot, we would have the same issue. Since vs is categorical, it does not look right when we use the geom_point() later.</li>
+<li>Using ggplot, we would have the same issue. Since vs is a categorical variable, it does not look right when we use the geom_point() later.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> vs, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1526,7 +1536,7 @@ FALSE </code></pre>
 </div>
 </div>
 <ul>
-<li>Instead, we would want the geom_boxplot layer like shown below. The stat_smooth() is also not an applicable layer to a boxplot and would need to be removed.<br>
+<li>Instead, we would want the geom_boxplot() layer like shown below. The stat_smooth() is also not an applicable layer to a boxplot and would need to be removed.<br>
 </li>
 </ul>
 <div class="cell">
@@ -1712,7 +1722,7 @@ FALSE </code></pre>
 </div>
 </div>
 <ul>
-<li>That is a few of the charts. See if you can determine any thing from them and try to run the other combinations. You will see that it is easier to see with less categories when you have multiple variables like this.</li>
+<li>That is a few of the charts. See if you can determine anything interesting from them and also try to run the other combinations. You will see that it is easier to see with less categories when you have multiple variables like this.</li>
 </ul>
 </section>
 <section id="summary" class="level2" data-number="5.5">

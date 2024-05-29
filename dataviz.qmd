@@ -27,7 +27,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 2.  Common Graphs for a Single *Continuous* Variable
 3.  Common Graphs for Two Variables at Once
 
--   This lesson does not provide an exclusive list of what you can do in R, but is a good starting point presenting some of the top graphs used in statistics with some common parameters added in.
+-   This lesson does not provide an exhaustive list of what you can do in R, but is a good starting point presenting some of the top graphs used in statistics with some common parameters added in.
 
 ### Lesson Objectives
 
@@ -91,7 +91,7 @@ library("tidyverse")
 ```
 
 -   ggplot() works in layers, so you will routinely see the *+* symbol to kick off a new layer with added functionality.
--   Using the ggplot, we always include the aes command first inside the ggplot() command. The aes() command is a *quoting function* that describes the variables being used. From there, it depends on the plot.
+-   Using the ggplot, we always include the aes() command first inside the ggplot() command. The aes() command is a *quoting function* that describes the variables being used. From there, it depends on the plot.
     -   First layer: ggplot() and aes() which calls the dataset and variables used.
     -   Second layer: Graph type: Bar graph: geom_bar().
     -   Additional layers: labs - for labels including titles; themes; and geom_text. Recreate the example below adding one layer at a time to see how the visualization changes.
@@ -121,20 +121,20 @@ MarketShare <- ggplot(data_frame, aes(x = Category, y = Percentage, fill = Categ
 ### Bar Graph with Data Wrangling
 
 -   We can also use a dataset to make a bar graph.\
--   Load the Gun related data from the nhanes survey.
+-   Load the Gun related data from the nhanes survey to run an example.
 
 ```{r}
 nhanes <- read.csv("data/nhanes2012.csv")
 ```
 
--   Next, we need to check the import.
+-   Next, we need to check the import by looking at the summary or head of the data.
 
 ```{r, results='hide'}
 #Results hidden to save space, but gives you the first 6 records in the data set. 
 head(nhanes)
 ```
 
--   We can also check the summary of data of the variable of interest, AUQ300, to get a sense of what we are evaluating.
+-   We can also check the summary of data of only the variable of interest, AUQ300, to get a sense of what we are evaluating.
 
 ```{r}
 summary(nhanes$AUQ300) 
@@ -183,7 +183,8 @@ summary(nhanes.clean$AUQ300)
 
 #### Add Functions to Clean Chart
 
--   Omit the NA category from AUQ300 variable representing gun use and plot it again.
+-   Omit the NA category from AUQ300 variable, which represents gun use. Then plot the graph below.
+-   The drop_na() function is a good way to drop NA values from either the entire dataset or just one variable. It was introduced in the data prep lesson. Since we are only interested in dropping NA values from our one variable of interest that is to be graphed (AUQ300), we can put it in the parentheses so that we do not unintentionally drop lots of observations for no reason.
 -   Add an axis labels under *labs(x = ..., y=...)*.
 
 ```{r tidy=FALSE, fig.alt = "Bar Graph of AUQ300 Variable (Gun Use) with labels"}
@@ -200,7 +201,7 @@ nhanes.clean %>%
 
 -   There are many ways to add color to a bar graph. Below, the color is filled in directly in the aes() command by choosing it to give a different color to each categorical value of AUQ300.
 
-    -   When fill is mapped to a variable, the fill color of the geom will vary based on the values of that variable. This is useful for distinguishing different groups or categories within the data.
+    -   When fill is mapped to a variable, the fill color of the geom will vary based on the values of that variable. This is useful for distinguishing different groups or categories within the data. In this case the fill=AUQ300 gives a distinct color pattern based on how many categories there are considering the fact we are using the default "scale."
 
     ```{r tidy=FALSE, fig.alt = "Bar Graph of AUQ300 Variable (Gun Use) with color"}
     nhanes.clean %>%
@@ -219,7 +220,7 @@ nhanes.clean %>%
 
 -   Drop all NAs from the grass variable so that legal and not legal are the only categories.
 
--   We then create the bars and fill them with 2 colors, red and purple. Many color codes can be used here, and will be discussed in a later chapter.
+-   We then create the bars and fill them with 2 colors, red and purple. Many color codes can be used here, and will be discussed in a later lesson.
 
 -   We then add labels to our graph on both x and y axis.
 
@@ -322,6 +323,7 @@ Some common graphing options for single continuous variable:
 -   Histograms (From Lesson 2)
 -   Density plots
 -   Boxplots
+-   Violin plots
 
 ### Histograms
 
@@ -499,16 +501,21 @@ ggplot(GrowthFund, aes(GrowthFund, fill="red")) + geom_boxplot(show.legend = FAL
 -   You can add parameters to make this visualization more professional, but this gets you started. Be sure to look at some examples in the R community or on ChatGPT.
 
 ### Violin Plots
-* A visual display of data that combines features of density plots and boxplots to show the distribution of numeric variables, often across groups. 
 
-* We can look at the GrowthFund example we had as a boxplot above as a violin plot. In order to make the change, we alter the second layer from geom_boxplot() to geom_violin(). 
+-   A visual display of data that combines features of density plots and boxplots to show the distribution of numeric variables, often across groups.
+
+#### GrowthFund Example
+-   We can look at the GrowthFund example we had as a boxplot above as a violin plot. In order to make the change, we alter the second layer from geom_boxplot() to geom_violin().
+
 ```{r tidy=FALSE, fig.alt = "Violin Plot Generated from ggplot2 by R"}
 GrowthFund %>% ggplot(aes(x="", y=GrowthFund))+ 
   geom_violin() + theme_minimal() + coord_flip()
 ```
 
-* We can also view mpg from the mtcars data set as a violin plot because it is a numerical variable. In the plot below, I graphed mpg as a violin plot. You can also embed other visual markers like mean and median or layer on another graph like a boxplot. 
-* You can see that this violin plot is vertical. The coord_flip() command we used above flips the chart horizontal the same way it flips a boxplot. 
+#### mpg Example
+
+-   We can also view mpg from the mtcars data set as a violin plot because it is a numerical variable. In the plot below, I graphed mpg as a violin plot. You can also embed other visual markers like mean and median or layer on another graph like a boxplot.
+-   You can see that this violin plot is vertical. The coord_flip() command we used above flips the chart horizontal the same way it flips a boxplot.
 
 ```{r tidy=FALSE, fig.alt = "Violin Plot with Boxplot Center Generated from ggplot2 by R"}
 mtcars %>%
@@ -518,8 +525,8 @@ mtcars %>%
 
 ```
 
-* We could also merge both a violin and a boxplot. The code below shows two separate charts (and also flipped) using the following code and then merges them into one visualization. 
-* The width parameter controls the width of the boxes in a boxplot or the width of the violins in a violin plot. You can vary this parameter to create better depth. 
+-   We could also merge both a violin and a boxplot. The code below shows two separate charts (and also flipped) using the following code and then merges them into one visualization.
+-   The width parameter controls the width of the boxes in a boxplot or the width of the violins in a violin plot. You can vary this parameter to create better depth.
 
 ```{r}
 library(tidyverse)
@@ -540,8 +547,6 @@ mtcars %>%
   geom_boxplot(width=0.1, color="#986D00", fill="#24585E")
 
 ```
-
-
 
 -   Let's get some summary statistics to check for outliers, skewness, and kurtosis to see how our visual aids help us in understanding those results.
 
@@ -564,9 +569,6 @@ semTools::kurtosis(mtcars$mpg)
 ```{r}
 ggplot(mtcars, aes(mpg)) + geom_histogram(binwidth = 5, color="black", fill="green")
 ```
-
-
-
 
 ## Graphs for Two Variables At Once
 
@@ -818,7 +820,7 @@ ggplot(Edu, aes(x=Education, y=Income)) +
     stat_smooth(color="#789F90")
 ```
 
--   We can change the type of trendline. The most common is the to develop the trendline using the lm method, which stands for the linear method that we are going to learn in Chapter 9. For now, lets insert \_method="lm" into our stat_smooth later to see the change.
+-   We can change the type of trendline. The most common is the to develop the trendline using the lm method, which stands for the linear method that we are going to learn in the Regression lesson. For now, lets insert \_method="lm" into our stat_smooth later to see the change.
 
 ```{r, fig.alt = "Scatterplot With stat_smooth lm method Generated from ggplot2 by R"}
 ggplot(Edu, aes(x=Education, y=Income)) +
@@ -836,14 +838,14 @@ ggplot(mtcars, aes(x=disp, y=mpg))+
   stat_smooth(method="lm", color="#789F90")
 ```
 
--   In regards to hp, below, we see another negative trend.
+-   In regards to the hp variable, below, we see another negative trend.
 
 ```{r, fig.alt = "Scatterplot examples in R"}
 ggplot(mtcars, aes(x=hp, y=mpg))+ geom_point() +
   stat_smooth(method="lm", color="#789F90")
 ```
 
--   In regards to qsec, below, we see a weak positive trend. This relationship would need to verified later on.
+-   In regards to the qsec variable, below, we see a weak positive trend. This relationship would need to verified later on.
 
 ```{r, fig.alt = "Scatterplot examples in R"}
 ggplot(mtcars, aes(x=qsec, y=mpg))+geom_point() + stat_smooth(method="lm", color="#789F90")
@@ -857,14 +859,14 @@ plot(mtcars$mpg~ mtcars$vs)
 boxplot(mtcars$mpg~ mtcars$vs)
 ```
 
--   Using ggplot, we would have the same issue. Since vs is categorical, it does not look right when we use the geom_point() later.
+-   Using ggplot, we would have the same issue. Since vs is a categorical variable, it does not look right when we use the geom_point() later.
 
 ```{r, fig.alt = "ggplot2 Example with Incorrect Data Type"}
 ggplot(mtcars, aes(x=vs, y=mpg))+geom_point() +
   stat_smooth(method="lm")
 ```
 
--   Instead, we would want the geom_boxplot layer like shown below. The stat_smooth() is also not an applicable layer to a boxplot and would need to be removed.\
+-   Instead, we would want the geom_boxplot() layer like shown below. The stat_smooth() is also not an applicable layer to a boxplot and would need to be removed.\
 
 ```{r, fig.alt = "ggplot2 Example with Boxplot"}
 ggplot(mtcars, aes(x=vs, y=mpg))+geom_boxplot() 
@@ -974,7 +976,7 @@ nhanes.clean %>%
   labs(x="Wear hearing protection when shooting", title="Hearing Shout Across Room vs. Use of Hearing Protection", y="Frequency")
 ```
 
--   That is a few of the charts. See if you can determine any thing from them and try to run the other combinations. You will see that it is easier to see with less categories when you have multiple variables like this.
+-   That is a few of the charts. See if you can determine anything interesting from them and also try to run the other combinations. You will see that it is easier to see with less categories when you have multiple variables like this.
 
 ## Summary
 
