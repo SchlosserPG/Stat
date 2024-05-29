@@ -481,7 +481,7 @@ OutlierValue <- IQRvalue*1.5; OutlierValue
     -19.3475 > 19.60125 #FALSE 
     ```
 
-#### Boxplot
+#### GrowthFund Boxplot
 
 -   We can use ggplot to retrieve our graph and associated numbers.
 -   The outlier is visually depicted on the graph as -38.32.
@@ -498,15 +498,50 @@ ggplot(GrowthFund, aes(GrowthFund, fill="red")) + geom_boxplot(show.legend = FAL
 
 -   You can add parameters to make this visualization more professional, but this gets you started. Be sure to look at some examples in the R community or on ChatGPT.
 
-#### mtcars Example
+### Violin Plots
+* A visual display of data that combines features of density plots and boxplots to show the distribution of numeric variables, often across groups. 
 
--   We can also view mpg from the mtcars data set as a boxplot.
--   In this example, there is one outlier to the right.
-
-```{r tidy=FALSE, fig.alt = "Boxplot Generated from ggplot2 by R"}
-data("mtcars")
-ggplot(mtcars, aes(mpg)) + geom_boxplot(color="#AAAAAA", fill="#AAA3F3") + theme_minimal()
+* We can look at the GrowthFund example we had as a boxplot above as a violin plot. In order to make the change, we alter the second layer from geom_boxplot() to geom_violin(). 
+```{r tidy=FALSE, fig.alt = "Violin Plot Generated from ggplot2 by R"}
+GrowthFund %>% ggplot(aes(x="", y=GrowthFund))+ 
+  geom_violin() + theme_minimal() + coord_flip()
 ```
+
+* We can also view mpg from the mtcars data set as a violin plot because it is a numerical variable. In the plot below, I graphed mpg as a violin plot. You can also embed other visual markers like mean and median or layer on another graph like a boxplot. 
+* You can see that this violin plot is vertical. The coord_flip() command we used above flips the chart horizontal the same way it flips a boxplot. 
+
+```{r tidy=FALSE, fig.alt = "Violin Plot with Boxplot Center Generated from ggplot2 by R"}
+mtcars %>%
+  ggplot(aes(x="", y = mpg)) +
+  geom_violin(fill="lightgreen") +
+  theme_minimal() 
+
+```
+
+* We could also merge both a violin and a boxplot. The code below shows two separate charts (and also flipped) using the following code and then merges them into one visualization. 
+* The width parameter controls the width of the boxes in a boxplot or the width of the violins in a violin plot. You can vary this parameter to create better depth. 
+
+```{r}
+library(tidyverse)
+data(mtcars)
+
+
+mtcars %>% 
+  ggplot(aes(x="", y=mpg)) + 
+  geom_boxplot(color="#986D00", fill="#24585E") + theme_minimal() + coord_flip()
+mtcars %>% 
+  ggplot(aes(x="", y=mpg)) + 
+  geom_violin(color="#986D00", fill="#24585E") + theme_minimal() + coord_flip()
+
+mtcars %>%
+  ggplot(aes(x="", y = mpg)) +
+  geom_violin(fill="lightgreen") +
+  theme_minimal() + 
+  geom_boxplot(width=0.1, color="#986D00", fill="#24585E")
+
+```
+
+
 
 -   Let's get some summary statistics to check for outliers, skewness, and kurtosis to see how our visual aids help us in understanding those results.
 
@@ -529,6 +564,9 @@ semTools::kurtosis(mtcars$mpg)
 ```{r}
 ggplot(mtcars, aes(mpg)) + geom_histogram(binwidth = 5, color="black", fill="green")
 ```
+
+
+
 
 ## Graphs for Two Variables At Once
 
