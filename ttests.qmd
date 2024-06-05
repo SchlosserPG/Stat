@@ -618,6 +618,47 @@ t.test(nhanes.2016.cleaned$systolic,
 -   Steps 4 and 5: Interpret probability and results
     -   We found a test statistic is 9.3762, and a corresponding p-value is 0.000. If our alpha was set to .05, 0.000 is smaller than that (p-value \< alpha). This indicates that there is a difference in systolic blood pressure 1 and 2. Thus, there is a statistically significant difference in the mean blood pressure of reading 1 and 2 in the 2016 NHANES (t(7100) = 9.3762, p = 0.000).
 
+### reshape function
+
+* The reshape function allows you to restructure a data frame by specifying a timevar (The variable in the data that defines the different time points or conditions), and idvar (The variable that uniquely identifies each subject or observational unit), and a direction ("wide" or "long")
+* The syntax is as follows: reshape(data, timevar, idvar, direction, ...)
+* The direction of reshaping, either "wide" to spread the data across columns or "long" to gather the data into rows.
+
+
+```{r}
+data("sleep")
+summary(sleep)
+sleep2 <- reshape(sleep, timevar ="group", idvar = "ID", direction="wide")
+summary(sleep2)
+t.test(sleep2$extra.1, sleep2$extra.2, paired=TRUE)
+
+```
+
+
+* Using tidyverse, we could get the same effect using the filter, select, and rename functions which are a part of dplyr. In the code below, we use filter to divide by group and then after selecting and renaming the columns we need, we join back together using a full_join. 
+* Using full_join ensures that all IDs are included in the resulting dataset, even if they only appear in one of the groups. This can be useful if your data might have missing group entries for some IDs.
+
+```{r}
+data("sleep")
+summary(sleep)
+library(tidyverse)
+group1 <- sleep %>%
+     filter(group == 1) %>%
+     select(ID, extra) %>%
+     rename(extra.1 = extra)
+
+group2 <- sleep %>%
+     filter(group == 2) %>%
+     select(ID, extra) %>%
+     rename(extra.2 = extra)
+
+sleep2 <- group1 %>%
+     full_join(group2, by = "ID")
+t.test(sleep2$extra.1, sleep2$extra.2, paired=TRUE)
+```
+
+* In either case, we reject the null hypotheses and find that the type of drug does affect the sleep in patient
+
 ## Summary
 
 -   In summary, we learned about the basic rules of hypothesis testing and how to set up a null and alternative hypothesis. We learned about two-tailed, right-tailed, and left-tailed hypotheses. We learned about 3 t.tests: the one-sample t-test, the independent samples t-test, and the dependent (or paired) samples t-test. Finally, we also learned how to interpret the results using the p-value approach.
