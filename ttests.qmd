@@ -620,10 +620,9 @@ t.test(nhanes.2016.cleaned$systolic,
 
 ### reshape function
 
-* The reshape function allows you to restructure a data frame by specifying a timevar (The variable in the data that defines the different time points or conditions), and idvar (The variable that uniquely identifies each subject or observational unit), and a direction ("wide" or "long")
-* The syntax is as follows: reshape(data, timevar, idvar, direction, ...)
-* The direction of reshaping, either "wide" to spread the data across columns or "long" to gather the data into rows.
-
+-   The reshape function allows you to restructure a data frame by specifying a timevar (The variable in the data that defines the different time points or conditions), and idvar (The variable that uniquely identifies each subject or observational unit), and a direction ("wide" or "long")
+-   The syntax is as follows: reshape(data, timevar, idvar, direction, ...)
+-   The direction of reshaping, either "wide" to spread the data across columns or "long" to gather the data into rows.
 
 ```{r}
 data("sleep")
@@ -634,9 +633,8 @@ t.test(sleep2$extra.1, sleep2$extra.2, paired=TRUE)
 
 ```
 
-
-* Using tidyverse, we could get the same effect using the filter, select, and rename functions which are a part of dplyr. In the code below, we use filter to divide by group and then after selecting and renaming the columns we need, we join back together using a full_join. 
-* Using full_join ensures that all IDs are included in the resulting dataset, even if they only appear in one of the groups. This can be useful if your data might have missing group entries for some IDs.
+-   Using tidyverse, we could get the same effect using the filter, select, and rename functions which are a part of dplyr. In the code below, we use filter to divide by group and then after selecting and renaming the columns we need, we join back together using a full_join.
+-   Using full_join ensures that all IDs are included in the resulting dataset, even if they only appear in one of the groups. This can be useful if your data might have missing group entries for some IDs.
 
 ```{r}
 data("sleep")
@@ -657,7 +655,7 @@ sleep2 <- group1 %>%
 t.test(sleep2$extra.1, sleep2$extra.2, paired=TRUE)
 ```
 
-* In either case, we reject the null hypotheses and find that the type of drug does affect the sleep in patient
+-   In either case, we reject the null hypotheses and find that the type of drug does affect the sleep in patient
 
 ## Summary
 
