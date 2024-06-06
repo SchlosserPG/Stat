@@ -346,9 +346,9 @@ t.test(x = nhanes.2016.65plus$BPXSY1, mu = 120)
 ### Step 1: Specify Null and Alternative Hypothesis
 
 -   When conducting hypothesis tests concerning $\mu_1  - \mu_2$ , the competing hypotheses will take one of the following forms:
-    -   Two-tailed Test: $H_0: \mu_1  - \mu_2 =  d_0$ versus $H_0: \mu_1  - \mu_2 \neq  d_0$
-    -   Right-tailed Test: $H_0: \mu_1  - \mu_2 <=  d_0$ versus $H_0: \mu_1  - \mu_2 >  d_0$
-    -   Left-tailed Test: $H_0: \mu_1  - \mu_2 >=  d_0$ versus $H_0: \mu_1  - \mu_2 <  d_0$
+    -   Two-tailed Test: $H_0: \mu_1  - \mu_2 =  d_0$ versus $H_A: \mu_1  - \mu_2 \neq  d_0$
+    -   Right-tailed Test: $H_0: \mu_1  - \mu_2 <=  d_0$ versus $H_A: \mu_1  - \mu_2 >  d_0$
+    -   Left-tailed Test: $H_0: \mu_1  - \mu_2 >=  d_0$ versus $H_A: \mu_1  - \mu_2 <  d_0$
 -   Where $d_0$ is the hypothesized difference between $\mu_1  - \mu_2$.
 
 ![Independent Samples Table](Pictures/Ch6/TableIndSamp.png "Independent Samples Table")
