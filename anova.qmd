@@ -430,6 +430,11 @@ choose(4,2)
 choose(3,2)
 ```
 
+## Using AI
+* Use the following prompt on a generative AI, like chatGPT to learn more about ANOVA analysis. 
+
+     + Conduct an ANOVA test to compare group means. Use the aov() and anova() functions for ANOVA. Discuss the F-statistic and p-value, and what they indicate about the differences between group means.
+
 ## Summary
 
 -   In this section, we learned about Type I and Type II error and the importance of reducing both. We also learned about a one-way ANOVA and a two-way ANOVA, including how to conduct them, and when to evaluate post-hoc tests.

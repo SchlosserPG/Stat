@@ -657,6 +657,12 @@ t.test(sleep2$extra.1, sleep2$extra.2, paired=TRUE)
 
 -   In either case, we reject the null hypotheses and find that the type of drug does affect the sleep in patient
 
+## Using AI
+* Use the following prompt on a generative AI, like chatGPT to learn more about t.test's and confidence intervals. 
+
+     + Perform and interpret hypothesis tests. Use the t.test() function to calculate the confidence interval. Discuss how confidence intervals provide a range of values that likely include the population parameter.
+
+
 ## Summary
 
 -   In summary, we learned about the basic rules of hypothesis testing and how to set up a null and alternative hypothesis. We learned about two-tailed, right-tailed, and left-tailed hypotheses. We learned about 3 t.tests: the one-sample t-test, the independent samples t-test, and the dependent (or paired) samples t-test. Finally, we also learned how to interpret the results using the p-value approach.

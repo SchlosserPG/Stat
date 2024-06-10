@@ -2053,8 +2053,8 @@
     "objectID": "dataviz.html#summary",
     "href": "dataviz.html#summary",
     "title": "5  Data Visualization",
-    "section": "5.5 Summary",
-    "text": "5.5 Summary\n\nPractice many more examples with the help of ChatGPT and work towards constructing high-quality charts and graphs.",
+    "section": "5.6 Summary",
+    "text": "5.6 Summary\n\nPractice many more examples with the help of ChatGPT and work towards constructing high-quality charts and graphs.",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Visualization</span>"
     ]
@@ -2243,8 +2243,8 @@
     "objectID": "ttests.html#summary",
     "href": "ttests.html#summary",
     "title": "8  Hypothesis Testing with t-Tests",
-    "section": "8.6 Summary",
-    "text": "8.6 Summary\n\nIn summary, we learned about the basic rules of hypothesis testing and how to set up a null and alternative hypothesis. We learned about two-tailed, right-tailed, and left-tailed hypotheses. We learned about 3 t.tests: the one-sample t-test, the independent samples t-test, and the dependent (or paired) samples t-test. Finally, we also learned how to interpret the results using the p-value approach.\nTake note that this lesson does not include the assumptions for t-tests. Assumptions are extremely important, but I will leave the discussion of them to another class.",
+    "section": "8.7 Summary",
+    "text": "8.7 Summary\n\nIn summary, we learned about the basic rules of hypothesis testing and how to set up a null and alternative hypothesis. We learned about two-tailed, right-tailed, and left-tailed hypotheses. We learned about 3 t.tests: the one-sample t-test, the independent samples t-test, and the dependent (or paired) samples t-test. Finally, we also learned how to interpret the results using the p-value approach.\nTake note that this lesson does not include the assumptions for t-tests. Assumptions are extremely important, but I will leave the discussion of them to another class.",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Hypothesis Testing with t-Tests</span>"
     ]
@@ -2303,8 +2303,8 @@
     "objectID": "anova.html#summary",
     "href": "anova.html#summary",
     "title": "9  Analysis of Variance (ANOVA)",
-    "section": "9.6 Summary",
-    "text": "9.6 Summary\n\nIn this section, we learned about Type I and Type II error and the importance of reducing both. We also learned about a one-way ANOVA and a two-way ANOVA, including how to conduct them, and when to evaluate post-hoc tests.",
+    "section": "9.7 Summary",
+    "text": "9.7 Summary\n\nIn this section, we learned about Type I and Type II error and the importance of reducing both. We also learned about a one-way ANOVA and a two-way ANOVA, including how to conduct them, and when to evaluate post-hoc tests.",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Analysis of Variance (ANOVA)</span>"
     ]
@@ -2343,8 +2343,8 @@
     "objectID": "correlation.html#summary",
     "href": "correlation.html#summary",
     "title": "10  Correlation Analysis",
-    "section": "10.6 Summary",
-    "text": "10.6 Summary\n\nIn this lesson, we learned about correlation coefficient and how to evaluate a strong, moderate, or weak/positive or negative correlation. We also learned how to visualize a relationship using a scatterplot. We also learned how to test for a correlation being significant or not.",
+    "section": "10.7 Summary",
+    "text": "10.7 Summary\n\nIn this lesson, we learned about correlation coefficient and how to evaluate a strong, moderate, or weak/positive or negative correlation. We also learned how to visualize a relationship using a scatterplot. We also learned how to test for a correlation being significant or not.",
     "crumbs": [
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Correlation Analysis</span>"
     ]
@@ -2393,8 +2393,8 @@
     "objectID": "regression.html#summary",
     "href": "regression.html#summary",
     "title": "11  Linear Regression Analysis",
-    "section": "11.5 Summary",
-    "text": "11.5 Summary\n\nIn this lesson, we learned how to write and interpret the simple linear regression model and the multiple linear regression model. We learned about goodness of fit measures and how to test hypotheses using regression by interpreting the summary output from the lm() command. Finally, we learned how to use regression with both continuous and categorical variables as predictor variables.",
+    "section": "11.6 Summary",
+    "text": "11.6 Summary\n\nIn this lesson, we learned how to write and interpret the simple linear regression model and the multiple linear regression model. We learned about goodness of fit measures and how to test hypotheses using regression by interpreting the summary output from the lm() command. Finally, we learned how to use regression with both continuous and categorical variables as predictor variables.",
     "crumbs": [
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Linear Regression Analysis</span>"
     ]
@@ -2437,6 +2437,56 @@
     "text": "1.5 Accessing Data Files for the Course\n\nTo download the data sets, go to our Blackboard datasets page and download them to your computer\nOnce downloaded, unzip the file by right-clicking and selecting “Extract All”, and then move the subfolder named data to your working directory.\nIn the example below, my project folder for the class is called BUAD231 and the subfolder that contains all the data files is called data. You can put your folder anywhere on the hard drive of your computer, but do not download it to places on the cloud like OneDrive.\n\n\n\n\nSaving Our Book Files Into a “data” Folder in Your Working Directory\n\n\n\nWe will use a number of data files plus more for homework/projects, so be prepared to use these files throughout the class.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installing R and R Studio</span>"
+    ]
+  },
+  {
+    "objectID": "correlation.html#using-ai",
+    "href": "correlation.html#using-ai",
+    "title": "10  Correlation Analysis",
+    "section": "10.6 Using AI",
+    "text": "10.6 Using AI\n\nUse the following prompt on a generative AI, like chatGPT to learn more about correlation analysis.\n\nUnderstand the difference between correlation and causation. Use functions like cor(), cor.test(), and ggplot(). Reflect on the importance of considering other factors before concluding causation.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Correlation Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "ttests.html#using-ai",
+    "href": "ttests.html#using-ai",
+    "title": "8  Hypothesis Testing with t-Tests",
+    "section": "8.6 Using AI",
+    "text": "8.6 Using AI\n\nUse the following prompt on a generative AI, like chatGPT to learn more about t.test’s and confidence intervals.\n\nPerform and interpret hypothesis tests. Use the t.test() function to calculate the confidence interval. Discuss how confidence intervals provide a range of values that likely include the population parameter.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Hypothesis Testing with t-Tests</span>"
+    ]
+  },
+  {
+    "objectID": "anova.html#using-ai",
+    "href": "anova.html#using-ai",
+    "title": "9  Analysis of Variance (ANOVA)",
+    "section": "9.6 Using AI",
+    "text": "9.6 Using AI\n\nUse the following prompt on a generative AI, like chatGPT to learn more about ANOVA analysis.\n\nConduct an ANOVA test to compare group means. Use the aov() and anova() functions for ANOVA. Discuss the F-statistic and p-value, and what they indicate about the differences between group means.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Analysis of Variance (ANOVA)</span>"
+    ]
+  },
+  {
+    "objectID": "dataviz.html#using-ai",
+    "href": "dataviz.html#using-ai",
+    "title": "5  Data Visualization",
+    "section": "5.5 Using AI",
+    "text": "5.5 Using AI\n\nUse the following prompt on a generative AI, like chatGPT to learn more about data visualization capabilities in ggplot2.\n\nCreate informative and visually appealing data visualizations. Use the ggplot2 package and functions like ggplot(), geom_bar(), geom_point(), and theme(). Emphasize the importance of clear and informative visualizations in data analysis.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Visualization</span>"
+    ]
+  },
+  {
+    "objectID": "regression.html#using-ai",
+    "href": "regression.html#using-ai",
+    "title": "11  Linear Regression Analysis",
+    "section": "11.5 Using AI",
+    "text": "11.5 Using AI\n\nUse the following prompt on a generative AI, like chatGPT to learn more about regression analysis in R.\n\nPerform a simple linear regression analysis in R and interpret the results. Use the lm() and summary() functions for regression analysis. Discuss the interpretation of the intercept and slope, and the meaning of R-squared.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Linear Regression Analysis</span>"
     ]
   }
 ]

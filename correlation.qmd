@@ -173,6 +173,13 @@ cor.test(Debt_Payments$Income, Debt_Payments$Unemployment)
     -   Even if two variables are highly correlated, one does not necessarily cause the other.
 -   Note that a correlation is the first step in understanding causality.
 
+## Using AI
+
+* Use the following prompt on a generative AI, like chatGPT to learn more about correlation analysis. 
+
+     + Understand the difference between correlation and causation. Use functions like cor(), cor.test(), and ggplot(). Reflect on the importance of considering other factors before concluding causation.
+
+
 ## Summary
 
 -   In this lesson, we learned about correlation coefficient and how to evaluate a strong, moderate, or weak/positive or negative correlation. We also learned how to visualize a relationship using a scatterplot. We also learned how to test for a correlation being significant or not.

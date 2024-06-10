@@ -392,6 +392,11 @@ summary(creditlm)
 cor(Credit$Income, Credit$Rating) ##close to .8, but still under
 ```
 
+## Using AI
+* Use the following prompt on a generative AI, like chatGPT to learn more about regression analysis in R.
+     + Perform a simple linear regression analysis in R and interpret the results. Use the lm() and summary() functions for regression analysis. Discuss the interpretation of the intercept and slope, and the meaning of R-squared.
+
+
 ## Summary
 
 -   In this lesson, we learned how to write and interpret the simple linear regression model and the multiple linear regression model. We learned about goodness of fit measures and how to test hypotheses using regression by interpreting the summary output from the lm() command. Finally, we learned how to use regression with both continuous and categorical variables as predictor variables.
