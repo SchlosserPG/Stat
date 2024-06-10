@@ -2414,7 +2414,7 @@
     "href": "descriptives.html#using-ai",
     "title": "3  Descriptive Statistics",
     "section": "3.4 Using AI",
-    "text": "3.4 Using AI\nUse the following prompts on a generative AI, like chatGPT to learn more about descriptive statistics. + Explore and understand the distribution of data.",
+    "text": "3.4 Using AI\n\nUse the following prompts on a generative AI, like chatGPT to learn more about descriptive statistics.\n\nExplore and understand the distribution of data.\nAs a social media manager, you need to analyze engagement metrics (likes, shares, comments) from your company’s social media platforms. How would you use R to compute descriptive statistics and create visualizations? What can you learn about audience engagement from your analysis?\nAs an inventory manager, you need to analyze inventory levels across different product categories. How would you use R to calculate mean, standard deviation, and create visualizations such as histograms or box plots? What can these statistics tell you about your inventory management practices?\nYou have access to a dataset of customer demographics. How would you use R to analyze age, income, and purchase frequency data? What insights can you gain about your customer base, and how might these insights influence your marketing strategies?\nImagine you are a financial analyst preparing a report for stakeholders. How would you use R to summarize key financial metrics like revenue, expenses, and profit? How can these statistics help in understanding the company’s financial health?",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Descriptive Statistics</span>"
     ]
