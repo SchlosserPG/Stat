@@ -476,10 +476,11 @@ OutlierValue <- IQRvalue*1.5; OutlierValue
     3.8750 - -38.32 #42.195
     42.195 > 19.60125 #TRUE
 
-    QuanData[4]-QuanData[5] > OutlierValue 
-    #False indicating no outlier to the right. 
-    16.9425 - 36.29  #-19.3475
-    -19.3475 > 19.60125 #FALSE 
+     QuanData[5]-QuanData[4] > OutlierValue 
+     #False indicating no outlier to the right. 
+     36.29-16.9425  #19.3475
+     19.3475 > 19.60125 #FALSE 
+     
     ```
 
 #### GrowthFund Boxplot
@@ -552,19 +553,26 @@ mtcars %>%
 
 ```{r}
 IQRvalue <- IQR(mtcars$mpg)
-OutlierValue <- IQRvalue*1.5; OutlierValue
+OutlierValue <- IQRvalue*1.5; OutlierValue #11.0625
 QuanData <- quantile(mtcars$mpg); QuanData
+
 QuanData[2]-QuanData[1] > OutlierValue 
+# Using the numbers from QuadData
+15.425  - 10.400 >11.0625
 #False indicating no outlier to the left
-QuanData[4]-QuanData[5] > OutlierValue 
-#False indicating no outlier to the right. 
+
+
+QuanData[5]-QuanData[4] > OutlierValue 
+33.900 - 22.800 > 11.0625
+#TRUE indicating an outlier to the right. 
+
 semTools::skew(mtcars$mpg)
 semTools::kurtosis(mtcars$mpg)
 ```
 
--   Looks like the mpg variable is quite normal with no signs of outliers, skewness, or kurtosis. In the boxplot, it looks like there might be an outlier to the right, but it is not problematic to the dataset as indicated by the manual calculations.
+-   Looks like the mpg variable is quite normal with one potential outlier, but no signs of skewness or kurtosis. In the boxplot, it looks like there might be an outlier to the right, but it is not problematic to the dataset.
 
--   We can also get a histogram of mpg and are able to make the same claims towards normality. You can see a slight pull to the right, but it is seemingly normal.
+-   We can also get a histogram of mpg and are able to make the same claims towards normality. You can see a slight pull to the right, but it is seemingly normal. A higher sample size could help here.
 
 ```{r}
 ggplot(mtcars, aes(mpg)) + geom_histogram(binwidth = 5, color="black", fill="green")

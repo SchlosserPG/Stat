@@ -374,6 +374,8 @@ ggplot(HousePrice, aes(x=HousePrice))+geom_histogram(binwidth = 100, boundary= 3
 
 customers <- read.csv("data/customers.csv")
 summary(customers$Spending, na.rm=TRUE) #mean and median
+mean(customers$Spending, na.rm=TRUE) #mean by itself
+median(customers$Spending, na.rm=TRUE) #median by itself
 ### Spread to Report with the Mean
 sd(customers$Spending, na.rm=TRUE) 
 var(customers$Spending, na.rm=TRUE)
@@ -458,13 +460,13 @@ kurtosis(customers$Orders)
 
 ## Using AI
 
-* Use the following prompts on a generative AI, like chatGPT to learn more about descriptive statistics. 
+-   Use the following prompts on a generative AI, like chatGPT to learn more about descriptive statistics.
 
-     + Explore and understand the distribution of data.
-     + As a social media manager, you need to analyze engagement metrics (likes, shares, comments) from your company's social media platforms. How would you use R to compute descriptive statistics and create visualizations? What can you learn about audience engagement from your analysis?
-     + As an inventory manager, you need to analyze inventory levels across different product categories. How would you use R to calculate mean, standard deviation, and create visualizations such as histograms or box plots? What can these statistics tell you about your inventory management practices?
-     + You have access to a dataset of customer demographics. How would you use R to analyze age, income, and purchase frequency data? What insights can you gain about your customer base, and how might these insights influence your marketing strategies?
-     + Imagine you are a financial analyst preparing a report for stakeholders. How would you use R to summarize key financial metrics like revenue, expenses, and profit? How can these statistics help in understanding the company's financial health?
+    -   Explore and understand the distribution of data.
+    -   As a social media manager, you need to analyze engagement metrics (likes, shares, comments) from your company's social media platforms. How would you use R to compute descriptive statistics and create visualizations? What can you learn about audience engagement from your analysis?
+    -   As an inventory manager, you need to analyze inventory levels across different product categories. How would you use R to calculate mean, standard deviation, and create visualizations such as histograms or box plots? What can these statistics tell you about your inventory management practices?
+    -   You have access to a dataset of customer demographics. How would you use R to analyze age, income, and purchase frequency data? What insights can you gain about your customer base, and how might these insights influence your marketing strategies?
+    -   Imagine you are a financial analyst preparing a report for stakeholders. How would you use R to summarize key financial metrics like revenue, expenses, and profit? How can these statistics help in understanding the company's financial health?
 
 ## Summary
 
