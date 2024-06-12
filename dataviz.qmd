@@ -247,7 +247,7 @@ legalize.bar <- gss.2016.cleaned %>%
   drop_na(grass) %>% 
   ggplot(aes(x = grass)) + geom_bar(fill=c("red","purple")) +
     labs(x = "Should marijuana be legal?",
-         y = "Percent of responses")
+         y = "Frequency of responses")
 legalize.bar
 ```
 
