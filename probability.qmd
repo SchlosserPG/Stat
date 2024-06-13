@@ -456,7 +456,7 @@ pbinom(1,6,.35)*100 #31.9%
 
 ```{r}
 # Solving the figure above using the pnorm() command in R. 
-#P(X<=0)
+#P(Z<=0)
 pnorm(q=0,mean=0,sd=1)
 # Or the following because the default value of the mean and sd are 0 and 1. 
 pnorm(0)
@@ -855,8 +855,8 @@ dist.mat.cleaned %>%
 
 -   2.66 and .79 are the values we pulled for mean and standard deviation. We can use that information to calculate probabilities based on the functions we mentioned above.
 -   So, what happens if the cuberoot of X \< 3 or less than 27 miles from the facility?
--   We estimate that about 66% of counties fall in the shaded area, having to travel \> 21 miles to nearest facility (27 = 3\^3).
--   This means that (1- 0.6665403)\*100 is the percentage of countries having to travel less than 21 miles to the nearest facility.
+-   We estimate that about 66% of counties fall in the shaded area, having to travel \> 27 miles to nearest facility (27 = 3\^3).
+-   This means that (1- 0.6665403)\*100 is the percentage of countries having to travel less than 27 miles to the nearest facility.
 
 ```{r}
 4^3
@@ -877,6 +877,7 @@ pnorm(2, 2.66, .79)
 -   We can use the equation to calculate the z-score for a county where you have to drive 15 miles to a facility.
 
 ```{r}
+##z = (x-m)/sd since we are in cube root - we multiply x by ^1/3
 (15^(1/3) - 2.66)/0.79
 ```
 
@@ -885,8 +886,7 @@ pnorm(2, 2.66, .79)
 -   Next, we can calculate z for a county with residents who have to travel 50 miles to the nearest facility. In the transformed miles variable, this would be the cube root of 50, or a value of 3.68.
 
 ```{r}
-
-(50^(1/3)-2.66)/0.79
+(50^(1/3)-2.66)/0.79 #[1] 1.296242
 ```
 
 -   This indicated that the transformed distance to a facility with MAT for this example county was 1.29 standard deviations above the mean transformed distance from a county to a facility with MAT.
