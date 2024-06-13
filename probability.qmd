@@ -855,8 +855,8 @@ dist.mat.cleaned %>%
 
 -   2.66 and .79 are the values we pulled for mean and standard deviation. We can use that information to calculate probabilities based on the functions we mentioned above.
 -   So, what happens if the cuberoot of X \< 3 or less than 27 miles from the facility?
--   We estimate that about 66% of counties fall in the shaded area, having to travel \> 27 miles to nearest facility (27 = 3\^3).
--   This means that (1- 0.6665403)\*100 is the percentage of countries having to travel less than 27 miles to the nearest facility.
+-   We estimate that about 66% of counties fall in the shaded area, having to travel less than 27 miles to nearest facility (27 = 3\^3).
+-   This means that (1- 0.6665403)\*100 is the percentage of countries having to travel more than 27 miles to the nearest facility.
 
 ```{r}
 4^3
