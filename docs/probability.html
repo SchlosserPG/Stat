@@ -1634,15 +1634,19 @@ window.Quarto = {
  Max.   :30.000  
  NA's   :10299   </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.95</span>, <span class="at">mean =</span> <span class="dv">500</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 516.4485</code></pre>
+</div>
 </div>
 <ul>
 <li>Once here, we graph PHYSHLTH.<br>
 </li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a>gender.clean <span class="sc">%&gt;%</span></span>
-<span id="cb166-2"><a href="#cb166-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(PHYSHLTH)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#7463AC"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb166-3"><a href="#cb166-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of Days Sick"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a>gender.clean <span class="sc">%&gt;%</span></span>
+<span id="cb168-2"><a href="#cb168-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(PHYSHLTH)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#7463AC"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb168-3"><a href="#cb168-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of Days Sick"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1656,35 +1660,35 @@ window.Quarto = {
 <li><p>Next, we run the 4 calculations by mutating the variable and saving all 4 transformation under new variable names.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a>genderTransform <span class="ot">&lt;-</span> gender.clean <span class="sc">%&gt;%</span></span>
-<span id="cb167-2"><a href="#cb167-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">phy.cube.root =</span> PHYSHLTH<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb167-3"><a href="#cb167-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">phy.log =</span> <span class="fu">log</span>(<span class="at">x =</span> PHYSHLTH)) <span class="sc">%&gt;%</span></span>
-<span id="cb167-4"><a href="#cb167-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">phy.inverse =</span> <span class="dv">1</span><span class="sc">/</span>PHYSHLTH) <span class="sc">%&gt;%</span></span>
-<span id="cb167-5"><a href="#cb167-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">phy.sqrt =</span> <span class="fu">sqrt</span>(<span class="at">x =</span> PHYSHLTH))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a>genderTransform <span class="ot">&lt;-</span> gender.clean <span class="sc">%&gt;%</span></span>
+<span id="cb169-2"><a href="#cb169-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">phy.cube.root =</span> PHYSHLTH<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb169-3"><a href="#cb169-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">phy.log =</span> <span class="fu">log</span>(<span class="at">x =</span> PHYSHLTH)) <span class="sc">%&gt;%</span></span>
+<span id="cb169-4"><a href="#cb169-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">phy.inverse =</span> <span class="dv">1</span><span class="sc">/</span>PHYSHLTH) <span class="sc">%&gt;%</span></span>
+<span id="cb169-5"><a href="#cb169-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">phy.sqrt =</span> <span class="fu">sqrt</span>(<span class="at">x =</span> PHYSHLTH))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Next, we create the 4 graphs for each of the 4 transformations labelled above to see if one helps.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a>cuberoot <span class="ot">&lt;-</span> genderTransform <span class="sc">%&gt;%</span></span>
-<span id="cb168-2"><a href="#cb168-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> phy.cube.root)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#7463AC"</span>, <span class="at">color =</span> <span class="st">"white"</span>,</span>
-<span id="cb168-3"><a href="#cb168-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Cube root"</span>, <span class="at">y =</span> <span class="st">""</span>)</span>
-<span id="cb168-4"><a href="#cb168-4" aria-hidden="true" tabindex="-1"></a>logged <span class="ot">&lt;-</span> genderTransform <span class="sc">%&gt;%</span></span>
-<span id="cb168-5"><a href="#cb168-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> phy.log)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#7463AC"</span>, <span class="at">color =</span> <span class="st">"white"</span>,</span>
-<span id="cb168-6"><a href="#cb168-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Log"</span>, <span class="at">y =</span> <span class="st">""</span>)</span>
-<span id="cb168-7"><a href="#cb168-7" aria-hidden="true" tabindex="-1"></a>inversed <span class="ot">&lt;-</span> genderTransform <span class="sc">%&gt;%</span></span>
-<span id="cb168-8"><a href="#cb168-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> phy.inverse)) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#7463AC"</span>,</span>
-<span id="cb168-9"><a href="#cb168-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">binwidth =</span> <span class="fl">0.05</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Inverse"</span>,</span>
-<span id="cb168-10"><a href="#cb168-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">""</span>)</span>
-<span id="cb168-11"><a href="#cb168-11" aria-hidden="true" tabindex="-1"></a>squareroot <span class="ot">&lt;-</span> genderTransform <span class="sc">%&gt;%</span></span>
-<span id="cb168-12"><a href="#cb168-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> phy.sqrt)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#7463AC"</span>, <span class="at">color =</span> <span class="st">"white"</span>,</span>
-<span id="cb168-13"><a href="#cb168-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Square root"</span>, <span class="at">y =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb170"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a>cuberoot <span class="ot">&lt;-</span> genderTransform <span class="sc">%&gt;%</span></span>
+<span id="cb170-2"><a href="#cb170-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> phy.cube.root)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#7463AC"</span>, <span class="at">color =</span> <span class="st">"white"</span>,</span>
+<span id="cb170-3"><a href="#cb170-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Cube root"</span>, <span class="at">y =</span> <span class="st">""</span>)</span>
+<span id="cb170-4"><a href="#cb170-4" aria-hidden="true" tabindex="-1"></a>logged <span class="ot">&lt;-</span> genderTransform <span class="sc">%&gt;%</span></span>
+<span id="cb170-5"><a href="#cb170-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> phy.log)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#7463AC"</span>, <span class="at">color =</span> <span class="st">"white"</span>,</span>
+<span id="cb170-6"><a href="#cb170-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Log"</span>, <span class="at">y =</span> <span class="st">""</span>)</span>
+<span id="cb170-7"><a href="#cb170-7" aria-hidden="true" tabindex="-1"></a>inversed <span class="ot">&lt;-</span> genderTransform <span class="sc">%&gt;%</span></span>
+<span id="cb170-8"><a href="#cb170-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> phy.inverse)) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#7463AC"</span>,</span>
+<span id="cb170-9"><a href="#cb170-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">binwidth =</span> <span class="fl">0.05</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Inverse"</span>,</span>
+<span id="cb170-10"><a href="#cb170-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">""</span>)</span>
+<span id="cb170-11"><a href="#cb170-11" aria-hidden="true" tabindex="-1"></a>squareroot <span class="ot">&lt;-</span> genderTransform <span class="sc">%&gt;%</span></span>
+<span id="cb170-12"><a href="#cb170-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> phy.sqrt)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#7463AC"</span>, <span class="at">color =</span> <span class="st">"white"</span>,</span>
+<span id="cb170-13"><a href="#cb170-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Square root"</span>, <span class="at">y =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Finally, we plot the graphs using gridExtra so that we can see all 4.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(cuberoot, logged, inversed, squareroot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb171"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(cuberoot, logged, inversed, squareroot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

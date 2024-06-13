@@ -407,6 +407,17 @@ ggplot(df, aes(x)) +
      color="red", linetype="dashed", lwd=1)
 ```
 
+* You do not need the rnorm function if you are provided a dataset with a numerical variable. The following code uses the customers dataset to do 2 examples of density plots with 2 numerical variables. 
+
+```{r}
+customers <- read.csv("data/customers.csv")
+
+str(customers)
+
+ggplot(customers, aes(Income)) + geom_density()
+ggplot(customers, aes(Orders)) + geom_density(color = "#745033",fill="#740000",alpha=.5)
+```
+
 ### Boxplot
 
 -   A boxplot is a visual representation of data that shows central tendency (usually the median) and spread (usually the interquartile range) of a numeric variable for one or more groups.

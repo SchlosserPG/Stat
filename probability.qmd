@@ -917,7 +917,7 @@ table(gender.clean$PHYSHLTH)
 
 
 summary(gender.clean)
-
+qnorm(0.95, mean = 500, sd = 10)
 ```
 
 -   Once here, we graph PHYSHLTH.\

@@ -840,6 +840,44 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<ul>
+<li>You do not need the rnorm function if you are provided a dataset with a numerical variable. The following code uses the customers dataset to do 2 examples of density plots with 2 numerical variables.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>customers <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/customers.csv"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(customers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   200 obs. of  10 variables:
+ $ CustID   : int  1530016 1531136 1532160 1532307 1532356 1532387 1533017 1533561 1533697 1533766 ...
+ $ Sex      : chr  "Female" "Male" "Male" "Male" ...
+ $ Race     : chr  "Black" "White" "Black" "White" ...
+ $ BirthDate: chr  "12/16/1986" "5/9/1993" "5/22/1966" "9/16/1964" ...
+ $ College  : chr  "Yes" "Yes" "Yes" "Yes" ...
+ $ HHSize   : int  5 5 2 4 5 2 3 5 3 2 ...
+ $ Income   : int  53000 94000 64000 60000 47000 67000 84000 76000 42000 71000 ...
+ $ Spending : int  241 843 719 582 845 452 153 1079 247 708 ...
+ $ Orders   : int  3 12 9 13 7 9 2 23 3 4 ...
+ $ Channel  : chr  "SM" "TV" "TV" "SM" ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(customers, <span class="fu">aes</span>(Income)) <span class="sc">+</span> <span class="fu">geom_density</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dataviz_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(customers, <span class="fu">aes</span>(Orders)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"#745033"</span>, <span class="at">fill =</span> <span class="st">"#740000"</span>,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dataviz_files/figure-html/unnamed-chunk-25-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="boxplot" class="level3" data-number="5.2.3">
 <h3 data-number="5.2.3" class="anchored" data-anchor-id="boxplot"><span class="header-section-number">5.2.3</span> Boxplot</h3>
@@ -886,16 +924,16 @@ window.Quarto = {
 <li>For example, use the GrowthFund Vector from the last lesson. It is executed again below.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>GrowthFund <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">38.32</span>, <span class="fl">1.71</span>, <span class="fl">3.17</span>, <span class="fl">5.99</span>, <span class="fl">12.56</span>, <span class="fl">13.47</span>, <span class="fl">16.89</span>, <span class="fl">16.96</span>, <span class="fl">32.16</span>,</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="fl">36.29</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>GrowthFund <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(GrowthFund)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>GrowthFund <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">38.32</span>, <span class="fl">1.71</span>, <span class="fl">3.17</span>, <span class="fl">5.99</span>, <span class="fl">12.56</span>, <span class="fl">13.47</span>, <span class="fl">16.89</span>, <span class="fl">16.96</span>, <span class="fl">32.16</span>,</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fl">36.29</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>GrowthFund <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(GrowthFund)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>The quantile() function returns the five point summary when no arguments are specified.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>QuanData <span class="ot">&lt;-</span> <span class="fu">quantile</span>(GrowthFund<span class="sc">$</span>GrowthFund)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>QuanData</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>QuanData <span class="ot">&lt;-</span> <span class="fu">quantile</span>(GrowthFund<span class="sc">$</span>GrowthFund)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>QuanData</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      0%      25%      50%      75%     100% 
 -38.3200   3.8750  13.0150  16.9425  36.2900 </code></pre>
@@ -908,18 +946,18 @@ window.Quarto = {
 <li>We see an outlier visually, but without the tool available, we can detect them through the statistics. First we calculate the IQR, which is just quarter 3 minus quarter 1.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(GrowthFund<span class="sc">$</span>GrowthFund)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(GrowthFund<span class="sc">$</span>GrowthFund)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 -38.320   3.875  13.015  10.088  16.942  36.290 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>IQRvalue <span class="ot">&lt;-</span> <span class="fl">16.9425</span> <span class="sc">-</span> <span class="fl">3.875</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>IQRvalue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>IQRvalue <span class="ot">&lt;-</span> <span class="fl">16.9425</span> <span class="sc">-</span> <span class="fl">3.875</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>IQRvalue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 13.0675</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>IQRvalue <span class="ot">&lt;-</span> <span class="fu">IQR</span>(GrowthFund<span class="sc">$</span>GrowthFund)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>IQRvalue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>IQRvalue <span class="ot">&lt;-</span> <span class="fu">IQR</span>(GrowthFund<span class="sc">$</span>GrowthFund)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>IQRvalue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 13.0675</code></pre>
 </div>
@@ -928,8 +966,8 @@ window.Quarto = {
 <li>Then, multiply the IQR by 1.5.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>OutlierValue <span class="ot">&lt;-</span> IQRvalue <span class="sc">*</span> <span class="fl">1.5</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>OutlierValue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>OutlierValue <span class="ot">&lt;-</span> IQRvalue <span class="sc">*</span> <span class="fl">1.5</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>OutlierValue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 19.60125</code></pre>
 </div>
@@ -941,36 +979,36 @@ window.Quarto = {
 <li>A FALSE value indicates that no outliers are at the high end of the distribution.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>QuanData</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>QuanData</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      0%      25%      50%      75%     100% 
 -38.3200   3.8750  13.0150  16.9425  36.2900 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>QuanData[<span class="dv">2</span>] <span class="sc">-</span> QuanData[<span class="dv">1</span>] <span class="sc">&gt;</span> OutlierValue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>QuanData[<span class="dv">2</span>] <span class="sc">-</span> QuanData[<span class="dv">1</span>] <span class="sc">&gt;</span> OutlierValue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 25% 
 TRUE </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># True indicating an outlier to the left</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fl">3.875</span> <span class="sc">-</span> <span class="sc">-</span><span class="fl">38.32</span>  <span class="co">#42.195</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># True indicating an outlier to the left</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fl">3.875</span> <span class="sc">-</span> <span class="sc">-</span><span class="fl">38.32</span>  <span class="co">#42.195</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 42.195</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fl">42.195</span> <span class="sc">&gt;</span> <span class="fl">19.60125</span>  <span class="co">#TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fl">42.195</span> <span class="sc">&gt;</span> <span class="fl">19.60125</span>  <span class="co">#TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>QuanData[<span class="dv">5</span>] <span class="sc">-</span> QuanData[<span class="dv">4</span>] <span class="sc">&gt;</span> OutlierValue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>QuanData[<span class="dv">5</span>] <span class="sc">-</span> QuanData[<span class="dv">4</span>] <span class="sc">&gt;</span> OutlierValue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 100% 
 FALSE </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># False indicating no outlier to the right.</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fl">36.29</span> <span class="sc">-</span> <span class="fl">16.9425</span>  <span class="co">#19.3475</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># False indicating no outlier to the right.</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fl">36.29</span> <span class="sc">-</span> <span class="fl">16.9425</span>  <span class="co">#19.3475</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 19.3475</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fl">19.3475</span> <span class="sc">&gt;</span> <span class="fl">19.60125</span>  <span class="co">#FALSE </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fl">19.3475</span> <span class="sc">&gt;</span> <span class="fl">19.60125</span>  <span class="co">#FALSE </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
@@ -983,11 +1021,11 @@ FALSE </code></pre>
 <li>The outlier is visually depicted on the graph as -38.32.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(GrowthFund, <span class="fu">aes</span>(GrowthFund)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(GrowthFund, <span class="fu">aes</span>(GrowthFund)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" alt="Boxplot Generated by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" alt="Boxplot Generated by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -996,11 +1034,11 @@ FALSE </code></pre>
 <li>We can add a little color to the plot with the fill parameter, but then we also need to be sure to turn off the legends in the geom_boxplot.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(GrowthFund, <span class="fu">aes</span>(GrowthFund)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(GrowthFund, <span class="fu">aes</span>(GrowthFund)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" alt="Boxplot Generated by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" alt="Boxplot Generated by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1021,12 +1059,12 @@ FALSE </code></pre>
 <li>We can look at the GrowthFund example we had as a boxplot above as a violin plot. In order to make the change, we alter the second layer from geom_boxplot() to geom_violin().</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>GrowthFund <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span>GrowthFund))<span class="sc">+</span> </span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>GrowthFund <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span>GrowthFund))<span class="sc">+</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" alt="Violin Plot Generated from ggplot2 by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" alt="Violin Plot Generated from ggplot2 by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1039,14 +1077,14 @@ FALSE </code></pre>
 <li>You can see that this violin plot is vertical. The coord_flip() command we used above flips the chart horizontal the same way it flips a boxplot.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">fill=</span><span class="st">"lightgreen"</span>) <span class="sc">+</span></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">fill=</span><span class="st">"lightgreen"</span>) <span class="sc">+</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" alt="Violin Plot with Boxplot Center Generated from ggplot2 by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" alt="Violin Plot with Boxplot Center Generated from ggplot2 by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1056,37 +1094,37 @@ FALSE </code></pre>
 <li>The width parameter controls the width of the boxes in a boxplot or the width of the violins in a violin plot. You can vary this parameter to create better depth.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"#986D00"</span>, <span class="at">fill =</span> <span class="st">"#24585E"</span>) <span class="sc">+</span></span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"#986D00"</span>, <span class="at">fill =</span> <span class="st">"#24585E"</span>) <span class="sc">+</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_violin</span>(<span class="at">color =</span> <span class="st">"#986D00"</span>, <span class="at">fill =</span> <span class="st">"#24585E"</span>) <span class="sc">+</span></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_violin</span>(<span class="at">color =</span> <span class="st">"#986D00"</span>, <span class="at">fill =</span> <span class="st">"#24585E"</span>) <span class="sc">+</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-34-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-35-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_violin</span>(<span class="at">fill =</span> <span class="st">"lightgreen"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">color =</span> <span class="st">"#986D00"</span>, <span class="at">fill =</span> <span class="st">"#24585E"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_violin</span>(<span class="at">fill =</span> <span class="st">"lightgreen"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">color =</span> <span class="st">"#986D00"</span>, <span class="at">fill =</span> <span class="st">"#24585E"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-34-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-35-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1095,48 +1133,48 @@ FALSE </code></pre>
 <li>Let’s get some summary statistics to check for outliers, skewness, and kurtosis to see how our visual aids help us in understanding those results.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>IQRvalue <span class="ot">&lt;-</span> <span class="fu">IQR</span>(mtcars<span class="sc">$</span>mpg)</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>OutlierValue <span class="ot">&lt;-</span> IQRvalue <span class="sc">*</span> <span class="fl">1.5</span></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>OutlierValue  <span class="co">#11.0625</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>IQRvalue <span class="ot">&lt;-</span> <span class="fu">IQR</span>(mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>OutlierValue <span class="ot">&lt;-</span> IQRvalue <span class="sc">*</span> <span class="fl">1.5</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>OutlierValue  <span class="co">#11.0625</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11.0625</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>QuanData <span class="ot">&lt;-</span> <span class="fu">quantile</span>(mtcars<span class="sc">$</span>mpg)</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>QuanData</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>QuanData <span class="ot">&lt;-</span> <span class="fu">quantile</span>(mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>QuanData</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    0%    25%    50%    75%   100% 
 10.400 15.425 19.200 22.800 33.900 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>QuanData[<span class="dv">2</span>] <span class="sc">-</span> QuanData[<span class="dv">1</span>] <span class="sc">&gt;</span> OutlierValue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>QuanData[<span class="dv">2</span>] <span class="sc">-</span> QuanData[<span class="dv">1</span>] <span class="sc">&gt;</span> OutlierValue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  25% 
 FALSE </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the numbers from QuadData</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fl">15.425</span> <span class="sc">-</span> <span class="fl">10.4</span> <span class="sc">&gt;</span> <span class="fl">11.0625</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the numbers from QuadData</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fl">15.425</span> <span class="sc">-</span> <span class="fl">10.4</span> <span class="sc">&gt;</span> <span class="fl">11.0625</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># False indicating no outlier to the left</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>QuanData[<span class="dv">5</span>] <span class="sc">-</span> QuanData[<span class="dv">4</span>] <span class="sc">&gt;</span> OutlierValue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># False indicating no outlier to the left</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>QuanData[<span class="dv">5</span>] <span class="sc">-</span> QuanData[<span class="dv">4</span>] <span class="sc">&gt;</span> OutlierValue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>100% 
 TRUE </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fl">33.9</span> <span class="sc">-</span> <span class="fl">22.8</span> <span class="sc">&gt;</span> <span class="fl">11.0625</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fl">33.9</span> <span class="sc">-</span> <span class="fl">22.8</span> <span class="sc">&gt;</span> <span class="fl">11.0625</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># TRUE indicating an outlier to the right.</span></span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>semTools<span class="sc">::</span><span class="fu">skew</span>(mtcars<span class="sc">$</span>mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># TRUE indicating an outlier to the right.</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>semTools<span class="sc">::</span><span class="fu">skew</span>(mtcars<span class="sc">$</span>mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>skew (g1)        se         z         p 
 0.6723771 0.4330127 1.5527885 0.1204737 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>semTools<span class="sc">::</span><span class="fu">kurtosis</span>(mtcars<span class="sc">$</span>mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>semTools<span class="sc">::</span><span class="fu">kurtosis</span>(mtcars<span class="sc">$</span>mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Excess Kur (g2)              se               z               p 
     -0.02200629      0.86602540     -0.02541068      0.97972740 </code></pre>
@@ -1147,12 +1185,12 @@ TRUE </code></pre>
 <li><p>We can also get a histogram of mpg and are able to make the same claims towards normality. You can see a slight pull to the right, but it is seemingly normal. A higher sample size could help here.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(mpg)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">"black"</span>,</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"green"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(mpg)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"green"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1195,14 +1233,14 @@ TRUE </code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-37-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-38-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1219,16 +1257,16 @@ TRUE </code></pre>
 <li>(stat = “identity”) tells ggplot that the y values are already computed and should be used as-is for the heights of the bars. In this case, they are frequencies calculated in the countsDF dataset.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">vs =</span> <span class="fu">as.factor</span>(vs)) <span class="sc">%&gt;%</span></span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">gear =</span> <span class="fu">as.factor</span>(gear))</span>
-<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>countsDF <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(vs, gear) <span class="sc">%&gt;%</span></span>
-<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>()</span>
-<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(countsDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">vs =</span> <span class="fu">as.factor</span>(vs)) <span class="sc">%&gt;%</span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">gear =</span> <span class="fu">as.factor</span>(gear))</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>countsDF <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(vs, gear) <span class="sc">%&gt;%</span></span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>()</span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(countsDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> vs    gear        n         
  0:3   3:2   Min.   : 1.000  
@@ -1238,13 +1276,13 @@ TRUE </code></pre>
              3rd Qu.: 8.500  
              Max.   :12.000  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countsDF, <span class="fu">aes</span>(<span class="at">x =</span> gear, <span class="at">y =</span> n, <span class="at">fill =</span> vs)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,</span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Grouped Car Distribution by Gears and VS"</span>,</span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Number of Gears"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countsDF, <span class="fu">aes</span>(<span class="at">x =</span> gear, <span class="at">y =</span> n, <span class="at">fill =</span> vs)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Grouped Car Distribution by Gears and VS"</span>,</span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Number of Gears"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" alt="Grouped Bar Graph Generated by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" alt="Grouped Bar Graph Generated by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1258,16 +1296,16 @@ TRUE </code></pre>
 <li>Using ggplot, we can also stack these charts by removing the position = dodge statement.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countsDF, <span class="fu">aes</span>(<span class="at">x =</span> gear, <span class="at">y =</span> n, <span class="at">fill =</span> vs)) <span class="sc">+</span></span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Stacked Car Distribution"</span>,</span>
-<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Number of Gears"</span>,</span>
-<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
-<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countsDF, <span class="fu">aes</span>(<span class="at">x =</span> gear, <span class="at">y =</span> n, <span class="at">fill =</span> vs)) <span class="sc">+</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Stacked Car Distribution"</span>,</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Number of Gears"</span>,</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" alt="Stacked Bar Graph Generated from ggplot2 by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" alt="Stacked Bar Graph Generated from ggplot2 by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1282,19 +1320,19 @@ TRUE </code></pre>
 <li><p>In the below example, instead of counting observations per group, here, we took the average mpg (a continuous variable) based on groups of gear and vs and summarized the data into a variable avg_mpg. We then used that variable in a ggplot() command to create a unique chart to that above.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>avg_mpg <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(gear, vs) <span class="sc">%&gt;%</span></span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mpg =</span> <span class="fu">mean</span>(mpg, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>avg_mpg <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(gear, vs) <span class="sc">%&gt;%</span></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mpg =</span> <span class="fu">mean</span>(mpg, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avg_mpg, <span class="fu">aes</span>(gear,</span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  mpg, <span class="at">fill =</span> vs)) <span class="sc">+</span></span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Average MPG by VS and Gear"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avg_mpg, <span class="fu">aes</span>(gear,</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  mpg, <span class="at">fill =</span> vs)) <span class="sc">+</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Average MPG by VS and Gear"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid figure-img" alt="Grouped Bar Graph Generated from ggplot2 by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" alt="Grouped Bar Graph Generated from ggplot2 by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1305,13 +1343,13 @@ TRUE </code></pre>
 <li>scale_fill_manual() is a function used to manually set the colors for filled areas (like bars, areas in geom_area, etc.) in a plot. Here, values argument takes our custom color palette of yellow and brown.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avg_mpg, <span class="fu">aes</span>(gear, mpg, <span class="at">fill =</span> vs)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,</span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Average MPG by VS and Gear"</span>) <span class="sc">+</span></span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"yellow"</span>, <span class="st">"brown"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avg_mpg, <span class="fu">aes</span>(gear, mpg, <span class="at">fill =</span> vs)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Average MPG by VS and Gear"</span>) <span class="sc">+</span></span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"yellow"</span>, <span class="st">"brown"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1328,15 +1366,15 @@ TRUE </code></pre>
 <li><p>We see 3 boxplots for three values of gear (3, 4, 5). ggplot() and geom_boxplot() are required components of the command. The scale_fill_manual() and theme_minimal() layers are optional ways to change the style and color.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> gear, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> gear)) <span class="sc">+</span></span>
-<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"gray"</span>, <span class="st">"red"</span>, <span class="st">"blue"</span>)) <span class="sc">+</span></span>
-<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> gear, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> gear)) <span class="sc">+</span></span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"gray"</span>, <span class="st">"red"</span>, <span class="st">"blue"</span>)) <span class="sc">+</span></span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" alt="Boxplot Generated from ggplot2 by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid figure-img" alt="Boxplot Generated from ggplot2 by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1345,13 +1383,13 @@ TRUE </code></pre>
 <li>Lets alter the functions above to depict mpg based on vs with categorical states 0 and 1.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> vs, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> vs), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"gray"</span>, <span class="st">"red"</span>)) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> vs, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> vs), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"gray"</span>, <span class="st">"red"</span>)) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1380,12 +1418,12 @@ TRUE </code></pre>
 <li><p>This plot has a clear positive trend, meaning that as one has more years of education, we see higher income. And similarly, as we see higher income, we also see more years of education. This means that a scatter can help characterize the relationship, and does <em>not</em> state that one variable is causing another to occur.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>Edu <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/education.csv"</span>)</span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Edu<span class="sc">$</span>Income <span class="sc">~</span> Edu<span class="sc">$</span>Education, <span class="at">ylab =</span> <span class="st">"Income"</span>, <span class="at">xlab =</span> <span class="st">"Education"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>Edu <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/education.csv"</span>)</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Edu<span class="sc">$</span>Income <span class="sc">~</span> Edu<span class="sc">$</span>Education, <span class="at">ylab =</span> <span class="st">"Income"</span>, <span class="at">xlab =</span> <span class="st">"Education"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" alt="Scatterplot Generated by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid figure-img" alt="Scatterplot Generated by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1398,12 +1436,12 @@ TRUE </code></pre>
 <li>Layer 3 or more: many other optional additions like labs (for labels) as shown below.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>,</span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Education"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>,</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Education"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid figure-img" alt="Scatterplot Generated from ggplot2 by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid figure-img" alt="Scatterplot Generated from ggplot2 by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1411,25 +1449,25 @@ TRUE </code></pre>
 <li><p>geom_point() has some parameters you can change like shape = where you can add depth to your chart. Some common shapes of geom_point are as follows.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># shape = 0, square shape = 1, circle shape = 2, triangle point up</span></span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="co"># shape = 3, plus shape = 4, cross shape = 5, diamond shape = 6,</span></span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="co"># triangle point down shape = 7, square cross shape = 8, star shape =</span></span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 9, diamond plus shape = 10, circle plus shape = 11, triangles up</span></span>
-<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="co"># and down shape = 12, square plus shape = 13, circle cross shape =</span></span>
-<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 14, square and triangle down shape = 15, filled square shape = 16,</span></span>
-<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="co"># filled circle shape = 17, filled triangle point-up shape = 18,</span></span>
-<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a><span class="co"># filled diamond</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># shape = 0, square shape = 1, circle shape = 2, triangle point up</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="co"># shape = 3, plus shape = 4, cross shape = 5, diamond shape = 6,</span></span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="co"># triangle point down shape = 7, square cross shape = 8, star shape =</span></span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 9, diamond plus shape = 10, circle plus shape = 11, triangles up</span></span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a><span class="co"># and down shape = 12, square plus shape = 13, circle cross shape =</span></span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 14, square and triangle down shape = 15, filled square shape = 16,</span></span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a><span class="co"># filled circle shape = 17, filled triangle point-up shape = 18,</span></span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a><span class="co"># filled diamond</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>For instance, the code below changes the color, shape, and size of the geom_point().</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#183028"</span>,</span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>, <span class="at">x =</span> <span class="st">"Education"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#183028"</span>,</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>, <span class="at">x =</span> <span class="st">"Education"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid figure-img" alt="Scatterplot with Styles Generated from ggplot2 by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" alt="Scatterplot with Styles Generated from ggplot2 by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1438,12 +1476,12 @@ TRUE </code></pre>
 <li>ggplot allows us to add a geom_line, which is helpful in drawing a line through the data. Here, I am also resetting the color off of the default value. You see this a lot on time series models like stock charts.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#183028"</span>,</span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>, <span class="at">x =</span> <span class="st">"Education"</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#183028"</span>,</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>, <span class="at">x =</span> <span class="st">"Education"</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" alt="Scatterplot With geom_line Generated from ggplot2 by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" alt="Scatterplot With geom_line Generated from ggplot2 by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1452,12 +1490,12 @@ TRUE </code></pre>
 <li>Another way to do this is to add a stat_smooth line, which is considered a trendline to help us visualize the relationship between the variables.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#183028"</span>,</span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>, <span class="at">x =</span> <span class="st">"Education"</span>) <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#183028"</span>,</span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>, <span class="at">x =</span> <span class="st">"Education"</span>) <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" alt="Scatterplot With stat_smooth Generated from ggplot2 by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid figure-img" alt="Scatterplot With stat_smooth Generated from ggplot2 by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1466,12 +1504,12 @@ TRUE </code></pre>
 <li>We can change the type of trendline. The most common is the to develop the trendline using the lm method, which stands for the linear method that we are going to learn in the Regression lesson. For now, lets insert _method=“lm” into our stat_smooth later to see the change.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>,</span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Education"</span>) <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>,</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Education"</span>) <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid figure-img" alt="Scatterplot With stat_smooth lm method Generated from ggplot2 by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid figure-img" alt="Scatterplot With stat_smooth lm method Generated from ggplot2 by R" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1481,22 +1519,8 @@ TRUE </code></pre>
 <li>Below, we see a negative trend.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid figure-img" alt="Scatterplot examples in R" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li>In regards to the hp variable, below, we see another negative trend.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> hp, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1506,11 +1530,11 @@ TRUE </code></pre>
 </div>
 </div>
 <ul>
-<li>In regards to the qsec variable, below, we see a weak positive trend. This relationship would need to verified later on.</li>
+<li>In regards to the hp variable, below, we see another negative trend.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> qsec, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> hp, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1520,16 +1544,30 @@ TRUE </code></pre>
 </div>
 </div>
 <ul>
+<li>In regards to the qsec variable, below, we see a weak positive trend. This relationship would need to verified later on.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> qsec, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dataviz_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" alt="Scatterplot examples in R" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
 <li>The plot() command also works when you do not have 2 continuous variables, and instead have one categorical variable paired with one continuous variable. However, the plot is not as adequate as others are in inferring the relationship from the variables.</li>
 <li>For example, the plot below would be better served as a boxplot.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>mpg <span class="sc">~</span> mtcars<span class="sc">$</span>vs)</span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(mtcars<span class="sc">$</span>mpg <span class="sc">~</span> mtcars<span class="sc">$</span>vs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>mpg <span class="sc">~</span> mtcars<span class="sc">$</span>vs)</span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(mtcars<span class="sc">$</span>mpg <span class="sc">~</span> mtcars<span class="sc">$</span>vs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" alt="Plot Example with Incorrect Data Type" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-57-1.png" class="img-fluid figure-img" alt="Plot Example with Incorrect Data Type" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1538,11 +1576,11 @@ TRUE </code></pre>
 <li>Using ggplot, we would have the same issue. Since vs is a categorical variable, it does not look right when we use the geom_point() later.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> vs, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> vs, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-57-1.png" class="img-fluid figure-img" alt="ggplot2 Example with Incorrect Data Type" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid figure-img" alt="ggplot2 Example with Incorrect Data Type" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1552,11 +1590,11 @@ TRUE </code></pre>
 </li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> vs, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> vs, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid figure-img" alt="ggplot2 Example with Boxplot" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-59-1.png" class="img-fluid figure-img" alt="ggplot2 Example with Boxplot" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1571,28 +1609,28 @@ TRUE </code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-59-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-60-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-59-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-60-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-59-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-60-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-59-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-60-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1614,21 +1652,21 @@ TRUE </code></pre>
 <li>The select statement in dplyr has a conflict with the select statement in MASS. Since we used MASS earlier, we have to specify which package we want to use select from. We want to use select from dplyr, so we add dplyr:: before the function.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>nhanes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/nhanes2012.csv"</span>)</span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(nhanes)</span></span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="ot">&lt;-</span> nhanes <span class="sc">%&gt;%</span></span>
-<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(AUQ300, AUQ310, AUQ320, AUQ060, AUQ070, AUQ080) <span class="sc">%&gt;%</span></span>
-<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ300 =</span> <span class="fu">recode_factor</span>(AUQ300, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Yes"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ310 =</span> <span class="fu">recode_factor</span>(AUQ310, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"1 to less than 100"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"100 to less than 1000"</span>,</span>
-<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">3</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"1000 to less than 10k"</span>, <span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"10k to less than 50k"</span>, <span class="st">`</span><span class="at">5</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"50k or more"</span>,</span>
-<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">7</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Refused"</span>, <span class="st">`</span><span class="at">9</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Don't know"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ060 =</span> <span class="fu">recode_factor</span>(AUQ060, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Yes"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ070 =</span> <span class="fu">recode_factor</span>(AUQ070, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Yes"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ080 =</span> <span class="fu">recode_factor</span>(AUQ080, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Yes"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb99-13"><a href="#cb99-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ320 =</span> <span class="fu">recode_factor</span>(AUQ320, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Always"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Usually"</span>,</span>
-<span id="cb99-14"><a href="#cb99-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">3</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"About half the time"</span>, <span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Seldom"</span>, <span class="st">`</span><span class="at">5</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Never"</span>))</span>
-<span id="cb99-15"><a href="#cb99-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nhanes.clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>nhanes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/nhanes2012.csv"</span>)</span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(nhanes)</span></span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="ot">&lt;-</span> nhanes <span class="sc">%&gt;%</span></span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(AUQ300, AUQ310, AUQ320, AUQ060, AUQ070, AUQ080) <span class="sc">%&gt;%</span></span>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ300 =</span> <span class="fu">recode_factor</span>(AUQ300, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Yes"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ310 =</span> <span class="fu">recode_factor</span>(AUQ310, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"1 to less than 100"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"100 to less than 1000"</span>,</span>
+<span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">3</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"1000 to less than 10k"</span>, <span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"10k to less than 50k"</span>, <span class="st">`</span><span class="at">5</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"50k or more"</span>,</span>
+<span id="cb103-9"><a href="#cb103-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">7</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Refused"</span>, <span class="st">`</span><span class="at">9</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Don't know"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb103-10"><a href="#cb103-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ060 =</span> <span class="fu">recode_factor</span>(AUQ060, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Yes"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb103-11"><a href="#cb103-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ070 =</span> <span class="fu">recode_factor</span>(AUQ070, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Yes"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb103-12"><a href="#cb103-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ080 =</span> <span class="fu">recode_factor</span>(AUQ080, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Yes"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb103-13"><a href="#cb103-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ320 =</span> <span class="fu">recode_factor</span>(AUQ320, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Always"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Usually"</span>,</span>
+<span id="cb103-14"><a href="#cb103-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">3</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"About half the time"</span>, <span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Seldom"</span>, <span class="st">`</span><span class="at">5</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Never"</span>))</span>
+<span id="cb103-15"><a href="#cb103-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nhanes.clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  AUQ300                       AUQ310                     AUQ320    
  Yes :1613   1 to less than 100   : 701   Always             : 583  
@@ -1653,82 +1691,82 @@ TRUE </code></pre>
 <li>The most applicable chart to graph 2 categorical variables is a barchart. This requires calculating frequencies, and then graphing. Using ggplot, the frequencies are calculated automatically.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="sc">%&gt;%</span></span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ310) <span class="sc">%&gt;%</span></span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ060) <span class="sc">%&gt;%</span></span>
-<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AUQ310, <span class="at">fill =</span> AUQ060)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"How many rounds have you fired"</span>, <span class="at">title =</span> <span class="st">"Hearing Whisper Across Room vs. Num Rounds Fired"</span>,</span>
-<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-61-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="sc">%&gt;%</span></span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ310) <span class="sc">%&gt;%</span></span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ070) <span class="sc">%&gt;%</span></span>
-<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AUQ310, <span class="at">fill =</span> AUQ070)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"How many rounds have you fired"</span>, <span class="at">title =</span> <span class="st">"Hearing Normal Across Room vs. Num Rounds Fired"</span>,</span>
-<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-61-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="sc">%&gt;%</span></span>
-<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ310) <span class="sc">%&gt;%</span></span>
-<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ080) <span class="sc">%&gt;%</span></span>
-<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AUQ310, <span class="at">fill =</span> AUQ080)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"How many rounds have you fired"</span>, <span class="at">title =</span> <span class="st">"Hearing Shout Across Room vs. Num Rounds Fired"</span>,</span>
-<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-61-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="do">############# Wear hearing protection when shooting</span></span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="sc">%&gt;%</span></span>
-<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ320) <span class="sc">%&gt;%</span></span>
-<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ060) <span class="sc">%&gt;%</span></span>
-<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AUQ320, <span class="at">fill =</span> AUQ060)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Wear hearing protection when shooting"</span>, <span class="at">title =</span> <span class="st">"Hearing Whisper Across Room vs. Use of Hearing Protection"</span>,</span>
-<span id="cb104-7"><a href="#cb104-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-61-4.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
 <div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="sc">%&gt;%</span></span>
-<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ320) <span class="sc">%&gt;%</span></span>
-<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ070) <span class="sc">%&gt;%</span></span>
-<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AUQ320, <span class="at">fill =</span> AUQ070)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb105-5"><a href="#cb105-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Wear hearing protection when shooting"</span>, <span class="at">title =</span> <span class="st">"Hearing Normal Across Room vs. Use of Hearing Protection"</span>,</span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ310) <span class="sc">%&gt;%</span></span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ060) <span class="sc">%&gt;%</span></span>
+<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AUQ310, <span class="at">fill =</span> AUQ060)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb105-5"><a href="#cb105-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"How many rounds have you fired"</span>, <span class="at">title =</span> <span class="st">"Hearing Whisper Across Room vs. Num Rounds Fired"</span>,</span>
 <span id="cb105-6"><a href="#cb105-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-61-5.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-62-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="sc">%&gt;%</span></span>
 <span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ310) <span class="sc">%&gt;%</span></span>
-<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ080) <span class="sc">%&gt;%</span></span>
-<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AUQ310, <span class="at">fill =</span> AUQ080)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Wear hearing protection when shooting"</span>, <span class="at">title =</span> <span class="st">"Hearing Shout Across Room vs. Use of Hearing Protection"</span>,</span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ070) <span class="sc">%&gt;%</span></span>
+<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AUQ310, <span class="at">fill =</span> AUQ070)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"How many rounds have you fired"</span>, <span class="at">title =</span> <span class="st">"Hearing Normal Across Room vs. Num Rounds Fired"</span>,</span>
 <span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-61-6.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-62-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="sc">%&gt;%</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ310) <span class="sc">%&gt;%</span></span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ080) <span class="sc">%&gt;%</span></span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AUQ310, <span class="at">fill =</span> AUQ080)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"How many rounds have you fired"</span>, <span class="at">title =</span> <span class="st">"Hearing Shout Across Room vs. Num Rounds Fired"</span>,</span>
+<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dataviz_files/figure-html/unnamed-chunk-62-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="do">############# Wear hearing protection when shooting</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="sc">%&gt;%</span></span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ320) <span class="sc">%&gt;%</span></span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ060) <span class="sc">%&gt;%</span></span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AUQ320, <span class="at">fill =</span> AUQ060)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Wear hearing protection when shooting"</span>, <span class="at">title =</span> <span class="st">"Hearing Whisper Across Room vs. Use of Hearing Protection"</span>,</span>
+<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dataviz_files/figure-html/unnamed-chunk-62-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="sc">%&gt;%</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ320) <span class="sc">%&gt;%</span></span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ070) <span class="sc">%&gt;%</span></span>
+<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AUQ320, <span class="at">fill =</span> AUQ070)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Wear hearing protection when shooting"</span>, <span class="at">title =</span> <span class="st">"Hearing Normal Across Room vs. Use of Hearing Protection"</span>,</span>
+<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dataviz_files/figure-html/unnamed-chunk-62-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="sc">%&gt;%</span></span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ310) <span class="sc">%&gt;%</span></span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(AUQ080) <span class="sc">%&gt;%</span></span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> AUQ310, <span class="at">fill =</span> AUQ080)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Wear hearing protection when shooting"</span>, <span class="at">title =</span> <span class="st">"Hearing Shout Across Room vs. Use of Hearing Protection"</span>,</span>
+<span id="cb110-6"><a href="#cb110-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dataviz_files/figure-html/unnamed-chunk-62-6.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
