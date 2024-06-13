@@ -426,7 +426,7 @@ mean(y)
 
 ```{r}
 #Counts the number of all NA values in the entire dataset
-CountAllBlanks <- sum(is.na(gig)); CountAllBlanks
+CountAllBlanks <- sum(is.na(gig)); CountAllBlanks 
 
 #Gives the observation number of the observations that include NA values
 which(is.na(gig$Industry))
@@ -436,11 +436,12 @@ ShowBlankObservations <- gig %>%
      filter(is.na(Industry))
 ShowBlankObservations
 
-#Counts the number of observations that have NA values in the Industry field. 
-CountBlanks <- gig %>%
-     filter(is.na(Industry)) %>%
-     count(Industry)
-CountBlanks
+#Counts the number of observations that have NA values in the Industry field. Industry is categorical, so we can count values based on it. 
+CountBlanks <- sum(is.na(gig$Industry)); CountBlanks 
+
+library(tidyverse)
+#Counts the number of observations that have NA values in the Wage field. 
+CountBlanks <- sum(is.na(gig$Wage)); CountBlanks 
 
 ```
 
