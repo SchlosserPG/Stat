@@ -42,16 +42,18 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ### Factor data type:
 
-* Ordinal: Contain categories that have some logical order (e.g. categories of age).
-* Nominal: Have categories that have no logical order (e.g., religious affiliation and marital status).
+-   Ordinal: Contain categories that have some logical order (e.g. categories of age).
 
-* R will treat each unique value of a factor as a different level.
+-   Nominal: Have categories that have no logical order (e.g., religious affiliation and marital status).
 
-#### Ordinal Variable 
-* Ordinal data may be categorized and ranked with respect to some characteristic or trait. 
-* For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor). 
-* This scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items). 
-* You can make an ordinal factor data type in R, or you can convert the order to meaningful numbers. This is typically done with survey items where an excellent to poor = 1, 2, 3, 4 respectively.
+-   R will treat each unique value of a factor as a different level.
+
+#### Ordinal Variable
+
+-   Ordinal data may be categorized and ranked with respect to some characteristic or trait.
+-   For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor).
+-   This scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items).
+-   You can make an ordinal factor data type in R, or you can convert the order to meaningful numbers. This is typically done with survey items where an excellent to poor = 1, 2, 3, 4 respectively.
 
 ```{r}
 # Take a vector representing evaluation scores, named evaluate 
@@ -62,12 +64,13 @@ evalNumerical <- ifelse(evaluate == "excellent", 4,
 evalNumerical
 ```
 
-#### Nominal Variable 
-* With nominal variables, data are simply categories for grouping. 
-* For example, coding race/ethnicity might have a category value of White, Black, Native American, Asian/Pacific Islander, Other. 
-* Qualitative values may be converted to quantitative values for analysis purposes. + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis. + Sometimes, R does this on our behalf depending on commands used. 
-* We can force a variable into a factor data type using the as.factor() command. 
-* If we use the read.csv() command, we can sometimes do this by setting an argument $stringsAsFactors=TRUE$. We will do this later in the lesson.
+#### Nominal Variable
+
+-   With nominal variables, data are simply categories for grouping.
+-   For example, coding race/ethnicity might have a category value of White, Black, Native American, Asian/Pacific Islander, Other.
+-   Qualitative values may be converted to quantitative values for analysis purposes. + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis. + Sometimes, R does this on our behalf depending on commands used.
+-   We can force a variable into a factor data type using the as.factor() command.
+-   If we use the read.csv() command, we can sometimes do this by setting an argument $stringsAsFactors=TRUE$. We will do this later in the lesson.
 
 ### Numerical data types:
 
@@ -422,6 +425,8 @@ mean(y)
 -   In R, the is.na() function is used to check for missing (NA) values in objects like vectors, data frames, or arrays. It returns a logical vector of the same length as the input object, where TRUE indicates a missing value and FALSE indicates a non-missing value.
 
 ```{r}
+#Counts the number of all NA values in the entire dataset
+CountAllBlanks <- sum(is.na(gig)); CountAllBlanks
 
 #Gives the observation number of the observations that include NA values
 which(is.na(gig$Industry))
@@ -436,6 +441,7 @@ CountBlanks <- gig %>%
      filter(is.na(Industry)) %>%
      count(Industry)
 CountBlanks
+
 ```
 
 #### Using na_if()
