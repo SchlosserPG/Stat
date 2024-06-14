@@ -859,11 +859,13 @@ dist.mat.cleaned %>%
 -   This means that (1- 0.6665403)\*100 is the percentage of countries having to travel more than 27 miles to the nearest facility.
 
 ```{r}
-4^3
-# P(X < 3)
-pnorm(3, 2.66, .79) ##about 66%
+27^(1/3)
+3^3
 
-# P(X > 3) #about 33 % likely
+# P(X< cuberoot(27) = P(X < 3)
+pnorm(3, 2.66, .79) ##about 66% likely
+
+# P(X > 3) #about 33% likely
 pnorm(3, 2.66, .79, lower.tail = FALSE)
 1-pnorm(3, 2.66, .79)
 ```
