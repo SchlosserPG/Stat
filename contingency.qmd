@@ -298,6 +298,12 @@ gridExtra::grid.arrange(plot1, plot2, plot3, plot4)
 
 ```
 
+
+* The Chi-Squared Distribution is noted by:
+     + Right-Skewed:For low degrees of freedom, the chi-squared distribution is highly right-skewed. As the degrees of freedom increase, the skewness decreases.
+     + Non-Negative Values: The chi-squared distribution is defined only for non-negative values because it is the sum of squared values.
+     + Mean and Variance: The mean of a chi-squared distribution with kk degrees of freedom is kk. The variance is 2k2k.
+
 -   The Chi-squared probability density function shows the probability of a value of chi-squared occurring when there is no relationship between the two variables contributing to the chi-squared, where a large chi-square indicates a relationship between variables.
 -   The competing hypotheses can be expressed as:
     -   $H_0$: The two classifications are independent.
