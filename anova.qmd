@@ -65,9 +65,9 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 -   There are 2 types of error:
 
-    -   Type I Error: Committed when we reject $H_0$ when $H_0$ is actually true.
+    -   Type I Error: Committed when we reject $H_0$ when $H_0$ is actually true. False Positive.
         -   Occurs with probability $\alpha$. $\alpha$ is chosen apriori.
-    -   Type II Error: Committed when we do not reject $H_0$ and $H_0$ is actually false.
+    -   Type II Error: Committed when we do not reject $H_0$ and $H_0$ is actually false. False Negative.
         -   Occurs with probability $\beta$. Power of the Test = 1−$\beta$."For a given sample size $n$, a decrease in $\alpha$ will increase $\beta$ and vice versa."
 
 -   Both $\alpha$ and $\beta$ decrease as $n$ increases. Therefore, an increase in sample size decreases these two types of error.
@@ -83,17 +83,16 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 -   Now, think through the consequences of making either a Type I and Type II error:
 
-    -   Type I error: Conclude that the accused is guilty when in reality, they are innocent.
-    -   Type II error: Conclude that the accused is innocent when in reality, they are guilty.
+    -   Type I error (False Positive): Conclude that the accused is guilty when in reality, they are innocent.
+    -   Type II error (False Negative): Conclude that the accused is innocent when in reality, they are guilty.
 
+
+![Type I and Type II Error](Pictures/Ch7/TypeErrorA.png "Type I and Type II Error")
 -   Both types of error are extremely bad!
 
 -   In taking another example, let's look at some sample results from a polygraph. A polygraph (lie detector) is an instrument used to determine if an individual is telling the truth. These tests are considered to be 89% reliable. In other words, if an individual lies, there is a 0.89 probability that the test will detect a lie. Let there also be a 0.10 probability that the test erroneously detects a lie even when the individual is actually telling the truth. Consider the null hypothesis, "the individual is telling the truth," and look at all 4 options.
 
-    -   Did not reject null and it was the correct decision. The individual was telling the truth and we predicted that.
-    -   Type I error – $\alpha$ We predicted lying when the individual is telling the truth. .1
-    -   Type II error – $\beta$ We predicted that the individual is telling truth, when they are actually lying. .11
-    -   Null hypothesis was false and it was the correct decision. We predicted that the individual was lying and they were. 1- $\beta$ or .89
+![Type I and Type II Error](Pictures/Ch7/TypeErrorB.png "Type I and Type II Error")
 
 -   With the error conclusions from Type I and Type II error in this example, we either predicted that someone was being honest when they were telling a lie, or we called someone a liar that was telling the truth! Again, both are bad.
 
@@ -102,12 +101,9 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   $H_0$: Vaccine does not help prevent spread of COVID-19.
     -   $H_A$: Vaccine does help prevent the spread of COVID-19.\
 
--   Now, think through the consequences of making either a Type I and Type II error and come to the fill out the 4 boxes in the figure above.
+-   Now, think through the consequences of making either a Type I and Type II error and come to the fill out the 4 boxes like I did below.
 
-    -   Failed to reject null and it was the correct decision. The Vaccine not helpful and we told people that it would not help prevent the spread of COVID-19.
-    -   Type I error – $\alpha$ - The vaccine ended up not being helpful in preventing the spread of COVID-19, but we told everyone it would be helpful and to get it.
-    -   Type II error – $\beta$ - We told people the vaccine did not help and in reality it did help.
-    -   Null hypothesis was false and it was the correct decision. We found that the vaccine would help prevent the spread of COVID-19 and it did.
+![Type I and Type II Error](Pictures/Ch7/TypeErrorC.png "Type I and Type II Error")
 
 -   In this scenario, if we made a Type I error, we would make people get vaccines that were not helpful. If we made a Type II error, we would end up not administering the vaccine when in fact it actually could help prevent the spread of COVID-19. In making the decision to give the vaccine, these types of errors were weighed (along with others) and the vaccine ended up being administered because the Type II error was considered more problematic than the Type I.
 
@@ -117,10 +113,10 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 -   Measurement error refers to the difference between a measured quantity and its true value which could be due to random error or systematic error.
     -   Random error refers to naturally occurring errors that are to be expected.
-    -   Systematic error refers to mis-calibrated instruments causing error in measurement.
+    -   Systematic error refers to miss-calibrated instruments causing error in measurement.
 -   Bias — the tendency of a sample statistic to systematically over- or underestimate a population parameter.
     -   Selection bias refers to a systematic exclusion of certain groups from consideration for the sample.
-    -   Nonresponse bias refers to a systematic difference in preferences between respondents and non-respondents to a survey or a poll.
+    -   Non-response bias refers to a systematic difference in preferences between respondents and non-respondents to a survey or a poll.
     -   Social Desirability bias refers to a bias that refers to the systematic difference between a group’s “socially acceptable” responses to a survey or poll.
 
 ## One-Way ANOVA
