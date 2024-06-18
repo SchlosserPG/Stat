@@ -684,9 +684,11 @@ P value adjustment method: bonferroni </code></pre>
 <section id="tukey-hsd-method" class="level5" data-number="9.3.3.4.2">
 <h5 data-number="9.3.3.4.2" class="anchored" data-anchor-id="tukey-hsd-method"><span class="header-section-number">9.3.3.4.2</span> Tukey HSD Method</h5>
 <ul>
-<li>The Tukey HSD method is another pairwise post-hoc test that is used after finding a statistically significant ANOVA. This method is used to determine which means are statistically significantly different from each other by comparing each pair of means. This method is less conservative than the Bonferroni post hoc test.</li>
+<li>The Tukey HSD method is another pairwise post-hoc test that is used after finding a statistically significant ANOVA.</li>
+<li>This method is used to determine which means are statistically significantly different from each other by comparing each pair of means.</li>
+<li>This method is less conservative than the Bonferroni post hoc test, which means generally less Type II error (False Negative).</li>
 <li>This test is modified from the Bonferroni test using a q-distribution instead of a t-distribution to calculate the answers.</li>
-<li>Using the TukeyHSD() command, we can use the Anova1way object because we already used the aov() command to produce our model above This aov() command is required before or while running the TukeyHSD() command.</li>
+<li>Using the TukeyHSD() command, we insert the Anova1way object as a parameter that we made with the aov() command above. This aov() command is required before or while running the TukeyHSD() command.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(Anova1way)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

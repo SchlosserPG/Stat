@@ -55,14 +55,11 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 -   Note an F distribution behaves differently than a z- or a t- distribution.
     -   The z-distribution shows how many sample standard deviations (SD) some value is away from the mean.
     -   The t-distribution shows how many standard errors (SE) away from the mean.
-    -   The F-distribution is used to compare 2 populations’ variances.
-![The F Distribution](Pictures/Ch7/FDist.png "F Distribution Visualization")
-
-* The F distribution is noted by its:
-     + Right-Skewness: The distribution is positively skewed, meaning the right tail is longer than the left tail.
-     + Non-Negative Values: The F-distribution is only defined for positive values.
-     + Shape and Degrees of Freedom: The exact shape of the F-distribution depends on the degrees of freedom. As the degrees of freedom  increase, the distribution becomes less skewed and more closely approximates a normal distribution.
-
+    -   The F-distribution is used to compare 2 populations’ variances. ![The F Distribution](Pictures/Ch7/FDist.png "F Distribution Visualization")
+-   The F distribution is noted by its:
+    -   Right-Skewness: The distribution is positively skewed, meaning the right tail is longer than the left tail.
+    -   Non-Negative Values: The F-distribution is only defined for positive values.
+    -   Shape and Degrees of Freedom: The exact shape of the F-distribution depends on the degrees of freedom. As the degrees of freedom increase, the distribution becomes less skewed and more closely approximates a normal distribution.
 
 ## Type I and Type II Errors
 
@@ -237,12 +234,14 @@ anova(Anova1way)
 
 #### Step 6: If Model is Significant, Run Post-Hoc Tests
 
--   Pairwise comparisons: A statistical strategy for comparing different groups, often used after a statistically significant ANOVA to test hypotheses about which group means are statistically significantly different from one another. 
+-   Pairwise comparisons: A statistical strategy for comparing different groups, often used after a statistically significant ANOVA to test hypotheses about which group means are statistically significantly different from one another.
+
     1.  Bonferroni Method;
     2.  TukeyHSD Method
-* There are many tests to compute pairwise comparisons. The tests tend to vary in whether they minimize Type I or Type II error, and by how much. Many of the tests change the distribution in the calculation to alter the final results.
 
-* Planned Comparisons: also known as a priori comparisons or planned comparisons, are a statistical technique used in the analysis of variance (ANOVA) to compare specific means based on hypotheses formulated before examining the data. Unlike post hoc tests, which compare all possible pairs of means and are conducted after data collection, planned contrasts are designed to test specific hypotheses derived from theoretical considerations or previous research.
+-   There are many tests to compute pairwise comparisons. The tests tend to vary in whether they minimize Type I or Type II error, and by how much. Many of the tests change the distribution in the calculation to alter the final results.
+
+-   Planned Comparisons: also known as a priori comparisons or planned comparisons, are a statistical technique used in the analysis of variance (ANOVA) to compare specific means based on hypotheses formulated before examining the data. Unlike post hoc tests, which compare all possible pairs of means and are conducted after data collection, planned contrasts are designed to test specific hypotheses derived from theoretical considerations or previous research.
 
 ##### Bonferroni Method
 
@@ -258,9 +257,11 @@ pairwise.t.test(congestionData$CongestionRating, congestionData$City, p.adj="bon
 
 ##### Tukey HSD Method
 
--   The Tukey HSD method is another pairwise post-hoc test that is used after finding a statistically significant ANOVA. This method is used to determine which means are statistically significantly different from each other by comparing each pair of means. This method is less conservative than the Bonferroni post hoc test.
--   This test is modified from the Bonferroni test using a q-distribution instead of a t-distribution to calculate the answers.
--   Using the TukeyHSD() command, we can use the Anova1way object because we already used the aov() command to produce our model above This aov() command is required before or while running the TukeyHSD() command.
+-   The Tukey HSD method is another pairwise post-hoc test that is used after finding a statistically significant ANOVA.
+* This method is used to determine which means are statistically significantly different from each other by comparing each pair of means. 
+* This method is less conservative than the Bonferroni post hoc test, which means generally less Type II error (False Negative).
+* This test is modified from the Bonferroni test using a q-distribution instead of a t-distribution to calculate the answers.
+* Using the TukeyHSD() command, we insert the Anova1way object as a parameter that we made with the aov() command above. This aov() command is required before or while running the TukeyHSD() command.
 
 ```{r}
 TukeyHSD(Anova1way)
