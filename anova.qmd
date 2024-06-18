@@ -230,9 +230,12 @@ anova(Anova1way)
 
 #### Step 6: If Model is Significant, Run Post-Hoc Tests
 
--   Pairwise comparisons: There are many tests to compute pairwise comparisons. The tests tend to vary in whether they minimize Type I or Type II error, and by how much. Many of the tests change the distribution in the calculation to alter the final results. We go over the following methods:
+-   Pairwise comparisons: A statistical strategy for comparing different groups, often used after a statistically significant ANOVA to test hypotheses about which group means are statistically significantly different from one another. 
     1.  Bonferroni Method;
     2.  TukeyHSD Method
+* There are many tests to compute pairwise comparisons. The tests tend to vary in whether they minimize Type I or Type II error, and by how much. Many of the tests change the distribution in the calculation to alter the final results.
+
+* Planned Comparisons: also known as a priori comparisons or planned comparisons, are a statistical technique used in the analysis of variance (ANOVA) to compare specific means based on hypotheses formulated before examining the data. Unlike post hoc tests, which compare all possible pairs of means and are conducted after data collection, planned contrasts are designed to test specific hypotheses derived from theoretical considerations or previous research.
 
 ##### Bonferroni Method
 
