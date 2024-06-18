@@ -86,9 +86,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   Type I error (False Positive): Conclude that the accused is guilty when in reality, they are innocent.
     -   Type II error (False Negative): Conclude that the accused is innocent when in reality, they are guilty.
 
-
-![Type I and Type II Error](Pictures/Ch7/TypeErrorA.png "Type I and Type II Error")
--   Both types of error are extremely bad!
+![Type I and Type II Error](Pictures/Ch7/TypeErrorA.png "Type I and Type II Error") - Both types of error are extremely bad!
 
 -   In taking another example, let's look at some sample results from a polygraph. A polygraph (lie detector) is an instrument used to determine if an individual is telling the truth. These tests are considered to be 89% reliable. In other words, if an individual lies, there is a 0.89 probability that the test will detect a lie. Let there also be a 0.10 probability that the test erroneously detects a lie even when the individual is actually telling the truth. Consider the null hypothesis, "the individual is telling the truth," and look at all 4 options.
 
@@ -427,9 +425,10 @@ choose(3,2)
 ```
 
 ## Using AI
-* Use the following prompt on a generative AI, like chatGPT to learn more about ANOVA analysis. 
 
-     + Conduct an ANOVA test to compare group means. Use the aov() and anova() functions for ANOVA. Discuss the F-statistic and p-value, and what they indicate about the differences between group means.
+-   Use the following prompt on a generative AI, like chatGPT to learn more about ANOVA analysis.
+
+    -   Conduct an ANOVA test to compare group means. Use the aov() and anova() functions for ANOVA. Discuss the F-statistic and p-value, and what they indicate about the differences between group means.
 
 ## Summary
 
