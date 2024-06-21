@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ### At a Glance
 
--   In order to succeed in this lesson, you will need to learn the basic rules behind random events including how to calculate probability based on distribution. We focus on learning these skills with regards to the binomial distribution and the normal distribution, and in doing so move from learning about descriptive statistic to learning about inferential statistics. We will also learn the limitations of having a variable that is not normal, and how to transform it to be normal so that we can calculate probability using the same algorithms. In your homework assignment for this chapter, you will put these skills into practice.
+-   In order to succeed in this lesson, you will need to learn the basic rules behind random events including how to calculate probability based on distribution. We focus on learning these skills with regards to the binomial distribution and the normal distribution, and in doing so move from learning about descriptive statistic to learning about inferential statistics. We will also learn the limitations of having a variable that is not normal, and how to transform it to be normal so that we can calculate probability using the same algorithms. 
 
 ### Lesson Objectives
 
@@ -406,16 +406,20 @@ pbinom(1,6,.35)*100 #31.9%
 
 -   The Cumulative Density Function $F(x)$ of a continuous random variable X suggests that for any value x of the random variable X, the cumulative distribution function $F(x)$ is computed as, $F(x) = P(X <= x)$ as a result, $P(a<=X<=b) = F(b)- F(a)$.
 
--   The goal of cumulative distributions is to find the area under the curve. The pnorm() function computes the probability  at point q to find the area under the curve. 
+-   The goal of cumulative distributions is to find the area under the curve. The pnorm() function computes the probability at point q to find the area under the curve.
+
     -   Three arguments of the pnorm() command:
+
     1.  q is the value of interest;
     2.  The mean (mean);
     3.  The standard deviation (sd);
 
 -   Also an optional lower.tail parameter, which is defaulted to TRUE signifying \< or \<=.
 
--   We can also work backwards to find a value given a probability. The qnorm() function computes the quantile value at p to find the value associated with a probability. 
+-   We can also work backwards to find a value given a probability. The qnorm() function computes the quantile value at p to find the value associated with a probability.
+
     -   Three arguments of the qnorm() command:
+
     1.  p is the cumulative probability;
     2.  The mean (mean);
     3.  The standard deviation (sd);
@@ -772,7 +776,7 @@ Q1 <- pnorm(phat1, p, sqrt(p*(1-p)/n))-pnorm(phat2, p, sqrt(p*(1-p)/n)); Q1 #0.1
 
 -   Let's do an example with the opioid data set discussed earlier, this time using opioidFacility.csv.
 
--   First, read in the opioid data set from Chapter 4 so we can see a variable that is considered not normal.\
+-   First, read in the opioid data set from so we can see a variable that is considered not normal.\
 
 ```{r}
 # Distance to substance abuse facility with medication-assisted treatment
@@ -926,7 +930,7 @@ gender.clean %>%
      labs(x = "Number of Days Sick", y = "Frequency")
 ```
 
--   We determined from Chapter 2 that this variable had severe skewness (positive). Most people had 0 days of illness.
+-   We determined from the descriptive statistics lesson that this variable had severe skewness (positive). Most people had 0 days of illness.
 
 -   Next, we run the 4 calculations by mutating the variable and saving all 4 transformation under new variable names.
 
