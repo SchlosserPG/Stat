@@ -206,17 +206,25 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     summary(congestionData)
     ```
 
--   We use the aov() command for one-way and later on for a two-way ANOVA.
+* The oneway.test() command is a common command for a one-way ANOVA. The oneway.test() function in R is used to perform a one-way analysis of variance (ANOVA) while allowing for the possibility of unequal variances (heteroscedasticity) among groups. It is based on Welch's ANOVA, which is a version of ANOVA that does not assume equal variances across groups although you can set it to be true like we did below. 
+```{r}
+oneway.test(CongestionRating ~ City, congestionData, var.equal = TRUE)
+```
 
-    -   In either command, our formula is ContinuousVariable \~ CategoricalVariable - this will allow us to see if there are group differences in CongestionRating (*continuous*) based on city (*categorical*).
-    -   Take a good look at the output from these commands to compare the results.
-
+* The aov() function in R is also used for performing ANOVA, but it assumes that the variances of the groups are equal (homoscedasticity). This function is suitable when the assumption of equal variances is met. 
 ```{r}
 #A common set of commands that work for both a one-way and two-way ANOVA: aov() command with output in a followup command: either anova() or summary() command.
 Anova1way <- aov(CongestionRating ~ City, data=congestionData)
-summary(Anova1way)
+```
+
+* In either command, our formula is ContinuousVariable ~ CategoricalVariable - this will allow us to see if there are group differences in CongestionRating (continuous) based on city (categorical).
+
+    -   Take a good look at the output from these commands to compare the results.
+
+```{r}
 #anova() command works exactly the same as summary here. 
-#This command is very prevalent in various textbooks and online tutorials. 
+#This command is very prevalent in various textbooks and online tutorials.
+summary(Anova1way)
 anova(Anova1way)
 ```
 
@@ -270,6 +278,41 @@ TukeyHSD(Anova1way)
 -   Based on the output, we find similar results to the Bonferroni test. There are no differences in congestion levels between Houston and Atlanta, San Francisco and Atlanta, and Houston and San Francisco. There are group differences in congestion levels between all other remaining groups (p-value \< alpha).
 
 -   With the TukeyHSD() command, we can also determine which group mean is higher than the other by looking at the "diff" score. If you see a negative score than the second group listed in the output is higher than the first group listed. Ignoring the insignificant p-values \> .05, we find that both San Francisco and Washington has significantly less congestion than Los Angeles. We find that Los Angeles and Washington have a significantly higher group mean than Atlanta. Los Angeles and Washington DC also have a significantly higher group mean than Houston. Finally, Washington DC has a significantly higher group mean than San Francisco.
+
+##### Planned Contrasts 
+
+* Planned contrasts are computed by developing contrasts that specify which means to compare to which other means.
+* A contrast refers to the set of numbers used to specify which means or groups of means to compare to each other, usually to identify statistically significant differences among means after a statistically significant analysis of variance.
+* Rules to consider:
+     + A contrast is a group of numbers used to group categories.
+The categories grouped together should all be represented by the same number in the contrast.
+     + The numbers in the contrast should all add to zero.
+     + Any category not included in the contrast should be represented by a zero.
+     
+```{r}
+# Look at the levels of the categorical variable
+levels(congestionData$City)
+# Note order from levels Atlanta, Houston, LA, San Fran, DC 
+# Contrasts need to sum to zero.  
+# In the code below, I am making Atlanta one level.  Zeroing out Houston and DC.  Combining LA and San Fran into another level. This will allow me to compare Atlanta to the West Coast. 
+contrast1 <- c(-2, 0, 1, 1, 0)
+```
+
+* Link the contrast to the categorical variable using contrasts()
+```{r}
+contrasts(congestionData$City) <- contrast1
+# View the structure of the City variable with contrast
+str(congestionData$City)
+
+```
+
+* Re-run the model using aov() command
+```{r}
+Anova1way <- aov(CongestionRating ~ City, data = congestionData)
+summary.aov(Anova1way, split = list(City = list(`Atl vs. West Coast` = 1)))
+```
+
+* The output suggests that there is a difference in ATL vs West Coast cities (Los Angeles and San Francisco) in regard to congestion levels. We can tell that because of the p-value of 6.45e-06 *** which is less than .01.
 
 ## Two-Way ANOVA
 

@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 # Project name: Linear Regression Analysis
 # Data used: Debt_Payments.csv, months.csv, GNP.csv, corolla.csv
 # Credit from ISLR library
-# Libraries used: tidyverse, ggplot2, ISLR
+# Libraries used: tidyverse, ggplot2, ISLR, car
 ####################################
 ```
 
@@ -391,11 +391,23 @@ summary(creditlm)
 ```{r}
 cor(Credit$Income, Credit$Rating) ##close to .8, but still under
 ```
+* The second way to tell if there is multicollinearity is to use the vif() command from the car package. 
+* The vif() function in R is used to calculate the Variance Inflation Factor (VIF) for each predictor variable in a multiple regression model. The VIF quantifies how much the variance of a regression coefficient is inflated due to multicollinearity among the predictors. High VIF values indicate high multicollinearity, which can affect the stability and interpretability of the regression coefficients.
+* We want all scores to be under 10 to indicate the absence of multicollinerity. 
+
+```{r}
+
+library(car) ##need to have car package installed first. 
+#Place regression model object in the function to see vif scores. 
+vif(creditlm)
+```
+
+* Both scores are under 10, so we do have an absence of multicollinerity in our final model. 
 
 ## Using AI
-* Use the following prompt on a generative AI, like chatGPT to learn more about regression analysis in R.
-     + Perform a simple linear regression analysis in R and interpret the results. Use the lm() and summary() functions for regression analysis. Discuss the interpretation of the intercept and slope, and the meaning of R-squared.
 
+-   Use the following prompt on a generative AI, like chatGPT to learn more about regression analysis in R.
+    -   Perform a simple linear regression analysis in R and interpret the results. Use the lm() and summary() functions for regression analysis. Discuss the interpretation of the intercept and slope, and the meaning of R-squared.
 
 ## Summary
 

@@ -321,7 +321,7 @@ window.Quarto = {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Project name: Linear Regression Analysis</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Data used: Debt_Payments.csv, months.csv, GNP.csv, corolla.csv</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Credit from ISLR library</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries used: tidyverse, ggplot2, ISLR</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries used: tidyverse, ggplot2, ISLR, car</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="at-a-glance" class="level3" data-number="11.0.1">
@@ -994,6 +994,23 @@ F-statistic:  1391 on 2 and 397 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre><code>[1] 0.7913776</code></pre>
 </div>
 </div>
+<ul>
+<li>The second way to tell if there is multicollinearity is to use the vif() command from the car package.</li>
+<li>The vif() function in R is used to calculate the Variance Inflation Factor (VIF) for each predictor variable in a multiple regression model. The VIF quantifies how much the variance of a regression coefficient is inflated due to multicollinearity among the predictors. High VIF values indicate high multicollinearity, which can affect the stability and interpretability of the regression coefficients.</li>
+<li>We want all scores to be under 10 to indicate the absence of multicollinerity.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)  <span class="do">##need to have car package installed first. </span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Place regression model object in the function to see vif scores.</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Income  Rating 
+2.67579 2.67579 </code></pre>
+</div>
+</div>
+<ul>
+<li>Both scores are under 10, so we do have an absence of multicollinerity in our final model.</li>
+</ul>
 </section>
 <section id="using-ai" class="level2" data-number="11.5">
 <h2 data-number="11.5" class="anchored" data-anchor-id="using-ai"><span class="header-section-number">11.5</span> Using AI</h2>
