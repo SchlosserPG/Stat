@@ -406,22 +406,16 @@ pbinom(1,6,.35)*100 #31.9%
 
 -   The Cumulative Density Function $F(x)$ of a continuous random variable X suggests that for any value x of the random variable X, the cumulative distribution function $F(x)$ is computed as, $F(x) = P(X <= x)$ as a result, $P(a<=X<=b) = F(b)- F(a)$.
 
--   The goal of cumulative distributions is to find the area under the curve.
-
-    -   Uses the pnorm() command.
-    -   Three arguments of the command:
-
+-   The goal of cumulative distributions is to find the area under the curve. The pnorm() function computes the probability  at point q to find the area under the curve. 
+    -   Three arguments of the pnorm() command:
     1.  q is the value of interest;
     2.  The mean (mean);
     3.  The standard deviation (sd);
 
 -   Also an optional lower.tail parameter, which is defaulted to TRUE signifying \< or \<=.
 
--   We can also work backwards to find a value given a probability.
-
-    -   Uses the qnorm() command.
-    -   Three arguments of the command:
-
+-   We can also work backwards to find a value given a probability. The qnorm() function computes the quantile value at p to find the value associated with a probability. 
+    -   Three arguments of the qnorm() command:
     1.  p is the cumulative probability;
     2.  The mean (mean);
     3.  The standard deviation (sd);

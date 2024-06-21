@@ -929,7 +929,7 @@ window.Quarto = {
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>GrowthFund <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(GrowthFund)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>The quantile() function returns the five point summary when no arguments are specified.</li>
+<li>The quantile() function returns the five point summary when no arguments are specified where the 25th percentile is Quarter 1, and the 75 percentile is Quarter 3. The 50th percentile is the median.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>QuanData <span class="ot">&lt;-</span> <span class="fu">quantile</span>(GrowthFund<span class="sc">$</span>GrowthFund)</span>

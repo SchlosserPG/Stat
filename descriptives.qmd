@@ -193,10 +193,9 @@ mean(GrowthFund)
 
 -   The mode is another measure of central location.
 -   The mode is the most frequently occurring value in a data set.
--   The mode is useful in summarizing categorical data.
+-   The mode is useful in summarizing categorical data but can also be used to summarize quantitative data.
 -   A data set can have no mode, one mode (unimodal), two modes (bimodal) or many modes (multimodal).
 -   The mode is less useful when there are more than three modes.
--   The mode is useful summary for a categorical variable.
 
 #### Example of Function with Salary Variable
 

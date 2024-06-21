@@ -902,10 +902,9 @@ window.Quarto = {
 <h4 data-number="6.4.1.2" class="anchored" data-anchor-id="cumulative-density-function"><span class="header-section-number">6.4.1.2</span> Cumulative Density Function</h4>
 <ul>
 <li><p>The Cumulative Density Function <span class="math inline">\(F(x)\)</span> of a continuous random variable X suggests that for any value x of the random variable X, the cumulative distribution function <span class="math inline">\(F(x)\)</span> is computed as, <span class="math inline">\(F(x) = P(X &lt;= x)\)</span> as a result, <span class="math inline">\(P(a&lt;=X&lt;=b) = F(b)- F(a)\)</span>.</p></li>
-<li><p>The goal of cumulative distributions is to find the area under the curve.</p>
+<li><p>The goal of cumulative distributions is to find the area under the curve. The pnorm() function computes the probability at point q to find the area under the curve.</p>
 <ul>
-<li>Uses the pnorm() command.</li>
-<li>Three arguments of the command:</li>
+<li>Three arguments of the pnorm() command:</li>
 </ul>
 <ol type="1">
 <li>q is the value of interest;</li>
@@ -913,10 +912,9 @@ window.Quarto = {
 <li>The standard deviation (sd);</li>
 </ol></li>
 <li><p>Also an optional lower.tail parameter, which is defaulted to TRUE signifying &lt; or &lt;=.</p></li>
-<li><p>We can also work backwards to find a value given a probability.</p>
+<li><p>We can also work backwards to find a value given a probability. The qnorm() function computes the quantile value at p to find the value associated with a probability.</p>
 <ul>
-<li>Uses the qnorm() command.</li>
-<li>Three arguments of the command:</li>
+<li>Three arguments of the qnorm() command:</li>
 </ul>
 <ol type="1">
 <li>p is the cumulative probability;</li>
