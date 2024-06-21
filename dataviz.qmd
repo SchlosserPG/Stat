@@ -407,7 +407,7 @@ ggplot(df, aes(x)) +
      color="red", linetype="dashed", lwd=1)
 ```
 
-* You do not need the rnorm function if you are provided a dataset with a numerical variable. The following code uses the customers dataset to do 2 examples of density plots with 2 numerical variables. 
+-   You do not need the rnorm function if you are provided a dataset with a numerical variable. The following code uses the customers dataset to do 2 examples of density plots with 2 numerical variables.
 
 ```{r}
 customers <- read.csv("data/customers.csv")
@@ -479,20 +479,40 @@ OutlierValue <- IQRvalue*1.5; OutlierValue
 
     -   A TRUE value indicates that at least one outlier is present at the small end of the distribution.
     -   A FALSE value indicates that no outliers are at the high end of the distribution.
+    
+```{r}
+QuanData
+QuanData[2]-QuanData[1] > OutlierValue 
+#True indicating an outlier to the left
+3.8750 - -38.32 #42.195
+42.195 > 19.60125 #TRUE
 
-    ```{r}
-    QuanData
-    QuanData[2]-QuanData[1] > OutlierValue 
-    #True indicating an outlier to the left
-    3.8750 - -38.32 #42.195
-    42.195 > 19.60125 #TRUE
+QuanData[5]-QuanData[4] > OutlierValue 
+#False indicating no outlier to the right. 
+36.29-16.9425  #19.3475
+19.3475 > 19.60125 #FALSE 
+```
+    
 
-     QuanData[5]-QuanData[4] > OutlierValue 
-     #False indicating no outlier to the right. 
-     36.29-16.9425  #19.3475
-     19.3475 > 19.60125 #FALSE 
+* You can also more formally test by using the following formulas. 
+     + Lower bound=Q1−1.5×IQR
+     + Upper bound=Q3+1.5×IQR
+     + A data point x is an outlier if x less than lower bound or x is greater than the upper bound. Confirming what we found above, we determine one outlier is present to the left. 
      
-    ```
+```{r}
+LowerBound <- 3.8750  - 1.5* IQRvalue; LowerBound
+Q1 <- QuanData[2]; Q1 #3.875
+LowerBound <- Q1 - OutlierValue; LowerBound #-15.72625
+
+UpperBound <- 16.9425 + 1.5 * IQRvalue; UpperBound
+Q3 <- QuanData[4]; Q3 #16.9425
+UpperBound <- Q3+OutlierValue; UpperBound #36.54375
+
+##Insert Lower bound and Upper bound in vector to determine if outliers are present: (-38.32, LowerBound 1.71, 3.17, 5.99, 12.56, 13.47, 16.89, 16.96, 32.16, 36.29, UpperBound)
+
+##one outlier to the left, -38.32. 
+```
+
 
 #### GrowthFund Boxplot
 
@@ -544,7 +564,6 @@ mtcars %>%
 library(tidyverse)
 data(mtcars)
 
-
 mtcars %>% 
   ggplot(aes(x="", y=mpg)) + 
   geom_boxplot(color="#986D00", fill="#24585E") + theme_minimal() + coord_flip()
@@ -576,12 +595,28 @@ QuanData[2]-QuanData[1] > OutlierValue
 QuanData[5]-QuanData[4] > OutlierValue 
 33.900 - 22.800 > 11.0625
 #TRUE indicating an outlier to the right. 
+```
+* We can see more specific information on outliers if we calculate the lower bound and upper bound and insert the values into the vector. 
 
+```{r}
+Q1 <- QuanData[2]; Q1
+LowerBound <- Q1 - OutlierValue; LowerBound #4.3625 
+
+Q3 <- QuanData[4]; Q3 
+UpperBound <- Q3+OutlierValue; UpperBound #33.8625 
+
+sort(mtcars$mpg)
+```
+*LowerBound(4.3625)* 10.4 10.4 13.3 14.3 14.7 15.0 15.2 15.2 15.5 15.8 16.4 17.3 17.8 18.1 18.7 19.2 19.2 19.7 21.0 21.0 21.4 21.4 21.5 22.8
+22.8 24.4 26.0 27.3 30.4 30.4 32.4 *UpperBound (33.8625)* 33.9
+
+```{r}
 semTools::skew(mtcars$mpg)
 semTools::kurtosis(mtcars$mpg)
 ```
 
--   Looks like the mpg variable is quite normal with one potential outlier, but no signs of skewness or kurtosis. In the boxplot, it looks like there might be an outlier to the right, but it is not problematic to the dataset.
+
+-   Looks like the mpg variable is quite normal with one potential outlier to the right, but no major signs of skewness or kurtosis. 
 
 -   We can also get a histogram of mpg and are able to make the same claims towards normality. You can see a slight pull to the right, but it is seemingly normal. A higher sample size could help here.
 

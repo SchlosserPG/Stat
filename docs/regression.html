@@ -997,7 +997,7 @@ F-statistic:  1391 on 2 and 397 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
 <li>The second way to tell if there is multicollinearity is to use the vif() command from the car package.</li>
 <li>The vif() function in R is used to calculate the Variance Inflation Factor (VIF) for each predictor variable in a multiple regression model. The VIF quantifies how much the variance of a regression coefficient is inflated due to multicollinearity among the predictors. High VIF values indicate high multicollinearity, which can affect the stability and interpretability of the regression coefficients.</li>
-<li>We want all scores to be under 10 to indicate the absence of multicollinerity.</li>
+<li>We want all scores to be under 10 to indicate the absence of problematic multicollinerity in our model.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)  <span class="do">##need to have car package installed first. </span></span>
@@ -1009,7 +1009,14 @@ F-statistic:  1391 on 2 and 397 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <ul>
-<li>Both scores are under 10, so we do have an absence of multicollinerity in our final model.</li>
+<li>While statisticians differ on what constitutes, the general consenses is that scores need to be under 5 or 10.</li>
+<li>Both scores are under 10, so we do have an absence of multicollinerity in our final model.
+<ul>
+<li>VIF = 1: No correlation between the predictor and the other predictors.</li>
+<li>1 &lt; VIF &lt; 5: Moderate correlation but not severe enough to require correction.</li>
+<li>5 &lt; VIF &lt; 10: High correlation, indicating potential multicollinearity problems.</li>
+<li>VIF &gt;= 10: High correlation, indicating multicollinearity problems.</li>
+</ul></li>
 </ul>
 </section>
 <section id="using-ai" class="level2" data-number="11.5">
