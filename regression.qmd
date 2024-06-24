@@ -391,9 +391,10 @@ summary(creditlm)
 ```{r}
 cor(Credit$Income, Credit$Rating) ##close to .8, but still under
 ```
-* The second way to tell if there is multicollinearity is to use the vif() command from the car package. 
-* The vif() function in R is used to calculate the Variance Inflation Factor (VIF) for each predictor variable in a multiple regression model. The VIF quantifies how much the variance of a regression coefficient is inflated due to multicollinearity among the predictors. High VIF values indicate high multicollinearity, which can affect the stability and interpretability of the regression coefficients.
-* We want all scores to be under 10 to indicate the absence of problematic multicollinerity in our model.  
+
+-   The second way to tell if there is multicollinearity is to use the vif() command from the car package.
+-   The vif() function in R is used to calculate the Variance Inflation Factor (VIF) for each predictor variable in a multiple regression model. The VIF quantifies how much the variance of a regression coefficient is inflated due to multicollinearity among the predictors. High VIF values indicate high multicollinearity, which can affect the stability and interpretability of the regression coefficients.
+-   We want all scores to be under 10 to indicate the absence of problematic multicollinerity in our model.
 
 ```{r}
 
@@ -402,13 +403,12 @@ library(car) ##need to have car package installed first.
 vif(creditlm)
 ```
 
-* While statisticians differ on what constitutes, the general consenses is that scores need to be under 5 or 10. 
-* Both scores are under 10, so we do have an absence of multicollinerity in our final model. 
-     + VIF = 1: No correlation between the predictor and the other predictors.
-     + 1 < VIF < 5: Moderate correlation but not severe enough to require correction.
-     + 5 < VIF < 10: High correlation, indicating potential multicollinearity problems.
-     + VIF >= 10: High correlation, indicating multicollinearity problems.
-
+-   While statisticians differ on what constitutes, the general consenses is that scores need to be under 5 or 10.
+-   Both scores are under 10, so we do have an absence of multicollinerity in our final model.
+    -   VIF = 1: No correlation between the predictor and the other predictors.
+    -   1 \< VIF \< 5: Moderate correlation but not severe enough to require correction.
+    -   5 \< VIF \< 10: High correlation, indicating potential multicollinearity problems.
+    -   VIF \>= 10: High correlation, indicating multicollinearity problems.
 
 ## Using AI
 
