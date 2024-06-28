@@ -18,6 +18,7 @@ book:
     - anova.qmd
     - correlation.qmd
     - regression.qmd
+    - rmarkdown.qmd
     - summary.qmd
     - references.qmd
 

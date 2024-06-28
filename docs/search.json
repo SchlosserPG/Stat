@@ -1702,11 +1702,11 @@
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "12  Summary",
+    "title": "13  Summary",
     "section": "",
     "text": "This book is designed to complement a traditional probability and statistics course. We went over information to make sure you had some basics to really start learning R. This journey began with the basics of R, emphasizing that while multiple methods exist to achieve the same results in R, it’s crucial to find the approach that works best for you. As we learn R, you will get used to doing things your way to be able to slice and evaluate the data to find rich information from the data sets we look at. As long as the data was handled properly, it does not matter how we reach our goal using R as long as we do it ourselves.\nMastering R allows you to effectively clean, analyze, and interpret data, unlocking valuable insights from various datasets. We explored the essential practice of data cleaning, learning various techniques and popular functions within the dplyr package under the tidyverse. Proper data cleaning ensures the integrity and accuracy of your analysis. We delved into skewness, kurtosis, variables, and scales of measurement, focusing on summarizing qualitative and quantitative data. Visualizations were introduced as powerful tools to describe variables and uncover patterns in the data.\nWe examined basic probability rules were covered alongside binomial and continuous distributions. We examined the normal distribution, its limitations, and methods for transforming non-normal variables.\nWe learned how to set up null and alternative hypotheses, and the different types of hypotheses tests (two-tailed, right-tailed, and left-tailed). We discussed three t-tests: one-sample, independent samples, and dependent samples, interpreting results through the p-value approach. Note that the assumptions for t-tests were not covered and are reserved for a future discussion.\nWe used contingency tables to calculate probabilities with categorical variables and computed chi-squared statistics for tests of independence and goodness of fit.\nThe concepts of Type I and Type II errors were introduced, emphasizing their reduction. We covered one-way and two-way ANOVA, including conducting and evaluating post-hoc tests. We learned how to write and interpret simple and multiple linear regression models, including goodness of fit measures and hypothesis testing using regression. The lm() command was crucial for interpreting summary output, and we explored using both continuous and categorical variables as predictors.\nThis book has equipped you with the foundational skills to handle and analyze data using R. Remember, the key to mastering these techniques lies in consistent practice and finding the methods that best suit your analytical style.",
     "crumbs": [
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Summary</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Summary</span>"
     ]
   },
   {
@@ -2487,6 +2487,66 @@
     "text": "11.5 Using AI\n\nUse the following prompt on a generative AI, like chatGPT to learn more about regression analysis in R.\n\nPerform a simple linear regression analysis in R and interpret the results. Use the lm() and summary() functions for regression analysis. Discuss the interpretation of the intercept and slope, and the meaning of R-squared.",
     "crumbs": [
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Linear Regression Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "rmarkdown.html",
+    "href": "rmarkdown.html",
+    "title": "Intro to RMarkdown",
+    "section": "",
+    "text": "12.1 yaml Header",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Intro to RMarkdown</span>"
+    ]
+  },
+  {
+    "objectID": "rmarkdown.html#yaml-header",
+    "href": "rmarkdown.html#yaml-header",
+    "title": "Intro to RMarkdown",
+    "section": "",
+    "text": "The YAML header is located at the beginning of the RMD file and contains metadata about the document, such as the title, author, date, and output format. Here is an example of a YAML header:",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Intro to RMarkdown</span>"
+    ]
+  },
+  {
+    "objectID": "rmarkdown.html#markdown-text",
+    "href": "rmarkdown.html#markdown-text",
+    "title": "Intro to RMarkdown",
+    "section": "12.2 markdown Text",
+    "text": "12.2 markdown Text\n\nMarkdown is a lightweight markup language with plain text formatting syntax. In an RMD file, you use Markdown to format the text, create lists, headers, links, and more. For example:\n\n\n\n\nStyles Example",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Intro to RMarkdown</span>"
+    ]
+  },
+  {
+    "objectID": "rmarkdown.html#code-chunks",
+    "href": "rmarkdown.html#code-chunks",
+    "title": "Intro to RMarkdown",
+    "section": "12.3 Code Chunks",
+    "text": "12.3 Code Chunks\n\nCode chunks allow you to embed R (or other languages) code within the document. These chunks are executed when the document is rendered, and their output is included in the final document. Code chunks are defined with triple backticks and the language, like this:\n\n\n\n\nCode Chunk Example\n\n\n\nChunk output can be customized with knitr options, arguments set in the {} of a chunk header.\n\ninclude = FALSE prevents code and results from appearing in the finished file. R Markdown still runs the code in the chunk, and the results can be used by other chunks.\necho = FALSE prevents code, but not the results from appearing in the finished file. This is a useful way to embed figures.\nmessage = FALSE prevents messages that are generated by code from appearing in the finished file.\nwarning = FALSE prevents warnings that are generated by code from appearing in the finished.\nfig.cap = “…” adds a caption to graphical results.\n\n\n\n\n\nArguments of Chunk",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Intro to RMarkdown</span>"
+    ]
+  },
+  {
+    "objectID": "rmarkdown.html#output-formats",
+    "href": "rmarkdown.html#output-formats",
+    "title": "Intro to RMarkdown",
+    "section": "12.4 Output Formats",
+    "text": "12.4 Output Formats\n\nRMD files can be rendered into various output formats including HTML, PDF, and Word documents. The output format is specified in the YAML header. To generate the final document, you use the knit function in RStudio or call rmarkdown::render() in your R script.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Intro to RMarkdown</span>"
+    ]
+  },
+  {
+    "objectID": "rmarkdown.html#visualization-and-plots",
+    "href": "rmarkdown.html#visualization-and-plots",
+    "title": "Intro to RMarkdown",
+    "section": "12.5 Visualization and Plots",
+    "text": "12.5 Visualization and Plots\n\nRMD files can include visualizations and plots. For example, you can create and embed a plot using the ggplot2 package.\n\nlibrary(ggplot2) ggplot(mpg, aes(x=displ, y=hwy)) + geom_point()\n\nlibrary(ggplot2)\nggplot(mpg, aes(x = displ, y = hwy)) + geom_point()",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Intro to RMarkdown</span>"
     ]
   }
 ]
