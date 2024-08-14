@@ -9,14 +9,14 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ```{r tidy=FALSE}
 ####################################
 # Project name: Computing and Interpreting Chi-Square
-# Data used: stem.csv, and stemGOF from Blackboard
+# Data used: stem.csv, and stemGOF from CMS
 # Libraries used: N/A
 ####################################
 ```
 
 ### At a Glance
 
--   In order to succeed in this section, you will need to learn how to create and calculate probability inside a contingency table, when we have two categorical variables, and conduct our first hypothesis test, the chi-squared test of independence. In your homework assignment for this chapter, you will put these skills into practice.
+-   In order to succeed in this section, you will need to learn how to create and calculate probability inside a contingency table, when we have two categorical variables, and conduct our first hypothesis test, the chi-squared test of independence. 
 
 ### Lesson Objectives
 
@@ -264,6 +264,9 @@ sdx <- sqrt(varx); sdx #18.12
 
 -   Visualizing the Chi-squared Distribution Chi-squared distribution has a single parameter, the degrees of freedom or $df$.\
     $\sqrt(2*df)$
+The degrees of freedom in a chi-squared test of independence are calculated as the Number of rows−1 multiplied by Number ofcolumns−1 or more formally:
+$df=(𝑟−1)∗(𝑐−1)$
+The larger the contingency table, the more degrees of freedom, the wider the distribution and more normal it becomes. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -298,12 +301,10 @@ gridExtra::grid.arrange(plot1, plot2, plot3, plot4)
 
 ```
 
-
-* The Chi-Squared Distribution is noted by:
-     + Right-Skewed:For low degrees of freedom, the chi-squared distribution is highly right-skewed. As the degrees of freedom increase, the skewness decreases.
-     + Non-Negative Values: The chi-squared distribution is defined only for non-negative values because it is the sum of squared values.
-     + Mean and Variance: The mean of a chi-squared distribution with kk degrees of freedom is kk. The variance is 2k2k.
-
+-   The Chi-Squared Distribution is noted by:
+    -   Right-Skewed:For low degrees of freedom, the chi-squared distribution is highly right-skewed. As the degrees of freedom increase, the skewness decreases.
+    -   Non-Negative Values: The chi-squared distribution is defined only for non-negative values because it is the sum of squared values.
+    -   Mean and Variance: The mean of a chi-squared distribution with kk degrees of freedom is kk. The variance is 2k2k.
 -   The Chi-squared probability density function shows the probability of a value of chi-squared occurring when there is no relationship between the two variables contributing to the chi-squared, where a large chi-square indicates a relationship between variables.
 -   The competing hypotheses can be expressed as:
     -   $H_0$: The two classifications are independent.
@@ -373,6 +374,8 @@ chisq.test(M)
 
 -   Step 4: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
 -   Here, our p-value is 1.282e-05, so we reject the null, $H_0$, and conclude that Age group and Brand Names are dependent.
+
+$df=(𝑟−1)∗(𝑐−1)$ or $(2−1)∗(3−1)=1∗2= 2df$
 
 ### Example Using an Imported Dataset
 

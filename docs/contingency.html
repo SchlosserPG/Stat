@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -238,14 +238,20 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./rmarkdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Intro to RMarkdown</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Recommended Further Reading Materials</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recommended Further Reading Materials</span></span></a>
   </div>
 </li>
     </ul>
@@ -312,14 +318,14 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Project name: Computing and Interpreting Chi-Square</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Data used: stem.csv, and stemGOF from Blackboard</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Data used: stem.csv, and stemGOF from CMS</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries used: N/A</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="at-a-glance" class="level3" data-number="7.0.1">
 <h3 data-number="7.0.1" class="anchored" data-anchor-id="at-a-glance"><span class="header-section-number">7.0.1</span> At a Glance</h3>
 <ul>
-<li>In order to succeed in this section, you will need to learn how to create and calculate probability inside a contingency table, when we have two categorical variables, and conduct our first hypothesis test, the chi-squared test of independence. In your homework assignment for this chapter, you will put these skills into practice.</li>
+<li>In order to succeed in this section, you will need to learn how to create and calculate probability inside a contingency table, when we have two categorical variables, and conduct our first hypothesis test, the chi-squared test of independence.</li>
 </ul>
 </section>
 <section id="lesson-objectives" class="level3" data-number="7.0.2">
@@ -842,7 +848,7 @@ TotalColProb   0.251320755        0.45358491  0.29509434   1.00000000</code></pr
 <li><p>Squaring the differences before adding them up will result in a positive value that is larger when there are larger differences and smaller when there are smaller differences. This value captures the magnitude of the difference between observed and expected values.</p></li>
 <li><p>In order to account for situations when the observed and expected values are very large, which could result in extremely large differences between observed and expected, the squared differences are divided by the expected value in each cell.</p></li>
 <li><p>Visualizing the Chi-squared Distribution Chi-squared distribution has a single parameter, the degrees of freedom or <span class="math inline">\(df\)</span>.<br>
-<span class="math inline">\(\sqrt(2*df)\)</span></p></li>
+<span class="math inline">\(\sqrt(2*df)\)</span> The degrees of freedom in a chi-squared test of independence are calculated as the Number of rows−1 multiplied by Number ofcolumns−1 or more formally: <span class="math inline">\(df=(𝑟−1)∗(𝑐−1)\)</span> The larger the contingency table, the more degrees of freedom, the wider the distribution and more normal it becomes.</p></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -951,6 +957,7 @@ X-squared = 22.529, df = 2, p-value = 1.282e-05</code></pre>
 <li>Step 4: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.</li>
 <li>Here, our p-value is 1.282e-05, so we reject the null, <span class="math inline">\(H_0\)</span>, and conclude that Age group and Brand Names are dependent.</li>
 </ul>
+<p><span class="math inline">\(df=(𝑟−1)∗(𝑐−1)\)</span> or <span class="math inline">\((2−1)∗(3−1)=1∗2= 2df\)</span></p>
 </section>
 <section id="example-using-an-imported-dataset" class="level3" data-number="7.2.4">
 <h3 data-number="7.2.4" class="anchored" data-anchor-id="example-using-an-imported-dataset"><span class="header-section-number">7.2.4</span> Example Using an Imported Dataset</h3>
