@@ -365,8 +365,10 @@ ggplot(HousePrice, aes(x=HousePrice))+geom_histogram(binwidth = 100, boundary= 3
     sqrt(var(x))
     sd(x)
 
-    sd(HousePrice$HousePrice)
-    var(HousePrice$HousePrice)
+sd(HousePrice$HousePrice) #102.6059
+var(HousePrice$HousePrice) #10527.97
+skew(HousePrice$HousePrice) #normal
+
 
     ```
 
@@ -425,16 +427,27 @@ kurtosis(HousePrice$HousePrice) #normal
 #-3.4245446445 is below -3.29 so kurtosis is present
 #Negative kurtosis value indicates platykurtic
 kurtosis(customers$Spending)
+geom_histogram(binwidth = 100, fill="pink", color="black")
+semTools::skew(customers$Spending)##normal indicating no skewness
 
 #Normal: 2.977622119 is in between -3.29 and 3.29
 kurtosis(customers$Income) 
+ggplot(customers, aes(Income)) + geom_histogram(binwidth = 10000, fill="pink", color="black")
+semTools::skew(customers$Income) #Skewed right
+
 
 #-3.7251961028 is below -3.29 so kurtosis is present
 #Negative kurtosis value indicates platykurtic
 kurtosis(customers$HHSize)
+ggplot(customers, aes(HHSize)) + geom_histogram(binwidth = 1, fill="pink", color="black")
+semTools::skew(customers$HHSize) #normal
+
 
 #Normal: -0.20056607 is in between -3.29 and 3.29 
 kurtosis(customers$Orders) 
+geom_histogram(binwidth = 5, fill="pink", color="black")
+semTools::skew(customers$Orders) ##skewed right
+
 ```
 
 ### Spread to Report with the Median

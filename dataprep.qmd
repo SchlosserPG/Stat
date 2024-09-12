@@ -58,6 +58,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 * The recode() function from the dplyr package in R is used to replace specific values in a vector or variable with new values. It allows you to map old values to new ones in a simple and readable manner.
 
 ```{r}
+library(tidyverse)
 # Take a vector representing evaluation scores, named evaluate 
 evaluate <- c("excellent", "good", "fair", "poor", "excellent", "good")
 

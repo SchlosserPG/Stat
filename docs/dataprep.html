@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -238,14 +238,20 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./rmarkdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Intro to RMarkdown</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Recommended Further Reading Materials</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recommended Further Reading Materials</span></span></a>
   </div>
 </li>
     </ul>
@@ -374,17 +380,27 @@ window.Quarto = {
 <li>For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor).</li>
 <li>This scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items).</li>
 <li>You can make an ordinal factor data type in R, or you can convert the order to meaningful numbers. This is typically done with survey items where an excellent to poor = 1, 2, 3, 4 respectively.</li>
+<li>We can use recode from tidyverse if data is in a dataset.</li>
+<li>The recode() function from the dplyr package in R is used to replace specific values in a vector or variable with new values. It allows you to map old values to new ones in a simple and readable manner.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a vector representing evaluation scores, named evaluate</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>evaluate <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"excellent"</span>, <span class="st">"good"</span>, <span class="st">"fair"</span>, <span class="st">"poor"</span>, <span class="st">"excellent"</span>, <span class="st">"good"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># We can use a series of ifelse() commands to change the data to</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># numerical.</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>evalNumerical <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(evaluate <span class="sc">==</span> <span class="st">"excellent"</span>, <span class="dv">4</span>, <span class="fu">ifelse</span>(evaluate <span class="sc">==</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"good"</span>, <span class="dv">3</span>, <span class="fu">ifelse</span>(evaluate <span class="sc">==</span> <span class="st">"fair"</span>, <span class="dv">2</span>, <span class="dv">1</span>)))</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>evalNumerical</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a vector representing evaluation scores, named evaluate</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>evaluate <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"excellent"</span>, <span class="st">"good"</span>, <span class="st">"fair"</span>, <span class="st">"poor"</span>, <span class="st">"excellent"</span>, <span class="st">"good"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(evaluate)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">evaluate =</span> <span class="fu">recode</span>(evaluate, <span class="at">excellent =</span> <span class="dv">4</span>, <span class="at">good =</span> <span class="dv">3</span>, <span class="at">fair =</span> <span class="dv">2</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">poor =</span> <span class="dv">1</span>))</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4 3 2 1 4 3</code></pre>
+<pre><code>  evaluate
+1        4
+2        3
+3        2
+4        1
+5        4
+6        3</code></pre>
 </div>
 </div>
 </section>
@@ -393,7 +409,10 @@ window.Quarto = {
 <ul>
 <li>With nominal variables, data are simply categories for grouping.</li>
 <li>For example, coding race/ethnicity might have a category value of White, Black, Native American, Asian/Pacific Islander, Other.</li>
-<li>Qualitative values may be converted to quantitative values for analysis purposes. + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis. + Sometimes, R does this on our behalf depending on commands used.</li>
+<li>Qualitative values may be converted to quantitative values for analysis purposes. + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis.
+<ul>
+<li>Sometimes, R does this on our behalf depending on commands used.</li>
+</ul></li>
 <li>We can force a variable into a factor data type using the as.factor() command.</li>
 <li>If we use the read.csv() command, we can sometimes do this by setting an argument <span class="math inline">\(stringsAsFactors=TRUE\)</span>. We will do this later in the lesson.</li>
 </ul>
@@ -402,7 +421,7 @@ window.Quarto = {
 <section id="numerical-data-types" class="level3" data-number="4.1.2">
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="numerical-data-types"><span class="header-section-number">4.1.2</span> Numerical data types:</h3>
 <ul>
-<li><p>A Vector of Numbers (Real or Integer)</p></li>
+<li><p>A numerical data type is a vector of numbers (Real or Integer)</p></li>
 <li><p>Continuous (Real) variables can take any value along some continuum, hence continuous.</p>
 <ul>
 <li>We can force a variable into a numerical data type by using the as.numeric() command.</li>
@@ -410,7 +429,7 @@ window.Quarto = {
 </ul></li>
 <li><p>Two ways to create:</p>
 <ul>
-<li>We can also create a numeric variable by ensuring our value we assign is a number!</li>
+<li>We can create a numeric variable by ensuring our value we assign is a number!</li>
 <li>We can force a variable into an real number data type by using the as.numeric() command.</li>
 </ul>
 <div class="cell">
@@ -457,15 +476,15 @@ window.Quarto = {
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make constants</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>kFirstName <span class="ot">&lt;-</span> <span class="st">"Corina"</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>kLastName <span class="ot">&lt;-</span> <span class="st">"Hughes"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>kFirstName <span class="ot">&lt;-</span> <span class="st">"Pamela"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>kLastName <span class="ot">&lt;-</span> <span class="st">"Schlosser"</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the data type</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="at">x =</span> kFirstName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a zip code constant and check the data type</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>kZipCode <span class="ot">&lt;-</span> <span class="st">"97405"</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>kZipCode <span class="ot">&lt;-</span> <span class="st">"23185"</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="at">x =</span> kZipCode)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
