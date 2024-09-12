@@ -54,27 +54,36 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 -   For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor).
 -   This scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items).
 -   You can make an ordinal factor data type in R, or you can convert the order to meaningful numbers. This is typically done with survey items where an excellent to poor = 1, 2, 3, 4 respectively.
+* We can use recode from tidyverse if data is in a dataset. 
+* The recode() function from the dplyr package in R is used to replace specific values in a vector or variable with new values. It allows you to map old values to new ones in a simple and readable manner.
 
 ```{r}
 # Take a vector representing evaluation scores, named evaluate 
 evaluate <- c("excellent", "good", "fair", "poor", "excellent", "good")
-# We can use a series of ifelse() commands to change the data to numerical. 
-evalNumerical <- ifelse(evaluate == "excellent", 4, 
-  ifelse(evaluate == "good",3,ifelse(evaluate == "fair", 2, 1)))
-evalNumerical
+
+data <- data.frame(evaluate)
+data <- data %>%
+     mutate(evaluate = recode(evaluate,
+            "excellent" = 4,
+            "good" = 3,
+            "fair" = 2,
+            "poor" = 1))
+data
+
 ```
 
 #### Nominal Variable
 
 -   With nominal variables, data are simply categories for grouping.
 -   For example, coding race/ethnicity might have a category value of White, Black, Native American, Asian/Pacific Islander, Other.
--   Qualitative values may be converted to quantitative values for analysis purposes. + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis. + Sometimes, R does this on our behalf depending on commands used.
+-   Qualitative values may be converted to quantitative values for analysis purposes. + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis. 
+     + Sometimes, R does this on our behalf depending on commands used.
 -   We can force a variable into a factor data type using the as.factor() command.
 -   If we use the read.csv() command, we can sometimes do this by setting an argument $stringsAsFactors=TRUE$. We will do this later in the lesson.
 
 ### Numerical data types:
 
--   A Vector of Numbers (Real or Integer)
+-   A numerical data type is a vector of numbers (Real or Integer)
 
 -   Continuous (Real) variables can take any value along some continuum, hence continuous.
 
@@ -83,7 +92,7 @@ evalNumerical
 
 -   Two ways to create:
 
-    -   We can also create a numeric variable by ensuring our value we assign is a number!
+    -   We can create a numeric variable by ensuring our value we assign is a number!
     -   We can force a variable into an real number data type by using the as.numeric() command.
 
     ```{r}
@@ -118,12 +127,12 @@ Trunc <- as.integer(kOuncesRhode); Trunc
 
 ```{r}
 # Make constants 
-kFirstName <- "Corina"
-kLastName <- "Hughes"
+kFirstName <- "Pamela"
+kLastName <- "Schlosser"
 # Check the data type
 class(x = kFirstName)
 # Create a zip code constant and check the data type
-kZipCode <- "97405"
+kZipCode <- "23185"
 class(x = kZipCode)
 ```
 
@@ -296,8 +305,9 @@ TwoRaces <- filter(customers, Race == "Black" | Race == "White")
 head(TwoRaces)
 ```
 
-* The str_detect() function is used to detect the presence or absence of a pattern (regular expression) in a string or vector of strings. It returns a logical vector indicating whether the pattern was found in each element of the input vector.
-* Using str_detect it with a filter function allows you to pull observations based on the inclusion of a string pattern. 
+-   The str_detect() function is used to detect the presence or absence of a pattern (regular expression) in a string or vector of strings. It returns a logical vector indicating whether the pattern was found in each element of the input vector.
+-   Using str_detect it with a filter function allows you to pull observations based on the inclusion of a string pattern.
+
 ```{r}
 library(tidyverse)
 Birthday2000 <- filter(customers, str_detect(BirthDate, "1985"))
