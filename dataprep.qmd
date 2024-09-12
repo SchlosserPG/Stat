@@ -51,13 +51,14 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 #### Ordinal Variable
 
 -   Ordinal data may be categorized and ranked with respect to some characteristic or trait.
--   For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor).
--   This scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items).
--   You can make an ordinal factor data type in R, or you can convert the order to meaningful numbers. This is typically done with survey items where an excellent to poor = 1, 2, 3, 4 respectively.
-* We can use recode from tidyverse if data is in a dataset. 
-* The recode() function from the dplyr package in R is used to replace specific values in a vector or variable with new values. It allows you to map old values to new ones in a simple and readable manner.
+     + For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor).
+     + A scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items).
+     + You can make an ordinal factor data type in R or you can convert the order to meaningful numbers. 
+* To recode numbers in R, we would code poor to excellent = 1, 2, 3, 4 respectively.
+* The recode() function from the dplyr package  within the tidyverse ecosystem is used to replace specific values in a vector or variable with new values. 
+* It allows you to map old values to new ones in a simple and readable manner.
 
-```{r}
+```{r, tidy=FALSE}
 library(tidyverse)
 # Take a vector representing evaluation scores, named evaluate 
 evaluate <- c("excellent", "good", "fair", "poor", "excellent", "good")
