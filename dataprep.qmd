@@ -51,12 +51,12 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 #### Ordinal Variable
 
 -   Ordinal data may be categorized and ranked with respect to some characteristic or trait.
-     + For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor).
-     + A scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items).
-     + You can make an ordinal factor data type in R or you can convert the order to meaningful numbers. 
-* To recode numbers in R, we would code poor to excellent = 1, 2, 3, 4 respectively.
-* The recode() function from the dplyr package  within the tidyverse ecosystem is used to replace specific values in a vector or variable with new values. 
-* It allows you to map old values to new ones in a simple and readable manner.
+    -   For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor).
+    -   A scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items).
+    -   You can make an ordinal factor data type in R or you can convert the order to meaningful numbers.
+-   To recode numbers in R, we would code poor to excellent = 1, 2, 3, 4 respectively.
+-   The recode() function from the dplyr package within the tidyverse ecosystem is used to replace specific values in a vector or variable with new values.
+-   It allows you to map old values to new ones in a simple and readable manner.
 
 ```{r, tidy=FALSE}
 library(tidyverse)
@@ -78,8 +78,8 @@ data
 
 -   With nominal variables, data are simply categories for grouping.
 -   For example, coding race/ethnicity might have a category value of White, Black, Native American, Asian/Pacific Islander, Other.
--   Qualitative values may be converted to quantitative values for analysis purposes. + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis. 
-     + Sometimes, R does this on our behalf depending on commands used.
+-   Qualitative values may be converted to quantitative values for analysis purposes. + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis.
+    -   Sometimes, R does this on our behalf depending on commands used.
 -   We can force a variable into a factor data type using the as.factor() command.
 -   If we use the read.csv() command, we can sometimes do this by setting an argument $stringsAsFactors=TRUE$. We will do this later in the lesson.
 
@@ -359,19 +359,18 @@ length(gig$Industry)
 # Here we are filtering by Automotive Industry and then counting the number and saving it in a new object called countAuto
 countAuto <- gig %>%
      filter(Industry=="Automotive") %>%
-     count(Industry)
+     count()
 countAuto #190
 ```
 
--   The pull() function extracts a single column from a data frame as a vector.
+-   Below, we are filtering by Wage and the counting. 
 
 ```{r}
 # Counting with a Numerical Variable
 # We could also save this in an object. 
 gig %>%
   filter(Wage > 30) %>%
-  pull(Wage) %>%
-  length() ##536
+  count() ##536
 ```
 
 -   We learned that there are 190 employees in the automotive industry and there are 536 employees who earn more than \$30 per hour.
@@ -382,17 +381,16 @@ gig %>%
 #We find 68 Wages under or equal to 30
 WageLess30 <- gig %>%
   filter(Wage <= 30) %>%
-  pull(Wage) %>%
-  length() #
+  count() #
 WageLess30
 ```
 
--   You try to find how many Accountants are in the Job Category of the gig data set. The answer is shown below.
+-   How many Accountants are there in the Job Category of the gig data set. The answer is shown below. Use filter and count to calculate this answer. 
 
 ```{r, echo=FALSE}
 gig %>%
      filter(Job=="Accountant") %>%
-     count(Job)
+     count()
 ## 83 Accountants
 ```
 
@@ -435,7 +433,7 @@ mean(y)
     ```{r}
     sum(y, na.rm=TRUE) 
     mean(y, na.rm=TRUE)
-    # na.omit removes the NAs from the data set. 
+    # na.omit removes the NAs from the vector of dataset. Here, it works for removing NAs from the vector.  
     y <- na.omit(y) 
     ```
 
