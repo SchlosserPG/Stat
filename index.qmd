@@ -2,9 +2,9 @@
 
 ### Installing R on Windows
 
--   Open an internet browser and go to [https://www.r-project.org/](https://www.r-project.org/).
+-   Open an internet browser and go to <https://www.r-project.org/>.
 -   Click CRAN hyperlink underneath Download on the left.
--   Select a CRAN location (a mirror site) and click the corresponding link. I selected O-cloud. This brings you to the following link: [https://cloud.r-project.org/](https://cloud.r-project.org/)
+-   Select a CRAN location (a mirror site) and click the corresponding link. I selected O-cloud. This brings you to the following link: <https://cloud.r-project.org/>
 -   Click on the "Download R for Windows" link at the top of the page if you have a Windows computer.\
 -   Click on the "install R for the first time" link at the top of the page.
 -   Click "Download R for Windows" and save the executable file somewhere on your computer.
@@ -14,9 +14,9 @@
 
 ### Installing R on a Mac
 
--   Open an internet browser and go to [https://www.r-project.org/](https://www.r-project.org/).
+-   Open an internet browser and go to <https://www.r-project.org/>.
 -   Click CRAN hyperlink underneath Download on the left.
--   Select a CRAN location (a mirror site) and click the corresponding link. I selected O-cloud. This brings you to the following link: [https://cloud.r-project.org/](https://cloud.r-project.org/)
+-   Select a CRAN location (a mirror site) and click the corresponding link. I selected O-cloud. This brings you to the following link: <https://cloud.r-project.org/>
 -   Click on the "Download R for (Mac) OS X" link at the top of the page.
 -   Click on the file containing the latest version of R under "Files."
 -   Save the .pkg file, double-click it to open, and follow the installation instructions.
@@ -26,7 +26,7 @@
 
 ### Downloading RStudio For Mac or PC
 
--   Go to the following URL: [https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/).
+-   Go to the following URL: <https://posit.co/download/rstudio-desktop/>.
 -   Click the Download button for Install RStudio.
 -   It should recognize your operating system. If you see different an Installers for Supported Platforms section, click the version that is appropriate for your operating system. When the download is complete, run the install program, accepting all defaults.
 -   Note, RStudio might conflict with some Mac antivirus programs. Ensure your antivirus is not blocking it from installing. Only worry about this if you have difficulty installing the program.

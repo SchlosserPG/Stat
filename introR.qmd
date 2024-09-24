@@ -690,11 +690,13 @@ summary(gss.2016)
 #### Using tidyverse to load data
 
 ##### read_csv function
-* In R, both `read.csv()` and `read_csv()` are used to read CSV files, but they come from different packages and have important differences. `read.csv()` is part of base R and is widely used for loading CSV files into data frames, as in `data <- read.csv("data/data.csv")`. It can be slower with large datasets and automatically converts strings to factors unless `stringsAsFactors = FALSE`.
-* `read_csv()`, from the **readr** package in the tidyverse, is faster and better suited for large datasets. You'd use it like `data <- readr::read_csv("data/data.csv")`. It doesn't convert strings to factors by default and provides clearer error messages.`read_csv()` is often preferred for performance and better handling of data types, especially in larger datasets or tidyverse projects.
-* General Takeaways: 
+
+-   In R, both `read.csv()` and `read_csv()` are used to read CSV files, but they come from different packages and have important differences. `read.csv()` is part of base R and is widely used for loading CSV files into data frames, as in `data <- read.csv("data/data.csv")`. It can be slower with large datasets and automatically converts strings to factors unless `stringsAsFactors = FALSE`.
+-   `read_csv()`, from the **readr** package in the tidyverse, is faster and better suited for large datasets. You'd use it like `data <- readr::read_csv("data/data.csv")`. It doesn't convert strings to factors by default and provides clearer error messages.`read_csv()` is often preferred for performance and better handling of data types, especially in larger datasets or tidyverse projects.
+-   General Takeaways:
 -   read_csv() is a function from the readr package, which is part of the tidyverse ecosystem.
 -   read_csv() is generally faster than read.csv() as it's optimized for speed, making it more efficient, particularly for large datasets.
+
 ```{r, message=FALSE}
 #install.packages(tidyverse) ## Only need to install one time on your computer. #install.packages links have been commented out during processing of RMarkdown. 
 #Activate the library, which you need to access each time you open R and RStudio
@@ -708,10 +710,12 @@ gss.2016b <- read_csv(file = "data/gss2016.csv")
 
 ### Summarize Data
 
-* In R, summary() and summarize() serve different purposes. summary() is part of base R and gives a quick overview of data, returning descriptive statistics for each column. For example, summary(mtcars) provides the min, max, median, and mean for numeric columns and counts for factors. It’s useful for a broad snapshot of your dataset.
-* In contrast, summarize() (or summarise()) is from the dplyr package and allows for custom summaries. For instance, mtcars %>% summarize(avg_mpg = mean(mpg), max_hp = max(hp)) returns the average miles per gallon and the maximum horsepower. It’s more flexible and is often used with group_by() for grouped calculations. In conclusion, summary() gives automatic overviews, while summarize() is better for tailored summaries.
+-   In R, summary() and summarize() serve different purposes. summary() is part of base R and gives a quick overview of data, returning descriptive statistics for each column. For example, summary(mtcars) provides the min, max, median, and mean for numeric columns and counts for factors. It’s useful for a broad snapshot of your dataset.
+
+-   In contrast, summarize() (or summarise()) is from the dplyr package and allows for custom summaries. For instance, mtcars %\>% summarize(avg_mpg = mean(mpg), max_hp = max(hp)) returns the average miles per gallon and the maximum horsepower. It’s more flexible and is often used with group_by() for grouped calculations. In conclusion, summary() gives automatic overviews, while summarize() is better for tailored summaries.
 
 -   Use the summary() function to examine the contents of the file.
+
 ```{r}
 summary(object = gss.2016) 
 ```

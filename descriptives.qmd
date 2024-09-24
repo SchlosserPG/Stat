@@ -365,9 +365,9 @@ ggplot(HousePrice, aes(x=HousePrice))+geom_histogram(binwidth = 100, boundary= 3
     sqrt(var(x))
     sd(x)
 
-sd(HousePrice$HousePrice) #102.6059
-var(HousePrice$HousePrice) #10527.97
-skew(HousePrice$HousePrice) #normal
+    sd(HousePrice$HousePrice) #102.6059
+    var(HousePrice$HousePrice) #10527.97
+    skew(HousePrice$HousePrice) #normal
 
 
     ```

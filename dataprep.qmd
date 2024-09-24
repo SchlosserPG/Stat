@@ -38,7 +38,19 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ## Evaluating Data Types
 
 -   There are a number of data types in R that are common to programming and statistical analysis.
--   A data type of a variable specifies the type of data that is stored inside that variable. Sometimes when you read in data it is in the correct type, and other times, you need to force it into the type you need to conduct the analysis. In this section, we are going to go over the following data types.\
+-   A data type of a variable specifies the type of data that is stored inside that variable. Sometimes when you read in data it is in the correct type, and other times, you need to force it into the type you need to conduct the analysis through a process called coercion. 
+     + Factor (Nominal or Ordinal)
+     + Numeric (Real or Discrete (Integer))
+     + Character
+     + Logical
+     + Date
+
+## Coercing Data Types
+
+* In R, coercion is the process of converting one data type to another, often done automatically by R when necessary. For example, if you combine numeric and character data in a vector, R will coerce the numeric values to characters, as seen in c(1, "A"), which results in c("1", "A"). Coercion can also be done manually using functions like as.numeric() or as.factor() to change data types explicitly.
+
+* To determine whether a variable is numeric or categorical (factor), you can use the class() function. For example, if you have a variable age, running class(age) will tell you if it is stored as "numeric" or "factor". Numeric variables represent quantities, such as continuous or discrete numbers, while categorical variables represent groups or categories, typically stored as factors. For example, a variable with levels like "Male" and "Female" would be a categorical (factor) variable.
+
 
 ### Factor data type:
 
@@ -363,7 +375,7 @@ countAuto <- gig %>%
 countAuto #190
 ```
 
--   Below, we are filtering by Wage and the counting. 
+-   Below, we are filtering by Wage and the counting.
 
 ```{r}
 # Counting with a Numerical Variable
@@ -385,7 +397,7 @@ WageLess30 <- gig %>%
 WageLess30
 ```
 
--   How many Accountants are there in the Job Category of the gig data set. The answer is shown below. Use filter and count to calculate this answer. 
+-   How many Accountants are there in the Job Category of the gig data set. The answer is shown below. Use filter and count to calculate this answer.
 
 ```{r, echo=FALSE}
 gig %>%
@@ -519,6 +531,8 @@ summary(africa2)
 ### Summarize
 
 -   The summarize() command is used to create summary statistics for groups of observations in a data frame.
+-   In R, summary() and summarize() serve different purposes. summary() is part of base R and gives a quick overview of data, returning descriptive statistics for each column. For example, summary(mtcars) provides the min, max, median, and mean for numeric columns and counts for factors. It’s useful for a broad snapshot of your dataset.
+-   In contrast, summarize() (or summarise()) is from the dplyr package and allows for custom summaries. For instance, mtcars %\>% summarize(avg_mpg = mean(mpg), max_hp = max(hp)) returns the average miles per gallon and the maximum horsepower. It’s more flexible and is often used with group_by() for grouped calculations. In conclusion, summary() gives automatic overviews, while summarize() is better for tailored summaries.
 -   In the example below, we can summarize more than one thing into tidy output.
 
 ```{r}
@@ -563,6 +577,8 @@ groupedData
 africa.mutated <- mutate(africa1, calculation = gdp_pc * infl)
 head(africa.mutated)
 ```
+
+* Below is an example with the iris dataset, which is part of base R. 
 
 ```{r}
 data("iris")
