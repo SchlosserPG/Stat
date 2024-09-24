@@ -698,8 +698,7 @@ window.Quarto = {
 <section id="subsetting-or-filtering" class="level3" data-number="4.3.2">
 <h3 data-number="4.3.2" class="anchored" data-anchor-id="subsetting-or-filtering"><span class="header-section-number">4.3.2</span> Subsetting or Filtering</h3>
 <ul>
-<li><p>Subsetting or filtering a data frame is the process of indexing, or extracting a portion of the data set that is relevant for subsequent statistical analysis.</p></li>
-<li><p>You can also use subset() or filter() commands as part of tidyverse.</p></li>
+<li><p>Subsetting or filtering a data frame is the process of indexing, or extracting a portion of the data set that is relevant for subsequent statistical analysis. Subsetting allows you to work with a subset of your data, which is essential for data analysis and manipulation. One of the most common ways to subset in R is by using square brackets []. We can also use the filter() function from tidyverse.</p></li>
 <li><p>We use subsets to do the following:</p>
 <ul>
 <li>View data based on specific data values or ranges.</li>
@@ -707,9 +706,9 @@ window.Quarto = {
 <li>Eliminate observations that contain missing values, low-quality data, or outliers.</li>
 <li>Exclude variables that contain redundant information, or variables with excessive amounts of missing values.</li>
 </ul></li>
-<li><p>We can use the same technique as matrices to subset out particular rows and columns.</p></li>
-<li><p>Let’s do an example using the customers.csv file we read in earlier as customers in the last lesson.</p></li>
-<li><p>Base R provides several methods for subsetting data structures. Below uses base R by using the square brackets dataset[row, column] format.</p></li>
+<li><p>When working with data frames, you can subset by rows and columns using two indices inside the square brackets: data[row, column]. For example, if you have df &lt;- data.frame(a = 1:3, b = c(“X”, “Y”, “Z”)), df[1, 2] would return the value “X”, which is the first row and second column. If you want the entire first row, you would use df[1, ], and to get the second column, you’d use df[, 2].</p></li>
+<li><p>You can also use logical conditions to subset. For instance, x[x &gt; 20] would return all values in x greater than 20, and in a data frame, you could filter rows where a certain condition holds, such as df[df$a &gt; 1, ], which returns rows where column a has values greater than 1.</p></li>
+<li><p>Let’s do an example using the customers.csv file we read in earlier as customers in the last lesson. Base R provides several methods for subsetting data structures. Below uses base R by using the square brackets dataset[row, column] format.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>customers <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/customers.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
@@ -726,7 +725,7 @@ window.Quarto = {
 <span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>customers[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>Tidyverse is extremely popular when filtering data.</li>
+<li>One of the most powerful and intuitive ways to subset data frames in R is by using the filter() function from the dplyr package, which is part of the tidyverse. Tidyverse is extremely popular when filtering data.</li>
 <li>The filter function is used to subset rows of a data frame based on certain conditions.</li>
 <li>The below example filters data by the College variable when category values are “Yes” and saves the filtered dataset into an object called college.</li>
 </ul>

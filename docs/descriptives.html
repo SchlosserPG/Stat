@@ -856,17 +856,17 @@ C           2         0.2        10              1.0</code></pre>
 <section id="kurtosis-in-evaluating-mean-spread" class="level4" data-number="3.3.2.3">
 <h4 data-number="3.3.2.3" class="anchored" data-anchor-id="kurtosis-in-evaluating-mean-spread"><span class="header-section-number">3.3.2.3</span> Kurtosis in Evaluating Mean Spread</h4>
 <ul>
-<li>Kurtosis is the sharpness of the peak of a frequency-distribution curve or more formally a measure of how many observations are in the tails of a distribution.</li>
-<li>A normal distribution will have a kurtosis value of three;
+<li><p>Kurtosis is the sharpness of the peak of a frequency-distribution curve or more formally a measure of how many observations are in the tails of a distribution.</p></li>
+<li><p>The formula for kurtosis is as follows: Kurtosis = <span class="math inline">\(\frac{n(n+1)}{(n-1)(n-2)(n-3)} \sum \left( \frac{(X_i - \bar{X})^4}{s^4} \right) - \frac{3(n-1)^2}{(n-2)(n-3)}\)</span></p></li>
+</ul>
+<p>Where:</p>
 <ul>
-<li>Distributions with kurtosis around 3 are described as mesokurtic.</li>
-<li>If kurtosis is significantly above or below 3, there is excess kurtosis.
-<ul>
-<li>Values of kurtosis significantly above 3 indicate the distribution is leptokurtic, with fewer observations in the tails than a normal distribution (the fewer observations in the tails often give a distribution a pointy look).</li>
-<li>Values of kurtosis significantly below 3 indicate the distribution is platykurtic, with more observations in the tails than a normal distribution would have given the mean, standard deviation, and sample size.</li>
-</ul></li>
-<li>Uses kurtosis() command from the semTools package.</li>
-</ul></li>
+<li><span class="math inline">\(n\)</span> is the sample size</li>
+<li><span class="math inline">\(X_i\)</span> is each individual value</li>
+<li><span class="math inline">\(\bar{X}\)</span> is the mean of the data</li>
+<li><span class="math inline">\(s\)</span> is the standard deviation</li>
+<li>A normal distribution will have a kurtosis value of three, where distributions with kurtosis around 3 are described as mesokurtic, significantly higher than 3 indicate leptokurtic, and significantly under 3 indicate platykurtic.</li>
+<li>The kurtosis() command from the semTools package subtracts 3 from the kurtosis, so we can evaluate values by comparing them to 0. Positive values will be indicative to a leptokurtic distribution and negative will indicate a platykurtic distribution. To see if kurtosis (leptokurtic or platykurtic) is significant, we confirm them by first evaluating the z-score to see if the variable is normal or not. The same cutoff values from skew also apply for the z for small, medium, and large sample sizes in kurtosis. These are the same basic rules for the rules in judging skewness.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -875,7 +875,13 @@ C           2         0.2        10              1.0</code></pre>
 </figure>
 </div>
 <ul>
-<li>The kurtosis() command subtracts 3 from the kurtosis, so positive values will be indicative to a leptokurtic distribution and negative will indicate a platykurtic distribution. To see if kurtosis (leptokurtic or platykurtic) is significant, we confirm them by first evaluating the z-score to see if the variable is normal or not. The same cutoff values from skew also apply for the z for small, medium, and large sample sizes in kurtosis. These are the same basic rules for the rules in judging skewness.</li>
+<li>The rules of determining problematic distributions with regards to kurtosis are below.
+<ul>
+<li>If the sample size is small (n &lt; 50), z values outside the –2 to 2 range are a problem.</li>
+<li>If the sample size is between 50 and 300, z values outside the –3.29 to 3.29 range are a problem.</li>
+<li>For large samples (n &gt; 300), using a visual is recommended over the statistics, but generally z values outside the range of –7 to 7 can be considered problematic.</li>
+<li>If kurtosis is found, then evaluate the excess kur score to see if it is positive or negative to determine whether it is leptokurtic or platykurtic.</li>
+</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># z-value is 3.0398, which is &gt; 2 indicating leptokurtic Small sample</span></span>
@@ -906,13 +912,6 @@ C           2         0.2        10              1.0</code></pre>
 </div>
 </div>
 <ul>
-<li>The rules of determining problematic distributions with regards to kurtosis are below.
-<ul>
-<li>If the sample size is small (n &lt; 50), z values outside the –2 to 2 range are a problem.</li>
-<li>If the sample size is between 50 and 300, z values outside the –3.29 to 3.29 range are a problem.</li>
-<li>For large samples (n &gt; 300), using a visual is recommended over the statistics, but generally z values outside the range of –7 to 7 can be considered problematic.</li>
-<li>If kurtosis is found, then evaluate the excess kur score to see if it is positive or negative to determine whether it is leptokurtic or platykurtic.</li>
-</ul></li>
 <li>Let’s do a few more examples using the customers dataset.</li>
 </ul>
 <div class="cell">

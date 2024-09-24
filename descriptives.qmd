@@ -279,7 +279,6 @@ skew(salaries)
 ```
 
 #### Interpreting the skew() Command Results
-
 -   se = standard error
 
 -   z = skew/se
@@ -388,16 +387,27 @@ var(customers$Spending, na.rm=TRUE)
 #### Kurtosis in Evaluating Mean Spread
 
 -   Kurtosis is the sharpness of the peak of a frequency-distribution curve or more formally a measure of how many observations are in the tails of a distribution.
--   A normal distribution will have a kurtosis value of three;
-    -   Distributions with kurtosis around 3 are described as mesokurtic.
-    -   If kurtosis is significantly above or below 3, there is excess kurtosis.
-        -   Values of kurtosis significantly above 3 indicate the distribution is leptokurtic, with fewer observations in the tails than a normal distribution (the fewer observations in the tails often give a distribution a pointy look).
-        -   Values of kurtosis significantly below 3 indicate the distribution is platykurtic, with more observations in the tails than a normal distribution would have given the mean, standard deviation, and sample size.
-    -   Uses kurtosis() command from the semTools package.
+
+* The formula for kurtosis is as follows:
+Kurtosis = $\frac{n(n+1)}{(n-1)(n-2)(n-3)} \sum \left( \frac{(X_i - \bar{X})^4}{s^4} \right) - \frac{3(n-1)^2}{(n-2)(n-3)}$
+
+Where:
+
+- $n$ is the sample size
+- $X_i$ is each individual value
+- $\bar{X}$ is the mean of the data
+- $s$ is the standard deviation
+-   A normal distribution will have a kurtosis value of three, where distributions with kurtosis around 3 are described as mesokurtic, significantly higher than 3 indicate leptokurtic, and significantly under 3 indicate platykurtic. 
+-   The kurtosis() command from the semTools package subtracts 3 from the kurtosis, so we can evaluate values by comparing them to 0. Positive values will be indicative to a leptokurtic distribution and negative will indicate a platykurtic distribution. To see if kurtosis (leptokurtic or platykurtic) is significant, we confirm them by first evaluating the z-score to see if the variable is normal or not. The same cutoff values from skew also apply for the z for small, medium, and large sample sizes in kurtosis. These are the same basic rules for the rules in judging skewness.
+
 
 ![Evaluate Kurtosis](Pictures/Ch2/Kurtosis.png "Evaluate Kurtosis")
 
--   The kurtosis() command subtracts 3 from the kurtosis, so positive values will be indicative to a leptokurtic distribution and negative will indicate a platykurtic distribution. To see if kurtosis (leptokurtic or platykurtic) is significant, we confirm them by first evaluating the z-score to see if the variable is normal or not. The same cutoff values from skew also apply for the z for small, medium, and large sample sizes in kurtosis. These are the same basic rules for the rules in judging skewness.
+-   The rules of determining problematic distributions with regards to kurtosis are below.
+    -   If the sample size is small (n \< 50), z values outside the –2 to 2 range are a problem.
+    -   If the sample size is between 50 and 300, z values outside the –3.29 to 3.29 range are a problem.
+    -   For large samples (n \> 300), using a visual is recommended over the statistics, but generally z values outside the range of –7 to 7 can be considered problematic.
+    -   If kurtosis is found, then evaluate the excess kur score to see if it is positive or negative to determine whether it is leptokurtic or platykurtic.
 
 ```{r}
 # z-value is 3.0398, which is > 2 indicating leptokurtic
@@ -414,11 +424,7 @@ skew(HousePrice$HousePrice) #normal
 kurtosis(HousePrice$HousePrice) #normal
 ```
 
--   The rules of determining problematic distributions with regards to kurtosis are below.
-    -   If the sample size is small (n \< 50), z values outside the –2 to 2 range are a problem.
-    -   If the sample size is between 50 and 300, z values outside the –3.29 to 3.29 range are a problem.
-    -   For large samples (n \> 300), using a visual is recommended over the statistics, but generally z values outside the range of –7 to 7 can be considered problematic.
-    -   If kurtosis is found, then evaluate the excess kur score to see if it is positive or negative to determine whether it is leptokurtic or platykurtic.
+
 -   Let's do a few more examples using the customers dataset.
 
 ```{r}
