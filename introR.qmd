@@ -757,6 +757,20 @@ data("ChickWeight")
 summary(ChickWeight)
 tapply(ChickWeight$weight,ChickWeight$Diet, mean)
 ```
+## Using AI
+Use the following prompts on a generative AI, like chatGPT to learn more about introductory topics.
+
+* Explain the difference between descriptive and inferential statistics and provide real-life examples of both.
+* What is the purpose of using R in statistical analysis, and what are the key benefits of using RStudio as a graphical interface?
+* What happens when you assign the same variable multiple values in R? Write an example script that demonstrates this behavior and explains the output.
+* Create a script that demonstrates how to assign values to variables using both numeric and character data types. Then, explain how these assignments are stored in RStudio’s environment.
+* In R, what is the role of the assignment operator <- Demonstrate its use by creating a few variables for numeric and character data types.
+* Demonstrate how to create a vector in R using the c() function. Use this vector to perform basic operations like addition and multiplication.
+* Write a script that reads a CSV file into R using read.csv(). Summarize the dataset and explain how the columns and rows are structured.
+* How can you access specific columns of a data frame using the $ operator? Provide an example using a sample dataset in R.
+* Explain how to use the summary() function in R to summarize a dataset. Write a script that loads a dataset and runs summary() on it.
+
+
 
 ## Summary
 

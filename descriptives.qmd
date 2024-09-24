@@ -279,6 +279,7 @@ skew(salaries)
 ```
 
 #### Interpreting the skew() Command Results
+
 -   se = standard error
 
 -   z = skew/se
@@ -388,18 +389,16 @@ var(customers$Spending, na.rm=TRUE)
 
 -   Kurtosis is the sharpness of the peak of a frequency-distribution curve or more formally a measure of how many observations are in the tails of a distribution.
 
-* The formula for kurtosis is as follows:
-Kurtosis = $\frac{n(n+1)}{(n-1)(n-2)(n-3)} \sum \left( \frac{(X_i - \bar{X})^4}{s^4} \right) - \frac{3(n-1)^2}{(n-2)(n-3)}$
+-   The formula for kurtosis is as follows: Kurtosis = $\frac{n(n+1)}{(n-1)(n-2)(n-3)} \sum \left( \frac{(X_i - \bar{X})^4}{s^4} \right) - \frac{3(n-1)^2}{(n-2)(n-3)}$
 
 Where:
 
-- $n$ is the sample size
-- $X_i$ is each individual value
-- $\bar{X}$ is the mean of the data
-- $s$ is the standard deviation
--   A normal distribution will have a kurtosis value of three, where distributions with kurtosis around 3 are described as mesokurtic, significantly higher than 3 indicate leptokurtic, and significantly under 3 indicate platykurtic. 
+-   $n$ is the sample size
+-   $X_i$ is each individual value
+-   $\bar{X}$ is the mean of the data
+-   $s$ is the standard deviation
+-   A normal distribution will have a kurtosis value of three, where distributions with kurtosis around 3 are described as mesokurtic, significantly higher than 3 indicate leptokurtic, and significantly under 3 indicate platykurtic.
 -   The kurtosis() command from the semTools package subtracts 3 from the kurtosis, so we can evaluate values by comparing them to 0. Positive values will be indicative to a leptokurtic distribution and negative will indicate a platykurtic distribution. To see if kurtosis (leptokurtic or platykurtic) is significant, we confirm them by first evaluating the z-score to see if the variable is normal or not. The same cutoff values from skew also apply for the z for small, medium, and large sample sizes in kurtosis. These are the same basic rules for the rules in judging skewness.
-
 
 ![Evaluate Kurtosis](Pictures/Ch2/Kurtosis.png "Evaluate Kurtosis")
 
@@ -423,7 +422,6 @@ kurtosis(GrowthFund)
 skew(HousePrice$HousePrice) #normal
 kurtosis(HousePrice$HousePrice) #normal
 ```
-
 
 -   Let's do a few more examples using the customers dataset.
 
@@ -481,17 +479,17 @@ semTools::skew(customers$Orders) ##skewed right
 
 ## Using AI
 
-Use the following prompts on a generative AI, like chatGPT to learn more about descriptive statistics.
-* What is the difference between mean, median, and mode in describing data distributions, and how can each be used to understand the shape of a distribution?
- * How do mean and median help identify whether a distribution is skewed, and what does it tell us about the dataset?
-* Can you explain how the mean, median, and mode behave in normal, positively skewed, and negatively skewed distributions?
-* What are standard deviation (SD) and variance, and how do they measure the spread of data in a distribution?
-* Explain the differences between range, interquartile range (IQR), and standard deviation in describing the variability in a dataset.
-* How does a high standard deviation or variance affect the interpretation of a dataset compared to a low standard deviation?
-* What is skewness, and how does it affect the shape of a distribution? How can we identify positive and negative skew?
-* How is kurtosis defined in the semTools package in R, and what does it tell us about the tails of a distribution?
-* How would you compare and contrast the roles of skewness and kurtosis in identifying the shape and behavior of a distribution?
+Use the following prompts on a generative AI, like chatGPT to learn more about descriptive statistics. 
 
+* What is the difference between mean, median, and mode in describing data distributions, and how can each be used to understand the shape of a distribution? \* How do mean and median help identify whether a distribution is skewed, and what does it tell us about the dataset?
+* Can you explain how the mean, median, and mode behave in normal, positively skewed, and negatively skewed distributions? 
+* What are standard deviation (SD) and variance, and how do they measure the spread of data in a distribution? 
+
+* Explain the differences between range, interquartile range (IQR), and standard deviation in describing the variability in a dataset. 
+* How does a high standard deviation or variance affect the interpretation of a dataset compared to a low standard deviation? 
+* What is skewness, and how does it affect the shape of a distribution? How can we identify positive and negative skew? 
+* How is kurtosis defined in the semTools package in R, and what does it tell us about the tails of a distribution? 
+* How would you compare and contrast the roles of skewness and kurtosis in identifying the shape and behavior of a distribution?
 
 ## Summary
 
