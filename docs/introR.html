@@ -1299,8 +1299,11 @@ window.Quarto = {
 <pre><code> + Extremely popular way to read in data.
  + read.csv() is a base R function that comes built-in with R: No library necessary</code></pre>
 <ul>
-<li>All your datasets should be in a data folder in your working directory so that you and I have the same working directory.</li>
-<li>Structure of function <em>datasetName &lt;- read.csv(“data/dataset.csv”)</em></li>
+<li>All your datasets should be in a data folder in your working directory so that you and I have the same working directory. This creates a relative path to our working directory.</li>
+<li>In R, when working with data files stored on your computer, it’s important to understand the difference between absolute and relative file paths. An <strong>absolute reference</strong> gives the complete path to the file, starting from the root directory. This path is specific to your system, and it doesn’t change regardless of where the R script is located. For example, on a Windows machine, you might use something like <code>read.csv("C:/Users/username/Documents/data.csv")</code>. This path will always point to the same file, but it can make your code less portable since it only works on your machine or if others have the exact same file structure.</li>
+<li>On the other hand, a <strong>relative reference</strong> specifies the file’s path relative to the location of your R script or working directory. It is more flexible because it assumes the file is located in a directory relative to the current project or script. For example, if your script and data file are in the same folder, you could use <code>read.csv("data.csv")</code>. If the file is in a subdirectory, you would reference it relatively like <code>read.csv("data/data.csv")</code>. Relative paths make your code more portable and easier to share since it will work as long as the folder structure remains consistent.</li>
+<li>Using relative paths is often a best practice, especially in collaborative projects or when sharing code. You can check your current working directory in R with <code>getwd()</code> and set it with <code>setwd()</code>.</li>
+<li>The structure of the function is <em>datasetName &lt;- read.csv(“data/dataset.csv”).</em></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span> <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"data/gss2016.csv"</span>)</span>
@@ -1333,6 +1336,9 @@ window.Quarto = {
 <li>read_csv() is a function from the readr package, which is part of the tidyverse ecosystem.</li>
 <li>read_csv() is generally faster than read.csv() as it’s optimized for speed, making it more efficient, particularly for large datasets.</li>
 </ul>
+<p>In R, both <code>read.csv()</code> and <code>read_csv()</code> are used to read CSV files, but they come from different packages and have important differences. <code>read.csv()</code> is part of base R and is widely used for loading CSV files into data frames, as in <code>data &lt;- read.csv("data/data.csv")</code>. It can be slower with large datasets and automatically converts strings to factors unless <code>stringsAsFactors = FALSE</code>.</p>
+<p><code>read_csv()</code>, from the <strong>readr</strong> package in the tidyverse, is faster and better suited for large datasets. You’d use it like <code>data &lt;- readr::read_csv("data/data.csv")</code>. It doesn’t convert strings to factors by default and provides clearer error messages.</p>
+<p>In summary, <code>read_csv()</code> is often preferred for performance and better handling of data types, especially in larger datasets or tidyverse projects.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(tidyverse) ## Only need to install one time on</span></span>
 <span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="co"># your computer. #install.packages links have been commented out</span></span>
