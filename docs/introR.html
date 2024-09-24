@@ -1333,12 +1333,12 @@ window.Quarto = {
 <section id="read_csv-function" class="level5" data-number="2.9.4.5.1">
 <h5 data-number="2.9.4.5.1" class="anchored" data-anchor-id="read_csv-function"><span class="header-section-number">2.9.4.5.1</span> read_csv function</h5>
 <ul>
+<li>In R, both <code>read.csv()</code> and <code>read_csv()</code> are used to read CSV files, but they come from different packages and have important differences. <code>read.csv()</code> is part of base R and is widely used for loading CSV files into data frames, as in <code>data &lt;- read.csv("data/data.csv")</code>. It can be slower with large datasets and automatically converts strings to factors unless <code>stringsAsFactors = FALSE</code>.</li>
+<li><code>read_csv()</code>, from the <strong>readr</strong> package in the tidyverse, is faster and better suited for large datasets. You’d use it like <code>data &lt;- readr::read_csv("data/data.csv")</code>. It doesn’t convert strings to factors by default and provides clearer error messages.<code>read_csv()</code> is often preferred for performance and better handling of data types, especially in larger datasets or tidyverse projects.</li>
+<li>General Takeaways:</li>
 <li>read_csv() is a function from the readr package, which is part of the tidyverse ecosystem.</li>
 <li>read_csv() is generally faster than read.csv() as it’s optimized for speed, making it more efficient, particularly for large datasets.</li>
 </ul>
-<p>In R, both <code>read.csv()</code> and <code>read_csv()</code> are used to read CSV files, but they come from different packages and have important differences. <code>read.csv()</code> is part of base R and is widely used for loading CSV files into data frames, as in <code>data &lt;- read.csv("data/data.csv")</code>. It can be slower with large datasets and automatically converts strings to factors unless <code>stringsAsFactors = FALSE</code>.</p>
-<p><code>read_csv()</code>, from the <strong>readr</strong> package in the tidyverse, is faster and better suited for large datasets. You’d use it like <code>data &lt;- readr::read_csv("data/data.csv")</code>. It doesn’t convert strings to factors by default and provides clearer error messages.</p>
-<p>In summary, <code>read_csv()</code> is often preferred for performance and better handling of data types, especially in larger datasets or tidyverse projects.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(tidyverse) ## Only need to install one time on</span></span>
 <span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="co"># your computer. #install.packages links have been commented out</span></span>
@@ -1356,8 +1356,9 @@ window.Quarto = {
 <section id="summarize-data" class="level3" data-number="2.9.5">
 <h3 data-number="2.9.5" class="anchored" data-anchor-id="summarize-data"><span class="header-section-number">2.9.5</span> Summarize Data</h3>
 <ul>
-<li>Use the summary() function to examine the contents of the file.</li>
-<li>The summary() function is part of base R and does not require a package.</li>
+<li><p>In R, summary() and summarize() serve different purposes. summary() is part of base R and gives a quick overview of data, returning descriptive statistics for each column. For example, summary(mtcars) provides the min, max, median, and mean for numeric columns and counts for factors. It’s useful for a broad snapshot of your dataset.</p></li>
+<li><p>In contrast, summarize() (or summarise()) is from the dplyr package and allows for custom summaries. For instance, mtcars %&gt;% summarize(avg_mpg = mean(mpg), max_hp = max(hp)) returns the average miles per gallon and the maximum horsepower. It’s more flexible and is often used with group_by() for grouped calculations. In conclusion, summary() gives automatic overviews, while summarize() is better for tailored summaries.</p></li>
+<li><p>Use the summary() function to examine the contents of the file.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="at">object =</span> gss<span class="fl">.2016</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
