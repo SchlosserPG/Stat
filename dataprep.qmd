@@ -891,6 +891,21 @@ kurtosis(brfss.cleaned$PHYSHLTH)
 
 -   This data set full of categorical variables is now fully cleaned and ready to be analyzed!
 
+## Using AI
+
+Use the following prompts on a generative AI, like chatGPT to learn more about data preparation activities.
+* What is the difference between ordinal and nominal variables, and how can you recode these data types in R?
+* Explain the steps to coerce a character variable into a factor using the as.factor() function in R.
+* How can you use the filter() function to subset a dataset based on multiple conditions using & and | in R?
+* How does subsetting using square brackets [] differ from using the filter() function in R?
+* What strategies can you use to handle missing data in R, and how does na.omit() differ from drop_na()?
+* How does the mutate() function help in transforming and creating new variables, and what are some practical examples?"
+* What is the purpose of the group_by() function, and how does it interact with summarize() to create summary statistics in R?"
+* Explain how you can use arrange() to sort a dataset by one or more variables and demonstrate sorting both in ascending and descending order."
+* Why is the piping operator %>% useful in R, and how does it improve the readability and structure of your code?
+* How would you use summarize() to calculate mean, median, and standard deviation for a numerical variable in R?
+
+
 ## Summary
 
 -   In this lesson, we worked through the basics on data cleaning. Data cleaning is so important and there are so many ways to do it. Provided are some examples using popular functions in dplyr (under tidyverse).
