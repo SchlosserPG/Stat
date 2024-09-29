@@ -661,14 +661,20 @@ t.test(sleep2$extra.1, sleep2$extra.2, paired=TRUE)
 
 ## Using AI
 
--   Use the following prompts on a generative AI, like chatGPT to learn more about t.test's and confidence intervals.
+-   Use the following prompts on a generative AI, like chatGPT, to learn more about t.test's and confidence intervals.
 
 * Can you explain the difference between the null hypothesis and the alternative hypothesis, and why is it important to set up both correctly before conducting a t-test?
+
 * What factors determine whether you should use a one-sample, independent samples, or dependent samples t-test, and how do the results differ based on the test chosen?
+
 * When should I use a two-tailed t-test compared to a right- or left-tailed test, and how does the alternative hypothesis guide this decision?
+
 * What are the key arguments in the t.test() function in R, and how do I modify these arguments to perform different types of t-tests, such as two-tailed or paired t-tests?
+
 * How do I interpret the p-value in the context of hypothesis testing, and how does it relate to rejecting or failing to reject the null hypothesis?
+
 * How does the confidence interval calculated during a t-test help in understanding the range of possible population parameters, and why is it important in hypothesis testing?
+
 * What is the difference between an independent samples t-test and a dependent (paired) samples t-test, and in what situations should each be used?
 
 

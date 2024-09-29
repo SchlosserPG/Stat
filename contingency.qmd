@@ -482,13 +482,20 @@ chisq.test(STEMGOF$RecentNumbers,p=STEMGOF$X2010Proportions)
 
 ## Using AI
 
--   Use the following prompts on a generative AI, like chatGPT to learn more about probability and contingency tables. 
-* "What is a contingency table, and how is it used to represent the relationship between two categorical variables in probability calculations?"
+-   Use the following prompts on a generative AI, like chatGPT, to learn more about probability and contingency tables. 
+
+* What is a contingency table, and how is it used to represent the relationship between two categorical variables in probability calculations?
+
 * How do you calculate joint, marginal, and conditional probabilities using a contingency table, and what is the significance of each type of probability?
+
 * Can you explain how the chi-squared test for independence works, and how it is used to determine whether two categorical variables are independent or dependent?
+
 * What is the difference between the chi-squared test for independence and the chi-squared goodness of fit test, and how is each test applied?
+
 * Once you calculate the chi-squared test statistic, how do you interpret the p-value to determine whether to reject or fail to reject the null hypothesis?
+
 * Why are degrees of freedom important in a chi-squared test, and how do you calculate them for a contingency table?
+
 * How do you set up and execute a chi-squared test using the chisq.test() function in R, and what are the key outputs to focus on when interpreting the results?
 
 
