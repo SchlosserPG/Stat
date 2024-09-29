@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ### At a Glance
 
--   In order to succeed in this section, you will need to learn how to create and calculate probability inside a contingency table, when we have two categorical variables, and conduct our first hypothesis test, the chi-squared test of independence. 
+-   In order to succeed in this section, you will need to learn how to create and calculate probability inside a contingency table, when we have two categorical variables, and conduct our first hypothesis test, the chi-squared test of independence.
 
 ### Lesson Objectives
 
@@ -263,10 +263,7 @@ sdx <- sqrt(varx); sdx #18.12
 -   In order to account for situations when the observed and expected values are very large, which could result in extremely large differences between observed and expected, the squared differences are divided by the expected value in each cell.
 
 -   Visualizing the Chi-squared Distribution Chi-squared distribution has a single parameter, the degrees of freedom or $df$.\
-    $\sqrt(2*df)$
-The degrees of freedom in a chi-squared test of independence are calculated as the Number of rows−1 multiplied by Number ofcolumns−1 or more formally:
-$df=(𝑟−1)∗(𝑐−1)$
-The larger the contingency table, the more degrees of freedom, the wider the distribution and more normal it becomes. 
+    $\sqrt(2*df)$ The degrees of freedom in a chi-squared test of independence are calculated as the Number of rows−1 multiplied by Number ofcolumns−1 or more formally: $df=(𝑟−1)∗(𝑐−1)$ The larger the contingency table, the more degrees of freedom, the wider the distribution and more normal it becomes.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -482,6 +479,21 @@ chisq.test(STEMGOF$RecentNumbers,p=STEMGOF$X2010Proportions)
 
 -   Step 4: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
 -   Since our p-value is 0.0006441, we reject $H_0$ and conclude that the proportions differ at the 5% significance level. In this case, that means that the recent stem numbers differ from the 2010 values.
+
+## Using AI
+
+-   Use the following prompts on a generative AI, like chatGPT to learn more about probability and contingency tables. 
+* "What is a contingency table, and how is it used to represent the relationship between two categorical variables in probability calculations?"
+* How do you calculate joint, marginal, and conditional probabilities using a contingency table, and what is the significance of each type of probability?
+* Can you explain how the chi-squared test for independence works, and how it is used to determine whether two categorical variables are independent or dependent?
+* What is the difference between the chi-squared test for independence and the chi-squared goodness of fit test, and how is each test applied?
+* Once you calculate the chi-squared test statistic, how do you interpret the p-value to determine whether to reject or fail to reject the null hypothesis?
+* Why are degrees of freedom important in a chi-squared test, and how do you calculate them for a contingency table?
+* How do you set up and execute a chi-squared test using the chisq.test() function in R, and what are the key outputs to focus on when interpreting the results?
+
+
+
+
 
 ## Summary
 

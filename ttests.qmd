@@ -502,7 +502,9 @@ t.test(nhanes.2016.65plus.clean$systolic ~ nhanes.2016.65plus.clean$sex)
 
 ### t.test() Command for Dependent Samples t-Test
 
--   Requires the *paired = TRUE* parameter: The default for the command is *paired=FALSE*, which is an independent samples t-test.
+-   Option 1: Requires the *paired = TRUE* parameter: The default for the command is *paired=FALSE*, which is an independent samples t-test.
+* Option 2: Can also calculate a formula instead of turning the paired argument to true and place in the first parameter. 
+* Summary: In a paired t-test, you're comparing two related sets of observations, such as measurements taken from the same subjects under different conditions. The key is that each observation in one group has a corresponding observation in the other group. In R, you can perform a paired t-test by either specifying paired = TRUE in the t.test function or by directly calculating the differences between the paired observations and running the t-test on those differences. If you choose the second approach, you subtract one set of values from the other and then use that result as the first argument in the t.test function (essentially calculating the $\mu_d$. This directly tests whether the mean of the differences is significantly different from zero, giving the same result as a paired t-test but with the differences calculated explicitly beforehand. Either method is fine. 
 
 ### Step 1: Write Null and Alternative Hypothesis
 
@@ -658,9 +660,19 @@ t.test(sleep2$extra.1, sleep2$extra.2, paired=TRUE)
 -   In either case, we reject the null hypotheses and find that the type of drug does affect the sleep in patient
 
 ## Using AI
-* Use the following prompt on a generative AI, like chatGPT to learn more about t.test's and confidence intervals. 
 
-     + Perform and interpret hypothesis tests. Use the t.test() function to calculate the confidence interval. Discuss how confidence intervals provide a range of values that likely include the population parameter.
+-   Use the following prompts on a generative AI, like chatGPT to learn more about t.test's and confidence intervals.
+
+* Can you explain the difference between the null hypothesis and the alternative hypothesis, and why is it important to set up both correctly before conducting a t-test?
+* What factors determine whether you should use a one-sample, independent samples, or dependent samples t-test, and how do the results differ based on the test chosen?
+* When should I use a two-tailed t-test compared to a right- or left-tailed test, and how does the alternative hypothesis guide this decision?
+* What are the key arguments in the t.test() function in R, and how do I modify these arguments to perform different types of t-tests, such as two-tailed or paired t-tests?
+* How do I interpret the p-value in the context of hypothesis testing, and how does it relate to rejecting or failing to reject the null hypothesis?
+* How does the confidence interval calculated during a t-test help in understanding the range of possible population parameters, and why is it important in hypothesis testing?
+* What is the difference between an independent samples t-test and a dependent (paired) samples t-test, and in what situations should each be used?
+
+
+
 
 
 ## Summary

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -238,14 +238,20 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./rmarkdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Intro to RMarkdown</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Recommended Further Reading Materials</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recommended Further Reading Materials</span></span></a>
   </div>
 </li>
     </ul>
@@ -1130,7 +1136,9 @@ sample estimates:
 <section id="t.test-command-for-dependent-samples-t-test" class="level3" data-number="8.5.1">
 <h3 data-number="8.5.1" class="anchored" data-anchor-id="t.test-command-for-dependent-samples-t-test"><span class="header-section-number">8.5.1</span> t.test() Command for Dependent Samples t-Test</h3>
 <ul>
-<li>Requires the <em>paired = TRUE</em> parameter: The default for the command is <em>paired=FALSE</em>, which is an independent samples t-test.</li>
+<li>Option 1: Requires the <em>paired = TRUE</em> parameter: The default for the command is <em>paired=FALSE</em>, which is an independent samples t-test.</li>
+<li>Option 2: Can also calculate a formula instead of turning the paired argument to true and place in the first parameter.</li>
+<li>Summary: In a paired t-test, you’re comparing two related sets of observations, such as measurements taken from the same subjects under different conditions. The key is that each observation in one group has a corresponding observation in the other group. In R, you can perform a paired t-test by either specifying paired = TRUE in the t.test function or by directly calculating the differences between the paired observations and running the t-test on those differences. If you choose the second approach, you subtract one set of values from the other and then use that result as the first argument in the t.test function (essentially calculating the <span class="math inline">\(\mu_d\)</span>. This directly tests whether the mean of the differences is significantly different from zero, giving the same result as a paired t-test but with the differences calculated explicitly beforehand. Either method is fine.</li>
 </ul>
 </section>
 <section id="step-1-write-null-and-alternative-hypothesis" class="level3" data-number="8.5.2">
@@ -1417,10 +1425,14 @@ mean difference
 <section id="using-ai" class="level2" data-number="8.6">
 <h2 data-number="8.6" class="anchored" data-anchor-id="using-ai"><span class="header-section-number">8.6</span> Using AI</h2>
 <ul>
-<li><p>Use the following prompt on a generative AI, like chatGPT to learn more about t.test’s and confidence intervals.</p>
-<ul>
-<li>Perform and interpret hypothesis tests. Use the t.test() function to calculate the confidence interval. Discuss how confidence intervals provide a range of values that likely include the population parameter.</li>
-</ul></li>
+<li><p>Use the following prompt on a generative AI, like chatGPT to learn more about t.test’s and confidence intervals.</p></li>
+<li><p>Can you explain the difference between the null hypothesis and the alternative hypothesis, and why is it important to set up both correctly before conducting a t-test?</p></li>
+<li><p>What factors determine whether you should use a one-sample, independent samples, or dependent samples t-test, and how do the results differ based on the test chosen?</p></li>
+<li><p>When should I use a two-tailed t-test compared to a right- or left-tailed test, and how does the alternative hypothesis guide this decision?</p></li>
+<li><p>What are the key arguments in the t.test() function in R, and how do I modify these arguments to perform different types of t-tests, such as two-tailed or paired t-tests?</p></li>
+<li><p>How do I interpret the p-value in the context of hypothesis testing, and how does it relate to rejecting or failing to reject the null hypothesis?</p></li>
+<li><p>How does the confidence interval calculated during a t-test help in understanding the range of possible population parameters, and why is it important in hypothesis testing?</p></li>
+<li><p>What is the difference between an independent samples t-test and a dependent (paired) samples t-test, and in what situations should each be used?</p></li>
 </ul>
 </section>
 <section id="summary" class="level2" data-number="8.7">
