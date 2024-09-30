@@ -206,18 +206,20 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     summary(congestionData)
     ```
 
-* The oneway.test() command is a common command for a one-way ANOVA. The oneway.test() function in R is used to perform a one-way analysis of variance (ANOVA) while allowing for the possibility of unequal variances (heteroscedasticity) among groups. It is based on Welch's ANOVA, which is a version of ANOVA that does not assume equal variances across groups although you can set it to be true like we did below. 
+-   The oneway.test() command is a common command for a one-way ANOVA. The oneway.test() function in R is used to perform a one-way analysis of variance (ANOVA) while allowing for the possibility of unequal variances (heteroscedasticity) among groups. It is based on Welch's ANOVA, which is a version of ANOVA that does not assume equal variances across groups although you can set it to be true like we did below.
+
 ```{r}
 oneway.test(CongestionRating ~ City, congestionData, var.equal = TRUE)
 ```
 
-* The aov() function in R is also used for performing ANOVA, but it assumes that the variances of the groups are equal (homoscedasticity). This function is suitable when the assumption of equal variances is met. 
+-   The aov() function in R is also used for performing ANOVA, but it assumes that the variances of the groups are equal (homoscedasticity). This function is suitable when the assumption of equal variances is met.
+
 ```{r}
 #A common set of commands that work for both a one-way and two-way ANOVA: aov() command with output in a followup command: either anova() or summary() command.
 Anova1way <- aov(CongestionRating ~ City, data=congestionData)
 ```
 
-* In either command, our formula is ContinuousVariable ~ CategoricalVariable - this will allow us to see if there are group differences in CongestionRating (continuous) based on city (categorical).
+-   In either command, our formula is ContinuousVariable \~ CategoricalVariable - this will allow us to see if there are group differences in CongestionRating (continuous) based on city (categorical).
 
     -   Take a good look at the output from these commands to compare the results.
 
@@ -266,10 +268,10 @@ pairwise.t.test(congestionData$CongestionRating, congestionData$City, p.adj="bon
 ##### Tukey HSD Method
 
 -   The Tukey HSD method is another pairwise post-hoc test that is used after finding a statistically significant ANOVA.
-* This method is used to determine which means are statistically significantly different from each other by comparing each pair of means. 
-* This method is less conservative than the Bonferroni post hoc test, which means generally less Type II error (False Negative).
-* This test is modified from the Bonferroni test using a q-distribution instead of a t-distribution to calculate the answers.
-* Using the TukeyHSD() command, we insert the Anova1way object as a parameter that we made with the aov() command above. This aov() command is required before or while running the TukeyHSD() command.
+-   This method is used to determine which means are statistically significantly different from each other by comparing each pair of means.
+-   This method is less conservative than the Bonferroni post hoc test, which means generally less Type II error (False Negative).
+-   This test is modified from the Bonferroni test using a q-distribution instead of a t-distribution to calculate the answers.
+-   Using the TukeyHSD() command, we insert the Anova1way object as a parameter that we made with the aov() command above. This aov() command is required before or while running the TukeyHSD() command.
 
 ```{r}
 TukeyHSD(Anova1way)
@@ -279,16 +281,15 @@ TukeyHSD(Anova1way)
 
 -   With the TukeyHSD() command, we can also determine which group mean is higher than the other by looking at the "diff" score. If you see a negative score than the second group listed in the output is higher than the first group listed. Ignoring the insignificant p-values \> .05, we find that both San Francisco and Washington has significantly less congestion than Los Angeles. We find that Los Angeles and Washington have a significantly higher group mean than Atlanta. Los Angeles and Washington DC also have a significantly higher group mean than Houston. Finally, Washington DC has a significantly higher group mean than San Francisco.
 
-##### Planned Contrasts 
+##### Planned Contrasts
 
-* Planned contrasts are computed by developing contrasts that specify which means to compare to which other means.
-* A contrast refers to the set of numbers used to specify which means or groups of means to compare to each other, usually to identify statistically significant differences among means after a statistically significant analysis of variance.
-* Rules to consider:
-     + A contrast is a group of numbers used to group categories.
-The categories grouped together should all be represented by the same number in the contrast.
-     + The numbers in the contrast should all add to zero.
-     + Any category not included in the contrast should be represented by a zero.
-     
+-   Planned contrasts are computed by developing contrasts that specify which means to compare to which other means.
+-   A contrast refers to the set of numbers used to specify which means or groups of means to compare to each other, usually to identify statistically significant differences among means after a statistically significant analysis of variance.
+-   Rules to consider:
+    -   A contrast is a group of numbers used to group categories. The categories grouped together should all be represented by the same number in the contrast.
+    -   The numbers in the contrast should all add to zero.
+    -   Any category not included in the contrast should be represented by a zero.
+
 ```{r}
 # Look at the levels of the categorical variable
 levels(congestionData$City)
@@ -298,7 +299,8 @@ levels(congestionData$City)
 contrast1 <- c(-2, 0, 1, 1, 0)
 ```
 
-* Link the contrast to the categorical variable using contrasts()
+-   Link the contrast to the categorical variable using contrasts()
+
 ```{r}
 contrasts(congestionData$City) <- contrast1
 # View the structure of the City variable with contrast
@@ -306,13 +308,14 @@ str(congestionData$City)
 
 ```
 
-* Re-run the model using aov() command
+-   Re-run the model using aov() command
+
 ```{r}
 Anova1way <- aov(CongestionRating ~ City, data = congestionData)
 summary.aov(Anova1way, split = list(City = list(`Atl vs. West Coast` = 1)))
 ```
 
-* The output suggests that there is a difference in ATL vs West Coast cities (Los Angeles and San Francisco) in regard to congestion levels. We can tell that because of the p-value of 6.45e-06 *** which is less than .01.
+-   The output suggests that there is a difference in ATL vs West Coast cities (Los Angeles and San Francisco) in regard to congestion levels. We can tell that because of the p-value of 6.45e-06 \*\*\* which is less than .01.
 
 ## Two-Way ANOVA
 
@@ -480,9 +483,24 @@ choose(3,2)
 
 ## Using AI
 
--   Use the following prompt on a generative AI, like chatGPT to learn more about ANOVA analysis.
+-   Use the following prompts on a generative AI, like chatGPT, to learn more about ANOVA analysis.
 
-    -   Conduct an ANOVA test to compare group means. Use the aov() and anova() functions for ANOVA. Discuss the F-statistic and p-value, and what they indicate about the differences between group means.
+* Explain how ANOVA is used to compare group means. What are the assumptions of ANOVA, and how do we interpret the F-statistic and p-value?
+
+* Walk me through the steps of conducting a one-way ANOVA. Explain how to use the aov() function in R and how to interpret the results, including the F-statistic and p-value.
+
+* Describe how to conduct a two-way ANOVA in R. What are the key differences between one-way and two-way ANOVA, and how do we interpret multiple F-statistics?
+
+* What are post-hoc tests, and why are they important after conducting an ANOVA? How do the TukeyHSD and Bonferroni methods differ in terms of reducing Type I and Type II errors?
+
+* Explain Type I and Type II errors in the context of hypothesis testing. How do these errors relate to the significance level (alpha) and the power of a test?
+
+* Given an R output from the aov() or anova() function, explain how to interpret the degrees of freedom, sum of squares, mean square, F-statistic, and p-value.
+
+* Provide a step-by-step guide to performing a one-way ANOVA in R using the aov() function. Include code examples and explain how to interpret the summary output."
+
+* Compare the TukeyHSD and Bonferroni post-hoc tests. Which one is more conservative, and how do they help in reducing error in multiple comparisons?
+
 
 ## Summary
 

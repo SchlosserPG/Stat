@@ -175,10 +175,26 @@ cor.test(Debt_Payments$Income, Debt_Payments$Unemployment)
 
 ## Using AI
 
-* Use the following prompt on a generative AI, like chatGPT to learn more about correlation analysis. 
+-   Use the following prompt on a generative AI, like chatGPT, to learn more about correlation analysis.
 
-     + Understand the difference between correlation and causation. Use functions like cor(), cor.test(), and ggplot(). Reflect on the importance of considering other factors before concluding causation.
+* Explain the difference between covariance and correlation. How do you interpret the direction and strength of a correlation coefficient?"
 
+* What is covariance, and how does it describe the relationship between two variables? Provide an example with a simple dataset.
+Describe Pearson’s correlation coefficient. How do you calculate it, and what does it tell you about the relationship between two variables?
+
+* Explain how to create a scatterplot using ggplot2 in R to visualize the relationship between two continuous variables. How can you add a regression line to assess the linearity of the relationship?
+
+* How can you use the cor.test() function in R to conduct a hypothesis test for correlation? What do the p-value and confidence interval indicate in the context of correlation?
+
+* How do you interpret the strength and direction of a correlation? What is considered a strong, moderate, or weak correlation in the context of business data?
+
+* Explain the null and alternative hypotheses for correlation testing. How does the t-distribution play a role in testing the significance of a correlation coefficient?
+
+* What are some challenges of visualizing relationships between variables when dealing with big data, and how can statistical tests help when scatterplots are not effective?
+
+* Discuss the limitations of correlation analysis. Why is it important to be cautious when interpreting correlation as causation?
+
+* What are the key differences between correlation and causation? How can you determine if a correlation implies causality?
 
 ## Summary
 

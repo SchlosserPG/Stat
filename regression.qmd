@@ -412,8 +412,27 @@ vif(creditlm)
 
 ## Using AI
 
--   Use the following prompt on a generative AI, like chatGPT to learn more about regression analysis in R.
-    -   Perform a simple linear regression analysis in R and interpret the results. Use the lm() and summary() functions for regression analysis. Discuss the interpretation of the intercept and slope, and the meaning of R-squared.
+-   Use the following prompts on a generative AI, like chatGPT, to learn more about regression analysis in R.
+    
+* Explain how to perform simple linear regression in R. Use the lm() function and discuss how to interpret the slope, intercept, and R-squared values from the regression output. 
+
+* What is the coefficient of determination (R-squared) in regression analysis, and how does it relate to the goodness of fit? How can the residual standard error (RSE) and adjusted R-squared help in interpreting a model? 
+
+* Describe how to perform multiple linear regression in R using the lm() function. How do you interpret the coefficients for multiple predictors, and what do the p-values tell you about their significance?
+
+* What does the F-statistic in a regression output indicate? How does it help in determining the significance of a regression model, and what role does it play when comparing multiple models? 
+
+* Explain how ANOVA is related to regression analysis. How can the F-test be used to assess the significance of regression models? 
+What are residuals in a regression model, and how can analyzing them help assess model fit? How is the sum of squared errors (SSE) related to residual analysis? 
+
+* What is multicollinearity, and why is it problematic in multiple regression? How can you detect multicollinearity in R using the vif() function, and what steps can be taken to address it? 
+
+* How can you use a fitted regression model to make predictions for new data in R? Explain how the predict() function works and provide an example using both simple and multiple regression. 
+
+* Given the output from the summary() function for a regression model in R, explain how to interpret the coefficients, R-squared, adjusted R-squared, residual standard error, and p-values.
+
+* Describe how to use the p-value method for variable selection in multiple regression. How do you iteratively remove insignificant predictors while monitoring the R-squared and adjusted R-squared values?
+
 
 ## Summary
 
