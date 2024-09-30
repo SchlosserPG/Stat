@@ -339,9 +339,11 @@ t.test(x = nhanes.2016.65plus$BPXSY1, mu = 120)
 
 -   The command needs to be altered to handle the second group. In the command, the arguments include a formula which is formatted as t.test(continuous_variable \~ grouping_variable) or t.test(population1, population2). Deciding on the correct format of the argument depends on the shape of the data discussed later on.
 
-![Tilde or Comma](Pictures/Ch6/Tilde.png "Choosing between Tilde and Comma")
+![Tilde or Comma](Pictures/Ch6/Tilde.png "Choosing between Tilde and Comma") 
 
--   A separate ($d_0$) value can be set here under the ($\mu$) parameter if the value is not equal to 0, however 0 is the most common which tests for differences between populations (i.e., is the mean of population 1 different than mean of population 2). The alternative statement can be set at "two.sided", "greater", or "less".
+* Using the \~ symbol between variables: This method allows you to run the t-test without having to split the data manually if your data is not already split. You specify the numerical variable (your continuous measurement) on the left and the categorical variable (which identifies the two groups) on the right of the \~ symbol.
+
+
 
 ### Step 1: Specify Null and Alternative Hypothesis
 
@@ -352,6 +354,10 @@ t.test(x = nhanes.2016.65plus$BPXSY1, mu = 120)
 -   Where $d_0$ is the hypothesized difference between $\mu_1  - \mu_2$.
 
 ![Independent Samples Table](Pictures/Ch6/TableIndSamp.png "Independent Samples Table")
+
+
+-   A separate ($d_0$) value can be set here under the ($\mu$) parameter if the value is not equal to 0, however 0 is the most common which tests for differences between populations (i.e., is the mean of population 1 different than mean of population 2). The alternative statement can be set at "two.sided", "greater", or "less".
+
 
 -   Example of a two-tailed test:
 -   Does spending differ between men and women?
@@ -503,8 +509,8 @@ t.test(nhanes.2016.65plus.clean$systolic ~ nhanes.2016.65plus.clean$sex)
 ### t.test() Command for Dependent Samples t-Test
 
 -   Option 1: Requires the *paired = TRUE* parameter: The default for the command is *paired=FALSE*, which is an independent samples t-test.
-* Option 2: Can also calculate a formula instead of turning the paired argument to true and place in the first parameter. 
-* Summary: In a paired t-test, you're comparing two related sets of observations, such as measurements taken from the same subjects under different conditions. The key is that each observation in one group has a corresponding observation in the other group. In R, you can perform a paired t-test by either specifying paired = TRUE in the t.test function or by directly calculating the differences between the paired observations and running the t-test on those differences. If you choose the second approach, you subtract one set of values from the other and then use that result as the first argument in the t.test function (essentially calculating the $\mu_d$. This directly tests whether the mean of the differences is significantly different from zero, giving the same result as a paired t-test but with the differences calculated explicitly beforehand. Either method is fine. 
+-   Option 2: Can also calculate a formula instead of turning the paired argument to true and place in the first parameter.
+-   Summary: In a paired t-test, you're comparing two related sets of observations, such as measurements taken from the same subjects under different conditions. The key is that each observation in one group has a corresponding observation in the other group. In R, you can perform a paired t-test by either specifying paired = TRUE in the t.test function or by directly calculating the differences between the paired observations and running the t-test on those differences. If you choose the second approach, you subtract one set of values from the other and then use that result as the first argument in the t.test function (essentially calculating the $\mu_d$. This directly tests whether the mean of the differences is significantly different from zero, giving the same result as a paired t-test but with the differences calculated explicitly beforehand. Either method is fine.
 
 ### Step 1: Write Null and Alternative Hypothesis
 
@@ -635,7 +641,7 @@ t.test(sleep2$extra.1, sleep2$extra.2, paired=TRUE)
 
 ```
 
--   Using tidyverse, we could get the same effect using the filter, select, and rename functions which are a part of dplyr. In the code below, we use filter to divide by group and then after selecting and renaming the columns we need, we join back together using a full_join.
+-   Using tidyverse, we could get the same effect using the filter, select, and rename functions which are a part of dplyr. This method involves dividing the dataset into two separate groups based on a categorical variable. You then run the t-test on these two groups. In the code below, we use filter to divide by group and then after selecting and renaming the columns we need, we join back together using a full_join.
 -   Using full_join ensures that all IDs are included in the resulting dataset, even if they only appear in one of the groups. This can be useful if your data might have missing group entries for some IDs.
 
 ```{r}
@@ -663,23 +669,19 @@ t.test(sleep2$extra.1, sleep2$extra.2, paired=TRUE)
 
 -   Use the following prompts on a generative AI, like chatGPT, to learn more about t.test's and confidence intervals.
 
-* Can you explain the difference between the null hypothesis and the alternative hypothesis, and why is it important to set up both correctly before conducting a t-test?
+-   Can you explain the difference between the null hypothesis and the alternative hypothesis, and why is it important to set up both correctly before conducting a t-test?
 
-* What factors determine whether you should use a one-sample, independent samples, or dependent samples t-test, and how do the results differ based on the test chosen?
+-   What factors determine whether you should use a one-sample, independent samples, or dependent samples t-test, and how do the results differ based on the test chosen?
 
-* When should I use a two-tailed t-test compared to a right- or left-tailed test, and how does the alternative hypothesis guide this decision?
+-   When should I use a two-tailed t-test compared to a right- or left-tailed test, and how does the alternative hypothesis guide this decision?
 
-* What are the key arguments in the t.test() function in R, and how do I modify these arguments to perform different types of t-tests, such as two-tailed or paired t-tests?
+-   What are the key arguments in the t.test() function in R, and how do I modify these arguments to perform different types of t-tests, such as two-tailed or paired t-tests?
 
-* How do I interpret the p-value in the context of hypothesis testing, and how does it relate to rejecting or failing to reject the null hypothesis?
+-   How do I interpret the p-value in the context of hypothesis testing, and how does it relate to rejecting or failing to reject the null hypothesis?
 
-* How does the confidence interval calculated during a t-test help in understanding the range of possible population parameters, and why is it important in hypothesis testing?
+-   How does the confidence interval calculated during a t-test help in understanding the range of possible population parameters, and why is it important in hypothesis testing?
 
-* What is the difference between an independent samples t-test and a dependent (paired) samples t-test, and in what situations should each be used?
-
-
-
-
+-   What is the difference between an independent samples t-test and a dependent (paired) samples t-test, and in what situations should each be used?
 
 ## Summary
 

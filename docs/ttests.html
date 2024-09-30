@@ -860,7 +860,7 @@ mean of x
 </figure>
 </div>
 <ul>
-<li>A separate (<span class="math inline">\(d_0\)</span>) value can be set here under the (<span class="math inline">\(\mu\)</span>) parameter if the value is not equal to 0, however 0 is the most common which tests for differences between populations (i.e., is the mean of population 1 different than mean of population 2). The alternative statement can be set at “two.sided”, “greater”, or “less”.</li>
+<li>Using the ~ symbol between variables: This method allows you to run the t-test without having to split the data manually if your data is not already split. You specify the numerical variable (your continuous measurement) on the left and the categorical variable (which identifies the two groups) on the right of the ~ symbol.</li>
 </ul>
 </section>
 <section id="step-1-specify-null-and-alternative-hypothesis-1" class="level3" data-number="8.4.2">
@@ -881,8 +881,9 @@ mean of x
 </figure>
 </div>
 <ul>
-<li>Example of a two-tailed test:</li>
-<li>Does spending differ between men and women?
+<li><p>A separate (<span class="math inline">\(d_0\)</span>) value can be set here under the (<span class="math inline">\(\mu\)</span>) parameter if the value is not equal to 0, however 0 is the most common which tests for differences between populations (i.e., is the mean of population 1 different than mean of population 2). The alternative statement can be set at “two.sided”, “greater”, or “less”.</p></li>
+<li><p>Example of a two-tailed test:</p></li>
+<li><p>Does spending differ between men and women?</p>
 <ul>
 <li><p><span class="math inline">\(H_0\)</span>: No difference in spending between men and women. (<span class="math inline">\(=\)</span>).</p></li>
 <li><p><span class="math inline">\(H_A\)</span>: There is a difference in spending between men and women (<span class="math inline">\(\neq\)</span>).</p></li>
@@ -1373,7 +1374,7 @@ mean difference
 </div>
 </div>
 <ul>
-<li>Using tidyverse, we could get the same effect using the filter, select, and rename functions which are a part of dplyr. In the code below, we use filter to divide by group and then after selecting and renaming the columns we need, we join back together using a full_join.</li>
+<li>Using tidyverse, we could get the same effect using the filter, select, and rename functions which are a part of dplyr. This method involves dividing the dataset into two separate groups based on a categorical variable. You then run the t-test on these two groups. In the code below, we use filter to divide by group and then after selecting and renaming the columns we need, we join back together using a full_join.</li>
 <li>Using full_join ensures that all IDs are included in the resulting dataset, even if they only appear in one of the groups. This can be useful if your data might have missing group entries for some IDs.</li>
 </ul>
 <div class="cell">
