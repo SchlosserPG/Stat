@@ -579,22 +579,11 @@ mtcars %>%
 -   The width parameter controls the width of the boxes in a boxplot or the width of the violins in a violin plot. You can vary this parameter to create better depth.
 
 ```{r}
-library(tidyverse)
 data(mtcars)
 
 mtcars %>% 
   ggplot(aes(x="", y=mpg)) + 
   geom_boxplot(color="#986D00", fill="#24585E") + theme_minimal() + coord_flip()
-mtcars %>% 
-  ggplot(aes(x="", y=mpg)) + 
-  geom_violin(color="#986D00", fill="#24585E") + theme_minimal() + coord_flip()
-
-mtcars %>%
-  ggplot(aes(x="", y = mpg)) +
-  geom_violin(fill="lightgreen") +
-  theme_minimal() + 
-  geom_boxplot(width=0.1, color="#986D00", fill="#24585E")
-
 ```
 
 -   Let's get some summary statistics to check for outliers, skewness, and kurtosis to see how our visual aids help us in understanding those results.
@@ -627,7 +616,7 @@ UpperBound <- Q3+OutlierValue; UpperBound #33.8625
 sort(mtcars$mpg)
 ```
 
-*LowerBound(4.3625)* 10.4 10.4 13.3 14.3 14.7 15.0 15.2 15.2 15.5 15.8 16.4 17.3 17.8 18.1 18.7 19.2 19.2 19.7 21.0 21.0 21.4 21.4 21.5 22.8 22.8 24.4 26.0 27.3 30.4 30.4 32.4 *UpperBound (33.8625)* 33.9
+*[LowerBound: 4.3625]* 10.4 10.4 13.3 14.3 14.7 15.0 15.2 15.2 15.5 15.8 16.4 17.3 17.8 18.1 18.7 19.2 19.2 19.7 21.0 21.0 21.4 21.4 21.5 22.8 22.8 24.4 26.0 27.3 30.4 30.4 32.4 *[UpperBound: 33.8625)]* 33.9
 
 ```{r}
 semTools::skew(mtcars$mpg)
@@ -1054,22 +1043,17 @@ nhanes.clean %>%
 
 -   Use the following prompts on a generative AI, like chatGPT, to learn more about data visualization capabilities in ggplot2.
 
-* How can I modify the appearance of a ggplot bar chart to include custom colors for each bar, and what are the best practices for choosing colors in data visualization?
+-   How can I modify the appearance of a ggplot bar chart to include custom colors for each bar, and what are the best practices for choosing colors in data visualization?
 
-* What is the role of layering in ggplot, and how can adding multiple layers, such as labels, themes, and lines, improve the readability of a plot?
+-   What is the role of layering in ggplot, and how can adding multiple layers, such as labels, themes, and lines, improve the readability of a plot?
 
-* When should a density plot be used instead of a histogram, and how does each visualization help in understanding the distribution of continuous data?
+-   When should a density plot be used instead of a histogram, and how does each visualization help in understanding the distribution of continuous data?
 
-* How can I use a boxplot in R to identify and visualize outliers in my dataset, and what additional steps should I take to handle these outliers?
+-   How can I use a boxplot in R to identify and visualize outliers in my dataset, and what additional steps should I take to handle these outliers?
 
-* How can I create a scatter plot in ggplot to explore relationships between two continuous variables, and how do I add a trendline to help interpret the results?
+-   How can I create a scatter plot in ggplot to explore relationships between two continuous variables, and how do I add a trendline to help interpret the results?
 
-* What are the steps for creating a grouped bar chart in ggplot, and how does this visualization help in comparing multiple categories or groups within a dataset?
-
-
-
-
-
+-   What are the steps for creating a grouped bar chart in ggplot, and how does this visualization help in comparing multiple categories or groups within a dataset?
 
 ## Summary
 
