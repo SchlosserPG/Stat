@@ -1175,8 +1175,8 @@ FALSE </code></pre>
 </div>
 </div>
 </section>
-<section id="mpg-example" class="level4" data-number="5.2.5.2">
-<h4 data-number="5.2.5.2" class="anchored" data-anchor-id="mpg-example"><span class="header-section-number">5.2.5.2</span> mpg Example</h4>
+<section id="nd-example-checking-for-outliers-with-mtcars-dataset-mpg-variable" class="level4" data-number="5.2.5.2">
+<h4 data-number="5.2.5.2" class="anchored" data-anchor-id="nd-example-checking-for-outliers-with-mtcars-dataset-mpg-variable"><span class="header-section-number">5.2.5.2</span> 2nd Example Checking for outliers with mtcars dataset mpg variable</h4>
 <ul>
 <li>We can also view mpg from the mtcars data set as a violin plot because it is a numerical variable. In the plot below, I graphed mpg as a violin plot. You can also embed other visual markers like mean and median or layer on another graph like a boxplot.</li>
 <li>You can see that this violin plot is vertical. The coord_flip() command we used above flips the chart horizontal the same way it flips a boxplot.</li>
@@ -1289,12 +1289,12 @@ TRUE </code></pre>
 </div>
 <p><em>[LowerBound: 4.3625]</em> 10.4 10.4 13.3 14.3 14.7 15.0 15.2 15.2 15.5 15.8 16.4 17.3 17.8 18.1 18.7 19.2 19.2 19.7 21.0 21.0 21.4 21.4 21.5 22.8 22.8 24.4 26.0 27.3 30.4 30.4 32.4 <em>[UpperBound: 33.8625)]</em> 33.9</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>semTools<span class="sc">::</span><span class="fu">skew</span>(mtcars<span class="sc">$</span>mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>semTools<span class="sc">::</span><span class="fu">skew</span>(mtcars<span class="sc">$</span>mpg)  <span class="co">#normal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>skew (g1)        se         z         p 
 0.6723771 0.4330127 1.5527885 0.1204737 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>semTools<span class="sc">::</span><span class="fu">kurtosis</span>(mtcars<span class="sc">$</span>mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>semTools<span class="sc">::</span><span class="fu">kurtosis</span>(mtcars<span class="sc">$</span>mpg)  <span class="co">#mesokurtic</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Excess Kur (g2)              se               z               p 
     -0.02200629      0.86602540     -0.02541068      0.97972740 </code></pre>
@@ -1375,6 +1375,7 @@ TRUE </code></pre>
 <li>Once the dataset was made, we can make the graph with the geom_bar layer.</li>
 <li>Since there are two variables, we need to set the position to dodge.</li>
 <li>(stat = “identity”) tells ggplot that the y values are already computed and should be used as-is for the heights of the bars. In this case, they are frequencies calculated in the countsDF dataset.</li>
+</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
@@ -1406,8 +1407,7 @@ TRUE </code></pre>
 </figure>
 </div>
 </div>
-</div></li>
-</ul>
+</div>
 </section>
 <section id="stacked-bar-graph" class="level4" data-number="5.3.1.2">
 <h4 data-number="5.3.1.2" class="anchored" data-anchor-id="stacked-bar-graph"><span class="header-section-number">5.3.1.2</span> Stacked Bar Graph</h4>
@@ -1417,7 +1417,7 @@ TRUE </code></pre>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countsDF, <span class="fu">aes</span>(<span class="at">x =</span> gear, <span class="at">y =</span> n, <span class="at">fill =</span> vs)) <span class="sc">+</span></span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
 <span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Stacked Car Distribution"</span>,</span>
 <span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Number of Gears"</span>,</span>
 <span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
@@ -1461,6 +1461,7 @@ TRUE </code></pre>
 <li><p>We can add color using the scale_fill_manual. Since there are two colors, we use the c() command to combine them together inside the layer.</p>
 <ul>
 <li>scale_fill_manual() is a function used to manually set the colors for filled areas (like bars, areas in geom_area, etc.) in a plot. Here, values argument takes our custom color palette of yellow and brown.</li>
+</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avg_mpg, <span class="fu">aes</span>(gear, mpg, <span class="at">fill =</span> vs)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,</span>
@@ -1473,8 +1474,7 @@ TRUE </code></pre>
 </figure>
 </div>
 </div>
-</div></li>
-</ul>
+</div>
 </section>
 </section>
 <section id="boxplot-for-continuous-across-groups" class="level3" data-number="5.3.2">
