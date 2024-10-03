@@ -51,6 +51,13 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   ggplot2 is extremely popular graphing package and has a good pattern for making charts. You set the first layer with the ggplot() command and then add layers as needed for your graphic.
     -   There are also other graphing packages that serve a specific purpose (i.e., waffle package in R).
 
+## Layering in ggplot
+* Layering is a fundamental concept in ggplot2 that allows you to build complex visualizations by adding different components (or "layers") on top of each other. Each layer in a ggplot2 plot can represent different types of data, aesthetics, or annotations, enabling flexibility and control over how data is visualized. Layers can include geometries (e.g., points, lines, bars), statistical summaries, labels, grids, and themes.
+* Separation of Plot Components: Each layer can handle a different part of the plot. For example, one layer may be used for bars, another for labels, and another for a trend line. This allows you to build up a plot step by step.
+* Customization and Enhancement: By adding multiple layers, you can customize different aspects of the plot such as labels, colors, annotations, and theme elements. Each layer can be independently controlled.
+* Modularity: Layering allows you to modularize your plot construction, making it easier to add, remove, or modify parts of the plot without changing the entire structure.
+* Combining Data Sources: Different layers can use different datasets or aesthetics, which is useful when you need to overlay one dataset on top of another (e.g., adding a regression line over a scatter plot).
+
 ## Graphs for a Single Categorical Variable
 
 -   A categorical variable has categories that are either ordinal with a logical order or nominal with no logical order.
@@ -784,13 +791,15 @@ mtcars %>%
 ![ScatterPlot Results](Pictures/Ch3/Scatter.png "ScatterPlot Results")
 
 ```{r, echo=FALSE, results='hide' }
-x <- sort(sample(1:50, replace=TRUE), decreasing=FALSE)
+x <- sort(sample(1:50, replace=TRUE), decreasing=FALSE) 
 y <- sort(sample(1:50, replace=TRUE), decreasing=FALSE)
 z <- sort(1:50, decreasing=TRUE)
 s <- sample(0:50,50, replace=TRUE)
 t <- sample(0:50,50, replace=TRUE)
+
+y <- y + rnorm(50, mean=0, sd=5)  # Adding random noise to y
+z <- z + rnorm(50, mean=0, sd=5)  # Adding random noise to z
 dataF <- data.frame(x,y,z, s, t)
-# 
 pos <- dataF %>% ggplot(aes(x, y))+ 
      geom_point(color="#183028", shape=16) + 
      stat_smooth(method="lm", color="#789F90") + 
