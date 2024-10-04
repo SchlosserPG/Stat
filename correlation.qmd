@@ -128,12 +128,26 @@ Debt_Payments %>% ggplot(aes(Unemployment, Debt))+
 
 ![Correlation Strength](Pictures/Ch8/CorrelationStrength.png "Correlation Strength")
 
-## Hypothesis Testing with Correlations
+## Interpreting the Significance of the Correlation
 
 -   Correlation values should be tested alongside a p-value to confirm whether or not there is a correlation. The null is tested using a t-distribution specifically testing whether $r = 0$ or not, like the one-sample t-test section from the lesson 6.
 -   The null and alternative are listed below.
     -   $H_0$: There is no relationship between the two variables ($r = 0$).
     -   $H_A$: There is a relationship between the two variables ($r \neq 0$).
+
+* Even small correlations can be significant: In large datasets, even a small correlation, like .1, can be statistically significant due to the increased power that comes with a high sample size. It's important to interpret both the strength of the correlation and its practical significance in context.
+
+## Statistical significance answers the question: "Is the effect real?“
+* Statistical Significance: 
+* A result is statistically significant if it is unlikely to have occurred by random chance, given a pre-defined threshold (usually p < 0.05). 
+* With larger sample sizes, even very small effects can become statistically significant because larger samples reduce variability. For example, a correlation of 0.1 can be statistically significant with enough data.
+
+* Practical Significance:
+* Practical significance answers the question: "Is the effect meaningful?“
+* Practical significance refers to the real-world importance or relevance of a result. It asks, "Does this effect matter in practice?“
+* Even if a result is statistically significant, it may not be large enough to have a meaningful impact on business decisions or outcomes.
+
+
 
 ### cor.test() Command
 
@@ -177,24 +191,23 @@ cor.test(Debt_Payments$Income, Debt_Payments$Unemployment)
 
 -   Use the following prompt on a generative AI, like chatGPT, to learn more about correlation analysis.
 
-* Explain the difference between covariance and correlation. How do you interpret the direction and strength of a correlation coefficient?"
+-   Explain the difference between covariance and correlation. How do you interpret the direction and strength of a correlation coefficient?"
 
-* What is covariance, and how does it describe the relationship between two variables? Provide an example with a simple dataset.
-Describe Pearson’s correlation coefficient. How do you calculate it, and what does it tell you about the relationship between two variables?
+-   What is covariance, and how does it describe the relationship between two variables? Provide an example with a simple dataset. Describe Pearson’s correlation coefficient. How do you calculate it, and what does it tell you about the relationship between two variables?
 
-* Explain how to create a scatterplot using ggplot2 in R to visualize the relationship between two continuous variables. How can you add a regression line to assess the linearity of the relationship?
+-   Explain how to create a scatterplot using ggplot2 in R to visualize the relationship between two continuous variables. How can you add a regression line to assess the linearity of the relationship?
 
-* How can you use the cor.test() function in R to conduct a hypothesis test for correlation? What do the p-value and confidence interval indicate in the context of correlation?
+-   How can you use the cor.test() function in R to conduct a hypothesis test for correlation? What do the p-value and confidence interval indicate in the context of correlation?
 
-* How do you interpret the strength and direction of a correlation? What is considered a strong, moderate, or weak correlation in the context of business data?
+-   How do you interpret the strength and direction of a correlation? What is considered a strong, moderate, or weak correlation in the context of business data?
 
-* Explain the null and alternative hypotheses for correlation testing. How does the t-distribution play a role in testing the significance of a correlation coefficient?
+-   Explain the null and alternative hypotheses for correlation testing. How does the t-distribution play a role in testing the significance of a correlation coefficient?
 
-* What are some challenges of visualizing relationships between variables when dealing with big data, and how can statistical tests help when scatterplots are not effective?
+-   What are some challenges of visualizing relationships between variables when dealing with big data, and how can statistical tests help when scatterplots are not effective?
 
-* Discuss the limitations of correlation analysis. Why is it important to be cautious when interpreting correlation as causation?
+-   Discuss the limitations of correlation analysis. Why is it important to be cautious when interpreting correlation as causation?
 
-* What are the key differences between correlation and causation? How can you determine if a correlation implies causality?
+-   What are the key differences between correlation and causation? How can you determine if a correlation implies causality?
 
 ## Summary
 
