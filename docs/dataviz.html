@@ -423,6 +423,18 @@ window.Quarto = {
 <li>Additional layers: labs - for labels including titles; themes; and geom_text. Recreate the example below adding one layer at a time to see how the visualization changes.</li>
 </ul></li>
 </ul>
+</section>
+<section id="pertinent-parameters-to-the-geom_bar" class="level4" data-number="5.2.1.2">
+<h4 data-number="5.2.1.2" class="anchored" data-anchor-id="pertinent-parameters-to-the-geom_bar"><span class="header-section-number">5.2.1.2</span> Pertinent Parameters to the geom_bar()</h4>
+<ul>
+<li><strong>stat=“identity”</strong>: In ggplot2, the argument <em>stat=“identity”</em> is used inside the geom_bar when creating bar charts to specify that the actual values of the data should be plotted, rather than calculated summary statistics. By default, ggplot assumes that bar charts use stat=“count”, which counts the number of observations in each category. When you want to display the actual values in your dataset (e.g., sales numbers, average scores), you need to set stat=“identity” to ensure that the y-values are mapped directly from the data rather than being automatically counted.</li>
+<li>You only need to specify <em>stat=“identity”</em> if you have pre-calculated values to use in the barplot. In the example below, we do have pre-calculated numbers going into make the chart, so stat=“identity” is used. Here, we are using exact values, but we can also compute a dataset before graphing using a group_by() and a variety of counting function.</li>
+<li><strong>position=“dodge”</strong>: If we have more than one categorical variable, we might set the <em>position=“dodge”</em> argument. This argument controls how the bars are positioned relative to each other when you are plotting multiple categories within a bar chart. By default, bars in a grouped bar chart might overlap, but setting position=“dodge” ensures that they are placed side-by-side. This is particularly useful when you are comparing multiple groups or categories within the same plot, as it allows for a clear visual distinction between each group. In the example below, we only have one variable, so position=“dodge” argument is not needed.<br>
+</li>
+<li>In combination, using <em>stat=“identity”</em> and <em>position=“dodge”</em> is common when you want to compare different categories or groups with specific values in a side-by-side manner, ensuring the chart is easy to interpret. For example, if you are comparing sales figures across different products for multiple years, this approach would give you a bar for each product in each year, clearly separated.</li>
+<li><strong>show.legend = FALSE</strong>: In ggplot2, the argument <em>show.legend = FALSE</em> is used to hide the legend for a particular layer or the entire plot. By default, ggplot2 automatically adds a legend if you include aesthetics like color, size, or shape that distinguish groups in your data. If you don’t want the legend to appear, you can set show.legend = FALSE.</li>
+<li><strong>scale_fill_manual():</strong> When creating grouped bar charts or other plots with multiple categories, it’s important to ensure that the visual distinction between groups is clear. This is where manually setting the colors for each category comes into play. The <em>scale_fill_manual()</em> function in ggplot2 allows you to manually define the colors used for the filled areas, such as the bars in a bar chart or the shaded areas in an area chart. By using the values argument within scale_fill_manual(), you can specify a custom color palette that suits your design or presentation needs. For example, you might choose a palette of yellow and brown to represent different categories. A key aspect of using scale_fill_manual() effectively is knowing how many colors to provide. The number of colors you define in the values argument must match the number of levels or categories in your data. If you are comparing three product categories, for instance, you’ll need to provide exactly three colors—one for each category. Failing to match the number of colors to the number of categories can result in errors or misrepresentation in the plot. For example, if you have four levels (e.g., four different product categories or groups) and only provide two colors, ggplot may not know how to properly assign colors to the additional categories. Therefore, it’s crucial to know the number of distinct categories in your data and plan your color palette accordingly to maintain clarity and visual consistency in your chart.</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## inputting probabilities calculated from a 2023 multiple choice</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## question.  From what you learned about R so far, how do you expect</span></span>
@@ -438,8 +450,10 @@ window.Quarto = {
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>MarketShare <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data_frame, <span class="fu">aes</span>(<span class="at">x =</span> Category, <span class="at">y =</span> Percentage, <span class="at">fill =</span> Category)) <span class="sc">+</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"How do you expect R's market share to change?"</span>,</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Opinion Category"</span>, <span class="at">y =</span> <span class="st">"Percentage (%)"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Percentage),</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">4</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>MarketShare</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"purple"</span>, <span class="st">"green"</span>))</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>MarketShare</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -453,9 +467,9 @@ window.Quarto = {
 <section id="bar-graph-with-data-wrangling" class="level3" data-number="5.2.2">
 <h3 data-number="5.2.2" class="anchored" data-anchor-id="bar-graph-with-data-wrangling"><span class="header-section-number">5.2.2</span> Bar Graph with Data Wrangling</h3>
 <ul>
-<li>We can also use a dataset to make a bar graph.<br>
+<li>Let’s start an example from scratch so that we can see each parameter take effect. In doing so, lets use a dataset to make a bar graph instead of relying on pre-calculated data.<br>
 </li>
-<li>Load the Gun related data from the nhanes survey to run an example.</li>
+<li>Lets examine the AUQ300 variable from the nhanes survey to run an example.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nhanes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/nhanes2012.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -497,16 +511,19 @@ window.Quarto = {
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>nhanes.clean <span class="ot">&lt;-</span> nhanes <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ300 =</span> <span class="fu">recode_factor</span>(AUQ300, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Yes"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(AUQ300) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">AUQ300 =</span> <span class="fu">recode_factor</span>(AUQ300, <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Yes"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"No"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Then, we need to check the recode for accuracy. You should see the No’s and Yes’s alongside the rest being coded as NA’s.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nhanes.clean<span class="sc">$</span>AUQ300)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nhanes.clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> Yes   No NA's 
-1613 3061 4690 </code></pre>
+<pre><code>  AUQ300    
+ Yes :1613  
+ No  :3061  
+ NA's:4690  </code></pre>
 </div>
 </div>
 </section>
@@ -864,7 +881,7 @@ window.Quarto = {
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1347,13 +1364,6 @@ TRUE </code></pre>
 <li>Grouped</li>
 <li>Stacked</li>
 </ul></li>
-<li>Pertinent Parameters to the geom_bar()
-<ul>
-<li>In ggplot2, the argument stat=“identity” is used when creating bar charts to specify that the actual values of the data should be plotted, rather than calculated summary statistics. By default, ggplot assumes that bar charts use stat=“count”, which counts the number of observations in each category. When you want to display the actual values in your dataset (e.g., sales numbers, average scores), you need to set stat=“identity” to ensure that the y-values are mapped directly from the data rather than being automatically counted.</li>
-<li>You only need to specify stat=“identity” if you have pre-calculated values to use in the barplot.</li>
-<li>The position=“dodge” argument controls how the bars are positioned relative to each other when you are plotting multiple categories within a bar chart. By default, bars in a grouped bar chart might overlap, but setting position=“dodge” ensures that they are placed side-by-side. This is particularly useful when you are comparing multiple groups or categories within the same plot, as it allows for a clear visual distinction between each group.</li>
-<li>In combination, using stat=“identity” and position=“dodge” is common when you want to compare different categories or groups with specific values in a side-by-side manner, ensuring the chart is easy to interpret. For example, if you are comparing sales figures across different products for multiple years, this approach would give you a bar for each product in each year, clearly separated.</li>
-</ul></li>
 </ul>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -1475,10 +1485,7 @@ TRUE </code></pre>
 </div>
 </div>
 <ul>
-<li><p>When creating grouped bar charts or other plots with multiple categories, it’s important to ensure that the visual distinction between groups is clear. This is where manually setting the colors for each category comes into play. The <em>scale_fill_manual()</em> function in ggplot2 allows you to manually define the colors used for the filled areas, such as the bars in a bar chart or the shaded areas in an area chart. By using the values argument within scale_fill_manual(), you can specify a custom color palette that suits your design or presentation needs. For example, you might choose a palette of yellow and brown to represent different categories.</p></li>
-<li><p>However, a key aspect of using scale_fill_manual() effectively is knowing how many colors to provide. The number of colors you define in the values argument must match the number of levels or categories in your data. If you are comparing three product categories, for instance, you’ll need to provide exactly three colors—one for each category. Failing to match the number of colors to the number of categories can result in errors or misrepresentation in the plot.</p></li>
-<li><p>For example, if you have four levels (e.g., four different product categories or groups) and only provide two colors, ggplot may not know how to properly assign colors to the additional categories. Therefore, it’s crucial to know the number of distinct categories in your data and plan your color palette accordingly to maintain clarity and visual consistency in your chart.</p></li>
-<li><p>Below, we can add color using the scale_fill_manual. Since there are two colors, we use the c() command to combine them together inside the layer.</p></li>
+<li>Below, we can add color using the scale_fill_manual. Since there are two colors, we use the c() command to combine them together inside the layer.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(avg_mpg, <span class="fu">aes</span>(gear, mpg, <span class="at">fill =</span> vs)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,</span>
