@@ -52,11 +52,12 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   There are also other graphing packages that serve a specific purpose (i.e., waffle package in R).
 
 ## Layering in ggplot
-* Layering is a fundamental concept in ggplot2 that allows you to build complex visualizations by adding different components (or "layers") on top of each other. Each layer in a ggplot2 plot can represent different types of data, aesthetics, or annotations, enabling flexibility and control over how data is visualized. Layers can include geometries (e.g., points, lines, bars), statistical summaries, labels, grids, and themes.
-* Separation of Plot Components: Each layer can handle a different part of the plot. For example, one layer may be used for bars, another for labels, and another for a trend line. This allows you to build up a plot step by step.
-* Customization and Enhancement: By adding multiple layers, you can customize different aspects of the plot such as labels, colors, annotations, and theme elements. Each layer can be independently controlled.
-* Modularity: Layering allows you to modularize your plot construction, making it easier to add, remove, or modify parts of the plot without changing the entire structure.
-* Combining Data Sources: Different layers can use different datasets or aesthetics, which is useful when you need to overlay one dataset on top of another (e.g., adding a regression line over a scatter plot).
+
+-   Layering is a fundamental concept in ggplot2 that allows you to build complex visualizations by adding different components (or "layers") on top of each other. Each layer in a ggplot2 plot can represent different types of data, aesthetics, or annotations, enabling flexibility and control over how data is visualized. Layers can include geometries (e.g., points, lines, bars), statistical summaries, labels, grids, and themes.
+-   Separation of Plot Components: Each layer can handle a different part of the plot. For example, one layer may be used for bars, another for labels, and another for a trend line. This allows you to build up a plot step by step.
+-   Customization and Enhancement: By adding multiple layers, you can customize different aspects of the plot such as labels, colors, annotations, and theme elements. Each layer can be independently controlled.
+-   Modularity: Layering allows you to modularize your plot construction, making it easier to add, remove, or modify parts of the plot without changing the entire structure.
+-   Combining Data Sources: Different layers can use different datasets or aesthetics, which is useful when you need to overlay one dataset on top of another (e.g., adding a regression line over a scatter plot).
 
 ## Graphs for a Single Categorical Variable
 
@@ -623,7 +624,7 @@ UpperBound <- Q3+OutlierValue; UpperBound #33.8625
 sort(mtcars$mpg)
 ```
 
-*[LowerBound: 4.3625]* 10.4 10.4 13.3 14.3 14.7 15.0 15.2 15.2 15.5 15.8 16.4 17.3 17.8 18.1 18.7 19.2 19.2 19.7 21.0 21.0 21.4 21.4 21.5 22.8 22.8 24.4 26.0 27.3 30.4 30.4 32.4 *[UpperBound: 33.8625)]* 33.9
+*\[LowerBound: 4.3625\]* 10.4 10.4 13.3 14.3 14.7 15.0 15.2 15.2 15.5 15.8 16.4 17.3 17.8 18.1 18.7 19.2 19.2 19.7 21.0 21.0 21.4 21.4 21.5 22.8 22.8 24.4 26.0 27.3 30.4 30.4 32.4 *\[UpperBound: 33.8625)\]* 33.9
 
 ```{r}
 semTools::skew(mtcars$mpg) #normal
@@ -651,6 +652,13 @@ ggplot(mtcars, aes(mpg)) + geom_histogram(binwidth = 5, color="black", fill="gre
     -   Grouped
     -   Stacked
 
+* Pertinent Parameters to the geom_bar()
+     + In ggplot2, the argument stat="identity" is used when creating bar charts to specify that the actual values of the data should be plotted, rather than calculated summary statistics. By default, ggplot assumes that bar charts use stat="count", which counts the number of observations in each category. When you want to display the actual values in your dataset (e.g., sales numbers, average scores), you need to set stat="identity" to ensure that the y-values are mapped directly from the data rather than being automatically counted.
+     + You only need to specify stat="identity" if you have pre-calculated values to use in the barplot. 
+     + The position="dodge" argument controls how the bars are positioned relative to each other when you are plotting multiple categories within a bar chart. By default, bars in a grouped bar chart might overlap, but setting position="dodge" ensures that they are placed side-by-side. This is particularly useful when you are comparing multiple groups or categories within the same plot, as it allows for a clear visual distinction between each group.
+     + In combination, using stat="identity" and position="dodge" is common when you want to compare different categories or groups with specific values in a side-by-side manner, ensuring the chart is easy to interpret. For example, if you are comparing sales figures across different products for multiple years, this approach would give you a bar for each product in each year, clearly separated.
+
+
 ```{r, echo=FALSE}
 countsDF <- mtcars %>% 
      group_by(vs, gear) %>%
@@ -676,10 +684,8 @@ ggplot(countsDF, aes(x = gear, y = n, fill = factor(vs))) +
 -   Grouped bar graph allow comparison of multiple sets of data items, with a single color used to denote a specific series across all sets.
 
 -   For example, we can look at both the vs and gear variables in the ggplot command.
-
-    -   We did a little grouping and counting before we began to generate a new table with frequencies based on vs and gear variables.
-    -   Once the dataset was made, we can make the graph with the geom_bar layer.
-    -   Since there are two variables, we need to set the position to dodge.
+    -   You can do a little grouping and counting before you began to generate a new table with frequencies based on vs and gear variables. Once a new dataset object is made, you can make the graph with the geom_bar layer specifying the stat="identity".
+    -   Since there are two variables, you can set the position to _dodge_ to view the fill categorical variable side by side.
     -   (stat = "identity") tells ggplot that the y values are already computed and should be used as-is for the heights of the bars. In this case, they are frequencies calculated in the countsDF dataset.
 
 ```{r fig.alt = "Grouped Bar Graph Generated by R"}
@@ -739,9 +745,12 @@ ggplot(avg_mpg, aes(gear,
   ggtitle("Average MPG by VS and Gear")
 ```
 
--   We can add color using the scale_fill_manual. Since there are two colors, we use the c() command to combine them together inside the layer.
 
-    -   scale_fill_manual() is a function used to manually set the colors for filled areas (like bars, areas in geom_area, etc.) in a plot. Here, values argument takes our custom color palette of yellow and brown.
+* When creating grouped bar charts or other plots with multiple categories, it's important to ensure that the visual distinction between groups is clear. This is where manually setting the colors for each category comes into play. The _scale_fill_manual()_ function in ggplot2 allows you to manually define the colors used for the filled areas, such as the bars in a bar chart or the shaded areas in an area chart. By using the values argument within scale_fill_manual(), you can specify a custom color palette that suits your design or presentation needs. For example, you might choose a palette of yellow and brown to represent different categories.
+* However, a key aspect of using scale_fill_manual() effectively is knowing how many colors to provide. The number of colors you define in the values argument must match the number of levels or categories in your data. If you are comparing three product categories, for instance, you'll need to provide exactly three colors—one for each category. Failing to match the number of colors to the number of categories can result in errors or misrepresentation in the plot.
+* For example, if you have four levels (e.g., four different product categories or groups) and only provide two colors, ggplot may not know how to properly assign colors to the additional categories. Therefore, it's crucial to know the number of distinct categories in your data and plan your color palette accordingly to maintain clarity and visual consistency in your chart.
+
+-   Below, we can add color using the scale_fill_manual. Since there are two colors, we use the c() command to combine them together inside the layer.
 
 ```{r}
 ggplot(avg_mpg, aes(gear,
@@ -750,7 +759,6 @@ ggplot(avg_mpg, aes(gear,
      ggtitle("Average MPG by VS and Gear")+
      scale_fill_manual(values=c("yellow", "brown"))
 ```
-
 
 ### Boxplot for Continuous Across Groups
 

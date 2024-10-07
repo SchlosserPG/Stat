@@ -276,13 +276,14 @@ window.Quarto = {
   <li><a href="#scatterplots-to-visualize-relationship" id="toc-scatterplots-to-visualize-relationship" class="nav-link" data-scroll-target="#scatterplots-to-visualize-relationship"><span class="header-section-number">10.3.1</span> Scatterplots to Visualize Relationship</a></li>
   <li><a href="#interpreting-the-strength-of-the-correlation" id="toc-interpreting-the-strength-of-the-correlation" class="nav-link" data-scroll-target="#interpreting-the-strength-of-the-correlation"><span class="header-section-number">10.3.2</span> Interpreting the Strength of the Correlation</a></li>
   </ul></li>
-  <li><a href="#hypothesis-testing-with-correlations" id="toc-hypothesis-testing-with-correlations" class="nav-link" data-scroll-target="#hypothesis-testing-with-correlations"><span class="header-section-number">10.4</span> Hypothesis Testing with Correlations</a>
+  <li><a href="#interpreting-the-significance-of-the-correlation" id="toc-interpreting-the-significance-of-the-correlation" class="nav-link" data-scroll-target="#interpreting-the-significance-of-the-correlation"><span class="header-section-number">10.4</span> Interpreting the Significance of the Correlation</a></li>
+  <li><a href="#statistical-significance-answers-the-question-is-the-effect-real" id="toc-statistical-significance-answers-the-question-is-the-effect-real" class="nav-link" data-scroll-target="#statistical-significance-answers-the-question-is-the-effect-real"><span class="header-section-number">10.5</span> Statistical significance answers the question: “Is the effect real?“</a>
   <ul class="collapse">
-  <li><a href="#cor.test-command" id="toc-cor.test-command" class="nav-link" data-scroll-target="#cor.test-command"><span class="header-section-number">10.4.1</span> cor.test() Command</a></li>
+  <li><a href="#cor.test-command" id="toc-cor.test-command" class="nav-link" data-scroll-target="#cor.test-command"><span class="header-section-number">10.5.1</span> cor.test() Command</a></li>
   </ul></li>
-  <li><a href="#limitations-of-correlation-analysis" id="toc-limitations-of-correlation-analysis" class="nav-link" data-scroll-target="#limitations-of-correlation-analysis"><span class="header-section-number">10.5</span> Limitations of Correlation Analysis</a></li>
-  <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai"><span class="header-section-number">10.6</span> Using AI</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.7</span> Summary</a></li>
+  <li><a href="#limitations-of-correlation-analysis" id="toc-limitations-of-correlation-analysis" class="nav-link" data-scroll-target="#limitations-of-correlation-analysis"><span class="header-section-number">10.6</span> Limitations of Correlation Analysis</a></li>
+  <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai"><span class="header-section-number">10.7</span> Using AI</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.8</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -487,8 +488,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="hypothesis-testing-with-correlations" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="hypothesis-testing-with-correlations"><span class="header-section-number">10.4</span> Hypothesis Testing with Correlations</h2>
+<section id="interpreting-the-significance-of-the-correlation" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="interpreting-the-significance-of-the-correlation"><span class="header-section-number">10.4</span> Interpreting the Significance of the Correlation</h2>
 <ul>
 <li>Correlation values should be tested alongside a p-value to confirm whether or not there is a correlation. The null is tested using a t-distribution specifically testing whether <span class="math inline">\(r = 0\)</span> or not, like the one-sample t-test section from the lesson 6.</li>
 <li>The null and alternative are listed below.
@@ -496,9 +497,22 @@ window.Quarto = {
 <li><span class="math inline">\(H_0\)</span>: There is no relationship between the two variables (<span class="math inline">\(r = 0\)</span>).</li>
 <li><span class="math inline">\(H_A\)</span>: There is a relationship between the two variables (<span class="math inline">\(r \neq 0\)</span>).</li>
 </ul></li>
+<li>Even small correlations can be significant: In large datasets, even a small correlation, like .1, can be statistically significant due to the increased power that comes with a high sample size. It’s important to interpret both the strength of the correlation and its practical significance in context.</li>
 </ul>
-<section id="cor.test-command" class="level3" data-number="10.4.1">
-<h3 data-number="10.4.1" class="anchored" data-anchor-id="cor.test-command"><span class="header-section-number">10.4.1</span> cor.test() Command</h3>
+</section>
+<section id="statistical-significance-answers-the-question-is-the-effect-real" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="statistical-significance-answers-the-question-is-the-effect-real"><span class="header-section-number">10.5</span> Statistical significance answers the question: “Is the effect real?“</h2>
+<ul>
+<li><p>Statistical Significance:</p></li>
+<li><p>A result is statistically significant if it is unlikely to have occurred by random chance, given a pre-defined threshold (usually p &lt; 0.05).</p></li>
+<li><p>With larger sample sizes, even very small effects can become statistically significant because larger samples reduce variability. For example, a correlation of 0.1 can be statistically significant with enough data.</p></li>
+<li><p>Practical Significance:</p></li>
+<li><p>Practical significance answers the question: “Is the effect meaningful?“</p></li>
+<li><p>Practical significance refers to the real-world importance or relevance of a result. It asks, “Does this effect matter in practice?“</p></li>
+<li><p>Even if a result is statistically significant, it may not be large enough to have a meaningful impact on business decisions or outcomes.</p></li>
+</ul>
+<section id="cor.test-command" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="cor.test-command"><span class="header-section-number">10.5.1</span> cor.test() Command</h3>
 <ul>
 <li>The cor() command gives you just the correlation coefficient. This command can be useful if you are testing many correlations at one time. In the below statement, I can use <span class="math inline">\(cor(Variable1, Variable2)\)</span> to see the correlation between 2 continuous variables.</li>
 </ul>
@@ -553,8 +567,8 @@ sample estimates:
 </ul>
 </section>
 </section>
-<section id="limitations-of-correlation-analysis" class="level2" data-number="10.5">
-<h2 data-number="10.5" class="anchored" data-anchor-id="limitations-of-correlation-analysis"><span class="header-section-number">10.5</span> Limitations of Correlation Analysis</h2>
+<section id="limitations-of-correlation-analysis" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="limitations-of-correlation-analysis"><span class="header-section-number">10.6</span> Limitations of Correlation Analysis</h2>
 <ul>
 <li>To determine a causal model, you need the following:</li>
 </ul>
@@ -573,8 +587,8 @@ sample estimates:
 <li>Note that a correlation is the first step in understanding causality.</li>
 </ul>
 </section>
-<section id="using-ai" class="level2" data-number="10.6">
-<h2 data-number="10.6" class="anchored" data-anchor-id="using-ai"><span class="header-section-number">10.6</span> Using AI</h2>
+<section id="using-ai" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="using-ai"><span class="header-section-number">10.7</span> Using AI</h2>
 <ul>
 <li><p>Use the following prompt on a generative AI, like chatGPT, to learn more about correlation analysis.</p></li>
 <li><p>Explain the difference between covariance and correlation. How do you interpret the direction and strength of a correlation coefficient?”</p></li>
@@ -588,8 +602,8 @@ sample estimates:
 <li><p>What are the key differences between correlation and causation? How can you determine if a correlation implies causality?</p></li>
 </ul>
 </section>
-<section id="summary" class="level2" data-number="10.7">
-<h2 data-number="10.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">10.7</span> Summary</h2>
+<section id="summary" class="level2" data-number="10.8">
+<h2 data-number="10.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">10.8</span> Summary</h2>
 <ul>
 <li>In this lesson, we learned about correlation coefficient and how to evaluate a strong, moderate, or weak/positive or negative correlation. We also learned how to visualize a relationship using a scatterplot. We also learned how to test for a correlation being significant or not.</li>
 </ul>
