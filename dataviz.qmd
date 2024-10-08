@@ -939,22 +939,39 @@ ggplot(mtcars, aes(x=qsec, y=mpg))+geom_point() + stat_smooth(method="lm", color
 -   For example, the plot below would be better served as a boxplot.
 
 ```{r, fig.alt = c("Plot Example with Incorrect Data Type", "Plot Example in Boxplot to Show Comparison")}
-plot(mtcars$mpg~ mtcars$vs)  
-boxplot(mtcars$mpg~ mtcars$vs)
+plot(mtcars$mpg~ mtcars$cyl)  
+boxplot(mtcars$mpg~ mtcars$cyl)
 ```
 
 -   Using ggplot, we would have the same issue. Since vs is a categorical variable, it does not look right when we use the geom_point() later.
 
 ```{r, fig.alt = "ggplot2 Example with Incorrect Data Type"}
-ggplot(mtcars, aes(x=vs, y=mpg))+geom_point() +
-  stat_smooth(method="lm")
+ggplot(mtcars, aes(cyl, mpg)) + geom_point() + stat_smooth(method="lm")
 ```
 
 -   Instead, we would want the geom_boxplot() layer like shown below. The stat_smooth() is also not an applicable layer to a boxplot and would need to be removed.\
+* When you create multiple boxplots in ggplot2 and one or more variables are numeric but not converted to factors, only one boxplot may show up because ggplot2 treats numeric variables as continuous. Boxplots group data by categorical variables, so if your variable is continuous, ggplot interprets it as a single category and produces only one boxplot.
+* Below, we still have an error. 
 
 ```{r, fig.alt = "ggplot2 Example with Boxplot"}
-ggplot(mtcars, aes(x=vs, y=mpg))+geom_boxplot() 
+ggplot(mtcars, aes(cyl, mpg)) + geom_boxplot()
+
+
 ```
+
+
+* Something still is not quite right here, so we would need to make sure cyl is correctly a factor before making the boxplot. Now, we should see multiple boxplots, one for each categorical level. To fix this, you need to convert the grouping variable to a factor using as.factor() in your data, so ggplot will recognize it as a categorical variable and display multiple boxplots accordingly.
+
+
+
+```{r}
+mtcars <- mtcars %>% 
+     mutate(cyl = as.factor(cyl))
+
+ggplot(mtcars, aes(cyl, mpg)) + geom_boxplot()
+
+```
+
 
 #### Try to Recreate
 
