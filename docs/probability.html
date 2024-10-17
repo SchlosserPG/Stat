@@ -1362,7 +1362,8 @@ window.Quarto = {
 </div>
 </div>
 <ul>
-<li>To calculate the probability that the marketing campaign had a lingering effect on teenage girls, we use <span class="math inline">\(P(\hat{P} &gt;= .34)\)</span>.</li>
+<li><p>The probability that the observed proportion is 0.46 or higher, assuming the true proportion remains 0.43, is approximately 0.3341.</p></li>
+<li><p>To calculate the probability that the marketing campaign had a lingering effect on teenage girls, we use <span class="math inline">\(P(\hat{P} &gt;= .34)\)</span>.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">0.34</span>, <span class="fl">0.21</span>, <span class="fu">sqrt</span>(<span class="fl">0.21</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.21</span>)<span class="sc">/</span><span class="dv">50</span>), <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1371,7 +1372,8 @@ window.Quarto = {
 </div>
 </div>
 <ul>
-<li><p>The marketing campaign had a much stronger effect on women (.334), with basically zero effect on teenage girls (.012).</p></li>
+<li><p>The probability that the observed proportion is 0.34 or higher, assuming the true proportion remains 0.21, is approximately 0.0120.</p></li>
+<li><p>The result for teenage girls is statistically significant, while the result for women suggests no strong evidence of an effect.</p></li>
 <li><p>The labor force participation rate is the number of people in the labor force divided by the number of people in the country who are of working age and not institutionalized. The BLS reported in February 2012 that the labor force participation rate in the United States was 63.7%. A marketing company asks 120 working-age people if they either have a job or are looking for a job, or, in other words, whether they are in the labor force. What is the probability that between 60% and 62.5% of those surveyed are members of the labor force?</p></li>
 <li><p>Here we find <span class="math inline">\(P(\hat{P} &lt;= .625)-P(\hat{P} &lt;= .6)\)</span>.</p></li>
 </ul>

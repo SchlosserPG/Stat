@@ -741,13 +741,17 @@ pnorm(20, 22, 2/sqrt(8), lower.tail=FALSE)
 pnorm(.46, .43, sqrt(.43*(1-.43)/50), lower.tail = FALSE)
 ```
 
+* The probability that the observed proportion is 0.46 or higher, assuming the true proportion remains 0.43, is approximately 0.3341.
+
 -   To calculate the probability that the marketing campaign had a lingering effect on teenage girls, we use $P(\hat{P} >= .34)$.
 
 ```{r}
 pnorm(.34, .21, sqrt(.21*(1-.21)/50), lower.tail = FALSE)
 ```
 
--   The marketing campaign had a much stronger effect on women (.334), with basically zero effect on teenage girls (.012).
+* The probability that the observed proportion is 0.34 or higher, assuming the true proportion remains 0.21, is approximately 0.0120.
+* The result for teenage girls is statistically significant, while the result for women suggests no strong evidence of an effect.
+
 
 -   The labor force participation rate is the number of people in the labor force divided by the number of people in the country who are of working age and not institutionalized. The BLS reported in February 2012 that the labor force participation rate in the United States was 63.7%. A marketing company asks 120 working-age people if they either have a job or are looking for a job, or, in other words, whether they are in the labor force. What is the probability that between 60% and 62.5% of those surveyed are members of the labor force?
 
@@ -980,27 +984,28 @@ gridExtra::grid.arrange(cuberoot, logged, inversed, squareroot)
 -   In this example, NOT ONE transformation helped. If this happens, something else would need to occur before correctly using the variable. Examples could be to run a non-linear model, or categorizing the data into bins, especially since there was a large frequency of people that were not ill.
 
 ## Using AI
--   Use the following prompts on a generative AI, like chatGPT, to learn more about probability and contingency tables. 
 
-* What are the key characteristics of a probability distribution, and how do you determine whether a given set of values represents a valid probability distribution?
+-   Use the following prompts on a generative AI, like chatGPT, to learn more about probability and contingency tables.
 
-* What is the difference between a discrete and a continuous random variable, and how do the probability distributions differ for each type?
+-   What are the key characteristics of a probability distribution, and how do you determine whether a given set of values represents a valid probability distribution?
 
-* How do you calculate the expected value and variance for a discrete random variable, and why are these summary measures important in understanding probability distributions?
+-   What is the difference between a discrete and a continuous random variable, and how do the probability distributions differ for each type?
 
-* What are the properties of a binomial distribution, and how is it used to calculate the probability of a certain number of successes in a fixed number of trials?
+-   How do you calculate the expected value and variance for a discrete random variable, and why are these summary measures important in understanding probability distributions?
 
-* How do you use the dbinom() and pbinom() functions in R to calculate the probability of exact or cumulative successes in a binomial experiment?
+-   What are the properties of a binomial distribution, and how is it used to calculate the probability of a certain number of successes in a fixed number of trials?
 
-* What is a normal distribution, and how do you calculate z-scores to determine how far an observation is from the mean of a normally distributed variable?
+-   How do you use the dbinom() and pbinom() functions in R to calculate the probability of exact or cumulative successes in a binomial experiment?
 
-* How do you interpret and calculate cumulative probabilities for both discrete and continuous variables using the cumulative distribution function (CDF)"
+-   What is a normal distribution, and how do you calculate z-scores to determine how far an observation is from the mean of a normally distributed variable?
 
-* What is the Central Limit Theorem (CLT), and why is it important when working with large samples and understanding the distribution of sample means?
+-   How do you interpret and calculate cumulative probabilities for both discrete and continuous variables using the cumulative distribution function (CDF)"
 
-* When data is not normally distributed, what transformations can you apply to make the data more normally distributed, and how do you determine which transformation is most effective?
+-   What is the Central Limit Theorem (CLT), and why is it important when working with large samples and understanding the distribution of sample means?
 
-* How do you apply probability functions such as pnorm() and qnorm() in R to solve real-world problems, such as calculating the likelihood of events based on normal distributions?
+-   When data is not normally distributed, what transformations can you apply to make the data more normally distributed, and how do you determine which transformation is most effective?
+
+-   How do you apply probability functions such as pnorm() and qnorm() in R to solve real-world problems, such as calculating the likelihood of events based on normal distributions?
 
 ## Summary
 

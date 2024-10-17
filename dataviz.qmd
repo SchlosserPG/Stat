@@ -813,18 +813,18 @@ z <- z + rnorm(50, mean=0, sd=5)  # Adding random noise to z
 dataF <- data.frame(x,y,z, s, t)
 pos <- dataF %>% ggplot(aes(x, y))+ 
      geom_point(color="#183028", shape=16) + 
-     stat_smooth(method="lm", color="#789F90") + 
+     geom_smooth(method="lm", color="#789F90") + 
      theme_minimal()+
      labs(x="Positive Linear Relationship")
 neg <- dataF %>% ggplot(aes(x,z))+ 
      geom_point(color="#183028", shape=16) + 
-     stat_smooth(method="lm", color="#789F90") + 
+     geom_smooth(method="lm", color="#789F90") + 
      theme_minimal()+
      labs(x="Negative Linear Relationship")
 
 no <- dataF %>% ggplot(aes(s, t))+ 
      geom_point(color="#183028", shape=16) + 
-     stat_smooth(method="lm", color="#789F90") + 
+     geom_smooth(method="lm", color="#789F90") + 
      theme_minimal()+
      labs(x="No Linear Relationship")
 
@@ -886,6 +886,7 @@ ggplot(Edu, aes(x=Education, y=Income)) +
      labs(y= "Income", x = "Education") 
 ```
 
+* geom_line() in R's ggplot2 package is used to create line plots, which connect data points with straight lines. It is commonly used to visualize trends over time or continuous relationships between variables. 
 -   ggplot allows us to add a geom_line, which is helpful in drawing a line through the data. Here, I am also resetting the color off of the default value. You see this a lot on time series models like stock charts.
 
 ```{r, fig.alt = "Scatterplot With geom_line Generated from ggplot2 by R"}
@@ -895,23 +896,28 @@ ggplot(Edu, aes(x=Education, y=Income)) +
     geom_line(color="#789F90")
 ```
 
--   Another way to do this is to add a stat_smooth line, which is considered a trendline to help us visualize the relationship between the variables.
+* In R's ggplot2 package, geom_smooth() is used to add a trendline (also called a smoothing line or a regression line) to a plot. It fits a line or curve through your data points based on a smoothing method, allowing you to visualize the general relationship between the x and y variables. The trendline can help reveal patterns such as linear relationships or trends in noisy data. The trendline give us 2 parts:
+     + Trendline: This line represents the fitted relationship between the two variables, which could be linear, polynomial, or a more flexible curve depending on the smoothing method used.
+     + Confidence Interval: The shaded area (often gray by default) around the trendline shows the confidence interval, giving a sense of the uncertainty of the fit.
+* We can change our line to a geom_smooth line, which is considered a trendline to help us visualize the relationship between the variables.
 
-```{r, fig.alt = "Scatterplot With stat_smooth Generated from ggplot2 by R"}
+```{r, fig.alt = "Scatterplot With geom_smooth Generated from ggplot2 by R"}
 ggplot(Edu, aes(x=Education, y=Income)) +
     geom_point(color="#183028", shape=18, size=4) +
     labs(y= "Income", x = "Education") +
-    stat_smooth(color="#789F90")
+    geom_smooth(color="#789F90")
 ```
 
--   We can change the type of trendline. The most common is the to develop the trendline using the lm method, which stands for the linear method that we are going to learn in the Regression lesson. For now, lets insert \_method="lm" into our stat_smooth later to see the change.
-
-```{r, fig.alt = "Scatterplot With stat_smooth lm method Generated from ggplot2 by R"}
+-   We can change the type of trendline. The most common is the to develop the trendline using the lm method, which stands for the linear method that we are going to learn in the Regression lesson. For now, lets insert \_method="lm" into our geom_smooth() later to see the change.
+* The gray band on a scatter plot in R usually represents the confidence interval around a fitted line when you plot it using geom_smooth() in ggplot2. This gray area visualizes the uncertainty or variability of the estimated regression line, providing a sense of how confident we are about the predictions at different points along the line.
+```{r, fig.alt = "Scatterplot With geom_smooth lm method Generated from ggplot2 by R"}
 ggplot(Edu, aes(x=Education, y=Income)) +
     geom_point() +
     labs(y= "Income", x = "Education") +
-    stat_smooth(method="lm", color="#789F90")
+    geom_smooth(method="lm", color="#789F90")
 ```
+
+* Unlike geom_smooth(), which fits a trendline or smoothing line to data, geom_line() directly connects the raw data points in the order they appear (typically by the x-axis values). In business statistics class that teaches linear regression, we use more trendlines than geom_lines. 
 
 -   Let's look at a few more examples and see if the relationship is considered positive, negative, or not existent.
 -   Below, we see a negative trend.
@@ -919,20 +925,20 @@ ggplot(Edu, aes(x=Education, y=Income)) +
 ```{r, fig.alt = "Scatterplot examples in R"}
 ggplot(mtcars, aes(x=disp, y=mpg))+ 
   geom_point() + 
-  stat_smooth(method="lm", color="#789F90")
+  geom_smooth(method="lm", color="#789F90")
 ```
 
 -   In regards to the hp variable, below, we see another negative trend.
 
 ```{r, fig.alt = "Scatterplot examples in R"}
 ggplot(mtcars, aes(x=hp, y=mpg))+ geom_point() +
-  stat_smooth(method="lm", color="#789F90")
+  geom_smooth(method="lm", color="#789F90")
 ```
 
 -   In regards to the qsec variable, below, we see a weak positive trend. This relationship would need to verified later on.
 
 ```{r, fig.alt = "Scatterplot examples in R"}
-ggplot(mtcars, aes(x=qsec, y=mpg))+geom_point() + stat_smooth(method="lm", color="#789F90")
+ggplot(mtcars, aes(x=qsec, y=mpg))+geom_point() + geom_smooth(method="lm", color="#789F90")
 ```
 
 -   The plot() command also works when you do not have 2 continuous variables, and instead have one categorical variable paired with one continuous variable. However, the plot is not as adequate as others are in inferring the relationship from the variables.
@@ -946,12 +952,12 @@ boxplot(mtcars$mpg~ mtcars$cyl)
 -   Using ggplot, we would have the same issue. Since vs is a categorical variable, it does not look right when we use the geom_point() later.
 
 ```{r, fig.alt = "ggplot2 Example with Incorrect Data Type"}
-ggplot(mtcars, aes(cyl, mpg)) + geom_point() + stat_smooth(method="lm")
+ggplot(mtcars, aes(cyl, mpg)) + geom_point() + geom_smooth(method="lm")
 ```
 
--   Instead, we would want the geom_boxplot() layer like shown below. The stat_smooth() is also not an applicable layer to a boxplot and would need to be removed.\
-* When you create multiple boxplots in ggplot2 and one or more variables are numeric but not converted to factors, only one boxplot may show up because ggplot2 treats numeric variables as continuous. Boxplots group data by categorical variables, so if your variable is continuous, ggplot interprets it as a single category and produces only one boxplot.
-* Below, we still have an error. 
+-   Instead, we would want the geom_boxplot() layer like shown below. The geom_smooth() is also not an applicable layer to a boxplot and would need to be removed.\
+-   When you create multiple boxplots in ggplot2 and one or more variables are numeric but not converted to factors, only one boxplot may show up because ggplot2 treats numeric variables as continuous. Boxplots group data by categorical variables, so if your variable is continuous, ggplot interprets it as a single category and produces only one boxplot.
+-   Below, we still have an error.
 
 ```{r, fig.alt = "ggplot2 Example with Boxplot"}
 ggplot(mtcars, aes(cyl, mpg)) + geom_boxplot()
@@ -959,19 +965,14 @@ ggplot(mtcars, aes(cyl, mpg)) + geom_boxplot()
 
 ```
 
-
-* Something still is not quite right here, so we would need to make sure cyl is correctly a factor before making the boxplot. Now, we should see multiple boxplots, one for each categorical level. To fix this, you need to convert the grouping variable to a factor using as.factor() in your data, so ggplot will recognize it as a categorical variable and display multiple boxplots accordingly.
-
-
+-   Something still is not quite right here, so we would need to make sure cyl is correctly a factor before making the boxplot. Now, we should see multiple boxplots, one for each categorical level. To fix this, you need to convert the grouping variable to a factor using as.factor() in your data, so ggplot will recognize it as a categorical variable and display multiple boxplots accordingly.
 
 ```{r}
 mtcars <- mtcars %>% 
      mutate(cyl = as.factor(cyl))
-
 ggplot(mtcars, aes(cyl, mpg)) + geom_boxplot()
 
 ```
-
 
 #### Try to Recreate
 
@@ -980,10 +981,10 @@ ggplot(mtcars, aes(cyl, mpg)) + geom_boxplot()
 ```{r, echo = FALSE}
 library(MASS)
 data("UScrime")
-ggplot(UScrime, aes(x=Po1, y=GDP)) + geom_point() + stat_smooth(method="lm")
-ggplot(UScrime, aes(x=Ed, y=y)) + geom_point() + stat_smooth(method="lm")
-ggplot(UScrime, aes(x=Po1, y=y)) + geom_point() + stat_smooth(method="lm")
-ggplot(UScrime, aes(x=GDP, y=y)) + geom_point() + stat_smooth(method="lm")
+ggplot(UScrime, aes(x=Po1, y=GDP)) + geom_point() + geom_smooth(method="lm")
+ggplot(UScrime, aes(x=Ed, y=y)) + geom_point() + geom_smooth(method="lm")
+ggplot(UScrime, aes(x=Po1, y=y)) + geom_point() + geom_smooth(method="lm")
+ggplot(UScrime, aes(x=GDP, y=y)) + geom_point() + geom_smooth(method="lm")
 ```
 
 -   See what information you can take away from the scatterplots above and create some more to practice.

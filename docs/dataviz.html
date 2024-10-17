@@ -1617,6 +1617,7 @@ TRUE </code></pre>
 </div>
 </div>
 <ul>
+<li>geom_line() in R’s ggplot2 package is used to create line plots, which connect data points with straight lines. It is commonly used to visualize trends over time or continuous relationships between variables.</li>
 <li>ggplot allows us to add a geom_line, which is helpful in drawing a line through the data. Here, I am also resetting the color off of the default value. You see this a lot on time series models like stock charts.</li>
 </ul>
 <div class="cell">
@@ -1631,39 +1632,46 @@ TRUE </code></pre>
 </div>
 </div>
 <ul>
-<li>Another way to do this is to add a stat_smooth line, which is considered a trendline to help us visualize the relationship between the variables.</li>
+<li>In R’s ggplot2 package, geom_smooth() is used to add a trendline (also called a smoothing line or a regression line) to a plot. It fits a line or curve through your data points based on a smoothing method, allowing you to visualize the general relationship between the x and y variables. The trendline can help reveal patterns such as linear relationships or trends in noisy data. The trendline give us 2 parts:
+<ul>
+<li>Trendline: This line represents the fitted relationship between the two variables, which could be linear, polynomial, or a more flexible curve depending on the smoothing method used.</li>
+<li>Confidence Interval: The shaded area (often gray by default) around the trendline shows the confidence interval, giving a sense of the uncertainty of the fit.</li>
+</ul></li>
+<li>We can change our line to a geom_smooth line, which is considered a trendline to help us visualize the relationship between the variables.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#183028"</span>,</span>
-<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>, <span class="at">x =</span> <span class="st">"Education"</span>) <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>, <span class="at">x =</span> <span class="st">"Education"</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid figure-img" alt="Scatterplot With stat_smooth Generated from ggplot2 by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid figure-img" alt="Scatterplot With geom_smooth Generated from ggplot2 by R" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <ul>
-<li>We can change the type of trendline. The most common is the to develop the trendline using the lm method, which stands for the linear method that we are going to learn in the Regression lesson. For now, lets insert _method=“lm” into our stat_smooth later to see the change.</li>
+<li>We can change the type of trendline. The most common is the to develop the trendline using the lm method, which stands for the linear method that we are going to learn in the Regression lesson. For now, lets insert _method=“lm” into our geom_smooth() later to see the change.</li>
+<li>The gray band on a scatter plot in R usually represents the confidence interval around a fitted line when you plot it using geom_smooth() in ggplot2. This gray area visualizes the uncertainty or variability of the estimated regression line, providing a sense of how confident we are about the predictions at different points along the line.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Edu, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Income"</span>,</span>
-<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Education"</span>) <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Education"</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="dataviz_files/figure-html/unnamed-chunk-59-1.png" class="img-fluid figure-img" alt="Scatterplot With stat_smooth lm method Generated from ggplot2 by R" width="672"></p>
+<p><img src="dataviz_files/figure-html/unnamed-chunk-59-1.png" class="img-fluid figure-img" alt="Scatterplot With geom_smooth lm method Generated from ggplot2 by R" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <ul>
-<li>Let’s look at a few more examples and see if the relationship is considered positive, negative, or not existent.</li>
-<li>Below, we see a negative trend.</li>
+<li><p>Unlike geom_smooth(), which fits a trendline or smoothing line to data, geom_line() directly connects the raw data points in the order they appear (typically by the x-axis values). In business statistics class that teaches linear regression, we use more trendlines than geom_lines.</p></li>
+<li><p>Let’s look at a few more examples and see if the relationship is considered positive, negative, or not existent.</p></li>
+<li><p>Below, we see a negative trend.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
 <span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -1677,7 +1685,7 @@ TRUE </code></pre>
 <li>In regards to the hp variable, below, we see another negative trend.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> hp, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> hp, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
 <span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -1691,7 +1699,7 @@ TRUE </code></pre>
 <li>In regards to the qsec variable, below, we see a weak positive trend. This relationship would need to verified later on.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> qsec, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> qsec, <span class="at">y =</span> mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
 <span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#789F90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -1727,7 +1735,7 @@ TRUE </code></pre>
 <li>Using ggplot, we would have the same issue. Since vs is a categorical variable, it does not look right when we use the geom_point() later.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(cyl, mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(cyl, mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1737,7 +1745,7 @@ TRUE </code></pre>
 </div>
 </div>
 <ul>
-<li>Instead, we would want the geom_boxplot() layer like shown below. The stat_smooth() is also not an applicable layer to a boxplot and would need to be removed.<br>
+<li>Instead, we would want the geom_boxplot() layer like shown below. The geom_smooth() is also not an applicable layer to a boxplot and would need to be removed.<br>
 </li>
 <li>When you create multiple boxplots in ggplot2 and one or more variables are numeric but not converted to factors, only one boxplot may show up because ggplot2 treats numeric variables as continuous. Boxplots group data by categorical variables, so if your variable is continuous, ggplot interprets it as a single category and produces only one boxplot.</li>
 <li>Below, we still have an error.</li>
@@ -1758,8 +1766,7 @@ TRUE </code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
 <span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cyl =</span> <span class="fu">as.factor</span>(cyl))</span>
-<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-4"><a href="#cb130-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(cyl, mpg)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(cyl, mpg)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
