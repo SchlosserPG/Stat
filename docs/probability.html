@@ -1174,14 +1174,11 @@ window.Quarto = {
 <h2 data-number="6.5" class="anchored" data-anchor-id="central-limit-theorem-clt"><span class="header-section-number">6.5</span> Central Limit Theorem (CLT)</h2>
 <ul>
 <li><p>CLT refers to the fact that, in many situations, when independent random variables are summed up, their properly normalized sum tends toward a normal distribution even if the original variables themselves are not normally distributed. Therefore, CLT suggests that for any population X with expected value <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span> the sampling distribution of <span class="math inline">\(X\)</span> will be approximately normal if the sample size <span class="math inline">\(n\)</span> is sufficiently large.</p></li>
+<li><p>The CLT tells us that, regardless of the original distribution of a population, the sampling distribution of the sample mean approaches a normal distribution as the sample size gets larger. We use the CLT when we want to estimate population parameters (like the mean) from sample data and apply techniques that rely on normality, such as confidence intervals and hypothesis testing. This allows us to make inferences about the population using the normal distribution even when the population itself isn’t normally distributed.</p></li>
 <li><p>CLT holds true for continuous variables that are normally distributed and those that not normally distributed.</p></li>
 <li><p>As a general guideline, the normal distribution approximation is justified based on sample size, specifically when n ≥ 30.</p></li>
 <li><p>As before, if <span class="math inline">\(\bar{X}\)</span> is approximately normal, then we can transform it to <span class="math inline">\(𝑍=(𝑋- \mu)/(\sigma/\sqrt(n))\)</span></p></li>
-<li><p>The standard deviation of the sample means can be estimated using the population standard deviation and the size of the samples that make up the distribution.</p>
-<ul>
-<li>sd() will not work to compute <span class="math inline">\(\sigma\)</span>: Underlying calculations for sd() include n - 1 in the denominator.</li>
-<li>Bessel correction: The n – 1 is called the Bessel correction (Upton &amp; Cook, 2014), and when calculating the population standard deviation it is not needed.</li>
-</ul></li>
+<li><p>The standard deviation of the sample means can be estimated using the population standard deviation and the size of the samples that make up the distribution.</p></li>
 <li><p>The rnorm() command pulls random data from a normal distribution. However, even when the sample is small, it can appear not normal - even though it is from a normal distribution.</p></li>
 </ul>
 <div class="cell">

@@ -603,6 +603,7 @@ qnorm(.05, 32, 8)
 ## Central Limit Theorem (CLT)
 
 -   CLT refers to the fact that, in many situations, when independent random variables are summed up, their properly normalized sum tends toward a normal distribution even if the original variables themselves are not normally distributed. Therefore, CLT suggests that for any population X with expected value $\mu$ and standard deviation $\sigma$ the sampling distribution of $X$ will be approximately normal if the sample size $n$ is sufficiently large.
+* The CLT tells us that, regardless of the original distribution of a population, the sampling distribution of the sample mean approaches a normal distribution as the sample size gets larger. We use the CLT when we want to estimate population parameters (like the mean) from sample data and apply techniques that rely on normality, such as confidence intervals and hypothesis testing. This allows us to make inferences about the population using the normal distribution even when the population itself isn’t normally distributed.
 
 -   CLT holds true for continuous variables that are normally distributed and those that not normally distributed.
 
@@ -612,8 +613,6 @@ qnorm(.05, 32, 8)
 
 -   The standard deviation of the sample means can be estimated using the population standard deviation and the size of the samples that make up the distribution.
 
-    -   sd() will not work to compute $\sigma$: Underlying calculations for sd() include n - 1 in the denominator.
-    -   Bessel correction: The n – 1 is called the Bessel correction (Upton & Cook, 2014), and when calculating the population standard deviation it is not needed.
 
 -   The rnorm() command pulls random data from a normal distribution. However, even when the sample is small, it can appear not normal - even though it is from a normal distribution.
 
@@ -741,7 +740,7 @@ pnorm(20, 22, 2/sqrt(8), lower.tail=FALSE)
 pnorm(.46, .43, sqrt(.43*(1-.43)/50), lower.tail = FALSE)
 ```
 
-* The probability that the observed proportion is 0.46 or higher, assuming the true proportion remains 0.43, is approximately 0.3341.
+-   The probability that the observed proportion is 0.46 or higher, assuming the true proportion remains 0.43, is approximately 0.3341.
 
 -   To calculate the probability that the marketing campaign had a lingering effect on teenage girls, we use $P(\hat{P} >= .34)$.
 
@@ -749,9 +748,9 @@ pnorm(.46, .43, sqrt(.43*(1-.43)/50), lower.tail = FALSE)
 pnorm(.34, .21, sqrt(.21*(1-.21)/50), lower.tail = FALSE)
 ```
 
-* The probability that the observed proportion is 0.34 or higher, assuming the true proportion remains 0.21, is approximately 0.0120.
-* The result for teenage girls is statistically significant, while the result for women suggests no strong evidence of an effect.
+-   The probability that the observed proportion is 0.34 or higher, assuming the true proportion remains 0.21, is approximately 0.0120.
 
+-   The result for teenage girls is statistically significant, while the result for women suggests no strong evidence of an effect.
 
 -   The labor force participation rate is the number of people in the labor force divided by the number of people in the country who are of working age and not institutionalized. The BLS reported in February 2012 that the labor force participation rate in the United States was 63.7%. A marketing company asks 120 working-age people if they either have a job or are looking for a job, or, in other words, whether they are in the labor force. What is the probability that between 60% and 62.5% of those surveyed are members of the labor force?
 
