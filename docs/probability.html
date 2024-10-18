@@ -1175,11 +1175,9 @@ window.Quarto = {
 <ul>
 <li><p>CLT refers to the fact that, in many situations, when independent random variables are summed up, their properly normalized sum tends toward a normal distribution even if the original variables themselves are not normally distributed. Therefore, CLT suggests that for any population X with expected value <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span> the sampling distribution of <span class="math inline">\(X\)</span> will be approximately normal if the sample size <span class="math inline">\(n\)</span> is sufficiently large.</p></li>
 <li><p>The CLT tells us that, regardless of the original distribution of a population, the sampling distribution of the sample mean approaches a normal distribution as the sample size gets larger. We use the CLT when we want to estimate population parameters (like the mean) from sample data and apply techniques that rely on normality, such as confidence intervals and hypothesis testing. This allows us to make inferences about the population using the normal distribution even when the population itself isn’t normally distributed.</p></li>
-<li><p>CLT holds true for continuous variables that are normally distributed and those that not normally distributed.</p></li>
-<li><p>As a general guideline, the normal distribution approximation is justified based on sample size, specifically when n ≥ 30.</p></li>
-<li><p>As before, if <span class="math inline">\(\bar{X}\)</span> is approximately normal, then we can transform it to <span class="math inline">\(𝑍=(𝑋- \mu)/(\sigma/\sqrt(n))\)</span></p></li>
-<li><p>The standard deviation of the sample means can be estimated using the population standard deviation and the size of the samples that make up the distribution.</p></li>
-<li><p>The rnorm() command pulls random data from a normal distribution. However, even when the sample is small, it can appear not normal - even though it is from a normal distribution.</p></li>
+<li><p>The Central Limit Theorem (CLT) holds true for continuous variables, regardless of whether they are normally distributed or not. Generally, the normal distribution approximation is justified when the sample size is sufficiently large, typically <span class="math inline">\(n≥30\)</span>. If the sample means are approximately normal, we can transform them into a standard normal form. The standard deviation of the sample means (also called the standard error) can be estimated using the population standard deviation and the sample size that makes up the distribution.</p></li>
+<li><p>If <span class="math inline">\(\bar{X}\)</span> is approximately normal, then we can transform it using an updated formula of the z-score formula with standard error <span class="math inline">\(𝑍=(𝑋- \mu)/(\sigma/\sqrt(n))\)</span></p></li>
+<li><p>Next, we want to create an experiment where we simulate why the CLT holds true. The rnorm() command pulls random data from a normal distribution. However, even when the sample is small, it can appear not normal - even though it is from a normal distribution.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
@@ -1214,9 +1212,10 @@ window.Quarto = {
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a sample</span></span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the expected value E(X)</span></span>
-<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the expected value E(X) which equals the population</span></span>
+<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mean</span></span>
+<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(d)  <span class="co">#3.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.5</code></pre>
 </div>

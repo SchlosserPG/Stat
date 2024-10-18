@@ -603,18 +603,16 @@ qnorm(.05, 32, 8)
 ## Central Limit Theorem (CLT)
 
 -   CLT refers to the fact that, in many situations, when independent random variables are summed up, their properly normalized sum tends toward a normal distribution even if the original variables themselves are not normally distributed. Therefore, CLT suggests that for any population X with expected value $\mu$ and standard deviation $\sigma$ the sampling distribution of $X$ will be approximately normal if the sample size $n$ is sufficiently large.
-* The CLT tells us that, regardless of the original distribution of a population, the sampling distribution of the sample mean approaches a normal distribution as the sample size gets larger. We use the CLT when we want to estimate population parameters (like the mean) from sample data and apply techniques that rely on normality, such as confidence intervals and hypothesis testing. This allows us to make inferences about the population using the normal distribution even when the population itself isn’t normally distributed.
 
--   CLT holds true for continuous variables that are normally distributed and those that not normally distributed.
+-   The CLT tells us that, regardless of the original distribution of a population, the sampling distribution of the sample mean approaches a normal distribution as the sample size gets larger. We use the CLT when we want to estimate population parameters (like the mean) from sample data and apply techniques that rely on normality, such as confidence intervals and hypothesis testing. This allows us to make inferences about the population using the normal distribution even when the population itself isn’t normally distributed.
 
--   As a general guideline, the normal distribution approximation is justified based on sample size, specifically when n ≥ 30.
+* The Central Limit Theorem (CLT) holds true for continuous variables, regardless of whether they are normally distributed or not. Generally, the normal distribution approximation is justified when the sample size is sufficiently large, typically $n≥30$. If the sample means are approximately normal, we can transform them into a standard normal form. The standard deviation of the sample means (also called the standard error) can be estimated using the population standard deviation and the sample size that makes up the distribution.
 
--   As before, if $\bar{X}$ is approximately normal, then we can transform it to $𝑍=(𝑋- \mu)/(\sigma/\sqrt(n))$
-
--   The standard deviation of the sample means can be estimated using the population standard deviation and the size of the samples that make up the distribution.
+-   If $\bar{X}$ is approximately normal, then we can transform it using an updated formula of the z-score formula with standard error 
+$𝑍=(𝑋- \mu)/(\sigma/\sqrt(n))$
 
 
--   The rnorm() command pulls random data from a normal distribution. However, even when the sample is small, it can appear not normal - even though it is from a normal distribution.
+-   Next, we want to create an experiment where we simulate why the CLT holds true. The rnorm() command pulls random data from a normal distribution. However, even when the sample is small, it can appear not normal - even though it is from a normal distribution.
 
 ```{r, fig.alt="Histogram rnorm 10 data points"}
 set.seed(1)
@@ -636,9 +634,9 @@ hist(rnorm(1000), xlim=c(-3,3))
 
 ```{r}
 # Creating a sample
-d<-c(1,2,3,4,5,6)
-# Calculating the expected value E(X)
-mean(d)
+d<-1:6
+# Calculating the expected value E(X) which equals the population mean
+mean(d) #3.5
 ```
 
 -   Rolling a dice only one time would not give us enough data to assume a normal distribution under the CLT. However, if we were to roll a higher number of times, and repeat that experiment $n$ number of times, we would expect that as $n$ grows, we would approach a normal distribution.
