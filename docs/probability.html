@@ -1278,6 +1278,8 @@ window.Quarto = {
 <li>SD: Measure of variability in the sample.</li>
 <li>SE: Estimate of how closely the sample represents the population.</li>
 </ul></li>
+<li><p>The standard deviation measures the spread of individual data points, while the standard error measures the spread of sample means.</p></li>
+<li><p>The standard deviation and standard error are both measures of variability but are used in different contexts and serve different purposes. The standard deviation quantifies the spread of individual data points within a dataset. It is often used when analyzing the distribution of a single sample or population. On the other hand, the standard error is a measure of the precision of the sample mean in estimating the population mean. It tells us how much the sample mean is likely to vary from the true population mean if we were to take repeated samples. The standard error is derived from the standard deviation but is scaled by the square root of the sample size, meaning it decreases as the sample size increases. This makes it particularly useful in inferential statistics, where it helps assess the accuracy of estimates based on sample data.</p></li>
 <li><p>Example using SD: Given that <span class="math inline">\(\mu\)</span> = 16 inches and <span class="math inline">\(\sigma\)</span> = 0.8 inches, determine the following: What is the probability that a randomly selected pizza is less than 15.5 inches?</p></li>
 </ul>
 <div class="cell">
@@ -1342,7 +1344,8 @@ window.Quarto = {
 <li>The Central Limit Theorem for the Sample Proportion.</li>
 <li>For any population proportion <span class="math inline">\(p\)</span>, the sampling <span class="math inline">\(\bar{P}\)</span> is approximately normal if the sample size <span class="math inline">\(n\)</span> is sufficiently large.</li>
 <li>As a general guideline, the normal distribution approximation is justified when <span class="math inline">\(n*p&gt;=5\)</span> and <span class="math inline">\(n((1-p)&gt;=5\)</span>.</li>
-<li>If <span class="math inline">\(\bar{P}\)</span> is normal, we can transform it into the standard normal random variable as <span class="math inline">\(Z=(\bar{P}-E(\bar{P})/se(\bar{P})\)</span> = <span class="math inline">\((\bar{P}-p)/(\sqrt(p*(1-p)/n))\)</span>.</li>
+<li>If <span class="math inline">\(\bar{P}\)</span> is normal, we can transform it into the standard normal random variable as <span class="math inline">\(Z=(\hat{P}-E(\bar{P})/se(\bar{P})\)</span> = <span class="math inline">\((\bar{P}-p)/(\sqrt(p*(1-p)/n))\)</span>.</li>
+<li>Using the pnorm() function, this would translate to the following: <span class="math inline">\(pnorm(\hat{P}, E(\bar{P}), se(\bar{P})\)</span> , where <span class="math inline">\(se(\bar{P}) = \sqrt(p*(1-p)/n)\)</span></li>
 </ul></li>
 </ul>
 <section id="examples-using-proportions" class="level3" data-number="6.7.1">
