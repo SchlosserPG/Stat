@@ -138,6 +138,7 @@ o; prob
 ```{r}
 # This is a conditional probability question.
 174/396 #or
+.29/.66  #or
 prob[1,1]/rowprob[1]
 ```
 
@@ -146,6 +147,7 @@ prob[1,1]/rowprob[1]
 ```{r}
 # This is a conditional probability question.
 72/204  # or
+.12/0.34 # or
 prob[2,2]/rowprob[2]
 ```
 
@@ -230,7 +232,8 @@ proportions <- rbind(proportions, TotalColProb); proportions
     $P(VL|TR) = P(VL \cap TR) / P(TR) = 45/116 = 0.03396226/0.08754717 = 0.387931$
 
 -   What proportion of people would you expect to select Moderately Likely?\
-    $P_ML = 601/1325$ or $0.4535849$. What is the expected number? $E(ML) = 601$.
+    $P_ML = 601/1325$ or $0.4535849$. 
+* What is the expected number of people would you expect to select Moderately Likely? $E(ML) = 601$.
 
 -   What is the probability that a randomly selected person is a Faculty/Staff or selects Very Likely?\
     $P_FS + P_VL - P_FS \cup P_VL = 0.25509434 + 0.2950943 − 0.07396226 = 0.4762264$
@@ -301,7 +304,7 @@ gridExtra::grid.arrange(plot1, plot2, plot3, plot4)
 -   The Chi-Squared Distribution is noted by:
     -   Right-Skewed:For low degrees of freedom, the chi-squared distribution is highly right-skewed. As the degrees of freedom increase, the skewness decreases.
     -   Non-Negative Values: The chi-squared distribution is defined only for non-negative values because it is the sum of squared values.
-    -   Mean and Variance: The mean of a chi-squared distribution with kk degrees of freedom is kk. The variance is 2k2k.
+    -   Mean and Variance: The mean of a chi-squared distribution with k degrees of freedom is k. The variance is 2k.
 -   The Chi-squared probability density function shows the probability of a value of chi-squared occurring when there is no relationship between the two variables contributing to the chi-squared, where a large chi-square indicates a relationship between variables.
 -   The competing hypotheses can be expressed as:
     -   $H_0$: The two classifications are independent.
@@ -320,9 +323,8 @@ plot5 <- ggplot(data = x5, aes(x = value)) +
 ### Steps to conduct Chi-Squared Test for Independence
 
 -   Step 1: Write the null and alternate hypotheses.
--   Step 2: Compute the test statistic.
--   Step 3: Calculate the probability.
--   Step 4: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis OR If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
+-   Step 2: Compute the test statistic and calculate the probability.
+-   Step 3: State a conclusion. If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis OR If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
 
 ### Assumptions of the Chi-Squared Test of Independence
 
@@ -353,7 +355,7 @@ N <- c(132, 72)
 A <- c(90, 78)
 ```
 
--   Then we convert these columns to a data frame. If you already have a data frame, you don't have to do this step.
+-   Then we convert these variables into a data frame. If you already have a data frame, you don't have to do this step.
 
 ```{r}
 M <- data.frame(UA, N, A); M
@@ -361,7 +363,7 @@ M <- data.frame(UA, N, A); M
 
 -   Always make sure your data frame looks like the table.
 
--   Steps 2 and 3: Compute the test statistic and calculate the probability.
+-   Step 2: Compute the test statistic and calculate the probability.
 
 -   Here, we run the chisq.test() command, which only includes the columns of interest.
 
@@ -369,10 +371,27 @@ M <- data.frame(UA, N, A); M
 chisq.test(M)
 ```
 
--   Step 4: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
+-   Step 3: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
 -   Here, our p-value is 1.282e-05, so we reject the null, $H_0$, and conclude that Age group and Brand Names are dependent.
 
 $df=(𝑟−1)∗(𝑐−1)$ or $(2−1)∗(3−1)=1∗2= 2df$
+
+#### Using a matrix instead of a data.frame
+* You can use either a matrix or a data.frame when solving a chi-squared problem.
+* In a Chi-squared test of independence, a matrix can be used to organize observed frequencies into categories along two dimensions. In the example, the matrix o contains data for different age groups ("Under 35" and "35 and older") and their brand preferences ("Under Armour," "Nike," and "Adidas"). By setting up the matrix with these dimensions, the test evaluates whether there is a significant association between age group and brand preference. The test compares the observed counts with expected counts under the assumption that the two variables are independent. 
+```{r}
+x <- c(174, 132, 90, 54, 72, 78)
+o <- matrix(x, nrow=2, ncol=3, byrow = TRUE)
+##add some dimnames to o
+dimnames(o) <- list(c("Under 35", "35 and older"), c("Under Armour", "Nike", "Adidas"))
+o
+
+chisq.test(o)
+#	Pearson's Chi-squared test
+#data:  o
+#X-squared = 22.529, df = 2, p-value = 0.00001282
+```
+* In either case, we should see the same result. The result includes the Chi-squared statistic (X-squared = 22.529), degrees of freedom (df = 2), and a very small p-value (0.00001282), indicating a strong association between age and brand preference.
 
 ### Example Using an Imported Dataset
 
@@ -386,15 +405,29 @@ STEM <- read.csv("data/stem.csv")
 STEM
 ```
 
--   Steps 2 and 3: Compute the test statistic and calculate the probability.
+-   Step 2: Compute the test statistic and calculate the probability.
 -   Again, we use Rs chisq.test() command to calculate the value of the test statistic, as well as the p-value. Within the chisq.test() function, we indicate that the relevant data are in columns 2 and 3 of the data frame.
 
 ```{r}
 chisq.test(STEM[,2:3]) 
+##test statistic: 66.795
+##df: 3 --- 4 rows and 2 columns
+(4-1)*(2-1) #3 df
+##p-value is almost 0
 ```
 
--   Step 4: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
+-   Step 3: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
 -   Since the p-value is less than 0.05, we can reject the null hypothesis. At the 5% significance level, we can conclude that one’s sex does influence field choice within the STEM major.
+
+* When performing a Chi-squared test, the choice of including or excluding columns depends on which categories you want to analyze. In chisq.test(stem[, -1]), the first column is excluded, and the test is run on the remaining columns. This might be done if the first column represents data not relevant to the specific hypothesis you are testing (e.g., it could be an identifier or a control category). 
+* On the other hand, chisq.test(stem[, 2:3]) only includes the second and third columns, focusing the analysis on specific categories of interest. 
+* This is useful when you want to investigate the relationship between two particular variables, ignoring other columns that might be extraneous to the question you're asking. Including or excluding columns is guided by the research hypothesis and the variables you want to test for independence.
+
+
+```{r}
+chisq.test(STEM[, -1]) ### when we subset we use object[row, columns] --- so including the numbers 2:3 means we include variables in the 2nd and 3rd columns. Including the number -1 after the comma means that we exclude the first column. 
+
+```
 
 ## Chi-Squared Goodness of Fit Test
 
@@ -443,7 +476,7 @@ chisq.test(STEM[,2:3])
     -   $𝐻_0$: Each proportion equals a hypothesized value.
     -   $𝐻_A$: Not all proportions equal their hypothesized values.
 
--   Steps 2 and3: Compute the test statistic and calculate the probability.
+-   Step 2: Compute the test statistic and calculate the probability.
 
 -   We can use R’s chisq.test() function to calculate the value of the test statistic and corresponding p-value. Within this function, we use the option p to indicate the location of the hypothesized proportions.\
 
@@ -451,13 +484,21 @@ chisq.test(STEM[,2:3])
 #Chi Squared Test Goodness of Fit
 o <- c(46, 83, 105, 16)
 p <- c(.15, .3, .45, .1)
-chisq.test(o, p=p)
 
+##quick check on p
+sum(p) ##1: sum of all proportions should be 1
+
+#run the test
+chisq.test(o, p=p)
+#test statistic: 6.52
+##df: 3 ----- 4 proportions - 1 -- or 
+4-1 ##3
+#p-value is 0.08888 > .05
 ```
 
 -   Note that p= is required here because it is not the second argument in the chisq.test() command.
 
--   Step 4: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
+-   Step 3: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
 
 -   At alpha = .05, we do not reject $H_0$ and cannot conclude that the proportions differ from the ones a year ago.
 
@@ -467,7 +508,7 @@ chisq.test(o, p=p)
 -   Step 1: Set up the Hypothesis:
     -   $𝐻_0$: Each proportion equals a hypothesized value.
     -   $𝐻_A$: Not all proportions equal their hypothesized values.
--   Steps 2 and 3: Compute the test statistic and calculate the probability.
+-   Step 2: Compute the test statistic and calculate the probability.
 -   First, we import the stemGOF.csv data into a data frame (table) in R.
 -   Then, again, we use Rs chisq.test function to calculate the value of the test statistic and the p-value. Within the chisq.test function, we use the option p to indicate the location of the hypothesized proportions.
 
@@ -475,32 +516,34 @@ chisq.test(o, p=p)
 STEMGOF <- read.csv("data/stemGOF.csv")
 STEMGOF
 chisq.test(STEMGOF$RecentNumbers,p=STEMGOF$X2010Proportions) 
+#Chi-squared test for given probabilities
+#data:  stemGOF$RecentNumbers
+#X-squared = 21.526, df = 5, p-value = 0.0006441
+##df: 6 options so 6-1 is 5
+#test statistic is back high: 21. 526
+
 ```
 
--   Step 4: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
+-   Step 3: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
 -   Since our p-value is 0.0006441, we reject $H_0$ and conclude that the proportions differ at the 5% significance level. In this case, that means that the recent stem numbers differ from the 2010 values.
 
 ## Using AI
 
--   Use the following prompts on a generative AI, like chatGPT, to learn more about probability and contingency tables. 
+-   Use the following prompts on a generative AI, like chatGPT, to learn more about probability and contingency tables.
 
-* What is a contingency table, and how is it used to represent the relationship between two categorical variables in probability calculations?
+-   What is a contingency table, and how is it used to represent the relationship between two categorical variables in probability calculations?
 
-* How do you calculate joint, marginal, and conditional probabilities using a contingency table, and what is the significance of each type of probability?
+-   How do you calculate joint, marginal, and conditional probabilities using a contingency table, and what is the significance of each type of probability?
 
-* Can you explain how the chi-squared test for independence works, and how it is used to determine whether two categorical variables are independent or dependent?
+-   Can you explain how the chi-squared test for independence works, and how it is used to determine whether two categorical variables are independent or dependent?
 
-* What is the difference between the chi-squared test for independence and the chi-squared goodness of fit test, and how is each test applied?
+-   What is the difference between the chi-squared test for independence and the chi-squared goodness of fit test, and how is each test applied?
 
-* Once you calculate the chi-squared test statistic, how do you interpret the p-value to determine whether to reject or fail to reject the null hypothesis?
+-   Once you calculate the chi-squared test statistic, how do you interpret the p-value to determine whether to reject or fail to reject the null hypothesis?
 
-* Why are degrees of freedom important in a chi-squared test, and how do you calculate them for a contingency table?
+-   Why are degrees of freedom important in a chi-squared test, and how do you calculate them for a contingency table?
 
-* How do you set up and execute a chi-squared test using the chisq.test() function in R, and what are the key outputs to focus on when interpreting the results?
-
-
-
-
+-   How do you set up and execute a chi-squared test using the chisq.test() function in R, and what are the key outputs to focus on when interpreting the results?
 
 ## Summary
 
