@@ -107,7 +107,7 @@ library("tidyverse")
 
 -   **stat="identity"**: In ggplot2, the argument *stat="identity"* is used inside the geom_bar when creating bar charts to specify that the actual values of the data should be plotted, rather than calculated summary statistics. By default, ggplot assumes that bar charts use stat="count", which counts the number of observations in each category. When you want to display the actual values in your dataset (e.g., sales numbers, average scores), you need to set stat="identity" to ensure that the y-values are mapped directly from the data rather than being automatically counted.
 -   You only need to specify *stat="identity"* if you have pre-calculated values to use in the barplot. In the example below, we do have pre-calculated numbers going into make the chart, so stat="identity" is used. Here, we are using exact values, but we can also compute a dataset before graphing using a group_by() and a variety of counting function.
--   **position="dodge"**: If we have more than one categorical variable, we might set the *position="dodge"* argument. This argument controls how the bars are positioned relative to each other when you are plotting multiple categories within a bar chart. By default, bars in a grouped bar chart might overlap, but setting position="dodge" ensures that they are placed side-by-side. This is particularly useful when you are comparing multiple groups or categories within the same plot, as it allows for a clear visual distinction between each group. In the example below, we only have one variable, so position="dodge" argument is not needed.\
+-   **position="dodge"**: If we have more than one categorical variable, we might set the *position="dodge"* argument. This argument controls how the bars are positioned relative to each other when you are plotting multiple categories within a bar chart. By default, bars in a bar chart are stacked, and setting position="dodge" ensures that they are placed side-by-side. This is particularly useful when you are comparing multiple groups or categories within the same plot, as it allows for a clear visual distinction between each group. In the example below, we only have one variable, so position="dodge" argument is not needed.\
 -   In combination, using *stat="identity"* and *position="dodge"* is common when you want to compare different categories or groups with specific values in a side-by-side manner, ensuring the chart is easy to interpret. For example, if you are comparing sales figures across different products for multiple years, this approach would give you a bar for each product in each year, clearly separated.
 -   **show.legend = FALSE**: In ggplot2, the argument *show.legend = FALSE* is used to hide the legend for a particular layer or the entire plot. By default, ggplot2 automatically adds a legend if you include aesthetics like color, size, or shape that distinguish groups in your data. If you don't want the legend to appear, you can set show.legend = FALSE.
 -   **scale_fill_manual():** When creating grouped bar charts or other plots with multiple categories, it's important to ensure that the visual distinction between groups is clear. This is where manually setting the colors for each category comes into play. The *scale_fill_manual()* function in ggplot2 allows you to manually define the colors used for the filled areas, such as the bars in a bar chart or the shaded areas in an area chart. By using the values argument within scale_fill_manual(), you can specify a custom color palette that suits your design or presentation needs. For example, you might choose a palette of yellow and brown to represent different categories. A key aspect of using scale_fill_manual() effectively is knowing how many colors to provide. The number of colors you define in the values argument must match the number of levels or categories in your data. If you are comparing three product categories, for instance, you'll need to provide exactly three colors—one for each category. Failing to match the number of colors to the number of categories can result in errors or misrepresentation in the plot. For example, if you have four levels (e.g., four different product categories or groups) and only provide two colors, ggplot may not know how to properly assign colors to the additional categories. Therefore, it's crucial to know the number of distinct categories in your data and plan your color palette accordingly to maintain clarity and visual consistency in your chart.
@@ -886,7 +886,7 @@ ggplot(Edu, aes(x=Education, y=Income)) +
      labs(y= "Income", x = "Education") 
 ```
 
-* geom_line() in R's ggplot2 package is used to create line plots, which connect data points with straight lines. It is commonly used to visualize trends over time or continuous relationships between variables. 
+-   geom_line() in R's ggplot2 package is used to create line plots, which connect data points with straight lines. It is commonly used to visualize trends over time or continuous relationships between variables.
 -   ggplot allows us to add a geom_line, which is helpful in drawing a line through the data. Here, I am also resetting the color off of the default value. You see this a lot on time series models like stock charts.
 
 ```{r, fig.alt = "Scatterplot With geom_line Generated from ggplot2 by R"}
@@ -896,10 +896,10 @@ ggplot(Edu, aes(x=Education, y=Income)) +
     geom_line(color="#789F90")
 ```
 
-* In R's ggplot2 package, geom_smooth() is used to add a trendline (also called a smoothing line or a regression line) to a plot. It fits a line or curve through your data points based on a smoothing method, allowing you to visualize the general relationship between the x and y variables. The trendline can help reveal patterns such as linear relationships or trends in noisy data. The trendline give us 2 parts:
-     + Trendline: This line represents the fitted relationship between the two variables, which could be linear, polynomial, or a more flexible curve depending on the smoothing method used.
-     + Confidence Interval: The shaded area (often gray by default) around the trendline shows the confidence interval, giving a sense of the uncertainty of the fit.
-* We can change our line to a geom_smooth line, which is considered a trendline to help us visualize the relationship between the variables.
+-   In R's ggplot2 package, geom_smooth() is used to add a trendline (also called a smoothing line or a regression line) to a plot. It fits a line or curve through your data points based on a smoothing method, allowing you to visualize the general relationship between the x and y variables. The trendline can help reveal patterns such as linear relationships or trends in noisy data. The trendline give us 2 parts:
+    -   Trendline: This line represents the fitted relationship between the two variables, which could be linear, polynomial, or a more flexible curve depending on the smoothing method used.
+    -   Confidence Interval: The shaded area (often gray by default) around the trendline shows the confidence interval, giving a sense of the uncertainty of the fit.
+-   We can change our line to a geom_smooth line, which is considered a trendline to help us visualize the relationship between the variables.
 
 ```{r, fig.alt = "Scatterplot With geom_smooth Generated from ggplot2 by R"}
 ggplot(Edu, aes(x=Education, y=Income)) +
@@ -909,7 +909,8 @@ ggplot(Edu, aes(x=Education, y=Income)) +
 ```
 
 -   We can change the type of trendline. The most common is the to develop the trendline using the lm method, which stands for the linear method that we are going to learn in the Regression lesson. For now, lets insert \_method="lm" into our geom_smooth() later to see the change.
-* The gray band on a scatter plot in R usually represents the confidence interval around a fitted line when you plot it using geom_smooth() in ggplot2. This gray area visualizes the uncertainty or variability of the estimated regression line, providing a sense of how confident we are about the predictions at different points along the line.
+-   The gray band on a scatter plot in R usually represents the confidence interval around a fitted line when you plot it using geom_smooth() in ggplot2. This gray area visualizes the uncertainty or variability of the estimated regression line, providing a sense of how confident we are about the predictions at different points along the line.
+
 ```{r, fig.alt = "Scatterplot With geom_smooth lm method Generated from ggplot2 by R"}
 ggplot(Edu, aes(x=Education, y=Income)) +
     geom_point() +
@@ -917,9 +918,10 @@ ggplot(Edu, aes(x=Education, y=Income)) +
     geom_smooth(method="lm", color="#789F90")
 ```
 
-* Unlike geom_smooth(), which fits a trendline or smoothing line to data, geom_line() directly connects the raw data points in the order they appear (typically by the x-axis values). In business statistics class that teaches linear regression, we use more trendlines than geom_lines. 
+-   Unlike geom_smooth(), which fits a trendline or smoothing line to data, geom_line() directly connects the raw data points in the order they appear (typically by the x-axis values). In business statistics class that teaches linear regression, we use more trendlines than geom_lines.
 
 -   Let's look at a few more examples and see if the relationship is considered positive, negative, or not existent.
+
 -   Below, we see a negative trend.
 
 ```{r, fig.alt = "Scatterplot examples in R"}
