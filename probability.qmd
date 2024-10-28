@@ -386,6 +386,78 @@ pbinom(1,6,.35)
 pbinom(1,6,.35)*100 #31.9%
 ```
 
+### Follow Up Binomial Example
+For a discrete binomial distribution with a sample size of 4 (i.e., the number of trials is 4), calculate the probability of each possible outcome (ranging from 0 to 4 successful outcomes) using a probability of success $p=0.3$. 
+```{r, echo=FALSE}
+size <- 4  # number of trials
+p <- 0.3   # probability of success
+outcomes <- 0:size
+probabilities <- dbinom(outcomes, size = size, prob = p)
+data <- data.frame(outcomes, probabilities)
+ggplot(data, aes(x = factor(outcomes), y = probabilities)) +
+     geom_bar(stat = "identity", fill = "#789F90", color = "black") +
+       geom_text(aes(label = round(probabilities, 3)), vjust = -0.5) + 
+     labs(x = "Number of Successes", y = "Probability") +
+     ggtitle("Binomial Distribution (n=4, p=0.3)") +
+     theme_minimal()
+
+```
+
+
+```{r}
+##dbinom (X=x) given size at 4 and p=.3
+#P(X=0) = 0.2401
+dbinom(0, 4, .3) 
+#P(X=1) = 0.4116
+dbinom(1, 4, .3) 
+#P(X=2) = 0.2646
+dbinom(2, 4, .3) 
+#P(X=3) = 0.0756
+dbinom(3, 4, .3) 
+#P(X=4) = 0.0081
+dbinom(4, 4, .3) 
+```
+
+* Calculate the probability when the value is less than or equal to 2. All calculations below give same answer. 
+* To confirm accuracy, sum the individual probabilities you calculated using dbinom() above. This total should match the value obtained using the pbinom() function in R, which gives the cumulative probability up to a specified number of successes.
+* Less than or equal to is the default state of the function in which we use the exact number given. 
+```{r}
+###P(X<=2) =0.9163
+pbinom(2, 4, .3) 
+dbinom(0, 4, .3) + dbinom(1, 4, .3) + dbinom(2, 4, .3)
+0.2401 + 0.4116 + 0.2646
+```
+
+* Calculate the probability when the value is less than 2. All calculations below give same answer. 
+* To calculate less than instead of less than or equal to, we go down 1 unit (or 1 integer) in our pbinom() function, i.e., using 1 instead of 2. 
+```{r}
+##P(X<2) = 0.6517
+pbinom(1, 4, .3) 
+dbinom(0, 4, .3) + dbinom(1, 4, .3)
+0.2401 + 0.4116
+```
+
+* Calculate the probability when the value is greater than 2. All calculations below give same answer. 
+* We use 2 inside the function because greater than is the opposite tail to less than or equal to. This means that the numbers should be the same as the numbers in a less than or equal to problem, but we need to include the lower.tail parameter at False. 
+```{r}
+##P(X>2) = 0.0837
+1-pbinom(2, 4, .3) 
+pbinom(2, 4, .3, lower.tail = F)
+dbinom(3, 4, .3) + dbinom(4, 4, .3) 
+0.0756 + 0.0081
+```
+
+* Calculate the probability when the value is greater than or equal to 2. 
+* We use 1 inside the function because greater than or equal to is the opposite tail to less than. This means that the numbers should be the same as the numbers in a less than problem, but we need to include the lower.tail parameter at False. 
+```{r}
+##P(X>=2) = 0.3483
+1-pbinom(1, 4, .3) 
+pbinom(1, 4, .3, lower.tail = FALSE)
+dbinom(2, 4, .3) + dbinom(3, 4, .3) + dbinom(4, 4, .3) 
+0.2646 + 0.0756 + 0.0081
+```
+
+
 ## The Continuous Distribution
 
 -   Properties of a Continuous Random Variable
@@ -606,11 +678,9 @@ qnorm(.05, 32, 8)
 
 -   The CLT tells us that, regardless of the original distribution of a population, the sampling distribution of the sample mean approaches a normal distribution as the sample size gets larger. We use the CLT when we want to estimate population parameters (like the mean) from sample data and apply techniques that rely on normality, such as confidence intervals and hypothesis testing. This allows us to make inferences about the population using the normal distribution even when the population itself isn’t normally distributed.
 
-* The Central Limit Theorem (CLT) holds true for continuous variables, regardless of whether they are normally distributed or not. Generally, the normal distribution approximation is justified when the sample size is sufficiently large, typically $n≥30$. If the sample means are approximately normal, we can transform them into a standard normal form. The standard deviation of the sample means (also called the standard error) can be estimated using the population standard deviation and the sample size that makes up the distribution.
+-   The Central Limit Theorem (CLT) holds true for continuous variables, regardless of whether they are normally distributed or not. Generally, the normal distribution approximation is justified when the sample size is sufficiently large, typically $n≥30$. If the sample means are approximately normal, we can transform them into a standard normal form. The standard deviation of the sample means (also called the standard error) can be estimated using the population standard deviation and the sample size that makes up the distribution.
 
--   If $\bar{X}$ is approximately normal, then we can transform it using an updated formula of the z-score formula with standard error 
-$𝑍=(𝑋- \mu)/(\sigma/\sqrt(n))$
-
+-   If $\bar{X}$ is approximately normal, then we can transform it using an updated formula of the z-score formula with standard error $𝑍=(𝑋- \mu)/(\sigma/\sqrt(n))$
 
 -   Next, we want to create an experiment where we simulate why the CLT holds true. The rnorm() command pulls random data from a normal distribution. However, even when the sample is small, it can appear not normal - even though it is from a normal distribution.
 
@@ -678,8 +748,10 @@ hist(t, xlim=c(3,4))
 
     -   SD: Measure of variability in the sample.
     -   SE: Estimate of how closely the sample represents the population.
-* The standard deviation measures the spread of individual data points, while the standard error measures the spread of sample means.
-* The standard deviation and standard error are both measures of variability but are used in different contexts and serve different purposes. The standard deviation quantifies the spread of individual data points within a dataset. It is often used when analyzing the distribution of a single sample or population. On the other hand, the standard error is a measure of the precision of the sample mean in estimating the population mean. It tells us how much the sample mean is likely to vary from the true population mean if we were to take repeated samples. The standard error is derived from the standard deviation but is scaled by the square root of the sample size, meaning it decreases as the sample size increases. This makes it particularly useful in inferential statistics, where it helps assess the accuracy of estimates based on sample data.
+
+-   The standard deviation measures the spread of individual data points, while the standard error measures the spread of sample means.
+
+-   The standard deviation and standard error are both measures of variability but are used in different contexts and serve different purposes. The standard deviation quantifies the spread of individual data points within a dataset. It is often used when analyzing the distribution of a single sample or population. On the other hand, the standard error is a measure of the precision of the sample mean in estimating the population mean. It tells us how much the sample mean is likely to vary from the true population mean if we were to take repeated samples. The standard error is derived from the standard deviation but is scaled by the square root of the sample size, meaning it decreases as the sample size increases. This makes it particularly useful in inferential statistics, where it helps assess the accuracy of estimates based on sample data.
 
 -   Example using SD: Given that $\mu$ = 16 inches and $\sigma$ = 0.8 inches, determine the following: What is the probability that a randomly selected pizza is less than 15.5 inches?
 
@@ -730,8 +802,8 @@ pnorm(20, 22, 2/sqrt(8), lower.tail=FALSE)
     -   For any population proportion $p$, the sampling $\bar{P}$ is approximately normal if the sample size $n$ is sufficiently large.
     -   As a general guideline, the normal distribution approximation is justified when $n*p>=5$ and $n((1-p)>=5$.
     -   If $\bar{P}$ is normal, we can transform it into the standard normal random variable as $Z=(\hat{P}-E(\bar{P})/se(\bar{P})$ = $(\bar{P}-p)/(\sqrt(p*(1-p)/n))$.
-     + Using the pnorm() function, this would translate to the following: $pnorm(\hat{P}, E(\bar{P}), se(\bar{P})$ , where $se(\bar{P}) = \sqrt(p*(1-p)/n)$  
-     
+    -   Using the pnorm() function, this would translate to the following: $pnorm(\hat{P}, E(\bar{P}), se(\bar{P})$ , where $se(\bar{P}) = \sqrt(p*(1-p)/n)$
+
 ### Examples Using Proportions
 
 -   Anne wants to determine if the marketing campaign has had a lingering effect on the proportion of customers who are women and teenage girls. Before the campaign, p = 0.43 for women and p = 0.21 for teenage girls. Based on 50 women and 50 teenage girls sampled after the campaign, p = 0.46 and p = 0.34, respectively.
