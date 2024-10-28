@@ -801,7 +801,7 @@ pnorm(20, 22, 2/sqrt(8), lower.tail=FALSE)
     -   The Central Limit Theorem for the Sample Proportion.
     -   For any population proportion $p$, the sampling $\bar{P}$ is approximately normal if the sample size $n$ is sufficiently large.
     -   As a general guideline, the normal distribution approximation is justified when $n*p>=5$ and $n((1-p)>=5$.
-    -   If $\bar{P}$ is normal, we can transform it into the standard normal random variable as $Z=(\hat{P}-E(\bar{P})/se(\bar{P})$ = $(\bar{P}-p)/(\sqrt(p*(1-p)/n))$.
+    -   If $\bar{P}$ is normal, we can transform it into the standard normal random variable as $Z=(\hat{P}-E(\bar{P})/se(\bar{P})$ = $(\hat{P}-p)/(\sqrt(p*(1-p)/n))$.
     -   Using the pnorm() function, this would translate to the following: $pnorm(\hat{P}, E(\bar{P}), se(\bar{P})$ , where $se(\bar{P}) = \sqrt(p*(1-p)/n)$
 
 ### Examples Using Proportions
