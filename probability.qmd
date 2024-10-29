@@ -1102,6 +1102,6 @@ gridExtra::grid.arrange(cuberoot, logged, inversed, squareroot)
 \hline
 \frac{x - \text{mean}(x)}{\text{sd}(x) / \sqrt{n}} & \text{Standardizing the sample mean} & \text{Used for hypothesis tests of means} \\
 \hline
-\frac{p - P}{\sqrt{\frac{P(1 - P)}{n}}} & \text{Standardizing a sample proportion} & \text{Used for hypothesis tests of proportions} \\
+\frac{\hat{p} - p}{\sqrt{\frac{p*(1 - p)}{n}}} & \text{Standardizing a sample proportion} & \text{Used for hypothesis tests of proportions} \\
 \hline
 \end{array}
