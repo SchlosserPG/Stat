@@ -232,8 +232,9 @@ proportions <- rbind(proportions, TotalColProb); proportions
     $P(VL|TR) = P(VL \cap TR) / P(TR) = 45/116 = 0.03396226/0.08754717 = 0.387931$
 
 -   What proportion of people would you expect to select Moderately Likely?\
-    $P_ML = 601/1325$ or $0.4535849$. 
-* What is the expected number of people would you expect to select Moderately Likely? $E(ML) = 601$.
+    $P_ML = 601/1325$ or $0.4535849$.
+
+-   What is the expected number of people would you expect to select Moderately Likely? $E(ML) = 601$.
 
 -   What is the probability that a randomly selected person is a Faculty/Staff or selects Very Likely?\
     $P_FS + P_VL - P_FS \cup P_VL = 0.25509434 + 0.2950943 − 0.07396226 = 0.4762264$
@@ -377,8 +378,10 @@ chisq.test(M)
 $df=(𝑟−1)∗(𝑐−1)$ or $(2−1)∗(3−1)=1∗2= 2df$
 
 #### Using a matrix instead of a data.frame
-* You can use either a matrix or a data.frame when solving a chi-squared problem.
-* In a Chi-squared test of independence, a matrix can be used to organize observed frequencies into categories along two dimensions. In the example, the matrix o contains data for different age groups ("Under 35" and "35 and older") and their brand preferences ("Under Armour," "Nike," and "Adidas"). By setting up the matrix with these dimensions, the test evaluates whether there is a significant association between age group and brand preference. The test compares the observed counts with expected counts under the assumption that the two variables are independent. 
+
+-   You can use either a matrix or a data.frame when solving a chi-squared problem.
+-   In a Chi-squared test of independence, a matrix can be used to organize observed frequencies into categories along two dimensions. In the example, the matrix o contains data for different age groups ("Under 35" and "35 and older") and their brand preferences ("Under Armour," "Nike," and "Adidas"). By setting up the matrix with these dimensions, the test evaluates whether there is a significant association between age group and brand preference. The test compares the observed counts with expected counts under the assumption that the two variables are independent.
+
 ```{r}
 x <- c(174, 132, 90, 54, 72, 78)
 o <- matrix(x, nrow=2, ncol=3, byrow = TRUE)
@@ -391,7 +394,8 @@ chisq.test(o)
 #data:  o
 #X-squared = 22.529, df = 2, p-value = 0.00001282
 ```
-* In either case, we should see the same result. The result includes the Chi-squared statistic (X-squared = 22.529), degrees of freedom (df = 2), and a very small p-value (0.00001282), indicating a strong association between age and brand preference.
+
+-   In either case, we should see the same result. The result includes the Chi-squared statistic (X-squared = 22.529), degrees of freedom (df = 2), and a very small p-value (0.00001282), indicating a strong association between age and brand preference.
 
 ### Example Using an Imported Dataset
 
@@ -417,12 +421,14 @@ chisq.test(STEM[,2:3])
 ```
 
 -   Step 3: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
+
 -   Since the p-value is less than 0.05, we can reject the null hypothesis. At the 5% significance level, we can conclude that one’s sex does influence field choice within the STEM major.
 
-* When performing a Chi-squared test, the choice of including or excluding columns depends on which categories you want to analyze. In chisq.test(stem[, -1]), the first column is excluded, and the test is run on the remaining columns. This might be done if the first column represents data not relevant to the specific hypothesis you are testing (e.g., it could be an identifier or a control category). 
-* On the other hand, chisq.test(stem[, 2:3]) only includes the second and third columns, focusing the analysis on specific categories of interest. 
-* This is useful when you want to investigate the relationship between two particular variables, ignoring other columns that might be extraneous to the question you're asking. Including or excluding columns is guided by the research hypothesis and the variables you want to test for independence.
+-   When performing a Chi-squared test, the choice of including or excluding columns depends on which categories you want to analyze. In chisq.test(stem\[, -1\]), the first column is excluded, and the test is run on the remaining columns. This might be done if the first column represents data not relevant to the specific hypothesis you are testing (e.g., it could be an identifier or a control category).
 
+-   On the other hand, chisq.test(stem\[, 2:3\]) only includes the second and third columns, focusing the analysis on specific categories of interest.
+
+-   This is useful when you want to investigate the relationship between two particular variables, ignoring other columns that might be extraneous to the question you're asking. Including or excluding columns is guided by the research hypothesis and the variables you want to test for independence.
 
 ```{r}
 chisq.test(STEM[, -1]) ### when we subset we use object[row, columns] --- so including the numbers 2:3 means we include variables in the 2nd and 3rd columns. Including the number -1 after the comma means that we exclude the first column. 
@@ -548,3 +554,7 @@ chisq.test(STEMGOF$RecentNumbers,p=STEMGOF$X2010Proportions)
 ## Summary
 
 -   In this lesson, we learned about contingency tables in regards to calculating probability with two categorical variables. We also computed the chi-squared statistics for the test of independence and the goodness of fit.
+* We note that the "Goodness of fit" and "test of independence" are both chi-square tests, but they serve different purposes:
+* Goodness of Fit test: _Purpose_: Assesses how well observed data match a specified distribution (often a theoretical or expected distribution). _Example_: Checking if the distribution of colors of M&M’s in a bag matches the expected company distribution (say, 30% blue, 20% red, etc.). _Null Hypothesis_: The observed frequencies match the expected frequencies.
+* Test of Independence: _Purpose_: Determines whether there is a significant association between two categorical variables in a contingency table. _Example_: Evaluating if gender (male/female) is independent of preference for a type of product (e.g., A or B). _Null Hypothesis_: The two variables are independent (no association).
+

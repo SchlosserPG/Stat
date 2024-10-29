@@ -1141,6 +1141,8 @@ window.Quarto = {
 <li><p>A z-score allows description and comparison of where an observation falls compared to the other observations for a normally distributed variable.</p></li>
 <li><p>A z-score is calculated as the number of standard deviations an observation is away from the mean.</p></li>
 <li><p>A normally distributed variable can be used to create z-scores.</p></li>
+<li><p>Purpose: This formula calculates the z-score of an individual data point.</p></li>
+<li><p>Interpretation: It tells us how many standard deviations a specific value <span class="math inline">\(x\)</span> is from the mean of the dataset.</p></li>
 <li><p>The <span class="math inline">\(x_i\)</span> represents the value of variable <span class="math inline">\(x\)</span> for a single observation, <span class="math inline">\(\mu_x\)</span> is the mean of the <span class="math inline">\(x\)</span> variable, <span class="math inline">\(\sigma_x\)</span> is the standard deviation of the <span class="math inline">\(x\)</span> variable. So, <span class="math inline">\(z_i\)</span> is the difference between the observation value and the mean value for a variable and is converted by the denominator into standard deviations. The final z-score for an observation is the number of standard deviations it is from the mean. <span class="math display">\[z_i = (x_i - \mu_x)/\sigma_x\]</span>.</p></li>
 <li><p>A z score or z value specifies by how many standard deviations the corresponding x value falls above (z &gt; 0) or below (z &lt; 0) the mean.</p>
 <ul>
@@ -1404,6 +1406,8 @@ window.Quarto = {
 <li>SD: Measure of variability in the sample.</li>
 <li>SE: Estimate of how closely the sample represents the population.</li>
 </ul></li>
+<li><p>Purpose: This is the standard error formula used to assess the distribution of sample means around the population mean.</p></li>
+<li><p>Interpretation: This measures how much the sample mean, <span class="math inline">\(\bar{X}\)</span> is expected to vary from the population mean given the sample size <span class="math inline">\(n\)</span>.</p></li>
 <li><p>The standard deviation measures the spread of individual data points, while the standard error measures the spread of sample means.</p></li>
 <li><p>The standard deviation and standard error are both measures of variability but are used in different contexts and serve different purposes. The standard deviation quantifies the spread of individual data points within a dataset. It is often used when analyzing the distribution of a single sample or population. On the other hand, the standard error is a measure of the precision of the sample mean in estimating the population mean. It tells us how much the sample mean is likely to vary from the true population mean if we were to take repeated samples. The standard error is derived from the standard deviation but is scaled by the square root of the sample size, meaning it decreases as the sample size increases. This makes it particularly useful in inferential statistics, where it helps assess the accuracy of estimates based on sample data.</p></li>
 <li><p>Example using SD: Given that <span class="math inline">\(\mu\)</span> = 16 inches and <span class="math inline">\(\sigma\)</span> = 0.8 inches, determine the following: What is the probability that a randomly selected pizza is less than 15.5 inches?</p></li>
@@ -1465,9 +1469,11 @@ window.Quarto = {
 <li>Estimator Sample proportion <span class="math inline">\(\bar{P}\)</span> is used to estimate the population parameter <span class="math inline">\(p\)</span>.</li>
 <li>Estimate: A particular value of the estimator <span class="math inline">\(\bar{p}\)</span>.</li>
 <li>The expected value of <span class="math inline">\(\bar{P}=E(\bar{P})=𝑝\)</span>.</li>
-<li>The standard deviation of <span class="math inline">\(\bar{P}\)</span> is referred to as the standard error of the sample proportion, which equals <span class="math inline">\(se(\bar{P}) = \sqrt(p*(1-p)/n\)</span>.
+<li>The standard deviation of <span class="math inline">\(\bar{P}\)</span> is referred to as the standard error of the sample proportion, which equals <span class="math inline">\(se(\bar{P}) = \sqrt(p*(1-p)/n\)</span>.</li>
+<li>Purpose: This formula calculates the z-score for a sample proportion <span class="math inline">\(\hat{P}\)</span> by comparing it to a population proportion, <span class="math inline">\(P\)</span>.</li>
+<li>Interpretation: It measures how far the sample proportion deviates from the population proportion in terms of the standard deviation (for proportions).</li>
+<li>The Central Limit Theorem for the Sample Proportion.
 <ul>
-<li>The Central Limit Theorem for the Sample Proportion.</li>
 <li>For any population proportion <span class="math inline">\(p\)</span>, the sampling <span class="math inline">\(\bar{P}\)</span> is approximately normal if the sample size <span class="math inline">\(n\)</span> is sufficiently large.</li>
 <li>As a general guideline, the normal distribution approximation is justified when <span class="math inline">\(n*p&gt;=5\)</span> and <span class="math inline">\(n((1-p)&gt;=5\)</span>.</li>
 <li>If <span class="math inline">\(\bar{P}\)</span> is normal, we can transform it into the standard normal random variable as <span class="math inline">\(Z=(\hat{P}-E(\bar{P})/se(\bar{P})\)</span> = <span class="math inline">\((\hat{P}-p)/(\sqrt(p*(1-p)/n))\)</span>.</li>
@@ -1857,8 +1863,21 @@ window.Quarto = {
 <section id="summary" class="level2" data-number="6.10">
 <h2 data-number="6.10" class="anchored" data-anchor-id="summary"><span class="header-section-number">6.10</span> Summary</h2>
 <ul>
-<li>In this lesson, we learned about the basic rules of probability alongside the binomial distribution and continuous distribution. We learned about the normal distribution and the limitations of using that distribution. We also learned how to transform variables that were not normal.</li>
+<li><p>In this lesson, we learned about the basic rules of probability alongside the binomial distribution and continuous distribution. We learned about the normal distribution and the limitations of using that distribution. We also learned how to transform variables that were not normal.</p></li>
+<li><p>In a normal distribution, we used 3 main formulas.</p></li>
+<li><p>Each formula has a different role, but they all provide a way to assess variability relative to an average value, allowing for comparisons and inferences about the data or sample in question.</p></li>
 </ul>
+<span class="math display">\[\begin{array}{|c|c|c|}
+\hline
+\textbf{Formula} &amp; \textbf{Context} &amp; \textbf{Interpretation} \\
+\hline
+\frac{x - \text{mean}(x)}{\text{sd}(x)} &amp; \text{Standardizing individual data points} &amp; \text{Z-score for individual values} \\
+\hline
+\frac{x - \text{mean}(x)}{\text{sd}(x) / \sqrt{n}} &amp; \text{Standardizing the sample mean} &amp; \text{Used for hypothesis tests of means} \\
+\hline
+\frac{p - P}{\sqrt{\frac{P(1 - P)}{n}}} &amp; \text{Standardizing a sample proportion} &amp; \text{Used for hypothesis tests of proportions} \\
+\hline
+\end{array}\]</span>
 
 
 </section>
