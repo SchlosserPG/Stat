@@ -1091,17 +1091,16 @@ gridExtra::grid.arrange(cuberoot, logged, inversed, squareroot)
 
 -   In this lesson, we learned about the basic rules of probability alongside the binomial distribution and continuous distribution. We learned about the normal distribution and the limitations of using that distribution. We also learned how to transform variables that were not normal.
 
-* In a normal distribution, we used 3 main formulas. 
-* Each formula has a different role, but they all provide a way to assess variability relative to an average value, allowing for comparisons and inferences about the data or sample in question.
+-   In a normal distribution, we used 3 main formulas with the pnorm() function. Each formula has a different role, but they all provide a way to assess variability relative to an average value, allowing for comparisons and inferences about the data or sample in question.
 
-\begin{array}{|c|c|c|}
+\begin{array}{|c|c|c|c|}
 \hline
-\textbf{Formula} & \textbf{Context} & \textbf{Interpretation} \\
+\textbf{Context} & \textbf{Formula} & \textbf{Interpretation} & \textbf{pnorm Function Usage} \\
 \hline
-\frac{x - \text{mean}(x)}{\text{sd}(x)} & \text{Standardizing individual data points} & \text{Z-score for individual values} \\
+\text{Standardizing individual data points} & \frac{x - \text{mean}(x)}{\text{sd}(x)} & \text{Z-score for individual values} & \text{pnorm}(x, \text{mean}, \text{sd}) \\
 \hline
-\frac{x - \text{mean}(x)}{\text{sd}(x) / \sqrt{n}} & \text{Standardizing the sample mean} & \text{Used for hypothesis tests of means} \\
+\text{Standardizing the sample mean} & \frac{x - \text{mean}(x)}{\text{sd}(x) / \sqrt{n}} & \text{Used for hypothesis tests of means} & \text{pnorm}(x, \text{mean}, \text{se}) \\
 \hline
-\frac{\hat{p} - p}{\sqrt{\frac{p*(1 - p)}{n}}} & \text{Standardizing a sample proportion} & \text{Used for hypothesis tests of proportions} \\
+\text{Standardizing a sample proportion} & \frac{\hat{p} - p}{\sqrt{\frac{p(1 - p)}{n}}} & \text{Used for hypothesis tests of proportions} & \text{pnorm}(\hat{p}, p, \sqrt{\frac{p(1 - p)}{n}}) \\
 \hline
 \end{array}

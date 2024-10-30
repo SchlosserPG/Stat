@@ -1864,18 +1864,17 @@ window.Quarto = {
 <h2 data-number="6.10" class="anchored" data-anchor-id="summary"><span class="header-section-number">6.10</span> Summary</h2>
 <ul>
 <li><p>In this lesson, we learned about the basic rules of probability alongside the binomial distribution and continuous distribution. We learned about the normal distribution and the limitations of using that distribution. We also learned how to transform variables that were not normal.</p></li>
-<li><p>In a normal distribution, we used 3 main formulas.</p></li>
-<li><p>Each formula has a different role, but they all provide a way to assess variability relative to an average value, allowing for comparisons and inferences about the data or sample in question.</p></li>
+<li><p>In a normal distribution, we used 3 main formulas with the pnorm() function. Each formula has a different role, but they all provide a way to assess variability relative to an average value, allowing for comparisons and inferences about the data or sample in question.</p></li>
 </ul>
-<span class="math display">\[\begin{array}{|c|c|c|}
+<span class="math display">\[\begin{array}{|c|c|c|c|}
 \hline
-\textbf{Formula} &amp; \textbf{Context} &amp; \textbf{Interpretation} \\
+\textbf{Context} &amp; \textbf{Formula} &amp; \textbf{Interpretation} &amp; \textbf{pnorm Function Usage} \\
 \hline
-\frac{x - \text{mean}(x)}{\text{sd}(x)} &amp; \text{Standardizing individual data points} &amp; \text{Z-score for individual values} \\
+\text{Standardizing individual data points} &amp; \frac{x - \text{mean}(x)}{\text{sd}(x)} &amp; \text{Z-score for individual values} &amp; \text{pnorm}(x, \text{mean}, \text{sd}) \\
 \hline
-\frac{x - \text{mean}(x)}{\text{sd}(x) / \sqrt{n}} &amp; \text{Standardizing the sample mean} &amp; \text{Used for hypothesis tests of means} \\
+\text{Standardizing the sample mean} &amp; \frac{x - \text{mean}(x)}{\text{sd}(x) / \sqrt{n}} &amp; \text{Used for hypothesis tests of means} &amp; \text{pnorm}(x, \text{mean}, \text{se}) \\
 \hline
-\frac{\hat{p} - p}{\sqrt{\frac{p*(1 - p)}{n}}} &amp; \text{Standardizing a sample proportion} &amp; \text{Used for hypothesis tests of proportions} \\
+\text{Standardizing a sample proportion} &amp; \frac{\hat{p} - p}{\sqrt{\frac{p(1 - p)}{n}}} &amp; \text{Used for hypothesis tests of proportions} &amp; \text{pnorm}(\hat{p}, p, \sqrt{\frac{p(1 - p)}{n}}) \\
 \hline
 \end{array}\]</span>
 
