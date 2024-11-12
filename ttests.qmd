@@ -94,7 +94,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 #### Three Step Procedure Using The p-value Approach
 
 1.  Specify null and alternative hypothesis.
-2.  Compute the test statistic and calculate the p-value.  
+2.  Compute the test statistic and calculate the p-value.\
 3.  Interpret the probability and state the conclusion.
 
 ### Setting up Hypotheses Tests
@@ -198,10 +198,11 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   $\mu$ of interest is 12.
 
     ```{r}
-    StudyHours <- read.csv("data/StudyHours.csv")
-    summary(StudyHours)
-    t.test(StudyHours$Hours, mu=12, alternative="two.sided") 
+StudyHours <- read.csv("data/StudyHours.csv")
+summary(StudyHours)
+OneSample <- t.test(StudyHours$Hours, alterantive="two.sided", mu=12); OneSample
     #This test is significant at the .01 level as indicated by the p-value of .001047. 
+    #We are 95% confident that our true mean lies between  13.89281 and 18.85005
     ```
 
 #### One-Tailed Test
@@ -224,10 +225,16 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
         -   *greater* for right-tailed.
         -   $\mu$ of interest is 10 for 10 hours a week.
 
-        ```{r}
-        t.test(StudyHours$Hours, mu=10, alternative="greater") 
-        #This test is significant at the .001 level as indicated by the p-value of 4.398e-06. 
-        ```
+```{r}
+
+OneSampleRight <- t.test(StudyHours$Hours, alternative="greater", mu=10); OneSampleRight
+
+#test statistic is 5.224
+# p-value is very small, close to 0. This test is significant at the .001 level as indicated by the p-value of 4.398e-06. 
+#Reject the null and find that the hours of study are greater than 10 hours. 
+#We are 95% confident that the true mean is greater than 14.3091
+
+```
 
 -   A less than sign in the alternative signifies a left-tailed test.
 
@@ -242,10 +249,13 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
         -   *less* for left-tailed.
         -   $\mu$ of interest is 24 for 24 hours a week.
 
-        ```{r}
-        t.test(StudyHours$Hours, mu=24, alternative="less") 
-        #This test is significant at the .001 level as indicated by the p-value of 2.015e-07. 
-        ```
+```{r}
+OneSampleLeft <- t.test(StudyHours$Hours, alternative="less", mu=24); OneSampleLeft
+#This test is significant at the .001 level as indicated by the p-value of 2.015e-07. 
+#test statistic: -6.2547
+#p-value < .001 which means reject the null and find that true mean is less than 24
+##We are 95% confident that the true mean is less than 18.43376
+```
 
 ### Step 2. Compute the Test Statistic and calculate the p-value
 
@@ -254,8 +264,8 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   In the One-sample t-test, $m_x$ represents the mean of the variable $x$, the variable to be tested, $\mu_x$ is the population mean or hypothesized value of the variable, $s_x$ is the sample standard deviation of $s$, and $n$ is the sample size.
 -   R will compute the $df$ based on the parameters set in the t.test() command along with the test statistic, so we can rely on it to calculate this for us.
 
+### Step 3. Interpret probability and results.
 
-### Step 3. Interpret probability and results. 
 -   Set alpha ($\alpha$) to a common level, like .05, and compare it to the calculated p-value from your output in R.
 -   Reject $H_0$ if p-value is less than $\alpha$ value. This means we show support for our alternative hypothesis $H_A$, which is against status quo.
 -   Interpret the results in plain English.
@@ -282,14 +292,24 @@ library("tidyverse")
 
     -   Again, the t.test() command does both, the statement and output are listed below.
 
-    ```{r}
-    t.test(x = nhanes.2016$BPXSY1, mu = 120, alternative="two.sided")
-    ```
+```{r}
+t.test(x = nhanes.2016$BPXSY1, mu = 120, alternative="two.sided")
+###p-value is 0.01435
+####At an alpha of .05 - we reject the null. 
+###At an alpha of .01 or .001 - we fail to reject the null. 
+
+##We are 95$ confident that our true mean is in between  120.1077 and 120.9711
+##sample mean of 120.5394 
+```
+
 
 -   Step 3: Interpret probability and results.
 
     -   We found a test statistic is 2.4491, and a corresponding p-value is .01435. If our alpha was set to .05, .01435 is smaller than that (p-value \< alpha) This indicates that we should reject the null ($H_0$) and support the alternative ($H_A$) that the true mean is not equal to 120. This is in regards to blood pressure.
-    -   Therefore, the sample mean systolic BP not equal to 120, or more formally the mean systolic blood pressure in a sample of 7,145 people was 120.54 (sd = 18.62). And our one-sample t-test found this mean to be statistically significantly different from the hypothesized mean of 120 \[t(7144) = 2.449; p = 0.01435\]. This indicates that the sample likely came from a population with a mean systolic blood pressure not equal to 120, signifying that the true population is likely not equal to 120.
+    -   Therefore, the sample mean systolic BP not equal to 120, or more formally the mean systolic blood pressure in a sample of 7,145 people was 120.54 (sd = 18.62). And our one-sample t-test found this mean to be statistically significantly different from the hypothesized mean of 120 \[t(7144) = 2.449; p = 0.01435\]. 
+
+* This indicates that the sample likely came from a population with a mean systolic blood pressure not equal to 120, signifying that the true population is likely not equal to 120.
+* Take note that if we used a smaller alpha (like .01 or .001), we would not pass the test and instead fail to reject the null. 
 
 ### Example of a One-Sample Using a Subset
 
@@ -309,6 +329,7 @@ nhanes.2016.65plus <- nhanes.2016 %>%
 
 ```{r}
 t.test(x = nhanes.2016.65plus$BPXSY1, mu = 120)
+###Reject Ho and find that Systolic BP is different for people 65 and older.
 ```
 
 -   Step 3: Interpret probability and results.
@@ -359,20 +380,26 @@ t.test(x = nhanes.2016.65plus$BPXSY1, mu = 120)
 
         -   The statement assumes that men's spending and women's spending are in 2 different columns in the data set. Therefore, the format t.test(var1, var2) should be used.
 
-        ```{r}
-        Spend <- read.csv("data/Spend.csv")
-        summary(Spend)
-        ```
+```{r}
+Spend <- read.csv("data/Spend.csv")
+summary(Spend)
+```
 
 ```{r}
 t.test(Spend$MenSpend, Spend$WomenSpend, alternative= "two.sided", mu=0) 
 #This test is not significant as indicated by a p-value = 0.1259 which is greater than .05. 
+##95% confident that the true mean difference is in between  -3.984055 and 31.317388
 ```
 
 -   The alternative $H_A$ and $\mu$ are not changed off their default values, so the statement above could be simplified from what is provided to the statement below.
 
 ```{r}
 t.test(Spend$MenSpend, Spend$WomenSpend)
+
+#Take note of the order of the means present in the t-test function. 
+mean(Spend$MenSpend) #100.9
+mean(Spend$WomenSpend) #87.23333
+
 ```
 
 -   Example of a right-tailed test: Is men's spending ($\bar{x}_1$) greater than that of women's spending ($\bar{x}_2$)?
@@ -409,7 +436,7 @@ Formula for the Test Statistic: $t = (m_1 - m_2)/\sqrt((s^2_1/n_1)+(s^2_2/n_2))$
 
 -   There is a 95% confidence interval around the difference between the groups.
 
-* Calculate the p-value and Compare it to a Predetermined Alpha level
+-   Calculate the p-value and Compare it to a Predetermined Alpha level
 
 ### Step 3: Interpret the Probability and Write a Conclusion
 
@@ -563,7 +590,7 @@ Formula for the Test Statistic: $t = (m_d-d_0)/\sqrt((s^2_d/n_d)$
 
 -   Dependent samples t-test formula: The $m_d$ is the mean of the differences between the related measures, the $s^2_d$ is the variance of the mean difference between the measures, and $n_d$ is the sample size. The dependent samples t-test worked a little differently from the independent samples t-test. In this case, the formula uses the mean of the differences between the two related measures.
 
-* Calculate the p-value and Compare it to a Predetermined Alpha level
+-   Calculate the p-value and Compare it to a Predetermined Alpha level
 
 ### Step 3: Interpret the Probability and Write a Conclusion
 
