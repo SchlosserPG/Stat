@@ -488,10 +488,8 @@ window.Quarto = {
 <h3 data-number="9.3.1" class="anchored" data-anchor-id="steps-for-conducting-a-one-way-anova"><span class="header-section-number">9.3.1</span> Steps for Conducting a One-Way Anova</h3>
 <ol type="1">
 <li>Write the null and alternate hypotheses.</li>
-<li>Compute the F-test statistic.</li>
-<li>Compute the probability for the test statistic (p-value).</li>
-<li>Interpret the probability.</li>
-<li>Write a conclusion.</li>
+<li>Compute the F-test statistic and the probability for the test statistic (p-value).</li>
+<li>Interpret the probability and write a conclusion.</li>
 <li>If model is significant, run post-hoc tests.</li>
 </ol>
 </section>
@@ -561,7 +559,7 @@ window.Quarto = {
 <section id="example-of-a-one-way-anova" class="level3" data-number="9.3.3">
 <h3 data-number="9.3.3" class="anchored" data-anchor-id="example-of-a-one-way-anova"><span class="header-section-number">9.3.3</span> Example of a One-Way ANOVA</h3>
 <ul>
-<li>Like the t-test, a one-way ANOVA follows 5 steps, and then includes an optional 6th step after significance is found and confirmed in step 5.</li>
+<li>Like the t-test, a one-way ANOVA follows 3 steps, and then includes an optional 4th step after significance is found and confirmed in step 3.</li>
 </ul>
 <section id="step-1-set-up-null-and-alternative-hypothesis" class="level4" data-number="9.3.3.1">
 <h4 data-number="9.3.3.1" class="anchored" data-anchor-id="step-1-set-up-null-and-alternative-hypothesis"><span class="header-section-number">9.3.3.1</span> Step 1: Set Up Null and Alternative Hypothesis</h4>
@@ -573,8 +571,8 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-<section id="steps-2-and-3-compute-the-f-test-statistic-and-p-value" class="level4" data-number="9.3.3.2">
-<h4 data-number="9.3.3.2" class="anchored" data-anchor-id="steps-2-and-3-compute-the-f-test-statistic-and-p-value"><span class="header-section-number">9.3.3.2</span> Steps 2 and 3: Compute the F-test Statistic and p-Value</h4>
+<section id="step-2-compute-the-f-test-statistic-and-p-value" class="level4" data-number="9.3.3.2">
+<h4 data-number="9.3.3.2" class="anchored" data-anchor-id="step-2-compute-the-f-test-statistic-and-p-value"><span class="header-section-number">9.3.3.2</span> Step 2: Compute the F-test Statistic and p-Value</h4>
 <ul>
 <li><p>First, we read in the data set and give a look at what is included.</p>
 <ul>
@@ -655,8 +653,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="steps-4-and-5-interpret-the-probability-and-write-a-conclusion." class="level4" data-number="9.3.3.3">
-<h4 data-number="9.3.3.3" class="anchored" data-anchor-id="steps-4-and-5-interpret-the-probability-and-write-a-conclusion."><span class="header-section-number">9.3.3.3</span> Steps 4 and 5: Interpret the Probability and Write a conclusion.</h4>
+<section id="step-3-interpret-the-probability-and-write-a-conclusion." class="level4" data-number="9.3.3.3">
+<h4 data-number="9.3.3.3" class="anchored" data-anchor-id="step-3-interpret-the-probability-and-write-a-conclusion."><span class="header-section-number">9.3.3.3</span> Step 3: Interpret the Probability and Write a conclusion.</h4>
 <ul>
 <li>The F-test statistic is 37.251 and the p-value is &lt; 2.2e-16 ***. This p-value is &lt; all typical alpha values like .05 or .001. This value is very close to 0. We would state that our p-value is less than .001 by looking at the table and noting the three asterisks.<br>
 </li>
@@ -664,8 +662,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>More specifically we reject the null hypothesis <span class="math inline">\(H_0\)</span> in support of <span class="math inline">\(H_A\)</span> and conclude that not all congestion levels are equal among the cities.</li>
 </ul>
 </section>
-<section id="step-6-if-model-is-significant-run-post-hoc-tests" class="level4" data-number="9.3.3.4">
-<h4 data-number="9.3.3.4" class="anchored" data-anchor-id="step-6-if-model-is-significant-run-post-hoc-tests"><span class="header-section-number">9.3.3.4</span> Step 6: If Model is Significant, Run Post-Hoc Tests</h4>
+<section id="step-4-if-model-is-significant-run-post-hoc-tests" class="level4" data-number="9.3.3.4">
+<h4 data-number="9.3.3.4" class="anchored" data-anchor-id="step-4-if-model-is-significant-run-post-hoc-tests"><span class="header-section-number">9.3.3.4</span> Step 4: If Model is Significant, Run Post-Hoc Tests</h4>
 <ul>
 <li><p>Pairwise comparisons: A statistical strategy for comparing different groups, often used after a statistically significant ANOVA to test hypotheses about which group means are statistically significantly different from one another.</p>
 <ol type="1">
@@ -820,10 +818,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h3 data-number="9.4.1" class="anchored" data-anchor-id="steps-for-conducting-a-two-way-anova"><span class="header-section-number">9.4.1</span> Steps for Conducting a Two-Way ANOVA</h3>
 <ol type="1">
 <li>Write the null and alternate hypotheses for each grouping variable.</li>
-<li>Compute the F-test statistics for each grouping variable.</li>
-<li>Compute the probability for the test statistics (2 p-values for a 2-way ANOVA).</li>
-<li>Interpret the probabilities.</li>
-<li>Write a conclusion.</li>
+<li>Compute the F-test statistics for each grouping variable and the probability for the test statistics (2 p-values for a 2-way ANOVA).</li>
+<li>Interpret the probabilities and write a conclusion.</li>
 <li>If model is significant, run post-hoc tests.</li>
 </ol>
 <ul>
@@ -918,8 +914,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="steps-2-and-3-compute-the-f-test-statistics-and-p-values" class="level4" data-number="9.4.3.2">
-<h4 data-number="9.4.3.2" class="anchored" data-anchor-id="steps-2-and-3-compute-the-f-test-statistics-and-p-values"><span class="header-section-number">9.4.3.2</span> Steps 2 and 3: Compute the F-test Statistics and p-Values</h4>
+<section id="step-2-compute-the-f-test-statistics-and-p-values" class="level4" data-number="9.4.3.2">
+<h4 data-number="9.4.3.2" class="anchored" data-anchor-id="step-2-compute-the-f-test-statistics-and-p-values"><span class="header-section-number">9.4.3.2</span> Step 2: Compute the F-test Statistics and p-Values</h4>
 <ul>
 <li><p>Like a one-way ANOVA, in a two-way ANOVA, we start with an appropriate data set.</p>
 <ul>
@@ -941,8 +937,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div></li>
 </ul>
 </section>
-<section id="steps-4-and-5-interpret-the-probabilities-and-write-a-conclusion" class="level4" data-number="9.4.3.3">
-<h4 data-number="9.4.3.3" class="anchored" data-anchor-id="steps-4-and-5-interpret-the-probabilities-and-write-a-conclusion"><span class="header-section-number">9.4.3.3</span> Steps 4 and 5: Interpret the Probabilities and Write a Conclusion</h4>
+<section id="step-3-interpret-the-probabilities-and-write-a-conclusion" class="level4" data-number="9.4.3.3">
+<h4 data-number="9.4.3.3" class="anchored" data-anchor-id="step-3-interpret-the-probabilities-and-write-a-conclusion"><span class="header-section-number">9.4.3.3</span> Step 3: Interpret the Probabilities and Write a Conclusion</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Anova2way <span class="ot">&lt;-</span> <span class="fu">aov</span>(SAT <span class="sc">~</span> Instructor <span class="sc">+</span> Race, <span class="at">data =</span> SATdata)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Anova2way)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -961,8 +957,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><p>This means that we can conduct post-hoc tests on our Race variable. If we conduct any post-hoc tests on Instructor, we should find no differences in groups (which we already found in the ANOVA results above). This means additional testing the Instructor variable is an unnecessary step.</p></li>
 </ul>
 </section>
-<section id="step-6-if-model-is-significant-run-post-hoc-tests-1" class="level4" data-number="9.4.3.4">
-<h4 data-number="9.4.3.4" class="anchored" data-anchor-id="step-6-if-model-is-significant-run-post-hoc-tests-1"><span class="header-section-number">9.4.3.4</span> Step 6: If Model is Significant, Run Post-Hoc Tests</h4>
+<section id="step-4-if-model-is-significant-run-post-hoc-tests-1" class="level4" data-number="9.4.3.4">
+<h4 data-number="9.4.3.4" class="anchored" data-anchor-id="step-4-if-model-is-significant-run-post-hoc-tests-1"><span class="header-section-number">9.4.3.4</span> Step 4: If Model is Significant, Run Post-Hoc Tests</h4>
 <ul>
 <li>Using the pairwise.t.test() command, we can run a Bonferroni test on just race by using the command below. This result suggest that there are group differences between all groups. We can tell that because all p-values are less than alpha at .05.<br>
 </li>
@@ -1067,7 +1063,7 @@ White-Mexican.American           201.96667  166.74805  237.18528 0.0000000</code
 <li><p>What are post-hoc tests, and why are they important after conducting an ANOVA? How do the TukeyHSD and Bonferroni methods differ in terms of reducing Type I and Type II errors?</p></li>
 <li><p>Explain Type I and Type II errors in the context of hypothesis testing. How do these errors relate to the significance level (alpha) and the power of a test?</p></li>
 <li><p>Given an R output from the aov() or anova() function, explain how to interpret the degrees of freedom, sum of squares, mean square, F-statistic, and p-value.</p></li>
-<li><p>Provide a step-by-step guide to performing a one-way ANOVA in R using the aov() function. Include code examples and explain how to interpret the summary output.”</p></li>
+<li><p>Provide a step-by-step guide to performing a one-way ANOVA in R using the aov() function. Include code examples and explain how to interpret the summary output.</p></li>
 <li><p>Compare the TukeyHSD and Bonferroni post-hoc tests. Which one is more conservative, and how do they help in reducing error in multiple comparisons?</p></li>
 </ul>
 </section>

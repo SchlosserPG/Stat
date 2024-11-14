@@ -128,11 +128,9 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ### Steps for Conducting a One-Way Anova
 
 1.  Write the null and alternate hypotheses.
-2.  Compute the F-test statistic.
-3.  Compute the probability for the test statistic (p-value).
-4.  Interpret the probability.
-5.  Write a conclusion.
-6.  If model is significant, run post-hoc tests.
+2.  Compute the F-test statistic and the probability for the test statistic (p-value).
+3.  Interpret the probability and write a conclusion.
+4.  If model is significant, run post-hoc tests.
 
 ### Statistics in a One-Way ANOVA Table
 
@@ -186,7 +184,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ### Example of a One-Way ANOVA
 
--   Like the t-test, a one-way ANOVA follows 5 steps, and then includes an optional 6th step after significance is found and confirmed in step 5.
+-   Like the t-test, a one-way ANOVA follows 3 steps, and then includes an optional 4th step after significance is found and confirmed in step 3.
 
 #### Step 1: Set Up Null and Alternative Hypothesis
 
@@ -194,7 +192,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   $H_0: \mu_{Atlanta} = \mu_{Houston}= \mu_{LosAngeles} = \mu_{SanFran} = \mu_{DC}$
     -   $H_A:$ Not all population means of congestion levels are equal among the cities
 
-#### Steps 2 and 3: Compute the F-test Statistic and p-Value
+#### Step 2: Compute the F-test Statistic and p-Value
 
 -   First, we read in the data set and give a look at what is included.
 
@@ -236,13 +234,13 @@ anova(Anova1way)
     -   We never say our p-value is 0, but instead say it is less than \_\_\_.
     -   We *do not* use .1 as a significance level, although some statisticians mark a p-value less than .1 as "marginally significant". There is a big debate about this, but I agree with the general consensus, so our threshold for this class is less than .05. Anything greater than or equal to .05 is not significant.
 
-#### Steps 4 and 5: Interpret the Probability and Write a conclusion.
+#### Step 3: Interpret the Probability and Write a conclusion.
 
 -   The F-test statistic is 37.251 and the p-value is \< 2.2e-16 \*\*\*. This p-value is \< all typical alpha values like .05 or .001. This value is very close to 0. We would state that our p-value is less than .001 by looking at the table and noting the three asterisks.\
 -   The p-value result suggests that we support the alternative $H_A$: Not all population means are equal.
 -   More specifically we reject the null hypothesis $H_0$ in support of $H_A$ and conclude that not all congestion levels are equal among the cities.
 
-#### Step 6: If Model is Significant, Run Post-Hoc Tests
+#### Step 4: If Model is Significant, Run Post-Hoc Tests
 
 -   Pairwise comparisons: A statistical strategy for comparing different groups, often used after a statistically significant ANOVA to test hypotheses about which group means are statistically significantly different from one another.
 
@@ -330,11 +328,9 @@ summary.aov(Anova1way, split = list(City = list(`Atl vs. West Coast` = 1)))
 ### Steps for Conducting a Two-Way ANOVA
 
 1.  Write the null and alternate hypotheses for each grouping variable.
-2.  Compute the F-test statistics for each grouping variable.
-3.  Compute the probability for the test statistics (2 p-values for a 2-way ANOVA).
-4.  Interpret the probabilities.
-5.  Write a conclusion.
-6.  If model is significant, run post-hoc tests.
+2.  Compute the F-test statistics for each grouping variable and the probability for the test statistics (2 p-values for a 2-way ANOVA).
+3.  Interpret the probabilities and write a conclusion.
+4.  If model is significant, run post-hoc tests.
 
 -   The steps are the same as a one-way ANOVA listed above, with the exception that now we have 2 grouping variables, so we need 2 F-stats and 2 p-values.
 
@@ -411,7 +407,7 @@ summary.aov(Anova1way, split = list(City = list(`Atl vs. West Coast` = 1)))
     -   $H_0: \mu_{Asian.American} = \mu_{Black} = \mu_{Mexical.American} =  \mu_{White}$
     -   $H_A:$ Not all population means of SAT scores are equal among races
 
-#### Steps 2 and 3: Compute the F-test Statistics and p-Values
+#### Step 2: Compute the F-test Statistics and p-Values
 
 -   Like a one-way ANOVA, in a two-way ANOVA, we start with an appropriate data set.
 
@@ -423,7 +419,7 @@ summary.aov(Anova1way, split = list(City = list(`Atl vs. West Coast` = 1)))
     summary(SATdata)
     ```
 
-#### Steps 4 and 5: Interpret the Probabilities and Write a Conclusion
+#### Step 3: Interpret the Probabilities and Write a Conclusion
 
 ```{r}
 Anova2way <- aov(SAT ~ Instructor + Race, data=SATdata) 
@@ -436,7 +432,7 @@ summary(Anova2way)
 
 -   This means that we can conduct post-hoc tests on our Race variable. If we conduct any post-hoc tests on Instructor, we should find no differences in groups (which we already found in the ANOVA results above). This means additional testing the Instructor variable is an unnecessary step.
 
-#### Step 6: If Model is Significant, Run Post-Hoc Tests
+#### Step 4: If Model is Significant, Run Post-Hoc Tests
 
 -   Using the pairwise.t.test() command, we can run a Bonferroni test on just race by using the command below. This result suggest that there are group differences between all groups. We can tell that because all p-values are less than alpha at .05.\
 
@@ -485,22 +481,21 @@ choose(3,2)
 
 -   Use the following prompts on a generative AI, like chatGPT, to learn more about ANOVA analysis.
 
-* Explain how ANOVA is used to compare group means. What are the assumptions of ANOVA, and how do we interpret the F-statistic and p-value?
+-   Explain how ANOVA is used to compare group means. What are the assumptions of ANOVA, and how do we interpret the F-statistic and p-value?
 
-* Walk me through the steps of conducting a one-way ANOVA. Explain how to use the aov() function in R and how to interpret the results, including the F-statistic and p-value.
+-   Walk me through the steps of conducting a one-way ANOVA. Explain how to use the aov() function in R and how to interpret the results, including the F-statistic and p-value.
 
-* Describe how to conduct a two-way ANOVA in R. What are the key differences between one-way and two-way ANOVA, and how do we interpret multiple F-statistics?
+-   Describe how to conduct a two-way ANOVA in R. What are the key differences between one-way and two-way ANOVA, and how do we interpret multiple F-statistics?
 
-* What are post-hoc tests, and why are they important after conducting an ANOVA? How do the TukeyHSD and Bonferroni methods differ in terms of reducing Type I and Type II errors?
+-   What are post-hoc tests, and why are they important after conducting an ANOVA? How do the TukeyHSD and Bonferroni methods differ in terms of reducing Type I and Type II errors?
 
-* Explain Type I and Type II errors in the context of hypothesis testing. How do these errors relate to the significance level (alpha) and the power of a test?
+-   Explain Type I and Type II errors in the context of hypothesis testing. How do these errors relate to the significance level (alpha) and the power of a test?
 
-* Given an R output from the aov() or anova() function, explain how to interpret the degrees of freedom, sum of squares, mean square, F-statistic, and p-value.
+-   Given an R output from the aov() or anova() function, explain how to interpret the degrees of freedom, sum of squares, mean square, F-statistic, and p-value.
 
-* Provide a step-by-step guide to performing a one-way ANOVA in R using the aov() function. Include code examples and explain how to interpret the summary output."
+-   Provide a step-by-step guide to performing a one-way ANOVA in R using the aov() function. Include code examples and explain how to interpret the summary output.
 
-* Compare the TukeyHSD and Bonferroni post-hoc tests. Which one is more conservative, and how do they help in reducing error in multiple comparisons?
-
+-   Compare the TukeyHSD and Bonferroni post-hoc tests. Which one is more conservative, and how do they help in reducing error in multiple comparisons?
 
 ## Summary
 
