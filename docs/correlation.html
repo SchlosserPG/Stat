@@ -281,9 +281,11 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#cor.test-command" id="toc-cor.test-command" class="nav-link" data-scroll-target="#cor.test-command"><span class="header-section-number">10.5.1</span> cor.test() Command</a></li>
   </ul></li>
-  <li><a href="#limitations-of-correlation-analysis" id="toc-limitations-of-correlation-analysis" class="nav-link" data-scroll-target="#limitations-of-correlation-analysis"><span class="header-section-number">10.6</span> Limitations of Correlation Analysis</a></li>
-  <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai"><span class="header-section-number">10.7</span> Using AI</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.8</span> Summary</a></li>
+  <li><a href="#additional-examples" id="toc-additional-examples" class="nav-link" data-scroll-target="#additional-examples"><span class="header-section-number">10.6</span> Additional Examples</a></li>
+  <li><a href="#comparing-to-t.test-and-anova" id="toc-comparing-to-t.test-and-anova" class="nav-link" data-scroll-target="#comparing-to-t.test-and-anova"><span class="header-section-number">10.7</span> Comparing to t.test and ANOVA</a></li>
+  <li><a href="#limitations-of-correlation-analysis" id="toc-limitations-of-correlation-analysis" class="nav-link" data-scroll-target="#limitations-of-correlation-analysis"><span class="header-section-number">10.8</span> Limitations of Correlation Analysis</a></li>
+  <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai"><span class="header-section-number">10.9</span> Using AI</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.10</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -567,10 +569,234 @@ sample estimates:
 </ul>
 </section>
 </section>
-<section id="limitations-of-correlation-analysis" class="level2" data-number="10.6">
-<h2 data-number="10.6" class="anchored" data-anchor-id="limitations-of-correlation-analysis"><span class="header-section-number">10.6</span> Limitations of Correlation Analysis</h2>
+<section id="additional-examples" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="additional-examples"><span class="header-section-number">10.6</span> Additional Examples</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Credit"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Credit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       ID            Income           Limit           Rating     
+ Min.   :  1.0   Min.   : 10.35   Min.   :  855   Min.   : 93.0  
+ 1st Qu.:100.8   1st Qu.: 21.01   1st Qu.: 3088   1st Qu.:247.2  
+ Median :200.5   Median : 33.12   Median : 4622   Median :344.0  
+ Mean   :200.5   Mean   : 45.22   Mean   : 4736   Mean   :354.9  
+ 3rd Qu.:300.2   3rd Qu.: 57.47   3rd Qu.: 5873   3rd Qu.:437.2  
+ Max.   :400.0   Max.   :186.63   Max.   :13913   Max.   :982.0  
+     Cards            Age          Education        Gender    Student  
+ Min.   :1.000   Min.   :23.00   Min.   : 5.00    Male :193   No :360  
+ 1st Qu.:2.000   1st Qu.:41.75   1st Qu.:11.00   Female:207   Yes: 40  
+ Median :3.000   Median :56.00   Median :14.00                         
+ Mean   :2.958   Mean   :55.67   Mean   :13.45                         
+ 3rd Qu.:4.000   3rd Qu.:70.00   3rd Qu.:16.00                         
+ Max.   :9.000   Max.   :98.00   Max.   :20.00                         
+ Married              Ethnicity      Balance       
+ No :155   African American: 99   Min.   :   0.00  
+ Yes:245   Asian           :102   1st Qu.:  68.75  
+           Caucasian       :199   Median : 459.50  
+                                  Mean   : 520.01  
+                                  3rd Qu.: 863.00  
+                                  Max.   :1999.00  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(Credit)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Rating, Income)  <span class="co">#0.7913776 moderate and positive</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Rating and Income
+t = 25.826, df = 398, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.751651 0.825383
+sample estimates:
+      cor 
+0.7913776 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Rating, Balance)  <span class="co">#0.8636252 strong and positive</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Rating and Balance
+t = 34.176, df = 398, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.8363997 0.8865997
+sample estimates:
+      cor 
+0.8636252 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Rating, Limit)  <span class="co">#0.9968797 strong and positive</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Rating and Limit
+t = 251.95, df = 398, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.9962026 0.9974363
+sample estimates:
+      cor 
+0.9968797 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## almost perfectly linear</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Credit, <span class="fu">aes</span>(Rating, Limit)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Rating, Education)  <span class="co">#-0.03013563 no correlation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Rating and Education
+t = -0.60148, df = 398, p-value = 0.5479
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.12780969  0.06811737
+sample estimates:
+        cor 
+-0.03013563 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Rating, Age)  <span class="co">#0.103165 - between -.2 and .2 - so no relationship even though p-value &lt; .05 -- p-value fails at .01 level. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Rating and Age
+t = 2.0692, df = 398, p-value = 0.03917
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.005165528 0.199201690
+sample estimates:
+     cor 
+0.103165 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Credit, <span class="fu">aes</span>(Rating, Age)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Rating, Cards)  <span class="co">#0.05323903 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Rating and Cards
+t = 1.0636, df = 398, p-value = 0.2881
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.04504785  0.15050509
+sample estimates:
+       cor 
+0.05323903 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Credit, <span class="fu">aes</span>(Rating, Cards)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation_files/figure-html/unnamed-chunk-11-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="comparing-to-t.test-and-anova" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="comparing-to-t.test-and-anova"><span class="header-section-number">10.7</span> Comparing to t.test and ANOVA</h2>
 <ul>
-<li>To determine a causal model, you need the following:</li>
+<li>A t-test examines if there is a significant difference in the means of two groups on a dependent variable. For example, whether males and females differ in their credit ratings, where a correlation measures the strength and direction of a linear relationship between two continuous variables, such as Rating and Income.</li>
+<li>An independent t-test requires a categorical independent variable (e.g., Gender) with two levels and a continuous dependent variable (e.g., Rating), where a correlation requires two continuous variables.</li>
+<li>Both can provide insights into relationships in the dataset, but they address different questions. An independent t-test evaluates mean differences (group comparisons), while correlation evaluates relationships (continuous covariation). * A significant t-test does not imply a strong correlation between the grouping variable and the dependent variable; the correlation would depend on the coding of the categorical variable and the distribution of data</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">## -- Example of an independent t.test using same dataset</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Rating <span class="sc">~</span> Gender, <span class="at">data =</span> Credit)  <span class="do">##no group differences</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  Rating by Gender
+t = -0.17703, df = 393.54, p-value = 0.8596
+alternative hypothesis: true difference in means between group  Male and group Female is not equal to 0
+95 percent confidence interval:
+ -33.26095  27.76582
+sample estimates:
+ mean in group  Male mean in group Female 
+            353.5181             356.2657 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Credit, <span class="fu">aes</span>(Gender, Rating)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Rating <span class="sc">~</span> Married, <span class="at">data =</span> Credit)  <span class="do">##no group differences</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  Rating by Married
+t = -0.74241, df = 340.4, p-value = 0.4584
+alternative hypothesis: true difference in means between group No and group Yes is not equal to 0
+95 percent confidence interval:
+ -42.54190  19.22762
+sample estimates:
+ mean in group No mean in group Yes 
+         347.8000          359.4571 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Credit, <span class="fu">aes</span>(Married, Rating)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>An ANOVA tests for significant differences in the means of three or more groups on a dependent variable. For example, whether credit ratings differ across ethnic groups, where a correlation examines the strength of the relationship between two continuous variables.</li>
+<li>An Anova requires a categorical independent variable (with three or more levels) and a continuous dependent variable, where a correlation requires two continuous variables.</li>
+<li>ANOVA focuses on group comparisons (e.g., Rating differences across Ethnicity), while correlation looks at how two variables change together.A significant ANOVA could suggest that the categorical grouping variable explains some variance in the dependent variable, but this variance is not quantified as a relationship strength (as correlation would provide).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## -- Example of An ANOVA using same dataset</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>anova1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Rating <span class="sc">~</span> Ethnicity, <span class="at">data =</span> Credit)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(anova1)  <span class="co">#no group differences - no need for a post hoc test. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: Rating
+           Df  Sum Sq Mean Sq F value Pr(&gt;F)
+Ethnicity   2   19388  9694.1  0.4037 0.6681
+Residuals 397 9532496 24011.3               </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Credit, <span class="fu">aes</span>(Ethnicity, Rating, <span class="at">fill =</span> Ethnicity)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="limitations-of-correlation-analysis" class="level2" data-number="10.8">
+<h2 data-number="10.8" class="anchored" data-anchor-id="limitations-of-correlation-analysis"><span class="header-section-number">10.8</span> Limitations of Correlation Analysis</h2>
+<ul>
+<li><p>Note that a correlation is the first step in understanding causality. Correlation and causality are closely related but fundamentally different concepts in data analysis. Correlation refers to the statistical relationship between two variables, indicating how changes in one variable are associated with changes in another. However, it does not imply that one variable causes the other to change. Causality, on the other hand, goes beyond mere association to establish a cause-and-effect relationship, where one variable directly influences the other. Determining causality requires meeting specific criteria, including significant association, temporal precedence (the cause precedes the effect), and ruling out alternative explanations or confounding variables. While correlation is often the first step in exploring potential relationships, additional analysis—such as experimental design or causal modeling—is necessary to confirm causality. This distinction highlights the importance of critical thinking when interpreting statistical results, as a strong correlation alone does not prove that one variable is the cause of another.</p></li>
+<li><p>To determine a causal model, you need the following:</p></li>
 </ul>
 <ol type="1">
 <li>Significant Correlation: Statistically significant relationship between the variables.</li>
@@ -584,11 +810,11 @@ sample estimates:
 <li>The correlation coefficient may not be a reliable measure in the presence of outliers.</li>
 <li>Even if two variables are highly correlated, one does not necessarily cause the other.</li>
 </ul></li>
-<li>Note that a correlation is the first step in understanding causality.</li>
+<li>When interpreting results, note that lack of significance does not mean a variable X has no relationship with Y; it might suggest a more complex or non-linear relationship.</li>
 </ul>
 </section>
-<section id="using-ai" class="level2" data-number="10.7">
-<h2 data-number="10.7" class="anchored" data-anchor-id="using-ai"><span class="header-section-number">10.7</span> Using AI</h2>
+<section id="using-ai" class="level2" data-number="10.9">
+<h2 data-number="10.9" class="anchored" data-anchor-id="using-ai"><span class="header-section-number">10.9</span> Using AI</h2>
 <ul>
 <li><p>Use the following prompt on a generative AI, like chatGPT, to learn more about correlation analysis.</p></li>
 <li><p>Explain the difference between covariance and correlation. How do you interpret the direction and strength of a correlation coefficient?”</p></li>
@@ -602,8 +828,8 @@ sample estimates:
 <li><p>What are the key differences between correlation and causation? How can you determine if a correlation implies causality?</p></li>
 </ul>
 </section>
-<section id="summary" class="level2" data-number="10.8">
-<h2 data-number="10.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">10.8</span> Summary</h2>
+<section id="summary" class="level2" data-number="10.10">
+<h2 data-number="10.10" class="anchored" data-anchor-id="summary"><span class="header-section-number">10.10</span> Summary</h2>
 <ul>
 <li>In this lesson, we learned about correlation coefficient and how to evaluate a strong, moderate, or weak/positive or negative correlation. We also learned how to visualize a relationship using a scatterplot. We also learned how to test for a correlation being significant or not.</li>
 </ul>

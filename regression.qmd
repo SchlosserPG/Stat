@@ -85,7 +85,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     1.  Standard Error of the Estimate
     2.  The Coefficient of Determination ($R^2$)
     3.  The Adjusted $R^2$
--   In order to make sense of the goodness of fit measures, we need to go back to the idea of explained and unexplained variance we learned in Chapter 7. Variance can also be known as a difference.\
+-   In order to make sense of the goodness of fit measures, we need to go back to the idea of explained and unexplained variance we learned in the ANOVA lesson. Variance can also be known as a difference.\
 -   Unexplained Variance = SSE or Sum of Squares Error: This equals the sum of squared difference between A and B, or between the sum of squares of the difference between observation ($y_i$) and our predicted value of y ($\hat{y}$).
     -   $SSE = \sum^n_{i=1}(y_i - \hat{y})^2$
 -   Explained Variance = SSR or Sum of Squares Regression: This equals the sum of squared difference between B and C, or between the sum of squares of the difference between our predicted value ($\hat{y}$) and the mean of y ($\bar{y}$).
@@ -160,7 +160,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ### Example of Simple Linear Regression in R
 
--   The broad steps are the same as we used in Chapter 6 and 7 when setting up the t-tests and ANOVA hypothesis: 1. set up the hypothesis 2. compute the Test Statistic, 3. calculate probability 4. interpret and 5. write a conclusion.
+-   The broad steps are the same as we used in Chapter 6 and 7 when setting up the t-tests and ANOVA hypothesis: 1. set up the hypothesis 2. compute the Test Statistic and calculate probability 3. interpret results and write a conclusion.
 
 -   Step 1: Set Up the Null and Alternative Hypothesis
 
@@ -168,7 +168,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 -   $H_A$: The slope of the line is not equal to zero.
 
--   Step 2 and 3: Compute the Test Statistic and Calculate Probability
+-   Step 2: Compute the Test Statistic and Calculate Probability
 
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -181,7 +181,7 @@ Simple <- lm(Debt~Income, data=Debt_Payments)
 summary(Simple)
 ```
 
--   Steps 4 and 5: Interpret the Probability and Write a Conclusion
+-   Step 3: Interpret the Probability and Write a Conclusion
 -   We interpret the probability and write a conclusion after looking at the following:
 
 1.  Goodness of Fit Measures
@@ -275,7 +275,7 @@ predict(Simple, data.frame(Income=100))
     -   $H_0$: The slope of the line in regards to Unemployment is equal to zero.
     -   $H_A$: The slope of the line in regards to Unemployment is not equal to zero.
 
-2.  Step 2 and 3: Compute the test statistic and calculate probability
+2.  Step 2: Compute the test statistic and calculate probability
 
 ```{r}
 Debt_Payments <- read.csv("data/DebtPayments.csv")
@@ -283,7 +283,7 @@ Multiple <-lm(Debt~Income+Unemployment, data=Debt_Payments)
 summary(Multiple)
 ```
 
-3.  Steps 4 and 5: Interpret the probability and write a conclusion
+3.  Step 3: Interpret the probability and write a conclusion
 
 -   We interpret the probability and write a conclusion after looking at the following:
     -   Goodness of Fit Measures
@@ -413,26 +413,24 @@ vif(creditlm)
 ## Using AI
 
 -   Use the following prompts on a generative AI, like chatGPT, to learn more about regression analysis in R.
-    
-* Explain how to perform simple linear regression in R. Use the lm() function and discuss how to interpret the slope, intercept, and R-squared values from the regression output. 
 
-* What is the coefficient of determination (R-squared) in regression analysis, and how does it relate to the goodness of fit? How can the residual standard error (RSE) and adjusted R-squared help in interpreting a model? 
+-   Explain how to perform simple linear regression in R. Use the lm() function and discuss how to interpret the slope, intercept, and R-squared values from the regression output.
 
-* Describe how to perform multiple linear regression in R using the lm() function. How do you interpret the coefficients for multiple predictors, and what do the p-values tell you about their significance?
+-   What is the coefficient of determination (R-squared) in regression analysis, and how does it relate to the goodness of fit? How can the residual standard error (RSE) and adjusted R-squared help in interpreting a model?
 
-* What does the F-statistic in a regression output indicate? How does it help in determining the significance of a regression model, and what role does it play when comparing multiple models? 
+-   Describe how to perform multiple linear regression in R using the lm() function. How do you interpret the coefficients for multiple predictors, and what do the p-values tell you about their significance?
 
-* Explain how ANOVA is related to regression analysis. How can the F-test be used to assess the significance of regression models? 
-What are residuals in a regression model, and how can analyzing them help assess model fit? How is the sum of squared errors (SSE) related to residual analysis? 
+-   What does the F-statistic in a regression output indicate? How does it help in determining the significance of a regression model, and what role does it play when comparing multiple models?
 
-* What is multicollinearity, and why is it problematic in multiple regression? How can you detect multicollinearity in R using the vif() function, and what steps can be taken to address it? 
+-   Explain how ANOVA is related to regression analysis. How can the F-test be used to assess the significance of regression models? What are residuals in a regression model, and how can analyzing them help assess model fit? How is the sum of squared errors (SSE) related to residual analysis?
 
-* How can you use a fitted regression model to make predictions for new data in R? Explain how the predict() function works and provide an example using both simple and multiple regression. 
+-   What is multicollinearity, and why is it problematic in multiple regression? How can you detect multicollinearity in R using the vif() function, and what steps can be taken to address it?
 
-* Given the output from the summary() function for a regression model in R, explain how to interpret the coefficients, R-squared, adjusted R-squared, residual standard error, and p-values.
+-   How can you use a fitted regression model to make predictions for new data in R? Explain how the predict() function works and provide an example using both simple and multiple regression.
 
-* Describe how to use the p-value method for variable selection in multiple regression. How do you iteratively remove insignificant predictors while monitoring the R-squared and adjusted R-squared values?
+-   Given the output from the summary() function for a regression model in R, explain how to interpret the coefficients, R-squared, adjusted R-squared, residual standard error, and p-values.
 
+-   Describe how to use the p-value method for variable selection in multiple regression. How do you iteratively remove insignificant predictors while monitoring the R-squared and adjusted R-squared values?
 
 ## Summary
 
