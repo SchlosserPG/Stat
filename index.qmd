@@ -54,8 +54,6 @@
 
 ![CreateProject](Pictures/Ch0/CreateProject.png "Screenshot of Create Project in R Studio")
 
-![Creating a New Project](Pictures/Ch0/Project.png "Creating a New Project")
-
 ## R Script files (MyFirstRscript.R)
 
 -   Entering and running code at the R command line is effective and simple. However, each time you want to execute a set of commands, you have to re-enter them at the command line. Nothing saves for later.

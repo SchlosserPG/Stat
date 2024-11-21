@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ```{r tidy=FALSE}
 ####################################
 # Project name: Introduction to R and RStudio
-# Data used: mtcars from R, Insurance from the MASS library, gig.csv and gss2016.csv, 
+# Data used: mtcars from R, Insurance from the MASS library and gss.2016 dataset 
 # Libraries used: MASS, tidyverse, dplyr (part of tidyverse)
 ####################################
 ```
@@ -101,7 +101,8 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 -   You will find that some professors are not insistent on making a project for their class, but it is helpful to still do to organize your materials. You will have a lot of code in this program!
 -   To create a project click $File > New Project - New Directory > New Project$ and save your project to a place on your computer (not the cloud).
 
-![CreateProject](Pictures/Ch0/CreateProject.png "Screenshot of Create Project in R Studio") ![Creating a New Project](Pictures/Ch0/Project.png "Creating a New Project")
+![CreateProject](Pictures/Ch0/CreateProject.png "Screenshot of Create Project in R Studio") 
+
 
 ## Using R Script Files
 
@@ -665,11 +666,9 @@ getwd() #Alerts you to what folder you are currently set to as your working dire
 -   There are a few functions to read in .csv files. And these functions would change based on the file type you are importing.
 
 ##### read.csv() function
+* Extremely popular way to read in data.
+* read.csv() is a base R function that comes built-in with R: No library necessary
 
-```         
- + Extremely popular way to read in data.
- + read.csv() is a base R function that comes built-in with R: No library necessary
-```
 
 -   All your datasets should be in a data folder in your working directory so that you and I have the same working directory. This creates a relative path to our working directory.
 -   In R, when working with data files stored on your computer, it's important to understand the difference between absolute and relative file paths. An **absolute reference** gives the complete path to the file, starting from the root directory. This path is specific to your system, and it doesn't change regardless of where the R script is located. For example, on a Windows machine, you might use something like `read.csv("C:/Users/username/Documents/data.csv")`. This path will always point to the same file, but it can make your code less portable since it only works on your machine or if others have the exact same file structure.
