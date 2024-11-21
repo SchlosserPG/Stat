@@ -40,6 +40,18 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   Response variable: The variable we wish to explain, usually denoted by Y. Also known as a dependent variable or outcome variable.
 -   Multiple linear regression involves two or more *explanatory* variables, while still only one *response* variable.
 
+# Examples of Independent and Dependent Variables
+
+* Example Question: Does increasing the marketing budget lead to higher sales revenue?
+     + Independent Variable: Marketing budget (how much money is spent on advertising and promotions).
+     + Dependent Variable: Sales revenue (how much income the business generates from sales).
+* Example Question: Does additional training improve employee productivity?
+     + Independent Variable: Hours of employee training.
+     + Dependent Variable: Employee productivity (e.g., units produced per hour or sales closed per month).
+* Example Question: Does being a member of a loyalty program increase the frequency of repeat purchases? 
+     + Independent Variable: Participation in a loyalty program (whether a customer is a member or not).
+     + Dependent Variable: Number of repeat purchases by the customer.
+
 ### Estimating Using a Simple Linear Regression Model
 
 -   While the correlation coefficient may establish a linear relationship, it does not suggest that one variable *causes* the other.
