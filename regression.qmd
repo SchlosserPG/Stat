@@ -78,8 +78,8 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ### The Simple Linear Regression Model
 
 -   The simple linear regression model is defined as $y= \beta_0+\beta_1 𝑥+\varepsilon_1$, where $y$ and $x$ are the response and explanatory variables, respectively and $\varepsilon_1$ is the random error term. $\beta_0$ and $\beta_1$ are the unknown parameters to be estimated.
--   Sometimes, this equation can be represented using different variable names like $y=mx+b$ This is the same equation as above, but different notation.
 -   By fitting our data to the model, we obtain the equation $\hat{y} = b_0 + b_1*x$, where $\hat{y}$ is the estimated response variable, $b_0$ is the estimate of $\beta_0$ (Intercept) and $b_1$ is the estimate of $\beta_1$ (Slope).
+-   Sometimes, this equation can be represented using different variable names like $y=mx+b$ This is the same equation as above, but different notation.
 -   Since the predictions cannot be totally accurate, the difference between the predicted and actual value represents the residual $e=y-\hat{y}$.
 
 ![Regression Equation](Pictures/Ch9/RegressEquation.png "Regression Equation")
