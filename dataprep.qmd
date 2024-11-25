@@ -914,8 +914,9 @@ kurtosis(brfss.cleaned$PHYSHLTH)
 
 -   Explain how you can use arrange() to sort a dataset by one or more variables and demonstrate sorting both in ascending and descending order."
 
--   Why is the piping operator %\>% useful in R, and how does it improve the readability and structure of your code? 
-* How would you use summarize() to calculate mean, median, and standard deviation for a numerical variable in R?
+-   Why is the piping operator %\>% useful in R, and how does it improve the readability and structure of your code?
+
+-   How would you use summarize() to calculate mean, median, and standard deviation for a numerical variable in R?
 
 ## Summary
 

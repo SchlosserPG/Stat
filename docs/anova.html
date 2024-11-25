@@ -940,10 +940,15 @@ White-Mexican.American           201.96667  166.74805  237.18528 0.0000000</code
 <section id="choose-command" class="level2" data-number="9.5">
 <h2 data-number="9.5" class="anchored" data-anchor-id="choose-command"><span class="header-section-number">9.5</span> choose() command</h2>
 <ul>
-<li>The Combination function counts the number of ways to choose objects from a total of objects. The order in which the objects are listed does not matter.</li>
-<li>Since repetition is not allowed, we use <span class="math inline">\(C(n,x) = (n)!/((n-x!)*x!)\)</span></li>
+<li><p>The choose(n, k) function in R calculates the number of ways to choose k items from a set of n items without regard to order. It answers the question: “How many different groups of k can I make from n items?” For example, choose(5, 2) equals 10, meaning you can make 10 different pairs from a group of 5 items.</p></li>
+<li><p>The Combination function counts the number of ways to choose objects from a total of objects. The order in which the objects are listed does not matter.</p></li>
+<li><p>Since repetition is not allowed, we use <span class="math inline">\(C(n,x) = (n)!/((n-x!)*x!)\)</span></p></li>
+<li><p>When performing Tukey’s Honest Significant Difference (TukeyHSD) test for post-hoc analysis, pairwise comparisons are made between all possible pairs of group means. The total number of comparisons depends on the number of groups and can be calculated using the choose function. The choose function conceptually relates to TukeyHSD because it tells you how many pairwise comparisons will be tested based on the number of groups.</p>
+<ul>
 <li>In post hoc tests, x is always 2.</li>
-<li>you can calculate the factorial of a number using the factorial function in base R.</li>
+<li>If you have 4 groups (A, B, C, D), choose(4, 2) = 6, meaning 6 pairwise comparisons are made: A-B, A-C, A-D, B-C, B-D, and C-D.</li>
+</ul></li>
+<li><p>you can calculate the factorial of a number using the factorial function in base R.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4</span></span>
@@ -965,7 +970,7 @@ White-Mexican.American           201.96667  166.74805  237.18528 0.0000000</code
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># with choose function</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">4</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">4</span>, <span class="dv">2</span>)  <span class="co">#6 pairwise tests comparing comparing each group of races. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
@@ -974,7 +979,7 @@ White-Mexican.American           201.96667  166.74805  237.18528 0.0000000</code
 <li>We had 3 instructors, so we would use 3,2 inside the command as shown below. If this variable was significant, we should see 3 p-value statistics for 3 pairwise tests.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">2</span>)  <span class="co">#3 pairwise tests comparing each pair of instructors </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>

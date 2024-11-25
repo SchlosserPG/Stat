@@ -500,18 +500,17 @@ window.Quarto = {
 </ul></li>
 </ul></li>
 </ul>
-<section id="r-output" class="level4" data-number="12.0.7.1">
-<h4 data-number="12.0.7.1" class="anchored" data-anchor-id="r-output"><span class="header-section-number">12.0.7.1</span> R Output</h4>
-<ul>
-<li>We do not see the SSE or the SST in our R output, but we will see the Standard Error of the Estimate labelled Residual Standard Error. We will look at all these measures together in R output later on in the lecture.</li>
-</ul>
-</section>
 </section>
 <section id="the-coefficient-of-determination-r2" class="level3" data-number="12.0.8">
 <h3 data-number="12.0.8" class="anchored" data-anchor-id="the-coefficient-of-determination-r2"><span class="header-section-number">12.0.8</span> The Coefficient of Determination (<span class="math inline">\(R^2\)</span>)</h3>
 <ul>
 <li><p>Coefficient of determination refers to the percentage of variance in one variable that is accounted for by another variable or by a group of variables.</p></li>
 <li><p>This measure of R-squared is a measure of the “fit” of the line to the data.</p></li>
+<li><p>The Coefficient of Determination, denoted as <span class="math inline">\(R^2\)</span>, is a statistical measure that indicates the proportion of variance in the dependent variable (<span class="math inline">\(y\)</span>) that is explained by the independent variable(s) (x) in a regression model. It is calculated as: SSR/SST or 1-SSE/SST. *<span class="math inline">\(R^2\)</span> ranges from 0 to 1:</p>
+<ul>
+<li><span class="math inline">\(R^2\)</span>=0: None of the variance in <span class="math inline">\(y\)</span> is explained by the model.</li>
+<li><span class="math inline">\(R^2\)</span>=1: The model explains all the variance in y. A higher <span class="math inline">\(R^2\)</span> indicates a better fit of the model to the data.</li>
+</ul></li>
 <li><p><span class="math inline">\(R^2\)</span> = 1-SSE/SST where <span class="math inline">\(SSE = \sum^n_{i=1}(y_i - \hat{y})^2\)</span> and <span class="math inline">\(SST = \sum^n_{i=1}(y_i - \bar{y})^2\)</span></p>
 <ul>
 <li><span class="math inline">\(R^2\)</span> can also be computed by SSR/SST, which provides the same answer as above.</li>
@@ -537,8 +536,8 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-<section id="r-output-1" class="level4" data-number="12.0.8.2">
-<h4 data-number="12.0.8.2" class="anchored" data-anchor-id="r-output-1"><span class="header-section-number">12.0.8.2</span> R Output</h4>
+<section id="r-output" class="level4" data-number="12.0.8.2">
+<h4 data-number="12.0.8.2" class="anchored" data-anchor-id="r-output"><span class="header-section-number">12.0.8.2</span> R Output</h4>
 <ul>
 <li>We do see the <span class="math inline">\(R^2\)</span> in our R output labelled Multiple R-squared.</li>
 </ul>
@@ -555,14 +554,16 @@ window.Quarto = {
 <section id="the-adjusted-r2" class="level3" data-number="12.0.9">
 <h3 data-number="12.0.9" class="anchored" data-anchor-id="the-adjusted-r2"><span class="header-section-number">12.0.9</span> The Adjusted <span class="math inline">\(R^2\)</span></h3>
 <ul>
-<li>The Adjusted <span class="math inline">\(R^2\)</span> tries to balance the raw explanatory power against the desire to include only important predictors.
+<li><p>The Adjusted Coefficient of Determination, denoted as Adjusted <span class="math inline">\(R^2\)</span> modifies <span class="math inline">\(R^2\)</span> to account for the number of predictors in the model relative to the number of data points. It is calculated as Adjusted <span class="math inline">\(R^2 = 1-(1-R^2)*((n-1)/(n-k-1))\)</span>, where where n is the sample size and p is the number of predictors.</p></li>
+<li><p>In simple linear regression, <span class="math inline">\(R^2\)</span> is generally more appropriate than Adjusted <span class="math inline">\(R^2\)</span> because there is only one predictor variable in the model.</p></li>
+<li><p>The Adjusted <span class="math inline">\(R^2\)</span> tries to balance the raw explanatory power against the desire to include only important predictors.</p>
 <ul>
 <li>Adjusted <span class="math inline">\(R^2 = 1-(1-R^2)*((n-1)/(n-k-1))\)</span>.</li>
 <li>The Adjusted <span class="math inline">\(R^2\)</span> penalizes the <span class="math inline">\(R^2\)</span> for adding additional explanatory variables.</li>
 </ul></li>
 </ul>
-<section id="r-output-2" class="level4" data-number="12.0.9.1">
-<h4 data-number="12.0.9.1" class="anchored" data-anchor-id="r-output-2"><span class="header-section-number">12.0.9.1</span> R Output</h4>
+<section id="r-output-1" class="level4" data-number="12.0.9.1">
+<h4 data-number="12.0.9.1" class="anchored" data-anchor-id="r-output-1"><span class="header-section-number">12.0.9.1</span> R Output</h4>
 <ul>
 <li>With our other goodness-of-fit measures, we typically allow the computer to compute the Adjusted <span class="math inline">\(R^2\)</span> using commands in R.<br>
 </li>
@@ -647,6 +648,7 @@ F-statistic:    73 on 1 and 24 DF,  p-value: 9.66e-09</code></pre>
 <ul>
 <li>We see a p-value on the Income row of 9.66e-09 from a t-value. This is also significant at .05 level. This p-value is the same as the F-test statistic because we only have one X variable.</li>
 <li>This significance means our predictor variable does influence the Y variable and that we can reject the null hypothesis and show support for our alternative hypothesis.</li>
+<li>This means Income does influence Debt Payments.</li>
 </ul>
 </section>
 <section id="interpreting-the-hypothesis" class="level4" data-number="12.0.10.4">
