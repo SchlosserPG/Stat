@@ -415,7 +415,7 @@ TukeyHSD(Anova2way)
      + In post hoc tests, x is always 2.
      + If you have 4 groups (A, B, C, D), choose(4, 2) = 6, meaning 6 pairwise comparisons are made: A-B, A-C, A-D, B-C, B-D, and C-D.
 
-* you can calculate the factorial of a number using the factorial function in base R.
+* You can also calculate the factorial of a number using the factorial function in base R. This is the long way, but I put the formula below so that you could see what the choose function is doing. 
 
 ```{r}
 n <- 4
