@@ -576,7 +576,7 @@ C           2         0.2        10              1.0</code></pre>
 <h4 data-number="3.2.1.4" class="anchored" data-anchor-id="example-of-function-with-salary-variable"><span class="header-section-number">3.2.1.4</span> Example of Function with Salary Variable</h4>
 <ul>
 <li><p>While this is a small vector, when working with a large dataset and a function like sort(x = table(salaries), decreasing = TRUE), appending [1:5] is a way to focus on the top results after the frequencies have been computed and sorted. Specifically, table(salaries) calculates the frequency of each unique salary, sort(…, decreasing = TRUE) orders these frequencies from highest to lowest, and [1:5] selects the first five entries in the sorted list. This is useful when the dataset contains many unique values, as it allows you to quickly identify and extract the top 5 most frequent salaries, providing a concise summary without being overwhelmed by the full distribution.</p></li>
-<li><p>Consider the salary of employees presented earlier. The mode is $40,000 since this value appears most often.</p></li>
+<li><p>Consider the salary of employees presented earlier. 40,000 appears 2 times and is the mode because that occurs most often.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try this command with and without it.</span></span>
@@ -587,9 +587,6 @@ C           2         0.2        10              1.0</code></pre>
      2      1      1      1      1 </code></pre>
 </div>
 </div>
-<ul>
-<li>40,000 appears 2 times and is the mode because that occurs most often.</li>
-</ul>
 </section>
 <section id="finding-no-mode" class="level4" data-number="3.2.1.5">
 <h4 data-number="3.2.1.5" class="anchored" data-anchor-id="finding-no-mode"><span class="header-section-number">3.2.1.5</span> Finding No Mode</h4>
