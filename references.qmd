@@ -4,5 +4,4 @@ Harris, J. K. (2019). Statistics with R: Solving problems using real-world data.
 
 James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). An introduction to statistical learning: With applications in R. Springer. (Springer Texts in Statistics)
 
-Jaggia, S., & Kelly, A. (2018). Business statistics: Communicating with numbers (3rd ed.). McGraw-Hill Education.
-}
+Jaggia, S., & Kelly, A. (2018). Business statistics: Communicating with numbers (3rd ed.). McGraw-Hill Education. 
