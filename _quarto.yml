@@ -27,6 +27,8 @@ bibliography: references.bib
 format:
   html:
     css: styles.css
+    number-sections: false 
+
   pdf:
     documentclass: scrreprt
 
