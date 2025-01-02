@@ -1,6 +1,8 @@
 project:
   type: book
   output-dir: docs
+include-in-header: custom-head.html
+
 
 book:
   title: "Probability And Business Statistics"

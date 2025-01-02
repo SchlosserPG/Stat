@@ -1,4 +1,10 @@
-# Contingency Tables and Chi-Squared
+---
+title: "Contingency Tables and Chi-Squared"
+author: ""
+date: "2024-08-09"
+output: html_document
+---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
@@ -554,7 +560,6 @@ chisq.test(STEMGOF$RecentNumbers,p=STEMGOF$X2010Proportions)
 ## Summary
 
 -   In this lesson, we learned about contingency tables in regards to calculating probability with two categorical variables. We also computed the chi-squared statistics for the test of independence and the goodness of fit.
-* We note that the "Goodness of fit" and "test of independence" are both chi-square tests, but they serve different purposes:
-* Goodness of Fit test: _Purpose_: Assesses how well observed data match a specified distribution (often a theoretical or expected distribution). _Example_: Checking if the distribution of colors of M&M’s in a bag matches the expected company distribution (say, 30% blue, 20% red, etc.). _Null Hypothesis_: The observed frequencies match the expected frequencies.
-* Test of Independence: _Purpose_: Determines whether there is a significant association between two categorical variables in a contingency table. _Example_: Evaluating if gender (male/female) is independent of preference for a type of product (e.g., A or B). _Null Hypothesis_: The two variables are independent (no association).
-
+-   We note that the "Goodness of fit" and "test of independence" are both chi-square tests, but they serve different purposes:
+-   Goodness of Fit test: *Purpose*: Assesses how well observed data match a specified distribution (often a theoretical or expected distribution). *Example*: Checking if the distribution of colors of M&M’s in a bag matches the expected company distribution (say, 30% blue, 20% red, etc.). *Null Hypothesis*: The observed frequencies match the expected frequencies.
+-   Test of Independence: *Purpose*: Determines whether there is a significant association between two categorical variables in a contingency table. *Example*: Evaluating if gender (male/female) is independent of preference for a type of product (e.g., A or B). *Null Hypothesis*: The two variables are independent (no association).

@@ -1,3 +1,34 @@
+---
+title: "Chapter 0: Software Know-How"
+author: ""
+date: "2024-08-09"
+output: html_document
+---
+
+
+# Why R?
+* In an Business Statistics course, we teach R because it is a powerful, flexible tool widely used in business analytics for data analysis and visualization. R allows students to apply theoretical concepts to real-world datasets, enhancing their understanding through hands-on practice. Its rich ecosystem of packages, like ggplot2 for visualization and dplyr for data manipulation, makes it ideal for tackling the types of problems analysts face in the field. Additionally, R promotes reproducibility and collaboration through features like R Markdown and RStudio Projects, which align with industry standards. By learning R, students not only gain valuable technical skills but also build a strong foundation for advanced analytics and decision-making in their careers.
+
+-   R is a very sophisticated statistical software that allows you to enter commands one-at-a-time, or write scripts using the R language.
+
+-   Easily installed, state-of-the-art, and it is free and open source and supported by a well-established R Community.
+
+-   R can be used with RStudio, which is a graphical user interface that allows you to do the following:
+
+    -   write, edit, and execute code;
+    -   generate, view, and store plots;
+    -   manage files, objects and data frames;
+    -   integrate with version control systems.
+
+-   R comes with community that helps in the development of R resources.
+
+    -   A package is developed by R users to do one specific thing or a set of related things that could store a collection of functions, data, and code.
+    -   A library is the place where the package is located on your computer.
+
+-   A repository is a central location where many developed packages are located and available for download. There are 3 big repositories, but we use Comprehensive R Archive Network, or CRAN, which is R's main repository with over 18,000 packages available.
+
+-   R's community is vast, and you can always seek information from the community to try to help you with a R related issue.
+
 # Installing R and R Studio
 
 ### Installing R on Windows
@@ -33,7 +64,7 @@
 
 ![RStudio](Pictures/Ch0/RStudio.png "RStudio")
 
-## Take Your First Look at R
+# Take Your First Look at R
 
 -   On the right, two windows, each with tabs
     -   There are many ways to customize the look of RStudio for accessibility purposes with a couple being the following:
@@ -44,17 +75,26 @@
 
 ![Console](Pictures/Ch0/Console.png "Screenshot of Console")
 
-## Creating a Project for Our Class
+# Project Files
+* A RStudio project is a way to organize your work by creating a self-contained environment for your files, scripts, and outputs.
+     + The RStudio project file sits in the root directory, with the extension .Rproj. 
+     + When your RStudio session is running through the project file (.Rproj), the current working directory points to the root folder where that .Rproj file is saved.
+* Key Features
+     + Keeps all related files in one folder.
+     + Automatically sets the working directory to the project folder.
+     + Simplifies managing file paths ("data/myfile.csv" instead of a full path).
 
--   The RStudio project file is a file that sits in the root directory, with the extension .Rproj. When your RStudio session is running through the project file (.Rproj), the current working directory points to the root folder where that .Rproj file is saved.
--   Open up R Studio and Let’s Take a look around.
--   Start by creating a project for our class. Projects are great because they aid in your organization technique.
--   You will find that some professors are not insistent on making a project for their class, but it is helpful to still do to organize your materials. You will have a lot of code in this class, so it is good practice to keep everything organized!
+     
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Oe4o3xJGJgI?si=7h-tMOlRwRFDbBQT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+-   Creating a project for our class. Projects are great because they aid in your organization technique.
+-   You will find that some professors are not insistent on making a project for their class, but it is helpful to still do to organize your materials. You will have a lot of code in this program!
 -   To create a project click $File > New Project - New Directory > New Project$ and save your project to a place on your computer (not the cloud).
 
 ![CreateProject](Pictures/Ch0/CreateProject.png "Screenshot of Create Project in R Studio")
 
-## R Script files (MyFirstRscript.R)
+# R Script Files
 
 -   Entering and running code at the R command line is effective and simple. However, each time you want to execute a set of commands, you have to re-enter them at the command line. Nothing saves for later.
 -   Complex commands are particularly difficult causing you to re-entering the code to fix any errors typographical or otherwise. Fortunately, you can make a .R script file to solve this issue.
@@ -67,20 +107,36 @@
 
 ![Screenshot of MyFirstScript.R](Pictures/Ch0/MyFirstScript.png "Screenshot of MyFirstScript.R")
 
-## Using R More Effectively
+# Using R More Effectively
 
-### Setting Options to Your Liking
+## Customizing RStudio
 
--   You have many options to customize R Studio.
--   Go to Tools \> Global Options to see the list of options for you to customize.
--   A few are listed below.
-    -   You can set your general information including your default working directory (when not in a project).
-    -   You can customize the appearance to a theme that accommodates your learning style and visual preferences.
-    -   You can turn on a spell check.
+* Customizing RStudio through global options allows you to create a coding environment that aligns with your workflow and personal preferences. By tailoring settings such as appearance, pane layout, and editor behavior, you can improve productivity, enhance readability, and streamline your data analysis process. These adjustments not only make coding more efficient but also help you avoid common pitfalls, like workspace clutter or inconsistent settings. RStudio is highly flexible, so take the time to explore and experiment with its options to make the platform work best for you.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cmg2q-mG1iI?si=arnYLqFAIH6oZ30U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+* What are Global Options
+     + Settings in RStudio that let you personalize the environment to suit your workflow.
+* Why change global options?
+     + Improve productivity by tailoring RStudio to your preferences.
+     + Enhance readability and usability of code and outputs.
+     + Create a consistent environment across projects.
+* Where to Find Global Options:
+     + Go to Tools > Global Options in the RStudio menu.
+
+
+* Key Settings to Adjust
+     + Global Options > General: 
+You can set your general information including your default working directory (when not in a project).Set your R Version if appropriate.
+     + Global Options > Code: Enable auto-complete, or soft-wrap for easier coding.
+     + Global Options > Appearance: 
+You can customize the appearance to a theme that accommodates your learning style and visual preferences.
+     + Global Options > Spelling: 
+You can turn on a spell check.
 
 ![Tools \> Global Options.R](Pictures/Ch0/Options.png "Tools > Global Options.R")
 
-### Quick Keys in R
+## Quick Keys in R
 
 -   There are a lot of quick keys in R to make you able to use it faster and more effectively. You may look over these and try on your own.
 
@@ -90,7 +146,7 @@
 
 ![Editing Quick Keys](Pictures/Ch0/QuickKeys3.png "Editing Quick Keys")
 
-### Getting Help in R
+## Getting Help in R
 
 -   There are lots of ways to get help in R.
 -   In R, use the help search box to find information on a function, parameter, or package.
@@ -106,7 +162,7 @@
 -   The format is tapply(x, index, and fun), where x is a continuous variable, index is a grouping variable or factor, and fun is a function like mean.
 -   More on that function later in the first lessons.
 
-## Accessing Data Files for the Course
+# Accessing Data Files for the Course
 
 -   To download the data sets, go to our Blackboard datasets page and download them to your computer
 -   Once downloaded, unzip the file by right-clicking and selecting "Extract All", and then move the subfolder named data to your working directory.
@@ -116,6 +172,6 @@
 
 -   We will use a number of data files plus more for homework/projects, so be prepared to use these files throughout the class.
 
-## Summary
+# Summary
 
 -   At the end of this section, you should have downloaded and browsed R in RStudio. You should have looked at the quick keys in R to make editing your R documents easier. You should set up a project folder for the course where you want to on your computer, and made your first .R script file located in that project folder. You should have tried a line of code or two as presented. Finally, you should have looked around the RStudio environment and found the help tab.

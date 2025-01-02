@@ -1,4 +1,10 @@
-# Probability and Probability Distributions
+---
+title: "Probability and Probability Distributions"
+author: ""
+date: "2024-08-09"
+output: html_document
+---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
@@ -566,8 +572,11 @@ qnorm(.5)
 -   A z-score is calculated as the number of standard deviations an observation is away from the mean.
 
 -   A normally distributed variable can be used to create z-scores.
-* Purpose: This formula calculates the z-score of an individual data point.
-* Interpretation: It tells us how many standard deviations a specific value $x$ is from the mean of the dataset.
+
+-   Purpose: This formula calculates the z-score of an individual data point.
+
+-   Interpretation: It tells us how many standard deviations a specific value $x$ is from the mean of the dataset.
+
 -   The $x_i$ represents the value of variable $x$ for a single observation, $\mu_x$ is the mean of the $x$ variable, $\sigma_x$ is the standard deviation of the $x$ variable. So, $z_i$ is the difference between the observation value and the mean value for a variable and is converted by the denominator into standard deviations. The final z-score for an observation is the number of standard deviations it is from the mean. $$z_i = (x_i - \mu_x)/\sigma_x$$.
 
 -   A z score or z value specifies by how many standard deviations the corresponding x value falls above (z \> 0) or below (z \< 0) the mean.
@@ -753,8 +762,11 @@ hist(t, xlim=c(3,4))
 
     -   SD: Measure of variability in the sample.
     -   SE: Estimate of how closely the sample represents the population.
-* Purpose: This is the standard error formula used to assess the distribution of sample means around the population mean.
-* Interpretation: This measures how much the sample mean, $\bar{X}$ is expected to vary from the population mean given the sample size $n$.
+
+-   Purpose: This is the standard error formula used to assess the distribution of sample means around the population mean.
+
+-   Interpretation: This measures how much the sample mean, $\bar{X}$ is expected to vary from the population mean given the sample size $n$.
+
 -   The standard deviation measures the spread of individual data points, while the standard error measures the spread of sample means.
 
 -   The standard deviation and standard error are both measures of variability but are used in different contexts and serve different purposes. The standard deviation quantifies the spread of individual data points within a dataset. It is often used when analyzing the distribution of a single sample or population. On the other hand, the standard error is a measure of the precision of the sample mean in estimating the population mean. It tells us how much the sample mean is likely to vary from the true population mean if we were to take repeated samples. The standard error is derived from the standard deviation but is scaled by the square root of the sample size, meaning it decreases as the sample size increases. This makes it particularly useful in inferential statistics, where it helps assess the accuracy of estimates based on sample data.
@@ -804,9 +816,9 @@ pnorm(20, 22, 2/sqrt(8), lower.tail=FALSE)
 -   Estimate: A particular value of the estimator $\bar{p}$.
 -   The expected value of $\bar{P}=E(\bar{P})=𝑝$.
 -   The standard deviation of $\bar{P}$ is referred to as the standard error of the sample proportion, which equals $se(\bar{P}) = \sqrt(p*(1-p)/n$.
-* Purpose: This formula calculates the z-score for a sample proportion $\hat{P}$ by comparing it to a population proportion, $P$. 
-* Interpretation: It measures how far the sample proportion deviates from the population proportion in terms of the standard deviation (for proportions).
-* The Central Limit Theorem for the Sample Proportion.
+-   Purpose: This formula calculates the z-score for a sample proportion $\hat{P}$ by comparing it to a population proportion, $P$.
+-   Interpretation: It measures how far the sample proportion deviates from the population proportion in terms of the standard deviation (for proportions).
+-   The Central Limit Theorem for the Sample Proportion.
     -   For any population proportion $p$, the sampling $\bar{P}$ is approximately normal if the sample size $n$ is sufficiently large.
     -   As a general guideline, the normal distribution approximation is justified when $n*p>=5$ and $n((1-p)>=5$.
     -   If $\bar{P}$ is normal, we can transform it into the standard normal random variable as $Z=(\hat{P}-E(\bar{P})/se(\bar{P})$ = $(\hat{P}-p)/(\sqrt(p*(1-p)/n))$.
@@ -1093,6 +1105,7 @@ gridExtra::grid.arrange(cuberoot, logged, inversed, squareroot)
 
 -   In a normal distribution, we used 3 main formulas with the pnorm() function. Each formula has a different role, but they all provide a way to assess variability relative to an average value, allowing for comparisons and inferences about the data or sample in question.
 
+```{=tex}
 \begin{array}{|c|c|c|c|}
 \hline
 \textbf{Context} & \textbf{Formula} & \textbf{Interpretation} & \textbf{pnorm Function Usage} \\
@@ -1104,3 +1117,4 @@ gridExtra::grid.arrange(cuberoot, logged, inversed, squareroot)
 \text{Standardizing a sample proportion} & \frac{\hat{p} - p}{\sqrt{\frac{p(1 - p)}{n}}} & \text{Used for hypothesis tests of proportions} & \text{pnorm}(\hat{p}, p, \sqrt{\frac{p(1 - p)}{n}}) \\
 \hline
 \end{array}
+```

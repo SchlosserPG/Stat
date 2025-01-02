@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="">
+<meta name="dcterms.date" content="2024-08-09">
 
-<title>8&nbsp; Hypothesis Testing with t-Tests – Probability And Business Statistics</title>
+<title>Hypothesis Testing with t-Tests – Probability And Business Statistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,6 +104,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<!-- Google tag (gtag.js) -->
+
+     <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4MST1J29YB"></script>
+
+          <script>
+
+          window.dataLayer = window.dataLayer || [];
+
+          function gtag(){dataLayer.push(arguments);}
+
+          gtag('js', new Date());
+
+          
+
+          gtag('config', 'G-4MST1J29YB');
+
+          </script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -145,7 +164,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ttests.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis Testing with t-Tests</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ttests.html"><span class="chapter-title">Hypothesis Testing with t-Tests</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -172,86 +191,72 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Installing R and R Studio</span></span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 0: Software Know-How</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./introR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to R and RStudio</span></span></a>
+  <a href="./introR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to R and RStudio</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./descriptives.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></span></a>
+  <a href="./descriptives.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Descriptive Statistics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dataprep.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Preparation</span></span></a>
+  <a href="./dataprep.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data Preparation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dataviz.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></span></a>
+  <a href="./dataviz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data Visualization</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./probability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Probability and Probability Distributions</span></span></a>
+  <a href="./probability.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Probability and Probability Distributions</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./contingency.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Contingency Tables and Chi-Squared</span></span></a>
+  <a href="./contingency.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contingency Tables and Chi-Squared</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ttests.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis Testing with t-Tests</span></span></a>
+  <a href="./ttests.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Hypothesis Testing with t-Tests</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Analysis of Variance (ANOVA)</span></span></a>
+  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis of Variance (ANOVA)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Correlation Analysis</span></span></a>
+  <a href="./correlation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Correlation Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Linear Regression Analysis</span></span></a>
+  <a href="./regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Linear Regression Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rmarkdown.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Intro to RMarkdown</span></span></a>
+  <a href="./rmarkdown.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Intro to RMarkdown</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Summary</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recommended Further Reading Materials</span></span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Recommended Further Reading Materials</span></a>
   </div>
 </li>
     </ul>
@@ -264,50 +269,50 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#at-a-glance" id="toc-at-a-glance" class="nav-link active" data-scroll-target="#at-a-glance"><span class="header-section-number">8.0.1</span> At a Glance</a></li>
-  <li><a href="#lesson-objectives" id="toc-lesson-objectives" class="nav-link" data-scroll-target="#lesson-objectives"><span class="header-section-number">8.0.2</span> Lesson Objectives</a></li>
-  <li><a href="#consider-while-reading" id="toc-consider-while-reading" class="nav-link" data-scroll-target="#consider-while-reading"><span class="header-section-number">8.0.3</span> Consider While Reading</a></li>
-  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing"><span class="header-section-number">8.1</span> Hypothesis Testing</a>
+  <li><a href="#at-a-glance" id="toc-at-a-glance" class="nav-link active" data-scroll-target="#at-a-glance">At a Glance</a></li>
+  <li><a href="#lesson-objectives" id="toc-lesson-objectives" class="nav-link" data-scroll-target="#lesson-objectives">Lesson Objectives</a></li>
+  <li><a href="#consider-while-reading" id="toc-consider-while-reading" class="nav-link" data-scroll-target="#consider-while-reading">Consider While Reading</a></li>
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a>
   <ul class="collapse">
-  <li><a href="#hypothesis-testing-covers-a-variety-of-tests" id="toc-hypothesis-testing-covers-a-variety-of-tests" class="nav-link" data-scroll-target="#hypothesis-testing-covers-a-variety-of-tests"><span class="header-section-number">8.1.1</span> Hypothesis Testing Covers a Variety of Tests</a></li>
-  <li><a href="#using-a-t-distribution" id="toc-using-a-t-distribution" class="nav-link" data-scroll-target="#using-a-t-distribution"><span class="header-section-number">8.1.2</span> Using a t-Distribution</a></li>
-  <li><a href="#approaches-to-hypothesis-testing" id="toc-approaches-to-hypothesis-testing" class="nav-link" data-scroll-target="#approaches-to-hypothesis-testing"><span class="header-section-number">8.1.3</span> Approaches to Hypothesis Testing</a></li>
-  <li><a href="#setting-up-hypotheses-tests" id="toc-setting-up-hypotheses-tests" class="nav-link" data-scroll-target="#setting-up-hypotheses-tests"><span class="header-section-number">8.1.4</span> Setting up Hypotheses Tests</a></li>
-  <li><a href="#hypothesis-testing-single-population-a-right-tailed-test" id="toc-hypothesis-testing-single-population-a-right-tailed-test" class="nav-link" data-scroll-target="#hypothesis-testing-single-population-a-right-tailed-test"><span class="header-section-number">8.1.5</span> Hypothesis Testing: Single Population: A Right-Tailed Test</a></li>
-  <li><a href="#hypothesis-testing-single-population-a-left-tailed-test" id="toc-hypothesis-testing-single-population-a-left-tailed-test" class="nav-link" data-scroll-target="#hypothesis-testing-single-population-a-left-tailed-test"><span class="header-section-number">8.1.6</span> Hypothesis Testing: Single Population: A Left-Tailed Test</a></li>
-  <li><a href="#hypothesis-testing-single-population-a-two-tailed-test" id="toc-hypothesis-testing-single-population-a-two-tailed-test" class="nav-link" data-scroll-target="#hypothesis-testing-single-population-a-two-tailed-test"><span class="header-section-number">8.1.7</span> Hypothesis Testing: Single Population: A Two-Tailed Test</a></li>
-  <li><a href="#forming-a-hypothesis" id="toc-forming-a-hypothesis" class="nav-link" data-scroll-target="#forming-a-hypothesis"><span class="header-section-number">8.1.8</span> Forming a Hypothesis</a></li>
+  <li><a href="#hypothesis-testing-covers-a-variety-of-tests" id="toc-hypothesis-testing-covers-a-variety-of-tests" class="nav-link" data-scroll-target="#hypothesis-testing-covers-a-variety-of-tests">Hypothesis Testing Covers a Variety of Tests</a></li>
+  <li><a href="#using-a-t-distribution" id="toc-using-a-t-distribution" class="nav-link" data-scroll-target="#using-a-t-distribution">Using a t-Distribution</a></li>
+  <li><a href="#approaches-to-hypothesis-testing" id="toc-approaches-to-hypothesis-testing" class="nav-link" data-scroll-target="#approaches-to-hypothesis-testing">Approaches to Hypothesis Testing</a></li>
+  <li><a href="#setting-up-hypotheses-tests" id="toc-setting-up-hypotheses-tests" class="nav-link" data-scroll-target="#setting-up-hypotheses-tests">Setting up Hypotheses Tests</a></li>
+  <li><a href="#hypothesis-testing-single-population-a-right-tailed-test" id="toc-hypothesis-testing-single-population-a-right-tailed-test" class="nav-link" data-scroll-target="#hypothesis-testing-single-population-a-right-tailed-test">Hypothesis Testing: Single Population: A Right-Tailed Test</a></li>
+  <li><a href="#hypothesis-testing-single-population-a-left-tailed-test" id="toc-hypothesis-testing-single-population-a-left-tailed-test" class="nav-link" data-scroll-target="#hypothesis-testing-single-population-a-left-tailed-test">Hypothesis Testing: Single Population: A Left-Tailed Test</a></li>
+  <li><a href="#hypothesis-testing-single-population-a-two-tailed-test" id="toc-hypothesis-testing-single-population-a-two-tailed-test" class="nav-link" data-scroll-target="#hypothesis-testing-single-population-a-two-tailed-test">Hypothesis Testing: Single Population: A Two-Tailed Test</a></li>
+  <li><a href="#forming-a-hypothesis" id="toc-forming-a-hypothesis" class="nav-link" data-scroll-target="#forming-a-hypothesis">Forming a Hypothesis</a></li>
   </ul></li>
-  <li><a href="#t.test-command" id="toc-t.test-command" class="nav-link" data-scroll-target="#t.test-command"><span class="header-section-number">8.2</span> t.test() Command</a></li>
-  <li><a href="#one-sample-t-test" id="toc-one-sample-t-test" class="nav-link" data-scroll-target="#one-sample-t-test"><span class="header-section-number">8.3</span> One-Sample t-Test</a>
+  <li><a href="#t.test-command" id="toc-t.test-command" class="nav-link" data-scroll-target="#t.test-command">t.test() Command</a></li>
+  <li><a href="#one-sample-t-test" id="toc-one-sample-t-test" class="nav-link" data-scroll-target="#one-sample-t-test">One-Sample t-Test</a>
   <ul class="collapse">
-  <li><a href="#t.test-command-for-one-sample-t-test" id="toc-t.test-command-for-one-sample-t-test" class="nav-link" data-scroll-target="#t.test-command-for-one-sample-t-test"><span class="header-section-number">8.3.1</span> t.test() Command for One-Sample t-Test</a></li>
-  <li><a href="#step-1-specify-null-and-alternative-hypothesis" id="toc-step-1-specify-null-and-alternative-hypothesis" class="nav-link" data-scroll-target="#step-1-specify-null-and-alternative-hypothesis"><span class="header-section-number">8.3.2</span> Step 1: Specify Null and Alternative Hypothesis</a></li>
-  <li><a href="#step-2.-compute-the-test-statistic-and-calculate-the-p-value" id="toc-step-2.-compute-the-test-statistic-and-calculate-the-p-value" class="nav-link" data-scroll-target="#step-2.-compute-the-test-statistic-and-calculate-the-p-value"><span class="header-section-number">8.3.3</span> Step 2. Compute the Test Statistic and calculate the p-value</a></li>
-  <li><a href="#step-3.-interpret-probability-and-results." id="toc-step-3.-interpret-probability-and-results." class="nav-link" data-scroll-target="#step-3.-interpret-probability-and-results."><span class="header-section-number">8.3.4</span> Step 3. Interpret probability and results.</a></li>
-  <li><a href="#example-of-a-one-sample-t-test-in-r" id="toc-example-of-a-one-sample-t-test-in-r" class="nav-link" data-scroll-target="#example-of-a-one-sample-t-test-in-r"><span class="header-section-number">8.3.5</span> Example of a One-Sample t-Test in R</a></li>
-  <li><a href="#example-of-a-one-sample-using-a-subset" id="toc-example-of-a-one-sample-using-a-subset" class="nav-link" data-scroll-target="#example-of-a-one-sample-using-a-subset"><span class="header-section-number">8.3.6</span> Example of a One-Sample Using a Subset</a></li>
+  <li><a href="#t.test-command-for-one-sample-t-test" id="toc-t.test-command-for-one-sample-t-test" class="nav-link" data-scroll-target="#t.test-command-for-one-sample-t-test">t.test() Command for One-Sample t-Test</a></li>
+  <li><a href="#step-1-specify-null-and-alternative-hypothesis" id="toc-step-1-specify-null-and-alternative-hypothesis" class="nav-link" data-scroll-target="#step-1-specify-null-and-alternative-hypothesis">Step 1: Specify Null and Alternative Hypothesis</a></li>
+  <li><a href="#step-2.-compute-the-test-statistic-and-calculate-the-p-value" id="toc-step-2.-compute-the-test-statistic-and-calculate-the-p-value" class="nav-link" data-scroll-target="#step-2.-compute-the-test-statistic-and-calculate-the-p-value">Step 2. Compute the Test Statistic and calculate the p-value</a></li>
+  <li><a href="#step-3.-interpret-probability-and-results." id="toc-step-3.-interpret-probability-and-results." class="nav-link" data-scroll-target="#step-3.-interpret-probability-and-results.">Step 3. Interpret probability and results.</a></li>
+  <li><a href="#example-of-a-one-sample-t-test-in-r" id="toc-example-of-a-one-sample-t-test-in-r" class="nav-link" data-scroll-target="#example-of-a-one-sample-t-test-in-r">Example of a One-Sample t-Test in R</a></li>
+  <li><a href="#example-of-a-one-sample-using-a-subset" id="toc-example-of-a-one-sample-using-a-subset" class="nav-link" data-scroll-target="#example-of-a-one-sample-using-a-subset">Example of a One-Sample Using a Subset</a></li>
   </ul></li>
-  <li><a href="#independent-samples-t-test" id="toc-independent-samples-t-test" class="nav-link" data-scroll-target="#independent-samples-t-test"><span class="header-section-number">8.4</span> Independent Samples t-Test</a>
+  <li><a href="#independent-samples-t-test" id="toc-independent-samples-t-test" class="nav-link" data-scroll-target="#independent-samples-t-test">Independent Samples t-Test</a>
   <ul class="collapse">
-  <li><a href="#t.test-command-for-independent-samples-t-test" id="toc-t.test-command-for-independent-samples-t-test" class="nav-link" data-scroll-target="#t.test-command-for-independent-samples-t-test"><span class="header-section-number">8.4.1</span> t.test() Command for Independent Samples t-Test</a></li>
-  <li><a href="#step-1-specify-null-and-alternative-hypothesis-1" id="toc-step-1-specify-null-and-alternative-hypothesis-1" class="nav-link" data-scroll-target="#step-1-specify-null-and-alternative-hypothesis-1"><span class="header-section-number">8.4.2</span> Step 1: Specify Null and Alternative Hypothesis</a></li>
-  <li><a href="#step-2-compute-the-test-statistic-and-calcuate-the-p-value" id="toc-step-2-compute-the-test-statistic-and-calcuate-the-p-value" class="nav-link" data-scroll-target="#step-2-compute-the-test-statistic-and-calcuate-the-p-value"><span class="header-section-number">8.4.3</span> Step 2: Compute the Test Statistic and Calcuate the p-value</a></li>
-  <li><a href="#step-3-interpret-the-probability-and-write-a-conclusion" id="toc-step-3-interpret-the-probability-and-write-a-conclusion" class="nav-link" data-scroll-target="#step-3-interpret-the-probability-and-write-a-conclusion"><span class="header-section-number">8.4.4</span> Step 3: Interpret the Probability and Write a Conclusion</a></li>
-  <li><a href="#example-of-an-independent-samples-t-test-in-r" id="toc-example-of-an-independent-samples-t-test-in-r" class="nav-link" data-scroll-target="#example-of-an-independent-samples-t-test-in-r"><span class="header-section-number">8.4.5</span> Example of an Independent Samples t-Test in R</a></li>
-  <li><a href="#example-independent-t-test-using-a-subset" id="toc-example-independent-t-test-using-a-subset" class="nav-link" data-scroll-target="#example-independent-t-test-using-a-subset"><span class="header-section-number">8.4.6</span> Example Independent t-test Using a Subset</a></li>
+  <li><a href="#t.test-command-for-independent-samples-t-test" id="toc-t.test-command-for-independent-samples-t-test" class="nav-link" data-scroll-target="#t.test-command-for-independent-samples-t-test">t.test() Command for Independent Samples t-Test</a></li>
+  <li><a href="#step-1-specify-null-and-alternative-hypothesis-1" id="toc-step-1-specify-null-and-alternative-hypothesis-1" class="nav-link" data-scroll-target="#step-1-specify-null-and-alternative-hypothesis-1">Step 1: Specify Null and Alternative Hypothesis</a></li>
+  <li><a href="#step-2-compute-the-test-statistic-and-calcuate-the-p-value" id="toc-step-2-compute-the-test-statistic-and-calcuate-the-p-value" class="nav-link" data-scroll-target="#step-2-compute-the-test-statistic-and-calcuate-the-p-value">Step 2: Compute the Test Statistic and Calcuate the p-value</a></li>
+  <li><a href="#step-3-interpret-the-probability-and-write-a-conclusion" id="toc-step-3-interpret-the-probability-and-write-a-conclusion" class="nav-link" data-scroll-target="#step-3-interpret-the-probability-and-write-a-conclusion">Step 3: Interpret the Probability and Write a Conclusion</a></li>
+  <li><a href="#example-of-an-independent-samples-t-test-in-r" id="toc-example-of-an-independent-samples-t-test-in-r" class="nav-link" data-scroll-target="#example-of-an-independent-samples-t-test-in-r">Example of an Independent Samples t-Test in R</a></li>
+  <li><a href="#example-independent-t-test-using-a-subset" id="toc-example-independent-t-test-using-a-subset" class="nav-link" data-scroll-target="#example-independent-t-test-using-a-subset">Example Independent t-test Using a Subset</a></li>
   </ul></li>
-  <li><a href="#dependent-samples-t-test" id="toc-dependent-samples-t-test" class="nav-link" data-scroll-target="#dependent-samples-t-test"><span class="header-section-number">8.5</span> Dependent Samples t-Test</a>
+  <li><a href="#dependent-samples-t-test" id="toc-dependent-samples-t-test" class="nav-link" data-scroll-target="#dependent-samples-t-test">Dependent Samples t-Test</a>
   <ul class="collapse">
-  <li><a href="#t.test-command-for-dependent-samples-t-test" id="toc-t.test-command-for-dependent-samples-t-test" class="nav-link" data-scroll-target="#t.test-command-for-dependent-samples-t-test"><span class="header-section-number">8.5.1</span> t.test() Command for Dependent Samples t-Test</a></li>
-  <li><a href="#step-1-write-null-and-alternative-hypothesis" id="toc-step-1-write-null-and-alternative-hypothesis" class="nav-link" data-scroll-target="#step-1-write-null-and-alternative-hypothesis"><span class="header-section-number">8.5.2</span> Step 1: Write Null and Alternative Hypothesis</a></li>
-  <li><a href="#step-2-compute-the-test-statistic-and-calculate-the-p-value" id="toc-step-2-compute-the-test-statistic-and-calculate-the-p-value" class="nav-link" data-scroll-target="#step-2-compute-the-test-statistic-and-calculate-the-p-value"><span class="header-section-number">8.5.3</span> Step 2: Compute the Test Statistic and Calculate the p-value</a></li>
-  <li><a href="#step-3-interpret-the-probability-and-write-a-conclusion-1" id="toc-step-3-interpret-the-probability-and-write-a-conclusion-1" class="nav-link" data-scroll-target="#step-3-interpret-the-probability-and-write-a-conclusion-1"><span class="header-section-number">8.5.4</span> Step 3: Interpret the Probability and Write a Conclusion</a></li>
-  <li><a href="#example-of-an-dependent-samples-t-test-in-r" id="toc-example-of-an-dependent-samples-t-test-in-r" class="nav-link" data-scroll-target="#example-of-an-dependent-samples-t-test-in-r"><span class="header-section-number">8.5.5</span> Example of an Dependent Samples t-Test in R</a></li>
-  <li><a href="#reshape-function" id="toc-reshape-function" class="nav-link" data-scroll-target="#reshape-function"><span class="header-section-number">8.5.6</span> reshape function</a></li>
+  <li><a href="#t.test-command-for-dependent-samples-t-test" id="toc-t.test-command-for-dependent-samples-t-test" class="nav-link" data-scroll-target="#t.test-command-for-dependent-samples-t-test">t.test() Command for Dependent Samples t-Test</a></li>
+  <li><a href="#step-1-write-null-and-alternative-hypothesis" id="toc-step-1-write-null-and-alternative-hypothesis" class="nav-link" data-scroll-target="#step-1-write-null-and-alternative-hypothesis">Step 1: Write Null and Alternative Hypothesis</a></li>
+  <li><a href="#step-2-compute-the-test-statistic-and-calculate-the-p-value" id="toc-step-2-compute-the-test-statistic-and-calculate-the-p-value" class="nav-link" data-scroll-target="#step-2-compute-the-test-statistic-and-calculate-the-p-value">Step 2: Compute the Test Statistic and Calculate the p-value</a></li>
+  <li><a href="#step-3-interpret-the-probability-and-write-a-conclusion-1" id="toc-step-3-interpret-the-probability-and-write-a-conclusion-1" class="nav-link" data-scroll-target="#step-3-interpret-the-probability-and-write-a-conclusion-1">Step 3: Interpret the Probability and Write a Conclusion</a></li>
+  <li><a href="#example-of-an-dependent-samples-t-test-in-r" id="toc-example-of-an-dependent-samples-t-test-in-r" class="nav-link" data-scroll-target="#example-of-an-dependent-samples-t-test-in-r">Example of an Dependent Samples t-Test in R</a></li>
+  <li><a href="#reshape-function" id="toc-reshape-function" class="nav-link" data-scroll-target="#reshape-function">reshape function</a></li>
   </ul></li>
-  <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai"><span class="header-section-number">8.6</span> Using AI</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">8.7</span> Summary</a></li>
+  <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai">Using AI</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -316,7 +321,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis Testing with t-Tests</span></h1>
+<h1 class="title"><span class="chapter-title">Hypothesis Testing with t-Tests</span></h1>
 </div>
 
 
@@ -324,6 +329,12 @@ window.Quarto = {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 9, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -343,14 +354,14 @@ window.Quarto = {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries used: tidyverse</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="at-a-glance" class="level3" data-number="8.0.1">
-<h3 data-number="8.0.1" class="anchored" data-anchor-id="at-a-glance"><span class="header-section-number">8.0.1</span> At a Glance</h3>
+<section id="at-a-glance" class="level3">
+<h3 class="anchored" data-anchor-id="at-a-glance">At a Glance</h3>
 <ul>
 <li>In order to succeed in this section, you will need to understand how to set up and test a hypothesis, knowing that we can reuse our logic of hypothesis testing for other types of models later on. Pay close attention to the idea of and the reason for the t-distribution with regards to one-sample, independent samples, and dependent samples hypothesis test. Additionally, note when the test is a two-tailed, a right-tailed, or a left-tailed test, and what that means for the interpretation of the results.</li>
 </ul>
 </section>
-<section id="lesson-objectives" class="level3" data-number="8.0.2">
-<h3 data-number="8.0.2" class="anchored" data-anchor-id="lesson-objectives"><span class="header-section-number">8.0.2</span> Lesson Objectives</h3>
+<section id="lesson-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="lesson-objectives">Lesson Objectives</h3>
 <ul>
 <li>Compare a sample mean to a population mean with a one-sample t-test.</li>
 <li>Compare two unrelated sample means with an independent-samples t-test.</li>
@@ -358,16 +369,16 @@ window.Quarto = {
 <li>Compare and contrast the the three t-tests covered in this module: one-sample, independent samples, and dependent samples.</li>
 </ul>
 </section>
-<section id="consider-while-reading" class="level3" data-number="8.0.3">
-<h3 data-number="8.0.3" class="anchored" data-anchor-id="consider-while-reading"><span class="header-section-number">8.0.3</span> Consider While Reading</h3>
+<section id="consider-while-reading" class="level3">
+<h3 class="anchored" data-anchor-id="consider-while-reading">Consider While Reading</h3>
 <ul>
 <li>In this lesson, we learn more about hypothesis testing, which will continue throughout the rest of the term! We are still conducting inference analysis. As an analyst, I like to say that this starts the fun stuff.</li>
 <li>We cover three important t-tests. There are more examples on the our course management system with regards to setting up a two-tailed, right-tailed, or left-tailed test and adjusting the <span class="math inline">\(\mu\)</span> of interest.</li>
 <li>Make sure you understand the key differences between all the three t-tests presented in this module and their role in interpreting data and making inferences. All three tests are making comparisons: comparisons to a mean value, comparison to another population, or comparison to paired data like before and after results.</li>
 </ul>
 </section>
-<section id="hypothesis-testing" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="hypothesis-testing"><span class="header-section-number">8.1</span> Hypothesis Testing</h2>
+<section id="hypothesis-testing" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h2>
 <ul>
 <li>A hypothesis test resolves conflicts between two competing opinions (hypotheses).</li>
 <li>In a hypothesis test, we define the null hypothesis as <span class="math inline">\(H_0\)</span>, which is the presumed default state of nature or status quo. We define the alternative hypothesis as <span class="math inline">\(H_A\)</span>, <em>a contradiction of the</em> default state of nature or status quo.</li>
@@ -388,8 +399,8 @@ window.Quarto = {
 </ul></li>
 <li>Where <span class="math inline">\(H_0\)</span> always contains the equality sign.</li>
 </ul>
-<section id="hypothesis-testing-covers-a-variety-of-tests" class="level3" data-number="8.1.1">
-<h3 data-number="8.1.1" class="anchored" data-anchor-id="hypothesis-testing-covers-a-variety-of-tests"><span class="header-section-number">8.1.1</span> Hypothesis Testing Covers a Variety of Tests</h3>
+<section id="hypothesis-testing-covers-a-variety-of-tests" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-testing-covers-a-variety-of-tests">Hypothesis Testing Covers a Variety of Tests</h3>
 <ul>
 <li>We will cover the following:</li>
 </ul>
@@ -399,8 +410,8 @@ window.Quarto = {
 <li>Dependent (or Paired) samples t-test.</li>
 </ol>
 </section>
-<section id="using-a-t-distribution" class="level3" data-number="8.1.2">
-<h3 data-number="8.1.2" class="anchored" data-anchor-id="using-a-t-distribution"><span class="header-section-number">8.1.2</span> Using a t-Distribution</h3>
+<section id="using-a-t-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="using-a-t-distribution">Using a t-Distribution</h3>
 <ul>
 <li>All of these hypothesis tests listed above use a t-distribution, which is like a z-distribution (i.e., z-score), but specifically accounts for some specific population information being unknown.
 <ul>
@@ -410,8 +421,8 @@ window.Quarto = {
 <li>All of these hypothesis tests in the assigned readings use the t.test() command to execute in R with different parameters set.</li>
 </ul>
 </section>
-<section id="approaches-to-hypothesis-testing" class="level3" data-number="8.1.3">
-<h3 data-number="8.1.3" class="anchored" data-anchor-id="approaches-to-hypothesis-testing"><span class="header-section-number">8.1.3</span> Approaches to Hypothesis Testing</h3>
+<section id="approaches-to-hypothesis-testing" class="level3">
+<h3 class="anchored" data-anchor-id="approaches-to-hypothesis-testing">Approaches to Hypothesis Testing</h3>
 <ul>
 <li><p>All approaches to scientific hypothesis testing enable us to determine whether the sample evidence is inconsistent with what is hypothesized under the null hypothesis, <span class="math inline">\(H_0\)</span>.</p></li>
 <li><p>Basic principle: First assume that <span class="math inline">\(H_0\)</span> is true and then determine if sample evidence contradicts this assumption.</p></li>
@@ -422,14 +433,14 @@ window.Quarto = {
 <li>The p-value Approach</li>
 </ul></li>
 </ul>
-<section id="the-critical-value-approach-not-used-here." class="level4" data-number="8.1.3.1">
-<h4 data-number="8.1.3.1" class="anchored" data-anchor-id="the-critical-value-approach-not-used-here."><span class="header-section-number">8.1.3.1</span> The Critical Value Approach: Not used here.</h4>
+<section id="the-critical-value-approach-not-used-here." class="level4">
+<h4 class="anchored" data-anchor-id="the-critical-value-approach-not-used-here.">The Critical Value Approach: Not used here.</h4>
 <ul>
 <li>In this approach, we calculate the test statistic, which is also based on the type of test conducted. We then see whether the test statistic is past the critical value either looked up in a table or computed directly from a function in R.</li>
 </ul>
 </section>
-<section id="the-p-value-approach-what-we-are-using-here." class="level4" data-number="8.1.3.2">
-<h4 data-number="8.1.3.2" class="anchored" data-anchor-id="the-p-value-approach-what-we-are-using-here."><span class="header-section-number">8.1.3.2</span> The p-Value Approach: What we are using here.</h4>
+<section id="the-p-value-approach-what-we-are-using-here." class="level4">
+<h4 class="anchored" data-anchor-id="the-p-value-approach-what-we-are-using-here.">The p-Value Approach: What we are using here.</h4>
 <ul>
 <li>In this approach, we still calculate the test statistic, which is still based on the type of test conducted. However, in the p-value approach, this test statistic corresponds directly to a p-value, or probability value, that we use to make a decision on whether the hypothesis is supported or not.
 <ul>
@@ -443,14 +454,14 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-<section id="why-use-the-p-value-approach" class="level4" data-number="8.1.3.3">
-<h4 data-number="8.1.3.3" class="anchored" data-anchor-id="why-use-the-p-value-approach"><span class="header-section-number">8.1.3.3</span> Why Use The p-Value Approach</h4>
+<section id="why-use-the-p-value-approach" class="level4">
+<h4 class="anchored" data-anchor-id="why-use-the-p-value-approach">Why Use The p-Value Approach</h4>
 <ul>
 <li>The critical value approach has variance in the formulas and numbers looked up (based on distribution and sometimes degrees of freedom), while the p-value is used consistently, we reject the null if our p-value is less than an <span class="math inline">\(\alpha\)</span> set apriori.</li>
 </ul>
 </section>
-<section id="three-step-procedure-using-the-p-value-approach" class="level4" data-number="8.1.3.4">
-<h4 data-number="8.1.3.4" class="anchored" data-anchor-id="three-step-procedure-using-the-p-value-approach"><span class="header-section-number">8.1.3.4</span> Three Step Procedure Using The p-value Approach</h4>
+<section id="three-step-procedure-using-the-p-value-approach" class="level4">
+<h4 class="anchored" data-anchor-id="three-step-procedure-using-the-p-value-approach">Three Step Procedure Using The p-value Approach</h4>
 <ol type="1">
 <li>Specify null and alternative hypothesis.</li>
 <li>Compute the test statistic and calculate the p-value.<br>
@@ -459,8 +470,8 @@ window.Quarto = {
 </ol>
 </section>
 </section>
-<section id="setting-up-hypotheses-tests" class="level3" data-number="8.1.4">
-<h3 data-number="8.1.4" class="anchored" data-anchor-id="setting-up-hypotheses-tests"><span class="header-section-number">8.1.4</span> Setting up Hypotheses Tests</h3>
+<section id="setting-up-hypotheses-tests" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-hypotheses-tests">Setting up Hypotheses Tests</h3>
 <ul>
 <li>There are three types of hypotheses tests that you can analyze:</li>
 </ul>
@@ -491,8 +502,8 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-<section id="hypothesis-testing-single-population-a-right-tailed-test" class="level3" data-number="8.1.5">
-<h3 data-number="8.1.5" class="anchored" data-anchor-id="hypothesis-testing-single-population-a-right-tailed-test"><span class="header-section-number">8.1.5</span> Hypothesis Testing: Single Population: A Right-Tailed Test</h3>
+<section id="hypothesis-testing-single-population-a-right-tailed-test" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-testing-single-population-a-right-tailed-test">Hypothesis Testing: Single Population: A Right-Tailed Test</h3>
 <ul>
 <li>A right-tailed test is where your hypothesis statement contains a greater than (&gt;) symbol. In other words, the inequality points to the right.
 <ul>
@@ -502,8 +513,8 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-<section id="hypothesis-testing-single-population-a-left-tailed-test" class="level3" data-number="8.1.6">
-<h3 data-number="8.1.6" class="anchored" data-anchor-id="hypothesis-testing-single-population-a-left-tailed-test"><span class="header-section-number">8.1.6</span> Hypothesis Testing: Single Population: A Left-Tailed Test</h3>
+<section id="hypothesis-testing-single-population-a-left-tailed-test" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-testing-single-population-a-left-tailed-test">Hypothesis Testing: Single Population: A Left-Tailed Test</h3>
 <ul>
 <li>A left-tailed test is where your hypothesis statement contains a less than (&lt;) symbol. In other words, the inequality points to the left.
 <ul>
@@ -519,8 +530,8 @@ window.Quarto = {
 </figure>
 </div>
 </section>
-<section id="hypothesis-testing-single-population-a-two-tailed-test" class="level3" data-number="8.1.7">
-<h3 data-number="8.1.7" class="anchored" data-anchor-id="hypothesis-testing-single-population-a-two-tailed-test"><span class="header-section-number">8.1.7</span> Hypothesis Testing: Single Population: A Two-Tailed Test</h3>
+<section id="hypothesis-testing-single-population-a-two-tailed-test" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-testing-single-population-a-two-tailed-test">Hypothesis Testing: Single Population: A Two-Tailed Test</h3>
 <ul>
 <li>The two-tailed test is called a two-tailed test because the rejection region can be in either tail.
 <ul>
@@ -536,8 +547,8 @@ window.Quarto = {
 </figure>
 </div>
 </section>
-<section id="forming-a-hypothesis" class="level3" data-number="8.1.8">
-<h3 data-number="8.1.8" class="anchored" data-anchor-id="forming-a-hypothesis"><span class="header-section-number">8.1.8</span> Forming a Hypothesis</h3>
+<section id="forming-a-hypothesis" class="level3">
+<h3 class="anchored" data-anchor-id="forming-a-hypothesis">Forming a Hypothesis</h3>
 <ul>
 <li>When forming a hypothesis, we need to do the following first.
 <ol type="1">
@@ -554,8 +565,8 @@ window.Quarto = {
 </ul>
 </section>
 </section>
-<section id="t.test-command" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="t.test-command"><span class="header-section-number">8.2</span> t.test() Command</h2>
+<section id="t.test-command" class="level2">
+<h2 class="anchored" data-anchor-id="t.test-command">t.test() Command</h2>
 <ul>
 <li>The t.test() command can be used in a variety of ways to test many different kinds of hypotheses. It is important to look up that command in your help and see all the different arguments you can change. The following screenshot shows a snippet of this.</li>
 </ul>
@@ -573,25 +584,25 @@ window.Quarto = {
 <li>We change arguments as needed to satisfy the type of test that we are conducting.</li>
 </ul>
 </section>
-<section id="one-sample-t-test" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="one-sample-t-test"><span class="header-section-number">8.3</span> One-Sample t-Test</h2>
+<section id="one-sample-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="one-sample-t-test">One-Sample t-Test</h2>
 <ul>
 <li>A one-sample t-test compares a mean to a population or hypothesized value.</li>
 <li>A one-sample t-test requires a normal distribution; however, if underlying distribution is not normal, then by the rules outlined in central limit theorem (CLT), the sampling distribution is the approximately normal only if <span class="math inline">\(n &gt;= 30\)</span>.</li>
 </ul>
-<section id="t.test-command-for-one-sample-t-test" class="level3" data-number="8.3.1">
-<h3 data-number="8.3.1" class="anchored" data-anchor-id="t.test-command-for-one-sample-t-test"><span class="header-section-number">8.3.1</span> t.test() Command for One-Sample t-Test</h3>
+<section id="t.test-command-for-one-sample-t-test" class="level3">
+<h3 class="anchored" data-anchor-id="t.test-command-for-one-sample-t-test">t.test() Command for One-Sample t-Test</h3>
 <ul>
 <li>In base R, the t.test() command discussed above is useful for getting the t for a one-sample t-test. The command arguments include the name of the variable and the hypothesized or population value (<span class="math inline">\(\mu\)</span>) to compare it to. We can also include the alternative statement to signify a right-tailed, left-tailed, or two-tailed test.</li>
 </ul>
 </section>
-<section id="step-1-specify-null-and-alternative-hypothesis" class="level3" data-number="8.3.2">
-<h3 data-number="8.3.2" class="anchored" data-anchor-id="step-1-specify-null-and-alternative-hypothesis"><span class="header-section-number">8.3.2</span> Step 1: Specify Null and Alternative Hypothesis</h3>
+<section id="step-1-specify-null-and-alternative-hypothesis" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-specify-null-and-alternative-hypothesis">Step 1: Specify Null and Alternative Hypothesis</h3>
 <ul>
 <li>In order to set up the appropriate null and alternative hypothesis, we need to determine the type of test: two-tailed, right-tailed, or left-tailed.</li>
 </ul>
-<section id="two-tailed-test" class="level4" data-number="8.3.2.1">
-<h4 data-number="8.3.2.1" class="anchored" data-anchor-id="two-tailed-test"><span class="header-section-number">8.3.2.1</span> Two-Tailed Test</h4>
+<section id="two-tailed-test" class="level4">
+<h4 class="anchored" data-anchor-id="two-tailed-test">Two-Tailed Test</h4>
 <ul>
 <li><p>Reject <span class="math inline">\(H_0\)</span> on either side of the hypothesized value of the population parameter.</p>
 <ul>
@@ -642,8 +653,8 @@ mean of x
 </div></li>
 </ul>
 </section>
-<section id="one-tailed-test" class="level4" data-number="8.3.2.2">
-<h4 data-number="8.3.2.2" class="anchored" data-anchor-id="one-tailed-test"><span class="header-section-number">8.3.2.2</span> One-Tailed Test</h4>
+<section id="one-tailed-test" class="level4">
+<h4 class="anchored" data-anchor-id="one-tailed-test">One-Tailed Test</h4>
 <ul>
 <li><p>Reject <span class="math inline">\(H_0\)</span> only on one side of the hypothesized value of the population parameter.</p>
 <ul>
@@ -720,8 +731,8 @@ mean of x
 </div>
 </section>
 </section>
-<section id="step-2.-compute-the-test-statistic-and-calculate-the-p-value" class="level3" data-number="8.3.3">
-<h3 data-number="8.3.3" class="anchored" data-anchor-id="step-2.-compute-the-test-statistic-and-calculate-the-p-value"><span class="header-section-number">8.3.3</span> Step 2. Compute the Test Statistic and calculate the p-value</h3>
+<section id="step-2.-compute-the-test-statistic-and-calculate-the-p-value" class="level3">
+<h3 class="anchored" data-anchor-id="step-2.-compute-the-test-statistic-and-calculate-the-p-value">Step 2. Compute the Test Statistic and calculate the p-value</h3>
 <ul>
 <li>When the population standard deviation <span class="math inline">\(\sigma\)</span> is unknown, the test statistic for testing the population mean <span class="math inline">\(\mu\)</span> is assumed to follow the <span class="math inline">\(t\)</span> distribution with a computed degrees of freedom (<span class="math inline">\(df\)</span>) based on whether population variances are assumed to be equal or not.</li>
 <li>Formula for the Test Statistic: <span class="math inline">\(t = (m_x-\mu_x)/(s_x/\sqrt(n_x))\)</span>
@@ -731,16 +742,16 @@ mean of x
 <li>R will compute the <span class="math inline">\(df\)</span> based on the parameters set in the t.test() command along with the test statistic, so we can rely on it to calculate this for us.</li>
 </ul>
 </section>
-<section id="step-3.-interpret-probability-and-results." class="level3" data-number="8.3.4">
-<h3 data-number="8.3.4" class="anchored" data-anchor-id="step-3.-interpret-probability-and-results."><span class="header-section-number">8.3.4</span> Step 3. Interpret probability and results.</h3>
+<section id="step-3.-interpret-probability-and-results." class="level3">
+<h3 class="anchored" data-anchor-id="step-3.-interpret-probability-and-results.">Step 3. Interpret probability and results.</h3>
 <ul>
 <li>Set alpha (<span class="math inline">\(\alpha\)</span>) to a common level, like .05, and compare it to the calculated p-value from your output in R.</li>
 <li>Reject <span class="math inline">\(H_0\)</span> if p-value is less than <span class="math inline">\(\alpha\)</span> value. This means we show support for our alternative hypothesis <span class="math inline">\(H_A\)</span>, which is against status quo.</li>
 <li>Interpret the results in plain English.</li>
 </ul>
 </section>
-<section id="example-of-a-one-sample-t-test-in-r" class="level3" data-number="8.3.5">
-<h3 data-number="8.3.5" class="anchored" data-anchor-id="example-of-a-one-sample-t-test-in-r"><span class="header-section-number">8.3.5</span> Example of a One-Sample t-Test in R</h3>
+<section id="example-of-a-one-sample-t-test-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-a-one-sample-t-test-in-r">Example of a One-Sample t-Test in R</h3>
 <ul>
 <li>To conduct a one-sample t-Test in R, first, let’s read in a dataset nhanes2016.csv from your book files and go ahead and load the tidyverse. Tidyverse is loaded so that we can subset the dataset in the next example.</li>
 </ul>
@@ -792,8 +803,8 @@ mean of x
 <li><p>Take note that if we used a smaller alpha (like .01 or .001), we would not pass the test and instead fail to reject the null.</p></li>
 </ul>
 </section>
-<section id="example-of-a-one-sample-using-a-subset" class="level3" data-number="8.3.6">
-<h3 data-number="8.3.6" class="anchored" data-anchor-id="example-of-a-one-sample-using-a-subset"><span class="header-section-number">8.3.6</span> Example of a One-Sample Using a Subset</h3>
+<section id="example-of-a-one-sample-using-a-subset" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-a-one-sample-using-a-subset">Example of a One-Sample Using a Subset</h3>
 <ul>
 <li>Let’s do another example using a subset of the data. In this example, let’s create a subset of people 65+ years old to run the same two-tailed test. This allows us to see if the people 65 years and older had a different blood pressure than 120.</li>
 <li>In the command below, we use tidyverse to set up a new data frame object named nhanes.2016.65plus to save the filtered data.<br>
@@ -839,8 +850,8 @@ mean of x
 </ul>
 </section>
 </section>
-<section id="independent-samples-t-test" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="independent-samples-t-test"><span class="header-section-number">8.4</span> Independent Samples t-Test</h2>
+<section id="independent-samples-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="independent-samples-t-test">Independent Samples t-Test</h2>
 <ul>
 <li>Independent samples t-test compares the means of two unrelated groups, so instead of just one population, we have 2 mutually exclusive groups.</li>
 <li>More formally, two (or more) random samples are considered independent if the process that generates one sample is completely separate from the process that generates the other sample.
@@ -852,8 +863,8 @@ mean of x
 <li>The sampling distribution is assumed to be normal and the linear combination of normally distributed random variables is also normally distributed.</li>
 <li>If underlying distribution is not normal, then by the CLT, the sampling distribution is approximately normal only if both <span class="math inline">\(n_1 &gt;= 30\)</span> and <span class="math inline">\(n_2 &gt;= 30\)</span>.</li>
 </ul>
-<section id="t.test-command-for-independent-samples-t-test" class="level3" data-number="8.4.1">
-<h3 data-number="8.4.1" class="anchored" data-anchor-id="t.test-command-for-independent-samples-t-test"><span class="header-section-number">8.4.1</span> t.test() Command for Independent Samples t-Test</h3>
+<section id="t.test-command-for-independent-samples-t-test" class="level3">
+<h3 class="anchored" data-anchor-id="t.test-command-for-independent-samples-t-test">t.test() Command for Independent Samples t-Test</h3>
 <ul>
 <li><p>In base R, the t.test() command is useful for getting the t for the Independent samples t-test. This is the same t.test() command used above.</p></li>
 <li><p>The command needs to be altered to handle the second group. In the command, the arguments include a formula which is formatted as t.test(continuous_variable ~ grouping_variable) or t.test(population1, population2). Deciding on the correct format of the argument depends on the shape of the data discussed later on.</p></li>
@@ -868,8 +879,8 @@ mean of x
 <li>Using the ~ symbol between variables: This method allows you to run the t-test without having to split the data manually if your data is not already split. You specify the numerical variable (your continuous measurement) on the left and the categorical variable (which identifies the two groups) on the right of the ~ symbol.</li>
 </ul>
 </section>
-<section id="step-1-specify-null-and-alternative-hypothesis-1" class="level3" data-number="8.4.2">
-<h3 data-number="8.4.2" class="anchored" data-anchor-id="step-1-specify-null-and-alternative-hypothesis-1"><span class="header-section-number">8.4.2</span> Step 1: Specify Null and Alternative Hypothesis</h3>
+<section id="step-1-specify-null-and-alternative-hypothesis-1" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-specify-null-and-alternative-hypothesis-1">Step 1: Specify Null and Alternative Hypothesis</h3>
 <ul>
 <li>When conducting hypothesis tests concerning <span class="math inline">\(\mu_1  - \mu_2\)</span> , the competing hypotheses will take one of the following forms:
 <ul>
@@ -1013,8 +1024,8 @@ mean of x mean of y
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># which is greater than .05.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="step-2-compute-the-test-statistic-and-calcuate-the-p-value" class="level3" data-number="8.4.3">
-<h3 data-number="8.4.3" class="anchored" data-anchor-id="step-2-compute-the-test-statistic-and-calcuate-the-p-value"><span class="header-section-number">8.4.3</span> Step 2: Compute the Test Statistic and Calcuate the p-value</h3>
+<section id="step-2-compute-the-test-statistic-and-calcuate-the-p-value" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-compute-the-test-statistic-and-calcuate-the-p-value">Step 2: Compute the Test Statistic and Calcuate the p-value</h3>
 <p>Formula for the Test Statistic: <span class="math inline">\(t = (m_1 - m_2)/\sqrt((s^2_1/n_1)+(s^2_2/n_2))\)</span></p>
 <ul>
 <li><p>In the independent samples t-test formula, <span class="math inline">\(m_1\)</span> is the mean of one group and <span class="math inline">\(m_2\)</span> is the mean of the other group; the difference between the means makes up the numerator. The larger the difference between the group means, the larger the numerator will be and the larger the t-statistic will be!</p></li>
@@ -1024,11 +1035,11 @@ mean of x mean of y
 <li><p>Calculate the p-value and Compare it to a Predetermined Alpha level</p></li>
 </ul>
 </section>
-<section id="step-3-interpret-the-probability-and-write-a-conclusion" class="level3" data-number="8.4.4">
-<h3 data-number="8.4.4" class="anchored" data-anchor-id="step-3-interpret-the-probability-and-write-a-conclusion"><span class="header-section-number">8.4.4</span> Step 3: Interpret the Probability and Write a Conclusion</h3>
+<section id="step-3-interpret-the-probability-and-write-a-conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-interpret-the-probability-and-write-a-conclusion">Step 3: Interpret the Probability and Write a Conclusion</h3>
 </section>
-<section id="example-of-an-independent-samples-t-test-in-r" class="level3" data-number="8.4.5">
-<h3 data-number="8.4.5" class="anchored" data-anchor-id="example-of-an-independent-samples-t-test-in-r"><span class="header-section-number">8.4.5</span> Example of an Independent Samples t-Test in R</h3>
+<section id="example-of-an-independent-samples-t-test-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-an-independent-samples-t-test-in-r">Example of an Independent Samples t-Test in R</h3>
 <ul>
 <li>Using the nhanes data set, let’s bring over some code from the last section so that we can work this example. This includes reading in the data set and creating the subset for the ages 65 and over.</li>
 </ul>
@@ -1081,8 +1092,8 @@ sample estimates:
 </ul></li>
 </ul>
 </section>
-<section id="example-independent-t-test-using-a-subset" class="level3" data-number="8.4.6">
-<h3 data-number="8.4.6" class="anchored" data-anchor-id="example-independent-t-test-using-a-subset"><span class="header-section-number">8.4.6</span> Example Independent t-test Using a Subset</h3>
+<section id="example-independent-t-test-using-a-subset" class="level3">
+<h3 class="anchored" data-anchor-id="example-independent-t-test-using-a-subset">Example Independent t-test Using a Subset</h3>
 <ul>
 <li>Create a subset of the data frame of people 65+ years old to run the same test on blood pressure (two-tailed test).</li>
 </ul>
@@ -1125,8 +1136,8 @@ sample estimates:
 </ul>
 </section>
 </section>
-<section id="dependent-samples-t-test" class="level2" data-number="8.5">
-<h2 data-number="8.5" class="anchored" data-anchor-id="dependent-samples-t-test"><span class="header-section-number">8.5</span> Dependent Samples t-Test</h2>
+<section id="dependent-samples-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="dependent-samples-t-test">Dependent Samples t-Test</h2>
 <ul>
 <li>Dependent samples or a Paired samples t-test compares the means of two related groups.</li>
 <li>The <em>Dependent</em> means there is a deliberate Pairing, or more specifically <em>Matched Pairing</em> that generally come from 2 methods:
@@ -1143,16 +1154,16 @@ sample estimates:
 <li>The parameter of interest is the mean difference D where <span class="math inline">\(D = x_1 - x_2\)</span> and the random variable <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are a matched pair.</li>
 <li>This works under the assumption regarding CLT that both <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are normally distributed or <span class="math inline">\(n &gt;= 30\)</span>.</li>
 </ul>
-<section id="t.test-command-for-dependent-samples-t-test" class="level3" data-number="8.5.1">
-<h3 data-number="8.5.1" class="anchored" data-anchor-id="t.test-command-for-dependent-samples-t-test"><span class="header-section-number">8.5.1</span> t.test() Command for Dependent Samples t-Test</h3>
+<section id="t.test-command-for-dependent-samples-t-test" class="level3">
+<h3 class="anchored" data-anchor-id="t.test-command-for-dependent-samples-t-test">t.test() Command for Dependent Samples t-Test</h3>
 <ul>
 <li>Option 1: Requires the <em>paired = TRUE</em> parameter: The default for the command is <em>paired=FALSE</em>, which is an independent samples t-test.</li>
 <li>Option 2: Can also calculate a formula instead of turning the paired argument to true and place in the first parameter.</li>
 <li>Summary: In a paired t-test, you’re comparing two related sets of observations, such as measurements taken from the same subjects under different conditions. The key is that each observation in one group has a corresponding observation in the other group. In R, you can perform a paired t-test by either specifying paired = TRUE in the t.test function or by directly calculating the differences between the paired observations and running the t-test on those differences. If you choose the second approach, you subtract one set of values from the other and then use that result as the first argument in the t.test function (essentially calculating the <span class="math inline">\(\mu_d\)</span>. This directly tests whether the mean of the differences is significantly different from zero, giving the same result as a paired t-test but with the differences calculated explicitly beforehand. Either method is fine.</li>
 </ul>
 </section>
-<section id="step-1-write-null-and-alternative-hypothesis" class="level3" data-number="8.5.2">
-<h3 data-number="8.5.2" class="anchored" data-anchor-id="step-1-write-null-and-alternative-hypothesis"><span class="header-section-number">8.5.2</span> Step 1: Write Null and Alternative Hypothesis</h3>
+<section id="step-1-write-null-and-alternative-hypothesis" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-write-null-and-alternative-hypothesis">Step 1: Write Null and Alternative Hypothesis</h3>
 <ul>
 <li>When conducting hypothesis tests concerning <span class="math inline">\(\mu_d\)</span> , the competing hypotheses will take one of the following forms:
 <ul>
@@ -1260,22 +1271,22 @@ mean difference
 </div></li>
 </ul>
 </section>
-<section id="step-2-compute-the-test-statistic-and-calculate-the-p-value" class="level3" data-number="8.5.3">
-<h3 data-number="8.5.3" class="anchored" data-anchor-id="step-2-compute-the-test-statistic-and-calculate-the-p-value"><span class="header-section-number">8.5.3</span> Step 2: Compute the Test Statistic and Calculate the p-value</h3>
+<section id="step-2-compute-the-test-statistic-and-calculate-the-p-value" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-compute-the-test-statistic-and-calculate-the-p-value">Step 2: Compute the Test Statistic and Calculate the p-value</h3>
 <p>Formula for the Test Statistic: <span class="math inline">\(t = (m_d-d_0)/\sqrt((s^2_d/n_d)\)</span></p>
 <ul>
 <li><p>Dependent samples t-test formula: The <span class="math inline">\(m_d\)</span> is the mean of the differences between the related measures, the <span class="math inline">\(s^2_d\)</span> is the variance of the mean difference between the measures, and <span class="math inline">\(n_d\)</span> is the sample size. The dependent samples t-test worked a little differently from the independent samples t-test. In this case, the formula uses the mean of the differences between the two related measures.</p></li>
 <li><p>Calculate the p-value and Compare it to a Predetermined Alpha level</p></li>
 </ul>
 </section>
-<section id="step-3-interpret-the-probability-and-write-a-conclusion-1" class="level3" data-number="8.5.4">
-<h3 data-number="8.5.4" class="anchored" data-anchor-id="step-3-interpret-the-probability-and-write-a-conclusion-1"><span class="header-section-number">8.5.4</span> Step 3: Interpret the Probability and Write a Conclusion</h3>
+<section id="step-3-interpret-the-probability-and-write-a-conclusion-1" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-interpret-the-probability-and-write-a-conclusion-1">Step 3: Interpret the Probability and Write a Conclusion</h3>
 <ul>
 <li>The steps involved with setting up the null and alternative hypotheses and calculating the test statistic are based on different rules and formulas for all three t-tests, but the rest of the steps are the same.</li>
 </ul>
 </section>
-<section id="example-of-an-dependent-samples-t-test-in-r" class="level3" data-number="8.5.5">
-<h3 data-number="8.5.5" class="anchored" data-anchor-id="example-of-an-dependent-samples-t-test-in-r"><span class="header-section-number">8.5.5</span> Example of an Dependent Samples t-Test in R</h3>
+<section id="example-of-an-dependent-samples-t-test-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-an-dependent-samples-t-test-in-r">Example of an Dependent Samples t-Test in R</h3>
 <ul>
 <li><p>Given the nhanes.2016 dataset, let’s ask the following research question: Is there a difference between measure 1 and 2 for systolic BP?</p></li>
 <li><p>First, bring back in the data set from the last section.</p></li>
@@ -1327,8 +1338,8 @@ mean difference
 </ul></li>
 </ul>
 </section>
-<section id="reshape-function" class="level3" data-number="8.5.6">
-<h3 data-number="8.5.6" class="anchored" data-anchor-id="reshape-function"><span class="header-section-number">8.5.6</span> reshape function</h3>
+<section id="reshape-function" class="level3">
+<h3 class="anchored" data-anchor-id="reshape-function">reshape function</h3>
 <ul>
 <li>The reshape function allows you to restructure a data frame by specifying a timevar (The variable in the data that defines the different time points or conditions), and idvar (The variable that uniquely identifies each subject or observational unit), and a direction (“wide” or “long”)</li>
 <li>The syntax is as follows: reshape(data, timevar, idvar, direction, …)</li>
@@ -1424,8 +1435,8 @@ mean difference
 </ul>
 </section>
 </section>
-<section id="using-ai" class="level2" data-number="8.6">
-<h2 data-number="8.6" class="anchored" data-anchor-id="using-ai"><span class="header-section-number">8.6</span> Using AI</h2>
+<section id="using-ai" class="level2">
+<h2 class="anchored" data-anchor-id="using-ai">Using AI</h2>
 <ul>
 <li><p>Use the following prompts on a generative AI, like chatGPT, to learn more about t.test’s and confidence intervals.</p></li>
 <li><p>Can you explain the difference between the null hypothesis and the alternative hypothesis, and why is it important to set up both correctly before conducting a t-test?</p></li>
@@ -1437,8 +1448,8 @@ mean difference
 <li><p>What is the difference between an independent samples t-test and a dependent (paired) samples t-test, and in what situations should each be used?</p></li>
 </ul>
 </section>
-<section id="summary" class="level2" data-number="8.7">
-<h2 data-number="8.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">8.7</span> Summary</h2>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
 <li>In summary, we learned about the basic rules of hypothesis testing and how to set up a null and alternative hypothesis. We learned about two-tailed, right-tailed, and left-tailed hypotheses. We learned about 3 t.tests: the one-sample t-test, the independent samples t-test, and the dependent (or paired) samples t-test. Finally, we also learned how to interpret the results using the p-value approach.</li>
 <li>Take note that this lesson does not include the assumptions for t-tests. Assumptions are extremely important, but I will leave the discussion of them to another class.</li>
@@ -1871,12 +1882,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./contingency.html" class="pagination-link" aria-label="Contingency Tables and Chi-Squared">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Contingency Tables and Chi-Squared</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Contingency Tables and Chi-Squared</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./anova.html" class="pagination-link" aria-label="Analysis of Variance (ANOVA)">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Analysis of Variance (ANOVA)</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-title">Analysis of Variance (ANOVA)</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

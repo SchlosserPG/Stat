@@ -1,4 +1,9 @@
-# Linear Regression Analysis
+---
+title: "Linear Regression Analysis"
+author: ""
+date: "2024-08-09"
+output: html_document
+---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
@@ -118,17 +123,16 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   The square root of the MSE is the standard error of the estimate, se.
         -   Standard Error of Estimate: $se = \sqrt(MSE) = \sqrt(SSE/(n-k-1))$
 
-
 ### The Coefficient of Determination ($R^2$)
 
 -   Coefficient of determination refers to the percentage of variance in one variable that is accounted for by another variable or by a group of variables.
--   This measure of R-squared is a measure of the “fit” of the line to the data.
-* The Coefficient of Determination, denoted as $R^2$, is a statistical measure that indicates the proportion of variance in the dependent variable ($y$) that is explained by the independent variable(s) (x) in a regression model. It is calculated as: SSR/SST or 1-SSE/SST. 
-*$R^2$  ranges from 0 to 1: 
-     + $R^2$=0: None of the variance in $y$ is explained by the model.
-     + $R^2$=1: The model explains all the variance in y.
-A higher $R^2$  indicates a better fit of the model to the data.
 
+-   This measure of R-squared is a measure of the “fit” of the line to the data.
+
+-   The Coefficient of Determination, denoted as $R^2$, is a statistical measure that indicates the proportion of variance in the dependent variable ($y$) that is explained by the independent variable(s) (x) in a regression model. It is calculated as: SSR/SST or 1-SSE/SST. \*$R^2$ ranges from 0 to 1:
+
+    -   $R^2$=0: None of the variance in $y$ is explained by the model.
+    -   $R^2$=1: The model explains all the variance in y. A higher $R^2$ indicates a better fit of the model to the data.
 
 -   $R^2$ = 1-SSE/SST where $SSE = \sum^n_{i=1}(y_i - \hat{y})^2$ and $SST = \sum^n_{i=1}(y_i - \bar{y})^2$
 
@@ -152,6 +156,7 @@ A higher $R^2$  indicates a better fit of the model to the data.
     -   Again, the strength of the relationship varies by field, but generally, a .2 to a .5 is considered weak, a .5 to a .8 is considered moderate, and above a .8 is considered strong.
 
 #### R Output
+
 -   We do see the $R^2$ in our R output labelled Multiple R-squared.
 
 #### Limitations of The Coefficient of Determination ($R^2$)
@@ -161,10 +166,13 @@ A higher $R^2$  indicates a better fit of the model to the data.
 -   This is only applicable with multiple regression, discussed below.
 
 ### The Adjusted $R^2$
-* The Adjusted Coefficient of Determination, denoted as Adjusted $R^2$ modifies $R^2$ to account for the number of predictors in the model relative to the number of data points. It is calculated as Adjusted $R^2 = 1-(1-R^2)*((n-1)/(n-k-1))$, where where n is the sample size and p is the number of predictors.
-* In simple linear regression, $R^2$ is generally more appropriate than Adjusted $R^2$ because there is only one predictor variable in the model.
+
+-   The Adjusted Coefficient of Determination, denoted as Adjusted $R^2$ modifies $R^2$ to account for the number of predictors in the model relative to the number of data points. It is calculated as Adjusted $R^2 = 1-(1-R^2)*((n-1)/(n-k-1))$, where where n is the sample size and p is the number of predictors.
+
+-   In simple linear regression, $R^2$ is generally more appropriate than Adjusted $R^2$ because there is only one predictor variable in the model.
 
 -   The Adjusted $R^2$ tries to balance the raw explanatory power against the desire to include only important predictors.
+
     -   Adjusted $R^2 = 1-(1-R^2)*((n-1)/(n-k-1))$.
     -   The Adjusted $R^2$ penalizes the $R^2$ for adding additional explanatory variables.
 
@@ -230,8 +238,7 @@ summary(Simple)
 
 -   We see a p-value on the Income row of 9.66e-09 from a t-value. This is also significant at .05 level. This p-value is the same as the F-test statistic because we only have one X variable.
 -   This significance means our predictor variable does influence the Y variable and that we can reject the null hypothesis and show support for our alternative hypothesis.
-* This means Income does influence Debt Payments. 
-
+-   This means Income does influence Debt Payments.
 
 #### Interpreting the Hypothesis
 

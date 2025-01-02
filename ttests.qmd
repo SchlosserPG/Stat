@@ -1,4 +1,10 @@
-# Hypothesis Testing with t-Tests
+---
+title: "Hypothesis Testing with t-Tests"
+author: ""
+date: "2024-08-09"
+output: html_document
+---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
@@ -198,9 +204,9 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   $\mu$ of interest is 12.
 
     ```{r}
-StudyHours <- read.csv("data/StudyHours.csv")
-summary(StudyHours)
-OneSample <- t.test(StudyHours$Hours, alterantive="two.sided", mu=12); OneSample
+    StudyHours <- read.csv("data/StudyHours.csv")
+    summary(StudyHours)
+    OneSample <- t.test(StudyHours$Hours, alterantive="two.sided", mu=12); OneSample
     #This test is significant at the .01 level as indicated by the p-value of .001047. 
     #We are 95% confident that our true mean lies between  13.89281 and 18.85005
     ```
@@ -302,14 +308,14 @@ t.test(x = nhanes.2016$BPXSY1, mu = 120, alternative="two.sided")
 ##sample mean of 120.5394 
 ```
 
-
 -   Step 3: Interpret probability and results.
 
     -   We found a test statistic is 2.4491, and a corresponding p-value is .01435. If our alpha was set to .05, .01435 is smaller than that (p-value \< alpha) This indicates that we should reject the null ($H_0$) and support the alternative ($H_A$) that the true mean is not equal to 120. This is in regards to blood pressure.
-    -   Therefore, the sample mean systolic BP not equal to 120, or more formally the mean systolic blood pressure in a sample of 7,145 people was 120.54 (sd = 18.62). And our one-sample t-test found this mean to be statistically significantly different from the hypothesized mean of 120 \[t(7144) = 2.449; p = 0.01435\]. 
+    -   Therefore, the sample mean systolic BP not equal to 120, or more formally the mean systolic blood pressure in a sample of 7,145 people was 120.54 (sd = 18.62). And our one-sample t-test found this mean to be statistically significantly different from the hypothesized mean of 120 \[t(7144) = 2.449; p = 0.01435\].
 
-* This indicates that the sample likely came from a population with a mean systolic blood pressure not equal to 120, signifying that the true population is likely not equal to 120.
-* Take note that if we used a smaller alpha (like .01 or .001), we would not pass the test and instead fail to reject the null. 
+-   This indicates that the sample likely came from a population with a mean systolic blood pressure not equal to 120, signifying that the true population is likely not equal to 120.
+
+-   Take note that if we used a smaller alpha (like .01 or .001), we would not pass the test and instead fail to reject the null.
 
 ### Example of a One-Sample Using a Subset
 
