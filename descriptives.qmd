@@ -201,7 +201,8 @@ mean(GrowthFund)
 -   The mode is less useful when there are more than three modes.
 
 #### Example of Function with Salary Variable
-* While this is a small vector, when working with a large dataset and a function like sort(x = table(salaries), decreasing = TRUE), appending [1:5] is a way to focus on the top results after the frequencies have been computed and sorted. Specifically, table(salaries) calculates the frequency of each unique salary, sort(..., decreasing = TRUE) orders these frequencies from highest to lowest, and [1:5] selects the first five entries in the sorted list. This is useful when the dataset contains many unique values, as it allows you to quickly identify and extract the top 5 most frequent salaries, providing a concise summary without being overwhelmed by the full distribution.
+
+-   While this is a small vector, when working with a large dataset and a function like sort(x = table(salaries), decreasing = TRUE), appending \[1:5\] is a way to focus on the top results after the frequencies have been computed and sorted. Specifically, table(salaries) calculates the frequency of each unique salary, sort(..., decreasing = TRUE) orders these frequencies from highest to lowest, and \[1:5\] selects the first five entries in the sorted list. This is useful when the dataset contains many unique values, as it allows you to quickly identify and extract the top 5 most frequent salaries, providing a concise summary without being overwhelmed by the full distribution.
 
 -   Consider the salary of employees presented earlier. 40,000 appears 2 times and is the mode because that occurs most often.
 
@@ -210,7 +211,6 @@ mean(GrowthFund)
 sort(x = table(salaries), decreasing = TRUE)[1:5]
 
 ```
-
 
 #### Finding No Mode
 
@@ -397,7 +397,7 @@ Where:
 -   $X_i$ is each individual value
 -   $\bar{X}$ is the mean of the data
 -   $s$ is the standard deviation
-* A normal distribution will have a kurtosis value of three, where distributions with kurtosis around 3 are described as mesokurtic, significantly higher than 3 indicate leptokurtic, and significantly under 3 indicate platykurtic.
+-   A normal distribution will have a kurtosis value of three, where distributions with kurtosis around 3 are described as mesokurtic, significantly higher than 3 indicate leptokurtic, and significantly under 3 indicate platykurtic.
 -   The kurtosis() command from the semTools package subtracts 3 from the kurtosis, so we can evaluate values by comparing them to 0. Positive values will be indicative to a leptokurtic distribution and negative will indicate a platykurtic distribution. To see if kurtosis (leptokurtic or platykurtic) is significant, we confirm them by first evaluating the z-score to see if the variable is normal or not. The same cutoff values from skew also apply for the z for small, medium, and large sample sizes in kurtosis. These are the same basic rules for the rules in judging skewness.
 
 ![Evaluate Kurtosis](Pictures/Ch2/Kurtosis.png "Evaluate Kurtosis")

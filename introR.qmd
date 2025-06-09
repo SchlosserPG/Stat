@@ -5,7 +5,6 @@ date: "2024-08-09"
 output: html_document
 ---
 
-
 -   The goal of this lesson is to introduce you to R and RStudio while teaching you how to perform data preparation using these tools. In this part, we will go over forming an understanding of statistics, learning about observations and variables, and being able to move around and get comfortable with R. I will also teach you how use and load data.
 
 ```{r setup, include=FALSE}
@@ -51,6 +50,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   Growing availability of vast amounts of data.
     -   Improved computational power.
     -   Development of sophisticated algorithms.
+    -   The rise of Generative AI.
 
 ### Two Main Branches of Statistics
 
