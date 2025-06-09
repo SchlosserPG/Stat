@@ -74,7 +74,7 @@
     "href": "introR.html#r-is-an-interactive-calculator",
     "title": "Introduction to R and RStudio",
     "section": "R is an Interactive Calculator",
-    "text": "R is an Interactive Calculator\n\nAn important facet of R is that it should serve as your sole calculator.\nTry these commands in your .R file by typing them in and clicking Ctr + Enter on each line.\n\n\n3 + 4\n\n[1] 7\n\n3 * 4\n\n[1] 12\n\n3/4\n\n[1] 0.75\n\n3 + 4 * 100^2\n\n[1] 40003\n\n\n\nTake note that order of operations holds in R: PEMDAS\n\nParentheses ()\nExponents ^ and \\(**\\)\nDivision \\(/\\), Multiplication \\(*\\), modulo, and integer division\nAddition + and Subtraction -\n\nNote that modulo and integer division have the same priority level as multiplication and division, where modulo is just the remainder.\n\n\nprint(2 + 3 * 5 - 7^2%%4 + (5/2))\n\n[1] 18.5\n\n5/2  #parentheses: = 2.5\n\n[1] 2.5\n\n7^2  #exponent:= 49\n\n[1] 49\n\n3 * 5  #multiplication: = 15\n\n[1] 15\n\n17%%4  #modulo: = 1\n\n[1] 1\n\n17%/%4  #integer division: = 4\n\n[1] 4\n\n2 + 15  #addition: = 17\n\n[1] 17\n\n17 - 1  #subtraction: = 16\n\n[1] 16\n\n16 + 2.5  #addition: = 18.5\n\n[1] 18.5",
+    "text": "R is an Interactive Calculator\n\nAn important facet of R is that it should serve as your sole calculator.\nTry these commands in your .R file by typing them in and clicking Ctr + Enter on each line.\n\n\n3 + 4\n\n[1] 7\n\n3 * 4\n\n[1] 12\n\n3/4\n\n[1] 0.75\n\n3 + 4 * 100^2\n\n[1] 40003\n\n\n\nTake note that order of operations holds in R: PEMDAS\n\nParentheses ()\nExponents ^ and \\(**\\)\nDivision \\(/\\), Multiplication \\(*\\), modulo, and integer division\nAddition + and Subtraction -\n\nNote that modulo and integer division have the same priority level as multiplication and division, where modulo is just the remainder.\n\n\n2 + 3 * 5 - 7^2%%4 + (5/2)\n\n[1] 18.5\n\n5/2  #parentheses: = 2.5\n\n[1] 2.5\n\n2 + 3 * 5 - 7^2%%4 + 2.5\n\n[1] 18.5\n\n7^2  #exponent:= 49\n\n[1] 49\n\n2 + 3 * 5 - 49%%4 + 2.5\n\n[1] 18.5\n\n3 * 5  #multiplication: = 15\n\n[1] 15\n\n2 + 15 - 49%%4 + 2.5\n\n[1] 18.5\n\n49%%4  #modulo: = 1 -- 49/4 is 48.25, so 1/4 or 1 is the remainder. \n\n[1] 1\n\n# The rest of the equation goes in order from left to right.\n2 + 15 - 1 + 2.5\n\n[1] 18.5\n\n2 + 15  #addition: = 17\n\n[1] 17\n\n17 - 1  #subtraction: = 16\n\n[1] 16\n\n16 + 2.5  #addition: = 18.5\n\n[1] 18.5\n\n## An example of integer division is below\n49%/%4  #integer division: = 12 or 49/4 is 12.25, so the whole number is 12.  \n\n[1] 12",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to R and RStudio</span>"
     ]
@@ -247,6 +247,46 @@
     "text": "Summary\n\nIn this lesson, we worked through descriptive statistics including skewness and kurtosis. We learned about variables and scales of measurement, how to summarize qualitative and quantitative data.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Descriptive Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Probability And Business Statistics",
+    "section": "",
+    "text": "Why R?",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Chapter 0: Software Know-How</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#customizing-rstudio",
+    "href": "index.html#customizing-rstudio",
+    "title": "Probability And Business Statistics",
+    "section": "Customizing RStudio",
+    "text": "Customizing RStudio\n\nCustomizing RStudio through global options allows you to create a coding environment that aligns with your workflow and personal preferences. By tailoring settings such as appearance, pane layout, and editor behavior, you can improve productivity, enhance readability, and streamline your data analysis process. These adjustments not only make coding more efficient but also help you avoid common pitfalls, like workspace clutter or inconsistent settings. RStudio is highly flexible, so take the time to explore and experiment with its options to make the platform work best for you.\n\n\n\n\nWhat are Global Options\n\nSettings in RStudio that let you personalize the environment to suit your workflow.\n\nWhy change global options?\n\nImprove productivity by tailoring RStudio to your preferences.\nEnhance readability and usability of code and outputs.\nCreate a consistent environment across projects.\n\nWhere to Find Global Options:\n\nGo to Tools &gt; Global Options in the RStudio menu.\n\nKey Settings to Adjust\n\nGlobal Options &gt; General: You can set your general information including your default working directory (when not in a project).Set your R Version if appropriate.\nGlobal Options &gt; Code: Enable auto-complete, or soft-wrap for easier coding.\nGlobal Options &gt; Appearance: You can customize the appearance to a theme that accommodates your learning style and visual preferences.\nGlobal Options &gt; Spelling: You can turn on a spell check.\n\n\n\n\n\nTools &gt; Global Options.R",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Chapter 0: Software Know-How</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#quick-keys-in-r",
+    "href": "index.html#quick-keys-in-r",
+    "title": "Probability And Business Statistics",
+    "section": "Quick Keys in R",
+    "text": "Quick Keys in R\n\nThere are a lot of quick keys in R to make you able to use it faster and more effectively. You may look over these and try on your own.\n\n\n\n\nConsole Quick Keys\n\n\n\n\n\nSource Quick Keys\n\n\n\n\n\nEditing Quick Keys",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Chapter 0: Software Know-How</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#getting-help-in-r",
+    "href": "index.html#getting-help-in-r",
+    "title": "Probability And Business Statistics",
+    "section": "Getting Help in R",
+    "text": "Getting Help in R\n\nThere are lots of ways to get help in R.\nIn R, use the help search box to find information on a function, parameter, or package.\n\n?mean\nhelp.search(‘swirl’)\nhelp(package = ‘MASS’)\n?install.packages\n\n\n\n\n\nGetting Help\n\n\n\nYou should try to look up the tapply command to see what it does.\n\nUse ?tapply in your .R file to pull up tapply() command or type tapply in the Help box. * Formally, you should see that the command applies a function to each cell of a ragged array, that is to each (non-empty) group of values given by a unique combination of the levels of certain factors. This means that the command does some math calculation (mean, sum, etc.) on a continuous variable after dividing the data by group.\n\nThe format is tapply(x, index, and fun), where x is a continuous variable, index is a grouping variable or factor, and fun is a function like mean.\nMore on that function later in the first lessons.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Chapter 0: Software Know-How</span>"
     ]
   }
 ]

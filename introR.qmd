@@ -174,15 +174,31 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 -   Note that modulo and integer division have the same priority level as multiplication and division, where modulo is just the remainder.
 
 ```{r}
-print(2 + 3 * 5 - 7^2 %% 4 + (5 / 2))
+2 + 3 * 5 - 7^2 %% 4 + (5 / 2)
+
 5 / 2    #parentheses: = 2.5
+2 + 3 * 5 - 7^2 %% 4 + 2.5
+
 7^2      #exponent:= 49
+2 + 3 * 5 - 49 %% 4 + 2.5
+
 3 * 5    #multiplication: = 15
-17 %% 4  #modulo: = 1
-17 %/% 4  #integer division: = 4
+2 + 15 - 49 %% 4 + 2.5
+
+
+49 %% 4  #modulo: = 1 -- 49/4 is 48.25, so 1/4 or 1 is the remainder. 
+
+#The rest of the equation goes in order from left to right. 
+2 + 15 - 1 + 2.5
+
 2 + 15   #addition: = 17
 17 - 1   #subtraction: = 16
 16 + 2.5 #addition: = 18.5
+
+
+
+##An example of integer division is below
+49 %/% 4  #integer division: = 12 or 49/4 is 12.25, so the whole number is 12.  
 ```
 
 ## Observations and Variables

@@ -5,9 +5,9 @@ date: "2024-08-09"
 output: html_document
 ---
 
-
 # Why R?
-* In an Business Statistics course, we teach R because it is a powerful, flexible tool widely used in business analytics for data analysis and visualization. R allows students to apply theoretical concepts to real-world datasets, enhancing their understanding through hands-on practice. Its rich ecosystem of packages, like ggplot2 for visualization and dplyr for data manipulation, makes it ideal for tackling the types of problems analysts face in the field. Additionally, R promotes reproducibility and collaboration through features like R Markdown and RStudio Projects, which align with industry standards. By learning R, students not only gain valuable technical skills but also build a strong foundation for advanced analytics and decision-making in their careers.
+
+-   In an Business Statistics course, we teach R because it is a powerful, flexible tool widely used in business analytics for data analysis and visualization. R allows students to apply theoretical concepts to real-world datasets, enhancing their understanding through hands-on practice. Its rich ecosystem of packages, like ggplot2 for visualization and dplyr for data manipulation, makes it ideal for tackling the types of problems analysts face in the field. Additionally, R promotes reproducibility and collaboration through features like R Markdown and RStudio Projects, which align with industry standards. By learning R, students not only gain valuable technical skills but also build a strong foundation for advanced analytics and decision-making in their careers.
 
 -   R is a very sophisticated statistical software that allows you to enter commands one-at-a-time, or write scripts using the R language.
 
@@ -76,17 +76,18 @@ output: html_document
 ![Console](Pictures/Ch0/Console.png "Screenshot of Console")
 
 # Project Files
-* A RStudio project is a way to organize your work by creating a self-contained environment for your files, scripts, and outputs.
-     + The RStudio project file sits in the root directory, with the extension .Rproj. 
-     + When your RStudio session is running through the project file (.Rproj), the current working directory points to the root folder where that .Rproj file is saved.
-* Key Features
-     + Keeps all related files in one folder.
-     + Automatically sets the working directory to the project folder.
-     + Simplifies managing file paths ("data/myfile.csv" instead of a full path).
 
-     
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Oe4o3xJGJgI?si=7h-tMOlRwRFDbBQT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+-   A RStudio project is a way to organize your work by creating a self-contained environment for your files, scripts, and outputs.
+    -   The RStudio project file sits in the root directory, with the extension .Rproj.
+    -   When your RStudio session is running through the project file (.Rproj), the current working directory points to the root folder where that .Rproj file is saved.
+-   Key Features
+    -   Keeps all related files in one folder.
+    -   Automatically sets the working directory to the project folder.
+    -   Simplifies managing file paths ("data/myfile.csv" instead of a full path).
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Oe4o3xJGJgI?si=7h-tMOlRwRFDbBQT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+
+</iframe>
 
 -   Creating a project for our class. Projects are great because they aid in your organization technique.
 -   You will find that some professors are not insistent on making a project for their class, but it is helpful to still do to organize your materials. You will have a lot of code in this program!
@@ -111,28 +112,25 @@ output: html_document
 
 ## Customizing RStudio
 
-* Customizing RStudio through global options allows you to create a coding environment that aligns with your workflow and personal preferences. By tailoring settings such as appearance, pane layout, and editor behavior, you can improve productivity, enhance readability, and streamline your data analysis process. These adjustments not only make coding more efficient but also help you avoid common pitfalls, like workspace clutter or inconsistent settings. RStudio is highly flexible, so take the time to explore and experiment with its options to make the platform work best for you.
+-   Customizing RStudio through global options allows you to create a coding environment that aligns with your workflow and personal preferences. By tailoring settings such as appearance, pane layout, and editor behavior, you can improve productivity, enhance readability, and streamline your data analysis process. These adjustments not only make coding more efficient but also help you avoid common pitfalls, like workspace clutter or inconsistent settings. RStudio is highly flexible, so take the time to explore and experiment with its options to make the platform work best for you.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/cmg2q-mG1iI?si=arnYLqFAIH6oZ30U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cmg2q-mG1iI?si=arnYLqFAIH6oZ30U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
 
-* What are Global Options
-     + Settings in RStudio that let you personalize the environment to suit your workflow.
-* Why change global options?
-     + Improve productivity by tailoring RStudio to your preferences.
-     + Enhance readability and usability of code and outputs.
-     + Create a consistent environment across projects.
-* Where to Find Global Options:
-     + Go to Tools > Global Options in the RStudio menu.
+</iframe>
 
-
-* Key Settings to Adjust
-     + Global Options > General: 
-You can set your general information including your default working directory (when not in a project).Set your R Version if appropriate.
-     + Global Options > Code: Enable auto-complete, or soft-wrap for easier coding.
-     + Global Options > Appearance: 
-You can customize the appearance to a theme that accommodates your learning style and visual preferences.
-     + Global Options > Spelling: 
-You can turn on a spell check.
+-   What are Global Options
+    -   Settings in RStudio that let you personalize the environment to suit your workflow.
+-   Why change global options?
+    -   Improve productivity by tailoring RStudio to your preferences.
+    -   Enhance readability and usability of code and outputs.
+    -   Create a consistent environment across projects.
+-   Where to Find Global Options:
+    -   Go to Tools \> Global Options in the RStudio menu.
+-   Key Settings to Adjust
+    -   Global Options \> General: You can set your general information including your default working directory (when not in a project).Set your R Version if appropriate.
+    -   Global Options \> Code: Enable auto-complete, or soft-wrap for easier coding.
+    -   Global Options \> Appearance: You can customize the appearance to a theme that accommodates your learning style and visual preferences.
+    -   Global Options \> Spelling: You can turn on a spell check.
 
 ![Tools \> Global Options.R](Pictures/Ch0/Options.png "Tools > Global Options.R")
 
