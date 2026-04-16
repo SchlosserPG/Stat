@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./ai.html" rel="next">
+<link href="./probability.html" rel="next">
 <link href="./descriptives.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -748,11 +748,6 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ai.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using AI</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./probability.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Calculating Probability</span></a>
   </div>
 </li>
@@ -769,6 +764,11 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Regression</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ai_viz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Generative AI and Data Visualization</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -3110,8 +3110,7 @@ Show Answer
 <p>In this lesson, we worked through the full data preparation and visualization workflow in R. We began with data types and coercion — understanding how R stores variables as factors, numeric, character, and logical types, and how to convert between them using as.factor(), as.numeric(), and recode(). We also covered date conversion using the lubridate package with the dataprep.csv dataset.</p>
 <p>The core of the lesson covered the dplyr toolkit: arrange() to sort data, filter() to subset rows, select() to choose columns, and the pipe operator (%&gt;%) to chain operations cleanly. We used count() and length() to tally observations, worked through the full range of missing data techniques including na.rm, is.na(), na_if(), na.omit(), and drop_na(), and used summarise() and group_by() to compute grouped statistics. case_when() and mutate() handle recoding and creating new variables.</p>
 <p>The visualization section is organized by complexity. Single-variable bar charts that require data cleaning (recoding factor levels, handling missing values) are covered first using the nhanes and GSS datasets — these show how data preparation and visualization connect in practice. Multi-variable charts follow: grouped and stacked bar charts for two categorical variables, boxplots by group, and scatterplots with <code>geom_smooth()</code> for two continuous variables. Full worked examples using the nhanes and BRFSS datasets tie everything together.</p>
-<p>Each section includes a hands-on lab. The data preparation labs use dataprep.csv (79 house sales with Price, Sqft, Beds, Baths, OverallQual, and BuildDay). The visualization lab uses dataviz.csv (1,311 coffee quality reviews with Country.of.Origin, TotalScore, Flavor, Processing.Method, and others).</p>
-<p>In the next part of the bootcamp, we shift from R to mathematics — the notation and concepts that underpin the statistical and machine learning models you will use throughout the MSBA program.</p>
+<p><strong>What comes next:</strong> The Hypothesis Testing lesson introduces t-tests — the first formal inferential tool in the course. The visualization and reasoning-error principles from this lesson apply directly: a t-test result is only meaningful if the question was well-posed, the data are appropriate, and the output is communicated honestly. The Trifecta Checkup extends naturally to interpreting statistical output: does the analysis answer the right question, with the right data, communicated clearly?</p>
 
 
 </section>
@@ -3545,8 +3544,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ai.html" class="pagination-link" aria-label="Using AI">
-        <span class="nav-page-text"><span class="chapter-title">Using AI</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./probability.html" class="pagination-link" aria-label="Calculating Probability">
+        <span class="nav-page-text"><span class="chapter-title">Calculating Probability</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

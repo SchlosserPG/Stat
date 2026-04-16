@@ -614,8 +614,6 @@ arranged_data <-  arrange(iris, Sepal.Length)
 mutated_data <- mutate(iris, Petal.Width_Log = log(Petal.Width))
 ```
 
-
-
 # Advanced Visualization
 
 ## Single Variable Visualization with Data Prep
@@ -1299,8 +1297,6 @@ houseprices %>%
 | Small             | \$457,568 | 1,505 sq ft |
 :::
 
-
-
 ## Visualization Lab
 
 For this lab, switch to the `dataviz.csv` coffee dataset rather than the datasets used in the teaching examples above. Load it as `coffee`. It contains 1,311 coffee quality reviews with variables including `Country.of.Origin`, `Processing.Method`, `TotalScore`, `Flavor`, and `Aroma`, among others. Use the `scores` vector for the outlier question.
@@ -1417,7 +1413,6 @@ ggplot(coffee_clean, aes(x = Aroma, y = Flavor)) +
 Washed / Wet is by far the most common processing method. Aroma and Flavor show a strong positive relationship — coffees rated highly on aroma tend to score well on flavor too.
 :::
 
-
 ## Summary
 
 In this lesson, we worked through the full data preparation and visualization workflow in R. We began with data types and coercion — understanding how R stores variables as factors, numeric, character, and logical types, and how to convert between them using as.factor(), as.numeric(), and recode(). We also covered date conversion using the lubridate package with the dataprep.csv dataset.
@@ -1426,6 +1421,4 @@ The core of the lesson covered the dplyr toolkit: arrange() to sort data, filter
 
 The visualization section is organized by complexity. Single-variable bar charts that require data cleaning (recoding factor levels, handling missing values) are covered first using the nhanes and GSS datasets — these show how data preparation and visualization connect in practice. Multi-variable charts follow: grouped and stacked bar charts for two categorical variables, boxplots by group, and scatterplots with `geom_smooth()` for two continuous variables. Full worked examples using the nhanes and BRFSS datasets tie everything together.
 
-Each section includes a hands-on lab. The data preparation labs use dataprep.csv (79 house sales with Price, Sqft, Beds, Baths, OverallQual, and BuildDay). The visualization lab uses dataviz.csv (1,311 coffee quality reviews with Country.of.Origin, TotalScore, Flavor, Processing.Method, and others).
-
-In the next part of the bootcamp, we shift from R to mathematics — the notation and concepts that underpin the statistical and machine learning models you will use throughout the MSBA program.
+**What comes next:** The Hypothesis Testing lesson introduces t-tests — the first formal inferential tool in the course. The visualization and reasoning-error principles from this lesson apply directly: a t-test result is only meaningful if the question was well-posed, the data are appropriate, and the output is communicated honestly. The Trifecta Checkup extends naturally to interpreting statistical output: does the analysis answer the right question, with the right data, communicated clearly?

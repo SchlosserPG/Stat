@@ -45,7 +45,6 @@ By the end of this lesson, you should be comfortable writing and running basic R
 -   As you read, notice how the lesson is structured as a workflow: set up → write code → create data → load data → fix types → handle missing values. Each section is a prerequisite for the next. By the time you reach missing data, you will have seen every piece needed to make sense of it.
 -   AI tools like ChatGPT and GitHub Copilot can write R code for you. The goal of this lesson is to build enough understanding that you can *read, verify, and own* that code — not just run it and hope for the best.
 
-
 ## What is Statistics?
 
 -   Statistics is the methodology of extracting useful information from a data set.
@@ -125,11 +124,9 @@ R figures out a variable's data type automatically based on whatever you assign 
 -   Writing functions
 -   Prompting and verifying AI-generated code
 
-
----
+------------------------------------------------------------------------
 
 With the statistical and conceptual framing in place, the next step is getting R and RStudio ready to use. This section covers how to create and organise your script files — the foundation of reproducible, documented work in R.
-
 
 # Setting up R
 
@@ -149,11 +146,9 @@ With the statistical and conceptual framing in place, the next step is getting R
 
 ![Screenshot of R Environment](Pictures/Ch1/RScript.png "Screenshot of R Environment")
 
-
----
+------------------------------------------------------------------------
 
 With R installed and a script file open, it is time to start writing code. This section introduces the core mechanics of the R language: comments, arithmetic, objects, naming conventions, built-in functions, packages, and how to troubleshoot when something goes wrong.
-
 
 # Using R
 
@@ -353,16 +348,14 @@ G123AB <- "Allowed?"
 kStates <- 29 
 ```
 
-
 The naming conventions above can be summarised as:
 
 | Object type | Convention | Example |
-|---|---|---|
+|------------------------|------------------------|------------------------|
 | Constant (single value) | `k` + CamelCase | `kStates`, `kMaxRetries` |
 | Function | CamelCase, first letter capitalised | `MultiplyByTwo`, `CleanData` |
 | Variable / column | dot.case or camelCase | `filled.script.month`, `filledScriptMonth` |
 | Dataset / data frame | Short, lowercase or camelCase | `gig`, `gss.2016`, `potLegal` |
-
 
 -   Different R coders have different preferences, but consistency is key in making sure your code is easy to follow and for others to read. In this course, we will generally use the recommendation in the text which are listed above.
 -   We tend to use one letter variable names (i.e., x) for placeholders or for simple functions (like naming a vector).
@@ -540,11 +533,9 @@ library(tidyverse)                # this is all you need going forward
     -   Silent Error: Code runs but gives wrong output (Dangerous – easy to miss)
     -   The second type is the more important one to develop instincts for. AI is particularly prone to silent errors — it will produce output that looks correct but isn't. Always sanity-check results against what you expect.
 
-
----
+------------------------------------------------------------------------
 
 With the language mechanics established, the next step is creating data structures directly in R. Before you read in real datasets, understanding how vectors, matrices, and data frames are built from scratch gives you a mental model of how R stores and organises data.
-
 
 # Entering Data in R
 
@@ -578,16 +569,14 @@ rep(x=1:3,times=4) #Repeat the elements of the vector 4 times
 rep(x=1:3, each=3) #Repeat the elements of a vector 3 times each
 ```
 
-
 The four main ways to create a vector in R:
 
-| Function | Purpose | Example | Result |
-|---|---|---|---|
-| `c()` | Combine any values | `c(1, 2, 3)` | `1 2 3` |
-| `:` | Integer sequence | `1:5` | `1 2 3 4 5` |
-| `seq()` | Custom sequence with step | `seq(0, 30, 5)` | `0 5 10 … 30` |
-| `rep()` | Repeat elements | `rep(1:3, times=2)` | `1 2 3 1 2 3` |
-
+| Function | Purpose                   | Example             | Result        |
+|----------|---------------------------|---------------------|---------------|
+| `c()`    | Combine any values        | `c(1, 2, 3)`        | `1 2 3`       |
+| `:`      | Integer sequence          | `1:5`               | `1 2 3 4 5`   |
+| `seq()`  | Custom sequence with step | `seq(0, 30, 5)`     | `0 5 10 … 30` |
+| `rep()`  | Repeat elements           | `rep(1:3, times=2)` | `1 2 3 1 2 3` |
 
 ## Creating a Matrix
 
@@ -692,11 +681,9 @@ nrow(pot.legal)
 dim(pot.legal)
 ```
 
-
----
+------------------------------------------------------------------------
 
 You can build data manually, but most real analysis starts with loading an external file. Before reading data into R, you need to understand where R looks for files — which is what working directories and file paths control.
-
 
 # Working Directories
 
@@ -736,14 +723,12 @@ You can build data manually, but most real analysis starts with loading an exter
 -   Cons
     -   Requires setting the working directory correctly (getwd() and setwd() can help).
 
-
-| | Absolute path | Relative path |
-|---|---|---|
+|   | Absolute path | Relative path |
+|------------------------|------------------------|------------------------|
 | **Example** | `"C:/Users/pam/Documents/data.csv"` | `"data/data.csv"` |
 | **Starts from** | Root of the file system | Current working directory |
 | **Portability** | Breaks on any other machine | Works on any machine with the same folder structure |
 | **Best for** | Quick personal scripts | Shared projects, submitted work |
-
 
 ## Setting up a Working Directory
 
@@ -765,11 +750,9 @@ getwd() #Alerts you to what folder you are currently set to as your working dire
 
 ![Setting Your Working Directory](Pictures/Ch1/WorkingDir.png "Setting Your Working Directory")
 
-
----
+------------------------------------------------------------------------
 
 With your working directory set and file paths understood, you are ready to load real datasets. This section covers the most common ways to bring data into R, from built-in datasets to CSV files from your computer.
-
 
 # Reading in Data
 
@@ -840,16 +823,14 @@ summary(object = gss.2016)
 summary(gss.2016) 
 ```
 
-
-| | `read.csv()` | `read_csv()` |
-|---|---|---|
+|   | `read.csv()` | `read_csv()` |
+|------------------------|------------------------|------------------------|
 | **Package** | Base R — no library needed | `readr` (part of tidyverse) |
 | **Speed** | Adequate for small files | Faster on large datasets |
 | **Strings** | Converts to factors unless `stringsAsFactors=FALSE` | Keeps as character by default |
 | **Output** | `data.frame` | `tibble` (a tidyverse-enhanced data frame) |
 | **Error messages** | Minimal | More informative |
 | **Best for** | Quick reads, base R workflows | Tidyverse projects, large files |
-
 
 ## read_csv() function
 
@@ -882,11 +863,9 @@ head(Insurance$Claims) #lists the first 6 Claims in the Insurance dataset.
 sd(Insurance$Claims) #provides the standard deviation of all Claims in the Insurance dataset.
 ```
 
-
----
+------------------------------------------------------------------------
 
 Once data is loaded, the first thing to do is examine it. The `summary()` and `summarize()` functions give you an immediate overview of what is in the dataset before any deeper analysis begins.
-
 
 # Summarize Data
 
@@ -906,9 +885,7 @@ summary(object = Insurance)
 summary(Insurance)
 ```
 
-
----
-
+------------------------------------------------------------------------
 
 # Explicit Use of Libraries
 
@@ -932,11 +909,9 @@ library(dplyr)
 summarize(Insurance, mean(Holders))
 ```
 
-
----
+------------------------------------------------------------------------
 
 Reading data into R is only the first step — R must also interpret each column correctly. A number stored as text will not calculate. A category stored as a number will not group. This section covers R's five core data types, how to detect them, and how to fix them when they are wrong.
-
 
 ## Data Types in R
 
@@ -1250,11 +1225,9 @@ UseDate2022 <- filter(UseDates, year==2022)
 
 ```
 
-
----
+------------------------------------------------------------------------
 
 After fixing data types, the next common problem is missing values. Real datasets almost always have gaps — understanding what causes them and how to handle them is an essential part of any analysis workflow.
-
 
 # Handling Missing Data
 
@@ -1277,13 +1250,11 @@ After fixing data types, the next common problem is missing values. Real dataset
 
     -   When you ignore missing data because your function works without it, the missing values are typically excluded from the calculations by default. In R, many functions, such as mean(), sum(), or lm(), have arguments like na.rm = TRUE to explicitly remove missing values during computation. Ignoring missing data can simplify the analysis, but it comes with potential consequences.
 
-
 | Strategy | When to use | R approach |
-|---|---|---|
+|------------------------|------------------------|------------------------|
 | **Omit** | Few missing values; missingness is random | `na.omit()`, `drop_na()` |
 | **Impute** | Many missing values; can't afford to lose rows | Replace with mean/median/mode or a model |
 | **Ignore** | Function supports it and impact is minimal | `na.rm = TRUE` in `mean()`, `sd()`, etc. |
-
 
 -   The choice of approach depends on the nature of the missingness, which can be categorized as Missing Completely at Random, Missing at Random, or Missing Not at Random. Addressing missing data appropriately is essential to maintain the validity of statistical analyses and avoid biases.
 
@@ -1451,7 +1422,7 @@ Use the `gig.csv` and `gss2016.csv` datasets referenced in this lesson. Make sur
 ::: {.callout-note collapse="true"}
 ### Show Answer
 
-```r
+``` r
 ####################################
 # Project name: Intro Lab
 # Project purpose: Practice basic R from the Intro lesson
@@ -1473,14 +1444,14 @@ Both lines produce `[1] 42`. The `[1]` is R's way of indicating this is the firs
 
 **2.** Create the following three vectors and combine them into a data frame called `employees`. Then use `ncol()`, `nrow()`, and `dim()` to confirm its shape.
 
-- `name`: "Alice", "Bob", "Carol"
-- `department`: "Finance", "HR", "Finance"
-- `salary`: 72000, 58000, 81000
+-   `name`: "Alice", "Bob", "Carol"
+-   `department`: "Finance", "HR", "Finance"
+-   `salary`: 72000, 58000, 81000
 
 ::: {.callout-note collapse="true"}
 ### Show Answer
 
-```r
+``` r
 name       <- c("Alice", "Bob", "Carol")
 department <- c("Finance", "HR", "Finance")
 salary     <- c(72000, 58000, 81000)
@@ -1500,7 +1471,7 @@ In a data frame, rows are observations (one row per employee) and columns are va
 ::: {.callout-note collapse="true"}
 ### Show Answer
 
-```r
+``` r
 gig <- read.csv("data/gig.csv", stringsAsFactors = TRUE, na.strings = "")
 str(gig)
 ```
@@ -1508,7 +1479,7 @@ str(gig)
 Expected output will vary by dataset, but the evaluation follows this logic:
 
 | Variable | Type R assigned | Correct? | Notes |
-|---|---|---|---|
+|----|----|----|----|
 | EmployeeID | integer | ✅ | Whole-number ID — integer is fine |
 | Industry | factor | ✅ | Categorical — factor is correct |
 | Job | factor | ✅ | Categorical — factor is correct |
@@ -1522,7 +1493,7 @@ Any variable showing `chr` (character) that represents a category needs `as.fact
 ::: {.callout-note collapse="true"}
 ### Show Answer
 
-```r
+``` r
 # Total NAs in the entire dataset
 sum(is.na(gig))
 
@@ -1541,7 +1512,7 @@ nrow(gig[is.na(gig$Wage), ])
 ::: {.callout-note collapse="true"}
 ### Show Answer
 
-```r
+``` r
 gss.2016 <- read.csv("data/gss2016.csv")
 
 # Fix 1: grass should be a factor, not character
@@ -1559,18 +1530,26 @@ Why does the order matter for `age`? `as.numeric()` cannot convert `"89 OR OLDER
 
 **6.** The three strategies for handling missing data are omit, impute, and ignore. For each scenario below, identify the most appropriate strategy and explain why.
 
-- a. A survey dataset has 2 rows out of 500 with missing income values. The analysis does not focus on income specifically.
-- b. A clinical dataset tracks pregnancy-related complications. The variable "number of previous pregnancies" is missing for all male patients.
-- c. You are computing the mean satisfaction score for a customer survey. A few respondents left the question blank.
+-   
+
+    a.  A survey dataset has 2 rows out of 500 with missing income values. The analysis does not focus on income specifically.
+
+-   
+
+    b.  A clinical dataset tracks pregnancy-related complications. The variable "number of previous pregnancies" is missing for all male patients.
+
+-   
+
+    c.  You are computing the mean satisfaction score for a customer survey. A few respondents left the question blank.
 
 ::: {.callout-note collapse="true"}
 ### Show Answer
 
-- **a. Ignore (or omit).** With only 2 missing rows out of 500 and income not being the focus, using `na.rm = TRUE` when income appears in calculations is sensible. Omitting those 2 rows entirely would also be defensible — the impact on results is negligible.
+-   **a. Ignore (or omit).** With only 2 missing rows out of 500 and income not being the focus, using `na.rm = TRUE` when income appears in calculations is sensible. Omitting those 2 rows entirely would also be defensible — the impact on results is negligible.
 
-- **b. Neither omit nor impute — investigate first.** Removing all male rows would introduce severe selection bias, distorting the entire analysis. The missing values are *systematically* missing (not random), and the variable may simply not apply to part of the population. The right approach is to understand the data structure and consider whether this variable should be included at all, or whether a subset analysis is more appropriate.
+-   **b. Neither omit nor impute — investigate first.** Removing all male rows would introduce severe selection bias, distorting the entire analysis. The missing values are *systematically* missing (not random), and the variable may simply not apply to part of the population. The right approach is to understand the data structure and consider whether this variable should be included at all, or whether a subset analysis is more appropriate.
 
-- **c. Ignore with `na.rm = TRUE`.** For a straightforward mean calculation, `mean(data$satisfaction, na.rm = TRUE)` is appropriate. The missing values represent non-responses, which are common in surveys. If a large proportion of responses were missing, further investigation would be warranted — but for a few blanks, `na.rm` is the practical and defensible choice.
+-   **c. Ignore with `na.rm = TRUE`.** For a straightforward mean calculation, `mean(data$satisfaction, na.rm = TRUE)` is appropriate. The missing values represent non-responses, which are common in surveys. If a large proportion of responses were missing, further investigation would be warranted — but for a few blanks, `na.rm` is the practical and defensible choice.
 :::
 
 ## Summary
@@ -1578,7 +1557,7 @@ Why does the order matter for `age`? `as.numeric()` cannot convert `"89 OR OLDER
 This lesson covered the foundations of R and RStudio:
 
 | Topic | Key concepts |
-|---|---|
+|------------------------------------|------------------------------------|
 | Statistics overview | Descriptive (summarising data) vs. inferential (drawing conclusions); both use samples |
 | AI and statistics | AI automates descriptive work; inferential judgment — population definition, sampling validity, interpretation — remains human |
 | R script files | `.R` files save and rerun code; always include a prolog; comment with `#` |

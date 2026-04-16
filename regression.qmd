@@ -916,7 +916,6 @@ predict(salary_model, data.frame(YearsExperience = 12, Department = "Operations"
 Note that even though Operations has the lowest intercept, the Operations employee earns more here because they have significantly more experience — the slope effect eventually overtakes the department penalty.
 :::
 
-
 ## Summary
 
 This lesson covered simple linear regression, multiple regression, and regression with categorical variables:
@@ -936,5 +935,4 @@ This lesson covered simple linear regression, multiple regression, and regressio
 | Multi-category dummies | k − 1 dummy variables for k categories; R handles automatically in `lm()` |
 | Predictions with categorical variables | `predict()` with `data.frame()` specifying category as character string |
 
-**What comes next:** The regression model you built here — predicting a continuous outcome from a mix of continuous and categorical predictors — is the foundation for machine learning methods covered in our business anlaytics major or our MSBA program here in the Mason School of Business. Techniques like k-nearest neighbors, decision trees, and ensemble models all share the same goal of minimizing prediction error, and many of the diagnostics and model-evaluation concepts introduced here (residuals, overfitting, the bias-variance tradeoff) carry forward directly.
-
+**What comes next:** The final lesson in this course brings together the two threads that have run throughout — statistical reasoning and generative AI. You will learn how to evaluate data visualizations critically using Kaiser Fung's Trifecta Checkup, apply the same reasoning-error framework to AI-generated charts, and use prompt engineering to build and critique visualizations from the datasets you have worked with all semester. The regression concepts from this lesson appear directly in that work: R² and model fit, correlation vs. causation, and the distinction between a chart that describes a relationship and one that implies it causes something.

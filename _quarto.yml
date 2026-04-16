@@ -13,11 +13,11 @@ book:
     - introR.qmd
     - descriptives.qmd
     - dataprep.qmd
-    - ai.qmd
     - probability.qmd
     - ttests.qmd
     - anova.qmd
     - regression.qmd
+    - ai_viz.qmd
     - summary.qmd
     - references.qmd
   navbar:
