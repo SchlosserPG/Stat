@@ -2,21 +2,13 @@
 title: "Introduction to R and RStudio"
 author: ""
 date: "2024-08-09"
-output: html_document
+format: html
 ---
 
 -   The goal of this lesson is to introduce you to R and RStudio while teaching you how to perform data preparation using these tools. In this part, we will go over forming an understanding of statistics, learning about observations and variables, and being able to move around and get comfortable with R. I will also teach you how use and load data.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
-```
-
-```{r tidy=FALSE}
-####################################
-# Project name: Introduction to R and RStudio
-# Data used: mtcars from R, Insurance from the MASS library and gss.2016 dataset 
-# Libraries used: MASS, tidyverse, dplyr (part of tidyverse)
-####################################
 ```
 
 ### At a Glance
@@ -52,6 +44,11 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   Development of sophisticated algorithms.
     -   The rise of Generative AI.
 
+### Definition of AI
+
+-   Artificial Intelligence (AI) is the development of computer systems that can perform tasks that typically require human intelligence — things like recognizing patterns, making decisions, understanding language, and generating content.
+-   For the purposes of this course, the most relevant category is generative AI (tools like ChatGPT, Claude, and GitHub Copilot), which can produce text, code, and analysis in response to natural language prompts.
+
 ### Two Main Branches of Statistics
 
 -   Descriptive Statistics - collecting, organizing, and presenting the data.
@@ -63,7 +60,53 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   Too expensive to gather information on the entire population.
     -   Often impossible to gather information on the entire population.
 
-## Setting up R
+#### Descriptive Statistics and AI
+
+-   Descriptive Statistics is where AI currently dominates. Tools like ChatGPT, Copilot, and R's own AI-assisted packages can collect data via APIs, clean and wrangle it, generate summary statistics, and produce polished visualizations faster than any human. When you ask AI to "summarize this dataset," it's doing descriptive work. The output is only as good as the data fed in, but the mechanical execution is largely automated.
+
+#### Inferential Statistics and AI
+
+-   Inferential Statistics is where human judgment remains essential, and AI actually introduces new complications. Consider:
+    -   Who defines the population? If you're studying customer behavior, do you mean all customers, all potential customers, all customers in a region? AI won't ask this question — it will answer whatever you give it. Defining the population of interest is a business and conceptual judgment call, not a computation.
+    -   Is the sample representative? AI can run a regression or t-test in seconds, but it cannot tell you whether your sample was collected with selection bias, convenience sampling, or missing key subgroups. That requires domain knowledge and critical thinking.
+    -   What do the inferences actually mean? A p-value of 0.03 in a business context means something different from one in a clinical trial. Translating statistical conclusions into actionable decisions — and communicating uncertainty honestly to a non-technical audience — is still entirely a human skill.
+
+### Reasons for sampling from the population
+
+-   Too expensive to gather information on the entire population.
+-   Often impossible to gather information on the entire population.
+-   AI models are themselves built on samples — no training dataset captures all human knowledge, all languages, or all possible situations. This is why AI has blind spots, biases, and confidently wrong answers. The same sampling limitations we study in this course apply directly to the tools you use every day.
+
+### AI vs. Statistics
+
+-   Statistics is a branch of mathematics focused on collecting, analyzing, and interpreting data under uncertainty. AI systems, particularly modern ones, are largely built on statistical methods — machine learning models are essentially very complex statistical models trained on large datasets. So, statistics isn't separate from AI; it's foundational to it.
+-   AI vs. Machine Learning — Machine learning is a subset of AI where systems learn from data rather than being explicitly programmed with rules. Most of what powers tools like ChatGPT falls here.
+-   AI vs. a calculator — A calculator executes exactly what you tell it. An AI system infers, predicts, and generates — which makes it more powerful and also less predictable. It can be wrong with great confidence.
+
+### R Comes with Assistance
+
+-   R’s community is vast, and you can always seek information from the community to try to help you with a R related issue.
+-   AI tools like ChatGPT and GitHub Copilot can also assist with R syntax and debugging — but the analyst must understand, verify, and take ownership of every line of code submitted.
+
+### R is Called a Dynamically Typed Language
+
+R figures out a variable's data type automatically based on whatever you assign to it. You can change it, but you don't have to declare it upfront like in some other languages.
+
+### What makes you fluent in R — with or without AI:
+
+-   Troubleshooting (AI helps, but you must read the error)
+-   The Environment — AI can assist if you share your context, but you must know what to share and why
+-   Assignment operator
+-   Sequences
+-   Built-in functions
+-   Reading data
+-   Packages
+-   Conditional statements
+-   Rendering output
+-   Writing functions
+-   Prompting and verifying AI-generated code
+
+# Setting up R
 
 ## R Script Files
 
@@ -71,13 +114,13 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   A .R script is simply a text file containing a set of commands and comments. The script can be saved and used later to rerun the code. The script can also be documented with comments and edited again and again to suit your needs.
 -   Using the Console
     -   Entering and running code at the R command line is effective and simple. However, each time you want to execute a set of commands, you must re-enter them at the command line. Nothing saves for later.
--   Complex commands are particularly difficult causing you to re-entering the code to fix any errors typographical or otherwise.R script files help to solve this issue.
+-   Complex commands are particularly difficult, forcing you to re-enter the code to fix any errors — typographical or otherwise. R script files help to solve this issue.
 
 ### Create a New R Script File
 
--   To save your notes from today's lecture, create a .R file named Chapter1.R and save it to your project file you made in the last class.
--   There are a couple of parts to this chapter, and we can add code from today's chapter in one file so that our code is stacked nicely together.\
--   For each new chapter, start a new file and save it to your project folder.
+-   To save your notes from this lesson, create a .R file named module1.R and save it to your project file you made in the last class.
+-   There are a couple of parts to this module, and we can add code for the entire module in one file so that our code is stacked nicely together.\
+-   For each new module, start a new file and save it to your project folder.
 
 ![Screenshot of R Environment](Pictures/Ch1/RScript.png "Screenshot of R Environment")
 
@@ -88,9 +131,13 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ### Comments
 
 -   Use comments to organize and explain your code in R scripts by including 1 or more than 1 hashtag.
+
 -   Aim to write clear, self-explanatory code that minimizes the need for excessive comments.
+
 -   Add helpful comments where necessary to ensure anyone, including your future self, can understand and run the code.
+
 -   If something doesn’t work, avoid deleting it immediately. Instead, comment it out while troubleshooting or exploring alternatives.
+
 -   Essentially, we add comments to our code to document our work and add notes to our self or to others.
 
 ```{r}
@@ -109,7 +156,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ```{r, tidy=FALSE}
 
 ####################################
-# Project name: Chapter 1
+# Project name: Module 1
 # Project purpose: To create an R script file to learn about R. 
 # Code author name: [Enter Your Name]
 # Date last edited: [Enter Date Here]
@@ -157,7 +204,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 ## R is an Interactive Calculator
 
 -   An important facet of R is that it should serve as your sole calculator.
--   Try these commands in your .R file by typing them in and clicking Ctr + Enter on each line.
+-   Try these commands in your .R file by typing them in and clicking Ctr + Enter on each line for a PC and Cmd + Return on a Mac computer.
 
 ```{r}
 3+4
@@ -166,71 +213,49 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 3+4*100^2
 ```
 
--   Take note that order of operations holds in R: PEMDAS
+-   Take note that order of operations holds in R:
+
+-   The order of operations in R, as in mathematics, determines the sequence in which expressions are evaluated. This follows the standard rules often remembered by the acronym PEMDAS: Parentheses, Exponents, Multiplication and Division, and Addition and Subtraction (from left to right). Parentheses have the highest precedence and are used to group expressions, ensuring they are evaluated first. Operators with the same level of precedence, like multiplication and division, are evaluated from left to right. When in doubt, use parentheses to make the evaluation order explicit and improve the readability of your code.
+
     -   Parentheses ()
     -   Exponents \^ and $**$
     -   Division $/$, Multiplication $*$, modulo, and integer division
     -   Addition + and Subtraction -
--   Note that modulo and integer division have the same priority level as multiplication and division, where modulo is just the remainder.
+
+-   
+
+    -   In R, modulo (%%) and integer division (%/%) also follow the order of operations, with both being evaluated after multiplication, division, and exponentiation, but before addition and subtraction.
+
+-   This means that modulo and integer division have the same priority level as multiplication and division, where modulo is just the remainder.
 
 ```{r}
+# Start with the full expression — what does R see?
 2 + 3 * 5 - 7^2 %% 4 + (5 / 2)
 
-5 / 2    #parentheses: = 2.5
-2 + 3 * 5 - 7^2 %% 4 + 2.5
+# Step 1: Parentheses first
+5 / 2          # = 2.5
+# Expression is now: 2 + 3 * 5 - 7^2 %% 4 + 2.5
 
-7^2      #exponent:= 49
-2 + 3 * 5 - 49 %% 4 + 2.5
+# Step 2: Exponents
+7^2            # = 49
+# Expression is now: 2 + 3 * 5 - 49 %% 4 + 2.5
 
-3 * 5    #multiplication: = 15
-2 + 15 - 49 %% 4 + 2.5
+# Step 3: Multiplication
+3 * 5          # = 15
+# Expression is now: 2 + 15 - 49 %% 4 + 2.5
 
+# Step 4: Modulo (same level as multiplication/division, left to right)
+49 %% 4        # = 1  (49 divided by 4 leaves remainder 1)
+# Expression is now: 2 + 15 - 1 + 2.5
 
-49 %% 4  #modulo: = 1 -- 49/4 is 48.25, so 1/4 or 1 is the remainder. 
+# Step 5: Addition and subtraction, left to right
+2 + 15         # = 17
+17 - 1         # = 16
+16 + 2.5       # = 18.5
 
-#The rest of the equation goes in order from left to right. 
-2 + 15 - 1 + 2.5
-
-2 + 15   #addition: = 17
-17 - 1   #subtraction: = 16
-16 + 2.5 #addition: = 18.5
-
-
-
-##An example of integer division is below
-49 %/% 4  #integer division: = 12 or 49/4 is 12.25, so the whole number is 12.  
-```
-
-## Observations and Variables
-
--   Going back to the basics in statistics, we need to define an observation and variable so that we can know how to use them effectively in R in creating objects.
-
--   An *Observation* is a single row of data in a data frame that usually represents one person or other entity.
-
--   A *Variable* is a measured characteristic of some entity (e.g., income, years of education, sex, height, blood pressure, smoking status, etc.).
-
--   In data frames in R, the columns are variables that contain information about the observations (rows).
-
-    -   Note that we will break this code down later.
-
-    ```{r}
-    income <- c(34000, 123000, 215000)
-    voted <- c("yes", "no", "no")
-    vote <- data.frame(income, voted)
-    vote
-    ```
-
--   Observations: People being measured.
-
--   Variables: Information about each person (income and voted).
-
-```{r}
-# Shows the number of columns or variables
-ncol(vote)
-# Shows the number of rows or observations
-nrow(vote)
-# Shows both the number of rows (observations and columns (variables). 
-dim(vote)
+# Confirm R agrees:
+print(2 + 3 * 5 - 7^2 %% 4 + (5 / 2))
+## [1] 18.5
 ```
 
 ## Creating Objects
@@ -254,7 +279,7 @@ B
 
 ![The Assignment Operator](Pictures/Ch1/Assignment.png "The Assignment Operator")
 
-### Naming Objects
+## Naming Objects
 
 -   Line length limit: 80
 -   Always use a consistent way of annotating code.
@@ -393,28 +418,60 @@ sort(y, decreasing=FALSE)
 
 ```
 
-## Saving
+## The Environment
 
--   You can save your work in the file menu or the save shortcut using Ctrl + S or Cmd+S depending on your Operating System.
--   You will routinely be asked to save your workspace image, and you don’t need to save this unless specifically asked. It saves the output we have generated so far.
--   You can stop this from happening by setting the Tools \> Global Options \> Under Workspace changing this to Never.
--   Be careful with this option because it won’t save what you don’t run.
+-   You can evaluate your Environment Tab to see your Variables we have defined in R Studio.
+-   Use the following functions to view and remove defined variables in your Global Environment
 
-![Evalulating Your Environment](Pictures/Ch1/SaveOptions.png "Evalulating Your Environment")
-
-## Calling a Library
-
--   In R, a package is a collection of R functions, data and compiled code. The location where the packages are stored is called the library.
--   Libraries need to be activated one time in each new R session.
--   You can access a function from a library one time using library::function()
-
-```{r, message=FALSE}
-#Use to activate library in an R session. 
-library(tidyverse)
-library(dplyr)
+```{r}
+ls() #Lists all variables in Global Environment 
+rm(states) #Removes variable named states
+rm(list=ls()) #Clears all variables from Global Environment
 ```
 
--   You can access a function from a library one time only using library::function()
+![Evaluating Your RStudio Environment](Pictures/Ch1/Environment.png "Evaluating Your RStudio Environment")
+
+## Saving
+
+-   You can save your work in the file menu or the save shortcut using Ctrl + S or Cmd + S depending on your Operating System.
+
+![Evaluating Your Environment](Pictures/Ch1/SaveOptions.png "Evaluating Your Environment")
+
+## Installing a Package and Calling a Library
+
+-   A package is a collection of functions, data, and code. The library is where packages live
+-   We use the install.package command one time to install a package.
+    -   tidyverse is a collection of packages designed to work together for data import, cleaning, and visualization. Loading one line gives you all of them.
+    -   You can also install via the menu: Tools \> Install Packages — type the package name and click Install. Same result, no typing required.
+-   Then, we use the library command to load the library.
+    -   When tidyverse loads, R will tell you exactly which packages were attached and which functions now have conflicts. Read that message — it tells you something important about your environment.
+
+```{r, message=FALSE}
+# Install once — ever. After that, comment this line out.
+#install.packages("tidyverse") ##commented out for processing
+
+# Load every R session
+library(tidyverse)
+
+```
+
+### A Common Mistake
+
+Leaving install.packages() uncommented in your script means R reinstalls the package every time you run the file. That wastes time and can cause version issues. Comment it out after the first run.
+
+```{r}
+# install.packages("tidyverse")   # commented out after install
+library(tidyverse)                # this is all you need going forward
+```
+
+-   If a package won't load, the fix is almost always one of these:
+    -   You never installed it — run install.packages() once
+    -   You forgot library() at the top of your script
+    -   There is a typo — package names are case sensitive
+
+### Accessing A Function from Specific Library
+
+-   You can access a function from a specific library using the double-colon operator library::function()
     -   Useful if only using one function from the library.
 -   We will return to this in data prep.
 
@@ -428,22 +485,22 @@ library(dplyr)
     -   An example of a conflict is the use of a select function which shows up in both the dplyr and MASS package. If both libraries are active, R does not know which to use.
     -   tidyverse has many libraries included in it.
 
-## The Environment
+## Troubleshotting Errors in RStudio
 
--   You can evaluate your Environment Tab to see your Variables we have defined in R Studio.
--   Use the following functions to view and remove defined variables in your Global Environment
+-   Step 1: Restart RStudio/Restart Computer and Clear your environment
+    -   Use rm(list=ls()) to clear out old variables
+    -   Make sure proper capitalization and spacing is being used.
+-   Step 2: Read the error message carefully: R's error messages are more informative than they look. Check capitalization, spelling, and whether all parentheses and quotes are closed. Most beginner errors live here.
+-   Step 3: Ask AI: Paste the error message directly into ChatGPT or Claude and ask what it means. This is a legitimate and efficient use of AI — error interpretation is exactly what it is good at.
+    -   Verify the fix yourself before running it. AI can suggest plausible-looking code that does the wrong thing.
+-   Two Categories of Errors (Both Matter Equally)
+    -   Hard Error: Code won’t run at all (Easy to catch)
+    -   Silent Error: Code runs but gives wrong output (Dangerous – easy to miss)
+    -   The second type is the more important one to develop instincts for. AI is particularly prone to silent errors — it will produce output that looks correct but isn't. Always sanity-check results against what you expect.
 
-```{r}
-ls() #Lists all variables in Global Environment 
-rm(states) #Removes variable named states
-rm(list=ls()) #Clears all variables from Global Environment
-```
+# Entering Data in R
 
-![Evalulating Your RStudio Environment](Pictures/Ch1/Environment.png "Evalulating Your RStudio Environment")
-
-## Entering and Loading Data
-
-### Creating a Vector
+## Creating a Vector
 
 -   A vector is the simplest type of data structure in R.
     -   A vector is a set of data elements that are saved together as the same type.
@@ -473,7 +530,7 @@ rep(x=1:3,times=4) #Repeat the elements of the vector 4 times
 rep(x=1:3, each=3) #Repeat the elements of a vector 3 times each
 ```
 
-### Creating a Matrix
+## Creating a Matrix
 
 -   A matrix is another type of object like a vector or a list.
 
@@ -496,7 +553,7 @@ rep(x=1:3, each=3) #Repeat the elements of a vector 3 times each
     matrix(x,3,3) 
     ```
 
-#### Setting More Arguments in a Matrix
+### Setting More Arguments in a Matrix
 
 -   The byrow argument fills the Matrix across the row
 -   Below, we can use the byrow statement and assign it to a variable m.
@@ -521,20 +578,30 @@ m2 <- matrix(1:25, nrow=5, byrow=TRUE)
 m2
 ```
 
-#### Differences between Data Frames and Matrices
+### Differences between Data Frames and Matrices
 
 -   In a data frame the columns contain different types of data, but in a matrix all the elements are the same type of data. A matrix is usually numbers.
 -   A matrix can be looked at as a vector with additional methods or dimensions, while a data frame is a list.
 
-### Creating a Data Frame
+## Creating a Data Frame
 
 -   A data frame is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column. In a data frame the rows are observations and columns are variables.
+
     -   Data frames are generic data objects to store tabular data.
     -   The column names should be non-empty.
     -   The row names should be unique.
     -   The data stored in a data frame can be of numeric, factor or character type.
     -   Each column should contain same number of data items.
     -   Combing vectors into a data frame using the data.frame() function
+
+-   Going back to the basics in statistics, we need to define an observation and variable so that we can know how to use them effectively in R in creating data frame objects.
+
+    -   An *Observation* is a single row of data in a data frame that usually represents one person or other entity.
+
+    -   A *Variable* is a measured characteristic of some entity (e.g., income, years of education, sex, height, blood pressure, smoking status, etc.).
+
+-   In data frames in R, the columns are variables that contain information about the observations (rows).
+
 -   Below, we can create vectors for state, year enacted, personal oz limit medical marijuana.
 
 ```{r}
@@ -553,55 +620,17 @@ pot.legal <- data.frame(state, year.legal, ounce.lim)
 
 ![Global Environment](Pictures/Ch1/DataFrame.png "Global Environment")
 
-### Importing a Data Frame into R
+-   Observations: States being measured.
 
--   When importing data from outside sources, you can do the following:
-
-1.  You can import data from an R package using data() function.
-2.  You can also link directly to a file on the web.
-3.  You can import data through from your computer through common file extensions:
-    -   .csv: comma separated values;
-    -   .txt: text file;
-    -   .xls or .xlsx: Excel file;
-    -   .sav: SPSS file;
-    -   .sasb7dat: SAS file;
-    -   .xpt: SAS transfer file;
-    -   .dta: Stata file.
-
--   Each different file type requires a unique function to read in the file. With all the variety in file types, it is best to look it up in the R Community to help.
-
-#### Use data() function
-
--   All we need is the data() function to read in a data set that is part of R. R has many built in libraries now, so there are many data sets we can use for testing and learning statistics in R.
+-   Variables: Information about each state (State Name, Year Weed was legalized, and the Ounce Limit permitted).
 
 ```{r}
-#The mtcars data set is part of R, so no new package needs to be downloaded.
-data("mtcars")
-```
-
--   Load a data frame from a unique package in R.
-
-    -   There are also a lot of packages that house data sets. It is fairly easy to make a package that contains data and load it into CRAN. These packages need to be installed into your R one time. Then, each time you open R, you need to reload the library using the library() function.
-    -   When your run the install.packages() function, do not include the \# symbol. Then, after you run it one time, comment it out. There is no need to run this code a second time unless something happens to your RStudio.
-
-    ```{r, message=FALSE}
-    #install.packages("MASS") #only need to install package one time in R
-    library(MASS)
-    ```
-
-```{r}
-data("Insurance")
-head(Insurance)
-```
-
-#### Accessing Variables
-
--   You can directly access a variable from a dataset using the \$ symbol followed by the variable name.
--   The \$ symbol facilitates data manipulation operations by allowing easy access to variables for calculations, transformations, or other analyses. For example:
-
-```{r}
-head(Insurance$Claims) #lists the first 6 Claims in the Insurance dataset.
-sd(Insurance$Claims) #provides the standard deviation of all Claims in the Insurance dataset.
+# Shows the number of columns or variables
+ncol(pot.legal)
+# Shows the number of rows or observations
+nrow(pot.legal)
+# Shows both the number of rows (observations and columns (variables). 
+dim(pot.legal)
 ```
 
 # Working Directories
@@ -662,16 +691,60 @@ getwd() #Alerts you to what folder you are currently set to as your working dire
 
 ![Setting Your Working Directory](Pictures/Ch1/WorkingDir.png "Setting Your Working Directory")
 
-##Reading in Data from .csv
+# Reading in Data
+
+-   When importing data from outside sources, you can do the following:
+
+1.  You can import data from base R or an R package using data() function.
+2.  You can also link directly to a file on the web.
+3.  You can import data through from your computer through common file extensions:
+    -   .csv: comma separated values;
+    -   .txt: text file;
+    -   .xls or .xlsx: Excel file;
+    -   .sav: SPSS file;
+    -   .sasb7dat: SAS file;
+    -   .xpt: SAS transfer file;
+    -   .dta: Stata file.
+
+-   Each different file type requires a unique function to read in the file. With all the variety in file types, it is best to look it up in the R Community to help.
+
+## Use data() function
+
+-   All we need is the data() function to read in a data set that is part of R. R has many built in libraries now, so there are many data sets we can use for testing and learning statistics in R.
+
+```{r}
+#The mtcars data set is part of R, so no new package needs to be downloaded.
+data("mtcars")
+```
+
+### Load a data from a package
+
+-   There are also a lot of packages that house data sets. It is fairly easy to make a package that contains data and load it into CRAN. These packages need to be installed into R one time. Then, each time you open R, you need to reload the library using the `library()` function.
+-   When you run the `install.packages()` function, do not include the `#` symbol. Then, after running it one time, comment it out. There is no need to run this code a second time unless something happens to your RStudio.
+
+```{r, message=FALSE}
+#install.packages("MASS") #only need to install package one time in R
+library(MASS)
+```
+
+```{r}
+data("Insurance")
+head(Insurance)
+```
+
+### Load data from outside sources.
+
+-   After your working directory is set up, then you can read in datasets into RStudio from outside sources.
 
 -   Reading in a .csv file is extremely popular way to read in data.
+
 -   There are a few functions to read in .csv files. And these functions would change based on the file type you are importing.
 
-### read.csv() function
+## read.csv() function
 
 -   Extremely popular way to read in data.
 
--   read.csv() is a base R function that comes built-in with R: No library necessary
+-   read.csv() is a base R function that comes built-in with R: No library necessary.
 
 -   All your datasets should be in a data folder in your working directory so that you and I have the same working directory. This creates a relative path to our working directory.
 
@@ -687,11 +760,14 @@ summary(object = gss.2016)
 summary(gss.2016) 
 ```
 
-## read_csv function
+## read_csv() function
 
 -   read_csv() is a function from the readr package, which is part of the tidyverse ecosystem.
+
 -   read_csv() is generally faster than read.csv() as it's optimized for speed, making it more efficient, particularly for large datasets.
--   In R, both `read.csv()` and `read_csv()` are used to read CSV files, but they come from different packages and have important differences. `read.csv()` is part of base R and is widely used for loading CSV files into data frames, as in `data <- read.csv("data/data.csv")`. It can be slower with large datasets and automatically converts strings to factors unless `stringsAsFactors = FALSE`.
+
+-   In R, both `read.csv()` and `read_csv()` are used to read in CSV files, but they come from different packages and have important differences. `read.csv()` is part of base R and is widely used for loading CSV files into data frames, as in `data <- read.csv("data/data.csv")`. It can be slower with large datasets and automatically converts strings to factors unless `stringsAsFactors = FALSE`.
+
 -   `read_csv()`, from the **readr** package in the tidyverse, is faster and better suited for large datasets. You'd use it like `data <- readr::read_csv("data/data.csv")`. It doesn't convert strings to factors by default and provides clearer error messages.`read_csv()` is often preferred for performance and better handling of data types, especially in larger datasets or tidyverse projects.
 
 ```{r, message=FALSE}
@@ -705,22 +781,32 @@ library(tidyverse)
 gss.2016b <- read_csv(file = "data/gss2016.csv")
 ```
 
+### Accessing Variables
+
+-   You can directly access a variable from a dataset using the \$ symbol followed by the variable name.
+-   The \$ symbol facilitates data manipulation operations by allowing easy access to variables for calculations, transformations, or other analyses. For example:
+
+```{r}
+head(Insurance$Claims) #lists the first 6 Claims in the Insurance dataset.
+sd(Insurance$Claims) #provides the standard deviation of all Claims in the Insurance dataset.
+```
+
 # Summarize Data
 
 -   In R, summary() and summarize() serve different purposes. summary() is part of base R and gives a quick overview of data, returning descriptive statistics for each column. For example, summary(mtcars) provides the min, max, median, and mean for numeric columns and counts for factors. It’s useful for a broad snapshot of your dataset.
 
 -   In contrast, summarize() (or summarise()) is from the dplyr package and allows for custom summaries. For instance, mtcars %\>% summarize(avg_mpg = mean(mpg), max_hp = max(hp)) returns the average miles per gallon and the maximum horsepower. It’s more flexible and is often used with group_by() for grouped calculations. In conclusion, summary() gives automatic overviews, while summarize() is better for tailored summaries.
 
--   Use the summary() function to examine the contents of the file.
+-   Use the summary() function to examine the contents of the file for a dataset.
 
 ```{r}
-summary(object = gss.2016) 
+summary(object = Insurance) 
 ```
 
 -   Again, we can eliminate the object = because it is the first argument and is required.
 
 ```{r}
-summary(gss.2016)
+summary(Insurance)
 ```
 
 # Explicit Use of Libraries
@@ -731,29 +817,479 @@ summary(gss.2016)
 
 -   Since dplyr is part of tidyverse, there is actually no need to activate it when we have already activated tidyverse in this session, however, it does help when conflicts are present. More on that later.
 
-    -   The line below says to take the the gss.2016 data object and summarize the length of age using the dplyr library.
+    -   The line below says to take the the Insurance data object and summarize the Mean of the Holders variable using the dplyr library.
 
-    ```{r}
-    dplyr::summarize(gss.2016, length.age = length(age))
-    ```
+```{r}
+dplyr::summarize(Insurance, mean(Holders))
+
+```
 
 -   In the line of code above, we see package::function(). If we initiate the library like below, we do not need the beginning of the statement. The code below provides the same answer as the way written above.
 
 ```{r}
 library(dplyr)
-summarize(gss.2016, length.age = length(age))
+summarize(Insurance, mean(Holders))
 ```
 
--   You try to access the ChickWeight dataset from the MASS package and summarize it generally using summary() and str() functions.
--   Earlier, we looked up the tapply() function in the help bar and found that the format is tapply(x, index, and fun), where x is a continuous variable, index is a grouping variable or factor, and fun is a function like mean. Use the tapply() function to take the mean weight of Chicks based on Diet. See the answer below.
--   While there are a few ways to get group means in R. I like the tapply() function which is used to apply a function over subsets of a vector. The function splits the data into subsets based on a given factor or factors, applies a specified function to each subset, and then returns the results in a convenient form. Here, we are applying the mean function.
--   To access a variable, use dataset\$variable or you can also attach a dataset to your code so you can just use the variable name later on. So use ChickWeight\$weight and ChickWeight\$Diet appropriately in the function alongside the FUN mean.
+## Data Types in R
 
-```{r, echo=FALSE}
-data("ChickWeight")
-summary(ChickWeight)
-tapply(ChickWeight$weight,ChickWeight$Diet, mean)
+R is dynamically typed — every variable receives a type based on what you assign to it. Wrong types cause silent errors: a number stored as text will not calculate.
+
+The five types you will use most often:
+
+| Type        | What it stores                  | Example              |
+|-------------|---------------------------------|----------------------|
+| `factor`    | Categories (nominal or ordinal) | Industry, Grade      |
+| `numeric`   | Real numbers or integers        | Wage, GPA            |
+| `character` | Text strings                    | Name, ZIP code       |
+| `logical`   | TRUE or FALSE                   | Is loyal? Did churn? |
+| `Date`      | Calendar dates                  | Hire date            |
+
+```{r}
+# Read in gig dataset — required for examples in the data types section
+gig <- read.csv("data/gig.csv",
+                stringsAsFactors = FALSE,
+                na.strings = "")
+
+# Quick confirmation the import worked
+dim(gig)
+head(gig)
 ```
+
+```{r data-types-check}
+# Check types from the gig dataset
+class(gig$Industry)    ## "character"
+class(gig$Wage)        ## "numeric"
+class(gig$EmployeeID)  ## "integer"
+```
+
+## Factor: Nominal Variable
+
+A nominal variable has categories with **no meaningful order**.
+
+Examples: Industry, Job title, Gender, State
+
+```{r nominal-factor}
+# Small example first
+industry <- c("Automotive", "Tech", "Construction", "Automotive")
+class(industry)                  ## "character"
+
+# Coerce to factor
+industry <- as.factor(industry)
+class(industry)                  ## "factor"
+levels(industry)                 ## alphabetical: "Automotive" "Construction" "Tech"
+
+# Apply the same fix to the gig dataset
+gig$Industry <- as.factor(gig$Industry)
+gig$Job      <- as.factor(gig$Job)
+
+class(gig$Industry)              ## confirm: "factor"
+levels(gig$Industry)             ## see all categories
+```
+
+R will treat each unique value as a level. Use `as.factor()` whenever you load categorical data.
+
+## Factor: Ordinal Variable
+
+An ordinal variable has categories with a **meaningful order**.
+
+Examples: course grade (A \> B \> C), satisfaction (High \> Medium \> Low)
+
+```{r ordinal-factor}
+library(tidyverse)
+
+# Small example
+satisfaction <- c("High", "Low", "Medium", "High", "Low")
+data <- data.frame(satisfaction)
+
+data <- data %>%
+  mutate(satisfaction = recode(satisfaction,
+           "High"   = 3,
+           "Medium" = 2,
+           "Low"    = 1))
+
+data$satisfaction    ## [1] 3 1 2 3 1
+```
+
+## Numeric: Real (Continuous) Variable
+
+A continuous numeric variable can take **any value along a range**.
+
+Examples: Wage, GPA, Temperature, Sales revenue
+
+```{r numeric-continuous}
+# Wage is already numeric in gig
+class(gig$Wage)      ## "numeric"
+
+# What if a number comes in as text?
+wage_text <- "42.75"
+class(wage_text)     ## "character"
+
+wage_num <- as.numeric(wage_text)
+class(wage_num)      ## "numeric"
+wage_num + 10        ## [1] 52.75
+
+# IMPORTANT: as.numeric() returns NA if text cannot be converted
+# Always check for NAs after coercion
+sum(is.na(as.numeric(gig$Wage)))
+```
+
+> **Note:** `as.numeric()` returns `NA` if the text cannot be converted — always check for NAs after coercion.
+
+## Numeric: Integer (Discrete) Variable
+
+An integer variable holds **whole numbers only** — counts, rankings, IDs.
+
+Examples: Number of children, Points scored, Employee ID
+
+```{r integer}
+# Create an integer directly
+children <- as.integer(3)
+class(children)       ## "integer"
+
+# The L suffix also creates an integer
+children <- 3L
+class(children)       ## "integer"
+
+# IMPORTANT: as.integer() truncates — it does NOT round
+as.integer(4.9)       ## [1] 4  (not 5)
+as.integer(4.1)       ## [1] 4
+
+# EmployeeID in gig is integer — makes sense, no decimals needed
+class(gig$EmployeeID)
+```
+
+Use integer when the variable can only take whole number values.
+
+## Character: Text Variable
+
+A character variable stores **text** — names, labels, codes, descriptions.
+
+Examples: Employee name, ZIP code, Email address
+
+```{r character}
+name <- "Alice Johnson"
+zip  <- "23185"
+class(name)           ## "character"
+class(zip)            ## "character"
+
+# Convert a number to character when needed
+id_num  <- 1042
+id_char <- as.character(id_num)
+class(id_char)        ## "character"
+id_char               ## [1] "1042"
+```
+
+> **Important:** ZIP codes look like numbers but must stay as character. If you convert `"02134"` to numeric it becomes `2134` — the leading zero is permanently lost.
+
+## Logical: TRUE / FALSE Variable
+
+A logical variable stores `TRUE` or `FALSE` — the result of any comparison.
+
+Examples: Is the customer loyal? Did the employee churn? Is the order complete?
+
+```{r logical}
+loyal   <- TRUE
+churned <- FALSE
+class(loyal)          ## "logical"
+
+# Comparisons produce logical values
+wage <- 45.00
+wage > 40             ## [1] TRUE
+wage == 50            ## [1] FALSE
+
+# Combine conditions with logical operators
+wage > 30 & loyal     ## TRUE AND TRUE  = TRUE
+wage > 60 | loyal     ## FALSE OR TRUE  = TRUE
+!loyal                ## NOT TRUE       = FALSE
+
+# Practical use on gig dataset
+sum(gig$Wage > 40)    ## how many employees earn over $40/hr?
+```
+
+## Date Variable
+
+A Date variable stores calendar dates so R can sort, filter, and calculate time differences. Without coercion, dates load as character and **cannot be used for date math**.
+
+```{r date}
+# Without coercion, a date is just text
+hired <- "2021-06-15"
+class(hired)          ## "character"
+
+# Coerce to Date with as.Date()
+hired <- as.Date("2021-06-15")
+class(hired)          ## "Date"
+
+# Now you can do date arithmetic
+today <- Sys.Date()
+days_employed <- today - hired
+days_employed         ## Time difference in days
+
+# For year-month formats, use lubridate
+# lubridate::ym("2021-06")
+```
+
+## Checking Types: The Full Workflow
+
+Always run these three steps on **any new dataset** before analysis.
+
+```{r type-workflow}
+gig <- read.csv("data/gig.csv")
+
+# Step 1 — See all types at once
+str(gig)
+
+# Step 2 — Fix what is wrong
+gig$Industry <- as.factor(gig$Industry)
+gig$Job      <- as.factor(gig$Job)
+
+# Step 3 — Confirm
+class(gig$Industry)   ## "factor"
+class(gig$Job)        ## "factor"
+
+# Final sanity check
+summary(gig)
+```
+
+## Real Example: Fixing Types in gss.2016
+
+The `gss.2016` dataset has two type problems when loaded:
+
+1.  `grass` is stored as character — needs to be a factor
+2.  `age` contains `"89 OR OLDER"` — prevents numeric coercion
+
+```{r gss-type-fix}
+gss.2016 <- read.csv("data/gss2016.csv")
+
+# Problem 1: grass is character — fix by coercing to factor
+class(gss.2016$grass)              ## "character"
+gss.2016$grass <- as.factor(gss.2016$grass)
+class(gss.2016$grass)              ## "factor"
+
+# Problem 2: age contains "89 OR OLDER" — recode first, then coerce
+gss.2016$age <- recode(gss.2016$age, "89 OR OLDER" = "89")
+gss.2016$age <- as.numeric(gss.2016$age)
+class(gss.2016$age)                ## "numeric"
+
+# Final check — confirm all types are correct
+summary(gss.2016)
+```
+
+### Date data type
+
+-   The date data type in R is used to represent calendar dates, allowing for accurate storage and manipulation of time-related data. Dates in R are typically stored as objects of class Date, which internally represent the number of days since January 1, 1970. This format facilitates arithmetic operations, such as calculating differences between dates or adding/subtracting days. Dates can be created and manipulated using functions like as.Date() for converting character strings to date objects, or Sys.Date() for retrieving the current date. Handling dates correctly is essential in time series analysis, scheduling, and any task involving chronological data, as improper formatting or assumptions can lead to errors in analysis.
+
+```{r}
+# Convert date info in format 'mm/dd/yyyy' using as.Date
+strDates <- c("01/05/1965", "08/16/1975")
+dates <- as.Date(strDates, "%m/%d/%Y") 
+str(dates)
+```
+
+-   The lubridate package provides additional tools for working with dates, such as parsing and extracting components like year, month, and day. This package makes dates a lot easier to work with.
+
+```{r}
+# Convert date info in format 'mm/dd/yyyy' using lubridate
+library(lubridate)
+strDates <- c("01/05/1965", "08/16/1975")
+dates <- mdy(strDates) 
+str(dates)
+```
+
+-   If you are only given a year and a month, you can use the ym() command to turn it to a date. But take note that it will add a day to the value as a placeholder.
+
+```{r}
+# Convert date info in format 'yyyymm' using lubridate
+stryyyymm <- c("202201", "202003", "202204")
+dates <- ym(stryyyymm)
+str(dates)
+```
+
+```{r}
+# Convert date info in format 'mm/dd/yyyy' using as.Date
+strDates <- c("01/05/1965", "08/16/1975")
+dates <- as.Date(strDates, "%m/%d/%Y") 
+str(dates)
+```
+
+```{r}
+UseDates <- read.csv("data/Lubridate.csv")
+UseDates$Date <- ym(UseDates$Date)
+
+#You can use the month or year function to access the month or year from the date
+UseDates$month <- month(UseDates$Date)
+UseDates$year <- year(UseDates$Date)
+
+##Now, you can access months or year numerically
+summary(UseDates$month) 
+summary(UseDates$year)
+
+##You could code the seasons using a mutate function making a new variable "season"
+library(tidyverse)
+UseDates <- UseDates %>% 
+  mutate(season = case_when(
+    month %in% 3:5 ~ "Spring",
+    month %in% 6:8 ~ "Summer",
+    month %in% 9:11 ~ "Fall",
+    TRUE ~ "Winter"
+  ))
+
+UseDates$season <- as.factor(UseDates$season)
+summary(UseDates$season)
+
+##You could use a filter statement to select a particular year. 
+#In the example below, I save the filtered data into a new data frame UseDate2022. 
+UseDate2022 <- filter(UseDates, year==2022)
+
+```
+
+# Handling Missing Data
+
+-   Missing data is a common issue in data analysis and can arise for various reasons, such as data collection errors, non-responses in surveys, or data corruption. In R, handling missing data is crucial to ensure accurate and reliable analysis. Missing values are typically represented by NA (Not Available) in R.
+
+-   Missing data needs to be closely evaluated and verified within each variable whether the data is truly blank, has no answer, or is marked with a character value such as the text N/A.
+
+-   Missing data needs to be closely evaluated to see if the missing value is meaningful or not. If the variable that has many missing values is deemed unimportant or can be represented using a proxy variable that does not have missing values, the variable may be excluded from the analysis.
+
+-   After a data set is loaded, there are three common strategies for dealing with missing values.
+
+1.  The omission strategy recommends that observations with missing values be excluded from subsequent analysis.
+
+2.  The imputation strategy recommends that the missing values be replaced with some reasonable imputed values. For example, imputing missing values using techniques like mean/median substitution or regression models can be considered.
+
+    -   Numeric variables: replace with the average.
+    -   Categorical variables: replace with the predominant category.
+
+3.  Ignore your missing data if the function works without it.
+
+    -   When you ignore missing data because your function works without it, the missing values are typically excluded from the calculations by default. In R, many functions, such as mean(), sum(), or lm(), have arguments like na.rm = TRUE to explicitly remove missing values during computation. Ignoring missing data can simplify the analysis, but it comes with potential consequences.
+
+-   The choice of approach depends on the nature of the missingness, which can be categorized as Missing Completely at Random, Missing at Random, or Missing Not at Random. Addressing missing data appropriately is essential to maintain the validity of statistical analyses and avoid biases.
+
+## Limitations of Using a Missing Data Technique
+
+-   Always recommend a closer evaluation of missing data.
+
+-   There are limitations of the techniques listed above (omission, imputation, and ignore).
+
+-   Reduction in Sample Size: Ignoring missing data leads to a smaller effective sample size, which may reduce the power of your analysis and the reliability of the results.
+
+-   Bias: If the missing data are not Missing Completely at Random, ignoring them may introduce bias. For example, if specific groups or patterns are overrepresented in the remaining data, the results may not generalize to the full dataset.
+
+-   Distorted Metrics: Calculations that ignore missing values (e.g., averages, sums) might not reflect the true population parameters, especially if the missing data are systematically different from the observed data. In addition, if a large number of values are missing, mean imputation will likely distort the relationships among variables, leading to biased results.
+
+-   Incorrect Inferences: Ignoring missing data without considering its nature could lead to incorrect conclusions, as the analysis only reflects the subset of available data.
+
+-   Consider a dataset used to predict factors that lead to intubation due to COVID-19. Suppose one variable, "Number of pregnancies," contains missing data (NAs) for all men, as the question is not applicable to them. If we were to compare this variable with another, "Intubated due to COVID-19: Yes/No," simply omitting the rows with blanks (NAs) could lead to the exclusion of an entire gender, distorting the analysis. In this case, a different approach to handling missing data would be more appropriate to ensure the dataset remains representative. Additionally, if a value is not blank but is considered missing for analysis purposes, the data should be consistently processed (e.g., mutated or recoded) to align with the chosen technique for handling true missing values.
+
+## na.rm
+
+-   The na.rm parameter in R is a convenient way to handle missing values (NA) within functions that perform calculations on datasets. The parameter stands for "NA remove" and, when set to TRUE, instructs the function to exclude missing values from the computation.
+
+```{r}
+y <- c(1, 2, NA, 3, 4, NA)
+# These lines runs, but do not give you anything useful.
+sum(y) 
+mean(y)
+```
+
+-   Many functions in R include parameters that will ignore NAs for you.
+
+-   sum() and mean() are examples of this, and most summary statistics like median() and var() and max() also use the na.rm parameter to ignore the NAs. Always check the help to determine if na.rm is a parameter.
+
+```{r}
+sum(y, na.rm=TRUE) 
+mean(y, na.rm=TRUE)
+# na.omit removes the NAs from the vector of dataset. Here, it works for removing NAs from the vector.  
+y <- na.omit(y) 
+```
+
+### na.rm in a dataset
+
+-   Using a dataset, we need the `data$variable` format, like `mean(data$column, na.rm = TRUE)` calculates the mean of the non-missing values in the specified column or variable. This approach is straightforward and useful when the presence of missing values would otherwise cause an error or return an NA result.
+
+```{r}
+gig <- read.csv("data/gig.csv", stringsAsFactors = TRUE, na.strings="")
+summary(gig)
+mean(gig$Wage, na.rm=TRUE)
+```
+
+## is.na()
+
+-   In R, the is.na() function is used to check for missing (NA) values in objects like vectors, data frames, or arrays. It returns a logical vector of the same length as the input object, where TRUE indicates a missing value and FALSE indicates a non-missing value.
+-   To conduct an example, read in the data set called gig.csv from your working directory.
+
+```{r}
+
+#Counts the number of all NA values in the entire dataset
+CountAllBlanks <- sum(is.na(gig)); CountAllBlanks 
+
+#Gives the observation number of the observations that include NA values
+which(is.na(gig$Industry))
+
+#Produces a dataset with observations that have NA values in the Industry field. 
+ShowBlankObservations <- gig %>%
+     filter(is.na(Industry))
+ShowBlankObservations
+
+#Counts the number of observations that have NA values in the Industry field. Industry is categorical, so we can count values based on it. 
+CountBlanks <- sum(is.na(gig$Industry)); CountBlanks 
+
+library(tidyverse)
+#Counts the number of observations that have NA values in the Wage field. 
+CountBlanks <- sum(is.na(gig$Wage)); CountBlanks 
+
+```
+
+## na_if()
+
+-   The na_if() function in tidyr is used to replace specific values in a column with NA (missing) values. This function can be particularly useful when you want to standardize missing values across a dataset or when you want to replace certain values with NA for further data processing
+
+```{r}
+TurnNA <- gig %>%
+     mutate(Job = na_if(Job, "Other"))
+head(TurnNA)
+```
+
+## na.omit() vs. drop_na()
+
+-   Both functions return a new object with the rows containing missing values removed.
+
+-   na.omit() is a base R function, so it doesn't require any additional package installation where drop_na() requires loading the tidyr package, which is part of the tidyverse ecosystem.
+
+-   drop_na() fits well into tidyverse pipelines, making it easy to integrate with other tidyverse functions where na.omit() can also be used in pipelines but might require additional steps to fit seamlessly.
+
+```{r}
+#install.packages("Amelia")
+library(Amelia)
+data("africa")
+summary(africa)
+summary(africa$gdp_pc)
+summary(africa$trade)
+
+africa1 <- na.omit(africa)
+summary(africa1)
+
+##to drop all at once. 
+africa2 <- africa %>% drop_na()
+summary(africa2)
+
+```
+
+-   You try to load the airquality dataset from base R and look at a summary of the dataset.
+
+    -   Sum the number of NAs in airquality.
+    -   Omit all the NAs from airquality and save it in a new data object called airqual and take a new summary of it.
+
+    ```{r, echo=FALSE}
+    data("airquality")
+    summary(airquality)
+    sum(is.na(airquality))
+    #37 + 7
+    airqual <- na.omit(airquality)
+    #153-111
+    summary(airqual)
+    ```
 
 # Using AI
 
@@ -776,6 +1312,12 @@ Use the following prompts on a generative AI, like chatGPT, to learn more about 
 -   How can you access specific columns of a data frame using the \$ operator? Provide an example using a sample dataset in R.
 
 -   Explain how to use the summary() function in R to summarize a dataset. Write a script that loads a dataset and runs summary() on it.
+
+-   What is the difference between ordinal and nominal variables, and how can you recode these data types in R?
+
+-   Explain the steps to coerce a character variable into a factor using the as.factor() function in R.
+
+-   What strategies can you use to handle missing data in R, and how does na.omit() differ from drop_na()?
 
 # Summary
 

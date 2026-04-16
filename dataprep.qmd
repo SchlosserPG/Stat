@@ -1,50 +1,25 @@
 ---
 title: "Data Preparation"
-author: ""
-date: "2024-08-09"
-output: html_document
+format: html
+engine: knitr
 ---
 
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
+knitr::opts_chunk$set(echo=TRUE, message=FALSE, warning=FALSE)
 ```
 
--   The goal of this lesson is to teach you how to clean datasets for use in analytics. This lesson focuses on dplyr. dplyr is a package in R that provides a set of functions for data manipulation tasks. These functions are designed to be intuitive and efficient, making it easier to work with data frames or tibbles (a modern reimagining of data frames provided by the tibble package).
+Data rarely arrives ready for analysis. Before any modeling or visualization can happen, we typically spend considerable time inspecting, cleaning, and reshaping raw data — a process sometimes called data wrangling. This lesson walks you through that process using dplyr, a core package in R's tidyverse that provides a concise, readable set of functions for manipulating data frames and tibbles.
 
-```{r tidy=FALSE}
-####################################
-# Project name: Data Preparation
-# Data used: gss.2016, brfss.csv, customers.csv, gig.csv from Blackboard, iris from datasets
-# Libraries used: tidyverse, semTools, lubridate
-####################################
-```
+By the end of this lesson, you will be able to evaluate variables, identify data quality issues, and prepare a dataset so that every variable is in the correct form for analysis. The techniques covered include: - Sorting data - Selecting variables - Filtering data - Counting data - Handling missing values - Summarizing data - Grouping data
 
-### At a Glance
+# Data Types and Coercion
 
--   In order to succeed in this lesson, we need to be able to evaluate variables and understand how to clean and prepare data to make variables easier to use and in the correct form. This sometimes includes subsetting and filtering data alongside other techniques.
+Before cleaning or transforming a dataset, you need to confirm that R is treating each variable as the correct type. A variable stored as text when it should be numeric will silently break calculations; a number stored as a factor will produce the wrong chart. This section covers how to identify data types and how to convert between them — skills you will use immediately in the dplyr examples that follow.
 
-### Lesson Objectives
-
--   Create variables and identify and change data types.
--   Learn how to clean data via dplyr.
-
-### Consider While Reading
-
--   We often spend a considerable amount of time inspecting and preparing the data for the subsequent analysis. This includes the following:
-    -   Evaluating Data Types
-    -   Sorting Data
-    -   Selecting Variables
-    -   Filtering Data
-    -   Counting Data
-    -   Handling Missing Values
-    -   Summarizing
-    -   Grouping Data
-
-# Evaluating Data Types
+## Evaluating Data Types
 
 -   A data type of a variable specifies the type of data that is stored inside that variable. R is Called a Dynamically Typed Language, meaning that a variable itself is not declared of any data type. Rather it receives the data type of the R object that is assigned to it. We can change a variable’s data type if we want through coercion, but it will inherit one based on the object assigned to it. We will learn some common ways to do this in the data preparation section.
-* Evaluating data types in R is crucial for understanding and managing datasets effectively, as different data types require specific handling and operations. R provides several functions to identify and evaluate data types, such as class() to check an object's class, typeof() to determine its internal storage mode, and is.numeric(), is.character(), or is.factor() to test for specific types. These functions help ensure that data is in the correct format for analysis or modeling tasks. For instance, numeric data types are essential for calculations, while factors or characters are used for categorical data. 
+-   Evaluating data types in R is crucial for understanding and managing datasets effectively, as different data types require specific handling and operations. R provides several functions to identify and evaluate data types, such as class() to check an object's class, typeof() to determine its internal storage mode, and is.numeric(), is.character(), or is.factor() to test for specific types. These functions help ensure that data is in the correct format for analysis or modeling tasks. For instance, numeric data types are essential for calculations, while factors or characters are used for categorical data.
 -   There are a number of data types in R that are common to programming and statistical analysis.
     -   Factor (Nominal or Ordinal)
     -   Numeric (Real or Discrete (Integer))
@@ -52,12 +27,13 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   Logical
     -   Date
 
-# Coercing Data Types
+## Coercing Data Types
+
 -   In R, coercion is the process of converting one data type to another, often done automatically by R when necessary. For example, if you combine numeric and character data in a vector, R will coerce the numeric values to characters, as seen in c(1, "A"), which results in c("1", "A"). Coercion can also be done manually using functions like as.numeric() or as.factor() to change data types explicitly.
 -   To determine whether a variable is numeric or categorical (factor), you can use the class() function. For example, if you have a variable age, running class(age) will tell you if it is stored as "numeric" or "factor". Numeric variables represent quantities, such as continuous or discrete numbers, while categorical variables represent groups or categories, typically stored as factors. For example, a variable with levels like "Male" and "Female" would be a categorical (factor) variable.
 -   Sometimes when you read in a dataset all the variables are already in the correct type. Other times, you need to force it into the type you need to conduct the analysis through a process called coercion.
 
-### Factor data type:
+### Factor Data Type
 
 -   Factor data types can be ordinal or nominal. Ordinal and nominal variables are both types of categorical variables but differ in their characteristics. Ordinal variables have a meaningful order or ranking among categories (e.g., "low," "medium," "high"), but the intervals between ranks are not necessarily equal. Nominal variables, on the other hand, represent categories without any inherent order (e.g., "red," "blue," "green"). Understanding this distinction is essential for selecting appropriate statistical methods, as ordinal variables often allow for rank-based analyses, while nominal variables do not.
     -   Ordinal: Contain categories that have some logical order (e.g. categories of age).
@@ -99,7 +75,7 @@ data
 -   We can force a variable into a factor data type using the as.factor() command.
 -   If we use the read.csv() command, we can sometimes do this by setting an argument $stringsAsFactors=TRUE$. We will do this later in the lesson.
 
-### Numerical data types:
+### Numeric Data Type
 
 -   The as.numeric() function in R is used to convert data into numeric format, allowing for mathematical and statistical operations. It takes an input vector, such as characters or factors, and attempts to coerce it into numeric values. For instance, as.numeric(c("1", "2", "3")) returns a numeric vector of 1, 2, and 3. If applied to factors, it returns the underlying integer codes, not the original levels, so caution is needed to avoid misinterpretation. When conversion is not possible (e.g., as.numeric("abc")), it results in NA with a warning.
 
@@ -131,7 +107,7 @@ Trunc <- as.integer(kOuncesRhode); Trunc
 
 ```
 
-### Character data type
+### Character Data Type
 
 -   The character data type in R is used to store text or string data, making it essential for handling names, labels, descriptions, or any non-numeric information. Character data is represented as sequences of characters enclosed in quotes (e.g., "hello" or 'world').
 -   Character data types can be wrapped in either single or double quotation marks (e.g, "hello" or 'hello').
@@ -146,7 +122,7 @@ Q2 <- 'B'
 class(x = Q1)
 ```
 
-### Logical data type
+### Logical Data Type
 
 -   Logical data types in R represent values that are either TRUE or FALSE, often used for conditional operations and data filtering. Logical values can be the result of comparisons (e.g., x \> 10) or explicitly assigned. Logical vectors are particularly useful in subsetting data; for instance, data\[data\$column \> 5, \] selects rows where the column values are greater than 5. Logical operators like & (and), \| (or), and ! (not) allow for more complex conditions. Logical data is also essential in control structures such as if, else, and loops. By enabling dynamic and conditional programming, logical types play a key role in efficient data manipulation and analysis.
 
@@ -190,9 +166,68 @@ gss.2016$age <- as.numeric(gss.2016$age)
 summary(gss.2016) #Conduct final check confirming correct data types
 ```
 
-## Common dplyr Functions
+## Data Types and Coercion Lab
 
-### Arrange
+**1.** What R function would you use to check the data type of a column? Write the command to check the type of the `Age` column in a dataset called `survey`.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+class(survey$Age)
+```
+:::
+
+**2.** A dataset has a `Rating` column stored as character with values `"1"`, `"2"`, `"3"`. Write the code to convert it to numeric.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+survey$Rating <- as.numeric(survey$Rating)
+class(survey$Rating)  # confirm: "numeric"
+```
+:::
+
+**3.** An instructor evaluation column contains `"excellent"`, `"good"`, `"fair"`, `"poor"`. Write a `mutate()` pipeline using `recode()` to convert these to 4, 3, 2, 1 respectively and store them as integers.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+library(tidyverse)
+survey <- survey %>%
+  mutate(Rating = recode(Rating,
+    "excellent" = 4L,
+    "good"      = 3L,
+    "fair"      = 2L,
+    "poor"      = 1L))
+```
+:::
+
+**4.** Load `dataprep.csv` as `houseprices`. The `BuildDay` column contains dates stored as character strings (e.g., `"1986-08"`). Use the `lubridate` package to convert it to a proper date type, then confirm the conversion with `class()`.
+
+``` r
+# Your code here
+```
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+library(lubridate)
+houseprices <- read.csv("data/dataprep.csv")
+houseprices$BuildDay <- ym(houseprices$BuildDay)  # "1986-08" is year-month format
+class(houseprices$BuildDay)  # "Date"
+head(houseprices$BuildDay)
+```
+
+`ym()` parses year-month formatted strings. After conversion, `BuildDay` is a proper `Date` column that R can sort, filter, and compute differences on correctly.
+:::
+
+# Common dplyr Functions
+
+## Arrange
 
 -   Sorting or arranging the dataset allows you to specify an order based on variable values.
 -   Sorting allows us to review the range of values for each variable, and we can sort based on a single or multiple variables.
@@ -202,6 +237,8 @@ summary(gss.2016) #Conduct final check confirming correct data types
 -   To conduct an example, read in the data set called gig.csv from your working directory.
 
 ```{r}
+library(tidyverse)
+
 gig <- read.csv("data/gig.csv", stringsAsFactors = TRUE, na.strings="")
 dim(gig)
 head(gig)
@@ -223,7 +260,7 @@ sortTidyDesc <- arrange(gig, desc(Wage))
 head(sortTidyDesc)
 ```
 
-### Subsetting or Filtering
+## Subsetting and Filtering
 
 -   Subsetting or filtering a data frame is the process of indexing, or extracting a portion of the data set that is relevant for subsequent statistical analysis. Subsetting allows you to work with a subset of your data, which is essential for data analysis and manipulation. One of the most common ways to subset in R is by using square brackets \[\]. We can also use the filter() function from tidyverse.
 
@@ -285,33 +322,31 @@ head(TwoRaces)
 -   Using str_detect it with a filter function allows you to pull observations based on the inclusion of a string pattern.
 
 ```{r}
-library(tidyverse)
 Birthday2000 <- filter(customers, str_detect(BirthDate, "1985"))
 ```
 
-### Select
+## Select
 
 -   In R, the select() function is part of the dplyr package, which is used for data manipulation. The select() function is specifically designed to subset or choose specific columns from a data frame. It allows you to select variables (columns) by their names or indices.
 -   Both statements below select Income, Spending, and Orders variables from the customers dataset and form them into a new dataset called smallData.
--   The statements are written with and without the chaining operator.
 
 ```{r}
 smallData <- select(customers, Income, Spending, Orders)
 head(smallData)
 ```
 
-### Piping (Chaining) Operator
+## Piping (Chaining) Operator
 
 -   The pipe operator takes the output of the expression on its left-hand side and passes it as the first argument to the function on its right-hand side. This enables you to chain multiple functions together, making the code easier to understand and debug.
 -   If we want to keep our code tidy, we can add the piping operator (%\>%) to help combine our lines of code into a new object or overwriting the same object.
 -   This operator allows us to pass the result of one function/argument to the other one in sequence.
--   The below example uses a select function to pull Income, Spending, and Orders variables fromt he customers dataset and save it as a new object called smallData. It is an identical request to the one directly above, but written with the piping operator.
+-   The below example uses a `select()` function to pull Income, Spending, and Orders variables from the customers dataset and save it as a new object called `smallData`. It is an identical request to the one directly above, but written with the piping operator.
 
 ```{r}
 smallData <- customers %>% select(Income, Spending, Orders)
 ```
 
-### Counting
+## Counting
 
 -   Counting allows us to gain a better understanding and insights into the data.
 
@@ -368,7 +403,7 @@ gig %>%
 ## 83 Accountants
 ```
 
-### Handling Missing Data
+## Handling Missing Data
 
 -   Missing data is a common issue in data analysis and can arise for various reasons, such as data collection errors, non-responses in surveys, or data corruption. In R, handling missing data is crucial to ensure accurate and reliable analysis. Missing values are typically represented by NA (Not Available) in R.
 
@@ -391,7 +426,7 @@ gig %>%
 
 -   The choice of approach depends on the nature of the missingness, which can be categorized as Missing Completely at Random, Missing at Random, or Missing Not at Random. Addressing missing data appropriately is essential to maintain the validity of statistical analyses and avoid biases.
 
-#### Limitations of Using a Missing Data Technique
+### Limitations of Using a Missing Data Technique
 
 -   Recommended Closer Evaluation of Missing Data
 
@@ -407,7 +442,7 @@ gig %>%
 
 -   Consider a dataset used to predict factors that lead to intubation due to COVID-19. Suppose one variable, "Number of pregnancies," contains missing data (NAs) for all men, as the question is not applicable to them. If we were to compare this variable with another, "Intubated due to COVID-19: Yes/No," simply omitting the rows with blanks (NAs) could lead to the exclusion of an entire gender, distorting the analysis. In this case, a different approach to handling missing data would be more appropriate to ensure the dataset remains representative. Additionally, if a value is not blank but is considered missing for analysis purposes, the data should be consistently processed (e.g., mutated or recoded) to align with the chosen technique for handling true missing values.
 
-#### na.rm
+### na.rm
 
 -   The na.rm parameter in R is a convenient way to handle missing values (NA) within functions that perform calculations on datasets. The parameter stands for "NA remove" and, when set to TRUE, instructs the function to exclude missing values from the computation.
 
@@ -429,17 +464,16 @@ mean(y, na.rm=TRUE)
 y <- na.omit(y) 
 ```
 
-#### na.rm with a a dataset
+### na.rm with a Dataset
 
 -   Using a dataset, we need the \_data$variable_ format, like mean(data$column, na.rm = TRUE) calculates the mean of the non-missing values in the specified column or variable. This approach is straightforward and useful when the presence of missing values would otherwise cause an error or return an NA result.
 
 ```{r}
-gig <- read.csv("data/gig.csv", stringsAsFactors = TRUE, na.strings="")
 summary(gig)
 mean(gig$Wage, na.rm=TRUE)
 ```
 
-#### is.na()
+### is.na()
 
 -   In R, the is.na() function is used to check for missing (NA) values in objects like vectors, data frames, or arrays. It returns a logical vector of the same length as the input object, where TRUE indicates a missing value and FALSE indicates a non-missing value.
 
@@ -458,13 +492,12 @@ ShowBlankObservations
 #Counts the number of observations that have NA values in the Industry field. Industry is categorical, so we can count values based on it. 
 CountBlanks <- sum(is.na(gig$Industry)); CountBlanks 
 
-library(tidyverse)
 #Counts the number of observations that have NA values in the Wage field. 
 CountBlanks <- sum(is.na(gig$Wage)); CountBlanks 
 
 ```
 
-#### na_if()
+### na_if()
 
 -   The na_if() function in tidyr is used to replace specific values in a column with NA (missing) values. This function can be particularly useful when you want to standardize missing values across a dataset or when you want to replace certain values with NA for further data processing
 
@@ -474,7 +507,7 @@ TurnNA <- gig %>%
 head(TurnNA)
 ```
 
-#### na.omit() vs. drop_na()
+### na.omit() vs. drop_na()
 
 -   Both functions return a new object with the rows containing missing values removed.
 
@@ -514,7 +547,7 @@ summary(africa2)
     summary(airqual)
     ```
 
-### Summarize
+## Summarize
 
 -   The summarize() command is used to create summary statistics for groups of observations in a data frame.
 -   In R, summary() and summarize() serve different purposes. summary() is part of base R and gives a quick overview of data, returning descriptive statistics for each column. For example, summary(mtcars) provides the min, max, median, and mean for numeric columns and counts for factors. It’s useful for a broad snapshot of your dataset.
@@ -532,7 +565,7 @@ gig %>%
 
 ```
 
-### Group_by
+## Group_by
 
 -   group_by is used for grouping data by one or more variables. When you use group_by() on a data frame, it doesn't actually perform any computations immediately. Instead, it sets up the data frame in such a way that any subsequent operations are performed within these groups
 -   summarize() is often used in combination with group_by() to calculate summary statistics within groups
@@ -553,7 +586,67 @@ groupedData
 
 ```
 
-### Mutate
+## case_when()
+
+One of the most common data preparation tasks is creating or transforming variables based on conditions — for example, converting a numeric score into a letter grade, or grouping continuous values into labeled categories. The case_when() function from the dplyr package is used to create new variables based on multiple conditions. It works like a series of if...else if...else statements and is especially useful for assigning values based on ranges or logical categories. - The case_when() and recode() functions in R both allow you to transform or recode values in a vector, but they differ in flexibility and use cases. recode() is best for straightforward value replacement, where each input value maps directly to a new value—such as turning "good" into 3. - In contrast, case_when() is more flexible and powerful, allowing you to specify complex conditional logic, including comparisons and ranges (e.g., x \> 100 \~ "High"). case_when() evaluates conditions in order and is particularly useful when the transformation depends on logical expressions rather than exact matching. For categorical data that maps cleanly one-to-one, recode() is convenient; for anything requiring conditional logic, case_when() is preferred.
+
+```{r, echo=FALSE, include=TRUE}
+#data <- data %>%
+#  mutate(NewVariable = case_when(
+#    condition1 ~ value1,
+#    condition2 ~ value2,
+#    TRUE ~ default_value  # optional default
+```
+
+-   From recoding to ordinal Variables
+
+```{r}
+evaluate <- c("excellent", "good", "fair", "poor", "excellent", "good")
+data <- data.frame(evaluate)
+
+dataRecode <- data %>%
+     mutate(evaluate = recode(evaluate,
+            "excellent" = 4,
+            "good" = 3,
+            "fair" = 2,
+            "poor" = 1))
+```
+
+-   If we alter this to a case_when, we would include the following.
+
+```{r}
+dataCase_When <- data %>%
+  mutate(evaluate = case_when(
+    evaluate == "excellent" ~ 4,
+    evaluate == "good" ~ 3,
+    evaluate == "fair" ~ 2,
+    evaluate == "poor" ~ 1,
+    TRUE ~ NA_real_  # for safety in case of unexpected values
+  ))
+dataCase_When
+```
+
+-   If we were to give a range, we could do that with case_when using the \>, \< or \>= or \<= signs. An example is below.
+
+```{r}
+# Sample vector of numbers
+score <- c(9, 6, 3, 8, 5, 10, 2)
+
+# Categorize using case_when
+category <- case_when(
+  score > 8        ~ "High",
+  score >= 5       ~ "Medium",
+  score < 5        ~ "Low"
+)
+
+# Combine into a data frame to view
+df <- data.frame(score, category); df
+
+```
+
+With the recoding tools covered — `recode()` for direct value replacement and `case_when()` for conditional logic — we now move to the core `dplyr` verbs for manipulating full datasets. These functions form the backbone of day-to-day data preparation in R.
+
+## Mutate
 
 -   mutate() is part of the dplyr package, which is used for data manipulation. The mutate() function is specifically designed to create new variables (columns) or modify existing variables in a data frame. It is commonly used in data wrangling tasks to add calculated columns or transform existing ones.
 -   One example is below, but note that there are many things you can do with the mutate function.
@@ -580,113 +673,492 @@ arranged_data <-  arrange(iris, Sepal.Length)
 mutated_data <- mutate(iris, Petal.Width_Log = log(Petal.Width))
 ```
 
-## Full Examples
+## Using dplyr Lab
 
-### gss.2016 Data Cleaning
+Use the `dataprep.csv` dataset loaded as `houseprices`.
 
--   First, because we made some edits to the data set, reread in version a using the read.csv command. This brings the data set back to its original form. It is always a good idea to read the dataset back in when you are unsure about whether you have made a mistake during data preparation that could cause a lack of data integrity.\
-
-```{r message=FALSE}
-gss.2016 <- read.csv(file = "data/gss2016.csv") 
+``` r
+houseprices <- read.csv("data/dataprep.csv")
 ```
 
--   Before we remove any missing data, we need it to be the correct data type. In this case, grass should be a factor.
+**1.** Filter the dataset to show only houses with 5 or more bedrooms. Save the result as `filtered` and count the observations.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+filtered <- filter(houseprices, Beds >= 5)
+nrow(filtered)  # 9 houses
+```
+
+9 houses have 5 or more bedrooms.
+:::
+
+**2.** Arrange the full dataset by `Price` in descending order. Save as `ArrangedData` and print the head. What is the highest price?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+ArrangedData <- arrange(houseprices, desc(Price))
+head(ArrangedData)
+```
+
+The highest price is **\$840,000** — it will appear in the first row.
+:::
+
+**3.** Using a single pipeline, filter to houses with at least 3 bedrooms, select only `Price`, `Beds`, and `Sqft`, and arrange by `Price` descending.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+houseprices %>%
+  filter(Beds >= 3) %>%
+  select(Price, Beds, Sqft) %>%
+  arrange(desc(Price))
+```
+:::
+
+Continue using `houseprices`.
+
+**1.** Create a new categorical variable called `HouseSizeCategory` using `case_when()`: - Small: Sqft \< 2000 - Medium: Sqft between 2000 and 3000 (inclusive) - Large: Sqft \> 3000
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+houseprices <- houseprices %>%
+  mutate(HouseSizeCategory = case_when(
+    Sqft < 2000             ~ "Small",
+    Sqft >= 2000 & Sqft <= 3000 ~ "Medium",
+    Sqft > 3000             ~ "Large"
+  ))
+```
+:::
+
+**2.** Calculate the frequency of each `HouseSizeCategory` using `table()`. List the count for each category.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+table(houseprices$HouseSizeCategory)
+```
+
+Large: 14 \| Medium: 25 \| Small: 40
+:::
+
+**3.** Calculate the average `Price` and average `Sqft` grouped by `HouseSizeCategory`. Fill in the table below with your results.
+
+``` r
+# Your code here
+```
+
+| HouseSizeCategory | avg_price | avg_sqft |
+|-------------------|-----------|----------|
+| Large             |           |          |
+| Medium            |           |          |
+| Small             |           |          |
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+houseprices %>%
+  group_by(HouseSizeCategory) %>%
+  summarise(avg_price = mean(Price, na.rm = TRUE),
+            avg_sqft  = mean(Sqft,  na.rm = TRUE))
+```
+
+| HouseSizeCategory | avg_price | avg_sqft    |
+|-------------------|-----------|-------------|
+| Large             | \$574,786 | 3,370 sq ft |
+| Medium            | \$596,696 | 2,488 sq ft |
+| Small             | \$457,568 | 1,505 sq ft |
+:::
+
+# Advanced Visualization
+
+## Single Variable Visualization with Data Prep
+
+The histogram, density plot, and boxplot covered in the Descriptive Statistics lesson worked with clean, ready-to-plot data. The examples here show the more common real-world workflow: a variable arrives with numeric codes, missing value sentinels, or incorrect data types that must be fixed before the chart will make sense. Cleaning comes first — visualization follows.
+
+-   Let's start an example from scratch using a real dataset. We examine the `AUQ300` variable from the nhanes survey, which represents gun use.
+-   We load the full dataset and clean all the relevant variables at once so the same `nhanes.clean` object can be used throughout this section and in the full example below.
 
 ```{r}
-# We coerced this variable earlier, but the object was called gss.2016. 
-#Since we reread in the data set, this needs to be done again. 
-gss.2016$grass <- as.factor(gss.2016$grass)
+nhanes <- read.csv("data/nhanes2012.csv")
 ```
 
--   The statement below is an equivalent to the function above, but written with the piping operator. It is overwriting gss.2016 after conducting the coercion to factor.
--   We added the mutate function because we are going to add other data cleaning tasks to this statement.
+```{r, results='hide'}
+head(nhanes)
+```
 
 ```{r}
-gss.2016 <- gss.2016 %>% mutate(grass = as.factor(grass))
+summary(nhanes$AUQ300) 
 ```
 
-#### Piping to More Functions: Missing Data
+![AUQ300](Pictures/Ch3/AUQ300.png "Snippet of the AUQ300 Variable in the Codebook")
 
--   In the code below, the as.factor() command has been moved inside a broader mutate statement (that uses tidyverse library) and piped to it the na_if() command that handles missing data. If you use more than one data manipulation statement, the mutate() command is needed to help organize your code with one mutate() is needed for each major change you are making.
--   In the code below, we created a new object gss.2016.cleaned to help store the cleaned version of the dataset. This helps maintain data integrity because your original dataset is still intact and each time, you rerun the entire chunk, which includes all the changes at one time.
+### Recode Variable if Needed
+
+-   `AUQ300` needs to be a factor variable with 1 equaling *Yes* and 2 equaling *No*. We use `recode_factor()` inside `mutate()`.
+-   `recode_factor()` transforms the levels of a categorical variable into a new set of labels.
+-   `recode()` is generic and applies to numeric, categorical, or text data.
+-   We select and recode all six variables of interest in a single pipeline so the object is ready for both the bar chart examples below and the full multi-variable example later.
+
+```{r, warning=FALSE}
+nhanes.clean <- nhanes %>%
+  dplyr::select(AUQ300, AUQ310, AUQ320, AUQ060, AUQ070, AUQ080) %>%
+  mutate(AUQ300 = recode_factor(AUQ300, '1' = 'Yes', '2' = 'No')) %>%
+  mutate(AUQ310 = recode_factor(AUQ310,
+           '1' = "1 to less than 100",
+           '2' = "100 to less than 1000",
+           '3' = "1000 to less than 10k",
+           '4' = "10k to less than 50k",
+           '5' = "50k or more",
+           '7' = "Refused",
+           '9' = "Don't know")) %>%
+  mutate(AUQ060 = recode_factor(AUQ060, '1' = 'Yes', '2' = 'No')) %>%
+  mutate(AUQ070 = recode_factor(AUQ070, '1' = 'Yes', '2' = 'No')) %>%
+  mutate(AUQ080 = recode_factor(AUQ080, '1' = 'Yes', '2' = 'No')) %>%
+  mutate(AUQ320 = recode_factor(AUQ320,
+           '1' = 'Always', '2' = 'Usually',
+           '3' = 'About half the time', '4' = 'Seldom', '5' = 'Never'))
+summary(nhanes.clean)
+```
+
+### Get Bar Roughly Plotted
+
+```{r, fig.alt = "Bar Graph of AUQ300 Variable (Gun Use) Generated by R"}
+# Without piping operator
+ggplot(nhanes.clean, aes(x = AUQ300)) + geom_bar()
+#With piping operator
+nhanes.clean %>%
+  ggplot(aes(x = AUQ300)) + geom_bar()
+```
+
+### Add Functions to Clean Chart
+
+-   Use `drop_na()` to remove missing values from the variable before plotting so they do not appear as a category.
+-   Add axis labels with `labs(x = ..., y = ...)`.
+
+```{r tidy=FALSE, fig.alt = "Bar Graph of AUQ300 Variable with labels"}
+nhanes.clean %>%
+  drop_na(AUQ300) %>%
+  ggplot(aes(x = AUQ300)) + geom_bar() +
+  labs(x = "Gun use", y = "Number of participants")
+```
+
+-   From the bar graph, we can see that almost double the number of people have not fired a firearm for any reason compared to those who have.
+
+### Adding Color
+
+-   When `fill` is mapped to a variable inside `aes()`, ggplot assigns a distinct color to each category automatically.
+
+```{r tidy=FALSE, fig.alt = "Bar Graph of AUQ300 Variable with color"}
+nhanes.clean %>%
+  drop_na(AUQ300) %>%
+  ggplot(aes(AUQ300, fill=AUQ300)) +
+  geom_bar() +
+  labs(x = "Gun use", y = "Number of participants", 
+       subtitle = "Filled inside the aes()") 
+```
+
+### Data Prep and Then Visualized
+
+This example walks through cleaning the `gss.2016` dataset and then plotting the result, showing how data preparation and visualization connect in practice.
+
+```{r, message=FALSE}
+gss.2016 <- read.csv(file = "data/gss2016.csv")
+```
+
+The `grass` variable captures whether respondents believe marijuana should be legal, but it arrives as a character and contains placeholder codes (`"DK"`, `"IAP"`) that need to be converted to `NA`. The `age` variable has the value `"89 OR OLDER"` which prevents numeric coercion. We handle all of this in a single pipeline and create an age category variable at the end.
 
 ```{r}
 gss.2016.cleaned <- gss.2016 %>%
-  #Moved coercion statement into a mutate function to keep code tidy
-  mutate(grass = as.factor(grass)) %>% 
-  #Moving DK value to NA for not applicable
-  mutate(grass = na_if(x = grass, y = "DK"))
-
-#Check the summary, there should be 110 + 3 = 113 in the NA category 
-summary(object = gss.2016.cleaned)
+  mutate(grass = as.factor(grass)) %>%
+  mutate(grass = na_if(x = grass, y = "DK")) %>%
+  mutate(grass = na_if(x = grass, y = "IAP")) %>%
+  mutate(grass = droplevels(x = grass)) %>%
+  mutate(age = recode(age, "89 OR OLDER" = "89")) %>%
+  mutate(age = as.numeric(x = age)) %>%
+  mutate(age.cat = as.factor(case_when(
+       age < 30 ~ "< 30",
+       age >= 30 & age <= 59 ~ "30 - 59",
+       age >= 60 & age <= 74 ~ "60 - 74",
+       age >= 75 ~ "75+",
+       TRUE ~ NA_character_
+  )))
+summary(gss.2016.cleaned)
 ```
 
-#### Drop Levels
-
--   The droplevels function is part of base R and is used to drop unused levels from factor variables in a data frame. It works by removing any levels from a factor variable that are not present in the data.
-
--   Next, we want to edit our code to convert IAP and DK to NA values and drop levels that have are empty.
-
-    -   Note the Piping operator added to the end of the DK line so you can keep going with new commands editing gss.2016.cleaned.
-
-    ```{r}
-    gss.2016.cleaned <- gss.2016 %>% 
-      mutate(grass = as.factor(grass)) %>% 
-      #Added piping operator
-      mutate(grass = na_if(x = grass, y = "DK")) %>%   
-      #Turn to na if value of grass = IAP
-      mutate(grass = na_if(x = grass, y = "IAP")) %>% 
-      #Drop levels in grass that have no values
-      mutate(grass = droplevels(x = grass))  
-    #Check what you just did
-    summary(gss.2016.cleaned) 
-    ```
-
-#### Coercing to Numeric
-
--   Next, we handle a numerical variable, age. Age again has an issue being able to be numerical data type because it has "89 OR OLDER" as a value. Before using the as.numeric() command, we need to recode it. We did this above as a stand-alone statement.\
+With the data cleaned, we can plot directly. `geom_bar()` counts observations automatically — no need to pre-compute frequencies. `drop_na()` removes missing values so they don't appear as a bar category.
 
 ```{r}
-gss.2016.cleaned <- gss.2016 %>% 
-  mutate(grass = as.factor(grass)) %>% 
-  mutate(grass = na_if(x = grass, y = "DK")) %>% 
-  mutate(grass = na_if(x = grass, y = "IAP")) %>% 
-  #Added piping operator 
-  mutate(grass = droplevels(x = grass)) %>% 
-  #Ensure variable can be coded as numeric and fix if necessary. 
-  mutate(age = recode(age, "89 OR OLDER" = "89")) %>% 
-  #Coerce into numeric
-  mutate(age = as.numeric(x = age)) 
-
-#Check what you just did
-summary(gss.2016.cleaned) 
+ggplot(gss.2016.cleaned, aes(grass)) + geom_bar()
 ```
 
--   The recode() command that is part of dplyr is like the ifelse() command that is in base R. There are a lot of ways to recode in R.
+```{r, fig.alt = "Bar Graph Generated by R"}
+gss.2016.cleaned %>% 
+     drop_na() %>%
+     ggplot(aes(grass)) + geom_bar(fill=c("red", "blue")) + 
+     labs(x = "Should marijuana be legal", y="Frequency of Responses")
+```
 
--   Finally, we want to take our numerical variable, age, and cut it at certain breaks to make categories that can be easily analyzed.
+### Edit The Graphic
 
-    -   This also ensures that anyone above 89 is coded correctly in a category instead of as the value 89. This again brings back data integrity.
-    -   The cut() function generates class limits and bins used in frequency distributions (and histograms) for quantitative data.
-    -   Here, we are using it to cut age into a categorical variable.
+-   We can expand to include the `age.cat` variable on the x axis, with bars filled by `grass` category.
 
-    ```{r}
-    gss.2016.cleaned <- gss.2016 %>% 
-      mutate(grass = as.factor(grass)) %>% 
-      mutate(grass = na_if(x = grass, y = "DK")) %>% 
-      mutate(grass = na_if(x = grass, y = "IAP")) %>% 
-      mutate(grass = droplevels(grass)) %>% 
-      mutate(age = recode(age, "89 OR OLDER" = "89")) %>% 
-      #Added piping operator
-      mutate(age = as.numeric(age)) %>% 
-      #Cut numeric variable into groupings
-      mutate(age.cat = cut(age, breaks = c(-Inf, 29, 59, 74, Inf),labels = c("< 30", "30 - 59", "60 - 74", "75+" ))) 
+```{r}
+gss.2016.cleaned %>% 
+     drop_na() %>%
+     ggplot(aes(age.cat, fill=grass)) + geom_bar() + labs(x="Age Category", y="Frequency of responses")
+```
 
-    #Check what you just did
-    summary(gss.2016.cleaned) 
-    ```
+-   Add `position = "dodge"` to place the bars side by side (grouped) rather than stacked.
 
-### brfss Data Cleaning
+```{r}
+gss.2016.cleaned %>% 
+     drop_na() %>%
+     ggplot(aes(age.cat, fill=grass)) + geom_bar(position="dodge") + labs(x="Age Category", y="Frequency of responses")
+```
+
+-   We can further edit to show percentages on the y axis using `after_stat(count)`.
+
+```{r, fig.alt = "Grouped Bar Graph Generated by R"}
+gss.2016.cleaned %>% 
+     drop_na() %>%
+     ggplot(aes(age.cat, y = 100*(after_stat(count))/sum(after_stat(count)), 
+                fill=grass)) + 
+     geom_bar(position = 'dodge')+  
+     theme_minimal()+ 
+     labs(x = "Age Category",y = "Percent of responses")
+```
+
+## MultiVariable Data Visualization
+
+Now that we can clean and prepare data, we can start to visualize it. The goals of this section are to explore patterns based on groups or between two or more variables. Visualization is one of the most important steps in any analysis — it helps you understand your data quickly, catch problems early, and communicate findings clearly.
+
+Histograms, density plots, and boxplots for a single continuous variable were covered in the Descriptive Statistics lesson, and single-variable bar charts requiring data preparation are in the section above. This section focuses entirely on **two-variable charts**: grouped and stacked bar charts for two categorical variables, boxplots across groups, and scatterplots for two continuous variables.
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+::: callout-note
+Recall that ggplot2 builds charts in layers using `+` — each layer adds a geometry, label, or theme on top of the last. The same layering concepts from the Descriptive Statistics lesson apply to every chart in this section.
+:::
+
+-   Combinations of 2 variable types for graphing:
+    -   Two categorical / factor variables.
+    -   One categorical / factor and one continuous / numeric variable.
+    -   Two continuous / numeric variables.
+
+### Bar Graphs for Two Categorical Variables
+
+-   There are two formats available: **Grouped** and **Stacked**.
+
+```{r, echo=FALSE}
+countsDF <- mtcars %>% 
+     group_by(vs, gear) %>%
+     count()
+countsDF
+
+ggplot(countsDF, aes(x = gear, y = n, fill = factor(vs))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Grouped") + 
+  scale_fill_manual(values = c("darkblue", "red"),
+                    labels = c("vs-0", "vs-1")) 
+
+ggplot(countsDF, aes(x = gear, y = n, fill = factor(vs))) +
+  geom_bar(stat = "identity") +
+  labs(title = "Stacked") + 
+  scale_fill_manual(values = c("darkblue", "red"),
+                    labels = c("vs-0", "vs-1")) 
+```
+
+### Grouped Bar Graph
+
+-   A grouped bar graph allows comparison of multiple sets of data items, with a single color used to denote a specific series across all sets.
+-   Use `group_by()` and `count()` to generate frequencies first, then plot with `stat = "identity"` and `position = "dodge"`.
+
+```{r fig.alt = "Grouped Bar Graph Generated by R"}
+mtcars <- mtcars %>% 
+    mutate(vs=as.factor(vs)) %>% 
+    mutate(gear=as.factor(gear))
+
+countsDF <- mtcars %>% 
+    group_by(vs, gear) %>%
+    count()
+summary(countsDF)
+    
+ggplot(countsDF, aes(x = gear, y = n, fill = vs)) +
+     geom_bar(stat = "identity", position = "dodge") +
+     labs(title = "Grouped Car Distribution by Gears and VS",
+     x = "Number of Gears", y = "Count") +
+     theme_minimal()
+```
+
+### Stacked Bar Graph
+
+-   A stacked bar graph extends the standard bar chart to two categorical variables by dividing each bar into sub-bars, one per level of the second variable.
+-   Remove the `position = "dodge"` argument to stack instead of group.
+
+```{r tidy=FALSE, fig.alt = "Stacked Bar Graph Generated from ggplot2 by R"}
+ggplot(countsDF, aes(x = gear, y = n, fill = vs)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Stacked Car Distribution",
+       x = "Number of Gears",
+       y = "Count") +
+  theme_minimal()
+```
+
+### Bar Graph for Continuous Across Groups
+
+-   Instead of counting observations, we can display a continuous variable (like mean) for each group.
+-   Use `group_by()` and `summarise()` to calculate the group statistic first, then pass it to `geom_bar(stat = "identity")`.
+
+```{r message=FALSE}
+avg_mpg <- mtcars %>%
+  group_by(gear, vs) %>%
+  summarise(mpg = mean(mpg, na.rm = TRUE))
+```
+
+```{r tidy=FALSE, fig.alt = "Grouped Bar Graph Generated from ggplot2 by R"}
+ggplot(avg_mpg, aes(gear, mpg, fill = vs)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  ggtitle("Average MPG by VS and Gear")
+```
+
+```{r}
+ggplot(avg_mpg, aes(gear, mpg, fill = vs)) +
+     geom_bar(stat = "identity", position = "dodge", color="black") +  
+     ggtitle("Average MPG by VS and Gear")+
+     scale_fill_manual(values=c("yellow", "brown"))
+```
+
+### Boxplot for Continuous Across Groups
+
+-   When a grouping variable is added to a boxplot, we get one boxplot per group. This allows direct comparison of distributions across categories.
+-   The categorical variable must be a factor before plotting.
+
+```{r tidy=FALSE, fig.alt = "Boxplot Generated from ggplot2 by R"}
+mtcars %>%
+  ggplot(aes(x = gear, y = mpg, fill = gear)) +
+  geom_boxplot(show.legend = FALSE) +
+  scale_fill_manual(values = c("gray", "red", "blue")) +
+  theme_minimal()
+```
+
+```{r}
+mtcars %>%
+     ggplot(aes(x = vs, y = mpg, fill = vs)) +
+     geom_boxplot(show.legend = FALSE) +
+     scale_fill_manual(values = c("gray", "red")) +
+     theme_minimal() 
+```
+
+### Scatterplot for Two Continuous Variables
+
+-   A scatterplot is used to determine if two continuous variables are related.
+    -   Each point is a pairing: $(x_1, y_1), (x_2, y_2),$ etc.
+-   Our goal with a scatterplot is to characterize the relationship visually — positive, negative, or not existent.
+
+![ScatterPlot Results](Pictures/Ch3/Scatter.png "ScatterPlot Results")
+
+-   Let's work a clean example examining the relationship between income and years of education.
+
+```{r, fig.alt = "Scatterplot Generated by R"}
+Edu <- read.csv("data/education.csv")
+plot(Edu$Income ~ Edu$Education, ylab = "Income", xlab = "Education")
+```
+
+-   Working with ggplot:
+    -   Layer 1: `ggplot()` with `aes()` pointing to x and y variables.
+    -   Layer 2: `geom_point()` to add the observation points.
+    -   Additional layers: `labs()`, `geom_smooth()`, and others.
+
+```{r, fig.alt = "Scatterplot Generated from ggplot2 by R"}
+ggplot(Edu, aes(x=Education, y=Income)) +
+     geom_point() +
+     labs(y= "Income", x = "Education") 
+```
+
+-   We can add a trendline using `geom_smooth(method = "lm")` to fit a linear regression line and visualize the direction of the relationship.
+
+```{r, fig.alt = "Scatterplot With geom_smooth lm method Generated from ggplot2 by R"}
+ggplot(Edu, aes(x=Education, y=Income)) +
+    geom_point() +
+    labs(y= "Income", x = "Education") +
+    geom_smooth(method="lm", color="#789F90")
+```
+
+-   Let's look at a few more examples using `mtcars` and see if the relationship is positive, negative, or not existent.
+
+```{r, fig.alt = "Scatterplot examples in R"}
+ggplot(mtcars, aes(x=disp, y=mpg))+ 
+  geom_point() + 
+  geom_smooth(method="lm", color="#789F90")
+```
+
+```{r, fig.alt = "Scatterplot examples in R"}
+ggplot(mtcars, aes(x=hp, y=mpg))+ geom_point() +
+  geom_smooth(method="lm", color="#789F90")
+```
+
+```{r, fig.alt = "Scatterplot examples in R"}
+ggplot(mtcars, aes(x=qsec, y=mpg))+geom_point() + geom_smooth(method="lm", color="#789F90")
+```
+
+-   When one of the variables is categorical rather than continuous, a boxplot is more appropriate than a scatterplot. If `cyl` is treated as numeric, only one boxplot appears. Converting it to a factor fixes this.
+
+```{r, fig.alt = "ggplot2 Example with Incorrect Data Type"}
+ggplot(mtcars, aes(cyl, mpg)) + geom_point() + geom_smooth(method="lm")
+```
+
+```{r, fig.alt = "ggplot2 Example with Boxplot"}
+ggplot(mtcars, aes(cyl, mpg)) + geom_boxplot()
+```
+
+```{r}
+mtcars <- mtcars %>% 
+     mutate(cyl = as.factor(cyl))
+ggplot(mtcars, aes(cyl, mpg)) + geom_boxplot()
+```
+
+## Full Example
+
+The following examples tie together data preparation and visualization using two real public health datasets. Each one requires cleaning before plotting — the nhanes dataset uses numeric codes that need recoding, and the BRFSS dataset has sentinel values that must be converted to NA before the distributions make sense.
+
+### nhanes Dataset example
+
+-   The nhanes dataset includes auditory health variables alongside gun use variables, making it an interesting case for exploring relationships between two categorical variables.
+
+-   Variables: `AUQ060/070/080` measure ability to hear across a room; `AUQ300/310/320` relate to firearm use and hearing protection.
+
+-   `nhanes.clean` was fully prepared in the Bar Graph with Data Wrangling section above with all six variables recoded and ready to use.
+
+-   NA values are left in and handled on a chart-by-chart basis using `drop_na()` so we do not unnecessarily reduce the dataset.
+
+```{r}
+nhanes.clean %>% 
+  drop_na(AUQ310) %>% drop_na(AUQ060) %>% 
+  ggplot(aes(x=AUQ310, fill=AUQ060)) + geom_bar(position="dodge") + 
+  labs(x="How many rounds fired", title="Hearing Whisper vs. Rounds Fired", y="Frequency")
+
+nhanes.clean %>% 
+  drop_na(AUQ320) %>% drop_na(AUQ060) %>% 
+  ggplot(aes(x=AUQ320, fill=AUQ060)) + geom_bar(position="dodge") + 
+  labs(x="Wear hearing protection", title="Hearing Whisper vs. Hearing Protection Use", y="Frequency")
+```
+
+-   Try running the other variable combinations on your own to see what patterns you can find.
+
+### brfss Dataset Example
+
+The BRFSS (Behavioral Risk Factor Surveillance System) dataset illustrates how data preparation and visualization come together. The qualitative variable `TRNSGNDR` requires coercion and recoding before it can be plotted; the continuous variable `PHYSHLTH` needs its sentinel codes cleaned before analysis. This example ties together the coercion, `mutate()`, and visualization skills from this lesson.
 
 -   The full codebook where this screenshot is taken is brfss_2014_codebook.pdf.
 
@@ -702,8 +1174,6 @@ summary(brfss)
 -   To look at an example, the one below seeks to understand the healthcare issue in reporting gender based on different definitions. The dataset is part of the Behavioral Risk Factor Surveillance System (brfss) dataset (2014), which includes lots of other variables besides reported gender.
 
 ```{r}
-#Load the data
-brfss <- read.csv("data/brfss.csv")
 #Summarize the TRNSGNDR variable
 summary(object = brfss$TRNSGNDR) 
 #Find frequencies 
@@ -717,19 +1187,11 @@ table(brfss$TRNSGNDR)
 class(brfss$TRNSGNDR)
 ```
 
--   First, we need to change the TRNSGNDR variable to a factor using as.factor().
-
-```{r}
-# Change variable from numeric to factor
-brfss$TRNSGNDR <- as.factor(brfss$TRNSGNDR)
-# Check data type again to ensure factor
-class(brfss$TRNSGNDR)
-```
-
--   Then, we need to do some data cleaning on the TRNSGNDR Variable.
+-   Because `TRNSGNDR` is stored as numeric, it needs to be converted to a factor before recoding. The `mutate()` pipeline below handles the coercion and recoding in a single step.
 
 ```{r tidy=FALSE}
 brfss.cleaned <- brfss %>% 
+  mutate(TRNSGNDR = as.factor(TRNSGNDR)) %>%
   mutate(TRNSGNDR = recode_factor(TRNSGNDR,
       '1' = 'Male to female',
       '2' = 'Female to male',
@@ -778,6 +1240,8 @@ brfss.cleaned <- brfss %>%
 
 ```
 
+#### Histogram
+
 -   The histogram showed most people have between 0 and 10 unhealthy days per 30 days.
 
 -   Next, evaluate mean, median, and mode for the PHYSHLTH variable after ignoring the blanks.
@@ -815,98 +1279,148 @@ kurtosis(brfss.cleaned$PHYSHLTH)
 -   The skew results provide a z of 607.905 (6.079054e+02) which is much higher than 7 (for large datasets). This indicates a clear right skew which means the data is not normally distributed.
 -   The kurtosis results are also very leptokurtic with a score of 478.063.
 
-#### Using Filters Example
+## Visualization Lab
 
--   Below takes an example of the brfss data to filter by certain variable statuses.
+For this lab, switch to the `dataviz.csv` coffee dataset rather than the datasets used in the teaching examples above. Load it as `coffee`. It contains 1,311 coffee quality reviews with variables including `Country.of.Origin`, `Processing.Method`, `TotalScore`, `Flavor`, and `Aroma`, among others. Use the `scores` vector for the outlier question.
 
-    -   The first filter() chose observations that were any one of the three categories of transgender included in the data. Used the \| “or” operator for this filter().
-    -   The second filter chose people in an age category above category 4 but below category 12, in the age categories 5 through 11.
-    -   The last filter used the !is.na to choose observations where HADMAM variable was not NA.
+``` r
+coffee <- read.csv("data/dataviz.csv")
+```
 
--   Next, we reduce data set to contain only variables used to create table by using the select() command.
+**1.** Create a bar chart showing the count of reviews by `Country.of.Origin`. Because many countries appear, filter to the top 6 countries first using `dplyr`. Give it a custom fill color and a `theme_minimal()`. What do you observe?
 
--   Next, we change all the remaining variables in data set to factors using mutate_all() command. This not only changes the strings to factors, but also changes the numerical variables to factors.
+::: {.callout-note collapse="true"}
+### Show Answer
 
--   Finally, we use mutate() commands to change the variable category to something meaningful(from the codebook).
+``` r
+library(tidyverse)
+top6 <- coffee %>%
+  count(Country.of.Origin, sort = TRUE) %>%
+  slice_head(n = 6) %>%
+  pull(Country.of.Origin)
 
-    -   Notice the backslash before the apostrophe in Don't in the X_INCOMG recode. This is to prevent the .R file from ending the quotations. You could use double quotes around the statement to bypass this, or add the backslash like I did here.
+coffee %>%
+  filter(Country.of.Origin %in% top6) %>%
+  ggplot(aes(x = reorder(Country.of.Origin, -table(Country.of.Origin)[Country.of.Origin]),
+             fill = Country.of.Origin)) +
+  geom_bar(show.legend = FALSE) +
+  theme_minimal() +
+  labs(title = "Coffee Reviews by Country (Top 6)",
+       x = "Country", y = "Number of Reviews")
+```
 
-    ```{r}
-    brfss_small <- brfss.cleaned %>%
-      filter(TRNSGNDR == 'Male to female'|
-            TRNSGNDR ==  'Female to male'|
-            TRNSGNDR ==  'Gender non-conforming') %>%
-      filter(X_AGEG5YR > 4 & X_AGEG5YR < 12) %>% 
-      filter(!is.na(HADMAM)) %>%
-      select(TRNSGNDR, X_AGEG5YR, X_RACE, X_INCOMG, X_EDUCAG, HLTHPLN1, HADMAM) %>%
-      mutate_all(as.factor) %>%
-      #The next few mutates add labels to categorical variables based on the codebook. 
-      mutate(X_AGEG5YR = recode_factor(X_AGEG5YR,
-              '5' = '40-44',
-              '6' = '45-49',
-              '7' = '50-54',
-              '8' = '55-59',
-              '9' = '60-64',
-              '10' = '65-69',
-              '11' = '70-74')) %>%
-      mutate(X_INCOMG = recode_factor(X_INCOMG,
-              '1' = 'Less than 15,000',
-              '2' = '15,000 to less than 25,000',
-              '3' = '25,000 to less than 35,000',
-              '4' = '35,000 to less than 50,000',
-              '5' = '50,000 or more',
-              '9' = 'Don\'t know/not sure/missing')) %>%
-         mutate(X_EDUCAG = recode_factor(X_EDUCAG,
-              '1' = 'Did not graduate high school',
-              '2' = 'Graduated high school',
-              '3' = 'Attended college/technical school',
-              '4' = 'Graduated from college/technical school',
-              '9' = NA_character_)) %>%
-         mutate(HLTHPLN1 = recode_factor(HLTHPLN1,
-              '1' = 'Yes',
-              '2' = 'No',
-              '7' = 'Don\'t know/not sure/missing',
-              '9' = 'Refused')) %>%
-         mutate(X_RACE = recode_factor(X_RACE,
-              '1' = 'White',
-              '2' = 'Black',
-              '3' = 'Native American',
-              '4' = 'Asian/Pacific Islander',
-              '5' = 'Other',
-              '6' = 'Other',
-              '7' = 'Other',
-              '8' = 'Other',
-              '9' = 'Other'))
-    #print a summary
-    summary(brfss_small)     
-    ```
+Mexico leads with 236 reviews, followed by Colombia (183) and Guatemala (181). The distribution is right-skewed — a few countries dominate the dataset.
+:::
 
--   This data set full of categorical variables is now fully cleaned and ready to be analyzed!
+**2.** Make a density plot of `TotalScore`. Add a vertical dashed line at the mean. Then run `skew()` and `kurtosis()` from `semTools`. Is `TotalScore` skewed? Does the visual agree with the statistics?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+# Filter out the extreme low values (data quality issue — a few scores near 0)
+coffee_clean <- filter(coffee, TotalScore > 50)
+
+ggplot(coffee_clean, aes(x = TotalScore)) +
+  geom_density(fill = "steelblue", alpha = 0.5) +
+  geom_vline(aes(xintercept = mean(TotalScore)), color = "red", linetype = "dashed") +
+  labs(title = "Density Plot of Coffee Total Score", x = "Total Score")
+
+library(semTools)
+skew(coffee_clean$TotalScore)
+kurtosis(coffee_clean$TotalScore)
+```
+
+`TotalScore` is left-skewed — the mean (≈82.2) is slightly below the median (≈82.5), and the distribution has a longer tail to the left. The density plot will show the peak shifted right with a tail extending left.
+:::
+
+**3.** Make a boxplot of `TotalScore` (using `coffee_clean`). Do any outliers appear? Then use the `scores` vector below to manually verify outlier detection using the IQR method.
+
+``` r
+scores <- c(55, 56, 58, 60, 62, 65, 66, 67, 70, 120)
+```
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+# Boxplot
+ggplot(coffee_clean, aes(x = TotalScore)) +
+  geom_boxplot(fill = "lightblue", color = "navy") +
+  labs(title = "Boxplot of Coffee Total Score", x = "Total Score")
+
+# Manual outlier detection on the scores vector
+Q1   <- quantile(scores)[2]; Q1     # 58.50
+Q3   <- quantile(scores)[4]; Q3     # 66.75
+IQRv <- IQR(scores); IQRv           # 8.25
+LB   <- Q1 - 1.5 * IQRv; LB        # 46.12
+UB   <- Q3 + 1.5 * IQRv; UB        # 79.12
+scores[scores < LB | scores > UB]   # 120 is an outlier
+```
+
+Q1: 58.50 \| Q3: 66.75 \| IQR: 8.25 \| Lower bound: 46.12 \| Upper bound: 79.12 \| Outlier: **120**
+
+The `TotalScore` boxplot will show outliers at the low end — a handful of very low scores (the data quality issues) appear as individual points well below the whisker.
+:::
+
+**4.** Create three different charts using the `coffee` dataset (or `coffee_clean`). Try at least one chart type not yet used in this lab. Write your three commands below and note what each reveals.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+Many correct answers are possible. For example:
+
+``` r
+# Histogram of Flavor scores
+ggplot(coffee_clean, aes(Flavor)) +
+  geom_histogram(binwidth = 0.1, fill = "goldenrod", color = "white") +
+  labs(title = "Distribution of Flavor Scores")
+
+# Bar chart of Processing Method
+coffee %>%
+  filter(Processing.Method != "") %>%
+  ggplot(aes(x = Processing.Method, fill = Processing.Method)) +
+  geom_bar(show.legend = FALSE) +
+  theme_minimal() +
+  labs(title = "Reviews by Processing Method", x = "Method", y = "Count") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+# Scatterplot of Aroma vs Flavor
+ggplot(coffee_clean, aes(x = Aroma, y = Flavor)) +
+  geom_point(alpha = 0.3, color = "darkgreen") +
+  geom_smooth(method = "lm", color = "red") +
+  labs(title = "Aroma vs. Flavor Rating")
+```
+
+Washed / Wet is by far the most common processing method. Aroma and Flavor show a strong positive relationship — coffees rated highly on aroma tend to score well on flavor too.
+:::
+
+# Review and Practice
 
 ## Using AI
 
--   Use the following prompts on a generative AI, like chatGPT, to learn more about data preparation activities.
+Use the following prompts with a generative AI tool like ChatGPT to explore data visualization with `ggplot2` further.
 
--   What is the difference between ordinal and nominal variables, and how can you recode these data types in R?
+-   How can I modify the appearance of a ggplot bar chart to include custom colors for each bar, and what are the best practices for choosing colors in data visualization?
 
--   Explain the steps to coerce a character variable into a factor using the as.factor() function in R.
+-   What is the role of layering in ggplot, and how can adding multiple layers, such as labels, themes, and lines, improve the readability of a plot?
 
--   How can you use the filter() function to subset a dataset based on multiple conditions using & and \| in R?
+-   When should a density plot be used instead of a histogram, and how does each visualization help in understanding the distribution of continuous data?
 
--   How does subsetting using square brackets \[\] differ from using the filter() function in R?
+-   How can I use a boxplot in R to identify and visualize outliers in my dataset, and what additional steps should I take to handle these outliers?
 
--   What strategies can you use to handle missing data in R, and how does na.omit() differ from drop_na()?
+-   How can I create a scatter plot in ggplot to explore relationships between two continuous variables, and how do I add a trendline to help interpret the results?
 
--   How does the mutate() function help in transforming and creating new variables, and what are some practical examples?"
-
--   What is the purpose of the group_by() function, and how does it interact with summarize() to create summary statistics in R?"
-
--   Explain how you can use arrange() to sort a dataset by one or more variables and demonstrate sorting both in ascending and descending order."
-
--   Why is the piping operator %\>% useful in R, and how does it improve the readability and structure of your code?
-
--   How would you use summarize() to calculate mean, median, and standard deviation for a numerical variable in R?
+-   What are the steps for creating a grouped bar chart in ggplot, and how does this visualization help in comparing multiple categories or groups within a dataset?
 
 ## Summary
 
--   In this lesson, we worked through the basics on data cleaning. Data cleaning is so important and there are so many ways to do it. Provided are some examples using popular functions in dplyr (under tidyverse).
+In this lesson, we worked through the full data preparation and visualization workflow in R. We began with data types and coercion — understanding how R stores variables as factors, numeric, character, and logical types, and how to convert between them using as.factor(), as.numeric(), and recode(). We also covered date conversion using the lubridate package with the dataprep.csv dataset.
+
+The core of the lesson covered the dplyr toolkit: arrange() to sort data, filter() to subset rows, select() to choose columns, and the pipe operator (%\>%) to chain operations cleanly. We used count() and length() to tally observations, worked through the full range of missing data techniques including na.rm, is.na(), na_if(), na.omit(), and drop_na(), and used summarise() and group_by() to compute grouped statistics. case_when() and mutate() handle recoding and creating new variables.
+
+The visualization section is organized by complexity. Single-variable bar charts that require data cleaning (recoding factor levels, handling missing values) are covered first using the nhanes and GSS datasets — these show how data preparation and visualization connect in practice. Multi-variable charts follow: grouped and stacked bar charts for two categorical variables, boxplots by group, and scatterplots with `geom_smooth()` for two continuous variables. Full worked examples using the nhanes and BRFSS datasets tie everything together.
+
+Each section includes a hands-on lab. The data preparation labs use dataprep.csv (79 house sales with Price, Sqft, Beds, Baths, OverallQual, and BuildDay). The visualization lab uses dataviz.csv (1,311 coffee quality reviews with Country.of.Origin, TotalScore, Flavor, Processing.Method, and others).
+
+In the next part of the bootcamp, we shift from R to mathematics — the notation and concepts that underpin the statistical and machine learning models you will use throughout the MSBA program.

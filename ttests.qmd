@@ -1,24 +1,15 @@
 ---
-title: "Hypothesis Testing with t-Tests"
+title: "Hypothesis Testing"
 author: ""
 date: "2024-08-09"
-output: html_document
+format: html
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
 ```
 
 -   The goal of this lesson is to teach you how to conduct statistical inference with regards to hypothesis testing. In doing so, we will learn a few key hypothesis tests given t-distributions, including the one-sample t-test, the independent samples t-test, and the dependent samples t-test. We will continue to conduct hypothesis tests in the later modules as they are the cornerstone to conducting sound statistical inference.
-
-```{r tidy=FALSE}
-####################################
-# Project name: Statistical Inference and Hypothesis Testing
-# Data used: nhanes2016.csv, Spend.csv, StudyHours.csv, and Smoke.csv from Blackboard
-# Libraries used: tidyverse
-####################################
-```
 
 ### At a Glance
 
@@ -86,7 +77,10 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 #### The p-Value Approach: What we are using here.
 
+-   The **p-value** is simply the probability of observing a result at least as extreme as the one we calculated, *assuming the null hypothesis is true*. A very small p-value means that what we observed would be very unlikely if the null were true — giving us reason to reject it. We compare the p-value to a pre-determined significance level (alpha, usually set at 0.05). If the p-value is less than alpha, we reject the null hypothesis. If it is greater than or equal to alpha, we fail to reject it. Note: failing to reject the null is **not** the same as proving it is true.
+
 -   In this approach, we still calculate the test statistic, which is still based on the type of test conducted. However, in the p-value approach, this test statistic corresponds directly to a p-value, or probability value, that we use to make a decision on whether the hypothesis is supported or not.
+
     -   The *p-value* is the likelihood, or probability, of observing a sample mean that is at least as extreme as the one derived from the given sample, under the assumption that the null hypothesis is true.
     -   The calculation of the p-value depends on the specification of the alternative hypothesis.
     -   We set a decision rule to reject $H_0$ if p-value $< \alpha$, which is set apriori. Specifically, the p-value approach sets an $\alpha$ value (e.g., .05, .01, .001) and then determines if the p-value calculated is less than the set alpha value. The smaller the $\alpha$, the more difficult it is to find significance in your alternative hypothesis, where you reject $H_0$.
@@ -206,7 +200,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     ```{r}
     StudyHours <- read.csv("data/StudyHours.csv")
     summary(StudyHours)
-    OneSample <- t.test(StudyHours$Hours, alterantive="two.sided", mu=12); OneSample
+    OneSample <- t.test(StudyHours$Hours, alternative="two.sided", mu=12); OneSample
     #This test is significant at the .01 level as indicated by the p-value of .001047. 
     #We are 95% confident that our true mean lies between  13.89281 and 18.85005
     ```
@@ -430,7 +424,7 @@ t.test(Spend$MenSpend, Spend$WomenSpend, alternative= "less")
 #This test is not significant as indicated by a p-value = 0.937 which is greater than .05. 
 ```
 
-### Step 2: Compute the Test Statistic and Calcuate the p-value
+### Step 2: Compute the Test Statistic and Calculate the p-value
 
 Formula for the Test Statistic: $t = (m_1 - m_2)/\sqrt((s^2_1/n_1)+(s^2_2/n_2))$
 
@@ -438,7 +432,7 @@ Formula for the Test Statistic: $t = (m_1 - m_2)/\sqrt((s^2_1/n_1)+(s^2_2/n_2))$
 
 -   The denominator includes the variances for the first group, $s^2_1$, and the second group, $s^2_2$ along with the sample sizes for each group, $n_1$ and $n_2$.
 
--   Degrees of freedom are computed as n – k.
+-   For the independent samples t-test, degrees of freedom are approximated using the Welch-Satterthwaite equation (computed automatically by R).
 
 -   There is a 95% confidence interval around the difference between the groups.
 
@@ -466,6 +460,21 @@ nhanes.2016.cleaned <- nhanes.2016 %>%
      '2' = 'Female')) %>%
   rename(sex = RIAGENDR) %>%
   rename(systolic = BPXSY1)
+
+```
+
+-   We can do a quick check of the mean values before we begin by either using a tapply or tidyverse. The means seem close here, but that does not mean that we won't find significance. We need to do the t-test to formally confirm whether a mean difference is present or not.
+-   The tapply uses tidyverse and the group_by uses tidyverse to calculate these mean differences.
+-   tapply() is a base R function used to apply a function, such as mean or sum, to subsets of a vector that are defined by one or more grouping factors. It takes three main arguments: the vector to be analyzed, the grouping factor(s), and the function to apply. This function is useful for performing quick, grouped summaries in base R. However, while tapply() is concise, it is less flexible than tidyverse tools like dplyr when handling more complex data manipulations or when working with data frames.
+-   In the tidyverse, the group_by() and summarise() functions from the dplyr package are commonly used together to calculate summary statistics like the mean for different groups within a dataset. The group_by() function is used to define the grouping variable(s), essentially splitting the data into subsets based on the unique values of that variable. Once the data is grouped, summarise() is used to apply a summary function, such as mean(), to each group.
+
+```{r}
+tapply(nhanes.2016.cleaned$systolic, nhanes.2016.cleaned$sex, mean, na.rm=TRUE)
+
+nhanes.2016.cleaned %>%
+  group_by(sex) %>%
+  summarise(mean_systolic = mean(systolic, na.rm = TRUE))
+
 ```
 
 -   Step 1: Write null and alternative.
@@ -527,8 +536,8 @@ t.test(nhanes.2016.65plus.clean$systolic ~ nhanes.2016.65plus.clean$sex)
 
 ### t.test() Command for Dependent Samples t-Test
 
--   Option 1: Requires the *paired = TRUE* parameter: The default for the command is *paired=FALSE*, which is an independent samples t-test.
--   Option 2: Can also calculate a formula instead of turning the paired argument to true and place in the first parameter.
+-   **Option 1**: Use the `paired = TRUE` parameter. The default for the command is `paired = FALSE`, which performs an independent samples t-test.
+-   **Option 2**: Manually calculate the difference between the paired values and pass that as the single variable to `t.test()`. This is equivalent to the paired approach.
 -   Summary: In a paired t-test, you're comparing two related sets of observations, such as measurements taken from the same subjects under different conditions. The key is that each observation in one group has a corresponding observation in the other group. In R, you can perform a paired t-test by either specifying paired = TRUE in the t.test function or by directly calculating the differences between the paired observations and running the t-test on those differences. If you choose the second approach, you subtract one set of values from the other and then use that result as the first argument in the t.test function (essentially calculating the $\mu_d$. This directly tests whether the mean of the differences is significantly different from zero, giving the same result as a paired t-test but with the differences calculated explicitly beforehand. Either method is fine.
 
 ### Step 1: Write Null and Alternative Hypothesis
@@ -577,7 +586,7 @@ t.test(nhanes.2016.65plus.clean$systolic ~ nhanes.2016.65plus.clean$sex)
 
 -   Example of a left-tailed test:
 
--   Is the weight after quitting smoking ($\mu_1$) less than the weight before ($mu_2$)?
+-   Is the weight after quitting smoking ($\mu_1$) less than the weight before ($\mu_2$)?
 
     -   $H_0$: Weight after smoking is greater than or equal to the weight before ($>=$).
     -   $H_A$: Weight after smoking is less to the weight before ($<$).

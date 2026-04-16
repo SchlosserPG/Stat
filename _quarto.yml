@@ -1,40 +1,36 @@
 project:
   type: book
   output-dir: docs
+  resources: 
+     - favicon.ico
 include-in-header: custom-head.html
-
-
 book:
   title: "Probability And Business Statistics"
   author: "Pamela Schlosser"
-  date: "5/17/2024"
+  date: "4/15/2026"
   chapters:
     - index.qmd
     - introR.qmd
     - descriptives.qmd
     - dataprep.qmd
-    - dataviz.qmd
+    - ai.qmd
     - probability.qmd
-    - contingency.qmd
     - ttests.qmd
     - anova.qmd
-    - correlation.qmd
     - regression.qmd
-    - rmarkdown.qmd
     - summary.qmd
     - references.qmd
-
-bibliography: references.bib
+  navbar:
+    right:
+      - text: "Course Assistant"
+        href: chat.html
 
 format:
   html:
     css: styles.css
-    number-sections: false 
+    number-sections: false
+    include-in-header: custom-head.html
+    favicon: favicon.ico
 
-  pdf:
-    documentclass: scrreprt
 
 editor: visual
-
-
-

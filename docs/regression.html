@@ -9,7 +9,7 @@
 <meta name="author" content="">
 <meta name="dcterms.date" content="2024-08-09">
 
-<title>Linear Regression Analysis – Probability And Business Statistics</title>
+<title>Regression – Probability And Business Statistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./rmarkdown.html" rel="next">
-<link href="./correlation.html" rel="prev">
+<link href="./summary.html" rel="next">
+<link href="./anova.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -78,11 +78,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-64b801fe9b6685c0a799f7172ecad621.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -105,22 +105,550 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CNGRHWZ7C6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CNGRHWZ7C6');
+</script>
 
-     <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4MST1J29YB"></script>
+<!-- ============================================================
+     Statistics Course Assistant — Floating Chat Bubble
+     Appears on every page of the book.
+     Set WORKER_URL below to your Cloudflare Worker URL.
+     ============================================================ -->
+<style>
+  /* ── Floating button ── */
+  #chat-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4f8ef7, #7c5cfc);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(79, 142, 247, 0.45);
+    z-index: 9999;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
 
-          <script>
+  #chat-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 28px rgba(79, 142, 247, 0.6);
+  }
 
-          window.dataLayer = window.dataLayer || [];
+  #chat-fab svg { width: 24px; height: 24px; color: #fff; }
 
-          function gtag(){dataLayer.push(arguments);}
+  /* unread dot */
+  #chat-fab-dot {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff5a5a;
+    border: 2px solid #fff;
+    display: none;
+  }
 
-          gtag('js', new Date());
+  /* ── Chat panel ── */
+  #chat-panel {
+    position: fixed;
+    bottom: 96px;
+    right: 28px;
+    width: 380px;
+    max-width: calc(100vw - 40px);
+    height: 520px;
+    max-height: calc(100vh - 120px);
+    background: #0f1117;
+    border: 1px solid #2a2f3e;
+    border-radius: 16px;
+    display: none;
+    flex-direction: column;
+    z-index: 9998;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    overflow: hidden;
+    animation: panelIn 0.25s ease;
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+  }
 
-          
+  #chat-panel.open { display: flex; }
 
-          gtag('config', 'G-4MST1J29YB');
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
 
-          </script>
+  /* panel header */
+  #chat-panel-header {
+    padding: 14px 16px;
+    background: #181c27;
+    border-bottom: 1px solid #2a2f3e;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  #chat-panel-header .logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, #4f8ef7, #7c5cfc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    font-family: 'IBM Plex Mono', monospace;
+    flex-shrink: 0;
+  }
+
+  #chat-panel-header .title { flex: 1; }
+
+  #chat-panel-header .title h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e8eaf0;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  #chat-panel-header .title p {
+    font-size: 11px;
+    color: #7a8099;
+    margin: 0;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  #chat-close-btn {
+    background: none;
+    border: none;
+    color: #7a8099;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s;
+  }
+
+  #chat-close-btn:hover { color: #e8eaf0; }
+  #chat-close-btn svg { width: 16px; height: 16px; }
+
+  /* messages */
+  #chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scroll-behavior: smooth;
+  }
+
+  #chat-messages::-webkit-scrollbar { width: 3px; }
+  #chat-messages::-webkit-scrollbar-thumb { background: #2a2f3e; border-radius: 3px; }
+
+  .cm {
+    display: flex;
+    gap: 8px;
+    animation: msgIn 0.2s ease;
+  }
+
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .cm-av {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .cm.user .cm-av  { background: #1e2640; border: 1px solid #2e3a5a; color: #4f8ef7; }
+  .cm.bot .cm-av   { background: linear-gradient(135deg, #4f8ef7, #7c5cfc); color: #fff; }
+  .cm.error .cm-av { background: #3a1010; color: #ff8a8a; }
+
+  .cm-text {
+    flex: 1;
+    background: #141720;
+    border: 1px solid #2a2f3e;
+    border-radius: 10px;
+    padding: 8px 11px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #e8eaf0;
+    min-width: 0;
+    word-break: break-word;
+  }
+
+  .cm.user .cm-text  { background: #1e2640; border-color: #2e3a5a; }
+  .cm.error .cm-text { background: #1c1010; border-color: #5a2e2e; color: #ff8a8a; }
+
+  .cm-text p { margin: 0 0 6px; }
+  .cm-text p:last-child { margin-bottom: 0; }
+
+  .cm-text code {
+    background: #0a0c12;
+    border: 1px solid #2a2f3e;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: #a5c3ff;
+  }
+
+  .cm-text pre {
+    background: #0a0c12;
+    border: 1px solid #2a2f3e;
+    border-radius: 6px;
+    padding: 10px 12px;
+    overflow-x: auto;
+    margin: 6px 0;
+  }
+
+  .cm-text pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 12px;
+    color: #c8d8ff;
+  }
+
+  .cm-text ul, .cm-text ol { padding-left: 16px; margin: 4px 0; }
+  .cm-text li { margin-bottom: 3px; }
+  .cm-text strong { color: #fff; font-weight: 600; }
+
+  /* typing dots */
+  .typing-dots { display: flex; gap: 3px; align-items: center; padding: 2px 0; }
+  .typing-dots span {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #7a8099;
+    animation: td 1.2s infinite;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes td {
+    0%,60%,100% { transform: translateY(0); opacity:0.4; }
+    30% { transform: translateY(-4px); opacity:1; }
+  }
+
+  /* welcome inside panel */
+  .panel-welcome {
+    text-align: center;
+    padding: 20px 10px;
+    color: #7a8099;
+  }
+
+  .panel-welcome p {
+    font-size: 12.5px;
+    margin: 0 0 14px;
+    line-height: 1.5;
+    color: #7a8099;
+  }
+
+  .panel-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .panel-chip {
+    background: #181c27;
+    border: 1px solid #2a2f3e;
+    border-radius: 14px;
+    padding: 5px 10px;
+    font-size: 11.5px;
+    color: #7a8099;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'IBM Plex Mono', monospace;
+    text-align: left;
+  }
+
+  .panel-chip:hover {
+    border-color: #4f8ef7;
+    color: #4f8ef7;
+    background: rgba(79,142,247,0.07);
+  }
+
+  /* input row */
+  #chat-input-row {
+    padding: 10px 12px;
+    border-top: 1px solid #2a2f3e;
+    background: #181c27;
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  #chat-input {
+    flex: 1;
+    background: #0f1117;
+    border: 1px solid #2a2f3e;
+    border-radius: 8px;
+    padding: 8px 11px;
+    font-family: -apple-system, sans-serif;
+    font-size: 13px;
+    color: #e8eaf0;
+    resize: none;
+    min-height: 36px;
+    max-height: 100px;
+    outline: none;
+    line-height: 1.4;
+    transition: border-color 0.2s;
+    overflow-y: auto;
+  }
+
+  #chat-input:focus { border-color: #4f8ef7; }
+  #chat-input::placeholder { color: #7a8099; }
+
+  #chat-send {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    background: #4f8ef7;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: opacity 0.15s;
+  }
+
+  #chat-send:hover { opacity: 0.85; }
+  #chat-send:disabled { opacity: 0.3; cursor: not-allowed; }
+  #chat-send svg { width: 15px; height: 15px; }
+
+  /* mobile adjustments */
+  @media (max-width: 480px) {
+    #chat-panel { right: 12px; bottom: 80px; width: calc(100vw - 24px); }
+    #chat-fab   { right: 16px; bottom: 16px; }
+  }
+</style>
+
+<!-- Floating Action Button -->
+</head><body class="nav-sidebar floating nav-fixed"><button id="chat-fab" onclick="toggleChat()" title="Course Assistant" aria-label="Open course assistant">
+  <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+  </svg>
+  <div id="chat-fab-dot"></div>
+</button>
+
+<!-- Chat Panel -->
+<div id="chat-panel">
+  <div id="chat-panel-header">
+    <div class="logo">R∑</div>
+    <div class="title">
+      <h3>Course Assistant</h3>
+      <p>R &amp; Statistics</p>
+    </div>
+    <button id="chat-close-btn" onclick="toggleChat()" aria-label="Close">
+      <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <div id="chat-messages">
+    <div class="panel-welcome" id="panel-welcome">
+      <p>Ask me anything about R, statistics concepts, or your code.</p>
+      <div class="panel-chips">
+        <div class="panel-chip" onclick="chipSend(this)">mean vs median?</div>
+        <div class="panel-chip" onclick="chipSend(this)">What is skewness?</div>
+        <div class="panel-chip" onclick="chipSend(this)">How do I use filter()?</div>
+        <div class="panel-chip" onclick="chipSend(this)">Explain na.rm=TRUE</div>
+        <div class="panel-chip" onclick="chipSend(this)">How to read a CSV?</div>
+        <div class="panel-chip" onclick="chipSend(this)">What is kurtosis?</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="chat-input-row">
+    <textarea id="chat-input" rows="1" placeholder="Ask a question…" onkeydown="chatKey(event)" oninput="chatResize(this)"></textarea>
+    <button id="chat-send" onclick="chatSend()" aria-label="Send">
+      <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"></line>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // ============================================================
+  // Set this to your Cloudflare Worker URL after deploying
+
+  // ============================================================
+  var CHAT_WORKER_URL = 'https://statchat.pamela-schlosser.workers.dev';
+  // ============================================================
+
+  var chatHistory = [];
+  var chatLoading = false;
+  var chatIsOpen  = false;
+
+  function toggleChat() {
+    chatIsOpen = !chatIsOpen;
+    var panel = document.getElementById('chat-panel');
+    var dot   = document.getElementById('chat-fab-dot');
+    if (chatIsOpen) {
+      panel.classList.add('open');
+      dot.style.display = 'none';
+      setTimeout(function() {
+        var inp = document.getElementById('chat-input');
+        if (inp) inp.focus();
+      }, 100);
+    } else {
+      panel.classList.remove('open');
+    }
+  }
+
+  function chipSend(el) {
+    var inp = document.getElementById('chat-input');
+    inp.value = el.textContent.trim();
+    chatSend();
+  }
+
+  function chatKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      chatSend();
+    }
+  }
+
+  function chatResize(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function mdToHtml(text) {
+    text = text.replace(/```(\w*)\n?([\s\S]*?)```/g, function(_,l,c) {
+      return '<pre><code>' + escHtml(c.trim()) + '</code></pre>';
+    });
+    text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+    text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    text = text.replace(/^[-*] (.+)$/gm, '<li>$1</li>');
+    text = text.replace(/(<li>.*<\/li>\n?)+/g, function(m) { return '<ul>' + m + '</ul>'; });
+    text = text.split(/\n{2,}/).map(function(p) {
+      p = p.trim();
+      if (!p || p.charAt(0) === '<') return p;
+      return '<p>' + p.replace(/\n/g,'<br>') + '</p>';
+    }).join('');
+    return text;
+  }
+
+  function addMsg(role, content, typing) {
+    var welcome = document.getElementById('panel-welcome');
+    if (welcome) welcome.remove();
+    var box = document.getElementById('chat-messages');
+    var d   = document.createElement('div');
+    d.className = 'cm ' + role;
+    var av = role==='user' ? 'you' : role==='bot' ? 'ai' : '!';
+    if (typing) {
+      d.innerHTML = '<div class="cm-av">' + av + '</div>' +
+        '<div class="cm-text" id="cm-typing">' +
+        '<div class="typing-dots"><span></span><span></span><span></span></div>' +
+        '</div>';
+    } else {
+      var html = role==='user'
+        ? '<p>' + escHtml(content) + '</p>'
+        : mdToHtml(content);
+      d.innerHTML = '<div class="cm-av">' + av + '</div>' +
+        '<div class="cm-text">' + html + '</div>';
+    }
+    box.appendChild(d);
+    box.scrollTop = box.scrollHeight;
+    if (!chatIsOpen && role === 'bot') {
+      document.getElementById('chat-fab-dot').style.display = 'block';
+    }
+  }
+
+  function removeTyping() {
+    var t = document.getElementById('cm-typing');
+    if (t) t.closest('.cm').remove();
+  }
+
+  async function chatSend() {
+    if (chatLoading) return;
+
+    var el   = document.getElementById('chat-input');
+    var text = el.value.trim();
+    if (!text) return;
+
+    addMsg('user', text);
+    chatHistory.push({ role: 'user', content: text });
+    el.value = '';
+    el.style.height = 'auto';
+
+    chatLoading = true;
+    document.getElementById('chat-send').disabled = true;
+    addMsg('bot', '', true);
+
+    try {
+      var res = await fetch(CHAT_WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1024,
+          messages: chatHistory
+        })
+      });
+
+      removeTyping();
+
+      if (!res.ok) {
+        var err = await res.json().catch(function() { return {}; });
+        var msg = err.error || ('HTTP ' + res.status);
+        addMsg('error', res.status === 429
+          ? 'Rate limit reached. Please wait a moment and try again.'
+          : 'Something went wrong: ' + msg);
+        chatHistory.pop();
+      } else {
+        var data  = await res.json();
+        var reply = (data.content && data.content[0] && data.content[0].text) || '(no response)';
+        chatHistory.push({ role: 'assistant', content: reply });
+        addMsg('bot', reply);
+      }
+
+    } catch(err) {
+      removeTyping();
+      addMsg('error', 'Network error: ' + err.message);
+      chatHistory.pop();
+    }
+
+    chatLoading = false;
+    document.getElementById('chat-send').disabled = false;
+  }
+</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -153,45 +681,55 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles.css">
-</head>
 
-<body class="nav-sidebar floating">
+
+
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Probability And Business Statistics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./chat.html"> 
+<span class="menu-text">Course Assistant</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-title">Linear Regression Analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./regression.html"><span class="chapter-title">Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
     </div>
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">Probability And Business Statistics</a> 
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 0: Software Know-How</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Software Know-How</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -211,22 +749,17 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dataviz.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data Visualization</span></a>
+  <a href="./ai.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using AI</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./probability.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Probability and Probability Distributions</span></a>
+  <a href="./probability.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Calculating Probability</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./contingency.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Contingency Tables and Chi-Squared</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ttests.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Hypothesis Testing with t-Tests</span></a>
+  <a href="./ttests.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Hypothesis Testing</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -236,17 +769,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./correlation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Correlation Analysis</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./regression.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Linear Regression Analysis</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./rmarkdown.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Intro to RMarkdown</span></a>
+  <a href="./regression.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Regression</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -272,16 +795,36 @@ window.Quarto = {
   <li><a href="#at-a-glance" id="toc-at-a-glance" class="nav-link active" data-scroll-target="#at-a-glance">At a Glance</a></li>
   <li><a href="#lesson-objectives" id="toc-lesson-objectives" class="nav-link" data-scroll-target="#lesson-objectives">Lesson Objectives</a></li>
   <li><a href="#consider-while-reading" id="toc-consider-while-reading" class="nav-link" data-scroll-target="#consider-while-reading">Consider While Reading</a></li>
+  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation">Correlation</a>
+  <ul class="collapse">
+  <li><a href="#covariance" id="toc-covariance" class="nav-link" data-scroll-target="#covariance">Covariance</a></li>
+  <li><a href="#correlation-coefficient" id="toc-correlation-coefficient" class="nav-link" data-scroll-target="#correlation-coefficient">Correlation Coefficient</a>
+  <ul class="collapse">
+  <li><a href="#rules-for-the-correlation-coefficient" id="toc-rules-for-the-correlation-coefficient" class="nav-link" data-scroll-target="#rules-for-the-correlation-coefficient">Rules for the Correlation Coefficient</a></li>
+  </ul></li>
+  <li><a href="#interpreting-the-direction-of-the-correlation" id="toc-interpreting-the-direction-of-the-correlation" class="nav-link" data-scroll-target="#interpreting-the-direction-of-the-correlation">Interpreting the Direction of the Correlation</a>
+  <ul class="collapse">
+  <li><a href="#scatterplots-to-visualize-relationship" id="toc-scatterplots-to-visualize-relationship" class="nav-link" data-scroll-target="#scatterplots-to-visualize-relationship">Scatterplots to Visualize Relationship</a></li>
+  <li><a href="#interpreting-the-strength-of-the-correlation" id="toc-interpreting-the-strength-of-the-correlation" class="nav-link" data-scroll-target="#interpreting-the-strength-of-the-correlation">Interpreting the Strength of the Correlation</a></li>
+  </ul></li>
+  <li><a href="#interpreting-the-significance-of-the-correlation" id="toc-interpreting-the-significance-of-the-correlation" class="nav-link" data-scroll-target="#interpreting-the-significance-of-the-correlation">Interpreting the Significance of the Correlation</a>
+  <ul class="collapse">
+  <li><a href="#cor.test-command" id="toc-cor.test-command" class="nav-link" data-scroll-target="#cor.test-command">cor.test() Command</a></li>
+  </ul></li>
+  <li><a href="#additional-examples" id="toc-additional-examples" class="nav-link" data-scroll-target="#additional-examples">Additional Examples</a></li>
+  <li><a href="#comparing-to-t.test-and-anova" id="toc-comparing-to-t.test-and-anova" class="nav-link" data-scroll-target="#comparing-to-t.test-and-anova">Comparing to t.test and ANOVA</a></li>
+  <li><a href="#limitations-of-correlation-analysis" id="toc-limitations-of-correlation-analysis" class="nav-link" data-scroll-target="#limitations-of-correlation-analysis">Limitations of Correlation Analysis</a></li>
+  </ul></li>
   <li><a href="#the-linear-regression-model" id="toc-the-linear-regression-model" class="nav-link" data-scroll-target="#the-linear-regression-model">The Linear Regression Model</a>
   <ul class="collapse">
   <li><a href="#overview-of-the-linear-regression" id="toc-overview-of-the-linear-regression" class="nav-link" data-scroll-target="#overview-of-the-linear-regression">Overview of the Linear Regression</a></li>
-  </ul></li>
-  <li><a href="#examples-of-independent-and-dependent-variables" id="toc-examples-of-independent-and-dependent-variables" class="nav-link" data-scroll-target="#examples-of-independent-and-dependent-variables">Examples of Independent and Dependent Variables</a>
-  <ul class="collapse">
+  <li><a href="#examples-of-independent-and-dependent-variables" id="toc-examples-of-independent-and-dependent-variables" class="nav-link" data-scroll-target="#examples-of-independent-and-dependent-variables">Examples of Independent and Dependent Variables</a></li>
   <li><a href="#estimating-using-a-simple-linear-regression-model" id="toc-estimating-using-a-simple-linear-regression-model" class="nav-link" data-scroll-target="#estimating-using-a-simple-linear-regression-model">Estimating Using a Simple Linear Regression Model</a></li>
   <li><a href="#inexact-relationships" id="toc-inexact-relationships" class="nav-link" data-scroll-target="#inexact-relationships">Inexact Relationships</a></li>
   <li><a href="#regression-as-anova" id="toc-regression-as-anova" class="nav-link" data-scroll-target="#regression-as-anova">Regression as ANOVA</a></li>
-  <li><a href="#the-simple-linear-regression-model" id="toc-the-simple-linear-regression-model" class="nav-link" data-scroll-target="#the-simple-linear-regression-model">The Simple Linear Regression Model</a></li>
+  </ul></li>
+  <li><a href="#the-simple-linear-regression-model" id="toc-the-simple-linear-regression-model" class="nav-link" data-scroll-target="#the-simple-linear-regression-model">The Simple Linear Regression Model</a>
+  <ul class="collapse">
   <li><a href="#the-least-squares-estimates" id="toc-the-least-squares-estimates" class="nav-link" data-scroll-target="#the-least-squares-estimates">The Least Squares Estimates</a></li>
   <li><a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link" data-scroll-target="#goodness-of-fit">Goodness of Fit</a></li>
   <li><a href="#the-standard-error-of-the-estimate" id="toc-the-standard-error-of-the-estimate" class="nav-link" data-scroll-target="#the-standard-error-of-the-estimate">The Standard Error of the Estimate</a></li>
@@ -289,6 +832,7 @@ window.Quarto = {
   <li><a href="#the-adjusted-r2" id="toc-the-adjusted-r2" class="nav-link" data-scroll-target="#the-adjusted-r2">The Adjusted <span class="math inline">\(R^2\)</span></a></li>
   <li><a href="#example-of-simple-linear-regression-in-r" id="toc-example-of-simple-linear-regression-in-r" class="nav-link" data-scroll-target="#example-of-simple-linear-regression-in-r">Example of Simple Linear Regression in R</a></li>
   <li><a href="#predictions" id="toc-predictions" class="nav-link" data-scroll-target="#predictions">Predictions</a></li>
+  </ul></li>
   <li><a href="#multiple-regression" id="toc-multiple-regression" class="nav-link" data-scroll-target="#multiple-regression">Multiple Regression</a>
   <ul class="collapse">
   <li><a href="#example-of-multiple-linear-regression-in-r" id="toc-example-of-multiple-linear-regression-in-r" class="nav-link" data-scroll-target="#example-of-multiple-linear-regression-in-r">Example of Multiple Linear Regression in R</a></li>
@@ -296,12 +840,24 @@ window.Quarto = {
   <li><a href="#examining-the-f-test-statistic-1" id="toc-examining-the-f-test-statistic-1" class="nav-link" data-scroll-target="#examining-the-f-test-statistic-1">Examining the F-Test Statistic</a></li>
   <li><a href="#examining-the-hypotheses" id="toc-examining-the-hypotheses" class="nav-link" data-scroll-target="#examining-the-hypotheses">Examining the Hypotheses</a></li>
   <li><a href="#interpreting-the-hypothesis-1" id="toc-interpreting-the-hypothesis-1" class="nav-link" data-scroll-target="#interpreting-the-hypothesis-1">Interpreting the Hypothesis</a></li>
-  </ul></li>
   <li><a href="#the-p-value-method" id="toc-the-p-value-method" class="nav-link" data-scroll-target="#the-p-value-method">The P-value Method</a></li>
   <li><a href="#multicollinerity" id="toc-multicollinerity" class="nav-link" data-scroll-target="#multicollinerity">Multicollinerity</a></li>
+  </ul></li>
+  <li><a href="#regression-with-categorical-variables" id="toc-regression-with-categorical-variables" class="nav-link" data-scroll-target="#regression-with-categorical-variables">Regression with Categorical Variables</a>
+  <ul class="collapse">
+  <li><a href="#dummy-variables-with-more-than-2-categories" id="toc-dummy-variables-with-more-than-2-categories" class="nav-link" data-scroll-target="#dummy-variables-with-more-than-2-categories">Dummy Variables with More than 2 Categories</a></li>
+  <li><a href="#example-using-dummy-variables" id="toc-example-using-dummy-variables" class="nav-link" data-scroll-target="#example-using-dummy-variables">Example Using Dummy Variables</a></li>
+  <li><a href="#example-using-a-continuous-and-categorical-variable" id="toc-example-using-a-continuous-and-categorical-variable" class="nav-link" data-scroll-target="#example-using-a-continuous-and-categorical-variable">Example Using a Continuous and Categorical Variable</a></li>
+  <li><a href="#coffee-example" id="toc-coffee-example" class="nav-link" data-scroll-target="#coffee-example">Coffee Example</a>
+  <ul class="collapse">
+  <li><a href="#visualizing" id="toc-visualizing" class="nav-link" data-scroll-target="#visualizing">Visualizing</a></li>
+  <li><a href="#categories" id="toc-categories" class="nav-link" data-scroll-target="#categories">2 Categories</a></li>
+  <li><a href="#using-more-than-2-categories" id="toc-using-more-than-2-categories" class="nav-link" data-scroll-target="#using-more-than-2-categories">Using More Than 2 Categories</a></li>
+  </ul></li>
+  <li><a href="#adding-in-a-numerical-variable" id="toc-adding-in-a-numerical-variable" class="nav-link" data-scroll-target="#adding-in-a-numerical-variable">Adding in a Numerical Variable</a></li>
+  </ul></li>
   <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai">Using AI</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -310,7 +866,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Linear Regression Analysis</span></h1>
+<h1 class="title"><span class="chapter-title">Regression</span></h1>
 </div>
 
 
@@ -334,16 +890,8 @@ window.Quarto = {
 
 
 <ul>
-<li>The main goal of this section is to understand and conduct regression analysis interpret its results. In doing so, we will learn about the regression model and its components, including how to compute the slope and intercept for a simple linear regression, and the multiple slopes and intercept for a multiple linear regression. Finally, we will learn how to interpret the regression output from R.</li>
+<li>The main goal of this lesson is to understand, conduct, and interpret both correlation and regression analyses. We will examine Pearson’s <span class="math inline">\(r\)</span> correlation coefficient and learn how to conduct and interpret an inferential statistical test using this common statistic. Additionally, we will explore regression models and their components, including computing the slope and intercept for simple linear regression and the multiple slopes and intercept for multiple linear regression. Finally, we will learn how to interpret the regression output from R, tying together these key analytical techniques.</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Project name: Linear Regression Analysis</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Data used: Debt_Payments.csv, months.csv, GNP.csv, corolla.csv</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Credit from ISLR library</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries used: tidyverse, ggplot2, ISLR, car</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <section id="at-a-glance" class="level3">
 <h3 class="anchored" data-anchor-id="at-a-glance">At a Glance</h3>
 <ul>
@@ -353,6 +901,8 @@ window.Quarto = {
 <section id="lesson-objectives" class="level3">
 <h3 class="anchored" data-anchor-id="lesson-objectives">Lesson Objectives</h3>
 <ul>
+<li>Compute and interpret Pearson’s r correlation coefficient.</li>
+<li>Conduct an inferential statistical test for Pearson’s r correlation coefficient.</li>
 <li>Explore the statistical model for a line.</li>
 <li>Compute the slope and intercept in a simple linear regression.</li>
 <li>Interpret a regression model significance and model fit.</li>
@@ -361,11 +911,492 @@ window.Quarto = {
 <section id="consider-while-reading" class="level3">
 <h3 class="anchored" data-anchor-id="consider-while-reading">Consider While Reading</h3>
 <ul>
-<li>This lesson allows us to look at inference for correlation and inference for regression analysis. Where an ANOVA is mostly concerned about differences between means of categorical data, linear regression is mostly concerned about correctly estimating response or prediction while also forming a regression line. We will learn how to conduct a single and multiple linear regression test. This will close the loop on scatterplots, which we learned in the data visualization lesson to help us describe visually a relationship between variables. Consider what we learned and perhaps revisit the scatterplot lecture notes to then determine how visualizations can help in making inferences alongside regression and correlation results.</li>
+<li>In this lesson, we will focus on inference for correlation and regression analysis, learning how to conduct a correlation test as well as single and multiple linear regression tests. This builds on the scatterplots introduced in the Data Visualization lesson, which help us visually describe relationships between variables. By revisiting those concepts, we will explore how visualizations can aid in making inferences alongside regression and correlation results. Additionally, we will differentiate between ANOVA, which examines differences between means in categorical data, and linear regression, which focuses on estimating responses or predictions while forming a regression line.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="correlation" class="level1">
+<h1>Correlation</h1>
+<section id="covariance" class="level2">
+<h2 class="anchored" data-anchor-id="covariance">Covariance</h2>
+<ul>
+<li>Covariance (<span class="math inline">\(s_{xy}\)</span> or <span class="math inline">\(cov_{xy}\)</span>) is a numerical measure that describes the direction of the linear relationship between two variables, x and y and reveals the direction of that linear relationship.</li>
+<li>The formula for covariance is as follows:
+<ul>
+<li><span class="math inline">\(cov_{xy} = \sum^n_{i=1}(x_i-m_x)*(y_i-m_y)/(n-1)\)</span></li>
+<li>Where <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> are the observed values for each observation, <span class="math inline">\(m_x\)</span> and <span class="math inline">\(m_y\)</span> are the mean values for each variable, <span class="math inline">\(i\)</span> represents an individual observation, and <span class="math inline">\(n\)</span> represents the sample size.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">8</span>, <span class="dv">4</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>devX <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>devY <span class="ot">&lt;-</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>covXY <span class="ot">&lt;-</span> <span class="fu">sum</span>(devX <span class="sc">*</span> devY)<span class="sc">/</span>(<span class="fu">length</span>(x) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>covXY</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8.333333</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can verify this by using cov() function in R.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8.333333</code></pre>
+</div>
+</div>
+</section>
+<section id="correlation-coefficient" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-coefficient">Correlation Coefficient</h2>
+<ul>
+<li>A correlation coefficient (<span class="math inline">\(r_{xy}\)</span>) describes both the direction and strength of the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. <span class="math inline">\(r_{xy} = cov_{xy}/(s_x s_y)\)</span> or using the standardized formula in the book:
+<ul>
+<li><span class="math inline">\(r_{xy} = \sum^n_{i=1}(z_x*z_y)/(n-1)\)</span></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculated manually</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>covXY<span class="sc">/</span>(<span class="fu">sd</span>(x) <span class="sc">*</span> <span class="fu">sd</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7102387</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can verify this by using cor() function in R.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7102387</code></pre>
+</div>
+</div>
+<section id="rules-for-the-correlation-coefficient" class="level3">
+<h3 class="anchored" data-anchor-id="rules-for-the-correlation-coefficient">Rules for the Correlation Coefficient</h3>
+<ul>
+<li>The correlation coefficient has the same sign as the covariance; however, its value ranges between −1 and +1 whereas <span class="math inline">\(-1 \le r_{xy} \le +1\)</span>.</li>
+<li>The absolute value of the coefficient reflects the strength of the correlation. So a correlation of −.70 is stronger than a correlation of +.50.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Pictures/Ch8/Correlation.png" title="Correlation Coefficient" class="img-fluid figure-img"></p>
+<figcaption>Correlation Coefficient</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="interpreting-the-direction-of-the-correlation" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-the-direction-of-the-correlation">Interpreting the Direction of the Correlation</h2>
+<ul>
+<li>Negative correlations occur when one variable goes up and the other goes down.</li>
+<li>No correlation happens when there is no discernible pattern in how two variables vary.</li>
+<li>Positive correlations occur when one variable goes up, and the other one also goes up (or when one goes down, the other one does too); both variables move together in the same direction.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Pictures/Ch8/RelationshipScatter.png" title="Correlation Scatterplots" class="img-fluid figure-img"></p>
+<figcaption>Correlation Scatterplots</figcaption>
+</figure>
+</div>
+<section id="scatterplots-to-visualize-relationship" class="level3">
+<h3 class="anchored" data-anchor-id="scatterplots-to-visualize-relationship">Scatterplots to Visualize Relationship</h3>
+<ul>
+<li><p>Let’s do an example to first visualize the data, and then to calculate the correlation coefficient.</p></li>
+<li><p>First, read in a .csv called <em>DebtPayments.csv</em>. This data set has 26 observations and 4 variables:</p>
+<ul>
+<li>A character variable with a bunch of metropolitan areas listed;</li>
+<li>An integer numeric debt;</li>
+<li>A numeric variable Income;</li>
+<li>A numeric variable Unemployment.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Debt_Payments <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/DebtPayments.csv"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Debt_Payments)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   26 obs. of  4 variables:
+ $ Metropolitan.area: chr  "Washington, D.C." "Seattle" "Baltimore" "Boston" ...
+ $ Debt             : int  1285 1135 1133 1133 1104 1098 1076 1045 1024 1017 ...
+ $ Income           : num  103.5 81.7 82.2 89.5 75.9 ...
+ $ Unemployment     : num  6.3 8.5 8.1 7.6 8.1 9.3 10.6 12.4 12.9 9.7 ...</code></pre>
+</div>
+</div>
+<ul>
+<li><p>Next, plot the relationship between 2 continuous variables.</p>
+<ul>
+<li>There are a few ways to write the plot command using ggplot. We went over these in the Data Visualization lesson. Again we said:</li>
+<li>Layer 1: ggplot() command with aes() command directly inside of it pointing to x and y variables.</li>
+<li>Layer 2: geom_point() command to add the observations as indicators in the chart.</li>
+<li>Layer 3 or more: many other optional additions like labs() command (for labels) or stat_smooth() command to generate a regression line.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Debt_Payments <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(Income, Debt)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#183028"</span>, <span class="at">shape =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"#789F90"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" alt="Scatterplot Using ggplot2 Generated by R" width="672"></p>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>In the above plot, there is a strong positive relationship (upward trend) that should be confirmed with a correlation test.</p></li>
+<li><p>In a second example below, we look at Unemployment as the X variable. This scatterplot is much more difficult to use in determining whether the correlation will be significant. It looks negative, but there is not a strong linear trend to the data. This will also need to be confirmed with a correlation test.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Debt_Payments <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(Unemployment, Debt)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#183028"</span>, <span class="at">shape =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"#789F90"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" alt="Scatterplot Using ggplot2 Generated by R" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>In many scatterplots using big data, the observations are too numerous to see a good relationship. In that case, the statistical test can trump this visual aid. However, in a lot of cases the scatterplot does help visualize the relationship between 2 continuous variables.</li>
 </ul>
 </section>
-<section id="the-linear-regression-model" class="level2">
-<h2 class="anchored" data-anchor-id="the-linear-regression-model">The Linear Regression Model</h2>
+<section id="interpreting-the-strength-of-the-correlation" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-strength-of-the-correlation">Interpreting the Strength of the Correlation</h3>
+<ul>
+<li>Statisticians differ on what is called a strong correlation versus weak correlation, and it depends on the context. A .9 may be required for a strong correlation in one field, and a .5 in another. Generally speaking in business, the absolute value of a correlation .8 or above is considered strong, between .5 and .8 is considered moderate, and between .2 and .5 is considered weak.</li>
+<li>The following is consistent with what is most generally used:</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Pictures/Ch8/CorrelationStrength.png" title="Correlation Strength" class="img-fluid figure-img"></p>
+<figcaption>Correlation Strength</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="interpreting-the-significance-of-the-correlation" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-the-significance-of-the-correlation">Interpreting the Significance of the Correlation</h2>
+<ul>
+<li>Correlation values should be tested alongside a p-value to confirm whether or not there is a correlation. The null is tested using a t-distribution specifically testing whether <span class="math inline">\(r = 0\)</span> or not, like the one-sample t-test section from the lesson 6.</li>
+<li>The null and alternative are listed below.
+<ul>
+<li><span class="math inline">\(H_0\)</span>: There is no relationship between the two variables (<span class="math inline">\(r = 0\)</span>).</li>
+<li><span class="math inline">\(H_A\)</span>: There is a relationship between the two variables (<span class="math inline">\(r \neq 0\)</span>).</li>
+</ul></li>
+<li>Even small correlations can be significant: In large datasets, even a small correlation, like .1, can be statistically significant due to the increased power that comes with a high sample size. It’s important to interpret both the strength of the correlation and its practical significance in context.</li>
+</ul>
+<section id="statistical-significance-answers-the-question-is-the-effect-real" class="level4">
+<h4 class="anchored" data-anchor-id="statistical-significance-answers-the-question-is-the-effect-real">Statistical significance answers the question: “Is the effect real?“</h4>
+<ul>
+<li><p>Statistical Significance:</p></li>
+<li><p>A result is statistically significant if it is unlikely to have occurred by random chance, given a pre-defined threshold (usually p &lt; 0.05).</p></li>
+<li><p>With larger sample sizes, even very small effects can become statistically significant because larger samples reduce variability. For example, a correlation of 0.1 can be statistically significant with enough data.</p></li>
+<li><p>Practical Significance:</p></li>
+<li><p>Practical significance answers the question: “Is the effect meaningful?“</p></li>
+<li><p>Practical significance refers to the real-world importance or relevance of a result. It asks, “Does this effect matter in practice?“</p></li>
+<li><p>Even if a result is statistically significant, it may not be large enough to have a meaningful impact on business decisions or outcomes.</p></li>
+</ul>
+</section>
+<section id="cor.test-command" class="level3">
+<h3 class="anchored" data-anchor-id="cor.test-command">cor.test() Command</h3>
+<ul>
+<li>The cor() command gives you just the correlation coefficient. This command can be useful if you are testing many correlations at one time. In the below statement, I can use <span class="math inline">\(cor(Variable1, Variable2)\)</span> to see the correlation between 2 continuous variables.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Debt_Payments<span class="sc">$</span>Income, Debt_Payments<span class="sc">$</span>Debt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8675115</code></pre>
+</div>
+</div>
+<ul>
+<li>The cor.test() command tests the hypothesis whether <span class="math inline">\(r=0\)</span> or not. This command comes with a p-value and t-test statistic (along with the correlation coefficient).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Debt_Payments<span class="sc">$</span>Income, Debt_Payments<span class="sc">$</span>Debt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Debt_Payments$Income and Debt_Payments$Debt
+t = 8.544, df = 24, p-value = 9.66e-09
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.7231671 0.9392464
+sample estimates:
+      cor 
+0.8675115 </code></pre>
+</div>
+</div>
+<ul>
+<li>This test shows a strong positive correlation of .8675 (&gt;.8) which is significant. Our p-value is 9.66e-09 or &lt; .001 alpha level. This suggests that we reject the null hypothesis and support the alternative that <span class="math inline">\(r \neq 0\)</span> which confirms a correlation is present.</li>
+<li>We also see a confidence interval listed. It suggests that we are 95% confident that the correlation is between .723 and .939.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Debt_Payments<span class="sc">$</span>Income, Debt_Payments<span class="sc">$</span>Unemployment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Debt_Payments$Income and Debt_Payments$Unemployment
+t = -3.0965, df = 24, p-value = 0.004928
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.7636089 -0.1852883
+sample estimates:
+       cor 
+-0.5342931 </code></pre>
+</div>
+</div>
+<ul>
+<li>This test shows a moderate negative correlation of -.534 (between .5 and .8 in absolute value), which is significant. Our p-value is 0.004928 or &lt; .01 alpha level. This suggests that we reject the null hypothesis and support the alternative that <span class="math inline">\(r \neq 0\)</span> which confirms a correlation is present.</li>
+<li>We also see a confidence interval listed. It suggests that we are 95% confident that the correlation is between -.765 and -.185. This confidence interval is wider than the one listed above. This is due to the noise in the relationship we noted in the scatterplot - the correlation is weaker, the relationship does not look as linear, the confidence decreases. Even though this is true, we must note that we still found a significant correlation.</li>
+</ul>
+</section>
+</section>
+<section id="additional-examples" class="level2">
+<h2 class="anchored" data-anchor-id="additional-examples">Additional Examples</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Credit"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Credit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       ID            Income           Limit           Rating     
+ Min.   :  1.0   Min.   : 10.35   Min.   :  855   Min.   : 93.0  
+ 1st Qu.:100.8   1st Qu.: 21.01   1st Qu.: 3088   1st Qu.:247.2  
+ Median :200.5   Median : 33.12   Median : 4622   Median :344.0  
+ Mean   :200.5   Mean   : 45.22   Mean   : 4736   Mean   :354.9  
+ 3rd Qu.:300.2   3rd Qu.: 57.47   3rd Qu.: 5873   3rd Qu.:437.2  
+ Max.   :400.0   Max.   :186.63   Max.   :13913   Max.   :982.0  
+     Cards            Age          Education        Gender    Student  
+ Min.   :1.000   Min.   :23.00   Min.   : 5.00    Male :193   No :360  
+ 1st Qu.:2.000   1st Qu.:41.75   1st Qu.:11.00   Female:207   Yes: 40  
+ Median :3.000   Median :56.00   Median :14.00                         
+ Mean   :2.958   Mean   :55.67   Mean   :13.45                         
+ 3rd Qu.:4.000   3rd Qu.:70.00   3rd Qu.:16.00                         
+ Max.   :9.000   Max.   :98.00   Max.   :20.00                         
+ Married              Ethnicity      Balance       
+ No :155   African American: 99   Min.   :   0.00  
+ Yes:245   Asian           :102   1st Qu.:  68.75  
+           Caucasian       :199   Median : 459.50  
+                                  Mean   : 520.01  
+                                  3rd Qu.: 863.00  
+                                  Max.   :1999.00  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(Credit)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Rating, Income)  <span class="co">#0.7913776 moderate and positive</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Rating and Income
+t = 25.826, df = 398, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.751651 0.825383
+sample estimates:
+      cor 
+0.7913776 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Rating, Balance)  <span class="co">#0.8636252 strong and positive</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Rating and Balance
+t = 34.176, df = 398, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.8363997 0.8865997
+sample estimates:
+      cor 
+0.8636252 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Rating, Limit)  <span class="co">#0.9968797 strong and positive</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Rating and Limit
+t = 251.95, df = 398, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.9962026 0.9974363
+sample estimates:
+      cor 
+0.9968797 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## almost perfectly linear</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Credit, <span class="fu">aes</span>(Rating, Limit)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Rating, Education)  <span class="co">#-0.03013563 no correlation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Rating and Education
+t = -0.60148, df = 398, p-value = 0.5479
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.12780969  0.06811737
+sample estimates:
+        cor 
+-0.03013563 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Rating, Age)  <span class="co">#0.103165 - between -.2 and .2 - so no relationship even though p-value &lt; .05 -- p-value fails at .01 level. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Rating and Age
+t = 2.0692, df = 398, p-value = 0.03917
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.005165528 0.199201690
+sample estimates:
+     cor 
+0.103165 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Credit, <span class="fu">aes</span>(Rating, Age)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Rating, Cards)  <span class="co">#0.05323903 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Rating and Cards
+t = 1.0636, df = 398, p-value = 0.2881
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.04504785  0.15050509
+sample estimates:
+       cor 
+0.05323903 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Credit, <span class="fu">aes</span>(Rating, Cards)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-10-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="comparing-to-t.test-and-anova" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-to-t.test-and-anova">Comparing to t.test and ANOVA</h2>
+<ul>
+<li>A t-test examines if there is a significant difference in the means of two groups on a dependent variable. For example, whether males and females differ in their credit ratings, where a correlation measures the strength and direction of a linear relationship between two continuous variables, such as Rating and Income.</li>
+<li>An independent t-test requires a categorical independent variable (e.g., Gender) with two levels and a continuous dependent variable (e.g., Rating), where a correlation requires two continuous variables.</li>
+<li>Both can provide insights into relationships in the dataset, but they address different questions. An independent t-test evaluates mean differences (group comparisons), while correlation evaluates relationships (continuous covariation). * A significant t-test does not imply a strong correlation between the grouping variable and the dependent variable; the correlation would depend on the coding of the categorical variable and the distribution of data</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## -- Example of an independent t.test using same dataset</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Rating <span class="sc">~</span> Gender, <span class="at">data =</span> Credit)  <span class="do">##no group differences</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  Rating by Gender
+t = -0.17703, df = 393.54, p-value = 0.8596
+alternative hypothesis: true difference in means between group  Male and group Female is not equal to 0
+95 percent confidence interval:
+ -33.26095  27.76582
+sample estimates:
+ mean in group  Male mean in group Female 
+            353.5181             356.2657 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Credit, <span class="fu">aes</span>(Gender, Rating)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Rating <span class="sc">~</span> Married, <span class="at">data =</span> Credit)  <span class="do">##no group differences</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  Rating by Married
+t = -0.74241, df = 340.4, p-value = 0.4584
+alternative hypothesis: true difference in means between group No and group Yes is not equal to 0
+95 percent confidence interval:
+ -42.54190  19.22762
+sample estimates:
+ mean in group No mean in group Yes 
+         347.8000          359.4571 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Credit, <span class="fu">aes</span>(Married, Rating)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>An ANOVA tests for significant differences in the means of three or more groups on a dependent variable. For example, whether credit ratings differ across ethnic groups, where a correlation examines the strength of the relationship between two continuous variables.</li>
+<li>An Anova requires a categorical independent variable (with three or more levels) and a continuous dependent variable, where a correlation requires two continuous variables.</li>
+<li>ANOVA focuses on group comparisons (e.g., Rating differences across Ethnicity), while correlation looks at how two variables change together.A significant ANOVA could suggest that the categorical grouping variable explains some variance in the dependent variable, but this variance is not quantified as a relationship strength (as correlation would provide).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## -- Example of An ANOVA using same dataset</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>anova1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Rating <span class="sc">~</span> Ethnicity, <span class="at">data =</span> Credit)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(anova1)  <span class="co">#no group differences - no need for a post hoc test. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: Rating
+           Df  Sum Sq Mean Sq F value Pr(&gt;F)
+Ethnicity   2   19388  9694.1  0.4037 0.6681
+Residuals 397 9532496 24011.3               </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Credit, <span class="fu">aes</span>(Ethnicity, Rating, <span class="at">fill =</span> Ethnicity)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="limitations-of-correlation-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-of-correlation-analysis">Limitations of Correlation Analysis</h2>
+<ul>
+<li><p>Note that a correlation is the first step in understanding causality. Correlation and causality are closely related but fundamentally different concepts in data analysis. Correlation refers to the statistical relationship between two variables, indicating how changes in one variable are associated with changes in another. However, it does not imply that one variable causes the other to change. Causality, on the other hand, goes beyond mere association to establish a cause-and-effect relationship, where one variable directly influences the other. Determining causality requires meeting specific criteria, including significant association, temporal precedence (the cause precedes the effect), and ruling out alternative explanations or confounding variables. While correlation is often the first step in exploring potential relationships, additional analysis—such as experimental design or causal modeling—is necessary to confirm causality. This distinction highlights the importance of critical thinking when interpreting statistical results, as a strong correlation alone does not prove that one variable is the cause of another.</p></li>
+<li><p>To determine a causal model, you need the following:</p></li>
+</ul>
+<ol type="1">
+<li>Significant Correlation: Statistically significant relationship between the variables.</li>
+<li>Temporal Precedence: Causal variable occurred prior to the other variable.</li>
+<li>Eliminate Alternate Variables: No other factors can account for the cause.</li>
+</ol>
+<ul>
+<li>Some limitations are as follows:
+<ul>
+<li>The correlation coefficient captures only a linear relationship.</li>
+<li>The correlation coefficient may not be a reliable measure in the presence of outliers.</li>
+<li>Even if two variables are highly correlated, one does not necessarily cause the other.</li>
+</ul></li>
+<li>When interpreting results, note that lack of significance does not mean a variable X has no relationship with Y; it might suggest a more complex or non-linear relationship.</li>
+</ul>
+</section>
+</section>
+<section id="the-linear-regression-model" class="level1">
+<h1>The Linear Regression Model</h1>
 <section id="overview-of-the-linear-regression" class="level3">
 <h3 class="anchored" data-anchor-id="overview-of-the-linear-regression">Overview of the Linear Regression</h3>
 <ul>
@@ -379,9 +1410,8 @@ window.Quarto = {
 <li>Multiple linear regression involves two or more <em>explanatory</em> variables, while still only one <em>response</em> variable.</li>
 </ul>
 </section>
-</section>
-<section id="examples-of-independent-and-dependent-variables" class="level1">
-<h1>Examples of Independent and Dependent Variables</h1>
+<section id="examples-of-independent-and-dependent-variables" class="level3">
+<h3 class="anchored" data-anchor-id="examples-of-independent-and-dependent-variables">Examples of Independent and Dependent Variables</h3>
 <ul>
 <li>Example Question: Does increasing the marketing budget lead to higher sales revenue?
 <ul>
@@ -399,6 +1429,7 @@ window.Quarto = {
 <li>Dependent Variable: Number of repeat purchases by the customer.</li>
 </ul></li>
 </ul>
+</section>
 <section id="estimating-using-a-simple-linear-regression-model" class="level3">
 <h3 class="anchored" data-anchor-id="estimating-using-a-simple-linear-regression-model">Estimating Using a Simple Linear Regression Model</h3>
 <ul>
@@ -436,8 +1467,9 @@ window.Quarto = {
 </figure>
 </div>
 </section>
-<section id="the-simple-linear-regression-model" class="level3">
-<h3 class="anchored" data-anchor-id="the-simple-linear-regression-model">The Simple Linear Regression Model</h3>
+</section>
+<section id="the-simple-linear-regression-model" class="level1">
+<h1>The Simple Linear Regression Model</h1>
 <ul>
 <li>The simple linear regression model is defined as <span class="math inline">\(y= \beta_0+\beta_1 𝑥+\varepsilon_1\)</span>, where <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> are the response and explanatory variables, respectively and <span class="math inline">\(\varepsilon_1\)</span> is the random error term. <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are the unknown parameters to be estimated.</li>
 <li>By fitting our data to the model, we obtain the equation <span class="math inline">\(\hat{y} = b_0 + b_1*x\)</span>, where <span class="math inline">\(\hat{y}\)</span> is the estimated response variable, <span class="math inline">\(b_0\)</span> is the estimate of <span class="math inline">\(\beta_0\)</span> (Intercept) and <span class="math inline">\(b_1\)</span> is the estimate of <span class="math inline">\(\beta_1\)</span> (Slope).</li>
@@ -450,7 +1482,6 @@ window.Quarto = {
 <figcaption>Regression Equation</figcaption>
 </figure>
 </div>
-</section>
 <section id="the-least-squares-estimates" class="level3">
 <h3 class="anchored" data-anchor-id="the-least-squares-estimates">The Least Squares Estimates</h3>
 <ul>
@@ -566,7 +1597,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="the-adjusted-r2">The Adjusted <span class="math inline">\(R^2\)</span></h3>
 <ul>
 <li><p>The Adjusted Coefficient of Determination, denoted as Adjusted <span class="math inline">\(R^2\)</span> modifies <span class="math inline">\(R^2\)</span> to account for the number of predictors in the model relative to the number of data points. It is calculated as Adjusted <span class="math inline">\(R^2 = 1-(1-R^2)*((n-1)/(n-k-1))\)</span>, where where n is the sample size and p is the number of predictors.</p></li>
-<li><p>In simple linear regression, <span class="math inline">\(R^2\)</span> is generally more appropriate than Adjusted <span class="math inline">\(R^2\)</span> because there is only one predictor variable in the model.</p></li>
+<li><p>In simple linear regression, <span class="math inline">\(R^2\)</span> and Adjusted <span class="math inline">\(R^2\)</span> will be very similar since there is only one predictor variable. The Adjusted <span class="math inline">\(R^2\)</span> becomes more important in multiple regression, where adding more predictors can artificially inflate <span class="math inline">\(R^2\)</span>.</p></li>
 <li><p>The Adjusted <span class="math inline">\(R^2\)</span> tries to balance the raw explanatory power against the desire to include only important predictors.</p>
 <ul>
 <li>Adjusted <span class="math inline">\(R^2 = 1-(1-R^2)*((n-1)/(n-k-1))\)</span>.</li>
@@ -585,20 +1616,20 @@ window.Quarto = {
 <section id="example-of-simple-linear-regression-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="example-of-simple-linear-regression-in-r">Example of Simple Linear Regression in R</h3>
 <ul>
-<li><p>The broad steps are the same as we used in Chapter 6 and 7 when setting up the t-tests and ANOVA hypothesis: 1. set up the hypothesis 2. compute the Test Statistic and calculate probability 3. interpret results and write a conclusion.</p></li>
+<li><p>The broad steps are the same as we used in the hypothesis testing and ANOVA modules: 1. Set up the hypothesis. 2. Compute the test statistic and calculate probability. 3. Interpret results and write a conclusion.</p></li>
 <li><p>Step 1: Set Up the Null and Alternative Hypothesis</p></li>
 <li><p><span class="math inline">\(H_0\)</span>: The slope of the line is equal to zero.</p></li>
 <li><p><span class="math inline">\(H_A\)</span>: The slope of the line is not equal to zero.</p></li>
 <li><p>Step 2: Compute the Test Statistic and Calculate Probability</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Debt_Payments <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/DebtPayments.csv"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(Debt <span class="sc">~</span> Income, <span class="at">data =</span> Debt_Payments)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Simple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>Debt_Payments <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/DebtPayments.csv"</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>Simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(Debt <span class="sc">~</span> Income, <span class="at">data =</span> Debt_Payments)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Simple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -643,7 +1674,13 @@ F-statistic:    73 on 1 and 24 DF,  p-value: 9.66e-09</code></pre>
 <li>an Adjusted <span class="math inline">\(R^2\)</span> of 0.7423</li>
 </ul></li>
 <li><p>We do not really see a difference in <span class="math inline">\(R^2\)</span> and the Adjusted <span class="math inline">\(R^2\)</span> because we only have a simple linear regression, which includes one X. The other thing that could create a difference between these measures is having a small sample size. A small sample size could adjust the <span class="math inline">\(R^2\)</span> down (like it did a little here <span class="math inline">\(n=28\)</span>). In both cases, a score around .75 indicates that we are explaining about 75% of the variance in Debt Payments, which is specifically stated as 75.26% in the <span class="math inline">\(R^2\)</span> value.</p></li>
-<li><p>The Standard Error of Estimate - known in R as the RSE or Residual Standard Error at 63.26. Before we interpret this, we need to know the scale, and income is in 1000s. Therefore, for every 1000 dollars difference in Income we could be off on our debt payments by 63.26 dollars.</p></li>
+<li><p>The Standard Error of Estimate - known in R as the RSE or Residual Standard Error at 63.26.</p></li>
+<li><p>The RSE represents the average amount by which the observed values deviate from the predicted values</p></li>
+<li><p>The RSE has the same units as the dependent variable y, making it directly interpretable in the context of the problem.</p>
+<ul>
+<li>The scale of income is in 1000s.</li>
+<li>Therefore, for every 1000 dollars difference in Income we could be off on our debt payments by 63.26 dollars.</li>
+</ul></li>
 <li><p>Again, most statisticians interpret the <span class="math inline">\(R^2\)</span> and the adjusted <span class="math inline">\(R^2\)</span> over the RSE.</p></li>
 </ul>
 </section>
@@ -675,13 +1712,13 @@ F-statistic:    73 on 1 and 24 DF,  p-value: 9.66e-09</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Debt <span class="sc">~</span> Income, <span class="at">data =</span> Debt_Payments, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">120</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1350</span>))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(Simple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Debt <span class="sc">~</span> Income, <span class="at">data =</span> Debt_Payments, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">120</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1350</span>))</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(Simple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="regression_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" alt="Scatterplot of Debt_Payments" width="672"></p>
+<p><img src="regression_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" alt="Scatterplot of Debt_Payments" width="672"></p>
 </figure>
 </div>
 </div>
@@ -695,26 +1732,28 @@ F-statistic:    73 on 1 and 24 DF,  p-value: 9.66e-09</code></pre>
 <li>The coef() function returns the model’s coefficients which are needed to make the regression equation.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What would be your debt payments if Income was 100 ( for 100,000)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(Simple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What would be your debt payments if Income was 100 ( for 100,000)</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(Simple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)      Income 
   210.29768    10.44111 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fl">210.298</span> <span class="sc">+</span> <span class="fl">10.441</span> <span class="sc">*</span> (<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fl">210.298</span> <span class="sc">+</span> <span class="fl">10.441</span> <span class="sc">*</span> (<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1254.398</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(Simple, <span class="fu">data.frame</span>(<span class="at">Income =</span> <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(Simple, <span class="fu">data.frame</span>(<span class="at">Income =</span> <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
 1254.408 </code></pre>
 </div>
 </div>
 </section>
-<section id="multiple-regression" class="level2">
-<h2 class="anchored" data-anchor-id="multiple-regression">Multiple Regression</h2>
+</section>
+<section id="multiple-regression" class="level1">
+<h1>Multiple Regression</h1>
 <ul>
+<li><p>A key advantage of multiple regression over simple regression is that it allows us to <em>control</em> for other variables. When we include multiple predictors, each coefficient reflects the unique contribution of that variable <em>while holding all others constant</em>. This makes our model more realistic and our estimates more accurate — but it also means we need to be careful about which variables we include, since adding unnecessary predictors can introduce noise and obscure the relationships we care about.</p></li>
 <li><p>Multiple regression allows us to explore how several <em>explanatory</em> variables influence the <em>response</em> variable.</p></li>
 <li><p>Suppose there are <span class="math inline">\(k\)</span> explanatory variables. The multiple linear regression model is defined as: <span class="math inline">\(y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ ⋯ + \beta_kx_k +\varepsilon\)</span></p></li>
 <li><p>Where:</p>
@@ -723,7 +1762,7 @@ F-statistic:    73 on 1 and 24 DF,  p-value: 9.66e-09</code></pre>
 <li><span class="math inline">\(x_1, ⋯, x_k\)</span> are independent explanatory variables,</li>
 <li><span class="math inline">\(\beta_0\)</span> is the intercept term,</li>
 <li><span class="math inline">\(\beta_1 ⋯, \beta_k\)</span> are the regression coefficients for the independent variables,</li>
-<li><span class="math inline">\(varepsilon\)</span> is the random error term</li>
+<li><span class="math inline">\(\varepsilon\)</span> is the random error term</li>
 </ul></li>
 <li><p>We estimate the regression coefficients—called partial regression coefficients — <span class="math inline">\(b_0, b_1, b_2,… b_k\)</span>, then use the model: <span class="math inline">\(\hat{y} = b_0 + b_1x_1 + b_2x_2 + \ ... + b_kx_k\)</span> .</p></li>
 <li><p>The partial regression coefficients represent the expected change in the dependent variable when the associated independent variable is increased by one unit while the values of all other independent variables are held constant.</p></li>
@@ -753,9 +1792,9 @@ F-statistic:    73 on 1 and 24 DF,  p-value: 9.66e-09</code></pre>
 <li>Step 2: Compute the test statistic and calculate probability</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Debt_Payments <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/DebtPayments.csv"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(Debt <span class="sc">~</span> Income <span class="sc">+</span> Unemployment, <span class="at">data =</span> Debt_Payments)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Multiple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>Debt_Payments <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/DebtPayments.csv"</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>Multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(Debt <span class="sc">~</span> Income <span class="sc">+</span> Unemployment, <span class="at">data =</span> Debt_Payments)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Multiple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -823,7 +1862,6 @@ F-statistic:    35 on 2 and 23 DF,  p-value: 1.054e-07</code></pre>
 <li>Because Unemployment is not significant, we should drop it from the model before creating the regression equation. The extra variable is only adding <em>noise</em> to our model and not adding anything useful in understanding debt payments.</li>
 </ul>
 </section>
-</section>
 <section id="the-p-value-method" class="level2">
 <h2 class="anchored" data-anchor-id="the-p-value-method">The P-value Method</h2>
 <ul>
@@ -833,9 +1871,9 @@ F-statistic:    35 on 2 and 23 DF,  p-value: 1.054e-07</code></pre>
 <li><p>As we drop variables, we also want to keep an eye on the adjusted R-Squared to make sure it does not significantly decrease. It should stay about the same if we drop variables that are not helpful in understanding the model, and could improve because we are decreasing the number of variables being evaluated.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Credit"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Credit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Credit"</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Credit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   400 obs. of  12 variables:
  $ ID       : int  1 2 3 4 5 6 7 8 9 10 ...
@@ -851,17 +1889,17 @@ F-statistic:    35 on 2 and 23 DF,  p-value: 1.054e-07</code></pre>
  $ Ethnicity: Factor w/ 3 levels "African American",..: 3 2 2 2 3 3 1 2 3 1 ...
  $ Balance  : int  333 903 580 964 331 1151 203 872 279 1350 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Removing variables that are of no interest to the model based on</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="do">## what we have learned so far.  The following lines removes the</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="do">## categorical variables, Gender, Student, Married, and Ethnicity. It</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="do">## also removed the ID because that is not a helpful variable.</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>Credit <span class="ot">&lt;-</span> <span class="fu">select</span>(Credit, <span class="sc">-</span>Gender, <span class="sc">-</span>Student, <span class="sc">-</span>Married, <span class="sc">-</span>Ethnicity, <span class="sc">-</span>ID)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>creditlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Balance <span class="sc">~</span> ., <span class="at">data =</span> Credit)</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Removing variables that are of no interest to the model based on</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="do">## what we have learned so far.  The following lines removes the</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="do">## categorical variables, Gender, Student, Married, and Ethnicity. It</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="do">## also removed the ID because that is not a helpful variable.</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>Credit <span class="ot">&lt;-</span> <span class="fu">select</span>(Credit, <span class="sc">-</span>Gender, <span class="sc">-</span>Student, <span class="sc">-</span>Married, <span class="sc">-</span>Ethnicity, <span class="sc">-</span>ID)</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>creditlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Balance <span class="sc">~</span> ., <span class="at">data =</span> Credit)</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -887,14 +1925,14 @@ Residual standard error: 161.6 on 393 degrees of freedom
 Multiple R-squared:  0.8782,    Adjusted R-squared:  0.8764 
 F-statistic: 472.5 on 6 and 393 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared: 0.8782, Adjusted R-squared: 0.8764</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared: 0.8782, Adjusted R-squared: 0.8764</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Education has the highest p-value, so it is removed from analysis. We use the minus sign to remove the variable in the lm function.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>creditlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Balance <span class="sc">~</span> . <span class="sc">-</span> Education, <span class="at">data =</span> Credit)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>creditlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Balance <span class="sc">~</span> . <span class="sc">-</span> Education, <span class="at">data =</span> Credit)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -919,14 +1957,14 @@ Residual standard error: 161.6 on 394 degrees of freedom
 Multiple R-squared:  0.8781,    Adjusted R-squared:  0.8765 
 F-statistic: 567.4 on 5 and 394 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared: 0.8781, Adjusted R-squared: 0.8765</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared: 0.8781, Adjusted R-squared: 0.8765</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Cards has the next highest p-value, so it is removed from analysis using the - minus sign format.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>creditlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Balance <span class="sc">~</span> . <span class="sc">-</span> Education <span class="sc">-</span> Cards, <span class="at">data =</span> Credit)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>creditlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Balance <span class="sc">~</span> . <span class="sc">-</span> Education <span class="sc">-</span> Cards, <span class="at">data =</span> Credit)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -950,14 +1988,14 @@ Residual standard error: 161.9 on 395 degrees of freedom
 Multiple R-squared:  0.8772,    Adjusted R-squared:  0.876 
 F-statistic: 705.6 on 4 and 395 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared: 0.8772, Adjusted R-squared: 0.876</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared: 0.8772, Adjusted R-squared: 0.876</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Age is next to be removed because it has the next highest p-value at .06270.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>creditlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Balance <span class="sc">~</span> . <span class="sc">-</span> Education <span class="sc">-</span> Cards <span class="sc">-</span> Age, <span class="at">data =</span> Credit)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>creditlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Balance <span class="sc">~</span> . <span class="sc">-</span> Education <span class="sc">-</span> Cards <span class="sc">-</span> Age, <span class="at">data =</span> Credit)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -980,15 +2018,15 @@ Residual standard error: 162.4 on 396 degrees of freedom
 Multiple R-squared:  0.8762,    Adjusted R-squared:  0.8753 
 F-statistic: 934.6 on 3 and 396 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared: 0.8762, Adjusted R-squared: 0.8753</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared: 0.8762, Adjusted R-squared: 0.8753</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p>Finally Limit is the next to be removed because it has the next highest (and still insignificant) p-value at .059.</p></li>
 <li><p>Age is next to be removed because it has the next highest p-value at .06270.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>creditlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Balance <span class="sc">~</span> . <span class="sc">-</span> Education <span class="sc">-</span> Cards <span class="sc">-</span> Age <span class="sc">-</span> Limit, <span class="at">data =</span> Credit)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>creditlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Balance <span class="sc">~</span> . <span class="sc">-</span> Education <span class="sc">-</span> Cards <span class="sc">-</span> Age <span class="sc">-</span> Limit, <span class="at">data =</span> Credit)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1010,7 +2048,7 @@ Residual standard error: 162.9 on 397 degrees of freedom
 Multiple R-squared:  0.8751,    Adjusted R-squared:  0.8745 
 F-statistic:  1391 on 2 and 397 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared: 0.8751,Adjusted R-squared: 0.8745</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared: 0.8751,Adjusted R-squared: 0.8745</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>In our original model with non-helpful insignificant predictors, we had an adjusted R-Squared at 0.8764. After removing insignificant predictors, we are only down to .8745. This means we can explain someones Balance best by understanding Income and Rating.</li>
@@ -1030,7 +2068,7 @@ F-statistic:  1391 on 2 and 397 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li>Last, especially if we are interested only in maintaining a high predictive power, it may make sense to do nothing.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Credit<span class="sc">$</span>Income, Credit<span class="sc">$</span>Rating)  <span class="do">##close to .8, but still under</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(Credit<span class="sc">$</span>Income, Credit<span class="sc">$</span>Rating)  <span class="do">##close to .8, but still under</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7913776</code></pre>
 </div>
@@ -1041,9 +2079,9 @@ F-statistic:  1391 on 2 and 397 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li>We want all scores to be under 10 to indicate the absence of problematic multicollinerity in our model.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)  <span class="do">##need to have car package installed first. </span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Place regression model object in the function to see vif scores.</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)  <span class="do">##need to have car package installed first. </span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Place regression model object in the function to see vif scores.</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(creditlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Income  Rating 
 2.67579 2.67579 </code></pre>
@@ -1054,16 +2092,705 @@ F-statistic:  1391 on 2 and 397 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li>Both scores are under 10, so we do have an absence of multicollinerity in our final model.
 <ul>
 <li>VIF = 1: No correlation between the predictor and the other predictors.</li>
-<li>1 &lt; VIF &lt; 5: Moderate correlation but not severe enough to require correction.</li>
-<li>5 &lt; VIF &lt; 10: High correlation, indicating potential multicollinearity problems.</li>
-<li>VIF &gt;= 10: High correlation, indicating multicollinearity problems.</li>
+<li>1 &lt; VIF &lt; 5: Moderate correlation but not severe enough to require correction. Scores less than 5 pass assumption.</li>
+<li>5 &lt; VIF &lt; 10: High correlation, indicating potential multicollinearity problems. We keep an eye on this issue, but pass the assumption.</li>
+<li>VIF &gt;= 10: High correlation, indicating multicollinearity problems. Fail assumption.</li>
 </ul></li>
 </ul>
+<section id="section" class="level41">
+<p class="heading"></p>
 </section>
-<section id="using-ai" class="level2">
-<h2 class="anchored" data-anchor-id="using-ai">Using AI</h2>
+</section>
+</section>
+<section id="regression-with-categorical-variables" class="level1">
+<h1>Regression with Categorical Variables</h1>
+<ul>
+<li><p>Simple and multiple regression both require a continuous dependent variable (y). However, the predictor variables (x) can be categorical or continuous. If you were to have a y/x pairing with a continuous y and a categorical x, you might as well choose to run an ANOVA from the last module or a t-test if there are only 2 categories. However, if you have a more complex model, or need to try a variety of models, multiple regression allows for you to seamlessly add and delete predictor variables (both categorical and continuous).</p></li>
+<li><p>We often have categorical predictors in modeling settings. And it might not make sense to think about a “one unit increase” in a categorical variable. In regression settings, we can account for categorical variables by creating dummy variables, which are indicator variables for certain conditions happening. When considering categorical variables, one variable is taken to be the baseline or reference value. All other categories will be compared to it.</p></li>
+<li><p>Regression analysis requires numerical data.</p></li>
+<li><p>Ordinal variables can be represented by a number in one column when there is even distance between the categories.</p>
+<ul>
+<li>From strongly disagree to disagree to N/A to agree to strongly agree. Each 1 unit change considers the same distance between points.</li>
+<li>A weighted scale would go from strongly disagree to neither to agree to strongly agree to agree all the time.</li>
+<li>Need to manually code these and coerce into a number.</li>
+<li>Some ordinal variables need to use dummy coding in R (i.e., Seasonality). Need to always check rationale before blindly recoding to numbers, or using numbers that were provided.</li>
+</ul></li>
+<li><p>Nominal categorical data can be included as independent variables, but must be coded numeric using dummy variables.</p>
+<ul>
+<li>R will create the dummy variables automatically in a regression using the lm() command.</li>
+<li>For variables with 2 categories, code as 0 and 1.</li>
+</ul></li>
+</ul>
+<section id="dummy-variables-with-more-than-2-categories" class="level2">
+<h2 class="anchored" data-anchor-id="dummy-variables-with-more-than-2-categories">Dummy Variables with More than 2 Categories</h2>
+<ul>
+<li>Like in an ANOVA test, a categorical variable may be defined by more than two categories.</li>
+<li>Use multiple dummy variables to capture all categories, one for each category.</li>
+<li>When a categorical variable has k &gt; 2 levels, we need to add k − 1 additional variables to the model.</li>
+<li>Given the intercept term, we exclude one of the dummy variables from the regression.
+<ul>
+<li>The excluded variable represents the reference category.</li>
+<li>Including all dummy variables creates perfect multicollinearity (which is an assumption discussed in your textbook).</li>
+</ul></li>
+<li>Example: mode of transportation with three categories
+<ul>
+<li>Public transportation, driving alone, or car pooling
+<ul>
+<li><span class="math inline">\(d_1=1\)</span> for public transportation and 0 otherwise</li>
+<li><span class="math inline">\(d_2=1\)</span> for driving alone and 0 otherwise</li>
+<li><span class="math inline">\(d_1=d_2=0\)</span> indicates car pooling</li>
+</ul></li>
+</ul></li>
+<li>Slope estimates of categorical data cannot be evaluated the same way. In the example below, since Gender is nominal, and because we are using regression, we should use dummy variables to process this factor in the regression instead of the method above. We can use this technique for ordinal variables to recode them into numeric. Again, R does this coding on our behalf using the lm() command.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a vector representing gender</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"MALE"</span>, <span class="st">"FEMALE"</span>, <span class="st">"FEMALE"</span>, <span class="st">"UNKNOWN"</span>, <span class="st">"MALE"</span>)</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="co"># One way is to convert the data into numerical in the column using</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ifelse statements.</span></span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(gender <span class="sc">==</span> <span class="st">"MALE"</span>, <span class="dv">1</span>, <span class="fu">ifelse</span>(gender <span class="sc">==</span> <span class="st">"FEMALE"</span>, <span class="dv">2</span>, <span class="dv">99</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1  2  2 99  1</code></pre>
+</div>
+</div>
+</section>
+<section id="example-using-dummy-variables" class="level2">
+<h2 class="anchored" data-anchor-id="example-using-dummy-variables">Example Using Dummy Variables</h2>
+<ul>
+<li>Suppose that we are forecasting and we want to account for the month as a predictor.</li>
+<li>Then the following dummy variables can be created the following way:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>sales <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/months.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   132 obs. of  3 variables:
+ $ Month: Factor w/ 12 levels "Apr","Aug","Dec",..: 1 2 3 4 5 6 7 8 9 10 ...
+ $ Year : int  2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 ...
+ $ Units: int  45420 44558 63844 39338 35000 45747 50923 46786 48696 55000 ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sales, <span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> Units)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" alt="Boxplot of Sales Data Generated by R" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>I produced a boxplot of the monthly data across units above. April (Apr) is the first month listed (not Jan for January). It alphabetizes it from there from left to right.</li>
+<li>Looking at the lm() command summary below, the hypotheses take on the format VariableCategory. So MonthAug corresponds to the Month variable with the Aug category, representing August. You will notice that there is no MonthApr listed. It is considered the referent category and held in the intercept.</li>
+<li>The interpretation of each of the coefficients associated with the dummy variables is that it is a measure of the effect of that category relative to the omitted or referent category.</li>
+<li>In the example to the left, the intercept coefficient is associated with April, so MonthAug measures the effect of August on the forecast variable (Units) compared to the effect of April.
+<ul>
+<li>Since the data represents the difference in Units sold in months, we can interpret the predicted units sold for April as 49,580.8.</li>
+<li>August was significantly different than April because there is a p-value less than .05. Specifically, we can expect about 7701.6 more units to be sold in August over April. December, January, June, and November also had significantly different Units sold.</li>
+<li>February, July, March, May, October, and September are not different than April because the p-value is &gt; .05.</li>
+</ul></li>
+<li>Never try to remove a categorical variable that is not significant because it means something else - that the category is not different than the referent category. More on this later.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Suppose that we are forecasting daily data and we want to account</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for the month as a predictor.  Then the following dummy variables</span></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="co"># can be created.</span></span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>lmSales <span class="ot">&lt;-</span> <span class="fu">lm</span>(Units <span class="sc">~</span> Month, <span class="at">data =</span> sales)</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmSales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Units ~ Month, data = sales)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-12724.5  -4056.6    -36.3   3620.9  22066.5 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  49580.8     1749.6  28.339  &lt; 2e-16 ***
+MonthAug      7701.6     2474.2   3.113  0.00232 ** 
+MonthDec     25245.7     2474.2  10.203  &lt; 2e-16 ***
+MonthFeb     -3744.7     2474.2  -1.513  0.13279    
+MonthJan     -6939.5     2474.2  -2.805  0.00588 ** 
+MonthJul      1809.8     2474.2   0.731  0.46592    
+MonthJun      4971.5     2474.2   2.009  0.04675 *  
+MonthMar      3671.9     2474.2   1.484  0.14042    
+MonthMay      3652.1     2474.2   1.476  0.14255    
+MonthNov     14205.6     2474.2   5.741 7.21e-08 ***
+MonthOct      -125.4     2474.2  -0.051  0.95967    
+MonthSep       261.8     2474.2   0.106  0.91590    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5803 on 120 degrees of freedom
+Multiple R-squared:  0.6857,    Adjusted R-squared:  0.6569 
+F-statistic:  23.8 on 11 and 120 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The Intercept absorbs the referent category and so in this case,</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="co"># April is alphabetically first and the referent category.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>We can reset the levels by using the factor() command. Shown below, I reset the levels of the month in order from month 1 (Jan) to month 12 (Dec). This puts “Jan” in the referent category when we rerun the regression. This allows us to compare Jan to other months and to specifically, test what months are different from Jan (+ increase in sales from Jan, - a decrease in sales from Jan).</li>
+<li>For example, March has 10612 more unit sales than Jan.&nbsp;If not significant, like MonthFeb, then you can interpret as not significantly different than the 42K in Jan.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>sales<span class="sc">$</span>Month <span class="ot">&lt;-</span> <span class="fu">factor</span>(sales<span class="sc">$</span>Month, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>,</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"May"</span>, <span class="st">"Jun"</span>, <span class="st">"Jul"</span>, <span class="st">"Aug"</span>, <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dec"</span>))</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sales, <span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> Units)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>lmSales <span class="ot">&lt;-</span> <span class="fu">lm</span>(Units <span class="sc">~</span> Month, <span class="at">data =</span> sales)</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmSales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Units ~ Month, data = sales)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-12724.5  -4056.6    -36.3   3620.9  22066.5 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    42641       1750  24.373  &lt; 2e-16 ***
+MonthFeb        3195       2474   1.291 0.199106    
+MonthMar       10612       2474   4.289 3.65e-05 ***
+MonthApr        6940       2474   2.805 0.005877 ** 
+MonthMay       10592       2474   4.281 3.77e-05 ***
+MonthJun       11911       2474   4.814 4.36e-06 ***
+MonthJul        8749       2474   3.536 0.000578 ***
+MonthAug       14641       2474   5.917 3.17e-08 ***
+MonthSep        7201       2474   2.911 0.004302 ** 
+MonthOct        6814       2474   2.754 0.006803 ** 
+MonthNov       21145       2474   8.546 4.78e-14 ***
+MonthDec       32185       2474  13.008  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5803 on 120 degrees of freedom
+Multiple R-squared:  0.6857,    Adjusted R-squared:  0.6569 
+F-statistic:  23.8 on 11 and 120 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The interpretation of each of the coefficients associated with the</span></span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dummy variables is that it is a measure of the effect of that</span></span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="co"># category relative to the omitted category. In the example to the</span></span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a><span class="co"># left, the intercept coefficient is associated with January, so</span></span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="co"># MonthFeb measures the effect of Feb on the forecast variable</span></span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a><span class="co"># (Units) compared to the effect of Jan.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="example-using-a-continuous-and-categorical-variable" class="level2">
+<h2 class="anchored" data-anchor-id="example-using-a-continuous-and-categorical-variable">Example Using a Continuous and Categorical Variable</h2>
+<ul>
+<li>Let’s do an example with the GNP.csv data set to use GNP and quarterly data to predict Sales (in millions)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>GNP <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/GNP.csv"</span>)</span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(GNP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   40 obs. of  4 variables:
+ $ Year   : int  2007 2007 2007 2007 2008 2008 2008 2008 2009 2009 ...
+ $ Quarter: int  1 2 3 4 1 2 3 4 1 2 ...
+ $ Sales  : int  921266 1013371 1000151 1060394 950268 1028016 999824 957207 828677 905562 ...
+ $ GNP    : num  14302 14513 14718 14880 14849 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #1, 2, 3, 4 represent the quarter and we want that data as</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="co"># categorical</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>GNP<span class="sc">$</span>Quarter <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(GNP<span class="sc">$</span>Quarter)</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="co"># #Evaluate Quarterly data of GNP in a boxplot.</span></span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>GNP <span class="sc">%&gt;%</span></span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Quarter, <span class="at">y =</span> Sales)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" alt="Boxplot of GNP variable Generated by R" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the linear regression considering GNP and Quarterly data</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>lmGNP <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sales <span class="sc">~</span> GNP <span class="sc">+</span> Quarter, <span class="at">data =</span> GNP)</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmGNP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Sales ~ GNP + Quarter, data = GNP)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-53748 -20083   -700  16341  52626 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -61669.572  52583.805  -1.173    0.249    
+GNP             65.055      3.215  20.234  &lt; 2e-16 ***
+Quarter2     78278.963  13576.443   5.766 1.57e-06 ***
+Quarter3     59960.212  13607.096   4.407 9.49e-05 ***
+Quarter4    108765.258  13638.197   7.975 2.21e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 30330 on 35 degrees of freedom
+Multiple R-squared:  0.9364,    Adjusted R-squared:  0.9291 
+F-statistic: 128.7 on 4 and 35 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate y, where y and x are Sales and GNP, and 2 is a quarter 2</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dummy, 3 is a Quarter 3 dummy, and 4 is a Quarter 4 dummy.</span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="co"># All else equal, retail sales in quarter 1 are expected to be</span></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="co"># approximately $108,765 million less than sales in quarter 4.</span></span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a><span class="co"># What are the predicted sales in quarter 2 if GNP is $18,000 (in</span></span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a><span class="co"># billions)?</span></span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a>Quarter2 <span class="ot">&lt;-</span> <span class="dv">18000</span></span>
+<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lmGNP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> (Intercept)          GNP     Quarter2     Quarter3     Quarter4 
+-61669.57208     65.05476  78278.96330  59960.21187 108765.25801 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the equation</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">61669.57208</span> <span class="sc">+</span> <span class="fl">65.05476</span> <span class="sc">*</span> Quarter2 <span class="sc">+</span> <span class="fl">78278.963</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1187595</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># When you use the predict() command with a categorical variable, you</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="co"># need to include the predictors with what they equal as shown below.</span></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="co"># I pulled out the data.frame() command into a new variable named nd</span></span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="co"># to simplify our predict() command later on.</span></span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>nd <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">GNP =</span> <span class="dv">18000</span>, <span class="at">Quarter =</span> <span class="st">"2"</span>)</span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lmGNP, nd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      1 
+1187595 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You can write the above 2 lines like shown below for the same</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="co"># answer.</span></span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lmGNP, <span class="fu">data.frame</span>(<span class="at">GNP =</span> <span class="dv">18000</span>, <span class="at">Quarter =</span> <span class="st">"2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      1 
+1187595 </code></pre>
+</div>
+</div>
+<ul>
+<li>While you technically can keep adding categorical variables, you must be careful not to add too many because the intercept becomes increasingly difficult to interpret!</li>
+</ul>
+</section>
+<section id="coffee-example" class="level2">
+<h2 class="anchored" data-anchor-id="coffee-example">Coffee Example</h2>
+<section id="visualizing" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing">Visualizing</h3>
+<ul>
+<li>Let’s try a bigger example with the coffee dataset.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a>coffee <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/coffee.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb105-5"><a href="#cb105-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(coffee)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   1311 obs. of  31 variables:
+ $ X                   : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ Species             : Factor w/ 1 level "Arabica": 1 1 1 1 1 1 1 1 1 1 ...
+ $ Owner               : Factor w/ 306 levels "","acacia hills ltd",..: 206 206 125 302 206 154 137 95 95 75 ...
+ $ Country.of.Origin   : Factor w/ 37 levels "","Brazil","Burundi",..: 10 10 11 10 10 2 26 10 10 10 ...
+ $ Farm.Name           : Factor w/ 558 levels "","-","1","200 farms",..: 374 374 441 526 374 1 1 19 19 510 ...
+ $ ICO.Number          : Factor w/ 843 levels "","-","??","0",..: 455 455 1 1 455 1 1 98 98 454 ...
+ $ Company             : Factor w/ 271 levels "","ac la laja sa de cv",..: 169 169 1 264 169 1 208 1 1 88 ...
+ $ Number.of.Bags      : int  300 300 5 320 300 100 100 300 300 50 ...
+ $ Bag.Weight          : Factor w/ 56 levels "0 kg","0 lbs",..: 47 47 3 47 47 32 51 47 47 47 ...
+ $ Harvest.Year        : Factor w/ 47 levels "","08/09 crop",..: 16 16 1 16 16 14 13 41 41 16 ...
+ $ Processing.Method   : Factor w/ 6 levels "","Natural / Dry",..: 6 6 1 2 6 2 6 1 1 2 ...
+ $ Color               : Factor w/ 5 levels "","Blue-Green",..: 4 4 1 4 4 3 3 1 1 4 ...
+ $ Aroma               : num  8.67 8.75 8.42 8.17 8.25 8.58 8.42 8.25 8.67 8.08 ...
+ $ Flavor              : num  8.83 8.67 8.5 8.58 8.5 8.42 8.5 8.33 8.67 8.58 ...
+ $ Aftertaste          : num  8.67 8.5 8.42 8.42 8.25 8.42 8.33 8.5 8.58 8.5 ...
+ $ Acidity             : num  8.75 8.58 8.42 8.42 8.5 8.5 8.5 8.42 8.42 8.5 ...
+ $ Body                : num  8.5 8.42 8.33 8.5 8.42 8.25 8.25 8.33 8.33 7.67 ...
+ $ Balance             : num  8.42 8.42 8.42 8.25 8.33 8.33 8.25 8.5 8.42 8.42 ...
+ $ Uniformity          : num  10 10 10 10 10 10 10 10 9.33 10 ...
+ $ Clean.Cup           : num  10 10 10 10 10 10 10 10 10 10 ...
+ $ Sweetness           : num  10 10 10 10 10 10 10 9.33 9.33 10 ...
+ $ Cupper.Points       : num  8.75 8.58 9.25 8.67 8.58 8.33 8.5 9 8.67 8.5 ...
+ $ Moisture            : num  0.12 0.12 0 0.11 0.12 0.11 0.11 0.03 0.03 0.1 ...
+ $ Category.One.Defects: int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Quakers             : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Category.Two.Defects: int  0 1 0 2 2 1 0 0 0 4 ...
+ $ unit_of_measurement : Factor w/ 2 levels "ft","m": 2 2 2 2 2 2 2 2 2 2 ...
+ $ altitude_low_meters : num  1950 1950 1600 1800 1950 ...
+ $ altitude_high_meters: num  2200 2200 1800 2200 2200 NA NA 1700 1700 1850 ...
+ $ altitude_mean_meters: num  2075 2075 1700 2000 2075 ...
+ $ TotalScore          : num  90.6 89.9 89.8 89 88.8 ...</code></pre>
+</div>
+</div>
+<ul>
+<li>Sometimes, we are only interested in 2 or 3 category values. In the following example, I am filtering by Processing Method and creating a ggplot only holding the methods of interest to me.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>coffee <span class="sc">%&gt;%</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Processing.Method <span class="sc">==</span> <span class="st">"Natural / Dry"</span> <span class="sc">|</span> Processing.Method <span class="sc">==</span></span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Washed / Wet"</span> <span class="sc">|</span> Processing.Method <span class="sc">==</span> <span class="st">"Other"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Processing.Method, <span class="at">y =</span> TotalScore)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="fu">rainbow</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Does not look like large group differences, good indication into what we will find.</li>
+<li>In the next visualization, lets add in a scatterplot to show the difference between 2 continuous variables (Flavor and TotalScore) using Processing Method method as the color.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>coffee <span class="sc">%&gt;%</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Processing.Method <span class="sc">==</span> <span class="st">"Natural / Dry"</span> <span class="sc">|</span> Processing.Method <span class="sc">==</span></span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Washed / Wet"</span> <span class="sc">|</span> Processing.Method <span class="sc">==</span> <span class="st">"Other"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Flavor, <span class="at">y =</span> TotalScore, <span class="at">color =</span> Processing.Method)) <span class="sc">+</span></span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Processing.Method))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regression_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>In the chart above, flavor almost looks like a perfect predictor, strong and positive.</li>
+</ul>
+</section>
+<section id="categories" class="level3">
+<h3 class="anchored" data-anchor-id="categories">2 Categories</h3>
+<ul>
+<li>Suppose there are only 2 processing methods for coffee beans: Wet/Washed and Natural/Dry.<br>
+R takes Natural/Dry as the referent category value. Then we can create one dummy variable. A Dummy Variable is then assigned as either a 0 or 1. Let’s save the filtering of 2 methods into a new smaller dataset first and then running the lm model.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>coffee2cat <span class="ot">&lt;-</span> <span class="fu">filter</span>(coffee, Processing.Method <span class="sc">==</span> <span class="st">"Natural / Dry"</span> <span class="sc">|</span> Processing.Method <span class="sc">==</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Washed / Wet"</span>)</span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coffee2cat<span class="sc">$</span>Processing.Method)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Washed / Wet  Washed / Wet  Natural / Dry Washed / Wet  Natural / Dry
+[6] Washed / Wet 
+6 Levels:  Natural / Dry Other ... Washed / Wet</code></pre>
+</div>
+</div>
+<ul>
+<li>Next, lets run a lm model using the newly filtered data.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>lmModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(TotalScore <span class="sc">~</span> Processing.Method, <span class="at">data =</span> coffee2cat)</span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmModel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = TotalScore ~ Processing.Method, data = coffee2cat)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-22.1346  -0.9944   0.4554   1.5354   8.6154 
+
+Coefficients:
+                              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                    82.3541     0.1704 483.193   &lt;2e-16 ***
+Processing.MethodWashed / Wet  -0.3895     0.1950  -1.997    0.046 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.7 on 1061 degrees of freedom
+Multiple R-squared:  0.003746,  Adjusted R-squared:  0.002807 
+F-statistic:  3.99 on 1 and 1061 DF,  p-value: 0.04603</code></pre>
+</div>
+</div>
+<ul>
+<li>We can make a prediction of Washed/Wet.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lmModel, <span class="fu">data.frame</span>(<span class="at">Processing.Method =</span> <span class="st">"Washed / Wet"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+81.96462 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lmModel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  (Intercept) Processing.MethodWashed / Wet 
+                   82.3541434                    -0.3895252 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fl">82.3541</span> <span class="sc">-</span> <span class="fl">0.3895</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 81.9646</code></pre>
+</div>
+</div>
+</section>
+<section id="using-more-than-2-categories" class="level3">
+<h3 class="anchored" data-anchor-id="using-more-than-2-categories">Using More Than 2 Categories</h3>
+<ul>
+<li><p>A categorical variable may be defined by more than two categories.</p></li>
+<li><p>Like mentioned above, we use multiple dummy variables to capture all categories, one for each category.</p></li>
+<li><p>When a categorical variable has k &gt; 2 levels, we need to add k − 1 additional variables to the model.</p></li>
+<li><p>Given the intercept term, we exclude one of the dummy variables from the regression.</p></li>
+<li><p>The excluded variable represents the reference category. Example: Processing.Time Filtering by 3 categories: “Natural / Dry” “Washed / Wet“ or Other”) <span class="math inline">\(d_1=1\)</span> for Other and 0 otherwise <span class="math inline">\(d_2=1\)</span> for Washed/Wet and 0 otherwise <span class="math inline">\(d_1=d_2=0\)</span> indicates Natural/Dry referent category</p></li>
+<li><p><span class="math inline">\(Score_i=β_0+β_1(I(Other)_i)+β_2(I(Wet)_i)+ϵ_I\)</span> <span class="math inline">\(β_0\)</span> represents the expected score for a coffee with 0 for the two dummy variables. That is, if it was a dry process coffee <span class="math inline">\(β_1\)</span> represents the expected difference in score for coffee with an Other roasting process, compared to the baseline level (dry process) <span class="math inline">\(β_2\)</span> represents the expected difference in score for Washed/Wet process coffee compared to dry process coffee. We have to estimate multiple “slopes” for this one variable - one corresponding to each non-reference level.</p></li>
+<li><p>We can refilter the data to include the third category value.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>coffee3cat <span class="ot">&lt;-</span> <span class="fu">filter</span>(coffee, Processing.Method <span class="sc">==</span> <span class="st">"Natural / Dry"</span> <span class="sc">|</span> Processing.Method <span class="sc">==</span></span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Washed / Wet"</span> <span class="sc">|</span> Processing.Method <span class="sc">==</span> <span class="st">"Other"</span>)</span>
+<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coffee3cat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  X Species               Owner Country.of.Origin
+1 1 Arabica           metad plc          Ethiopia
+2 2 Arabica           metad plc          Ethiopia
+3 4 Arabica yidnekachew dabessa          Ethiopia
+4 5 Arabica           metad plc          Ethiopia
+5 6 Arabica           ji-ae ahn            Brazil
+6 7 Arabica       hugo valdivia              Peru
+                              Farm.Name ICO.Number
+1                             metad plc  2014/2015
+2                             metad plc  2014/2015
+3 yidnekachew dabessa coffee plantation           
+4                             metad plc  2014/2015
+5                                                 
+6                                                 
+                                Company Number.of.Bags Bag.Weight Harvest.Year
+1     metad agricultural developmet plc            300      60 kg         2014
+2     metad agricultural developmet plc            300      60 kg         2014
+3 yidnekachew debessa coffee plantation            320      60 kg         2014
+4     metad agricultural developmet plc            300      60 kg         2014
+5                                                  100      30 kg         2013
+6 richmond investment-coffee department            100      69 kg         2012
+  Processing.Method        Color Aroma Flavor Aftertaste Acidity Body Balance
+1      Washed / Wet        Green  8.67   8.83       8.67    8.75 8.50    8.42
+2      Washed / Wet        Green  8.75   8.67       8.50    8.58 8.42    8.42
+3     Natural / Dry        Green  8.17   8.58       8.42    8.42 8.50    8.25
+4      Washed / Wet        Green  8.25   8.50       8.25    8.50 8.42    8.33
+5     Natural / Dry Bluish-Green  8.58   8.42       8.42    8.50 8.25    8.33
+6      Washed / Wet Bluish-Green  8.42   8.50       8.33    8.50 8.25    8.25
+  Uniformity Clean.Cup Sweetness Cupper.Points Moisture Category.One.Defects
+1         10        10        10          8.75     0.12                    0
+2         10        10        10          8.58     0.12                    0
+3         10        10        10          8.67     0.11                    0
+4         10        10        10          8.58     0.12                    0
+5         10        10        10          8.33     0.11                    0
+6         10        10        10          8.50     0.11                    0
+  Quakers Category.Two.Defects unit_of_measurement altitude_low_meters
+1       0                    0                   m                1950
+2       0                    1                   m                1950
+3       0                    2                   m                1800
+4       0                    2                   m                1950
+5       0                    1                   m                  NA
+6       0                    0                   m                  NA
+  altitude_high_meters altitude_mean_meters TotalScore
+1                 2200                 2075      90.58
+2                 2200                 2075      89.92
+3                 2200                 2000      89.00
+4                 2200                 2075      88.83
+5                   NA                   NA      88.83
+6                   NA                   NA      88.75</code></pre>
+</div>
+</div>
+<ul>
+<li>We can make our new model object with the lm function.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>lmModel2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TotalScore <span class="sc">~</span> Processing.Method, <span class="at">data =</span> coffee3cat)</span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmModel2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = TotalScore ~ Processing.Method, data = coffee3cat)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-22.1346  -0.9646   0.4554   1.5354   8.6154 
+
+Coefficients:
+                              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                    82.3541     0.1728 476.694   &lt;2e-16 ***
+Processing.MethodOther         -1.0757     0.5639  -1.908   0.0567 .  
+Processing.MethodWashed / Wet  -0.3895     0.1977  -1.971   0.0490 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.737 on 1086 degrees of freedom
+Multiple R-squared:  0.005435,  Adjusted R-squared:  0.003603 
+F-statistic: 2.967 on 2 and 1086 DF,  p-value: 0.05186</code></pre>
+</div>
+</div>
+<ul>
+<li>The overall model is not significant here, but one group still shows differences. Means poor predictor, but that there are still group differences (even if small) between Washed/Wet and Natural/Dry</li>
+<li>Finally, we can make our new prediction of what the score would be in the Processing.Method was Other.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lmModel2, <span class="fu">data.frame</span>(<span class="at">Processing.Method =</span> <span class="st">"Other"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+81.27846 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lmModel2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  (Intercept)        Processing.MethodOther 
+                   82.3541434                    -1.0756819 
+Processing.MethodWashed / Wet 
+                   -0.3895252 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fl">82.3541434</span> <span class="sc">-</span> <span class="fl">1.0756819</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 81.27846</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="adding-in-a-numerical-variable" class="level2">
+<h2 class="anchored" data-anchor-id="adding-in-a-numerical-variable">Adding in a Numerical Variable</h2>
+<ul>
+<li>We can add in another variable like Flavor. Flavor is a much stronger predictor.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a>lmModel3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TotalScore <span class="sc">~</span> Flavor <span class="sc">+</span> Processing.Method, <span class="at">data =</span> coffee3cat)</span>
+<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmModel3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = TotalScore ~ Flavor + Processing.Method, data = coffee3cat)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-16.6648  -0.3555   0.2157   0.7248   5.7972 
+
+Coefficients:
+                              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                    31.4116     1.0691  29.380  &lt; 2e-16 ***
+Flavor                          6.7151     0.1403  47.849  &lt; 2e-16 ***
+Processing.MethodOther         -0.1274     0.3205  -0.398  0.69108    
+Processing.MethodWashed / Wet   0.2931     0.1130   2.593  0.00964 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.553 on 1085 degrees of freedom
+Multiple R-squared:  0.6802,    Adjusted R-squared:  0.6793 
+F-statistic: 769.3 on 3 and 1085 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lmModel3, <span class="fu">data.frame</span>(<span class="at">Flavor =</span> <span class="dv">10</span>, <span class="at">Processing.Method =</span> <span class="st">"Other"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+98.43565 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lmModel3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  (Intercept)                        Flavor 
+                   31.4116160                     6.7151441 
+       Processing.MethodOther Processing.MethodWashed / Wet 
+                   -0.1274019                     0.2931262 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fl">31.411616</span> <span class="sc">+</span> <span class="fl">6.7151441</span> <span class="sc">*</span> <span class="dv">10</span> <span class="sc">+</span> <span class="sc">-</span><span class="fl">0.1274019</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 98.43566</code></pre>
+</div>
+</div>
+<ul>
+<li>After adjusting for aroma, and flavor, is there sufficient evidence to suggest a difference in mean score between dry vs.&nbsp;wet process beans? Explain, using a formal hypothesis test. $H_0: Processing.Method_{Washed / Wet} = Processing.Method_{Dry} $ $H_A: Processing.Method_{Washed / Wet}Processing.Method_{Dry} $</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>lmModel4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TotalScore <span class="sc">~</span> Aroma <span class="sc">+</span> Flavor <span class="sc">+</span> Processing.Method, <span class="at">data =</span> coffee2cat)</span>
+<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmModel4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = TotalScore ~ Aroma + Flavor + Processing.Method, 
+    data = coffee2cat)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-17.5344  -0.2720   0.2208   0.7122   4.7629 
+
+Coefficients:
+                              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                    28.1650     1.1482  24.530  &lt; 2e-16 ***
+Aroma                           1.6013     0.2134   7.502 1.32e-13 ***
+Flavor                          5.5406     0.1987  27.884  &lt; 2e-16 ***
+Processing.MethodWashed / Wet   0.2337     0.1079   2.166   0.0306 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.479 on 1059 degrees of freedom
+Multiple R-squared:  0.7017,    Adjusted R-squared:  0.7009 
+F-statistic: 830.6 on 3 and 1059 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<ul>
+<li><p>We find evidence that there is a difference between Washed/Wet processed coffee beans and dry processed beans as evident by the significant p-value &lt; .05.</p></li>
+<li><p>Adjusting for aroma, flavor, and process, which country has the highest expected score? The lowest?</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="do">## calculate the predicted scores in the dataset</span></span>
+<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>predicted_scores <span class="ot">&lt;-</span> <span class="fu">predict</span>(lmModel4, <span class="at">newdata =</span> coffee2cat)</span>
+<span id="cb139-3"><a href="#cb139-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-4"><a href="#cb139-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new dataframe with Country and predicted scores</span></span>
+<span id="cb139-5"><a href="#cb139-5" aria-hidden="true" tabindex="-1"></a>predicted_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Country =</span> coffee2cat<span class="sc">$</span>Country, <span class="at">Predicted_Score =</span> predicted_scores)</span>
+<span id="cb139-6"><a href="#cb139-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-7"><a href="#cb139-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the country with the highest expected score</span></span>
+<span id="cb139-8"><a href="#cb139-8" aria-hidden="true" tabindex="-1"></a>highest_expected_score <span class="ot">&lt;-</span> <span class="fu">filter</span>(predicted_data, Predicted_Score <span class="sc">==</span> <span class="fu">max</span>(Predicted_Score))</span>
+<span id="cb139-9"><a href="#cb139-9" aria-hidden="true" tabindex="-1"></a>highest_expected_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Country Predicted_Score
+1 Ethiopia        91.20569</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the country with the lowest expected score</span></span>
+<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a>lowest_expected_score <span class="ot">&lt;-</span> <span class="fu">filter</span>(predicted_data, Predicted_Score <span class="sc">==</span> <span class="fu">min</span>(Predicted_Score))</span>
+<span id="cb141-3"><a href="#cb141-3" aria-hidden="true" tabindex="-1"></a>lowest_expected_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Country Predicted_Score
+990 Guatemala        73.56705</code></pre>
+</div>
+</div>
+<ul>
+<li><p>We find that Ethiopia has the highest predicted score and Guatemala has the lowest predicted score based on Aroma, Flavor, and Processing Method.</p></li>
+<li><p>What percentage of the variability in the total score is explained by a linear relationship with the predictors in your model?</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(lmModel4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 12
+  r.squared adj.r.squared sigma statistic   p.value    df logLik   AIC   BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     0.702         0.701  1.48      831. 1.35e-277     3 -1922. 3854. 3879.
+# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+</div>
+</div>
+<ul>
+<li>We can look at the R-squared value of .693 and adjusted R-squared value of .692 and state that about 69% of the variable in total score is explained by a linear relationship with the predictors in our model.</li>
+</ul>
+</section>
+</section>
+<section id="using-ai" class="level1">
+<h1>Using AI</h1>
 <ul>
 <li><p>Use the following prompts on a generative AI, like chatGPT, to learn more about regression analysis in R.</p></li>
+<li><p>Explain the difference between covariance and correlation. How do you interpret the direction and strength of a correlation coefficient?”</p></li>
+<li><p>What is covariance, and how does it describe the relationship between two variables? Provide an example with a simple dataset. Describe Pearson’s correlation coefficient. How do you calculate it, and what does it tell you about the relationship between two variables?</p></li>
+<li><p>Explain how to create a scatterplot using ggplot2 in R to visualize the relationship between two continuous variables. How can you add a regression line to assess the linearity of the relationship?</p></li>
+<li><p>How can you use the cor.test() function in R to conduct a hypothesis test for correlation? What do the p-value and confidence interval indicate in the context of correlation?</p></li>
+<li><p>How do you interpret the strength and direction of a correlation? What is considered a strong, moderate, or weak correlation in the context of business data?</p></li>
+<li><p>Explain the null and alternative hypotheses for correlation testing. How does the t-distribution play a role in testing the significance of a correlation coefficient?</p></li>
+<li><p>What are some challenges of visualizing relationships between variables when dealing with big data, and how can statistical tests help when scatterplots are not effective?</p></li>
+<li><p>Discuss the limitations of correlation analysis. Why is it important to be cautious when interpreting correlation as causation?</p></li>
+<li><p>What are the key differences between correlation and causation? How can you determine if a correlation implies causality?</p></li>
 <li><p>Explain how to perform simple linear regression in R. Use the lm() function and discuss how to interpret the slope, intercept, and R-squared values from the regression output.</p></li>
 <li><p>What is the coefficient of determination (R-squared) in regression analysis, and how does it relate to the goodness of fit? How can the residual standard error (RSE) and adjusted R-squared help in interpreting a model?</p></li>
 <li><p>Describe how to perform multiple linear regression in R using the lm() function. How do you interpret the coefficients for multiple predictors, and what do the p-values tell you about their significance?</p></li>
@@ -1075,14 +2802,13 @@ F-statistic:  1391 on 2 and 397 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li><p>Describe how to use the p-value method for variable selection in multiple regression. How do you iteratively remove insignificant predictors while monitoring the R-squared and adjusted R-squared values?</p></li>
 </ul>
 </section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<section id="summary" class="level1">
+<h1>Summary</h1>
 <ul>
-<li>In this lesson, we learned how to write and interpret the simple linear regression model and the multiple linear regression model. We learned about goodness of fit measures and how to test hypotheses using regression by interpreting the summary output from the lm() command. Finally, we learned how to use regression with both continuous and categorical variables as predictor variables.</li>
+<li>In this lesson, we explored the correlation coefficient, learning how to evaluate the strength and direction of a correlation (strong, moderate, weak; positive or negative) and how to visualize relationships using scatterplots. We also learned to test whether a correlation is statistically significant. Additionally, we delved into simple and multiple linear regression models, understanding how to write and interpret these models, assess goodness-of-fit measures, and test hypotheses by interpreting the summary output from the lm() command. Finally, we examined how regression can incorporate both continuous and categorical predictor variables.</li>
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1508,13 +3234,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./correlation.html" class="pagination-link" aria-label="Correlation Analysis">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Correlation Analysis</span></span>
+      <a href="./anova.html" class="pagination-link" aria-label="Analysis of Variance (ANOVA)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Analysis of Variance (ANOVA)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./rmarkdown.html" class="pagination-link" aria-label="Intro to RMarkdown">
-        <span class="nav-page-text"><span class="chapter-title">Intro to RMarkdown</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./summary.html" class="pagination-link" aria-label="Summary">
+        <span class="nav-page-text"><span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

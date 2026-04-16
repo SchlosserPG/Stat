@@ -1,29 +1,20 @@
 ---
-title: "Probability and Probability Distributions"
+title: "Calculating Probability"
 author: ""
 date: "2024-08-09"
-output: html_document
+format: html
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
 ```
 
--   The goal of this lesson is to teach you how to apply the basic rules of probability and discuss some probability distributions. You will also learn how to transform data via tidyverse alongside the power of the central limit theorem.
-
-```{r tidy=FALSE}
-####################################
-# Project name: Probability Distributions
-# Data used: defects.csv, pdmp_2017.csv, opioidFacility.csv,
-# brfss.csv from Blackboard
-# Libraries used: tidyverse, gridExtra
-####################################
-```
+-   The goal of this lesson is to teach you how to apply the basic rules of probability, explore key probability distributions, and perform probability calculations using contingency tables. You will also learn how to transform data using the tidyverse and leverage the power of the central limit theorem. Additionally, we will conduct our first hypothesis tests, including the chi-squared test for independence and the chi-squared test of goodness of fit.
 
 ### At a Glance
 
 -   In order to succeed in this lesson, you will need to learn the basic rules behind random events including how to calculate probability based on distribution. We focus on learning these skills with regards to the binomial distribution and the normal distribution, and in doing so move from learning about descriptive statistic to learning about inferential statistics. We will also learn the limitations of having a variable that is not normal, and how to transform it to be normal so that we can calculate probability using the same algorithms.
+-   In order to succeed in this section, you will need to learn how to create and calculate probability inside a contingency table, when we have two categorical variables, and conduct our first hypothesis test, the chi-squared test of independence.
 
 ### Lesson Objectives
 
@@ -35,6 +26,8 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 -   As you engage with the lesson, pay attention to the key concepts and how those concepts are applied. There are rules for calculating and combining probabilities that are important for you to know to solve the problem sets and to solve real-life problems. Take note of the applicability of the normal distribution, which is a major cornerstone for statistical analysis.
 -   In this lesson, we move from simply describing data to making inferences. There are so many ways to calculate probability. The assigned readings focus on helping you learn and understand two of the most common distributions: the binomial distribution and the normal distribution. In doing so, we learn about random variables, sampling, and the importance of setting the seed. We also find z-scores, which will turn out to be very important for our future studies. Next, we focus on the utility of the transformation section, which allows us to use the rules and practices regarding a normal distribution, assuming that at least one transformation was successful into reshaping the quantitative variable into a normally-shaped distribution.
+-   We also learn about contingency tables in regards to calculating probability, and are able to calculate and interpret the Chi-squared statistic for the test of independence.
+-   As you read and listen to the materials for this lesson, pay attention to the concepts and how those concepts are applied. There are rules for calculating and combining probabilities that are important for you to know to solve the problem sets and to solve real-life problems. Take note of the applicability of the normal distribution, which is a major cornerstone for statistical analysis.
 
 ## Some Common Statistics Terms
 
@@ -86,7 +79,7 @@ data.frame(NumberOfCards, Percentage)
 
 -   When you produce a percentage, you multiple the calculated probability by 100, so instead of finding a value between 0 and 1, you find a percentage between 0% and 100%. This means that if you use the pnorm function to calculate a probability, you can multiple that probability by 100 to get the percentage.
 
--   When you produce the value given a probability calculation, you multiply the probability calculated by the sample size (n).
+-   When you want to convert a probability to an expected count, multiply the probability by the sample size (n).
 
 ### Random Variables
 
@@ -231,7 +224,7 @@ stDefects <- sqrt(varDefects)
 stDefects  #2.208213
 ```
 
-## The Binomial Distribution
+# The Binomial Distribution
 
 -   The binomial distribution is a discrete probability distribution and applies to probability for binary categorical variables with specific characteristics.
 
@@ -243,7 +236,7 @@ stDefects  #2.208213
     -   The probability of “success”, $p$, and the probability of "failure", $1-p$, is the same for each observation, so each time the trial is repeated, the probabilities of success and failure remain the same.
     -   The random variable is the number of successes in $n$ measurements.
 
-### Summary Measures for a Binomial Random Variable
+## Summary Measures for a Binomial Random Variable
 
 -   Expected value, variance, and standard deviation were introduced and defined in section 2. We can take derivatives of the formulas to simplify our calculations given knowing a $n$ and $p$.
 
@@ -265,7 +258,7 @@ stDefects  #2.208213
 
 -   If the student shoots 6 free throws and typically makes 89.4% of them, we can multiply those two values together for the expected value, 5.364. We also find that this data has a variance of .568584 and standard deviation of .754051.
 
-### The Probability Mass Function
+## The Probability Mass Function
 
 -   *The Probability Mass Function* for a discrete random variable X is a list of the values of X with the associated probabilities, that is, the list of all possible pairs: $(X, P(X=x))$
     -   A probability mass function computes the probability that an exact number of successes happens for a discrete random variable, given $n$ and $p$ defined above.
@@ -283,7 +276,7 @@ dbinom(0, 10, .2)
 
 -   The answer suggests that there is a .107 or 10.737% chance that no workers think they won't be able to retire.
 
-### Cumulative Distribution Function
+## Cumulative Distribution Function
 
 -   Another way to look at a probability distribution is to examine its cumulative probability distribution. Here, you can determine the probability of getting some range of values, which is often more useful than finding the probability of one specific number of successes.
 -   A cumulative distribution function may be used to describe either discrete or continuous random variables.
@@ -309,7 +302,7 @@ dbinom(0, 10, .2) + dbinom(1, 10, .2) + dbinom(2, 10, .2)
 
 ![Visual of Binomial Distribution Example](Pictures/Ch4/HistEx.png "Visual of Binomial Distribution Example")
 
-### Variations in binom() Command
+## Variations in binom() Command
 
 -   In order to find $P(X = 70)$ given 100 trials and .68 probability of success, we enter:
 
@@ -392,7 +385,7 @@ pbinom(1,6,.35)
 pbinom(1,6,.35)*100 #31.9%
 ```
 
-### Follow Up Binomial Example
+## Follow Up Binomial Example
 
 For a discrete binomial distribution with a sample size of 4 (i.e., the number of trials is 4), calculate the probability of each possible outcome (ranging from 0 to 4 successful outcomes) using a probability of success $p=0.3$.
 
@@ -468,7 +461,7 @@ dbinom(2, 4, .3) + dbinom(3, 4, .3) + dbinom(4, 4, .3)
 0.2646 + 0.0756 + 0.0081
 ```
 
-## The Continuous Distribution
+# The Continuous Distribution
 
 -   Properties of a Continuous Random Variable
     -   The random variable is characterized by (infinitely) uncountable values within any interval.
@@ -477,14 +470,14 @@ dbinom(2, 4, .3) + dbinom(3, 4, .3) + dbinom(4, 4, .3)
     -   Thus, $P(X=a)$ and $P(X=b)$ both equal zero, and the following holds for continuous random variables: $P(a <= X <= b) = P(a < X < b) = P(a <= X < b) = P(a < X <= b)$.
 -   This is important to consider and compare to discrete probability.
 
-### Density Functions for Continuous Distributions
+## Density Functions for Continuous Distributions
 
-#### Probability Density Function
+### Probability Density Function
 
 -   The Probability Density Function is used to describe continuous random variables.
 -   Probability Density Function $f(x)$ of a continuous random variable X describes the relative likelihood that $X$ assumes a value within a given interval (e.g., $P(a<=X<=b)$, where $f(x)>=0$ for all possible values of $X$ and the area under $f(x)$ over all values of $x$ equals one.
 
-#### Cumulative Density Function
+### Cumulative Density Function
 
 -   The Cumulative Density Function $F(x)$ of a continuous random variable X suggests that for any value x of the random variable X, the cumulative distribution function $F(x)$ is computed as, $F(x) = P(X <= x)$ as a result, $P(a<=X<=b) = F(b)- F(a)$.
 
@@ -508,7 +501,7 @@ dbinom(2, 4, .3) + dbinom(3, 4, .3) + dbinom(4, 4, .3)
 
 -   Also an optional lower.tail parameter, which is defaulted to TRUE signifying \< or \<=.
 
-### The Normal Distribution
+## The Normal Distribution
 
 -   The normal distribution serves as the cornerstone of statistical inference.
 
@@ -553,7 +546,7 @@ qnorm(.5, 0, 1)
 qnorm(.5)
 ```
 
-### Empirical Rule
+## Empirical Rule
 
 -   Chevyshev’s Theorem states that at least $1 - 1/z^2$% of the data lies between $z$ standard deviations from the mean. This result does not depend on the shape of the distribution.
 
@@ -565,7 +558,7 @@ qnorm(.5)
 
 ![Empirical Rule](Pictures/Ch4/EmpiricalRule.png "Empirical Rule")
 
-### Calculating z-scores
+## Calculating z-scores
 
 -   A z-score allows description and comparison of where an observation falls compared to the other observations for a normally distributed variable.
 
@@ -619,7 +612,7 @@ pnorm(60, 72, 8, lower.tail = FALSE)
 pnorm(60, 72, 8, lower.tail = FALSE)*100
 ```
 
-### Finding Utility in Calculating Probability
+## Finding Utility in Calculating Probability
 
 -   Example using pnorm() with Word Problems: Suppose the life of a particular brand of laptop battery is normally distributed with a mean of 6 hours and a standard deviation of 0.9 hours. Use R to calculate the probability that the battery will last more than 8 hours before running out of power and document that probability below.
 
@@ -641,7 +634,7 @@ pnorm(16, 15, 3.5)
 pnorm(16, 15, 3.5)*100
 ```
 
-### Finding Probability Between Two Values
+## Finding Probability Between Two Values
 
 -   We mentioned above that in order to find probability between 2 values a and b, we could use the following equation: $P(a<=X<=b) = F(b)- F(a)$.
 -   To use this formula, find P(−1.52 \<= Z \<= 1.96). This would equal P(Z\<=1.96)−P(Z\<=−1.52) given a standard normal random variable Z we get the commands below.
@@ -651,7 +644,7 @@ pnorm(16, 15, 3.5)*100
 pnorm(1.96, 0, 1) - pnorm(-1.52, 0, 1)
 ```
 
-### Finding Value Given a Probability
+## Finding Value Given a Probability
 
 -   We use R’s pnorm() and qnorm() commands to solve problems associated with the normal distribution.
 -   If we want to find a particular x value for a given cumulative probability (p), then we enter “qnorm(p, μ, σ)”.
@@ -663,7 +656,7 @@ qnorm(0.90, 7.49, 6.41)
 qnorm(.1, 7.49, 6.41, lower.tail = FALSE)
 ```
 
-### Finding Utility in Calculating Values from Probability
+## Finding Utility in Calculating Values from Probability
 
 -   Example of qnorm() with Word Problems: The stock price of a particular asset has a mean and standard deviation of \$58.50 and \$8.25, respectively. What is the 95th percentile of this stock price?
 
@@ -687,6 +680,8 @@ qnorm(.05, 32, 8)
 ```
 
 ## Central Limit Theorem (CLT)
+
+-   The Central Limit Theorem (CLT) is one of the most important concepts in statistics because it allows us to use the normal distribution to make inferences about populations — even when the underlying data is not normally distributed. In other words, as long as our sample is large enough (generally n ≥ 30), we can assume that the distribution of sample means will be approximately normal, regardless of the shape of the original data.
 
 -   CLT refers to the fact that, in many situations, when independent random variables are summed up, their properly normalized sum tends toward a normal distribution even if the original variables themselves are not normally distributed. Therefore, CLT suggests that for any population X with expected value $\mu$ and standard deviation $\sigma$ the sampling distribution of $X$ will be approximately normal if the sample size $n$ is sufficiently large.
 
@@ -866,7 +861,7 @@ phat2 <- .6
 Q1 <- pnorm(phat1, p, sqrt(p*(1-p)/n))-pnorm(phat2, p, sqrt(p*(1-p)/n)); Q1 #0.192639
 ```
 
-## Transformations of Variables
+# Transformations of Variables
 
 -   If data is not normally distributed, we need to conduct a transformation. When we transform a variable, we hope to change the shape to normal so that we can continue to calculate under the rules of the normal distribution. For variables that are right skewed, a few transformations that could work to make the variable more normally distributed are: square root, cube root, reciprocal, and log.
 
@@ -987,7 +982,7 @@ pnorm(2, 2.66, .79)
 
 -   This indicated that the transformed distance to a facility with MAT for this example county was 1.29 standard deviations above the mean transformed distance from a county to a facility with MAT.
 
-### Transformation Second Example
+## Transformation Second Example
 
 -   Taking a second example, let us look at the PHYSHLTH variable from the gender dataset (brfss.csv). We worked with this dataset in an earlier lesson. In doing so, we cleaned the data.
 -   I copied over that data preparation code in regards to the variable of interest (PHYSHLTH), and tidied it up for one example. To remind ourselves, the question being asked was the following, "Now thinking about your physical health, which includes physical illness and injury, for how many days during the past 30 days was your physical health not good?"
@@ -1013,7 +1008,6 @@ table(gender.clean$PHYSHLTH)
 
 
 summary(gender.clean)
-qnorm(0.95, mean = 500, sd = 10)
 ```
 
 -   Once here, we graph PHYSHLTH.\
@@ -1075,9 +1069,527 @@ gridExtra::grid.arrange(cuberoot, logged, inversed, squareroot)
 
 -   In this example, NOT ONE transformation helped. If this happens, something else would need to occur before correctly using the variable. Examples could be to run a non-linear model, or categorizing the data into bins, especially since there was a large frequency of people that were not ill.
 
-## Using AI
+# Contingency Tables
+
+-   A contingency table generally shows frequencies for two qualitative or categorical variables, x and y.
+-   Each cell represents a mutually exclusive combination of the pair of x and y values.
+
+![Contingency Table Example](Pictures/Ch5/ContTableEx.png "Contingency Table Example")
+
+-   Note that each cell in the contingency table represents a frequency.
+    -   In the above table, 174 customers under the age of 35 purchased an Under Armour product.
+    -   54 customers at least 35 years old purchased an Under Armour product.
+-   The contingency table may be used to calculate probabilities using relative frequency.
+    -   First obtain the row and column totals.
+    -   Sample size is equal to the total of the row totals or column totals. In this case, n = 600.
+
+## Probability Rules
+
+-   The addition rule refers to the probability that event A or B occurs, or that at least one of these events occurs, is the following:\
+    $$P(A \cup B) = (P(A) + P(B) - P(A \cap B)$$
+-   The complement rule refers to the probability of the complement of an event, $P(A^c)$ is equal to one minus the probability of the event.\
+    $$P(A^c) = 1-P(A)$$
+-   Conditional probability refers to the probability of an event given that another event has already occurred.
+    -   Given two events A and B, each with a positive probability of occurring, the probability that A occurs given that B has occurred (A conditioned on B) is equals to $P(A|B) = (P(A \cap B)/P(B)$. Similarly, the probability that B occurs given that A has occurred (B conditioned on A) is equal to $P(B|A) = (P(B \cap A)/P(A)$.
+-   Marginal probability refers to the probability of an event occurring $(P(A))$, it may be thought of as an unconditional probability. It is not conditioned on another event.
+-   The joint probability rule is determined by dividing each cell frequency by the grand total. Joint probability refers to the statistical measure that calculates the likelihood of two events occurring together and at the same point in time.\
+    $$P(A \cap B)$$
+    -   For example, the probability that a randomly selected person is under 35 years of age and makes an Under Armour purchase is $P(U35 \cap UA)=174/600= .29$
+-   For example, this Venn Diagram illustrates the sample space for events A and B.
+-   The union of two events ($A \cup B$) is the event consisting of all simple events in A or B.
+
+![Venn Diagram](Pictures/Ch5/Venn1.png "Venn Diagram") The intersection of two events ($A \cap B$) consists of all simple events in both A and B.
+
+![Venn Diagram: Intersection and Union](Pictures/Ch5/Venn2.png "Venn Diagram: Intersection and Union")
+
+-   The complement of event A (i.e., $A^c$) is the event consisting of all simple events in the sample space S that are not in A.
+
+![Venn Diagram: Complement Rule](Pictures/Ch5/Venn3.png "Venn Diagram: Complement Rule")
+
+## Summary Measures for a Random Variable
+
+-   The Summary Measures of a Random Variable are consistent with our discussion of Probability in the last lesson. They are copied back here for ease of reference.
+
+### Expected Value
+
+-   We can calculate the expected value, or value we think is going to occur based on the type of distribution.
+    -   Expected value is also known as the population mean $\mu$, and is the weighted average of all possible values of $X$.
+    -   More specifically, $E(X)$ is the long-run average value of the random variable over infinitely many independent repetitions of an experiment.
+    -   For a discrete random variable $X$ with values $x_1, x_2, x_3, ...$ that occur with probabilities $P(X=x_i)$, the expected value of $X$ is the probability weighted average of the values. In the case of one random variable, that means: $$E(X) = \mu = \sum{x_iP(X=x_i)} = n*p$$
+
+### Variance
+
+-   Variance of a random variable is the average of the squared differences from the mean.
+    -   For a discrete random variable $X$ with values $x_1, x_2, x_3, ...$ that occur with probabilities $P(X=x_i)$, the variance is defined as: $$Var(X) = \sigma^2 = \sum{(x_i-\mu)^2*P(X=x_i)} = n*p*(1-p)$$
+
+### Standard Deviation
+
+-   Standard deviation is consistently the square root of the variance. $$SD(X) = \sigma = \sqrt{\sigma^2} = \sqrt{\sum{(x_i-\mu)^2*P(X=x_i)}}= \sqrt{np*(1-p)}$$
+
+## Calculating Probability
+
+-   We could calculate the statistics in this contingency table a couple of ways. First, we could manually calculate it like below.
+
+```{r}
+##Calculate Totals
+TotalUnder35 <- 174+132+90; TotalUnder35 ##Total under 35 age group
+Total35up <- 54+72+78; Total35up ## Total 35 and older
+TotalUA <- 174+54; TotalUA ## Total Under Armour
+TotalNike <- 132 + 72; TotalNike ## Total Nike
+TotalAdidas <- 90 + 78; TotalAdidas ## Total Adidas
+Total <- 174+132+90+54+72+78; Total ##Grand Total 
+```
+
+-   Alternatively, we could make this a matrix and use the matrix command to help us calculate the answer. This gives us all the statistics with a couple of functions and allows us to interpret from there after selecting the right information from the output.
+
+```{r}
+#Put observed values in a vector by row. 
+x <- c(174, 132, 90, 54, 72, 78) 
+# Turn the vector into a matrix. In this case, we had 2 rows, 3 columns, and entered the data by row. 
+o <- matrix(x, 2, 3, byrow=TRUE); o
+#Next, we could add the names of the columns and rows values using the dimnames() command. 
+dimnames(o) <- list( c("Under 35", "35 and Older"), c("Under Armour", "Nike", "Adidas"))
+o
+# We can easily calculate the total from here. 
+total <- sum(o); total
+rowsums <- margin.table(o, 1); rowsums
+colsums <- margin.table(o, 2); colsums
+prob <- prop.table(o); prob # each cell represents a joint probability
+rowprob <- margin.table(prob,1); rowprob #each value represents marginal probability
+colprob <- margin.table(prob,2); colprob #each value represents marginal probability
+```
+
+-   Take note that when subsetting from the matrix we created above, the dimnames do not serve as a column or row. so the first number is in row 1, column 1. This is distinct from data.frames, which typically have the 1st column designated for the labels.
+
+```{r}
+prob[1,1] #corresponds to the joint probability value associated with Row 1 (Under 35), Col 1 (Under Armour)
+```
+
+-   Once we do our calculations our totals, we can ask probability questions.
+
+-   When looking up an answer to the question, it makes it easier to reference the tables to ensure you are subsetting correctly.
+
+```{r}
+o; prob
+```
+
+-   If a person is under 35, what is the probability they will select Under Armour? $$P(UA|under35) = (P(UA \cap under35)/P(under35))$$
+
+```{r}
+# This is a conditional probability question.
+174/396 #or
+.29/.66  #or
+prob[1,1]/rowprob[1]
+```
+
+-   What is the probability of a person 35 or older randomly selecting Nike? $$P(N|older35) = (P(N \cap older35)/P(older35))$$
+
+```{r}
+# This is a conditional probability question.
+72/204  # or
+.12/0.34 # or
+prob[2,2]/rowprob[2]
+```
+
+-   If the chance the preference was the same regardless of condition, how many people would you expect to select Nike? $$Ex(Nike)$$
+
+```{r}
+# This is a expected value question.
+TotalNike # or
+colsums[2]
+```
+
+-   We can calculate summary measures based on a variable category.
+
+```{r}
+# E(X) of 35 Years or older (formula n*p)
+n <- total; n  #600
+p <- rowprob[2];p #.34
+
+n*p #Or simply the frequency for the column 35 and older
+
+#Var(X) (formula n*p*(1-p))
+varx <- n*p*(1-p); varx #134.64
+
+# SD(X) (formula sqrt of variance)
+sdx <- sqrt(varx); sdx #11.60345 
+```
+
+## Larger Contingency Table
+
+-   The survey question asked participants in multiple groups the following question, "How likely are you to participate in the event in the future?"
+-   In order to answer this question, first, lets bring in some data and calculate totals.
+
+![Contingency Table Numbers](Pictures/Ch5/ConTblNum.png "Contingency Table Numbers")
+
+```{r}
+x <- c(197,388,230,103,137,98,20,18,18,13,58,45)
+o <- matrix(x, 4, 3, byrow=TRUE); o
+
+dimnames(o) <- list( c("Students", "Faculty/Staff", "Alumni", "Town Residents"),c("Unlikely", "Moderately Likely", "Very Likely"))
+o
+total <- sum(o); total
+rowsums <- margin.table(o, 1); rowsums
+colsums <- margin.table(o, 2); colsums
+# Lets add the grand total to the colsums
+colsums <- c(colsums, total); colsums
+```
+
+-   In this example, we can bind the data together so that it is a little easier to see. Examine the final table and compare that to the figure above.
+
+```{r}
+totals <- cbind(o, rowsums); totals
+totals <- rbind(totals, colsums); totals
+```
+
+![Contingency Table Proportions](Pictures/Ch5/ConTblProp.png "Contingency Table Proportions")
+
+-   Next, let's calculate probabilities.
+
+```{r}
+prob <- prop.table(o); prob
+TotalRowProb <- margin.table(prob,1); TotalRowProb
+TotalColProb <- margin.table(prob,2); TotalColProb
+TotalColProb <- c(TotalColProb, sum(TotalColProb)); TotalColProb
+```
+
+-   In this example, we can also bind the data together so that it is a little easier to see. Again, we are trying to get our R code in the best shape to be able to select the right information to calculate probability from it.
+
+```{r}
+proportions <- cbind(prob, TotalRowProb); proportions
+proportions <- rbind(proportions, TotalColProb); proportions
+```
+
+-   Now that our tables have been tabulated, we can answer some probability questions.
+
+-   What proportion of Students participated in the survey?\
+    $P_S= 815/1325$ or $0.61509434$
+
+-   What proportion of Faculty/Staff remarked that they were Unlikely to participate?\
+    $P(U|FS) = P(U \cap FS) / P(FS) = 103/338 = 0.077735849/0.25509434 = 0.3047337$
+
+-   If a person is a Town Resident, what is the probability that they will select Very Likely?\
+    $P(VL|TR) = P(VL \cap TR) / P(TR) = 45/116 = 0.03396226/0.08754717 = 0.387931$
+
+-   What proportion of people would you expect to select Moderately Likely?\
+    $P_ML = 601/1325$ or $0.4535849$.
+
+-   What is the expected number of people would you expect to select Moderately Likely? $E(ML) = 601$.
+
+-   What is the probability that a randomly selected person is a Faculty/Staff or selects Very Likely?\
+    $P_FS + P_VL - P_FS \cup P_VL = 0.25509434 + 0.2950943 − 0.07396226 = 0.4762264$
+
+```{r}
+# E(X) of Moderately Likely (formula n*p)
+n = total; n #1325
+p = TotalColProb[2];p #.45358
+
+n*p #Or simply the frequency for the column Moderately Likely
+
+#Var(X) (formula n*p*(1-p))
+varx <- n*p*(1-p); varx #328.3955
+
+# SD(X) (formula sqrt of variance)
+sdx <- sqrt(varx); sdx #18.12
+```
+
+# Chi-Squared Test for Independence
+
+-   Broadly, the test for independence tests whether or not two variables whose frequencies are represented in a contingency table have statistical independence from one another.
+
+-   A test of independence – also called a chi-square test of a contingency table – is used to analyze the relationship between two qualitative variables.
+
+-   Broadly, this test involves summing the squared differences between observed and expected values, combining the differences into an overall statistic, and then using that statistic to determine significance of the hypothesis test.\
+    $\chi^2 = \frac{(observed-expected)^2}{expected}$
+
+-   Squaring the differences before adding them up will result in a positive value that is larger when there are larger differences and smaller when there are smaller differences. This value captures the magnitude of the difference between observed and expected values.
+
+-   In order to account for situations when the observed and expected values are very large, which could result in extremely large differences between observed and expected, the squared differences are divided by the expected value in each cell.
+
+-   Visualizing the Chi-squared Distribution Chi-squared distribution has a single parameter, the degrees of freedom or $df$.\
+    The standard deviation of the chi-squared distribution is $\sqrt{2 \cdot df}$. The degrees of freedom in a chi-squared test of independence are calculated as the Number of rows−1 multiplied by Number ofcolumns−1 or more formally: $df=(𝑟−1)∗(𝑐−1)$ The larger the contingency table, the more degrees of freedom, the wider the distribution and more normal it becomes.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+set.seed(1)
+x1 <-data.frame(rchisq(10000, 1, ncp = FALSE))
+colnames(x1) <- "value"
+plot1 <- ggplot(data = x1, aes(x = value)) +
+     geom_density(fill = "#789F90", color = "#B9975B",alpha=.5)+xlim(0,40)+labs(title = 'df = 1',y = 'Probability Density', x="")
+
+
+set.seed(1)
+x3 <-data.frame(rchisq(10000, 3, ncp = FALSE))
+colnames(x3) <- "value"
+plot2 <- ggplot(data = x3, aes(x = value)) +
+     geom_density(fill = "#789F90", color = "#B9975B",alpha=.5)+xlim(0,40)+labs(title = 'df = 3', y="", x="" )
+
+
+set.seed(1)
+x5 <-data.frame(rchisq(10000, 5, ncp = FALSE))
+colnames(x5) <- "value"
+plot3 <- ggplot(data = x5, aes(x = value)) +
+     geom_density(fill = "#789F90", color = "#B9975B",alpha=.5)+xlim(0,40)+labs(title = 'df = 5',y = 'Probability Density', x="Chi-squared Statistic")
+
+
+set.seed(1)
+x10 <-data.frame(rchisq(10000, 10, ncp = FALSE))
+colnames(x10) <- "value"
+plot4 <- ggplot(data = x10, aes(x = value)) +
+     geom_density(fill = "#789F90", color = "#B9975B",alpha=.5)+xlim(0,40)+labs(title = 'df = 10',y="", x="Chi-squared Statistic")
+
+gridExtra::grid.arrange(plot1, plot2, plot3, plot4)
+
+```
+
+-   The Chi-Squared Distribution is noted by:
+    -   Right-Skewed:For low degrees of freedom, the chi-squared distribution is highly right-skewed. As the degrees of freedom increase, the skewness decreases.
+    -   Non-Negative Values: The chi-squared distribution is defined only for non-negative values because it is the sum of squared values.
+    -   Mean and Variance: The mean of a chi-squared distribution with k degrees of freedom is k. The variance is 2k.
+-   The Chi-squared probability density function shows the probability of a value of chi-squared occurring when there is no relationship between the two variables contributing to the chi-squared, where a large chi-square indicates a relationship between variables.
+-   The competing hypotheses can be expressed as:
+    -   $H_0$: The two classifications are independent.
+    -   $H_A$: The two classifications are dependent.
+
+```{r, echo=FALSE}
+set.seed(1)
+x5 <-data.frame(rchisq(10000, 5, ncp = FALSE))
+colnames(x5) <- "value"
+
+plot5 <- ggplot(data = x5, aes(x = value)) +
+     geom_density(fill = "#789F90", color = "#B9975B",alpha=.5)+xlim(0,40)+labs(title = 'To the right of the line indicates significance - or Reject H0',y = 'Probability Density', x="Chi-squared Statistic")+ 
+     geom_vline(xintercept = 10, color="#B9975B", linetype = "longdash", lwd=1); plot5
+```
+
+## Steps to conduct Chi-Squared Test for Independence
+
+-   Step 1: Write the null and alternate hypotheses.
+-   Step 2: Compute the test statistic and calculate the probability.
+-   Step 3: State a conclusion. If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis OR If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
+
+## Assumptions of the Chi-Squared Test of Independence
+
+-   Assumption 1: The variables must be nominal or ordinal.
+
+-   Assumption 2: The expected values should be 5 or higher in at least 80% of groups.
+
+-   Assumption 3: The observations must be independent.
+
+-   Note that there are a couple of ways observations can be non-independent.
+
+    -   One way to violate this assumption would be if the data included the same set of people before and after some intervention or treatment.
+    -   Another way to violate this assumption would be for the data to include siblings or parents and children or spouses or other people who are somehow linked to one another.
+    -   Since people who are linked to each other often have similar characteristics, statistical tests need to be able to account for this and the chi-squared test does not.
+
+## Example of a Test for Independence
+
+![Contingency Table Example](Pictures/Ch5/ContTableEx.png "Contingency Table Example")
+
+-   Step 1: Set up the Hypothesis
+    -   $H_0$: Age group and Brand Name are independent.
+    -   $H_A$: Age group and Brand Name are dependent.
+-   First, we bring in the data manually from the table by column. We had 3 columns, so we need to make three vectors as shown below.
+
+```{r}
+UA <- c(174, 54)
+N <- c(132, 72)
+A <- c(90, 78)
+```
+
+-   Then we convert these variables into a data frame. If you already have a data frame, you don't have to do this step.
+
+```{r}
+M <- data.frame(UA, N, A); M
+```
+
+-   Always make sure your data frame looks like the table.
+
+-   Step 2: Compute the test statistic and calculate the probability.
+
+-   Here, we run the chisq.test() command, which only includes the columns of interest.
+
+```{r}
+chisq.test(M)
+```
+
+-   Step 3: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
+-   Here, our p-value is 1.282e-05, so we reject the null, $H_0$, and conclude that Age group and Brand Names are dependent.
+
+$df=(𝑟−1)∗(𝑐−1)$ or $(2−1)∗(3−1)=1∗2= 2df$
+
+### Using a matrix instead of a data.frame
+
+-   You can use either a matrix or a data.frame when solving a chi-squared problem.
+-   In a Chi-squared test of independence, a matrix can be used to organize observed frequencies into categories along two dimensions. In the example, the matrix o contains data for different age groups ("Under 35" and "35 and older") and their brand preferences ("Under Armour," "Nike," and "Adidas"). By setting up the matrix with these dimensions, the test evaluates whether there is a significant association between age group and brand preference. The test compares the observed counts with expected counts under the assumption that the two variables are independent.
+
+```{r}
+x <- c(174, 132, 90, 54, 72, 78)
+o <- matrix(x, nrow=2, ncol=3, byrow = TRUE)
+##add some dimnames to o
+dimnames(o) <- list(c("Under 35", "35 and older"), c("Under Armour", "Nike", "Adidas"))
+o
+
+chisq.test(o)
+#	Pearson's Chi-squared test
+#data:  o
+#X-squared = 22.529, df = 2, p-value = 0.00001282
+```
+
+-   In either case, we should see the same result. The result includes the Chi-squared statistic (X-squared = 22.529), degrees of freedom (df = 2), and a very small p-value (0.00001282), indicating a strong association between age and brand preference.
+
+## Example Using an Imported Dataset
+
+-   Import the STEM data into a data frame (table) into R.
+-   Step 1: Set up the Hypothesis:
+    -   $H_0$: Stem field and Gender are independent.
+    -   $H_A$: Stem field and Gender are dependent.
+
+```{r}
+STEM <- read.csv("data/stem.csv")
+STEM
+```
+
+-   Step 2: Compute the test statistic and calculate the probability.
+-   Again, we use Rs chisq.test() command to calculate the value of the test statistic, as well as the p-value. Within the chisq.test() function, we indicate that the relevant data are in columns 2 and 3 of the data frame.
+
+```{r}
+chisq.test(STEM[,2:3]) 
+##test statistic: 66.795
+##df: 3 --- 4 rows and 2 columns
+(4-1)*(2-1) #3 df
+##p-value is almost 0
+```
+
+-   Step 3: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
+
+-   Since the p-value is less than 0.05, we can reject the null hypothesis. At the 5% significance level, we can conclude that one’s sex does influence field choice within the STEM major.
+
+-   When performing a Chi-squared test, the choice of including or excluding columns depends on which categories you want to analyze. In chisq.test(stem\[, -1\]), the first column is excluded, and the test is run on the remaining columns. This might be done if the first column represents data not relevant to the specific hypothesis you are testing (e.g., it could be an identifier or a control category).
+
+-   On the other hand, chisq.test(stem\[, 2:3\]) only includes the second and third columns, focusing the analysis on specific categories of interest.
+
+-   This is useful when you want to investigate the relationship between two particular variables, ignoring other columns that might be extraneous to the question you're asking. Including or excluding columns is guided by the research hypothesis and the variables you want to test for independence.
+
+```{r}
+chisq.test(STEM[, -1]) ### when we subset we use object[row, columns] --- so including the numbers 2:3 means we include variables in the 2nd and 3rd columns. Including the number -1 after the comma means that we exclude the first column. 
+
+```
+
+# Chi-Squared Goodness of Fit Test
+
+-   There are a few other tests regarding a Chi-squared distribution, and one other is the goodness of fit test.
+
+-   This test determines whether two or more population proportions equal each other or any predetermined set of values and like the test for independence, still involves the fit between observed and estimated values.
+
+-   A multinomial experiment consists of a series of n independent trials such that:
+
+-   On each there are k possible outcomes.
+
+-   The probability of falling into category $i$ is the same on each trial.
+
+-   The $k$ probabilities sum to $1:p_1 + p_2 +⋯+p_k = 1$
+
+-   The null hypothesis: the population proportions are equal to one another or they are each equal to a specific value.
+
+-   For example, are four candidates in an election equally favored by voters?
+
+-   Equal Population proportions:\
+    $H_0: P_1=P_2=P_3=P_4=.25;$\
+    $H_A$:Not all populations are equal to .25
+
+-   Or, do people rate food quality in a restaurant comparably to last year?
+
+-   Unequal Population Proportions:\
+    $H_0: P_1= .4, P_2=.3, P_3= .2, P_4=.1;$\
+    $H_A:$ At least one $P_i$ differs from its hypothesized value.
+
+## Example Using Raw Numbers
+
+-   Last year the management at a restaurant surveyed its patrons to rate the quality of its food. The results were as follows: 15% Excellent; 30% Good; 45% Fair; and 10% Poor.
+
+-   Based on this and other survey results, management made changes to the menu.
+
+-   This year, the management surveyed 250 patrons, asking the same questions about food quality. Here are the results: 46 Excellent; 83 Good; 105 Fair; and 16 Poor.
+
+-   We want to know if the current results agree with those from last year, or if there has been a significant change.
+
+-   To do this, we compute an expected frequency for each category and compare it to what we actually observe. Then, we compute the difference between what was observed and expected for each category. If the results this year are consistent with last year, these differences will be relatively small.
+
+-   The steps are same as the Chi-Squared Test of Independence.
+
+-   Step 1: Set up the Hypothesis:
+
+    -   $𝐻_0$: Each proportion equals a hypothesized value.
+    -   $𝐻_A$: Not all proportions equal their hypothesized values.
+
+-   Step 2: Compute the test statistic and calculate the probability.
+
+-   We can use R’s chisq.test() function to calculate the value of the test statistic and corresponding p-value. Within this function, we use the option p to indicate the location of the hypothesized proportions.\
+
+```{r}
+#Chi Squared Test Goodness of Fit
+o <- c(46, 83, 105, 16)
+p <- c(.15, .3, .45, .1)
+
+##quick check on p
+sum(p) ##1: sum of all proportions should be 1
+
+#run the test
+chisq.test(o, p=p)
+#test statistic: 6.52
+##df: 3 ----- 4 proportions - 1 -- or 
+4-1 ##3
+#p-value is 0.08888 > .05
+```
+
+-   Note that p= is required here because it is not the second argument in the chisq.test() command.
+
+-   Step 3: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
+
+-   At alpha = .05, we do not reject $H_0$ and cannot conclude that the proportions differ from the ones a year ago.
+
+## Example Using an Imported Dataset
+
+-   The steps are same as the Chi-Squared Test of Independence.
+-   Step 1: Set up the Hypothesis:
+    -   $𝐻_0$: Each proportion equals a hypothesized value.
+    -   $𝐻_A$: Not all proportions equal their hypothesized values.
+-   Step 2: Compute the test statistic and calculate the probability.
+-   First, we import the stemGOF.csv data into a data frame (table) in R.
+-   Then, again, we use Rs chisq.test function to calculate the value of the test statistic and the p-value. Within the chisq.test function, we use the option p to indicate the location of the hypothesized proportions.
+
+```{r}
+STEMGOF <- read.csv("data/stemGOF.csv")
+STEMGOF
+chisq.test(STEMGOF$RecentNumbers,p=STEMGOF$X2010Proportions) 
+#Chi-squared test for given probabilities
+#data:  stemGOF$RecentNumbers
+#X-squared = 21.526, df = 5, p-value = 0.0006441
+##df: 6 options so 6-1 is 5
+#test statistic is back high: 21. 526
+
+```
+
+-   Step 3: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
+-   Since our p-value is 0.0006441, we reject $H_0$ and conclude that the proportions differ at the 5% significance level. In this case, that means that the recent stem numbers differ from the 2010 values.
+
+# Using AI
 
 -   Use the following prompts on a generative AI, like chatGPT, to learn more about probability and contingency tables.
+
+-   What is a contingency table, and how is it used to represent the relationship between two categorical variables in probability calculations?
+
+-   How do you calculate joint, marginal, and conditional probabilities using a contingency table, and what is the significance of each type of probability?
+
+-   Can you explain how the chi-squared test for independence works, and how it is used to determine whether two categorical variables are independent or dependent?
+
+-   What is the difference between the chi-squared test for independence and the chi-squared goodness of fit test, and how is each test applied?
+
+-   Once you calculate the chi-squared test statistic, how do you interpret the p-value to determine whether to reject or fail to reject the null hypothesis?
+
+-   Why are degrees of freedom important in a chi-squared test, and how do you calculate them for a contingency table?
+
+-   How do you set up and execute a chi-squared test using the chisq.test() function in R, and what are the key outputs to focus on when interpreting the results?
 
 -   What are the key characteristics of a probability distribution, and how do you determine whether a given set of values represents a valid probability distribution?
 
@@ -1099,13 +1611,12 @@ gridExtra::grid.arrange(cuberoot, logged, inversed, squareroot)
 
 -   How do you apply probability functions such as pnorm() and qnorm() in R to solve real-world problems, such as calculating the likelihood of events based on normal distributions?
 
-## Summary
+# Summary
 
 -   In this lesson, we learned about the basic rules of probability alongside the binomial distribution and continuous distribution. We learned about the normal distribution and the limitations of using that distribution. We also learned how to transform variables that were not normal.
 
 -   In a normal distribution, we used 3 main formulas with the pnorm() function. Each formula has a different role, but they all provide a way to assess variability relative to an average value, allowing for comparisons and inferences about the data or sample in question.
 
-```{=tex}
 \begin{array}{|c|c|c|c|}
 \hline
 \textbf{Context} & \textbf{Formula} & \textbf{Interpretation} & \textbf{pnorm Function Usage} \\
@@ -1117,4 +1628,8 @@ gridExtra::grid.arrange(cuberoot, logged, inversed, squareroot)
 \text{Standardizing a sample proportion} & \frac{\hat{p} - p}{\sqrt{\frac{p(1 - p)}{n}}} & \text{Used for hypothesis tests of proportions} & \text{pnorm}(\hat{p}, p, \sqrt{\frac{p(1 - p)}{n}}) \\
 \hline
 \end{array}
-```
+
+-   We also learned about contingency tables in regards to calculating probability with two categorical variables. We also computed the chi-squared statistics for the test of independence and the goodness of fit.
+-   We note that the "Goodness of fit" and "test of independence" are both chi-square tests, but they serve different purposes:
+-   Goodness of Fit test: *Purpose*: Assesses how well observed data match a specified distribution (often a theoretical or expected distribution). *Example*: Checking if the distribution of colors of M&M’s in a bag matches the expected company distribution (say, 30% blue, 20% red, etc.). *Null Hypothesis*: The observed frequencies match the expected frequencies.
+-   Test of Independence: *Purpose*: Determines whether there is a significant association between two categorical variables in a contingency table. *Example*: Evaluating if gender (male/female) is independent of preference for a type of product (e.g., A or B). *Null Hypothesis*: The two variables are independent (no association).

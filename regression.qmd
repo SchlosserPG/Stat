@@ -1,24 +1,15 @@
 ---
-title: "Linear Regression Analysis"
+title: "Regression"
 author: ""
 date: "2024-08-09"
-output: html_document
+format: html
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
 ```
 
--   The main goal of this section is to understand and conduct regression analysis interpret its results. In doing so, we will learn about the regression model and its components, including how to compute the slope and intercept for a simple linear regression, and the multiple slopes and intercept for a multiple linear regression. Finally, we will learn how to interpret the regression output from R.
-
-```{r tidy=FALSE}
-####################################
-# Project name: Linear Regression Analysis
-# Data used: Debt_Payments.csv, months.csv, GNP.csv, corolla.csv
-# Credit from ISLR library
-# Libraries used: tidyverse, ggplot2, ISLR, car
-####################################
-```
+-   The main goal of this lesson is to understand, conduct, and interpret both correlation and regression analyses. We will examine Pearson’s $r$ correlation coefficient and learn how to conduct and interpret an inferential statistical test using this common statistic. Additionally, we will explore regression models and their components, including computing the slope and intercept for simple linear regression and the multiple slopes and intercept for multiple linear regression. Finally, we will learn how to interpret the regression output from R, tying together these key analytical techniques.
 
 ### At a Glance
 
@@ -26,15 +17,245 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ### Lesson Objectives
 
+-   Compute and interpret Pearson’s r correlation coefficient.
+-   Conduct an inferential statistical test for Pearson’s r correlation coefficient.
 -   Explore the statistical model for a line.
 -   Compute the slope and intercept in a simple linear regression.
 -   Interpret a regression model significance and model fit.
 
 ### Consider While Reading
 
--   This lesson allows us to look at inference for correlation and inference for regression analysis. Where an ANOVA is mostly concerned about differences between means of categorical data, linear regression is mostly concerned about correctly estimating response or prediction while also forming a regression line. We will learn how to conduct a single and multiple linear regression test. This will close the loop on scatterplots, which we learned in the data visualization lesson to help us describe visually a relationship between variables. Consider what we learned and perhaps revisit the scatterplot lecture notes to then determine how visualizations can help in making inferences alongside regression and correlation results.
+-   In this lesson, we will focus on inference for correlation and regression analysis, learning how to conduct a correlation test as well as single and multiple linear regression tests. This builds on the scatterplots introduced in the Data Visualization lesson, which help us visually describe relationships between variables. By revisiting those concepts, we will explore how visualizations can aid in making inferences alongside regression and correlation results. Additionally, we will differentiate between ANOVA, which examines differences between means in categorical data, and linear regression, which focuses on estimating responses or predictions while forming a regression line.
 
-## The Linear Regression Model
+```{r}
+library(tidyverse)
+```
+
+# Correlation
+
+## Covariance
+
+-   Covariance ($s_{xy}$ or $cov_{xy}$) is a numerical measure that describes the direction of the linear relationship between two variables, x and y and reveals the direction of that linear relationship.
+-   The formula for covariance is as follows:
+    -   $cov_{xy} = \sum^n_{i=1}(x_i-m_x)*(y_i-m_y)/(n-1)$
+    -   Where $x_i$ and $y_i$ are the observed values for each observation, $m_x$ and $m_y$ are the mean values for each variable, $i$ represents an individual observation, and $n$ represents the sample size.
+
+```{r}
+
+x <- c(3, 8, 5, 2)
+y <- c(12, 14, 8, 4)
+
+devX <- x-mean(x)
+devY <- y-mean(y)
+
+covXY <- sum(devX * devY)/(length(x)-1); covXY
+
+#We can verify this by using cov() function in R.
+cov(x,y)
+```
+
+## Correlation Coefficient
+
+-   A correlation coefficient ($r_{xy}$) describes both the direction and strength of the relationship between $x$ and $y$. $r_{xy} = cov_{xy}/(s_x s_y)$ or using the standardized formula in the book:
+    -   $r_{xy} = \sum^n_{i=1}(z_x*z_y)/(n-1)$
+
+```{r}
+#Calculated manually
+covXY/(sd(x)*sd(y))
+
+#We can verify this by using cor() function in R.
+cor(x,y)
+
+```
+
+### Rules for the Correlation Coefficient
+
+-   The correlation coefficient has the same sign as the covariance; however, its value ranges between −1 and +1 whereas $-1 \le r_{xy} \le +1$.
+-   The absolute value of the coefficient reflects the strength of the correlation. So a correlation of −.70 is stronger than a correlation of +.50.
+
+![Correlation Coefficient](Pictures/Ch8/Correlation.png "Correlation Coefficient")
+
+## Interpreting the Direction of the Correlation
+
+-   Negative correlations occur when one variable goes up and the other goes down.
+-   No correlation happens when there is no discernible pattern in how two variables vary.
+-   Positive correlations occur when one variable goes up, and the other one also goes up (or when one goes down, the other one does too); both variables move together in the same direction.
+
+![Correlation Scatterplots](Pictures/Ch8/RelationshipScatter.png "Correlation Scatterplots")
+
+### Scatterplots to Visualize Relationship
+
+-   Let's do an example to first visualize the data, and then to calculate the correlation coefficient.
+
+-   First, read in a .csv called *DebtPayments.csv*. This data set has 26 observations and 4 variables:
+
+    -   A character variable with a bunch of metropolitan areas listed;
+    -   An integer numeric debt;
+    -   A numeric variable Income;
+    -   A numeric variable Unemployment.
+
+```{r}
+Debt_Payments <- read.csv("data/DebtPayments.csv")
+str(Debt_Payments)
+```
+
+-   Next, plot the relationship between 2 continuous variables.
+
+    -   There are a few ways to write the plot command using ggplot. We went over these in the Data Visualization lesson. Again we said:
+    -   Layer 1: ggplot() command with aes() command directly inside of it pointing to x and y variables.
+    -   Layer 2: geom_point() command to add the observations as indicators in the chart.
+    -   Layer 3 or more: many other optional additions like labs() command (for labels) or stat_smooth() command to generate a regression line.
+
+    ```{r, fig.alt="Scatterplot Using ggplot2 Generated by R"}
+    Debt_Payments %>% ggplot(aes(Income, Debt))+ 
+      geom_point(color="#183028", shape=2) + 
+      stat_smooth(method="lm", color="#789F90") + 
+      theme_minimal()
+    ```
+
+-   In the above plot, there is a strong positive relationship (upward trend) that should be confirmed with a correlation test.
+
+-   In a second example below, we look at Unemployment as the X variable. This scatterplot is much more difficult to use in determining whether the correlation will be significant. It looks negative, but there is not a strong linear trend to the data. This will also need to be confirmed with a correlation test.
+
+```{r, fig.alt="Scatterplot Using ggplot2 Generated by R"}
+Debt_Payments %>% ggplot(aes(Unemployment, Debt))+
+  geom_point(color="#183028", shape=2) + 
+  stat_smooth(method="lm", color="#789F90") + 
+  theme_minimal()
+```
+
+-   In many scatterplots using big data, the observations are too numerous to see a good relationship. In that case, the statistical test can trump this visual aid. However, in a lot of cases the scatterplot does help visualize the relationship between 2 continuous variables.
+
+### Interpreting the Strength of the Correlation
+
+-   Statisticians differ on what is called a strong correlation versus weak correlation, and it depends on the context. A .9 may be required for a strong correlation in one field, and a .5 in another. Generally speaking in business, the absolute value of a correlation .8 or above is considered strong, between .5 and .8 is considered moderate, and between .2 and .5 is considered weak.
+-   The following is consistent with what is most generally used:
+
+![Correlation Strength](Pictures/Ch8/CorrelationStrength.png "Correlation Strength")
+
+## Interpreting the Significance of the Correlation
+
+-   Correlation values should be tested alongside a p-value to confirm whether or not there is a correlation. The null is tested using a t-distribution specifically testing whether $r = 0$ or not, like the one-sample t-test section from the lesson 6.
+-   The null and alternative are listed below.
+    -   $H_0$: There is no relationship between the two variables ($r = 0$).
+    -   $H_A$: There is a relationship between the two variables ($r \neq 0$).
+-   Even small correlations can be significant: In large datasets, even a small correlation, like .1, can be statistically significant due to the increased power that comes with a high sample size. It's important to interpret both the strength of the correlation and its practical significance in context.
+
+#### Statistical significance answers the question: "Is the effect real?“
+
+-   Statistical Significance:
+
+-   A result is statistically significant if it is unlikely to have occurred by random chance, given a pre-defined threshold (usually p \< 0.05).
+
+-   With larger sample sizes, even very small effects can become statistically significant because larger samples reduce variability. For example, a correlation of 0.1 can be statistically significant with enough data.
+
+-   Practical Significance:
+
+-   Practical significance answers the question: "Is the effect meaningful?“
+
+-   Practical significance refers to the real-world importance or relevance of a result. It asks, "Does this effect matter in practice?“
+
+-   Even if a result is statistically significant, it may not be large enough to have a meaningful impact on business decisions or outcomes.
+
+### cor.test() Command
+
+-   The cor() command gives you just the correlation coefficient. This command can be useful if you are testing many correlations at one time. In the below statement, I can use $cor(Variable1, Variable2)$ to see the correlation between 2 continuous variables.
+
+```{r}
+cor(Debt_Payments$Income, Debt_Payments$Debt) 
+```
+
+-   The cor.test() command tests the hypothesis whether $r=0$ or not. This command comes with a p-value and t-test statistic (along with the correlation coefficient).
+
+```{r}
+cor.test(Debt_Payments$Income, Debt_Payments$Debt)
+```
+
+-   This test shows a strong positive correlation of .8675 (\>.8) which is significant. Our p-value is 9.66e-09 or \< .001 alpha level. This suggests that we reject the null hypothesis and support the alternative that $r \neq 0$ which confirms a correlation is present.
+-   We also see a confidence interval listed. It suggests that we are 95% confident that the correlation is between .723 and .939.
+
+```{r}
+cor.test(Debt_Payments$Income, Debt_Payments$Unemployment)
+```
+
+-   This test shows a moderate negative correlation of -.534 (between .5 and .8 in absolute value), which is significant. Our p-value is 0.004928 or \< .01 alpha level. This suggests that we reject the null hypothesis and support the alternative that $r \neq 0$ which confirms a correlation is present.
+-   We also see a confidence interval listed. It suggests that we are 95% confident that the correlation is between -.765 and -.185. This confidence interval is wider than the one listed above. This is due to the noise in the relationship we noted in the scatterplot - the correlation is weaker, the relationship does not look as linear, the confidence decreases. Even though this is true, we must note that we still found a significant correlation.
+
+## Additional Examples
+
+```{r}
+library(ISLR)
+data("Credit")
+summary(Credit)
+
+attach(Credit)
+
+cor.test(Rating, Income) #0.7913776 moderate and positive
+
+cor.test(Rating, Balance) #0.8636252 strong and positive
+
+cor.test(Rating, Limit) #0.9968797 strong and positive
+##almost perfectly linear 
+ggplot(Credit, aes(Rating, Limit))+geom_point()
+
+cor.test(Rating, Education) #-0.03013563 no correlation
+
+cor.test(Rating, Age) #0.103165 - between -.2 and .2 - so no relationship even though p-value < .05 -- p-value fails at .01 level. 
+ggplot(Credit, aes(Rating, Age))+geom_point()+stat_smooth(method="lm")
+
+
+cor.test(Rating, Cards) #0.05323903 
+ggplot(Credit, aes(Rating, Cards))+geom_point()+stat_smooth(method="lm")
+
+
+
+```
+
+## Comparing to t.test and ANOVA
+
+-   A t-test examines if there is a significant difference in the means of two groups on a dependent variable. For example, whether males and females differ in their credit ratings, where a correlation measures the strength and direction of a linear relationship between two continuous variables, such as Rating and Income.
+-   An independent t-test requires a categorical independent variable (e.g., Gender) with two levels and a continuous dependent variable (e.g., Rating), where a correlation requires two continuous variables.
+-   Both can provide insights into relationships in the dataset, but they address different questions. An independent t-test evaluates mean differences (group comparisons), while correlation evaluates relationships (continuous covariation). \* A significant t-test does not imply a strong correlation between the grouping variable and the dependent variable; the correlation would depend on the coding of the categorical variable and the distribution of data
+
+```{r}
+## -- Example of an independent t.test using same dataset
+t.test(Rating~Gender, data=Credit) ##no group differences
+ggplot(Credit, aes(Gender, Rating)) + geom_boxplot()
+
+t.test(Rating~Married, data=Credit)##no group differences
+ggplot(Credit, aes(Married, Rating)) + geom_boxplot()
+
+
+```
+
+-   An ANOVA tests for significant differences in the means of three or more groups on a dependent variable. For example, whether credit ratings differ across ethnic groups, where a correlation examines the strength of the relationship between two continuous variables.
+-   An Anova requires a categorical independent variable (with three or more levels) and a continuous dependent variable, where a correlation requires two continuous variables.
+-   ANOVA focuses on group comparisons (e.g., Rating differences across Ethnicity), while correlation looks at how two variables change together.A significant ANOVA could suggest that the categorical grouping variable explains some variance in the dependent variable, but this variance is not quantified as a relationship strength (as correlation would provide).
+
+```{r}
+## -- Example of An ANOVA using same dataset
+anova1 <- aov(Rating~Ethnicity, data=Credit)
+anova(anova1) #no group differences - no need for a post hoc test. 
+ggplot(Credit, aes(Ethnicity, Rating, fill=Ethnicity)) + geom_boxplot(show.legend=FALSE)
+```
+
+## Limitations of Correlation Analysis
+
+-   Note that a correlation is the first step in understanding causality. Correlation and causality are closely related but fundamentally different concepts in data analysis. Correlation refers to the statistical relationship between two variables, indicating how changes in one variable are associated with changes in another. However, it does not imply that one variable causes the other to change. Causality, on the other hand, goes beyond mere association to establish a cause-and-effect relationship, where one variable directly influences the other. Determining causality requires meeting specific criteria, including significant association, temporal precedence (the cause precedes the effect), and ruling out alternative explanations or confounding variables. While correlation is often the first step in exploring potential relationships, additional analysis—such as experimental design or causal modeling—is necessary to confirm causality. This distinction highlights the importance of critical thinking when interpreting statistical results, as a strong correlation alone does not prove that one variable is the cause of another.
+
+-   To determine a causal model, you need the following:
+
+1.  Significant Correlation: Statistically significant relationship between the variables.
+2.  Temporal Precedence: Causal variable occurred prior to the other variable.
+3.  Eliminate Alternate Variables: No other factors can account for the cause.
+
+-   Some limitations are as follows:
+    -   The correlation coefficient captures only a linear relationship.
+    -   The correlation coefficient may not be a reliable measure in the presence of outliers.
+    -   Even if two variables are highly correlated, one does not necessarily cause the other.
+-   When interpreting results, note that lack of significance does not mean a variable X has no relationship with Y; it might suggest a more complex or non-linear relationship.
+
+# The Linear Regression Model
 
 ### Overview of the Linear Regression
 
@@ -45,7 +266,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
     -   Response variable: The variable we wish to explain, usually denoted by Y. Also known as a dependent variable or outcome variable.
 -   Multiple linear regression involves two or more *explanatory* variables, while still only one *response* variable.
 
-# Examples of Independent and Dependent Variables
+### Examples of Independent and Dependent Variables
 
 -   Example Question: Does increasing the marketing budget lead to higher sales revenue?
     -   Independent Variable: Marketing budget (how much money is spent on advertising and promotions).
@@ -80,7 +301,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ![Linear Regression Models](Pictures/Ch9/LinearReg.png "Linear Regression Models")
 
-### The Simple Linear Regression Model
+# The Simple Linear Regression Model
 
 -   The simple linear regression model is defined as $y= \beta_0+\beta_1 𝑥+\varepsilon_1$, where $y$ and $x$ are the response and explanatory variables, respectively and $\varepsilon_1$ is the random error term. $\beta_0$ and $\beta_1$ are the unknown parameters to be estimated.
 -   By fitting our data to the model, we obtain the equation $\hat{y} = b_0 + b_1*x$, where $\hat{y}$ is the estimated response variable, $b_0$ is the estimate of $\beta_0$ (Intercept) and $b_1$ is the estimate of $\beta_1$ (Slope).
@@ -169,7 +390,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 -   The Adjusted Coefficient of Determination, denoted as Adjusted $R^2$ modifies $R^2$ to account for the number of predictors in the model relative to the number of data points. It is calculated as Adjusted $R^2 = 1-(1-R^2)*((n-1)/(n-k-1))$, where where n is the sample size and p is the number of predictors.
 
--   In simple linear regression, $R^2$ is generally more appropriate than Adjusted $R^2$ because there is only one predictor variable in the model.
+-   In simple linear regression, $R^2$ and Adjusted $R^2$ will be very similar since there is only one predictor variable. The Adjusted $R^2$ becomes more important in multiple regression, where adding more predictors can artificially inflate $R^2$.
 
 -   The Adjusted $R^2$ tries to balance the raw explanatory power against the desire to include only important predictors.
 
@@ -183,7 +404,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 
 ### Example of Simple Linear Regression in R
 
--   The broad steps are the same as we used in Chapter 6 and 7 when setting up the t-tests and ANOVA hypothesis: 1. set up the hypothesis 2. compute the Test Statistic and calculate probability 3. interpret results and write a conclusion.
+-   The broad steps are the same as we used in the hypothesis testing and ANOVA modules: 1. Set up the hypothesis. 2. Compute the test statistic and calculate probability. 3. Interpret results and write a conclusion.
 
 -   Step 1: Set Up the Null and Alternative Hypothesis
 
@@ -225,7 +446,14 @@ summary(Simple)
 
 -   We do not really see a difference in $R^2$ and the Adjusted $R^2$ because we only have a simple linear regression, which includes one X. The other thing that could create a difference between these measures is having a small sample size. A small sample size could adjust the $R^2$ down (like it did a little here $n=28$). In both cases, a score around .75 indicates that we are explaining about 75% of the variance in Debt Payments, which is specifically stated as 75.26% in the $R^2$ value.
 
--   The Standard Error of Estimate - known in R as the RSE or Residual Standard Error at 63.26. Before we interpret this, we need to know the scale, and income is in 1000s. Therefore, for every 1000 dollars difference in Income we could be off on our debt payments by 63.26 dollars.
+-   The Standard Error of Estimate - known in R as the RSE or Residual Standard Error at 63.26.
+
+-   The RSE represents the average amount by which the observed values deviate from the predicted values
+
+-   The RSE has the same units as the dependent variable y, making it directly interpretable in the context of the problem.
+
+    -   The scale of income is in 1000s.
+    -   Therefore, for every 1000 dollars difference in Income we could be off on our debt payments by 63.26 dollars.
 
 -   Again, most statisticians interpret the $R^2$ and the adjusted $R^2$ over the RSE.
 
@@ -266,7 +494,9 @@ coef(Simple)
 predict(Simple, data.frame(Income=100))
 ```
 
-## Multiple Regression
+# Multiple Regression
+
+-   A key advantage of multiple regression over simple regression is that it allows us to *control* for other variables. When we include multiple predictors, each coefficient reflects the unique contribution of that variable *while holding all others constant*. This makes our model more realistic and our estimates more accurate — but it also means we need to be careful about which variables we include, since adding unnecessary predictors can introduce noise and obscure the relationships we care about.
 
 -   Multiple regression allows us to explore how several *explanatory* variables influence the *response* variable.
 
@@ -278,7 +508,7 @@ predict(Simple, data.frame(Income=100))
     -   $x_1, ⋯, x_k$ are independent explanatory variables,
     -   $\beta_0$ is the intercept term,
     -   $\beta_1 ⋯, \beta_k$ are the regression coefficients for the independent variables,
-    -   $varepsilon$ is the random error term
+    -   $\varepsilon$ is the random error term
 
 -   We estimate the regression coefficients—called partial regression coefficients — $b_0, b_1, b_2,… b_k$, then use the model: $\hat{y} = b_0 + b_1x_1 + b_2x_2 + \ ... + b_kx_k$ .
 
@@ -430,13 +660,307 @@ vif(creditlm)
 -   While statisticians differ on what constitutes, the general consensus is that scores need to be under 5 or 10.
 -   Both scores are under 10, so we do have an absence of multicollinerity in our final model.
     -   VIF = 1: No correlation between the predictor and the other predictors.
-    -   1 \< VIF \< 5: Moderate correlation but not severe enough to require correction.
-    -   5 \< VIF \< 10: High correlation, indicating potential multicollinearity problems.
-    -   VIF \>= 10: High correlation, indicating multicollinearity problems.
+    -   1 \< VIF \< 5: Moderate correlation but not severe enough to require correction. Scores less than 5 pass assumption.
+    -   5 \< VIF \< 10: High correlation, indicating potential multicollinearity problems. We keep an eye on this issue, but pass the assumption.
+    -   VIF \>= 10: High correlation, indicating multicollinearity problems. Fail assumption.
 
-## Using AI
+######################################### 
+
+# Regression with Categorical Variables
+
+-   Simple and multiple regression both require a continuous dependent variable (y). However, the predictor variables (x) can be categorical or continuous. If you were to have a y/x pairing with a continuous y and a categorical x, you might as well choose to run an ANOVA from the last module or a t-test if there are only 2 categories. However, if you have a more complex model, or need to try a variety of models, multiple regression allows for you to seamlessly add and delete predictor variables (both categorical and continuous).
+
+-   We often have categorical predictors in modeling settings. And it might not make sense to think about a "one unit increase" in a categorical variable. In regression settings, we can account for categorical variables by creating dummy variables, which are indicator variables for certain conditions happening. When considering categorical variables, one variable is taken to be the baseline or reference value. All other categories will be compared to it.
+
+-   Regression analysis requires numerical data.
+
+-   Ordinal variables can be represented by a number in one column when there is even distance between the categories.
+
+    -   From strongly disagree to disagree to N/A to agree to strongly agree. Each 1 unit change considers the same distance between points.
+    -   A weighted scale would go from strongly disagree to neither to agree to strongly agree to agree all the time.
+    -   Need to manually code these and coerce into a number.
+    -   Some ordinal variables need to use dummy coding in R (i.e., Seasonality). Need to always check rationale before blindly recoding to numbers, or using numbers that were provided.
+
+-   Nominal categorical data can be included as independent variables, but must be coded numeric using dummy variables.
+
+    -   R will create the dummy variables automatically in a regression using the lm() command.
+    -   For variables with 2 categories, code as 0 and 1.
+
+## Dummy Variables with More than 2 Categories
+
+-   Like in an ANOVA test, a categorical variable may be defined by more than two categories.
+-   Use multiple dummy variables to capture all categories, one for each category.
+-   When a categorical variable has k \> 2 levels, we need to add k − 1 additional variables to the model.
+-   Given the intercept term, we exclude one of the dummy variables from the regression.
+    -   The excluded variable represents the reference category.
+    -   Including all dummy variables creates perfect multicollinearity (which is an assumption discussed in your textbook).
+-   Example: mode of transportation with three categories
+    -   Public transportation, driving alone, or car pooling
+        -   $d_1=1$ for public transportation and 0 otherwise
+        -   $d_2=1$ for driving alone and 0 otherwise
+        -   $d_1=d_2=0$ indicates car pooling
+-   Slope estimates of categorical data cannot be evaluated the same way. In the example below, since Gender is nominal, and because we are using regression, we should use dummy variables to process this factor in the regression instead of the method above. We can use this technique for ordinal variables to recode them into numeric. Again, R does this coding on our behalf using the lm() command.
+
+```{r}
+# Take a vector representing gender 
+gender <- c("MALE","FEMALE","FEMALE","UNKNOWN","MALE")
+# One way is to convert the data into numerical in the column using ifelse statements. 
+ifelse(gender == "MALE", 1, ifelse(gender == "FEMALE", 2, 99))
+```
+
+## Example Using Dummy Variables
+
+-   Suppose that we are forecasting and we want to account for the month as a predictor.
+-   Then the following dummy variables can be created the following way:
+
+```{r}
+sales <- read.csv("data/months.csv", stringsAsFactors = TRUE)
+str(sales)
+```
+
+```{r message=FALSE}
+library(tidyverse)
+```
+
+```{r, fig.alt="Boxplot of Sales Data Generated by R"}
+ggplot(sales, aes(x=Month, y=Units))+geom_boxplot() 
+```
+
+-   I produced a boxplot of the monthly data across units above. April (Apr) is the first month listed (not Jan for January). It alphabetizes it from there from left to right.
+-   Looking at the lm() command summary below, the hypotheses take on the format VariableCategory. So MonthAug corresponds to the Month variable with the Aug category, representing August. You will notice that there is no MonthApr listed. It is considered the referent category and held in the intercept.
+-   The interpretation of each of the coefficients associated with the dummy variables is that it is a measure of the effect of that category relative to the omitted or referent category.
+-   In the example to the left, the intercept coefficient is associated with April, so MonthAug measures the effect of August on the forecast variable (Units) compared to the effect of April.
+    -   Since the data represents the difference in Units sold in months, we can interpret the predicted units sold for April as 49,580.8.
+    -   August was significantly different than April because there is a p-value less than .05. Specifically, we can expect about 7701.6 more units to be sold in August over April. December, January, June, and November also had significantly different Units sold.
+    -   February, July, March, May, October, and September are not different than April because the p-value is \> .05.
+-   Never try to remove a categorical variable that is not significant because it means something else - that the category is not different than the referent category. More on this later.
+
+```{r}
+#Suppose that we are forecasting daily data and we want to account for the month as a predictor. 
+##Then the following dummy variables can be created.
+lmSales<-lm(Units~Month, data=sales)
+summary(lmSales)
+# The Intercept absorbs the referent category and so in this case, April is alphabetically first and the referent category.  
+```
+
+-   We can reset the levels by using the factor() command. Shown below, I reset the levels of the month in order from month 1 (Jan) to month 12 (Dec). This puts "Jan" in the referent category when we rerun the regression. This allows us to compare Jan to other months and to specifically, test what months are different from Jan (+ increase in sales from Jan, - a decrease in sales from Jan).
+-   For example, March has 10612 more unit sales than Jan. If not significant, like MonthFeb, then you can interpret as not significantly different than the 42K in Jan.
+
+```{r}
+sales$Month<-factor(sales$Month,levels=c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"))
+ggplot(sales, aes(x=Month, y=Units))+geom_boxplot() 
+lmSales<-lm(Units~Month, data=sales)
+summary(lmSales)
+# The interpretation of each of the coefficients associated with the dummy variables is that it is a measure of the effect of that category relative to the omitted category. In the example to the left, the intercept coefficient is associated with January, so MonthFeb measures the effect of Feb on the forecast variable (Units) compared to the effect of Jan. 
+```
+
+## Example Using a Continuous and Categorical Variable
+
+-   Let's do an example with the GNP.csv data set to use GNP and quarterly data to predict Sales (in millions)
+
+```{r, fig.alt="Boxplot of GNP variable Generated by R"}
+GNP<-read.csv("data/GNP.csv")
+str(GNP)
+
+# #1, 2, 3, 4 represent the quarter and we want that data as categorical
+ GNP$Quarter<-as.factor(GNP$Quarter) 
+
+# #Evaluate Quarterly data of GNP in a boxplot. 
+GNP %>% 
+  ggplot(aes(x=Quarter, y=Sales))+geom_boxplot() 
+
+# Run the linear regression considering GNP and Quarterly data
+lmGNP<-lm(Sales~GNP+Quarter, data=GNP)
+summary(lmGNP)
+
+# Estimate y, where y and x are Sales and GNP, and 2 is a quarter 2 dummy, 3 is a Quarter 3 dummy, and 4 is a Quarter 4 dummy.
+
+# All else equal, retail sales in quarter 1 are expected to be approximately $108,765 million less than sales in quarter 4.
+
+# What are the predicted sales in quarter 2 if GNP is $18,000 (in billions)?
+Quarter2<-18000
+coef(lmGNP)
+#Using the equation
+-61669.57208 + 65.05476 * Quarter2 + 78278.963
+
+#When you use the predict() command with a categorical variable, you need to include the predictors with what they equal as shown below. I pulled out the data.frame() command into a new variable named nd to simplify our predict() command later on.  
+nd <- data.frame(GNP=18000, Quarter="2")
+predict(lmGNP, nd)
+
+# You can write the above 2 lines like shown below for the same answer.  
+predict(lmGNP, data.frame(GNP=18000, Quarter="2"))
+```
+
+-   While you technically can keep adding categorical variables, you must be careful not to add too many because the intercept becomes increasingly difficult to interpret!
+
+## Coffee Example
+
+### Visualizing
+
+-   Let's try a bigger example with the coffee dataset.
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+coffee <- read.csv("data/coffee.csv", stringsAsFactors = TRUE)
+str(coffee)
+```
+
+-   Sometimes, we are only interested in 2 or 3 category values. In the following example, I am filtering by Processing Method and creating a ggplot only holding the methods of interest to me.
+
+```{r}
+coffee %>%
+     filter(Processing.Method == "Natural / Dry" | Processing.Method=="Washed / Wet"| Processing.Method=="Other") %>%
+     ggplot(aes(x=Processing.Method, y=TotalScore))+geom_boxplot(color=rainbow(3))
+```
+
+-   Does not look like large group differences, good indication into what we will find.
+-   In the next visualization, lets add in a scatterplot to show the difference between 2 continuous variables (Flavor and TotalScore) using Processing Method method as the color.
+
+```{r}
+coffee %>%
+     filter(Processing.Method == "Natural / Dry" | Processing.Method=="Washed / Wet"| Processing.Method=="Other") %>%
+     ggplot(aes(x=Flavor, y=TotalScore, color=Processing.Method)) + geom_point(aes(fill=Processing.Method))
+```
+
+-   In the chart above, flavor almost looks like a perfect predictor, strong and positive.
+
+### 2 Categories
+
+-   Suppose there are only 2 processing methods for coffee beans: Wet/Washed and Natural/Dry.\
+    R takes Natural/Dry as the referent category value. Then we can create one dummy variable. A Dummy Variable is then assigned as either a 0 or 1. Let's save the filtering of 2 methods into a new smaller dataset first and then running the lm model.
+
+```{r}
+coffee2cat <- filter(coffee, Processing.Method == "Natural / Dry" | Processing.Method=="Washed / Wet")
+head(coffee2cat$Processing.Method)
+```
+
+-   Next, lets run a lm model using the newly filtered data.
+
+```{r}
+lmModel <- lm(TotalScore~Processing.Method, data=coffee2cat)   
+summary(lmModel)
+```
+
+-   We can make a prediction of Washed/Wet.
+
+```{r}
+predict(lmModel, data.frame(Processing.Method="Washed / Wet"))
+coef(lmModel)
+82.3541 - 0.3895
+```
+
+### Using More Than 2 Categories
+
+-   A categorical variable may be defined by more than two categories.
+
+-   Like mentioned above, we use multiple dummy variables to capture all categories, one for each category.
+
+-   When a categorical variable has k \> 2 levels, we need to add k − 1 additional variables to the model.
+
+-   Given the intercept term, we exclude one of the dummy variables from the regression.
+
+-   The excluded variable represents the reference category. Example: Processing.Time Filtering by 3 categories: "Natural / Dry" "Washed / Wet“ or Other") $d_1=1$ for Other and 0 otherwise $d_2=1$ for Washed/Wet and 0 otherwise $d_1=d_2=0$ indicates Natural/Dry referent category
+
+-   $Score_i=β_0+β_1(I(Other)_i)+β_2(I(Wet)_i)+ϵ_I$ $β_0$ represents the expected score for a coffee with 0 for the two dummy variables. That is, if it was a dry process coffee $β_1$ represents the expected difference in score for coffee with an Other roasting process, compared to the baseline level (dry process) $β_2$ represents the expected difference in score for Washed/Wet process coffee compared to dry process coffee. We have to estimate multiple "slopes" for this one variable - one corresponding to each non-reference level.
+
+-   We can refilter the data to include the third category value.
+
+```{r}
+coffee3cat <- filter(coffee, Processing.Method == "Natural / Dry" | Processing.Method=="Washed / Wet"| Processing.Method=="Other")
+head(coffee3cat)
+```
+
+-   We can make our new model object with the lm function.
+
+```{r}
+lmModel2 <- lm(TotalScore~Processing.Method, data=coffee3cat)   
+summary(lmModel2)
+```
+
+-   The overall model is not significant here, but one group still shows differences. Means poor predictor, but that there are still group differences (even if small) between Washed/Wet and Natural/Dry
+-   Finally, we can make our new prediction of what the score would be in the Processing.Method was Other.
+
+```{r}
+predict(lmModel2, data.frame(Processing.Method="Other"))
+coef(lmModel2)
+82.3541434 -1.0756819 
+```
+
+## Adding in a Numerical Variable
+
+-   We can add in another variable like Flavor. Flavor is a much stronger predictor.
+
+```{r}
+lmModel3 <- lm(TotalScore~Flavor + Processing.Method, data=coffee3cat)   
+summary(lmModel3)
+```
+
+```{r}
+predict(lmModel3, data.frame(Flavor=10,Processing.Method="Other" ))
+coef(lmModel3)
+31.4116160 + 6.7151441 * 10 + -0.1274019 
+```
+
+-   After adjusting for aroma, and flavor, is there sufficient evidence to suggest a difference in mean score between dry vs. wet process beans? Explain, using a formal hypothesis test. \$H_0: Processing.Method\_{Washed / Wet} = Processing.Method\_{Dry} \$ \$H_A: Processing.Method\_{Washed / Wet}\neq Processing.Method\_{Dry} \$
+
+```{r}
+lmModel4 <- lm(TotalScore~Aroma + Flavor + Processing.Method, data=coffee2cat)   
+summary(lmModel4)
+```
+
+-   We find evidence that there is a difference between Washed/Wet processed coffee beans and dry processed beans as evident by the significant p-value \< .05.
+
+-   Adjusting for aroma, flavor, and process, which country has the highest expected score? The lowest?
+
+```{r}
+##calculate the predicted scores in the dataset
+predicted_scores <- predict(lmModel4, newdata = coffee2cat)
+
+# Create a new dataframe with Country and predicted scores
+predicted_data <- data.frame(Country = coffee2cat$Country, Predicted_Score = predicted_scores)
+
+# Find the country with the highest expected score
+highest_expected_score <- filter(predicted_data, Predicted_Score == max(Predicted_Score)); highest_expected_score
+
+# Find the country with the lowest expected score
+lowest_expected_score <- 
+  filter(predicted_data, Predicted_Score == min(Predicted_Score)); lowest_expected_score
+```
+
+-   We find that Ethiopia has the highest predicted score and Guatemala has the lowest predicted score based on Aroma, Flavor, and Processing Method.
+
+-   What percentage of the variability in the total score is explained by a linear relationship with the predictors in your model?
+
+```{r}
+library(broom)
+glance(lmModel4)
+```
+
+-   We can look at the R-squared value of .693 and adjusted R-squared value of .692 and state that about 69% of the variable in total score is explained by a linear relationship with the predictors in our model.
+
+# Using AI
 
 -   Use the following prompts on a generative AI, like chatGPT, to learn more about regression analysis in R.
+
+-   Explain the difference between covariance and correlation. How do you interpret the direction and strength of a correlation coefficient?"
+
+-   What is covariance, and how does it describe the relationship between two variables? Provide an example with a simple dataset. Describe Pearson’s correlation coefficient. How do you calculate it, and what does it tell you about the relationship between two variables?
+
+-   Explain how to create a scatterplot using ggplot2 in R to visualize the relationship between two continuous variables. How can you add a regression line to assess the linearity of the relationship?
+
+-   How can you use the cor.test() function in R to conduct a hypothesis test for correlation? What do the p-value and confidence interval indicate in the context of correlation?
+
+-   How do you interpret the strength and direction of a correlation? What is considered a strong, moderate, or weak correlation in the context of business data?
+
+-   Explain the null and alternative hypotheses for correlation testing. How does the t-distribution play a role in testing the significance of a correlation coefficient?
+
+-   What are some challenges of visualizing relationships between variables when dealing with big data, and how can statistical tests help when scatterplots are not effective?
+
+-   Discuss the limitations of correlation analysis. Why is it important to be cautious when interpreting correlation as causation?
+
+-   What are the key differences between correlation and causation? How can you determine if a correlation implies causality?
 
 -   Explain how to perform simple linear regression in R. Use the lm() function and discuss how to interpret the slope, intercept, and R-squared values from the regression output.
 
@@ -456,6 +980,6 @@ vif(creditlm)
 
 -   Describe how to use the p-value method for variable selection in multiple regression. How do you iteratively remove insignificant predictors while monitoring the R-squared and adjusted R-squared values?
 
-## Summary
+# Summary
 
--   In this lesson, we learned how to write and interpret the simple linear regression model and the multiple linear regression model. We learned about goodness of fit measures and how to test hypotheses using regression by interpreting the summary output from the lm() command. Finally, we learned how to use regression with both continuous and categorical variables as predictor variables.
+-   In this lesson, we explored the correlation coefficient, learning how to evaluate the strength and direction of a correlation (strong, moderate, weak; positive or negative) and how to visualize relationships using scatterplots. We also learned to test whether a correlation is statistically significant. Additionally, we delved into simple and multiple linear regression models, understanding how to write and interpret these models, assess goodness-of-fit measures, and test hypotheses by interpreting the summary output from the lm() command. Finally, we examined how regression can incorporate both continuous and categorical predictor variables.
