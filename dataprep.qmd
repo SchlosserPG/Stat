@@ -166,65 +166,6 @@ gss.2016$age <- as.numeric(gss.2016$age)
 summary(gss.2016) #Conduct final check confirming correct data types
 ```
 
-## Data Types and Coercion Lab
-
-**1.** What R function would you use to check the data type of a column? Write the command to check the type of the `Age` column in a dataset called `survey`.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-class(survey$Age)
-```
-:::
-
-**2.** A dataset has a `Rating` column stored as character with values `"1"`, `"2"`, `"3"`. Write the code to convert it to numeric.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-survey$Rating <- as.numeric(survey$Rating)
-class(survey$Rating)  # confirm: "numeric"
-```
-:::
-
-**3.** An instructor evaluation column contains `"excellent"`, `"good"`, `"fair"`, `"poor"`. Write a `mutate()` pipeline using `recode()` to convert these to 4, 3, 2, 1 respectively and store them as integers.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-library(tidyverse)
-survey <- survey %>%
-  mutate(Rating = recode(Rating,
-    "excellent" = 4L,
-    "good"      = 3L,
-    "fair"      = 2L,
-    "poor"      = 1L))
-```
-:::
-
-**4.** Load `dataprep.csv` as `houseprices`. The `BuildDay` column contains dates stored as character strings (e.g., `"1986-08"`). Use the `lubridate` package to convert it to a proper date type, then confirm the conversion with `class()`.
-
-``` r
-# Your code here
-```
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-library(lubridate)
-houseprices <- read.csv("data/dataprep.csv")
-houseprices$BuildDay <- ym(houseprices$BuildDay)  # "1986-08" is year-month format
-class(houseprices$BuildDay)  # "Date"
-head(houseprices$BuildDay)
-```
-
-`ym()` parses year-month formatted strings. After conversion, `BuildDay` is a proper `Date` column that R can sort, filter, and compute differences on correctly.
-:::
-
 # Common dplyr Functions
 
 ## Arrange
@@ -673,110 +614,7 @@ arranged_data <-  arrange(iris, Sepal.Length)
 mutated_data <- mutate(iris, Petal.Width_Log = log(Petal.Width))
 ```
 
-## Using dplyr Lab
 
-Use the `dataprep.csv` dataset loaded as `houseprices`.
-
-``` r
-houseprices <- read.csv("data/dataprep.csv")
-```
-
-**1.** Filter the dataset to show only houses with 5 or more bedrooms. Save the result as `filtered` and count the observations.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-filtered <- filter(houseprices, Beds >= 5)
-nrow(filtered)  # 9 houses
-```
-
-9 houses have 5 or more bedrooms.
-:::
-
-**2.** Arrange the full dataset by `Price` in descending order. Save as `ArrangedData` and print the head. What is the highest price?
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-ArrangedData <- arrange(houseprices, desc(Price))
-head(ArrangedData)
-```
-
-The highest price is **\$840,000** — it will appear in the first row.
-:::
-
-**3.** Using a single pipeline, filter to houses with at least 3 bedrooms, select only `Price`, `Beds`, and `Sqft`, and arrange by `Price` descending.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-houseprices %>%
-  filter(Beds >= 3) %>%
-  select(Price, Beds, Sqft) %>%
-  arrange(desc(Price))
-```
-:::
-
-Continue using `houseprices`.
-
-**1.** Create a new categorical variable called `HouseSizeCategory` using `case_when()`: - Small: Sqft \< 2000 - Medium: Sqft between 2000 and 3000 (inclusive) - Large: Sqft \> 3000
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-houseprices <- houseprices %>%
-  mutate(HouseSizeCategory = case_when(
-    Sqft < 2000             ~ "Small",
-    Sqft >= 2000 & Sqft <= 3000 ~ "Medium",
-    Sqft > 3000             ~ "Large"
-  ))
-```
-:::
-
-**2.** Calculate the frequency of each `HouseSizeCategory` using `table()`. List the count for each category.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-table(houseprices$HouseSizeCategory)
-```
-
-Large: 14 \| Medium: 25 \| Small: 40
-:::
-
-**3.** Calculate the average `Price` and average `Sqft` grouped by `HouseSizeCategory`. Fill in the table below with your results.
-
-``` r
-# Your code here
-```
-
-| HouseSizeCategory | avg_price | avg_sqft |
-|-------------------|-----------|----------|
-| Large             |           |          |
-| Medium            |           |          |
-| Small             |           |          |
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-houseprices %>%
-  group_by(HouseSizeCategory) %>%
-  summarise(avg_price = mean(Price, na.rm = TRUE),
-            avg_sqft  = mean(Sqft,  na.rm = TRUE))
-```
-
-| HouseSizeCategory | avg_price | avg_sqft    |
-|-------------------|-----------|-------------|
-| Large             | \$574,786 | 3,370 sq ft |
-| Medium            | \$596,696 | 2,488 sq ft |
-| Small             | \$457,568 | 1,505 sq ft |
-:::
 
 # Advanced Visualization
 
@@ -1279,6 +1117,190 @@ kurtosis(brfss.cleaned$PHYSHLTH)
 -   The skew results provide a z of 607.905 (6.079054e+02) which is much higher than 7 (for large datasets). This indicates a clear right skew which means the data is not normally distributed.
 -   The kurtosis results are also very leptokurtic with a score of 478.063.
 
+# Review and Practice
+
+## Using AI
+
+Use the following prompts with a generative AI tool like ChatGPT to explore data visualization with `ggplot2` further.
+
+-   How can I modify the appearance of a ggplot bar chart to include custom colors for each bar, and what are the best practices for choosing colors in data visualization?
+
+-   What is the role of layering in ggplot, and how can adding multiple layers, such as labels, themes, and lines, improve the readability of a plot?
+
+-   When should a density plot be used instead of a histogram, and how does each visualization help in understanding the distribution of continuous data?
+
+-   How can I use a boxplot in R to identify and visualize outliers in my dataset, and what additional steps should I take to handle these outliers?
+
+-   How can I create a scatter plot in ggplot to explore relationships between two continuous variables, and how do I add a trendline to help interpret the results?
+
+-   What are the steps for creating a grouped bar chart in ggplot, and how does this visualization help in comparing multiple categories or groups within a dataset?
+
+## Data Types and Coercion Lab
+
+**1.** What R function would you use to check the data type of a column? Write the command to check the type of the `Age` column in a dataset called `survey`.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+class(survey$Age)
+```
+:::
+
+**2.** A dataset has a `Rating` column stored as character with values `"1"`, `"2"`, `"3"`. Write the code to convert it to numeric.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+survey$Rating <- as.numeric(survey$Rating)
+class(survey$Rating)  # confirm: "numeric"
+```
+:::
+
+**3.** An instructor evaluation column contains `"excellent"`, `"good"`, `"fair"`, `"poor"`. Write a `mutate()` pipeline using `recode()` to convert these to 4, 3, 2, 1 respectively and store them as integers.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+library(tidyverse)
+survey <- survey %>%
+  mutate(Rating = recode(Rating,
+    "excellent" = 4L,
+    "good"      = 3L,
+    "fair"      = 2L,
+    "poor"      = 1L))
+```
+:::
+
+**4.** Load `dataprep.csv` as `houseprices`. The `BuildDay` column contains dates stored as character strings (e.g., `"1986-08"`). Use the `lubridate` package to convert it to a proper date type, then confirm the conversion with `class()`.
+
+``` r
+# Your code here
+```
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+library(lubridate)
+houseprices <- read.csv("data/dataprep.csv")
+houseprices$BuildDay <- ym(houseprices$BuildDay)  # "1986-08" is year-month format
+class(houseprices$BuildDay)  # "Date"
+head(houseprices$BuildDay)
+```
+
+`ym()` parses year-month formatted strings. After conversion, `BuildDay` is a proper `Date` column that R can sort, filter, and compute differences on correctly.
+:::
+
+## Using dplyr Lab
+
+Use the `dataprep.csv` dataset loaded as `houseprices`.
+
+``` r
+houseprices <- read.csv("data/dataprep.csv")
+```
+
+**1.** Filter the dataset to show only houses with 5 or more bedrooms. Save the result as `filtered` and count the observations.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+filtered <- filter(houseprices, Beds >= 5)
+nrow(filtered)  # 9 houses
+```
+
+9 houses have 5 or more bedrooms.
+:::
+
+**2.** Arrange the full dataset by `Price` in descending order. Save as `ArrangedData` and print the head. What is the highest price?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+ArrangedData <- arrange(houseprices, desc(Price))
+head(ArrangedData)
+```
+
+The highest price is **\$840,000** — it will appear in the first row.
+:::
+
+**3.** Using a single pipeline, filter to houses with at least 3 bedrooms, select only `Price`, `Beds`, and `Sqft`, and arrange by `Price` descending.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+houseprices %>%
+  filter(Beds >= 3) %>%
+  select(Price, Beds, Sqft) %>%
+  arrange(desc(Price))
+```
+:::
+
+Continue using `houseprices`.
+
+**1.** Create a new categorical variable called `HouseSizeCategory` using `case_when()`: - Small: Sqft \< 2000 - Medium: Sqft between 2000 and 3000 (inclusive) - Large: Sqft \> 3000
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+houseprices <- houseprices %>%
+  mutate(HouseSizeCategory = case_when(
+    Sqft < 2000             ~ "Small",
+    Sqft >= 2000 & Sqft <= 3000 ~ "Medium",
+    Sqft > 3000             ~ "Large"
+  ))
+```
+:::
+
+**2.** Calculate the frequency of each `HouseSizeCategory` using `table()`. List the count for each category.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+table(houseprices$HouseSizeCategory)
+```
+
+Large: 14 \| Medium: 25 \| Small: 40
+:::
+
+**3.** Calculate the average `Price` and average `Sqft` grouped by `HouseSizeCategory`. Fill in the table below with your results.
+
+``` r
+# Your code here
+```
+
+| HouseSizeCategory | avg_price | avg_sqft |
+|-------------------|-----------|----------|
+| Large             |           |          |
+| Medium            |           |          |
+| Small             |           |          |
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+houseprices %>%
+  group_by(HouseSizeCategory) %>%
+  summarise(avg_price = mean(Price, na.rm = TRUE),
+            avg_sqft  = mean(Sqft,  na.rm = TRUE))
+```
+
+| HouseSizeCategory | avg_price | avg_sqft    |
+|-------------------|-----------|-------------|
+| Large             | \$574,786 | 3,370 sq ft |
+| Medium            | \$596,696 | 2,488 sq ft |
+| Small             | \$457,568 | 1,505 sq ft |
+:::
+
+
+
 ## Visualization Lab
 
 For this lab, switch to the `dataviz.csv` coffee dataset rather than the datasets used in the teaching examples above. Load it as `coffee`. It contains 1,311 coffee quality reviews with variables including `Country.of.Origin`, `Processing.Method`, `TotalScore`, `Flavor`, and `Aroma`, among others. Use the `scores` vector for the outlier question.
@@ -1395,23 +1417,6 @@ ggplot(coffee_clean, aes(x = Aroma, y = Flavor)) +
 Washed / Wet is by far the most common processing method. Aroma and Flavor show a strong positive relationship — coffees rated highly on aroma tend to score well on flavor too.
 :::
 
-# Review and Practice
-
-## Using AI
-
-Use the following prompts with a generative AI tool like ChatGPT to explore data visualization with `ggplot2` further.
-
--   How can I modify the appearance of a ggplot bar chart to include custom colors for each bar, and what are the best practices for choosing colors in data visualization?
-
--   What is the role of layering in ggplot, and how can adding multiple layers, such as labels, themes, and lines, improve the readability of a plot?
-
--   When should a density plot be used instead of a histogram, and how does each visualization help in understanding the distribution of continuous data?
-
--   How can I use a boxplot in R to identify and visualize outliers in my dataset, and what additional steps should I take to handle these outliers?
-
--   How can I create a scatter plot in ggplot to explore relationships between two continuous variables, and how do I add a trendline to help interpret the results?
-
--   What are the steps for creating a grouped bar chart in ggplot, and how does this visualization help in comparing multiple categories or groups within a dataset?
 
 ## Summary
 

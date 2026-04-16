@@ -105,13 +105,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <!-- Google tag (gtag.js) -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CNGRHWZ7C6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-CNGRHWZ7C6');
-</script>
+     <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4MST1J29YB"></script>
+          <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          
+          gtag('config', 'G-4MST1J29YB');
+          </script>
 
 <!-- ============================================================
      Statistics Course Assistant — Floating Chat Bubble
@@ -764,7 +765,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis of Variance (ANOVA)</span></a>
+  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ANOVA and Correlation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -898,8 +899,12 @@ window.Quarto = {
   <li><a href="#na_if" id="toc-na_if" class="nav-link" data-scroll-target="#na_if">na_if()</a></li>
   <li><a href="#na.omit-vs.-drop_na" id="toc-na.omit-vs.-drop_na" class="nav-link" data-scroll-target="#na.omit-vs.-drop_na">na.omit() vs.&nbsp;drop_na()</a></li>
   </ul></li>
+  <li><a href="#summary-and-review" id="toc-summary-and-review" class="nav-link" data-scroll-target="#summary-and-review">Summary and Review</a>
+  <ul class="collapse">
   <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai">Using AI</a></li>
+  <li><a href="#intro-lab" id="toc-intro-lab" class="nav-link" data-scroll-target="#intro-lab">Intro Lab</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -931,29 +936,40 @@ window.Quarto = {
 </header>
 
 
-<ul>
-<li>The goal of this lesson is to introduce you to R and RStudio while teaching you how to perform data preparation using these tools. In this part, we will go over forming an understanding of statistics, learning about observations and variables, and being able to move around and get comfortable with R. I will also teach you how use and load data.</li>
-</ul>
+<p>This lesson introduces R and RStudio — the statistical computing environment used throughout this course. By the end, you will be able to navigate RStudio, write and run R code, create and name objects, load data from external files, understand R’s core data types, and handle missing values.</p>
+<p>We begin with <strong>the foundations of statistics and AI</strong>: what descriptive and inferential statistics are, where AI fits into each branch, and what it means to be fluent in R in an age when AI can write code on demand. Understanding the “why” behind each command is what separates an analyst from someone who just runs code.</p>
+<p>We then move to <strong>setting up and using R</strong>: creating script files, writing comments and a prolog, performing arithmetic, assigning values to objects, naming those objects consistently, working with built-in functions, installing and loading packages, and troubleshooting errors. These are the mechanical building blocks every subsequent lesson relies on.</p>
+<p>The lesson continues with <strong>entering and loading data</strong>: building vectors, matrices, and data frames from scratch, setting a working directory, and reading in external files with <code>read.csv()</code> and <code>read_csv()</code>. Understanding the difference between absolute and relative file paths — and why relative paths are preferred — is a practical skill that prevents a large share of beginner errors.</p>
+<p>We close with two critical data-quality topics: <strong>data types</strong> and <strong>missing data</strong>. R assigns a type to every variable — factor, numeric, integer, character, logical, or date — and the wrong type causes silent errors that look fine but produce wrong results. Missing data is equally common in real datasets and requires a deliberate strategy: omit, impute, or handle with <code>na.rm</code>. Neither topic is glamorous, but both are essential before any analysis can be trusted.</p>
+<p>By the end of this lesson, you should be comfortable writing and running basic R code, loading a dataset, checking and correcting variable types, and identifying and handling missing values. Work through every code example in your own <code>.R</code> script file alongside the reading.</p>
 <section id="at-a-glance" class="level3">
 <h3 class="anchored" data-anchor-id="at-a-glance">At a Glance</h3>
 <ul>
-<li>In order to succeed in this lesson, you will need to start by having both R and RStudio downloaded. Then, the only way to learn R is to use it in various ways and to practice as much as you can.</li>
-<li>It is also important to note that this is a statistics class and that R is a statistical computing software. Because of that, we need to not only pay attention to what we are typing in, but understand why we are typing it in the ways suggested, and also how we could do it differently to get similar if not the same results.</li>
+<li>In order to succeed in this lesson, you will need to have both R and RStudio downloaded and open. The only way to learn R is to use it — type every code example yourself rather than just reading it. Pay attention not just to <em>what</em> you are typing but <em>why</em> the code is written that way, and what other forms would produce the same result.</li>
+<li>This is a statistics course, and R is a statistical computing tool. The two are inseparable here. Every command you learn connects to a statistical concept, and understanding that connection is what makes the code meaningful rather than mechanical.</li>
 </ul>
 </section>
 <section id="lesson-objectives" class="level3">
 <h3 class="anchored" data-anchor-id="lesson-objectives">Lesson Objectives</h3>
 <ul>
-<li>Be Introduced to R and R Studio.</li>
-<li>Set up R and R Studio.</li>
-<li>Use basic Built-in Functions in R.</li>
-<li>Enter and load data into R.</li>
+<li>Explain the difference between descriptive and inferential statistics and identify where AI assists versus where human judgment is required.</li>
+<li>Create and run an R script file with a prolog, comments, and code.</li>
+<li>Assign values to objects using the <code>&lt;-</code> operator and follow consistent naming conventions.</li>
+<li>Use built-in functions with single and multiple arguments, including default values.</li>
+<li>Install and load packages; access functions using the <code>library::function()</code> syntax.</li>
+<li>Troubleshoot common R errors using a systematic approach.</li>
+<li>Create vectors, matrices, and data frames from scratch.</li>
+<li>Set a working directory and load data using <code>read.csv()</code> and <code>read_csv()</code>.</li>
+<li>Identify and correct variable data types using <code>str()</code>, <code>class()</code>, and coercion functions.</li>
+<li>Handle missing values using <code>na.rm</code>, <code>is.na()</code>, <code>na.omit()</code>, and <code>drop_na()</code>.</li>
 </ul>
 </section>
 <section id="consider-while-reading" class="level3">
 <h3 class="anchored" data-anchor-id="consider-while-reading">Consider While Reading</h3>
 <ul>
-<li>This material is so important because it is likely the start of your R journey and will provide the groundwork for learning a modern approach to calculating statistics. R has a fairly steep learning curve, but, once you are over it, it becomes fairly easy to figure out new things. It is important to make connections to what we are doing and why we are doing it a certain way. There are rules to learning R, and you will get better with constant practice. Try to avoid just typing in code. Instead, determine why the code was typed the way it was and try to figure out all the other ways the code could also be typed to get the same answer. Practice, practice, practice!</li>
+<li>R has a steep learning curve, but the curve flattens fast once you start recognising patterns. Every error message is information — read it before asking AI to fix it. Every function has a help page — check it before guessing at arguments.</li>
+<li>As you read, notice how the lesson is structured as a workflow: set up → write code → create data → load data → fix types → handle missing values. Each section is a prerequisite for the next. By the time you reach missing data, you will have seen every piece needed to make sense of it.</li>
+<li>AI tools like ChatGPT and GitHub Copilot can write R code for you. The goal of this lesson is to build enough understanding that you can <em>read, verify, and own</em> that code — not just run it and hope for the best.</li>
 </ul>
 </section>
 <section id="what-is-statistics" class="level2">
@@ -1063,6 +1079,8 @@ window.Quarto = {
 <li>Writing functions</li>
 <li>Prompting and verifying AI-generated code</li>
 </ul>
+<hr>
+<p>With the statistical and conceptual framing in place, the next step is getting R and RStudio ready to use. This section covers how to create and organise your script files — the foundation of reproducible, documented work in R.</p>
 </section>
 </section>
 <section id="setting-up-r" class="level1">
@@ -1094,6 +1112,8 @@ window.Quarto = {
 <figcaption>Screenshot of R Environment</figcaption>
 </figure>
 </div>
+<hr>
+<p>With R installed and a script file open, it is time to start writing code. This section introduces the core mechanics of the R language: comments, arithmetic, objects, naming conventions, built-in functions, packages, and how to troubleshoot when something goes wrong.</p>
 </section>
 </section>
 </section>
@@ -1371,6 +1391,43 @@ window.Quarto = {
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Recommended format for constants</span></span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>kStates <span class="ot">&lt;-</span> <span class="dv">29</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The naming conventions above can be summarised as:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Object type</th>
+<th>Convention</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Constant (single value)</td>
+<td><code>k</code> + CamelCase</td>
+<td><code>kStates</code>, <code>kMaxRetries</code></td>
+</tr>
+<tr class="even">
+<td>Function</td>
+<td>CamelCase, first letter capitalised</td>
+<td><code>MultiplyByTwo</code>, <code>CleanData</code></td>
+</tr>
+<tr class="odd">
+<td>Variable / column</td>
+<td>dot.case or camelCase</td>
+<td><code>filled.script.month</code>, <code>filledScriptMonth</code></td>
+</tr>
+<tr class="even">
+<td>Dataset / data frame</td>
+<td>Short, lowercase or camelCase</td>
+<td><code>gig</code>, <code>gss.2016</code>, <code>potLegal</code></td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>Different R coders have different preferences, but consistency is key in making sure your code is easy to follow and for others to read. In this course, we will generally use the recommendation in the text which are listed above.</li>
 <li>We tend to use one letter variable names (i.e., x) for placeholders or for simple functions (like naming a vector).</li>
@@ -1638,6 +1695,8 @@ window.Quarto = {
 <li>The second type is the more important one to develop instincts for. AI is particularly prone to silent errors — it will produce output that looks correct but isn’t. Always sanity-check results against what you expect.</li>
 </ul></li>
 </ul>
+<hr>
+<p>With the language mechanics established, the next step is creating data structures directly in R. Before you read in real datasets, understanding how vectors, matrices, and data frames are built from scratch gives you a mental model of how R stores and organises data.</p>
 </section>
 </section>
 <section id="entering-data-in-r" class="level1">
@@ -1689,6 +1748,49 @@ window.Quarto = {
 <pre><code>[1] 1 1 1 2 2 2 3 3 3</code></pre>
 </div>
 </div>
+<p>The four main ways to create a vector in R:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+<th>Example</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>c()</code></td>
+<td>Combine any values</td>
+<td><code>c(1, 2, 3)</code></td>
+<td><code>1 2 3</code></td>
+</tr>
+<tr class="even">
+<td><code>:</code></td>
+<td>Integer sequence</td>
+<td><code>1:5</code></td>
+<td><code>1 2 3 4 5</code></td>
+</tr>
+<tr class="odd">
+<td><code>seq()</code></td>
+<td>Custom sequence with step</td>
+<td><code>seq(0, 30, 5)</code></td>
+<td><code>0 5 10 … 30</code></td>
+</tr>
+<tr class="even">
+<td><code>rep()</code></td>
+<td>Repeat elements</td>
+<td><code>rep(1:3, times=2)</code></td>
+<td><code>1 2 3 1 2 3</code></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="creating-a-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="creating-a-matrix">Creating a Matrix</h2>
@@ -1841,6 +1943,8 @@ window.Quarto = {
 <pre><code>[1] 3 3</code></pre>
 </div>
 </div>
+<hr>
+<p>You can build data manually, but most real analysis starts with loading an external file. Before reading data into R, you need to understand where R looks for files — which is what working directories and file paths control.</p>
 </section>
 </section>
 <section id="working-directories" class="level1">
@@ -1893,6 +1997,42 @@ window.Quarto = {
 <li>Requires setting the working directory correctly (getwd() and setwd() can help).</li>
 </ul></li>
 </ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Absolute path</th>
+<th>Relative path</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Example</strong></td>
+<td><code>"C:/Users/pam/Documents/data.csv"</code></td>
+<td><code>"data/data.csv"</code></td>
+</tr>
+<tr class="even">
+<td><strong>Starts from</strong></td>
+<td>Root of the file system</td>
+<td>Current working directory</td>
+</tr>
+<tr class="odd">
+<td><strong>Portability</strong></td>
+<td>Breaks on any other machine</td>
+<td>Works on any machine with the same folder structure</td>
+</tr>
+<tr class="even">
+<td><strong>Best for</strong></td>
+<td>Quick personal scripts</td>
+<td>Shared projects, submitted work</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="setting-up-a-working-directory" class="level2">
 <h2 class="anchored" data-anchor-id="setting-up-a-working-directory">Setting up a Working Directory</h2>
@@ -1918,6 +2058,8 @@ window.Quarto = {
 <figcaption>Setting Your Working Directory</figcaption>
 </figure>
 </div>
+<hr>
+<p>With your working directory set and file paths understood, you are ready to load real datasets. This section covers the most common ways to bring data into R, from built-in datasets to CSV files from your computer.</p>
 </section>
 </section>
 <section id="reading-in-data" class="level1">
@@ -2015,6 +2157,52 @@ window.Quarto = {
  Mode  :character   Mode  :character  </code></pre>
 </div>
 </div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><code>read.csv()</code></th>
+<th><code>read_csv()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Package</strong></td>
+<td>Base R — no library needed</td>
+<td><code>readr</code> (part of tidyverse)</td>
+</tr>
+<tr class="even">
+<td><strong>Speed</strong></td>
+<td>Adequate for small files</td>
+<td>Faster on large datasets</td>
+</tr>
+<tr class="odd">
+<td><strong>Strings</strong></td>
+<td>Converts to factors unless <code>stringsAsFactors=FALSE</code></td>
+<td>Keeps as character by default</td>
+</tr>
+<tr class="even">
+<td><strong>Output</strong></td>
+<td><code>data.frame</code></td>
+<td><code>tibble</code> (a tidyverse-enhanced data frame)</td>
+</tr>
+<tr class="odd">
+<td><strong>Error messages</strong></td>
+<td>Minimal</td>
+<td>More informative</td>
+</tr>
+<tr class="even">
+<td><strong>Best for</strong></td>
+<td>Quick reads, base R workflows</td>
+<td>Tidyverse projects, large files</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="read_csv-function" class="level2">
 <h2 class="anchored" data-anchor-id="read_csv-function">read_csv() function</h2>
@@ -2051,6 +2239,8 @@ window.Quarto = {
 <pre><code>[1] 71.1624</code></pre>
 </div>
 </div>
+<hr>
+<p>Once data is loaded, the first thing to do is examine it. The <code>summary()</code> and <code>summarize()</code> functions give you an immediate overview of what is in the dataset before any deeper analysis begins.</p>
 </section>
 </section>
 </section>
@@ -2088,6 +2278,7 @@ window.Quarto = {
                                  Max.   :3582.00   Max.   :400.00  </code></pre>
 </div>
 </div>
+<hr>
 </section>
 <section id="explicit-use-of-libraries" class="level1">
 <h1>Explicit Use of Libraries</h1>
@@ -2117,6 +2308,8 @@ window.Quarto = {
 1      364.9844</code></pre>
 </div>
 </div>
+<hr>
+<p>Reading data into R is only the first step — R must also interpret each column correctly. A number stored as text will not calculate. A category stored as a number will not group. This section covers R’s five core data types, how to detect them, and how to fix them when they are wrong.</p>
 <section id="data-types-in-r" class="level2">
 <h2 class="anchored" data-anchor-id="data-types-in-r">Data Types in R</h2>
 <p>R is dynamically typed — every variable receives a type based on what you assign to it. Wrong types cause silent errors: a number stored as text will not calculate.</p>
@@ -2586,6 +2779,8 @@ window.Quarto = {
 <span id="cb224-3"><a href="#cb224-3" aria-hidden="true" tabindex="-1"></a><span class="do">## UseDate2022.</span></span>
 <span id="cb224-4"><a href="#cb224-4" aria-hidden="true" tabindex="-1"></a>UseDate2022 <span class="ot">&lt;-</span> <span class="fu">filter</span>(UseDates, year <span class="sc">==</span> <span class="dv">2022</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<hr>
+<p>After fixing data types, the next common problem is missing values. Real datasets almost always have gaps — understanding what causes them and how to handle them is an essential part of any analysis workflow.</p>
 </section>
 </section>
 </section>
@@ -2609,6 +2804,37 @@ window.Quarto = {
 <li>When you ignore missing data because your function works without it, the missing values are typically excluded from the calculations by default. In R, many functions, such as mean(), sum(), or lm(), have arguments like na.rm = TRUE to explicitly remove missing values during computation. Ignoring missing data can simplify the analysis, but it comes with potential consequences.</li>
 </ul></li>
 </ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Strategy</th>
+<th>When to use</th>
+<th>R approach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Omit</strong></td>
+<td>Few missing values; missingness is random</td>
+<td><code>na.omit()</code>, <code>drop_na()</code></td>
+</tr>
+<tr class="even">
+<td><strong>Impute</strong></td>
+<td>Many missing values; can’t afford to lose rows</td>
+<td>Replace with mean/median/mode or a model</td>
+</tr>
+<tr class="odd">
+<td><strong>Ignore</strong></td>
+<td>Function supports it and impact is minimal</td>
+<td><code>na.rm = TRUE</code> in <code>mean()</code>, <code>sd()</code>, etc.</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>The choice of approach depends on the nature of the missingness, which can be categorized as Missing Completely at Random, Missing at Random, or Missing Not at Random. Addressing missing data appropriately is essential to maintain the validity of statistical analyses and avoid biases.</li>
 </ul>
@@ -2885,31 +3111,325 @@ window.Quarto = {
 </ul>
 </section>
 </section>
-<section id="using-ai" class="level1">
-<h1>Using AI</h1>
+<section id="summary-and-review" class="level1">
+<h1>Summary and Review</h1>
+<section id="using-ai" class="level2">
+<h2 class="anchored" data-anchor-id="using-ai">Using AI</h2>
 <p>Use the following prompts on a generative AI, like chatGPT, to learn more about introductory topics.</p>
 <ul>
 <li><p>Explain the difference between descriptive and inferential statistics and provide real-life examples of both.</p></li>
 <li><p>What is the purpose of using R in statistical analysis, and what are the key benefits of using RStudio as a graphical interface?</p></li>
 <li><p>What happens when you assign the same variable multiple values in R? Write an example script that demonstrates this behavior and explains the output.</p></li>
 <li><p>Create a script that demonstrates how to assign values to variables using both numeric and character data types. Then, explain how these assignments are stored in RStudio’s environment.</p></li>
-<li><p>In R, what is the role of the assignment operator &lt;- Demonstrate its use by creating a few variables for numeric and character data types.</p></li>
-<li><p>Demonstrate how to create a vector in R using the c() function. Use this vector to perform basic operations like addition and multiplication.</p></li>
-<li><p>Write a script that reads a CSV file into R using read.csv(). Summarize the dataset and explain how the columns and rows are structured.</p></li>
-<li><p>How can you access specific columns of a data frame using the $ operator? Provide an example using a sample dataset in R.</p></li>
-<li><p>Explain how to use the summary() function in R to summarize a dataset. Write a script that loads a dataset and runs summary() on it.</p></li>
+<li><p>In R, what is the role of the assignment operator <code>&lt;-</code>? Demonstrate its use by creating a few variables for numeric and character data types.</p></li>
+<li><p>Demonstrate how to create a vector in R using the <code>c()</code> function. Use this vector to perform basic operations like addition and multiplication.</p></li>
+<li><p>Write a script that reads a CSV file into R using <code>read.csv()</code>. Summarize the dataset and explain how the columns and rows are structured.</p></li>
+<li><p>How can you access specific columns of a data frame using the <code>$</code> operator? Provide an example using a sample dataset in R.</p></li>
+<li><p>Explain how to use the <code>summary()</code> function in R to summarize a dataset. Write a script that loads a dataset and runs <code>summary()</code> on it.</p></li>
 <li><p>What is the difference between ordinal and nominal variables, and how can you recode these data types in R?</p></li>
-<li><p>Explain the steps to coerce a character variable into a factor using the as.factor() function in R.</p></li>
-<li><p>What strategies can you use to handle missing data in R, and how does na.omit() differ from drop_na()?</p></li>
+<li><p>Explain the steps to coerce a character variable into a factor using the <code>as.factor()</code> function in R.</p></li>
+<li><p>What strategies can you use to handle missing data in R, and how does <code>na.omit()</code> differ from <code>drop_na()</code>?</p></li>
 </ul>
 </section>
-<section id="summary" class="level1">
-<h1>Summary</h1>
+<section id="intro-lab" class="level2">
+<h2 class="anchored" data-anchor-id="intro-lab">Intro Lab</h2>
+<p>Use the <code>gig.csv</code> and <code>gss2016.csv</code> datasets referenced in this lesson. Make sure <code>tidyverse</code> is loaded.</p>
+<p><strong>1.</strong> Create a new <code>.R</code> script file with a prolog at the top. Include your name, today’s date, the purpose of the file, and the datasets used. Then add a comment explaining what the assignment operator does, and assign the value <code>42</code> to an object called <code>answer</code>. Print it two ways — using <code>print()</code> and by typing the object name alone.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb263"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb263-1"><a href="#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span>
+<span id="cb263-2"><a href="#cb263-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Project name: Intro Lab</span></span>
+<span id="cb263-3"><a href="#cb263-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Project purpose: Practice basic R from the Intro lesson</span></span>
+<span id="cb263-4"><a href="#cb263-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Code author name: [Your Name]</span></span>
+<span id="cb263-5"><a href="#cb263-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Date last edited: [Today's Date]</span></span>
+<span id="cb263-6"><a href="#cb263-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Data used: gig.csv, gss2016.csv</span></span>
+<span id="cb263-7"><a href="#cb263-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries used: tidyverse</span></span>
+<span id="cb263-8"><a href="#cb263-8" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span>
+<span id="cb263-9"><a href="#cb263-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb263-10"><a href="#cb263-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The &lt;- operator assigns the value on the right to the object on the left</span></span>
+<span id="cb263-11"><a href="#cb263-11" aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="dv">42</span></span>
+<span id="cb263-12"><a href="#cb263-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb263-13"><a href="#cb263-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(answer)   <span class="co"># explicit print</span></span>
+<span id="cb263-14"><a href="#cb263-14" aria-hidden="true" tabindex="-1"></a>answer          <span class="co"># implicit print — R prints the value when you type the name</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Both lines produce <code>[1] 42</code>. The <code>[1]</code> is R’s way of indicating this is the first (and only) element of the result. Note that <code>print()</code> is rarely needed in a script — typing the object name is idiomatic R.</p>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> Create the following three vectors and combine them into a data frame called <code>employees</code>. Then use <code>ncol()</code>, <code>nrow()</code>, and <code>dim()</code> to confirm its shape.</p>
 <ul>
-<li>In this lesson, we went over information to make sure you had some basics to really start learning R. There are a lot of ways to get the same things done in R; you have to find the way that works best for you. As we learn R, you will get used to doing things your way to be able to slice and evaluate the data to find rich information from the data sets we look at. As long as the data was handled properly, it does not matter how we reach our goal using R as long as we do it ourselves.</li>
+<li><code>name</code>: “Alice”, “Bob”, “Carol”</li>
+<li><code>department</code>: “Finance”, “HR”, “Finance”</li>
+<li><code>salary</code>: 72000, 58000, 81000</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb264"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb264-1"><a href="#cb264-1" aria-hidden="true" tabindex="-1"></a>name       <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Carol"</span>)</span>
+<span id="cb264-2"><a href="#cb264-2" aria-hidden="true" tabindex="-1"></a>department <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Finance"</span>, <span class="st">"HR"</span>, <span class="st">"Finance"</span>)</span>
+<span id="cb264-3"><a href="#cb264-3" aria-hidden="true" tabindex="-1"></a>salary     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">72000</span>, <span class="dv">58000</span>, <span class="dv">81000</span>)</span>
+<span id="cb264-4"><a href="#cb264-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb264-5"><a href="#cb264-5" aria-hidden="true" tabindex="-1"></a>employees <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(name, department, salary)</span>
+<span id="cb264-6"><a href="#cb264-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb264-7"><a href="#cb264-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(employees)   <span class="co"># 3 — three variables</span></span>
+<span id="cb264-8"><a href="#cb264-8" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(employees)   <span class="co"># 3 — three observations</span></span>
+<span id="cb264-9"><a href="#cb264-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(employees)    <span class="co"># 3 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In a data frame, rows are observations (one row per employee) and columns are variables (name, department, salary). <code>dim()</code> returns both at once as <code>[rows, columns]</code>.</p>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Load <code>gig.csv</code> using <code>read.csv()</code> with <code>stringsAsFactors = TRUE</code> and <code>na.strings = ""</code>. Run <code>str()</code> on the result. List every variable, its type as R loaded it, and whether the type is correct for what the variable represents.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb265"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb265-1"><a href="#cb265-1" aria-hidden="true" tabindex="-1"></a>gig <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/gig.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>, <span class="at">na.strings =</span> <span class="st">""</span>)</span>
+<span id="cb265-2"><a href="#cb265-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(gig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Expected output will vary by dataset, but the evaluation follows this logic:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Type R assigned</th>
+<th>Correct?</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EmployeeID</td>
+<td>integer</td>
+<td>✅</td>
+<td>Whole-number ID — integer is fine</td>
+</tr>
+<tr class="even">
+<td>Industry</td>
+<td>factor</td>
+<td>✅</td>
+<td>Categorical — factor is correct</td>
+</tr>
+<tr class="odd">
+<td>Job</td>
+<td>factor</td>
+<td>✅</td>
+<td>Categorical — factor is correct</td>
+</tr>
+<tr class="even">
+<td>Wage</td>
+<td>numeric</td>
+<td>✅</td>
+<td>Continuous measurement — numeric is correct</td>
+</tr>
+</tbody>
+</table>
+<p>Any variable showing <code>chr</code> (character) that represents a category needs <code>as.factor()</code>. Any numeric field that loaded as <code>chr</code> needs <code>as.numeric()</code> — always check for NAs introduced by coercion.</p>
+</div>
+</div>
+</div>
+<p><strong>4.</strong> Using the <code>gig</code> dataset, identify the total number of missing values in the entire dataset, then count the missing values in the <code>Wage</code> column specifically. Use two different approaches for the column count.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb266"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb266-1"><a href="#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Total NAs in the entire dataset</span></span>
+<span id="cb266-2"><a href="#cb266-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(gig))</span>
+<span id="cb266-3"><a href="#cb266-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb266-4"><a href="#cb266-4" aria-hidden="true" tabindex="-1"></a><span class="co"># NAs in Wage — approach 1: sum of logical vector</span></span>
+<span id="cb266-5"><a href="#cb266-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(gig<span class="sc">$</span>Wage))</span>
+<span id="cb266-6"><a href="#cb266-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb266-7"><a href="#cb266-7" aria-hidden="true" tabindex="-1"></a><span class="co"># NAs in Wage — approach 2: count rows where Wage is NA</span></span>
+<span id="cb266-8"><a href="#cb266-8" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(gig[<span class="fu">is.na</span>(gig<span class="sc">$</span>Wage), ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>is.na()</code> returns <code>TRUE</code> for each missing value. <code>sum()</code> treats <code>TRUE</code> as 1 and <code>FALSE</code> as 0, so the total is a count of NAs. The two approaches for <code>Wage</code> give the same answer — the first is more concise, the second makes the filtering logic explicit.</p>
+</div>
+</div>
+</div>
+<p><strong>5.</strong> Load <code>gss2016.csv</code>. Fix the two known type problems: coerce <code>grass</code> to a factor, and recode <code>"89 OR OLDER"</code> in the <code>age</code> column to <code>"89"</code> before converting <code>age</code> to numeric. Confirm both fixes with <code>class()</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb267"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb267-1"><a href="#cb267-1" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span> <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/gss2016.csv"</span>)</span>
+<span id="cb267-2"><a href="#cb267-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb267-3"><a href="#cb267-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix 1: grass should be a factor, not character</span></span>
+<span id="cb267-4"><a href="#cb267-4" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span><span class="sc">$</span>grass <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(gss<span class="fl">.2016</span><span class="sc">$</span>grass)</span>
+<span id="cb267-5"><a href="#cb267-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gss<span class="fl">.2016</span><span class="sc">$</span>grass)   <span class="co"># "factor"</span></span>
+<span id="cb267-6"><a href="#cb267-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb267-7"><a href="#cb267-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix 2: age has a text entry that blocks numeric coercion</span></span>
+<span id="cb267-8"><a href="#cb267-8" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span><span class="sc">$</span>age <span class="ot">&lt;-</span> <span class="fu">recode</span>(gss<span class="fl">.2016</span><span class="sc">$</span>age, <span class="st">"89 OR OLDER"</span> <span class="ot">=</span> <span class="st">"89"</span>)</span>
+<span id="cb267-9"><a href="#cb267-9" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span><span class="sc">$</span>age <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(gss<span class="fl">.2016</span><span class="sc">$</span>age)</span>
+<span id="cb267-10"><a href="#cb267-10" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gss<span class="fl">.2016</span><span class="sc">$</span>age)     <span class="co"># "numeric"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Why does the order matter for <code>age</code>? <code>as.numeric()</code> cannot convert <code>"89 OR OLDER"</code> — it would return <code>NA</code> and you would silently lose data. Recoding first, then converting, preserves the value. Always recode text anomalies before numeric coercion and check <code>sum(is.na(gss.2016$age))</code> afterwards to confirm no NAs were introduced unexpectedly.</p>
+</div>
+</div>
+</div>
+<p><strong>6.</strong> The three strategies for handling missing data are omit, impute, and ignore. For each scenario below, identify the most appropriate strategy and explain why.</p>
+<ul>
+<li><ol type="a">
+<li>A survey dataset has 2 rows out of 500 with missing income values. The analysis does not focus on income specifically.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>A clinical dataset tracks pregnancy-related complications. The variable “number of previous pregnancies” is missing for all male patients.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>You are computing the mean satisfaction score for a customer survey. A few respondents left the question blank.</li>
+</ol></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p><strong>a. Ignore (or omit).</strong> With only 2 missing rows out of 500 and income not being the focus, using <code>na.rm = TRUE</code> when income appears in calculations is sensible. Omitting those 2 rows entirely would also be defensible — the impact on results is negligible.</p></li>
+<li><p><strong>b. Neither omit nor impute — investigate first.</strong> Removing all male rows would introduce severe selection bias, distorting the entire analysis. The missing values are <em>systematically</em> missing (not random), and the variable may simply not apply to part of the population. The right approach is to understand the data structure and consider whether this variable should be included at all, or whether a subset analysis is more appropriate.</p></li>
+<li><p><strong>c.&nbsp;Ignore with <code>na.rm = TRUE</code>.</strong> For a straightforward mean calculation, <code>mean(data$satisfaction, na.rm = TRUE)</code> is appropriate. The missing values represent non-responses, which are common in surveys. If a large proportion of responses were missing, further investigation would be warranted — but for a few blanks, <code>na.rm</code> is the practical and defensible choice.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>This lesson covered the foundations of R and RStudio:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Topic</th>
+<th>Key concepts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Statistics overview</td>
+<td>Descriptive (summarising data) vs.&nbsp;inferential (drawing conclusions); both use samples</td>
+</tr>
+<tr class="even">
+<td>AI and statistics</td>
+<td>AI automates descriptive work; inferential judgment — population definition, sampling validity, interpretation — remains human</td>
+</tr>
+<tr class="odd">
+<td>R script files</td>
+<td><code>.R</code> files save and rerun code; always include a prolog; comment with <code>#</code></td>
+</tr>
+<tr class="even">
+<td>Assignment operator</td>
+<td><code>&lt;-</code> assigns values to objects; <code>=</code> works but is discouraged for clarity</td>
+</tr>
+<tr class="odd">
+<td>Naming conventions</td>
+<td>Constants: <code>kName</code>; functions: <code>CamelCase</code>; variables: <code>dot.case</code> or <code>camelCase</code>; no spaces, case-sensitive</td>
+</tr>
+<tr class="even">
+<td>Built-in functions</td>
+<td><code>functionName(argument)</code>; arguments have defaults; use <code>?function</code> to see all parameters</td>
+</tr>
+<tr class="odd">
+<td>Packages</td>
+<td><code>install.packages()</code> once; <code>library()</code> every session; <code>package::function()</code> for single-use access</td>
+</tr>
+<tr class="even">
+<td>Troubleshooting</td>
+<td>Read the error; check spelling and capitalisation; use AI for error interpretation but verify every fix</td>
+</tr>
+<tr class="odd">
+<td>Vectors</td>
+<td><code>c()</code>, <code>:</code>, <code>seq()</code>, <code>rep()</code> — the building blocks of all R data structures</td>
+</tr>
+<tr class="even">
+<td>Matrices</td>
+<td><code>matrix(data, nrow, ncol, byrow)</code>; same data type throughout; <code>dimnames()</code> for labels</td>
+</tr>
+<tr class="odd">
+<td>Data frames</td>
+<td><code>data.frame()</code>; rows = observations, columns = variables; mixed types allowed</td>
+</tr>
+<tr class="even">
+<td>Working directories</td>
+<td><code>getwd()</code>, <code>setwd()</code>; relative paths (<code>"data/file.csv"</code>) preferred over absolute</td>
+</tr>
+<tr class="odd">
+<td>Reading data</td>
+<td><code>read.csv()</code> (base R) vs.&nbsp;<code>read_csv()</code> (readr/tidyverse); <code>data()</code> for built-in datasets</td>
+</tr>
+<tr class="even">
+<td><code>summary()</code> vs <code>summarize()</code></td>
+<td><code>summary()</code> gives automatic overview; <code>summarize()</code> from dplyr gives custom grouped summaries</td>
+</tr>
+<tr class="odd">
+<td>Data types</td>
+<td>factor (nominal/ordinal), numeric, integer, character, logical, Date; use <code>str()</code> to check all at once</td>
+</tr>
+<tr class="even">
+<td>Type coercion</td>
+<td><code>as.factor()</code>, <code>as.numeric()</code>, <code>as.integer()</code>, <code>as.character()</code>, <code>as.Date()</code>; always check for NAs after</td>
+</tr>
+<tr class="odd">
+<td>Missing data strategies</td>
+<td>Omit (<code>na.omit()</code>, <code>drop_na()</code>), impute, or ignore (<code>na.rm = TRUE</code>); choice depends on why values are missing</td>
+</tr>
+<tr class="even">
+<td><code>is.na()</code></td>
+<td>Returns <code>TRUE</code> for each NA; <code>sum(is.na(x))</code> counts missing values</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What comes next:</strong> The Descriptive Statistics lesson builds directly on this foundation — using the loading, typing, and summarising tools introduced here to describe the shape, center, and spread of real variables. Every line of code in that lesson assumes you can open RStudio, load a dataset, and check that variables are the right type.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

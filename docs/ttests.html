@@ -105,13 +105,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <!-- Google tag (gtag.js) -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CNGRHWZ7C6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-CNGRHWZ7C6');
-</script>
+     <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4MST1J29YB"></script>
+          <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          
+          gtag('config', 'G-4MST1J29YB');
+          </script>
 
 <!-- ============================================================
      Statistics Course Assistant — Floating Chat Bubble
@@ -764,7 +765,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analysis of Variance (ANOVA)</span></a>
+  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">ANOVA and Correlation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -835,6 +836,8 @@ window.Quarto = {
   <li><a href="#reshape-function" id="toc-reshape-function" class="nav-link" data-scroll-target="#reshape-function">reshape function</a></li>
   </ul></li>
   <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai">Using AI</a></li>
+  <li><a href="#using-ai-1" id="toc-using-ai-1" class="nav-link" data-scroll-target="#using-ai-1">Using AI</a></li>
+  <li><a href="#t-test-lab" id="toc-t-test-lab" class="nav-link" data-scroll-target="#t-test-lab">t-Test Lab</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 </nav>
@@ -867,30 +870,34 @@ window.Quarto = {
 </header>
 
 
-<ul>
-<li>The goal of this lesson is to teach you how to conduct statistical inference with regards to hypothesis testing. In doing so, we will learn a few key hypothesis tests given t-distributions, including the one-sample t-test, the independent samples t-test, and the dependent samples t-test. We will continue to conduct hypothesis tests in the later modules as they are the cornerstone to conducting sound statistical inference.</li>
-</ul>
+<p>This lesson introduces the logic and mechanics of statistical hypothesis testing, then applies that framework to three t-tests that will appear throughout the rest of the course.</p>
+<p>We begin with the <strong>foundations of hypothesis testing</strong>: what a null and alternative hypothesis are, why we assume the null is true until the evidence says otherwise, and how the p-value approach works. A p-value is the probability of observing a result at least as extreme as the one calculated, <em>assuming the null hypothesis is true</em>. A small p-value means the observed data would be very unlikely if the null were true — giving us grounds to reject it. We set a decision rule in advance: reject <span class="math inline">\(H_0\)</span> if the p-value is less than alpha (typically 0.05). We also cover the three tail configurations — two-tailed (<span class="math inline">\(\neq\)</span>), right-tailed (<span class="math inline">\(&gt;\)</span>), and left-tailed (<span class="math inline">\(&lt;\)</span>) — and how the direction of the alternative hypothesis determines which tail of the distribution we look at.</p>
+<p>The lesson then works through three <strong>t-tests</strong>, each using R’s <code>t.test()</code> function with different arguments. All three follow the same three-step procedure: specify hypotheses, compute the test statistic and p-value, interpret and conclude. The t-distribution is used instead of the z-distribution because we are estimating population parameters from sample data — specifically, we rarely know the population standard deviation. Where a z-score measures how many standard deviations a value is from the mean, a t-statistic measures how many standard errors the sample mean is from the hypothesized value. As sample size grows, the t-distribution approaches the normal distribution.</p>
+<p>The <strong>one-sample t-test</strong> compares a single sample mean to a known or hypothesized value — for example, testing whether average study hours differ from 12. The <strong>independent samples t-test</strong> compares the means of two unrelated groups — for example, whether systolic blood pressure differs between males and females. The <strong>dependent (paired) samples t-test</strong> compares two related measurements, such as weight before and after an intervention, where each observation in one group is matched to a specific observation in the other. The key to choosing the right test is understanding how the data are structured.</p>
+<p>By the end of this lesson, you should be able to set up and interpret any of the three t-tests in R, choose the correct test for a given research question, and write a formal conclusion from the output. Work through every code example in your own R script alongside the reading.</p>
 <section id="at-a-glance" class="level3">
 <h3 class="anchored" data-anchor-id="at-a-glance">At a Glance</h3>
 <ul>
-<li>In order to succeed in this section, you will need to understand how to set up and test a hypothesis, knowing that we can reuse our logic of hypothesis testing for other types of models later on. Pay close attention to the idea of and the reason for the t-distribution with regards to one-sample, independent samples, and dependent samples hypothesis test. Additionally, note when the test is a two-tailed, a right-tailed, or a left-tailed test, and what that means for the interpretation of the results.</li>
+<li>In order to succeed in this section, you will need to understand how to set up and test a hypothesis, knowing that we can reuse this logic for many other types of models throughout the course. Pay close attention to why we use the t-distribution — and how it differs from the z-distribution — for one-sample, independent samples, and dependent samples tests. Additionally, note when the test is two-tailed, right-tailed, or left-tailed, and what that means for the interpretation of the results.</li>
 </ul>
 </section>
 <section id="lesson-objectives" class="level3">
 <h3 class="anchored" data-anchor-id="lesson-objectives">Lesson Objectives</h3>
 <ul>
-<li>Compare a sample mean to a population mean with a one-sample t-test.</li>
+<li>Explain the logic of hypothesis testing: null and alternative hypotheses, p-value interpretation, and the decision rule.</li>
+<li>Distinguish between two-tailed, right-tailed, and left-tailed tests and set up each correctly.</li>
+<li>Compare a sample mean to a hypothesized population value with a one-sample t-test.</li>
 <li>Compare two unrelated sample means with an independent-samples t-test.</li>
-<li>Compare two related sample means with a dependent-samples t-test.</li>
-<li>Compare and contrast the the three t-tests covered in this module: one-sample, independent samples, and dependent samples.</li>
+<li>Compare two related sample means with a dependent-samples (paired) t-test.</li>
+<li>Select the correct t-test for a given research question based on data structure.</li>
 </ul>
 </section>
 <section id="consider-while-reading" class="level3">
 <h3 class="anchored" data-anchor-id="consider-while-reading">Consider While Reading</h3>
 <ul>
-<li>In this lesson, we learn more about hypothesis testing, which will continue throughout the rest of the term! We are still conducting inference analysis. As an analyst, I like to say that this starts the fun stuff.</li>
-<li>We cover three important t-tests. There are more examples on the our course management system with regards to setting up a two-tailed, right-tailed, or left-tailed test and adjusting the <span class="math inline">\(\mu\)</span> of interest.</li>
-<li>Make sure you understand the key differences between all the three t-tests presented in this module and their role in interpreting data and making inferences. All three tests are making comparisons: comparisons to a mean value, comparison to another population, or comparison to paired data like before and after results.</li>
+<li>In this lesson, we introduce hypothesis testing — the formal statistical process for deciding whether sample evidence supports a claim about a population. This framework carries forward for the remainder of the course: ANOVA, regression, and correlation all follow the same fundamental logic of comparing a test statistic to a null distribution and interpreting the resulting p-value.</li>
+<li>We cover three t-tests that use the <code>t.test()</code> command with different arguments. The differences between them come down to one question: what are you comparing? A sample mean to a benchmark, two independent groups, or two related measurements on the same subjects?</li>
+<li>As you read, pay particular attention to how the alternative hypothesis determines the direction of the test — and therefore which side of the distribution you examine — and how <code>paired = TRUE</code> versus the tilde (<code>~</code>) syntax in <code>t.test()</code> changes the structure of the test.</li>
 </ul>
 </section>
 <section id="hypothesis-testing" class="level2">
@@ -1100,6 +1107,8 @@ window.Quarto = {
 </ul></li>
 <li>We change arguments as needed to satisfy the type of test that we are conducting.</li>
 </ul>
+<hr>
+<p>With the framework for hypothesis testing established, the next three sections apply it to three specific scenarios using R’s <code>t.test()</code> function. The choice of test depends entirely on what you are comparing and how the data are structured: one group versus a known value, two unrelated groups, or two related measurements on the same subjects.</p>
 </section>
 <section id="one-sample-t-test" class="level2">
 <h2 class="anchored" data-anchor-id="one-sample-t-test">One-Sample t-Test</h2>
@@ -1985,15 +1994,241 @@ mean difference
 <li><p>What are the key arguments in the t.test() function in R, and how do I modify these arguments to perform different types of t-tests, such as two-tailed or paired t-tests?</p></li>
 <li><p>How do I interpret the p-value in the context of hypothesis testing, and how does it relate to rejecting or failing to reject the null hypothesis?</p></li>
 <li><p>How does the confidence interval calculated during a t-test help in understanding the range of possible population parameters, and why is it important in hypothesis testing?</p></li>
+<li><p>What is the difference between an independent samples t-test and a dependent (paired) samples t-test, and in what situations should each be used? # Summary and Review</p></li>
+</ul>
+</section>
+<section id="using-ai-1" class="level2">
+<h2 class="anchored" data-anchor-id="using-ai-1">Using AI</h2>
+<ul>
+<li><p>Use the following prompts on a generative AI, like chatGPT, to learn more about t.test’s and confidence intervals.</p></li>
+<li><p>Can you explain the difference between the null hypothesis and the alternative hypothesis, and why is it important to set up both correctly before conducting a t-test?</p></li>
+<li><p>What factors determine whether you should use a one-sample, independent samples, or dependent samples t-test, and how do the results differ based on the test chosen?</p></li>
+<li><p>When should I use a two-tailed t-test compared to a right- or left-tailed test, and how does the alternative hypothesis guide this decision?</p></li>
+<li><p>What are the key arguments in the t.test() function in R, and how do I modify these arguments to perform different types of t-tests, such as two-tailed or paired t-tests?</p></li>
+<li><p>How do I interpret the p-value in the context of hypothesis testing, and how does it relate to rejecting or failing to reject the null hypothesis?</p></li>
+<li><p>How does the confidence interval calculated during a t-test help in understanding the range of possible population parameters, and why is it important in hypothesis testing?</p></li>
 <li><p>What is the difference between an independent samples t-test and a dependent (paired) samples t-test, and in what situations should each be used?</p></li>
 </ul>
 </section>
+<section id="t-test-lab" class="level2">
+<h2 class="anchored" data-anchor-id="t-test-lab">t-Test Lab</h2>
+<p><strong>A campus dining service</strong> claims that the average wait time at peak lunch hours is 8 minutes. A student researcher times 40 randomly selected visits and finds a mean wait of 9.4 minutes (sd = 3.1 minutes). Without running the code, set up the null and alternative hypotheses for a two-tailed test, and identify which t-test is appropriate and why.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is a <strong>one-sample t-test</strong> because we are comparing a single sample mean (9.4 minutes) to a known or claimed population value (8 minutes).</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: The mean wait time is equal to 8 minutes. (<span class="math inline">\(\mu = 8\)</span>)</li>
+<li><span class="math inline">\(H_A\)</span>: The mean wait time is not equal to 8 minutes. (<span class="math inline">\(\mu \neq 8\)</span>)</li>
+<li>Two-tailed because the researcher is testing for any difference, not a specific direction.</li>
+</ul>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(wait_times, <span class="at">mu =</span> <span class="dv">8</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p><strong>Identify</strong> whether each scenario below calls for a one-sample, independent samples, or dependent samples t-test. Briefly justify each choice.</p>
+<ul>
+<li><ol type="a">
+<li>A hospital compares the recovery times of patients assigned to two different physical therapy programs.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>A nutritionist records a client’s sodium intake before and after a four-week dietary intervention.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li>A manufacturer wants to know if the average output voltage of a new circuit board differs from the specification of 5.0 volts.</li>
+</ol></li>
+<li><ol start="4" type="a">
+<li>A university compares the GPA of students who attended orientation versus those who did not.</li>
+</ol></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>a. Independent samples t-test.</strong> Two separate, unrelated groups (different patients in different programs). Each patient appears in only one group.</li>
+<li><strong>b. Dependent (paired) samples t-test.</strong> The same clients are measured twice — before and after. Each “before” observation is directly linked to the same person’s “after” observation.</li>
+<li><strong>c.&nbsp;One-sample t-test.</strong> One sample of circuit boards is being compared to a single known specification value (5.0 volts), not to another group.</li>
+<li><strong>d.&nbsp;Independent samples t-test.</strong> Two distinct, unrelated groups of students — those who attended orientation and those who did not. No natural pairing between individuals across groups.</li>
+</ul>
+</div>
+</div>
+</div>
+<p><strong>A two-tailed one-sample t-test</strong> returns a t-statistic of 2.31 with a p-value of 0.024. Alpha is set at 0.05. State the conclusion in plain English, including both the formal decision and a sentence that communicates the result to a non-statistician.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Formal decision:</strong> Since the p-value (0.024) is less than alpha (0.05), we reject the null hypothesis.</p>
+<p><strong>Plain English conclusion:</strong> The sample provides statistically significant evidence that the true population mean is different from the hypothesized value. In other words, the difference we observed is unlikely to be due to random chance alone — there is real evidence that the actual average differs from what was claimed.</p>
+<p>Note: If alpha had been set to 0.01, the p-value of 0.024 would be <em>greater</em> than alpha, and we would fail to reject the null. The conclusion depends on the alpha level chosen before running the test.</p>
+</div>
+</div>
+</div>
+<p><strong>A researcher</strong> wants to test whether employees who participate in a wellness program report fewer sick days than those who do not. She collects data on 45 participants and 45 non-participants. Write out the null and alternative hypotheses, identify the test, specify the <code>alternative</code> argument in R’s <code>t.test()</code> function, and explain how the direction of the hypothesis affects which tail is examined.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Test:</strong> Independent samples t-test — two separate, unrelated groups (participants vs.&nbsp;non-participants).</p>
+<p>Let <span class="math inline">\(\mu_1\)</span> = mean sick days for wellness program participants and <span class="math inline">\(\mu_2\)</span> = mean sick days for non-participants.</p>
+<ul>
+<li><span class="math inline">\(H_0: \mu_1 - \mu_2 \geq 0\)</span> (participants have the same or more sick days)</li>
+<li><span class="math inline">\(H_A: \mu_1 - \mu_2 &lt; 0\)</span> (participants have <em>fewer</em> sick days — left-tailed)</li>
+</ul>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sick_days <span class="sc">~</span> group, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Why left-tailed?</strong> The hypothesis is directional — the researcher specifically predicts that participants will have <em>fewer</em> sick days, meaning <span class="math inline">\(\mu_1 &lt; \mu_2\)</span>, which places the rejection region in the <em>left</em> tail of the distribution. If the data showed participants had <em>more</em> sick days, the test would not reject the null regardless of the magnitude of the difference.</p>
+</div>
+</div>
+</div>
+<p><strong>A before-and-after study</strong> measures employee productivity scores before and after a training program for 12 employees. The differences (after minus before) are:</p>
+<p><code>4, -1, 6, 3, 5, 2, 0, 7, 3, -2, 4, 5</code></p>
+<p>By hand: (a) calculate the mean difference <span class="math inline">\(\bar{d}\)</span>, and (b) state what value of <code>mu</code> you would use in the <code>t.test()</code> call and why.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a) Mean difference:</strong></p>
+<p><span class="math display">\[\bar{d} = \frac{4 + (-1) + 6 + 3 + 5 + 2 + 0 + 7 + 3 + (-2) + 4 + 5}{12} = \frac{36}{12} = 3.0\]</span></p>
+<p>The average productivity score increased by 3.0 points after training.</p>
+<p><strong>(b) Value of <code>mu</code>:</strong></p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(after, before, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>, <span class="at">mu =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We use <code>mu = 0</code> because the null hypothesis for a paired test is that the mean difference is zero — meaning training had no effect on productivity. We are testing whether the observed mean difference of 3.0 is significantly different from zero.</p>
+</div>
+</div>
+</div>
+<p><strong>Interpret</strong> the following R output from a dependent samples t-test. State the conclusion, identify the direction of the difference from the mean estimate, and explain what the confidence interval tells you.</p>
+<pre><code>Paired t-test
+
+t = 4.1832, df = 11, p-value = 0.001501
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 1.463852 4.536148
+sample estimates:
+mean of the differences 
+                      3</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Conclusion:</strong> Since the p-value (0.0015) is less than alpha (0.05), we reject the null hypothesis. There is statistically significant evidence that the mean difference is not equal to zero — the training program did change productivity scores (t(11) = 4.18, p = 0.0015).</p>
+<p><strong>Direction:</strong> The mean difference is positive (3.0), meaning scores were higher <em>after</em> the training program than before. The program appears to have increased productivity on average.</p>
+<p><strong>Confidence interval:</strong> We are 95% confident that the true mean increase in productivity falls between 1.46 and 4.54 points. Because the entire interval is above zero (it does not include zero), this corroborates the significant p-value — we are confident the true effect is positive and meaningful, not just a chance fluctuation.</p>
+</div>
+</div>
+</div>
+</section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<ul>
-<li>In summary, we learned about the basic rules of hypothesis testing and how to set up a null and alternative hypothesis. We learned about two-tailed, right-tailed, and left-tailed hypotheses. We learned about 3 t.tests: the one-sample t-test, the independent samples t-test, and the dependent (or paired) samples t-test. Finally, we also learned how to interpret the results using the p-value approach.</li>
-<li>Take note that this lesson does not include the assumptions for t-tests. Assumptions are extremely important, but I will leave the discussion of them to another class.</li>
-</ul>
+<p>This lesson covered the logic of hypothesis testing and three t-tests in R:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Topic</th>
+<th>Key concepts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hypothesis testing logic</td>
+<td>Null (<span class="math inline">\(H_0\)</span>) vs.&nbsp;alternative (<span class="math inline">\(H_A\)</span>), p-value interpretation, decision rule (p &lt; α = reject <span class="math inline">\(H_0\)</span>)</td>
+</tr>
+<tr class="even">
+<td>Tail types</td>
+<td>Two-tailed ($</td>
+</tr>
+<tr class="odd">
+<td>eq<span class="math inline">\(), right-tailed (\)</span>&gt;<span class="math inline">\(), left-tailed (\)</span>&lt;$); alternative hypothesis determines the tail</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>p-value approach</td>
+<td>Compare p-value to pre-set alpha (typically 0.05); never “accept” <span class="math inline">\(H_0\)</span>, only fail to reject</td>
+</tr>
+<tr class="odd">
+<td>t-distribution</td>
+<td>Used when population SD is unknown; approaches normal as <span class="math inline">\(n\)</span> increases; measured in standard errors</td>
+</tr>
+<tr class="even">
+<td><code>t.test()</code> command</td>
+<td>Core arguments: <code>alternative</code>, <code>mu</code>, <code>paired</code>, <code>var.equal</code>, <code>conf.level</code></td>
+</tr>
+<tr class="odd">
+<td>One-sample t-test</td>
+<td>Compares sample mean to a known/hypothesized value; formula <span class="math inline">\(t = (m_x - \mu_x)/(s_x/\sqrt{n})\)</span></td>
+</tr>
+<tr class="even">
+<td>Independent samples t-test</td>
+<td>Compares means of two unrelated groups; use <code>~</code> when groups are in one column, <code>,</code> when in two</td>
+</tr>
+<tr class="odd">
+<td>Dependent samples t-test</td>
+<td>Compares two related measurements; use <code>paired = TRUE</code>; formula uses mean of differences <span class="math inline">\(m_d\)</span></td>
+</tr>
+<tr class="even">
+<td><code>reshape()</code></td>
+<td>Converts long-to-wide data for paired tests; tidyverse alternative uses <code>filter()</code> + <code>full_join()</code></td>
+</tr>
+<tr class="odd">
+<td>Confidence intervals</td>
+<td>Output includes 95% CI around the estimate; interpreted alongside the p-value</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What comes next:</strong> The ANOVA lesson extends hypothesis testing beyond two groups. Where the independent samples t-test compares the means of two populations, a one-way ANOVA compares three or more. The F-statistic and p-value interpretation follow the same logic introduced here.</p>
 
 
 </section>
@@ -2426,8 +2661,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./anova.html" class="pagination-link" aria-label="Analysis of Variance (ANOVA)">
-        <span class="nav-page-text"><span class="chapter-title">Analysis of Variance (ANOVA)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./anova.html" class="pagination-link" aria-label="ANOVA and Correlation">
+        <span class="nav-page-text"><span class="chapter-title">ANOVA and Correlation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

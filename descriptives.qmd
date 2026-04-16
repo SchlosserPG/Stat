@@ -17,35 +17,65 @@ library(semTools)
 
 ```
 
+This lesson covers how to summarize and visualize descriptive statistics for both quantitative and qualitative data in R. Descriptive statistics are the foundation of every analysis — before modeling, testing, or drawing conclusions, you must understand what your data looks like, where it centers, how spread out it is, and whether any unusual patterns or values are present.
+
+We begin with **summarizing quantitative data**: measuring central tendency (mean, median, mode) and spread (standard deviation, variance, skewness, kurtosis, range, IQR). The choice of which measure to use is not arbitrary — skewed distributions and outliers make the mean unreliable, and the same data can tell very different stories depending on which statistics you report. We work through a salary example to make this concrete, then extend to a real customer dataset.
+
+We then move to **visualizing quantitative variables**: histograms reveal distribution shape and connect directly to the skewness and kurtosis statistics; density plots provide a smoothed view of the same shape with a mean reference line; and boxplots summarize the five-number summary while flagging potential outliers as individual points. These three charts complement each other — the histogram shows the overall shape, the boxplot isolates the center and tails, and the density plot is best for comparing groups or overlaying a reference.
+
+The second half of the lesson shifts to **qualitative (categorical) data**: calculating frequencies, proportions, and cumulative distributions using `table()`, `prop.table()`, and `cumsum()`, and visualizing results with bar charts and pie charts using `ggplot2`. Bar charts are the workhorse for categorical data; pie charts are available but harder to read accurately.
+
+By the end of this lesson, you should be able to choose the appropriate measures of central tendency and spread for any quantitative variable, assess normality using skewness and kurtosis z-scores, identify and investigate outliers visually and numerically, construct frequency tables for categorical variables, and produce publication-quality charts using `ggplot2`. Work through every code example in your own R script alongside the reading.
+
+### At a Glance
+
+-   In order to succeed in this lesson, you need to understand that descriptive statistics serve one purpose: to summarize data honestly. That means choosing the right measure for the distribution in front of you — not just defaulting to the mean — and using visualizations to confirm what the numbers report. Pay close attention to the relationship between skewness, outliers, and the choice of mean versus median, and to how each chart type (histogram, density, boxplot, bar chart) reveals a different aspect of the data.
+
+### Lesson Objectives
+
+-   Calculate and interpret mean, median, and mode for quantitative variables.
+-   Identify when each measure of central tendency is appropriate based on distribution shape.
+-   Calculate and interpret standard deviation, variance, range, and IQR.
+-   Assess skewness and kurtosis using `skew()` and `kurtosis()` from `semTools` and interpret z-scores against sample-size thresholds.
+-   Identify and compute outlier bounds using the 1.5 × IQR rule.
+-   Produce and interpret histograms, density plots, and boxplots using `ggplot2`.
+-   Calculate frequency tables, relative frequencies, and cumulative distributions for categorical variables.
+-   Produce and interpret bar charts and pie charts using `ggplot2`.
+
+### Consider While Reading
+
+-   As you work through this lesson, keep asking: *which summary is honest for this data?* The salary example at the start is designed to show how the mean can mislead when outliers are present — that instinct should carry through every variable you analyze.
+-   The workflow throughout is intentionally sequential: compute central tendency first, then assess spread and shape, then visualize to confirm. The histograms and boxplots you build are not decorations — they are the check on whether the numbers you computed accurately describe the data.
+-   When you reach the skewness and kurtosis section, pay attention to the sample-size thresholds for interpreting z-scores. The same z-value that is fine in a large sample may indicate a real problem in a small one.
+
 The goal of this lesson is to teach you how to summarize and visualize descriptive statistics for both quantitative and qualitative data in R. To do this well, we need to understand the difference between quantitative and qualitative data and examine data in context — context tells us how the data was collected and what it is meant to represent. In any analysis, it is critically important to understand your data before modeling or drawing conclusions.
 
 For quantitative data, you should understand how to describe a variable's center (mean, median, mode), visualize its shape with a histogram, density plot, or boxplot, and quantify its spread (variance, standard deviation, skewness, kurtosis, IQR). For qualitative data, you should know how to calculate frequencies, proportions, and cumulative distributions, and display results clearly using bar charts and pie charts.
 
 # Summarizing Quantitative Data
 
-* Summarizing Quantitative Data is the process of reducing a large set of numbers down to a small set of meaningful values that describe what is typical, how spread out the data is, and what shape the distribution takes.
-* Rather than reporting every observation, we use statistics to tell the story of the data in a few key numbers.
-* Three questions every summary should answer:
-     + What is typical? Central tendency — mean, median, mode
-     + How spread out is it? Variability — standard deviation, IQR, range
-     + What shape is it? Distribution — skewness, kurtosis, histograms
+-   Summarizing Quantitative Data is the process of reducing a large set of numbers down to a small set of meaningful values that describe what is typical, how spread out the data is, and what shape the distribution takes.
+-   Rather than reporting every observation, we use statistics to tell the story of the data in a few key numbers.
+-   Three questions every summary should answer:
+    -   What is typical? Central tendency — mean, median, mode
+    -   How spread out is it? Variability — standard deviation, IQR, range
+    -   What shape is it? Distribution — skewness, kurtosis, histograms
+-   Why this matters with AI in the picture: AI computes summaries. You decide which summary is honest, and you explain what it means.
 
-* Why this matters with AI in the picture:
-AI computes summaries. You decide which summary is honest, and you explain what it means.
-
-AI can generate all of these statistics instantly. What it cannot do is tell you which ones are appropriate for your data, or what the numbers mean in context. A mean wage of $42 means something very different depending on whether the data is symmetric or heavily skewed by a few executives. Choosing the right summary and interpreting it correctly is the analytical judgment this section is building.
-
+AI can generate all of these statistics instantly. What it cannot do is tell you which ones are appropriate for your data, or what the numbers mean in context. A mean wage of \$42 means something very different depending on whether the data is symmetric or heavily skewed by a few executives. Choosing the right summary and interpreting it correctly is the analytical judgment this section is building.
 
 ## Defining and Calculating Central Tendency
 
-* We will cover four measures in this section:
-     + Mean: Data is symmetric, no extreme outliers
-     + Median: Data is skewed or outliers are present
-     + Mode: Data is categorical, or you need the most common value
-     + Percentile: You need to describe relative position within the data
+-   We will cover four measures in this section:
+    -   Mean: Data is symmetric, no extreme outliers
+    -   Median: Data is skewed or outliers are present
+    -   Mode: Data is categorical, or you need the most common value
+    -   Percentile: You need to describe relative position within the data
 
 ### Using the Mean
-* The mean() function in R is a versatile tool for calculating the arithmetic average of a numeric vector. The arithmetic mean or simply the mean is a primary measure of central location. It is often referred to as the average. 
+
+-   The mean() function in R is a versatile tool for calculating the arithmetic average of a numeric vector. The arithmetic mean or simply the mean is a primary measure of central location. It is often referred to as the average.
+
 -   The sample mean $\bar{x}$ is the sum of all values divided by the number of observations $n$.
 
 -   $$\bar{x} = \frac{\sum_{i=1}^{n} x_{i}}{n}$$
@@ -149,53 +179,6 @@ sort(table(GrowthFund), decreasing = TRUE)[1:5]
 ```
 
 -   Even if you use this command, you still need to evaluate the data more systematically to verify the mode. If the highest frequency of the sorted table is 1, then there is no mode.
-
-### Central Tendency Lab
-
-Load the `descriptives.csv` dataset as `descriptive_data`. It contains six variables: `ServiceScore`, `DeliveryTime`, `ReturnRate`, `LoyalCustomer`, `EngagementLevel`, and `CustomerValue`.
-
-```{r}
-descriptive_data <- read.csv("data/descriptives.csv")
-
-```
-
-
-
-**1.** Compute the mean, median, and mode for `ServiceScore`.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-mean(descriptive_data$ServiceScore)
-median(descriptive_data$ServiceScore)
-sort(table(descriptive_data$ServiceScore), decreasing = TRUE)[1:5]
-```
-
-Mean: 50.00 \| Median: 50 \| Mode: 56 (appears most frequently). The mean and median are nearly identical, confirming a symmetric distribution.
-:::
-
-**2.** Compute the mean, median, and mode for `ReturnRate`.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-mean(descriptive_data$ReturnRate)
-median(descriptive_data$ReturnRate)
-sort(table(descriptive_data$ReturnRate), decreasing = TRUE)[1:5]
-```
-
-Mean: −0.06 \| Median: −0.06 \| All values appear once — no mode. The mean and median are almost identical, indicating a symmetric distribution centered near zero.
-:::
-
-**3.** For `ServiceScore`, the mean and median are nearly identical. What does that suggest about distribution shape?
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-When the mean and median are equal or very close, the distribution is approximately symmetric — values are distributed evenly on both sides of the center. This is a sign that the mean is a reliable summary of the typical value and that no extreme outliers are distorting it.
-:::
 
 ## Defining and Calculating Spread
 
@@ -382,87 +365,17 @@ IQR(customers$Spending, na.rm = TRUE)
 
 -   While there is no great function to test for spread, you can look at the data and see if it is concentrated around 1 or 2 frequencies. If it is, then the spread is distorted towards those high frequency values.
 
-### Spread Lab
+------------------------------------------------------------------------
 
-Continue using the `descriptives.csv` dataset. Load `semTools` if not already loaded.
-
-``` r
-library(semTools)
-```
-
-**1.** Run `skew()` and `kurtosis()` on `ServiceScore`. Record the z-values and interpret each.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-skew(data$ServiceScore)
-kurtosis(data$ServiceScore)
-```
-
-ServiceScore has a z-score for skewness near 0 and kurtosis near 0 as well — both well within the ±3.29 threshold for a medium sample. ServiceScore is approximately symmetric and mesokurtic, making it suitable for analyses that assume normality.
-:::
-
-**2.** Run `skew()` and `kurtosis()` on `ReturnRate`. Record the z-values and interpret each.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-skew(data$ReturnRate)
-kurtosis(data$ReturnRate)
-```
-
-ReturnRate has a z-score for skewness near 0 and a slightly negative kurtosis z-score — both within normal range. The distribution is approximately symmetric with slightly lighter tails than normal, consistent with the two low outliers identified in the boxplot lab.
-:::
-
-**3.** Which variable is suitable for analyses assuming normality? Which needs transformation first?
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-Both `ServiceScore` and `ReturnRate` are approximately normal and ready to use without transformation. `DeliveryTime` is the variable in this dataset that requires transformation before applying parametric methods due to its extreme right skew and heavy tails.
-:::
-
-**4.** Calculate the standard deviation, variance, range, and IQR for `ServiceScore`.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-sd(data$ServiceScore)
-var(data$ServiceScore)
-range(data$ServiceScore)
-IQR(data$ServiceScore)
-```
-
-SD ≈ 4.88 \| Variance ≈ 23.82 \| Range: 40 to 59 \| IQR ≈ 8. The tight range and small SD confirm that service scores cluster closely around the mean of 50.
-:::
-
-**5.** Calculate the same four statistics for `ReturnRate`.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-sd(data$ReturnRate)
-var(data$ReturnRate)
-range(data$ReturnRate)
-IQR(data$ReturnRate)
-```
-
-SD ≈ 1.00 \| Variance ≈ 1.00 \| Range: −3.24 to 2.50 \| IQR ≈ 1.33. The range is wider than the IQR suggests because the two extreme low values stretch the minimum downward, but the bulk of the data sits within a tight band near zero.
-:::
-
-**6.** `ServiceScore` has a much smaller standard deviation than `ReturnRate`. What does this say about consistency?
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-The smaller SD for ServiceScore (≈4.88 on a 40–59 scale) means scores are very consistent — most customers rate service similarly. ReturnRate has an SD of ≈1.00 on a scale that spans about 5.75 units, meaning returns vary more meaningfully relative to the scale. Consistency in ServiceScore may reflect a standardized service process, while ReturnRate variability may reflect genuine differences in customer behavior.
-:::
+With central tendency and spread established numerically, the next step is to confirm what those numbers are telling you visually. Histograms, density plots, and boxplots each reveal a different aspect of the distribution — and together they should be consistent with the skewness and kurtosis statistics computed above.
 
 # Visualizing Quantitative Variables
+
+The examples in this section use the `descriptives.csv` dataset. Load it now so it is available for all charts below.
+
+```{r}
+descriptive_data <- read.csv("data/descriptives.csv")
+```
 
 Graphs for a Single Continuous Variable. A continuous variable refers to a variable that can take any value over a range of values.
 
@@ -474,19 +387,19 @@ It is also beneficial to make sure the numerical variable is indeed supposed to 
 
 With central tendency, the next step is to visualize the distribution. The three charts below — histogram, density plot, and boxplot — each reveal a different aspect of a numeric variable's shape, and they connect directly to the skewness and kurtosis statistics above.
 
-* We will see the following:
-     + Histograms
-     + Density Plots
-     + Boxplots
+-   We will see the following:
+    -   Histograms
+    -   Density Plots
+    -   Boxplots
 
 ## Layering in ggplot
 
 -   Layering is a fundamental concept in ggplot2 that allows you to build complex visualizations by adding different components (or "layers") on top of each other. Each layer can represent different types of data, aesthetics, or annotations.
-* Benefits of Layering:
-     + Separation of Plot Components: Each layer can handle a different part of the plot.
-     + Customization and Enhancement: By adding multiple layers, you can customize labels, colors, annotations, and theme elements independently.
-     + Modularity: Layering makes it easier to add, remove, or modify parts of the plot without changing the entire structure.
-     + Combining Data Sources: Different layers can use different datasets or aesthetics, which is useful when you need to overlay one dataset on top of another.
+-   Benefits of Layering:
+    -   Separation of Plot Components: Each layer can handle a different part of the plot.
+    -   Customization and Enhancement: By adding multiple layers, you can customize labels, colors, annotations, and theme elements independently.
+    -   Modularity: Layering makes it easier to add, remove, or modify parts of the plot without changing the entire structure.
+    -   Combining Data Sources: Different layers can use different datasets or aesthetics, which is useful when you need to overlay one dataset on top of another.
 
 ## Using ggplot() command
 
@@ -498,12 +411,12 @@ Inside aes(), writing x = Spending and Spending are equivalent — ggplot2 assum
 
 ## Histograms
 
-* A histogram is a graphical representation of the distribution of numerical data. 
-* It consists of a series of contiguous rectangles, or bars, where the area of each bar corresponds to the frequency of observations within a particular range or bin of values. 
-* The x-axis typically represents the range of values being measured, while the y-axis represents the frequency or count of observations falling within each range. 
-* Histograms are commonly used in statistics and data analysis to visualize the distribution of a dataset and identify patterns or trends. 
-* They are particularly useful for understanding the central tendency, variability, and shape of the data distribution - this includes our observation of skewness.
-* Works much better with larger datasets.
+-   A histogram is a graphical representation of the distribution of numerical data.
+-   It consists of a series of contiguous rectangles, or bars, where the area of each bar corresponds to the frequency of observations within a particular range or bin of values.
+-   The x-axis typically represents the range of values being measured, while the y-axis represents the frequency or count of observations falling within each range.
+-   Histograms are commonly used in statistics and data analysis to visualize the distribution of a dataset and identify patterns or trends.
+-   They are particularly useful for understanding the central tendency, variability, and shape of the data distribution - this includes our observation of skewness.
+-   Works much better with larger datasets.
 
 ```{r}
 # The simplest way to draw a histogram in base R is hist(). For a quick look at CustomerValue:
@@ -624,7 +537,7 @@ IQR(descriptive_data$DeliveryTime, na.rm = TRUE)
 
 Notice that the mean will be pulled to the right by those extreme values — this is exactly when the **median** is the better measure of central tendency. The bulk of deliveries cluster between roughly 75 and 130 minutes, but a handful of extreme delays are distorting the picture.
 
----
+------------------------------------------------------------------------
 
 ## Boxplot Without Outliers: CustomerValue
 
@@ -645,7 +558,7 @@ IQR(descriptive_data$CustomerValue, na.rm = TRUE)
 
 Here the median line sits near the center of the box, the whiskers are roughly equal in length, and no individual points appear beyond them. This is the signature of a roughly symmetric distribution with no extreme values — a case where the **mean** is a reliable summary.
 
----
+------------------------------------------------------------------------
 
 ## Side-by-Side Comparison
 
@@ -672,7 +585,7 @@ ggplot(descriptive_long, aes(x = Value, fill = Variable)) +
   theme(legend.position = "none")
 ```
 
----
+------------------------------------------------------------------------
 
 ## Detecting Outliers Numerically: DeliveryTime
 
@@ -705,125 +618,9 @@ outliers
 
 The outliers identified here are the same points visible as individual dots in the boxplot above — the numeric method and the visual method agree. Remember: being flagged as an outlier does not mean the value is wrong. Each one should be investigated before deciding whether to keep or remove it.
 
-## Quantitative Variable Lab
+------------------------------------------------------------------------
 
-Continue using the `descriptives.csv` dataset. Make sure `tidyverse` is loaded.
-
-``` r
-library(tidyverse)
-```
-
-**1.** Create a `geom_histogram()` of `ServiceScore` with a binwidth of 5, a non-black fill color, and an informative title.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-ggplot(data, aes(x = ServiceScore)) +
-  geom_histogram(binwidth = 5, fill = "mediumseagreen", color = "white") +
-  labs(title = "Distribution of Service Score", x = "Service Score", y = "Count")
-```
-
-The histogram should appear roughly symmetric — scores range from 40 to 59 and are spread fairly evenly, with no obvious tail pulling in either direction.
-:::
-
-**2.** Create a histogram of `ReturnRate` with a binwidth of 0.5 and a different fill color.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-ggplot(data, aes(x = ReturnRate)) +
-  geom_histogram(binwidth = 0.5, fill = "mediumpurple", color = "white") +
-  labs(title = "Distribution of Return Rate", x = "Return Rate", y = "Count")
-```
-
-The histogram should appear roughly bell-shaped and centered near zero. Two observations in the −3 to −3.5 range produce a slight leftward tail, but the bulk of the data is symmetric.
-:::
-
-**3.** Is each histogram symmetric or skewed? Does the visual match what the skewness statistics showed?
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-Both `ServiceScore` and `ReturnRate` should appear roughly symmetric — consistent with the near-zero z-scores from the Spread Lab. The histograms confirm what the statistics reported. This is the intended workflow: run the numbers first, then use the visual to confirm.
-:::
-
-**4.** Create a histogram of `CustomerValue` with a binwidth of 15. Based on the visual, does the distribution appear symmetric, left-skewed, or right-skewed?
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-ggplot(data, aes(x = CustomerValue)) +
-  geom_histogram(binwidth = 15, fill = "steelblue", color = "white") +
-  labs(title = "Distribution of Customer Value", x = "Customer Value", y = "Count")
-```
-
-The histogram should appear roughly symmetric with a slight right pull. The mean (96.62) and median (94) are close but not identical — consistent with z = 1.35 from the Spread Lab, which falls within the normal range.
-:::
-
-**5.** Create a boxplot of `ServiceScore` and a separate boxplot of `ReturnRate`. For each, identify whether any outliers appear as individual points beyond the whiskers.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-ggplot(data, aes(x = "", y = ServiceScore)) +
-  geom_boxplot(fill = "mediumseagreen", color = "darkgreen") +
-  labs(title = "Boxplot of Service Score", y = "Service Score", x = "")
-
-ggplot(data, aes(x = "", y = ReturnRate)) +
-  geom_boxplot(fill = "mediumpurple", color = "purple4") +
-  labs(title = "Boxplot of Return Rate", y = "Return Rate", x = "")
-```
-
-`ServiceScore` has no outliers — the distribution is compact and symmetric. `ReturnRate` shows two outlier points at the lower end (values of approximately −3.24 and −3.19) plotted individually below the left whisker, consistent with the slight leftward tail visible in the histogram.
-:::
-
-**6.** Compute the IQR bounds for `ServiceScore` and identify any outlier values numerically. Then confirm with a boxplot.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-Q1      <- quantile(data$ServiceScore, 0.25)
-Q3      <- quantile(data$ServiceScore, 0.75)
-IQR_val <- IQR(data$ServiceScore)
-lower_bound <- Q1 - 1.5 * IQR_val; lower_bound
-upper_bound <- Q3 + 1.5 * IQR_val; upper_bound
-
-
-
-descriptive_data[descriptive_data$ServiceScore < lower_bound | descriptive_data$ServiceScore > upper_bound, ]
-
-ggplot(descriptive_data, aes(x = "", y = ServiceScore)) +
-  geom_boxplot(fill = "mediumseagreen", color = "darkgreen") +
-  labs(title = "Boxplot of Service Score", y = "Service Score", x = "")
-```
-
-Q1 = 47, Q3 = 55, IQR = 8. Lower bound = 35, upper bound = 67. All ServiceScore values fall between 40 and 59 — well within the bounds. No outliers are present, which the boxplot confirms: no individual points appear beyond the whiskers.
-:::
-
-**7.** Create density plots for `ServiceScore` and `ReturnRate`, each with a dashed vertical line at the mean. What does the position of the mean line relative to the peak tell you about each distribution?
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-ggplot(descriptive_data, aes(x = ServiceScore)) +
-  geom_density(fill = "mediumseagreen", color = "darkgreen", alpha = 0.5) +
-  geom_vline(aes(xintercept = mean(ServiceScore)), color = "red", linetype = "dashed") +
-  labs(title = "Density of Service Score", x = "Service Score", y = "Density")
-
-ggplot(descriptive_data, aes(x = ReturnRate)) +
-  geom_density(fill = "mediumpurple", color = "purple4", alpha = 0.5) +
-  geom_vline(aes(xintercept = mean(ReturnRate)), color = "red", linetype = "dashed") +
-  labs(title = "Density of Return Rate", x = "Return Rate", y = "Density")
-```
-
-For `ServiceScore`, the mean (≈50.0) sits at the center of the peak — a symmetric distribution. For `ReturnRate`, the mean (≈−0.06) also falls near the center of the peak and close to zero, indicating a roughly symmetric spread centered just below zero. The two low outliers produce a slight leftward tail but do not meaningfully pull the mean away from the median.
-:::
+Quantitative variables have now been fully described and visualized. We now turn to qualitative (categorical) variables. The tools change — frequencies and proportions replace means and standard deviations — but the goal is the same: describe what is typical and how concentrated or spread out the data is across categories.
 
 # Summarizing Qualitative Data
 
@@ -898,59 +695,9 @@ TransposedData <- as.data.frame(TransposedData)
 TransposedData
 ```
 
-### Summarizing Qualitative Data Lab
+------------------------------------------------------------------------
 
-Use the `descriptives.csv` dataset. The dataset contains two qualitative variables: `EngagementLevel` (high, medium, low) and `LoyalCustomer` (yes, no).
-
-
-
-**1.** Calculate a frequency table, relative frequencies, cumulative frequencies, and cumulative proportions for `EngagementLevel`. Combine them into a transposed data frame.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-frequencies      <- table(descriptive_data$EngagementLevel)
-proportions      <- prop.table(frequencies)
-cumulfreq        <- cumsum(frequencies)
-cumulproportions <- cumsum(prop.table(frequencies))
-frequency_table  <- rbind(frequencies, proportions, cumulfreq, cumulproportions)
-TransposedData   <- as.data.frame(t(frequency_table))
-TransposedData
-```
-:::
-
-**2.** Fill in the table from your output (levels appear in alphabetical order):
-
-| Category | Frequency | Proportion | Cumul. Freq | Cumul. Prop |
-|----------|-----------|------------|-------------|-------------|
-| high     |           |            |             |             |
-| low      |           |            |             |             |
-| medium   |           |            |             |             |
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-| Category | Frequency | Proportion | Cumul. Freq | Cumul. Prop |
-|----------|-----------|------------|-------------|-------------|
-| high     | 53        | 0.265      | 53          | 0.265       |
-| low      | 67        | 0.335      | 120         | 0.600       |
-| medium   | 80        | 0.400      | 200         | 1.000       |
-:::
-
-**3.** Which engagement level is most common? What proportion of customers fall into that category? Now run the same frequency analysis on `LoyalCustomer` — what percentage are loyal?
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-Medium engagement is most common at 80 customers (40.0%). For `LoyalCustomer`:
-
-``` r
-prop.table(table(data$LoyalCustomer))
-```
-
-43.5% of customers are loyal (yes) and 56.5% are not (no).
-:::
+With frequency tables established, the natural next step is to display categorical distributions visually. Bar charts and pie charts serve the same purpose for categorical variables that histograms do for continuous ones — making the shape of the distribution immediately readable.
 
 # Visualizing Qualitative Variables
 
@@ -1042,92 +789,7 @@ ggplot(fbi.deaths.small, aes(x = "", y = X2016, fill = Weapon)) +
   theme_void() 
 ```
 
-## Visualizing Qualitative Variables Lab
-
-Continue using the `descriptives.csv` dataset. Make sure `tidyverse` is loaded.
-
-
-**1.** Create a bar chart of `EngagementLevel` showing the count of customers in each category. Use `geom_bar()` with a fill color and an informative title.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-ggplot(descriptive_data, aes(x = EngagementLevel)) +
-  geom_bar(fill = "steelblue", color = "white") +
-  labs(title = "Customer Count by Engagement Level",
-       x = "Engagement Level", y = "Count")
-```
-
-`geom_bar()` counts observations automatically. The bars show medium (80) as tallest, followed by low (67) and high (53).
-:::
-
-**2.** Modify the chart from Question 1 to display **proportions** on the y-axis instead of counts.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-ggplot(descriptive_data, aes(x = EngagementLevel, y = after_stat(prop), group = 1)) +
-  geom_bar(fill = "steelblue", color = "white") +
-  scale_y_continuous(labels = scales::percent) +
-  labs(title = "Proportion of Customers by Engagement Level",
-       x = "Engagement Level", y = "Proportion")
-```
-
-`after_stat(prop)` calculates the proportion relative to the total. `group = 1` is required so ggplot computes proportions across the entire dataset. The y-axis shows medium at 40%, low at 33.5%, and high at 26.5%.
-:::
-
-**3.** Create a bar chart of `LoyalCustomer`. Add `geom_text()` to display the exact count above each bar.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-ggplot(descriptive_data, aes(x = LoyalCustomer)) +
-  geom_bar(fill = "mediumseagreen", color = "white") +
-  geom_text(stat = "count", aes(label = after_stat(count)), vjust = -0.5, size = 4) +
-  labs(title = "Loyal vs. Non-Loyal Customers",
-       x = "Loyal Customer", y = "Count")
-```
-
-`stat = "count"` inside `geom_text()` matches the counting that `geom_bar()` performs and `after_stat(count)` pulls that count as the label. The chart shows 113 non-loyal (no) and 87 loyal (yes) customers.
-:::
-
-**4.** Create a **grouped** (side-by-side) bar chart showing `EngagementLevel` on the x-axis, with bars filled and grouped by `LoyalCustomer`. Use `position = "dodge"` and include a legend.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-ggplot(descriptive_data, aes(x = EngagementLevel, fill = LoyalCustomer)) +
-  geom_bar(position = "dodge", color = "white") +
-  labs(title = "Engagement Level by Loyalty Status",
-       x = "Engagement Level", y = "Count",
-       fill = "Loyal Customer") +
-  scale_fill_manual(values = c("no" = "tomato", "yes" = "steelblue"))
-```
-
-`position = "dodge"` places bars side by side. Within each engagement level, the non-loyal bar is consistently taller: high (27 no, 26 yes), low (39 no, 28 yes), medium (47 no, 33 yes). Loyal customers are a minority across all three engagement levels.
-:::
-
-**5.** Reorder the bars in Question 1 so they appear from most to least frequent. What function controls bar order in ggplot2?
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-ggplot(descriptive_data, aes(x = reorder(EngagementLevel, 
-                             -table(EngagementLevel)[EngagementLevel]))) +
-  geom_bar(fill = "steelblue", color = "white") +
-  labs(title = "Customer Count by Engagement Level (Ordered)",
-       x = "Engagement Level", y = "Count")
-```
-
-`reorder()` controls bar order. Wrapping the x variable with `reorder(variable, -frequency)` sorts bars from tallest to shortest: medium (80) → low (67) → high (53). Ordering by frequency makes it immediately clear which category dominates.
-:::
-
-# Review and Summary
+# Summary and Review
 
 ## Using AI
 
@@ -1143,12 +805,238 @@ Use the following prompts with a generative AI tool like ChatGPT to explore desc
 -   How is kurtosis defined in the semTools package in R, and what does it tell us about the tails of a distribution?
 -   How would you compare and contrast the roles of skewness and kurtosis in identifying the shape and behavior of a distribution?
 
+## Quantitative Data Lab
+
+Use the `descriptive_data` dataset loaded earlier in this lesson. It contains the following quantitative variables: `ServiceScore`, `DeliveryTime`, `ReturnRate`, and `CustomerValue`. Make sure `tidyverse` and `semTools` are loaded.
+
+**1.** Compute the mean and median for both `ServiceScore` and `DeliveryTime`. Based on the relationship between those two values for each variable, which one appears skewed and which appears symmetric? Which measure of central tendency is more appropriate for each?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+mean(descriptive_data$ServiceScore);   median(descriptive_data$ServiceScore)
+mean(descriptive_data$DeliveryTime);   median(descriptive_data$DeliveryTime)
+```
+
+`ServiceScore`: mean ≈ 50.0, median = 50 — nearly identical, indicating a symmetric distribution. The mean is a reliable summary here.
+
+`DeliveryTime`: mean is notably higher than the median, indicating right skew — a few very long deliveries are pulling the mean upward. The **median** is the more appropriate measure of center for `DeliveryTime`.
+:::
+
+**2.** Run `skew()` and `kurtosis()` from `semTools` on `ServiceScore` and `DeliveryTime`. Record the z-values for each and interpret them using the correct threshold for this sample size (n = 200).
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+skew(descriptive_data$ServiceScore);     kurtosis(descriptive_data$ServiceScore)
+skew(descriptive_data$DeliveryTime);     kurtosis(descriptive_data$DeliveryTime)
+```
+
+With n = 200, the relevant threshold is **±3.29**.
+
+`ServiceScore`: both z-values fall well within ±3.29 — approximately symmetric and mesokurtic. Ready to use in analyses that assume normality.
+
+`DeliveryTime`: the skewness z-value exceeds 3.29 — significant right skew confirmed. The kurtosis z-value is also elevated, indicating heavy tails (leptokurtic). `DeliveryTime` should be transformed before use in parametric analyses.
+:::
+
+**3.** Calculate the standard deviation, variance, IQR, and range for `ServiceScore` and `ReturnRate`. Then explain: if both variables had similar means, what would a much larger standard deviation for one of them tell you?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+sd(descriptive_data$ServiceScore);    var(descriptive_data$ServiceScore)
+IQR(descriptive_data$ServiceScore);   diff(range(descriptive_data$ServiceScore))
+
+sd(descriptive_data$ReturnRate);      var(descriptive_data$ReturnRate)
+IQR(descriptive_data$ReturnRate);     diff(range(descriptive_data$ReturnRate))
+```
+
+`ServiceScore`: SD ≈ 4.88, IQR ≈ 8, range 40–59. Scores are tightly clustered around the mean — very consistent.
+
+`ReturnRate`: SD ≈ 1.00, IQR ≈ 1.33, range −3.24 to 2.50. The range is stretched by two low outliers, but the bulk of values sit in a tight band near zero.
+
+If both variables had similar means, a much larger SD for one would indicate that individual values are spread further from the center — more variability and less predictability in that variable.
+:::
+
+**4.** Compute the IQR-based outlier bounds for `DeliveryTime` and list any flagged values. Does finding an outlier mean that value is wrong?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+Q1  <- quantile(descriptive_data$DeliveryTime, 0.25)
+Q3  <- quantile(descriptive_data$DeliveryTime, 0.75)
+IQR_val     <- IQR(descriptive_data$DeliveryTime, na.rm = TRUE)
+lower_bound <- Q1 - 1.5 * IQR_val
+upper_bound <- Q3 + 1.5 * IQR_val
+
+descriptive_data[descriptive_data$DeliveryTime < lower_bound |
+                 descriptive_data$DeliveryTime > upper_bound, "DeliveryTime"]
+```
+
+Values above the upper bound are flagged as outliers — these are deliveries that took substantially longer than the typical range. Being flagged does not mean a value is wrong. Each outlier should be investigated: it could be a legitimate extreme case (an unusually complex delivery), a data entry error, or a record from a different population entirely. That judgment requires context, not just a formula.
+:::
+
+**5.** Create a histogram of `ServiceScore` (binwidth = 5) and a separate histogram of `DeliveryTime` (binwidth = 25), each with an informative title and a non-black fill. Compare the shapes — does each histogram match what the skewness statistics showed?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+ggplot(descriptive_data, aes(x = ServiceScore)) +
+  geom_histogram(binwidth = 5, fill = "mediumseagreen", color = "white") +
+  labs(title = "Distribution of Service Score", x = "Service Score", y = "Count")
+
+ggplot(descriptive_data, aes(x = DeliveryTime)) +
+  geom_histogram(binwidth = 25, fill = "tomato", color = "white") +
+  labs(title = "Distribution of Delivery Time", x = "Delivery Time", y = "Count")
+```
+
+`ServiceScore` should appear roughly symmetric with no tail — consistent with the near-zero skewness z-score. `DeliveryTime` should show a clear right tail with most values clustered at lower times and a few stretching far to the right — matching the significant positive skewness z-value. This is the intended workflow: compute the statistics first, then confirm visually.
+:::
+
+**6.** Create boxplots for `ServiceScore` and `DeliveryTime`. For each, identify whether outliers appear as individual points. Then explain what the relative lengths of the whiskers tell you about symmetry.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+ggplot(descriptive_data, aes(x = DeliveryTime)) +
+  geom_boxplot(fill = "tomato", color = "darkred") +
+  labs(title = "Boxplot of Delivery Time", x = "Delivery Time")
+
+ggplot(descriptive_data, aes(x = ServiceScore)) +
+  geom_boxplot(fill = "mediumseagreen", color = "darkgreen") +
+  labs(title = "Boxplot of Service Score", x = "Service Score")
+```
+
+`ServiceScore`: no outlier points visible, whiskers roughly equal in length — a symmetric distribution. `DeliveryTime`: individual points plotted beyond the right whisker confirm the outliers identified numerically in Question 4. The right whisker is much longer than the left, visually showing the right skew.
+
+Unequal whisker lengths are a fast visual signal: if the right whisker is longer, the upper values are more spread out — right skew. If the left is longer, the data is left-skewed. Symmetric distributions have roughly equal whiskers.
+:::
+
+**7.** Create a density plot of `CustomerValue` with a dashed vertical line at the mean. Based on where the mean line falls relative to the peak, is the distribution symmetric or skewed?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+ggplot(descriptive_data, aes(x = CustomerValue)) +
+  geom_density(fill = "steelblue", color = "navy", alpha = 0.5) +
+  geom_vline(aes(xintercept = mean(CustomerValue, na.rm = TRUE)),
+             color = "red", linetype = "dashed") +
+  labs(title = "Density of Customer Value", x = "Customer Value", y = "Density")
+```
+
+The mean line should sit close to the peak of the distribution. If the mean falls slightly to the right of the peak, a mild right skew is present — consistent with the mean (≈96.6) being slightly higher than the median (≈94). A symmetric distribution would show the mean sitting exactly at the peak.
+:::
+
+## Qualitative Data Lab
+
+Use the `descriptive_data` dataset. The two qualitative variables are `EngagementLevel` (high, medium, low) and `LoyalCustomer` (yes, no).
+
+**1.** Build a complete frequency summary for `EngagementLevel`: frequency, relative frequency, cumulative frequency, and cumulative proportion. Combine them into a single transposed data frame, then fill in the table below from your output.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+frequencies      <- table(descriptive_data$EngagementLevel)
+proportions      <- prop.table(frequencies)
+cumulfreq        <- cumsum(frequencies)
+cumulproportions <- cumsum(prop.table(frequencies))
+frequency_table  <- rbind(frequencies, proportions, cumulfreq, cumulproportions)
+TransposedData   <- as.data.frame(t(frequency_table))
+TransposedData
+```
+
+| Category | Frequency | Proportion | Cumul. Freq | Cumul. Prop |
+|----------|-----------|------------|-------------|-------------|
+| high     | 53        | 0.265      | 53          | 0.265       |
+| low      | 67        | 0.335      | 120         | 0.600       |
+| medium   | 80        | 0.400      | 200         | 1.000       |
+
+Medium engagement is most common at 40.0% of customers.
+:::
+
+**2.** Run the same frequency analysis on `LoyalCustomer`. What percentage of customers are loyal? Which `rbind()` row tells you this most directly?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+frequencies      <- table(descriptive_data$LoyalCustomer)
+proportions      <- prop.table(frequencies)
+cumulfreq        <- cumsum(frequencies)
+cumulproportions <- cumsum(prop.table(frequencies))
+frequency_table  <- rbind(frequencies, proportions, cumulfreq, cumulproportions)
+as.data.frame(t(frequency_table))
+```
+
+43.5% of customers are loyal (yes) and 56.5% are not (no). The `proportions` row gives this most directly — it divides each frequency by the total, producing the relative share of each category without any extra calculation.
+:::
+
+**3.** Create a bar chart of `EngagementLevel` showing counts, then a second version showing proportions on the y-axis. What does switching from counts to proportions change about what the chart communicates?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+# Counts
+ggplot(descriptive_data, aes(x = EngagementLevel)) +
+  geom_bar(fill = "steelblue", color = "white") +
+  labs(title = "Customer Count by Engagement Level",
+       x = "Engagement Level", y = "Count")
+
+# Proportions
+ggplot(descriptive_data, aes(x = EngagementLevel, y = after_stat(prop), group = 1)) +
+  geom_bar(fill = "steelblue", color = "white") +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Proportion of Customers by Engagement Level",
+       x = "Engagement Level", y = "Proportion")
+```
+
+The shape is identical — bars have the same relative heights. The difference is interpretability: counts tell you how many customers are in each group (useful when the total sample size matters), while proportions tell you the share of the whole (easier to compare across datasets of different sizes). Use proportions when you want to communicate relative importance rather than raw volume.
+:::
+
+**4.** Create a grouped bar chart with `EngagementLevel` on the x-axis and bars colored by `LoyalCustomer`. Use `position = "dodge"` and add a `scale_fill_manual()` with two colors of your choice. What pattern do you see in the loyalty split across engagement levels?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+ggplot(descriptive_data, aes(x = EngagementLevel, fill = LoyalCustomer)) +
+  geom_bar(position = "dodge", color = "white") +
+  labs(title = "Engagement Level by Loyalty Status",
+       x = "Engagement Level", y = "Count", fill = "Loyal Customer") +
+  scale_fill_manual(values = c("no" = "tomato", "yes" = "steelblue"))
+```
+
+Non-loyal customers outnumber loyal customers within every engagement level: high (27 no vs. 26 yes), low (39 no vs. 28 yes), medium (47 no vs. 33 yes). Loyal customers are a consistent minority across all three groups — engagement level alone does not appear to strongly separate loyal from non-loyal customers.
+:::
+
 ## Summary
 
-In this lesson, we explored descriptive statistics for both quantitative and qualitative data in R. For quantitative variables, we followed the natural sequence of analysis: we began with **central tendency** — calculating the mean, median, and mode using the `descriptives.csv` dataset and small vectors like salaries and GrowthFund. We then introduced the **histogram** as the visual tool for understanding distribution shape before moving into numerical measures of spread. Under **spread**, we covered variance and standard deviation for the mean, skewness and kurtosis to assess normality, and range and IQR paired with the median. The **boxplot** connects IQR to a visual five-number summary and makes outliers easy to spot. The **density plot** offers a smoothed alternative to the histogram, useful for comparing distributions or overlaying a mean reference line.
+This lesson covered descriptive statistics for both quantitative and qualitative data in R:
 
-For qualitative variables, we calculated **frequencies, proportions, and cumulative distributions** using `table()`, `prop.table()`, and `cumsum()`, and organized results into a transposed data frame using `rbind()`, `t()`, and `as.data.frame()`. We also visualized categorical variables using **bar charts** with `geom_bar()` and **pie charts** with `coord_polar()`.
+| Topic | Key concepts |
+|----|----|
+| Central tendency — mean | `mean()`, `weighted.mean()`; best when distribution is symmetric; sensitive to outliers |
+| Central tendency — median | `median()`; preferred when data is skewed or outliers are present; not affected by extremes |
+| Central tendency — mode | `sort(table(), decreasing=TRUE)`; most useful for categorical data or identifying the most common value |
+| Skewness | `skew()` from `semTools`; z-score thresholds: ±2 (n \< 50), ±3.29 (n 50–300), ±7 (n \> 300) |
+| Kurtosis | `kurtosis()` from `semTools`; same z-score thresholds; leptokurtic (positive) vs. platykurtic (negative) |
+| Variance and standard deviation | `var()`, `sd()`; paired with mean; measure average deviation from center |
+| Range and IQR | `diff(range())`, `IQR()`, `quantile()`; paired with median; IQR is the middle 50% of data |
+| Outlier detection | Lower bound = Q1 − 1.5 × IQR; upper bound = Q3 + 1.5 × IQR; flagged ≠ wrong |
+| Histograms | `geom_histogram(binwidth=)`; reveals shape, center, and spread; connect visually to skewness |
+| Density plots | `geom_density()`; smoothed histogram; use `geom_vline()` to overlay the mean |
+| Boxplots | `geom_boxplot()`; five-number summary (min, Q1, median, Q3, max); outliers plotted individually |
+| Frequency tables | `table()`, `prop.table()`, `cumsum()`; combined with `rbind()`, `t()`, `as.data.frame()` |
+| Bar charts | `geom_bar()` for counts; `after_stat(prop)` for proportions; `position="dodge"` for grouped bars |
+| Pie charts | `coord_polar("y")`; available but bar charts are preferred for accurate comparison |
 
-Each section includes a hands-on lab using the `descriptives.csv` dataset, which contains `CustomerValue`, `DeliveryTime`, `EngagementLevel`, `LoyalCustomer`, `ServiceScore`, and `ReturnRate`.
-
-In the next lesson, we move into **data preparation** — data types, coercion, filtering, recoding, and reshaping using the `dplyr` package.
+**What comes next:** The Data Preparation lesson introduces the tools needed to clean and reshape data before analysis — filtering rows, selecting columns, recoding variables, handling missing values, and reshaping between wide and long formats using `dplyr`. The summary statistics and charts in this lesson are only meaningful on clean data, so data preparation is the essential next step.

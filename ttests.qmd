@@ -9,24 +9,34 @@ format: html
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
 ```
 
--   The goal of this lesson is to teach you how to conduct statistical inference with regards to hypothesis testing. In doing so, we will learn a few key hypothesis tests given t-distributions, including the one-sample t-test, the independent samples t-test, and the dependent samples t-test. We will continue to conduct hypothesis tests in the later modules as they are the cornerstone to conducting sound statistical inference.
+This lesson introduces the logic and mechanics of statistical hypothesis testing, then applies that framework to three t-tests that will appear throughout the rest of the course.
+
+We begin with the **foundations of hypothesis testing**: what a null and alternative hypothesis are, why we assume the null is true until the evidence says otherwise, and how the p-value approach works. A p-value is the probability of observing a result at least as extreme as the one calculated, *assuming the null hypothesis is true*. A small p-value means the observed data would be very unlikely if the null were true — giving us grounds to reject it. We set a decision rule in advance: reject $H_0$ if the p-value is less than alpha (typically 0.05). We also cover the three tail configurations — two-tailed ($\neq$), right-tailed ($>$), and left-tailed ($<$) — and how the direction of the alternative hypothesis determines which tail of the distribution we look at.
+
+The lesson then works through three **t-tests**, each using R's `t.test()` function with different arguments. All three follow the same three-step procedure: specify hypotheses, compute the test statistic and p-value, interpret and conclude. The t-distribution is used instead of the z-distribution because we are estimating population parameters from sample data — specifically, we rarely know the population standard deviation. Where a z-score measures how many standard deviations a value is from the mean, a t-statistic measures how many standard errors the sample mean is from the hypothesized value. As sample size grows, the t-distribution approaches the normal distribution.
+
+The **one-sample t-test** compares a single sample mean to a known or hypothesized value — for example, testing whether average study hours differ from 12. The **independent samples t-test** compares the means of two unrelated groups — for example, whether systolic blood pressure differs between males and females. The **dependent (paired) samples t-test** compares two related measurements, such as weight before and after an intervention, where each observation in one group is matched to a specific observation in the other. The key to choosing the right test is understanding how the data are structured.
+
+By the end of this lesson, you should be able to set up and interpret any of the three t-tests in R, choose the correct test for a given research question, and write a formal conclusion from the output. Work through every code example in your own R script alongside the reading.
 
 ### At a Glance
 
--   In order to succeed in this section, you will need to understand how to set up and test a hypothesis, knowing that we can reuse our logic of hypothesis testing for other types of models later on. Pay close attention to the idea of and the reason for the t-distribution with regards to one-sample, independent samples, and dependent samples hypothesis test. Additionally, note when the test is a two-tailed, a right-tailed, or a left-tailed test, and what that means for the interpretation of the results.
+-   In order to succeed in this section, you will need to understand how to set up and test a hypothesis, knowing that we can reuse this logic for many other types of models throughout the course. Pay close attention to why we use the t-distribution — and how it differs from the z-distribution — for one-sample, independent samples, and dependent samples tests. Additionally, note when the test is two-tailed, right-tailed, or left-tailed, and what that means for the interpretation of the results.
 
 ### Lesson Objectives
 
--   Compare a sample mean to a population mean with a one-sample t-test.
+-   Explain the logic of hypothesis testing: null and alternative hypotheses, p-value interpretation, and the decision rule.
+-   Distinguish between two-tailed, right-tailed, and left-tailed tests and set up each correctly.
+-   Compare a sample mean to a hypothesized population value with a one-sample t-test.
 -   Compare two unrelated sample means with an independent-samples t-test.
--   Compare two related sample means with a dependent-samples t-test.
--   Compare and contrast the the three t-tests covered in this module: one-sample, independent samples, and dependent samples.
+-   Compare two related sample means with a dependent-samples (paired) t-test.
+-   Select the correct t-test for a given research question based on data structure.
 
 ### Consider While Reading
 
--   In this lesson, we learn more about hypothesis testing, which will continue throughout the rest of the term! We are still conducting inference analysis. As an analyst, I like to say that this starts the fun stuff.
--   We cover three important t-tests. There are more examples on the our course management system with regards to setting up a two-tailed, right-tailed, or left-tailed test and adjusting the $\mu$ of interest.
--   Make sure you understand the key differences between all the three t-tests presented in this module and their role in interpreting data and making inferences. All three tests are making comparisons: comparisons to a mean value, comparison to another population, or comparison to paired data like before and after results.
+-   In this lesson, we introduce hypothesis testing — the formal statistical process for deciding whether sample evidence supports a claim about a population. This framework carries forward for the remainder of the course: ANOVA, regression, and correlation all follow the same fundamental logic of comparing a test statistic to a null distribution and interpreting the resulting p-value.
+-   We cover three t-tests that use the `t.test()` command with different arguments. The differences between them come down to one question: what are you comparing? A sample mean to a benchmark, two independent groups, or two related measurements on the same subjects?
+-   As you read, pay particular attention to how the alternative hypothesis determines the direction of the test — and therefore which side of the distribution you examine — and how `paired = TRUE` versus the tilde (`~`) syntax in `t.test()` changes the structure of the test.
 
 ## Hypothesis Testing
 
@@ -164,6 +174,10 @@ knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRU
 -   We use the default S3 method in conducting the t.test:
     -   Default S3 method: t.test(x, y = NULL,alternative = c("two.sided", "less", "greater"), mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95, ...).
 -   We change arguments as needed to satisfy the type of test that we are conducting.
+
+------------------------------------------------------------------------
+
+With the framework for hypothesis testing established, the next three sections apply it to three specific scenarios using R's `t.test()` function. The choice of test depends entirely on what you are comparing and how the data are structured: one group versus a known value, two unrelated groups, or two related measurements on the same subjects.
 
 ## One-Sample t-Test
 
@@ -706,8 +720,167 @@ t.test(sleep2$extra.1, sleep2$extra.2, paired=TRUE)
 -   How does the confidence interval calculated during a t-test help in understanding the range of possible population parameters, and why is it important in hypothesis testing?
 
 -   What is the difference between an independent samples t-test and a dependent (paired) samples t-test, and in what situations should each be used?
+# Summary and Review 
+
+## Using AI
+
+-   Use the following prompts on a generative AI, like chatGPT, to learn more about t.test's and confidence intervals.
+
+-   Can you explain the difference between the null hypothesis and the alternative hypothesis, and why is it important to set up both correctly before conducting a t-test?
+
+-   What factors determine whether you should use a one-sample, independent samples, or dependent samples t-test, and how do the results differ based on the test chosen?
+
+-   When should I use a two-tailed t-test compared to a right- or left-tailed test, and how does the alternative hypothesis guide this decision?
+
+-   What are the key arguments in the t.test() function in R, and how do I modify these arguments to perform different types of t-tests, such as two-tailed or paired t-tests?
+
+-   How do I interpret the p-value in the context of hypothesis testing, and how does it relate to rejecting or failing to reject the null hypothesis?
+
+-   How does the confidence interval calculated during a t-test help in understanding the range of possible population parameters, and why is it important in hypothesis testing?
+
+-   What is the difference between an independent samples t-test and a dependent (paired) samples t-test, and in what situations should each be used?
+
+
+## t-Test Lab
+
+**A campus dining service** claims that the average wait time at peak lunch hours is 8 minutes. A student researcher times 40 randomly selected visits and finds a mean wait of 9.4 minutes (sd = 3.1 minutes). Without running the code, set up the null and alternative hypotheses for a two-tailed test, and identify which t-test is appropriate and why.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+This is a **one-sample t-test** because we are comparing a single sample mean (9.4 minutes) to a known or claimed population value (8 minutes).
+
+-   $H_0$: The mean wait time is equal to 8 minutes. ($\mu = 8$)
+-   $H_A$: The mean wait time is not equal to 8 minutes. ($\mu \neq 8$)
+-   Two-tailed because the researcher is testing for any difference, not a specific direction.
+
+``` r
+t.test(wait_times, mu = 8, alternative = "two.sided")
+```
+:::
+
+**Identify** whether each scenario below calls for a one-sample, independent samples, or dependent samples t-test. Briefly justify each choice.
+
+-   
+
+    a.  A hospital compares the recovery times of patients assigned to two different physical therapy programs.
+
+-   
+
+    b.  A nutritionist records a client's sodium intake before and after a four-week dietary intervention.
+
+-   
+
+    c.  A manufacturer wants to know if the average output voltage of a new circuit board differs from the specification of 5.0 volts.
+
+-   
+
+    d.  A university compares the GPA of students who attended orientation versus those who did not.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+-   **a. Independent samples t-test.** Two separate, unrelated groups (different patients in different programs). Each patient appears in only one group.
+-   **b. Dependent (paired) samples t-test.** The same clients are measured twice — before and after. Each "before" observation is directly linked to the same person's "after" observation.
+-   **c. One-sample t-test.** One sample of circuit boards is being compared to a single known specification value (5.0 volts), not to another group.
+-   **d. Independent samples t-test.** Two distinct, unrelated groups of students — those who attended orientation and those who did not. No natural pairing between individuals across groups.
+:::
+
+**A two-tailed one-sample t-test** returns a t-statistic of 2.31 with a p-value of 0.024. Alpha is set at 0.05. State the conclusion in plain English, including both the formal decision and a sentence that communicates the result to a non-statistician.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**Formal decision:** Since the p-value (0.024) is less than alpha (0.05), we reject the null hypothesis.
+
+**Plain English conclusion:** The sample provides statistically significant evidence that the true population mean is different from the hypothesized value. In other words, the difference we observed is unlikely to be due to random chance alone — there is real evidence that the actual average differs from what was claimed.
+
+Note: If alpha had been set to 0.01, the p-value of 0.024 would be *greater* than alpha, and we would fail to reject the null. The conclusion depends on the alpha level chosen before running the test.
+:::
+
+**A researcher** wants to test whether employees who participate in a wellness program report fewer sick days than those who do not. She collects data on 45 participants and 45 non-participants. Write out the null and alternative hypotheses, identify the test, specify the `alternative` argument in R's `t.test()` function, and explain how the direction of the hypothesis affects which tail is examined.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**Test:** Independent samples t-test — two separate, unrelated groups (participants vs. non-participants).
+
+Let $\mu_1$ = mean sick days for wellness program participants and $\mu_2$ = mean sick days for non-participants.
+
+-   $H_0: \mu_1 - \mu_2 \geq 0$ (participants have the same or more sick days)
+-   $H_A: \mu_1 - \mu_2 < 0$ (participants have *fewer* sick days — left-tailed)
+
+``` r
+t.test(sick_days ~ group, alternative = "less")
+```
+
+**Why left-tailed?** The hypothesis is directional — the researcher specifically predicts that participants will have *fewer* sick days, meaning $\mu_1 < \mu_2$, which places the rejection region in the *left* tail of the distribution. If the data showed participants had *more* sick days, the test would not reject the null regardless of the magnitude of the difference.
+:::
+
+**A before-and-after study** measures employee productivity scores before and after a training program for 12 employees. The differences (after minus before) are:
+
+`4, -1, 6, 3, 5, 2, 0, 7, 3, -2, 4, 5`
+
+By hand: (a) calculate the mean difference $\bar{d}$, and (b) state what value of `mu` you would use in the `t.test()` call and why.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**(a) Mean difference:**
+
+$$\bar{d} = \frac{4 + (-1) + 6 + 3 + 5 + 2 + 0 + 7 + 3 + (-2) + 4 + 5}{12} = \frac{36}{12} = 3.0$$
+
+The average productivity score increased by 3.0 points after training.
+
+**(b) Value of `mu`:**
+
+``` r
+t.test(after, before, paired = TRUE, alternative = "two.sided", mu = 0)
+```
+
+We use `mu = 0` because the null hypothesis for a paired test is that the mean difference is zero — meaning training had no effect on productivity. We are testing whether the observed mean difference of 3.0 is significantly different from zero.
+:::
+
+**Interpret** the following R output from a dependent samples t-test. State the conclusion, identify the direction of the difference from the mean estimate, and explain what the confidence interval tells you.
+
+```         
+Paired t-test
+
+t = 4.1832, df = 11, p-value = 0.001501
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 1.463852 4.536148
+sample estimates:
+mean of the differences 
+                      3
+```
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**Conclusion:** Since the p-value (0.0015) is less than alpha (0.05), we reject the null hypothesis. There is statistically significant evidence that the mean difference is not equal to zero — the training program did change productivity scores (t(11) = 4.18, p = 0.0015).
+
+**Direction:** The mean difference is positive (3.0), meaning scores were higher *after* the training program than before. The program appears to have increased productivity on average.
+
+**Confidence interval:** We are 95% confident that the true mean increase in productivity falls between 1.46 and 4.54 points. Because the entire interval is above zero (it does not include zero), this corroborates the significant p-value — we are confident the true effect is positive and meaningful, not just a chance fluctuation.
+:::
 
 ## Summary
 
--   In summary, we learned about the basic rules of hypothesis testing and how to set up a null and alternative hypothesis. We learned about two-tailed, right-tailed, and left-tailed hypotheses. We learned about 3 t.tests: the one-sample t-test, the independent samples t-test, and the dependent (or paired) samples t-test. Finally, we also learned how to interpret the results using the p-value approach.
--   Take note that this lesson does not include the assumptions for t-tests. Assumptions are extremely important, but I will leave the discussion of them to another class.
+This lesson covered the logic of hypothesis testing and three t-tests in R:
+
+| Topic | Key concepts |
+|------------------------------------|------------------------------------|
+| Hypothesis testing logic | Null ($H_0$) vs. alternative ($H_A$), p-value interpretation, decision rule (p \< α = reject $H_0$) |
+| Tail types | Two-tailed (\$ |
+| eq$), right-tailed ($\>$), left-tailed ($\<\$); alternative hypothesis determines the tail |  |
+| p-value approach | Compare p-value to pre-set alpha (typically 0.05); never "accept" $H_0$, only fail to reject |
+| t-distribution | Used when population SD is unknown; approaches normal as $n$ increases; measured in standard errors |
+| `t.test()` command | Core arguments: `alternative`, `mu`, `paired`, `var.equal`, `conf.level` |
+| One-sample t-test | Compares sample mean to a known/hypothesized value; formula $t = (m_x - \mu_x)/(s_x/\sqrt{n})$ |
+| Independent samples t-test | Compares means of two unrelated groups; use `~` when groups are in one column, `,` when in two |
+| Dependent samples t-test | Compares two related measurements; use `paired = TRUE`; formula uses mean of differences $m_d$ |
+| `reshape()` | Converts long-to-wide data for paired tests; tidyverse alternative uses `filter()` + `full_join()` |
+| Confidence intervals | Output includes 95% CI around the estimate; interpreted alongside the p-value |
+
+**What comes next:** The ANOVA lesson extends hypothesis testing beyond two groups. Where the independent samples t-test compares the means of two populations, a one-way ANOVA compares three or more. The F-statistic and p-value interpretation follow the same logic introduced here.

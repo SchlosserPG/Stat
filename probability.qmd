@@ -9,25 +9,40 @@ format: html
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
 ```
 
--   The goal of this lesson is to teach you how to apply the basic rules of probability, explore key probability distributions, and perform probability calculations using contingency tables. You will also learn how to transform data using the tidyverse and leverage the power of the central limit theorem. Additionally, we will conduct our first hypothesis tests, including the chi-squared test for independence and the chi-squared test of goodness of fit.
+This lesson covers the foundations of probability and statistical inference, moving from how probability is calculated for individual outcomes to how it is used to draw conclusions about populations. It is the bridge between descriptive statistics — summarizing what you have — and inferential statistics — making claims about what you do not have.
+
+We begin with **probability distributions and random variables**. A probability distribution assigns a probability to every possible value of a variable. Discrete variables take countable values and are modeled with the **binomial distribution**, which calculates the probability of a specific number of successes in a fixed number of independent trials. Two key R functions — `dbinom()` for exact probabilities and `pbinom()` for cumulative probabilities — do the calculation once you know the number of trials and the probability of success.
+
+Continuous variables require a different approach. For these, we use the **normal distribution** — the bell-shaped curve that underlies most of statistical inference. We find probabilities using `pnorm()` and work backwards from a probability to a value using `qnorm()`. We also cover **z-scores**, which standardize a value by expressing it as the number of standard deviations it lies from the mean, allowing observations from different distributions to be compared on a common scale. The **Central Limit Theorem (CLT)** is the most important theoretical result in this lesson: it tells us that the sampling distribution of the sample mean approaches normality as sample size grows, regardless of the shape of the underlying population — as long as $n \geq 30$. This is what allows us to use normal-distribution tools even when the raw data is not itself normal. The **standard error** (SE = $sd/\sqrt{n}$) measures how much the sample mean varies from sample to sample, and replaces the standard deviation in probability calculations involving sample means rather than individual observations.
+
+When a variable is not normally distributed, we attempt **transformations** — square root, log, cube root, or reciprocal — to reshape it into approximate normality so that the normal distribution tools still apply. Some variables resist all transformations, which has its own practical implication.
+
+The second half of the lesson moves to **contingency tables**, which organize frequency data for two categorical variables and enable the calculation of joint, marginal, and conditional probabilities. We then conduct two **chi-squared tests** — the test of independence (do two categorical variables have a statistically significant association?) and the goodness of fit test (do observed proportions match a set of expected proportions?). Both tests compare observed counts to expected counts and produce a chi-squared statistic and p-value that we interpret the same way as any other hypothesis test.
+
+By the end of this lesson, you should be able to calculate binomial and normal probabilities in R, apply the CLT to problems involving sample means and proportions, attempt and evaluate variable transformations, compute probabilities from contingency tables, and conduct both chi-squared tests. Work through every code example in your own R script alongside the reading.
 
 ### At a Glance
 
--   In order to succeed in this lesson, you will need to learn the basic rules behind random events including how to calculate probability based on distribution. We focus on learning these skills with regards to the binomial distribution and the normal distribution, and in doing so move from learning about descriptive statistic to learning about inferential statistics. We will also learn the limitations of having a variable that is not normal, and how to transform it to be normal so that we can calculate probability using the same algorithms.
--   In order to succeed in this section, you will need to learn how to create and calculate probability inside a contingency table, when we have two categorical variables, and conduct our first hypothesis test, the chi-squared test of independence.
+-   In order to succeed in this lesson, you will need to learn the basic rules behind random events and how to calculate probability using distributions. We focus on the binomial distribution for discrete outcomes and the normal distribution for continuous data, and in doing so move from descriptive statistics to inferential statistics. You will also learn how the Central Limit Theorem justifies the use of normal-distribution tools even with non-normal populations, how to transform skewed variables, how to calculate probability from contingency tables, and how to conduct chi-squared hypothesis tests for two categorical variables.
 
 ### Lesson Objectives
 
--   Define and use probability distributions to infer from a sample.
--   Compute and interpret z-scores to compare observations to groups.
--   Estimate population means from sample means using the normal distribution.
+-   Define probability distributions and distinguish discrete from continuous random variables.
+-   Calculate exact and cumulative probabilities using `dbinom()` and `pbinom()`.
+-   Calculate probabilities and quantiles for normally distributed variables using `pnorm()` and `qnorm()`.
+-   Compute and interpret z-scores.
+-   Apply the Central Limit Theorem to problems involving sample means and sample proportions.
+-   Distinguish between standard deviation and standard error and use each in the correct context.
+-   Attempt and evaluate variable transformations for non-normal data.
+-   Calculate joint, marginal, and conditional probabilities from a contingency table.
+-   Conduct and interpret a chi-squared test of independence.
+-   Conduct and interpret a chi-squared goodness of fit test.
 
 ### Consider While Reading
 
--   As you engage with the lesson, pay attention to the key concepts and how those concepts are applied. There are rules for calculating and combining probabilities that are important for you to know to solve the problem sets and to solve real-life problems. Take note of the applicability of the normal distribution, which is a major cornerstone for statistical analysis.
--   In this lesson, we move from simply describing data to making inferences. There are so many ways to calculate probability. The assigned readings focus on helping you learn and understand two of the most common distributions: the binomial distribution and the normal distribution. In doing so, we learn about random variables, sampling, and the importance of setting the seed. We also find z-scores, which will turn out to be very important for our future studies. Next, we focus on the utility of the transformation section, which allows us to use the rules and practices regarding a normal distribution, assuming that at least one transformation was successful into reshaping the quantitative variable into a normally-shaped distribution.
--   We also learn about contingency tables in regards to calculating probability, and are able to calculate and interpret the Chi-squared statistic for the test of independence.
--   As you read and listen to the materials for this lesson, pay attention to the concepts and how those concepts are applied. There are rules for calculating and combining probabilities that are important for you to know to solve the problem sets and to solve real-life problems. Take note of the applicability of the normal distribution, which is a major cornerstone for statistical analysis.
+-   As you work through this lesson, pay attention to two transitions: first, from discrete probability (binomial) to continuous probability (normal), and second, from single-variable probability to two-variable probability (contingency tables and chi-squared tests). Each section builds on the same core logic — comparing what we observe to what probability theory predicts.
+-   The Central Limit Theorem is the most important concept in this lesson. Understanding why the sampling distribution of the mean is approximately normal — even when the population is not — is what justifies nearly all of the inferential statistics you will use going forward, including t-tests, ANOVA, and regression.
+-   When you reach the chi-squared section, note that the test statistic and p-value interpretation follow the same three-step framework you will use throughout the course: specify hypotheses, compute the statistic, interpret the p-value against alpha. This makes the chi-squared test a natural first hypothesis test to practice on.
 
 ## Some Common Statistics Terms
 
@@ -461,6 +476,10 @@ dbinom(2, 4, .3) + dbinom(3, 4, .3) + dbinom(4, 4, .3)
 0.2646 + 0.0756 + 0.0081
 ```
 
+------------------------------------------------------------------------
+
+The binomial distribution works for discrete outcomes — a fixed number of trials each resulting in success or failure. Most real-world measurements, however, produce continuous data: heights, test scores, battery life, salary. For these, we use the continuous normal distribution, which introduces a different set of probability tools built around the area under the curve.
+
 # The Continuous Distribution
 
 -   Properties of a Continuous Random Variable
@@ -861,6 +880,10 @@ phat2 <- .6
 Q1 <- pnorm(phat1, p, sqrt(p*(1-p)/n))-pnorm(phat2, p, sqrt(p*(1-p)/n)); Q1 #0.192639
 ```
 
+------------------------------------------------------------------------
+
+The normal distribution and its associated tools — z-scores, pnorm(), qnorm(), the CLT, and standard error — all assume that the variable in question is normally distributed. In practice, many variables are not. The next section introduces transformations: techniques for reshaping a skewed variable into something approximately normal, so that the probability tools above can still be applied.
+
 # Transformations of Variables
 
 -   If data is not normally distributed, we need to conduct a transformation. When we transform a variable, we hope to change the shape to normal so that we can continue to calculate under the rules of the normal distribution. For variables that are right skewed, a few transformations that could work to make the variable more normally distributed are: square root, cube root, reciprocal, and log.
@@ -1068,6 +1091,10 @@ gridExtra::grid.arrange(cuberoot, logged, inversed, squareroot)
 ```
 
 -   In this example, NOT ONE transformation helped. If this happens, something else would need to occur before correctly using the variable. Examples could be to run a non-linear model, or categorizing the data into bins, especially since there was a large frequency of people that were not ill.
+
+------------------------------------------------------------------------
+
+The probability work so far has focused on a single continuous (or discrete) variable at a time. Contingency tables shift the focus to two categorical variables simultaneously — for example, age group and brand preference — and give us tools for computing joint, marginal, and conditional probabilities from frequency data.
 
 # Contingency Tables
 
@@ -1292,6 +1319,10 @@ varx <- n*p*(1-p); varx #328.3955
 # SD(X) (formula sqrt of variance)
 sdx <- sqrt(varx); sdx #18.12
 ```
+
+------------------------------------------------------------------------
+
+Contingency tables let us calculate probabilities by hand, but they do not formally test whether the observed relationship between two categorical variables is statistically significant or simply due to chance. The chi-squared test of independence provides that test — comparing what we actually observed to what we would expect if the two variables had no relationship at all.
 
 # Chi-Squared Test for Independence
 
@@ -1573,7 +1604,10 @@ chisq.test(STEMGOF$RecentNumbers,p=STEMGOF$X2010Proportions)
 -   Step 3: If the probability that the null is true is very small, usually less than 5%, reject the null hypothesis versus If the probability that the null is true is not small, usually 5% or greater, retain the null hypothesis.
 -   Since our p-value is 0.0006441, we reject $H_0$ and conclude that the proportions differ at the 5% significance level. In this case, that means that the recent stem numbers differ from the 2010 values.
 
-# Using AI
+
+# Summary and Review
+
+## Using AI
 
 -   Use the following prompts on a generative AI, like chatGPT, to learn more about probability and contingency tables.
 
@@ -1611,25 +1645,198 @@ chisq.test(STEMGOF$RecentNumbers,p=STEMGOF$X2010Proportions)
 
 -   How do you apply probability functions such as pnorm() and qnorm() in R to solve real-world problems, such as calculating the likelihood of events based on normal distributions?
 
-# Summary
 
--   In this lesson, we learned about the basic rules of probability alongside the binomial distribution and continuous distribution. We learned about the normal distribution and the limitations of using that distribution. We also learned how to transform variables that were not normal.
+-   What is a contingency table, and how is it used to represent the relationship between two categorical variables in probability calculations?
 
--   In a normal distribution, we used 3 main formulas with the pnorm() function. Each formula has a different role, but they all provide a way to assess variability relative to an average value, allowing for comparisons and inferences about the data or sample in question.
+-   How do you calculate joint, marginal, and conditional probabilities using a contingency table, and what is the significance of each type of probability?
 
-\begin{array}{|c|c|c|c|}
-\hline
-\textbf{Context} & \textbf{Formula} & \textbf{Interpretation} & \textbf{pnorm Function Usage} \\
-\hline
-\text{Standardizing individual data points} & \frac{x - \text{mean}(x)}{\text{sd}(x)} & \text{Z-score for individual values} & \text{pnorm}(x, \text{mean}, \text{sd}) \\
-\hline
-\text{Standardizing the sample mean} & \frac{x - \text{mean}(x)}{\text{sd}(x) / \sqrt{n}} & \text{Used for hypothesis tests of means} & \text{pnorm}(x, \text{mean}, \text{se}) \\
-\hline
-\text{Standardizing a sample proportion} & \frac{\hat{p} - p}{\sqrt{\frac{p(1 - p)}{n}}} & \text{Used for hypothesis tests of proportions} & \text{pnorm}(\hat{p}, p, \sqrt{\frac{p(1 - p)}{n}}) \\
-\hline
-\end{array}
+-   Can you explain how the chi-squared test for independence works, and how it is used to determine whether two categorical variables are independent or dependent?
 
--   We also learned about contingency tables in regards to calculating probability with two categorical variables. We also computed the chi-squared statistics for the test of independence and the goodness of fit.
--   We note that the "Goodness of fit" and "test of independence" are both chi-square tests, but they serve different purposes:
--   Goodness of Fit test: *Purpose*: Assesses how well observed data match a specified distribution (often a theoretical or expected distribution). *Example*: Checking if the distribution of colors of M&M’s in a bag matches the expected company distribution (say, 30% blue, 20% red, etc.). *Null Hypothesis*: The observed frequencies match the expected frequencies.
--   Test of Independence: *Purpose*: Determines whether there is a significant association between two categorical variables in a contingency table. *Example*: Evaluating if gender (male/female) is independent of preference for a type of product (e.g., A or B). *Null Hypothesis*: The two variables are independent (no association).
+-   What is the difference between the chi-squared test for independence and the chi-squared goodness of fit test, and how is each test applied?
+
+-   Once you calculate the chi-squared test statistic, how do you interpret the p-value to determine whether to reject or fail to reject the null hypothesis?
+
+-   Why are degrees of freedom important in a chi-squared test, and how do you calculate them for a contingency table?
+
+-   How do you set up and execute a chi-squared test using the chisq.test() function in R, and what are the key outputs to focus on when interpreting the results?
+
+-   What are the key characteristics of a probability distribution, and how do you determine whether a given set of values represents a valid probability distribution?
+
+-   What is the difference between a discrete and a continuous random variable, and how do the probability distributions differ for each type?
+
+-   How do you calculate the expected value and variance for a discrete random variable, and why are these summary measures important in understanding probability distributions?
+
+-   What are the properties of a binomial distribution, and how is it used to calculate the probability of a certain number of successes in a fixed number of trials?
+
+-   How do you use the dbinom() and pbinom() functions in R to calculate the probability of exact or cumulative successes in a binomial experiment?
+
+-   What is a normal distribution, and how do you calculate z-scores to determine how far an observation is from the mean of a normally distributed variable?
+
+-   How do you interpret and calculate cumulative probabilities for both discrete and continuous variables using the cumulative distribution function (CDF)"
+
+-   What is the Central Limit Theorem (CLT), and why is it important when working with large samples and understanding the distribution of sample means?
+
+-   When data is not normally distributed, what transformations can you apply to make the data more normally distributed, and how do you determine which transformation is most effective?
+
+-   How do you apply probability functions such as pnorm() and qnorm() in R to solve real-world problems, such as calculating the likelihood of events based on normal distributions?
+
+## Probability Lab
+
+**A quality control analyst** knows that 15% of units produced at a factory have a minor defect. In a batch of 10 randomly selected units, what is the probability that exactly 2 are defective? Write the R command and interpret the result.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+This is a binomial probability problem: $n = 10$, $p = 0.15$, $X = 2$.
+
+$$P(X = 2) = \dbinom{10}{2}(0.15)^2(0.85)^8$$
+
+``` r
+dbinom(2, 10, 0.15)
+```
+
+The result is approximately **0.2759** — there is about a 27.6% chance that exactly 2 of the 10 randomly selected units are defective. Note the use of `dbinom()` (not `pbinom()`) because we want the probability of an *exact* count, not a cumulative probability.
+:::
+
+**Using the same defect scenario** (n = 10, p = 0.15), calculate the probability that **fewer than 3** units are defective. Write two R expressions that give the same answer — one using `pbinom()` and one using `dbinom()`.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+$P(X < 3) = P(X \leq 2)$
+
+``` r
+# Using pbinom — cumulative, P(X <= 2)
+pbinom(2, 10, 0.15)
+
+# Using dbinom — summing individual probabilities
+dbinom(0, 10, 0.15) + dbinom(1, 10, 0.15) + dbinom(2, 10, 0.15)
+```
+
+Both give approximately **0.8202** — there is about an 82% chance that fewer than 3 units in the batch are defective. The `pbinom()` approach is more efficient; the `dbinom()` approach makes the logic explicit.
+:::
+
+**Scores on a professional certification exam** are normally distributed with a mean of 68 and a standard deviation of 9. What is the probability that a randomly selected candidate scores above 80? Calculate the z-score by hand first, then verify using `pnorm()`.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**Z-score by hand:** $$z = \frac{80 - 68}{9} = \frac{12}{9} \approx 1.33$$
+
+A score of 80 is approximately 1.33 standard deviations above the mean.
+
+**Using pnorm():**
+
+``` r
+pnorm(80, 68, 9, lower.tail = FALSE)
+```
+
+Result: approximately **0.0912** — there is about a 9.1% chance that a randomly selected candidate scores above 80. The `lower.tail = FALSE` argument gives the upper-tail probability ($P(X > 80)$).
+:::
+
+**A student's exam score** of 74 comes from a distribution with $\mu = 68$ and $\sigma = 9$. A classmate's score of 82 comes from a different exam with $\mu = 78$ and $\sigma = 6$. Which student performed better *relative to their group*? Use z-scores to justify your answer.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**Student 1** (score = 74, $\mu = 68$, $\sigma = 9$): $$z_1 = \frac{74 - 68}{9} = \frac{6}{9} \approx 0.67$$
+
+**Student 2** (score = 82, $\mu = 78$, $\sigma = 6$): $$z_2 = \frac{82 - 78}{6} = \frac{4}{6} \approx 0.67$$
+
+Both students have z-scores of approximately 0.67, meaning both scored about two-thirds of a standard deviation above their respective class means. They performed equally well relative to their groups, despite having different raw scores on different exams. This is exactly the value of z-scores — they put observations from different distributions on a common scale.
+:::
+
+**A distribution of customer service call times** is strongly right-skewed, with a mean of 4.2 minutes and a standard deviation of 2.8 minutes. A random sample of 49 calls is taken. What is the probability that the sample mean call time exceeds 5 minutes? Identify which formula applies and why the normal distribution can be used despite the skewed population.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**Why the normal distribution applies:** By the Central Limit Theorem, the sampling distribution of the sample mean is approximately normal when $n \geq 30$. With $n = 49$, we can proceed even though the population is skewed.
+
+**Standard error** (not standard deviation — we are working with a sample mean): $$SE = \frac{\sigma}{\sqrt{n}} = \frac{2.8}{\sqrt{49}} = \frac{2.8}{7} = 0.4$$
+
+**Probability:**
+
+``` r
+pnorm(5, 4.2, 2.8/sqrt(49), lower.tail = FALSE)
+```
+
+$$P(\bar{X} > 5) = P\left(Z > \frac{5 - 4.2}{0.4}\right) = P(Z > 2.0) \approx 0.0228$$
+
+There is approximately a **2.3% chance** that the sample mean exceeds 5 minutes. If instead we had incorrectly used the population SD (2.8) rather than the SE (0.4), we would have dramatically overestimated the probability — a common error.
+:::
+
+**A survey of 200 college students** cross-tabulates coffee preference (Coffee / No Coffee) by sleep duration (\< 7 hrs / ≥ 7 hrs):
+
+|                | Coffee  | No Coffee | Total   |
+|----------------|---------|-----------|---------|
+| \< 7 hrs sleep | 80      | 20        | 100     |
+| ≥ 7 hrs sleep  | 40      | 60        | 100     |
+| **Total**      | **120** | **80**    | **200** |
+
+Calculate: (a) the marginal probability of preferring coffee, (b) the joint probability of sleeping fewer than 7 hours *and* preferring coffee, and (c) the conditional probability of preferring coffee given that a student sleeps fewer than 7 hours. Then check whether sleep duration and coffee preference appear to be independent.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**(a) Marginal probability of Coffee:** $$P(\text{Coffee}) = \frac{120}{200} = 0.60$$
+
+**(b) Joint probability — \< 7 hrs and Coffee:** $$P(\text{< 7 hrs} \cap \text{Coffee}) = \frac{80}{200} = 0.40$$
+
+**(c) Conditional probability — Coffee given \< 7 hrs:** $$P(\text{Coffee} \mid \text{< 7 hrs}) = \frac{P(\text{Coffee} \cap \text{< 7 hrs})}{P(\text{< 7 hrs})} = \frac{80/200}{100/200} = \frac{80}{100} = 0.80$$
+
+**Independence check:** If the variables were independent, we would expect: $$P(\text{Coffee} \mid \text{< 7 hrs}) = P(\text{Coffee}) = 0.60$$
+
+But the conditional probability (0.80) is higher than the marginal (0.60), suggesting the variables are *not* independent — students who sleep less than 7 hours are more likely to prefer coffee than the overall student population. A chi-squared test of independence would formally test this.
+:::
+
+**A campus event coordinator** wants to know whether students' likelihood of attending a future event has changed from last year's distribution: 25% Very Likely, 45% Moderately Likely, 30% Unlikely. This year, a survey of 200 students returns: 60 Very Likely, 82 Moderately Likely, 58 Unlikely. Set up the hypotheses and write the R code for the correct chi-squared test. Should the coordinator conclude that the distribution has changed?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+This is a **chi-squared goodness of fit test** — we are comparing observed proportions to a set of expected (hypothesized) proportions from last year.
+
+**Hypotheses:**
+
+-   $H_0$: The proportions match last year's distribution ($P_1 = 0.25$, $P_2 = 0.45$, $P_3 = 0.30$).
+-   $H_A$: At least one proportion differs from last year's values.
+
+``` r
+observed <- c(60, 82, 58)
+expected_props <- c(0.25, 0.45, 0.30)
+
+# Quick check: expected_props must sum to 1
+sum(expected_props)  # 1
+
+chisq.test(observed, p = expected_props)
+```
+
+**Expected counts under** $H_0$: 200 × 0.25 = 50, 200 × 0.45 = 90, 200 × 0.30 = 60.
+
+The observed counts (60, 82, 58) differ from the expected (50, 90, 60), particularly in the "Very Likely" category. Whether this difference is statistically significant depends on the p-value from `chisq.test()`. With degrees of freedom = $3 - 1 = 2$, if $p < 0.05$, the coordinator can conclude the distribution has shifted from last year.
+:::
+
+
+## Summary
+
+This lesson covered probability distributions, inferential foundations, variable transformations, and chi-squared hypothesis tests:
+
+| Topic | Key concepts |
+|------------------------------------|------------------------------------|
+| Probability distributions | Two properties: $0 \leq P(X=x) \leq 1$; all probabilities sum to 1 |
+| Random variables | Discrete (countable) vs. continuous (uncountable); expected value, variance, standard deviation |
+| Binomial distribution | Fixed $n$ trials, binary outcome, constant $p$; `dbinom()` for exact, `pbinom()` for cumulative |
+| Continuous distribution | $P(X = x) = 0$ for continuous variables; use intervals, not exact values |
+| Normal distribution | Bell-shaped, symmetric; mean = median = mode; described by $\mu$ and $\sigma^2$ |
+| z-scores | $z = (x - \mu)/\sigma$; standardizes values to number of standard deviations from mean |
+| pnorm() / qnorm() | `pnorm(x, mean, sd)` for probability; `qnorm(p, mean, sd)` for the value at a given probability |
+| Empirical rule | 68% within 1 SD, 95% within 2 SD, 99.7% within 3 SD |
+| Central Limit Theorem | Sampling distribution of $\bar{X}$ is approximately normal when $n \geq 30$, regardless of population shape |
+| Standard error | $SE = sd/\sqrt{n}$; used in place of SD when working with sample means |
+| Sample proportions | $se(\hat{P}) = \sqrt{p(1-p)/n}$; CLT applies when $np \geq 5$ and $n(1-p) \geq 5$ |
+| Transformations | Square root, log, cube root, reciprocal; graph all four and select the most bell-shaped result |
+| Contingency tables | Frequencies for two categorical variables; `prop.table()`, `margin.table()` |
+| Probability rules | Addition rule, complement rule, conditional probability $P(A\|B)$, joint probability \$P(A |
+
+

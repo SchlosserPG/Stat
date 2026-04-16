@@ -1,5 +1,5 @@
 ---
-title: "Analysis of Variance (ANOVA)"
+title: "ANOVA and Correlation"
 author: ""
 date: "2024-08-09"
 format: html
@@ -9,22 +9,33 @@ format: html
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
 ```
 
--   The main goal of this lesson is to understand and conduct one- and two-way ANOVAs and interpret their results. We will learn about Type I and Type II errors, which are applicable forms of error in any hypothesis test. We will also learn how to conduct post-hoc tests when an ANOVA yields significant results.
+This lesson covers two foundational tools for examining relationships in data: Analysis of Variance (ANOVA) and correlation analysis. Together, they form a complete toolkit for a day focused on group comparisons and linear relationships.
+
+We begin with **ANOVA**, which extends hypothesis testing beyond two groups. Where a t-test compares the means of two populations, a one-way ANOVA compares three or more, and a two-way ANOVA introduces a second grouping variable. The core question in every ANOVA is the same: is the variation in the outcome variable explained by the group structure, or is it just noise? We will work through the F-statistic, degrees of freedom, and the logic of between-group versus within-group variability. When a significant ANOVA is found, post-hoc tests — Bonferroni and Tukey HSD — tell us which specific groups differ. We also cover Type I and Type II errors here, since understanding the cost of false positives and false negatives is essential context for any hypothesis test, and ANOVA is a natural place to make those concepts concrete.
+
+The lesson closes with **correlation analysis**, which shifts our focus from group comparisons to continuous relationships. Covariance describes the direction of the linear relationship between two numeric variables; the correlation coefficient standardizes it into a value between −1 and +1 that captures both direction and strength. We test whether a correlation is statistically significant using `cor.test()`, and we learn to visualize relationships with scatterplots before interpreting any numerical result. The lesson closes by connecting correlation back to the t-test and ANOVA covered earlier in the course, showing how these tools address related but distinct questions depending on whether your variables are categorical or continuous.
+
+By the end of this lesson, you should be able to set up and conduct one- and two-way ANOVAs, run and interpret post-hoc tests, distinguish Type I from Type II error, calculate and test a correlation coefficient, and explain when each tool is appropriate. Work through every code example in your own R script alongside the reading.
 
 ### At a Glance
 
--   In order to succeed in this section, you will need to apply what you learned about variable types (quantitative versus categorical) and hypothesis testing in earlier lessons We will learn how to conduct and interpret an ANOVA, which allows us to compare groups (from a categorical/factor variable) with respect to a continuous variable. Unlike the independent samples t-test covered in Module 5, which is limited to comparing two groups, the ANOVA is meant for three or more groups. We can also follow up a significant ANOVA with post-hoc tests to see which groups are different from each other in regards to the continuous variable.
+-   In order to succeed in this section, you will need to apply what you learned about variable types (quantitative versus categorical) and hypothesis testing in earlier lessons. We will learn how to conduct and interpret an ANOVA, which allows us to compare groups (from a categorical/factor variable) with respect to a continuous variable. Unlike the independent samples t-test covered in Module 5, which is limited to comparing two groups, the ANOVA is meant for three or more groups. We can also follow up a significant ANOVA with post-hoc tests to see which groups are different from each other with regards to the continuous variable. We then extend into correlation analysis, which quantifies the strength and direction of the linear relationship between two continuous variables.
 
 ### Lesson Objectives
 
 -   Conduct and interpret a one-way ANOVA.
 -   Choose and use post-hoc tests and contrasts.
 -   Conduct and interpret a two-way ANOVA.
+-   Distinguish between Type I and Type II errors and explain how each relates to alpha and sample size.
+-   Calculate and interpret a correlation coefficient.
+-   Conduct and interpret a hypothesis test for correlation using `cor.test()`.
+-   Visualize the relationship between two continuous variables using a scatterplot.
 
 ### Consider While Reading
 
--   In this lesson, we continue with our discussion of both hypothesis testing and using inference. However, we are no longer limiting ourselves to one or two populations. ANOVA consists of the calculations that provide information about levels of variability within a regression model and form a basis for calculating tests of significance. This means that ANOVA can be conducted as we will do here, and as part of a regression analysis.
--   ANOVA is used to determine if there are differences among three or more populations. In cases of only two groups, an independent samples t-test should be used as was discussed in an earlier lesson. When reading, be sure to make connections back to variable data type, and know that with ANOVA, we are testing for group differences where groups are the categorical X variable or variables, and we want to see if there are group differences in regards to a continuous/numerical Y.
+-   In this lesson, we continue with our discussion of both hypothesis testing and inference, but we are no longer limiting ourselves to one or two populations. ANOVA consists of the calculations that provide information about levels of variability within a model and forms a basis for calculating tests of significance. ANOVA can be conducted as a standalone analysis as we do here, and also as part of a regression analysis — a connection explored further in the Regression lesson.
+-   ANOVA is used to determine if there are differences among three or more populations. In cases of only two groups, an independent samples t-test should be used as was discussed in an earlier lesson. When reading, be sure to make connections back to variable data type: with ANOVA, the grouping variable is categorical and the outcome is continuous.
+-   As you move into the correlation section, notice how the question changes. ANOVA asks whether group membership explains differences in a continuous outcome. Correlation asks how two continuous variables move together. Both use hypothesis testing and p-values, but the structure of the data and the interpretation of results are different.
 
 # Analysis of Variance (ANOVA)
 
@@ -621,7 +632,235 @@ choose(4,2)
 choose(3,2)
 ```
 
-# Using AI
+With ANOVA, we have been asking whether group membership explains differences in a continuous outcome variable. Correlation shifts that question: instead of comparing groups, we now ask how two continuous variables move together. The tools change, but the underlying logic of hypothesis testing — null hypothesis, test statistic, p-value, conclusion — carries forward exactly as before.
+
+# Correlation
+
+## Covariance
+
+-   Covariance ($s_{xy}$ or $cov_{xy}$) is a numerical measure that describes the direction of the linear relationship between two variables, x and y and reveals the direction of that linear relationship.
+-   The formula for covariance is as follows:
+    -   $cov_{xy} = \sum^n_{i=1}(x_i-m_x)*(y_i-m_y)/(n-1)$
+    -   Where $x_i$ and $y_i$ are the observed values for each observation, $m_x$ and $m_y$ are the mean values for each variable, $i$ represents an individual observation, and $n$ represents the sample size.
+
+```{r}
+
+x <- c(3, 8, 5, 2)
+y <- c(12, 14, 8, 4)
+
+devX <- x-mean(x)
+devY <- y-mean(y)
+
+covXY <- sum(devX * devY)/(length(x)-1); covXY
+
+#We can verify this by using cov() function in R.
+cov(x,y)
+```
+
+## Correlation Coefficient
+
+-   A correlation coefficient ($r_{xy}$) describes both the direction and strength of the relationship between $x$ and $y$. $r_{xy} = cov_{xy}/(s_x s_y)$ or using the standardized formula in the book:
+    -   $r_{xy} = \sum^n_{i=1}(z_x*z_y)/(n-1)$
+
+```{r}
+#Calculated manually
+covXY/(sd(x)*sd(y))
+
+#We can verify this by using cor() function in R.
+cor(x,y)
+
+```
+
+### Rules for the Correlation Coefficient
+
+-   The correlation coefficient has the same sign as the covariance; however, its value ranges between −1 and +1 whereas $-1 \le r_{xy} \le +1$.
+-   The absolute value of the coefficient reflects the strength of the correlation. So a correlation of −.70 is stronger than a correlation of +.50.
+
+![Correlation Coefficient](Pictures/Ch8/Correlation.png "Correlation Coefficient")
+
+## Interpreting the Direction of the Correlation
+
+-   Negative correlations occur when one variable goes up and the other goes down.
+-   No correlation happens when there is no discernible pattern in how two variables vary.
+-   Positive correlations occur when one variable goes up, and the other one also goes up (or when one goes down, the other one does too); both variables move together in the same direction.
+
+![Correlation Scatterplots](Pictures/Ch8/RelationshipScatter.png "Correlation Scatterplots")
+
+### Scatterplots to Visualize Relationship
+
+-   Let's do an example to first visualize the data, and then to calculate the correlation coefficient.
+
+-   First, read in a .csv called *DebtPayments.csv*. This data set has 26 observations and 4 variables:
+
+    -   A character variable with a bunch of metropolitan areas listed;
+    -   An integer numeric debt;
+    -   A numeric variable Income;
+    -   A numeric variable Unemployment.
+
+```{r}
+Debt_Payments <- read.csv("data/DebtPayments.csv")
+str(Debt_Payments)
+```
+
+-   Next, plot the relationship between 2 continuous variables.
+
+    -   There are a few ways to write the plot command using ggplot. We went over these in the Data Visualization lesson. Again we said:
+    -   Layer 1: ggplot() command with aes() command directly inside of it pointing to x and y variables.
+    -   Layer 2: geom_point() command to add the observations as indicators in the chart.
+    -   Layer 3 or more: many other optional additions like labs() command (for labels) or stat_smooth() command to generate a regression line.
+
+    ```{r, fig.alt="Scatterplot Using ggplot2 Generated by R"}
+    Debt_Payments %>% ggplot(aes(Income, Debt))+ 
+      geom_point(color="#183028", shape=2) + 
+      stat_smooth(method="lm", color="#789F90") + 
+      theme_minimal()
+    ```
+
+-   In the above plot, there is a strong positive relationship (upward trend) that should be confirmed with a correlation test.
+
+-   In a second example below, we look at Unemployment as the X variable. This scatterplot is much more difficult to use in determining whether the correlation will be significant. It looks negative, but there is not a strong linear trend to the data. This will also need to be confirmed with a correlation test.
+
+```{r, fig.alt="Scatterplot Using ggplot2 Generated by R"}
+Debt_Payments %>% ggplot(aes(Unemployment, Debt))+
+  geom_point(color="#183028", shape=2) + 
+  stat_smooth(method="lm", color="#789F90") + 
+  theme_minimal()
+```
+
+-   In many scatterplots using big data, the observations are too numerous to see a good relationship. In that case, the statistical test can trump this visual aid. However, in a lot of cases the scatterplot does help visualize the relationship between 2 continuous variables.
+
+### Interpreting the Strength of the Correlation
+
+-   Statisticians differ on what is called a strong correlation versus weak correlation, and it depends on the context. A .9 may be required for a strong correlation in one field, and a .5 in another. Generally speaking in business, the absolute value of a correlation .8 or above is considered strong, between .5 and .8 is considered moderate, and between .2 and .5 is considered weak.
+-   The following is consistent with what is most generally used:
+
+![Correlation Strength](Pictures/Ch8/CorrelationStrength.png "Correlation Strength")
+
+## Interpreting the Significance of the Correlation
+
+-   Correlation values should be tested alongside a p-value to confirm whether or not there is a correlation. The null is tested using a t-distribution specifically testing whether $r = 0$ or not, like the one-sample t-test section from the lesson 6.
+-   The null and alternative are listed below.
+    -   $H_0$: There is no relationship between the two variables ($r = 0$).
+    -   $H_A$: There is a relationship between the two variables ($r \neq 0$).
+-   Even small correlations can be significant: In large datasets, even a small correlation, like .1, can be statistically significant due to the increased power that comes with a high sample size. It's important to interpret both the strength of the correlation and its practical significance in context.
+
+#### Statistical significance answers the question: "Is the effect real?“
+
+-   Statistical Significance:
+
+-   A result is statistically significant if it is unlikely to have occurred by random chance, given a pre-defined threshold (usually p \< 0.05).
+
+-   With larger sample sizes, even very small effects can become statistically significant because larger samples reduce variability. For example, a correlation of 0.1 can be statistically significant with enough data.
+
+-   Practical Significance:
+
+-   Practical significance answers the question: "Is the effect meaningful?“
+
+-   Practical significance refers to the real-world importance or relevance of a result. It asks, "Does this effect matter in practice?“
+
+-   Even if a result is statistically significant, it may not be large enough to have a meaningful impact on business decisions or outcomes.
+
+### cor.test() Command
+
+-   The cor() command gives you just the correlation coefficient. This command can be useful if you are testing many correlations at one time. In the below statement, I can use $cor(Variable1, Variable2)$ to see the correlation between 2 continuous variables.
+
+```{r}
+cor(Debt_Payments$Income, Debt_Payments$Debt) 
+```
+
+-   The cor.test() command tests the hypothesis whether $r=0$ or not. This command comes with a p-value and t-test statistic (along with the correlation coefficient).
+
+```{r}
+cor.test(Debt_Payments$Income, Debt_Payments$Debt)
+```
+
+-   This test shows a strong positive correlation of .8675 (\>.8) which is significant. Our p-value is 9.66e-09 or \< .001 alpha level. This suggests that we reject the null hypothesis and support the alternative that $r \neq 0$ which confirms a correlation is present.
+-   We also see a confidence interval listed. It suggests that we are 95% confident that the correlation is between .723 and .939.
+
+```{r}
+cor.test(Debt_Payments$Income, Debt_Payments$Unemployment)
+```
+
+-   This test shows a moderate negative correlation of -.534 (between .5 and .8 in absolute value), which is significant. Our p-value is 0.004928 or \< .01 alpha level. This suggests that we reject the null hypothesis and support the alternative that $r \neq 0$ which confirms a correlation is present.
+-   We also see a confidence interval listed. It suggests that we are 95% confident that the correlation is between -.765 and -.185. This confidence interval is wider than the one listed above. This is due to the noise in the relationship we noted in the scatterplot - the correlation is weaker, the relationship does not look as linear, the confidence decreases. Even though this is true, we must note that we still found a significant correlation.
+
+## Additional Examples
+
+```{r}
+library(ISLR)
+data("Credit")
+summary(Credit)
+
+attach(Credit)
+
+cor.test(Rating, Income) #0.7913776 moderate and positive
+
+cor.test(Rating, Balance) #0.8636252 strong and positive
+
+cor.test(Rating, Limit) #0.9968797 strong and positive
+##almost perfectly linear 
+ggplot(Credit, aes(Rating, Limit))+geom_point()
+
+cor.test(Rating, Education) #-0.03013563 no correlation
+
+cor.test(Rating, Age) #0.103165 - between -.2 and .2 - so no relationship even though p-value < .05 -- p-value fails at .01 level. 
+ggplot(Credit, aes(Rating, Age))+geom_point()+stat_smooth(method="lm")
+
+
+cor.test(Rating, Cards) #0.05323903 
+ggplot(Credit, aes(Rating, Cards))+geom_point()+stat_smooth(method="lm")
+
+
+
+```
+
+## Comparing to t.test and ANOVA
+
+-   A t-test examines if there is a significant difference in the means of two groups on a dependent variable. For example, whether males and females differ in their credit ratings, where a correlation measures the strength and direction of a linear relationship between two continuous variables, such as Rating and Income.
+-   An independent t-test requires a categorical independent variable (e.g., Gender) with two levels and a continuous dependent variable (e.g., Rating), where a correlation requires two continuous variables.
+-   Both can provide insights into relationships in the dataset, but they address different questions. An independent t-test evaluates mean differences (group comparisons), while correlation evaluates relationships (continuous covariation). \* A significant t-test does not imply a strong correlation between the grouping variable and the dependent variable; the correlation would depend on the coding of the categorical variable and the distribution of data
+
+```{r}
+## -- Example of an independent t.test using same dataset
+t.test(Rating~Gender, data=Credit) ##no group differences
+ggplot(Credit, aes(Gender, Rating)) + geom_boxplot()
+
+t.test(Rating~Married, data=Credit)##no group differences
+ggplot(Credit, aes(Married, Rating)) + geom_boxplot()
+
+
+```
+
+-   An ANOVA tests for significant differences in the means of three or more groups on a dependent variable. For example, whether credit ratings differ across ethnic groups, where a correlation examines the strength of the relationship between two continuous variables.
+-   An Anova requires a categorical independent variable (with three or more levels) and a continuous dependent variable, where a correlation requires two continuous variables.
+-   ANOVA focuses on group comparisons (e.g., Rating differences across Ethnicity), while correlation looks at how two variables change together.A significant ANOVA could suggest that the categorical grouping variable explains some variance in the dependent variable, but this variance is not quantified as a relationship strength (as correlation would provide).
+
+```{r}
+## -- Example of An ANOVA using same dataset
+anova1 <- aov(Rating~Ethnicity, data=Credit)
+anova(anova1) #no group differences - no need for a post hoc test. 
+ggplot(Credit, aes(Ethnicity, Rating, fill=Ethnicity)) + geom_boxplot(show.legend=FALSE)
+```
+
+## Limitations of Correlation Analysis
+
+-   Note that a correlation is the first step in understanding causality. Correlation and causality are closely related but fundamentally different concepts in data analysis. Correlation refers to the statistical relationship between two variables, indicating how changes in one variable are associated with changes in another. However, it does not imply that one variable causes the other to change. Causality, on the other hand, goes beyond mere association to establish a cause-and-effect relationship, where one variable directly influences the other. Determining causality requires meeting specific criteria, including significant association, temporal precedence (the cause precedes the effect), and ruling out alternative explanations or confounding variables. While correlation is often the first step in exploring potential relationships, additional analysis—such as experimental design or causal modeling—is necessary to confirm causality. This distinction highlights the importance of critical thinking when interpreting statistical results, as a strong correlation alone does not prove that one variable is the cause of another.
+
+-   To determine a causal model, you need the following:
+
+1.  Significant Correlation: Statistically significant relationship between the variables.
+2.  Temporal Precedence: Causal variable occurred prior to the other variable.
+3.  Eliminate Alternate Variables: No other factors can account for the cause.
+
+-   Some limitations are as follows:
+    -   The correlation coefficient captures only a linear relationship.
+    -   The correlation coefficient may not be a reliable measure in the presence of outliers.
+    -   Even if two variables are highly correlated, one does not necessarily cause the other.
+-   When interpreting results, note that lack of significance does not mean a variable X has no relationship with Y; it might suggest a more complex or non-linear relationship.
+
+# Summary and Review
+
+## Using AI
 
 -   Use the following prompts on a generative AI, like chatGPT, to learn more about ANOVA analysis.
 
@@ -641,6 +880,283 @@ choose(3,2)
 
 -   Compare the TukeyHSD and Bonferroni post-hoc tests. Which one is more conservative, and how do they help in reducing error in multiple comparisons?
 
-# Summary
+------------------------------------------------------------------------
 
--   In this section, we learned about Type I and Type II error and the importance of reducing both. We also learned about a one-way ANOVA and a two-way ANOVA, including how to conduct them, and when to evaluate post-hoc tests.
+-   Explain the difference between covariance and correlation. How do you interpret the direction and strength of a correlation coefficient?"
+
+-   What is covariance, and how does it describe the relationship between two variables? Provide an example with a simple dataset. Describe Pearson’s correlation coefficient. How do you calculate it, and what does it tell you about the relationship between two variables?
+
+-   Explain how to create a scatterplot using ggplot2 in R to visualize the relationship between two continuous variables. How can you add a regression line to assess the linearity of the relationship?
+
+-   How can you use the cor.test() function in R to conduct a hypothesis test for correlation? What do the p-value and confidence interval indicate in the context of correlation?
+
+-   How do you interpret the strength and direction of a correlation? What is considered a strong, moderate, or weak correlation in the context of business data?
+
+-   Explain the null and alternative hypotheses for correlation testing. How does the t-distribution play a role in testing the significance of a correlation coefficient?
+
+-   What are some challenges of visualizing relationships between variables when dealing with big data, and how can statistical tests help when scatterplots are not effective?
+
+-   Discuss the limitations of correlation analysis. Why is it important to be cautious when interpreting correlation as causation?
+
+-   What are the key differences between correlation and causation? How can you determine if a correlation implies causality?
+
+## ANOVA Lab
+
+**A marketing analyst** wants to test whether average customer satisfaction scores differ across four store locations (North, South, East, West). She collected satisfaction ratings (1–10 scale) from random samples at each location. Without running any code, identify the correct test, state the null and alternative hypotheses, and write the `aov()` command she would use given a data frame called `stores` with columns `Satisfaction` and `Location`.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**Correct test:** One-way ANOVA — she is comparing a continuous outcome (satisfaction score) across more than two groups defined by a single categorical variable (Location).
+
+-   $H_0: \mu_{North} = \mu_{South} = \mu_{East} = \mu_{West}$ (all population mean satisfaction scores are equal)
+-   $H_A:$ Not all population mean satisfaction scores are equal
+
+``` r
+anova_model <- aov(Satisfaction ~ Location, data = stores)
+summary(anova_model)
+```
+
+The formula `Satisfaction ~ Location` tells R to model the continuous outcome (Satisfaction) as a function of the categorical grouping variable (Location). The `summary()` command produces the ANOVA table with the F-statistic and p-value.
+:::
+
+**Interpret** the following one-way ANOVA output. State whether the result is significant at $\alpha = 0.05$, write a plain-English conclusion, and explain whether a post-hoc test is needed and why.
+
+```         
+            Df Sum Sq Mean Sq F value   Pr(>F)
+Location     3  142.8   47.60   8.34   0.0001 ***
+Residuals   96  548.2    5.71
+```
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**Significance:** The p-value (0.0001) is less than $\alpha = 0.05$, so we reject the null hypothesis. The result is significant at the 0.001 level (three asterisks).
+
+**Plain-English conclusion:** There is statistically significant evidence that not all store locations have the same mean customer satisfaction score. At least one location's mean satisfaction differs from the others.
+
+**Post-hoc test:** Yes — a post-hoc test is needed. The omnibus F-test only tells us that *some* difference exists somewhere among the four groups. It does not identify *which* pairs of locations differ. Running `TukeyHSD()` or `pairwise.t.test()` with Bonferroni correction will pinpoint which specific location pairs are significantly different from each other.
+
+**Degrees of freedom check:** $df_\text{treatment} = k - 1 = 4 - 1 = 3$ ✓ and $df_\text{error} = n_t - k = 100 - 4 = 96$ ✓, so the total sample size is 100.
+:::
+
+**A researcher** conducts a two-way ANOVA to examine the effect of teaching method (Lecture, Flipped, Hybrid) and class size (Small, Large) on student exam scores. The R output shows: teaching method F = 6.21 (p = 0.003), class size F = 1.84 (p = 0.179). Write the two sets of hypotheses, state which effects are significant at $\alpha = 0.05$, and explain what each conclusion means in practical terms.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**Hypothesis 1 — Teaching Method:**
+
+-   $H_0: \mu_{Lecture} = \mu_{Flipped} = \mu_{Hybrid}$ (teaching method has no effect on exam scores)
+-   $H_A:$ Not all population mean exam scores are equal across teaching methods
+
+**Hypothesis 2 — Class Size:**
+
+-   $H_0: \mu_{Small} = \mu_{Large}$ (class size has no effect on exam scores)
+-   $H_A: \mu_{Small} \neq \mu_{Large}$ (class size does affect exam scores)
+
+**Results:**
+
+-   **Teaching method is significant** (p = 0.003 \< 0.05): We reject $H_0$ and conclude that exam scores differ across at least one pair of teaching methods. A post-hoc test would identify which methods differ.
+-   **Class size is not significant** (p = 0.179 \> 0.05): We fail to reject $H_0$. There is no statistically significant evidence that class size (Small vs. Large) affects exam scores, holding teaching method constant.
+
+**Practical interpretation:** How you teach appears to matter; how many students are in the room, at least in this sample, does not appear to significantly change outcomes.
+:::
+
+**Explain** the difference between a Type I and Type II error using the following scenario: a company is testing whether a new production process reduces the defect rate compared to the current process.
+
+-   State the null and alternative hypotheses.
+-   Describe the real-world consequence of each type of error.
+-   Explain what happens to each error type as sample size increases.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**Hypotheses:**
+
+-   $H_0$: The new process does not reduce the defect rate (no improvement).
+-   $H_A$: The new process does reduce the defect rate.
+
+**Type I Error (False Positive) — rejecting** $H_0$ when it is actually true: The company concludes the new process reduces defects when in reality it does not. Consequence: the company invests in rolling out a new process that offers no actual improvement, wasting time and money.
+
+**Type II Error (False Negative) — failing to reject** $H_0$ when it is actually false: The company fails to detect that the new process genuinely does reduce defects. Consequence: the company sticks with the inferior process, continuing to produce defective units and missing out on quality improvements.
+
+**As sample size increases:** Both $\alpha$ (Type I error rate, set by the analyst) and $\beta$ (Type II error rate) decrease as $n$ increases because larger samples provide more precise estimates and reduce uncertainty. Increasing $n$ is the most reliable way to reduce both errors simultaneously. Reducing $\alpha$ alone (e.g., from 0.05 to 0.01) lowers the Type I error rate but increases $\beta$ — making it harder to detect a real effect.
+:::
+
+**A one-way ANOVA** on four groups (k = 4) returns a significant result. A researcher runs TukeyHSD and gets the following output (condensed):
+
+```         
+          diff    p adj
+B-A      1.20    0.312
+C-A      3.45    0.001
+D-A     -0.80    0.641
+C-B      2.25    0.048
+D-B     -2.00    0.089
+D-C     -4.25    0.000
+```
+
+How many pairwise comparisons are there — verify this using `choose(4, 2)` — and based on the output, which pairs are significantly different at $\alpha = 0.05$? For the pairs that are significant, identify the direction of the difference.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**Number of comparisons:** `choose(4, 2) = 6` — with four groups, there are always $\frac{4!}{2!(4-2)!} = 6$ unique pairwise comparisons. ✓ The output shows all six.
+
+**Significant pairs** (p adj \< 0.05):
+
+| Pair | p adj | Direction                                            |
+|------|-------|------------------------------------------------------|
+| C–A  | 0.001 | C has a higher mean than A (diff = +3.45)            |
+| C–B  | 0.048 | C has a higher mean than B (diff = +2.25)            |
+| D–C  | 0.000 | C has a higher mean than D (diff = −4.25, so D \< C) |
+
+**Non-significant pairs** (p adj ≥ 0.05): B–A, D–B, and D–C are... wait — D–C has p = 0.000, so it *is* significant. Non-significant: B–A (p = 0.312) and D–B (p = 0.089).
+
+**Summary interpretation:** Group C consistently stands out — it is significantly higher than A, B, and D. Groups A, B, and D do not significantly differ from each other. If these were store locations, Location C would be the clear high performer worth investigating further.
+:::
+
+## Correlation Lab
+
+**State** whether each pair of variables below would likely produce a positive correlation, negative correlation, or near-zero correlation. Briefly justify each.
+
+-   
+
+    a.  Hours of study per week and final exam score.
+
+-   
+
+    b.  Temperature outside and hot coffee sales at a café.
+
+-   
+
+    c.  A person's shoe size and their IQ score.
+
+-   
+
+    d.  Number of absences in a semester and final course grade.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+-   **a. Positive correlation.** More study time is generally associated with higher exam scores — both variables tend to move in the same direction.
+-   **b. Negative correlation.** As temperature rises, demand for hot coffee tends to decrease — the variables move in opposite directions.
+-   **c. Near-zero correlation.** There is no meaningful linear relationship between physical foot size and cognitive ability. Any correlation in a sample would likely be noise.
+-   **d. Negative correlation.** More absences are associated with lower grades — as one increases, the other tends to decrease.
+:::
+
+**Given** the following small dataset, calculate the correlation coefficient by hand using $r_{xy} = cov_{xy} / (s_x \cdot s_y)$. The covariance is provided.
+
+| Observation | x (ad spend, \$000s) | y (sales, \$000s) |
+|-------------|----------------------|-------------------|
+| 1           | 2                    | 5                 |
+| 2           | 4                    | 9                 |
+| 3           | 6                    | 11                |
+| 4           | 8                    | 15                |
+| 5           | 10                   | 18                |
+
+$\bar{x} = 6$, $\bar{y} = 11.6$, $cov_{xy} = 13.0$, $s_x = 3.162$, $s_y = 4.827$
+
+Interpret the result using the strength guidelines for business data (strong: \|r\| ≥ 0.8, moderate: 0.5–0.8, weak: 0.2–0.5).
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+$$r_{xy} = \frac{cov_{xy}}{s_x \cdot s_y} = \frac{13.0}{3.162 \times 4.827} = \frac{13.0}{15.25} \approx 0.853$$
+
+**Interpretation:** A correlation of 0.853 indicates a **strong positive** linear relationship between advertising spend and sales. As advertising spend increases, sales tend to increase substantially. Since $|r| > 0.8$, this clears the threshold for a strong relationship in a business context.
+
+**Verify in R:**
+
+``` r
+x <- c(2, 4, 6, 8, 10)
+y <- c(5, 9, 11, 15, 18)
+cor(x, y)
+```
+:::
+
+**A `cor.test()`** returns the following output. Interpret every component — the test statistic, degrees of freedom, p-value, correlation estimate, and confidence interval — and write a complete conclusion sentence.
+
+```         
+    Pearson's product-moment correlation
+
+t = 5.892, df = 23, p-value = 0.000005
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.587  0.902
+sample estimates:
+      cor 
+ 0.775
+```
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**t = 5.892:** The test statistic measuring how many standard errors the observed correlation of 0.775 is from zero. A value this large is very unlikely if the true correlation were zero.
+
+**df = 23:** Degrees of freedom for the correlation test = $n - 2 = 25 - 2 = 23$, so the sample had 25 paired observations.
+
+**p-value = 0.000005:** The probability of observing a correlation this strong (or stronger) if the true population correlation were zero is essentially zero. Far below any conventional $\alpha$.
+
+**cor = 0.775:** A moderate-to-strong positive linear relationship between the two variables.
+
+**95% CI \[0.587, 0.902\]:** We are 95% confident the true population correlation lies between 0.587 and 0.902. The interval does not include zero, which is consistent with the significant p-value. The interval is moderately wide, reflecting 25 observations — a larger sample would narrow it.
+
+**Complete conclusion:** The mean systolic blood pressure (or whichever variables are being tested) showed a statistically significant moderate-to-strong positive correlation ($r = 0.775$, $t(23) = 5.892$, $p < 0.001$). We are 95% confident the true population correlation falls between 0.587 and 0.902.
+:::
+
+**A researcher reports** a correlation of $r = 0.12$ between two variables, with a sample size of $n = 850$, and finds $p < 0.001$. A colleague argues this is an important finding. Another colleague disagrees. Who is right, and what concept explains the disagreement?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**Both have a point, but the skeptical colleague is closer to correct in a practical sense.**
+
+The concept at the heart of this disagreement is the distinction between **statistical significance and practical significance**.
+
+With $n = 850$, the test has very high statistical power — it can detect even tiny correlations as statistically significant because the standard error of the correlation is extremely small. A correlation of 0.12 being "significant" simply means we are confident the true correlation is not exactly zero. It says nothing about the *size* or *importance* of the relationship.
+
+**Practical significance:** $r = 0.12$ means that variable X explains $r^2 = 0.0144$ — about 1.4% — of the variance in variable Y. In almost any business context, a relationship that accounts for 1.4% of variability would not be considered actionable or meaningful, regardless of how small the p-value is.
+
+**The takeaway:** In large samples, always look at the *magnitude* of the correlation alongside the p-value. A tiny but statistically significant correlation is not the same as a strong or useful one.
+:::
+
+**A scatterplot** of two variables shows a clear curved (U-shaped) pattern, but `cor.test()` returns $r = 0.03$ and $p = 0.71$. A student concludes there is no relationship between the variables. What is wrong with this conclusion, and what does it illustrate about the limitations of the correlation coefficient?
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+**The student's conclusion is incorrect.** There is clearly a relationship — the scatterplot shows a strong U-shaped pattern. The problem is that the correlation coefficient ($r$) measures only **linear** relationships. A U-shaped (quadratic) pattern has roughly equal increases on the left side and decreases on the right side, which cancel out when computing $r$, producing a value near zero.
+
+**What this illustrates:**
+
+-   The correlation coefficient is a measure of *linear* association only. A value of $r \approx 0$ does not mean no relationship — it means no *linear* relationship.
+-   Always **visualize the data with a scatterplot before** interpreting a correlation coefficient. The scatterplot would have immediately revealed the curved pattern.
+-   A near-zero correlation with a clear non-linear pattern is a case where the correlation coefficient actively misleads. The lack of significance is a limitation of the tool, not a property of the data.
+
+**The fix:** Transforming one of the variables (e.g., using $x^2$ as a predictor in regression) or using a non-linear model would capture the relationship that $r$ missed.
+:::
+
+
+
+## Summary
+
+This lesson covered group comparison with ANOVA and linear association with correlation:
+
+| Topic | Key concepts |
+|------------------------------------|------------------------------------|
+| ANOVA overview | F-statistic, between-group vs. within-group variability, omnibus test |
+| Type I and Type II errors | False positive/negative, alpha, beta, power, sample size |
+| One-way ANOVA | `aov()`, `summary()`, `anova()`, degrees of freedom, SSTR, SSE, MSTR, MSE |
+| Post-hoc tests | Bonferroni (`pairwise.t.test()`), Tukey HSD (`TukeyHSD()`), Type I vs. Type II tradeoff |
+| Two-way ANOVA | Two grouping variables, SSA, SSB, two F-statistics, `droplevels()` |
+| Two-way ANOVA with interaction | Interaction term SSAB, three F-statistics, interaction plots |
+| choose() | Counting pairwise comparisons, `choose(k, 2)` |
+| Covariance | Direction of linear relationship, `cov()` |
+| Correlation coefficient | Strength and direction, range −1 to +1, `cor()` |
+| Correlation significance | `cor.test()`, t-distribution, p-value, confidence interval |
+| Scatterplots | `ggplot2`, `geom_point()`, `stat_smooth(method="lm")` |
+| Practical vs. statistical significance | Effect size vs. p-value, large-sample caution |
+| Limitations of correlation | Linearity only, outlier sensitivity, correlation ≠ causation |
+
+**What comes next:** The Regression lesson picks up directly from correlation. Where correlation describes the strength and direction of the relationship between two continuous variables, regression uses that relationship to build a predictive model — estimating a slope and intercept so that we can forecast values of the outcome variable. The goodness-of-fit measures introduced there (R², adjusted R², RSE) build on the sum-of-squares logic covered in this lesson. Regression is the last major topic we have in BUAD231 and is the foundation for advanced analytics.
