@@ -1383,7 +1383,7 @@ summary(africa2)
     summary(airqual)
     ```
 
-# Summary and Review
+# Summary and Practice
 
 ## Using AI
 
@@ -1551,6 +1551,360 @@ Why does the order matter for `age`? `as.numeric()` cannot convert `"89 OR OLDER
 
 -   **c. Ignore with `na.rm = TRUE`.** For a straightforward mean calculation, `mean(data$satisfaction, na.rm = TRUE)` is appropriate. The missing values represent non-responses, which are common in surveys. If a large proportion of responses were missing, further investigation would be warranted — but for a few blanks, `na.rm` is the practical and defensible choice.
 :::
+
+## Interactive R Lesson: Creating and Loading Data {#interactive-intro-lesson}
+
+::: {.callout-note}
+This lesson combines the two swirl exercises on creating and loading data in R. You will build vectors, matrices, and data frames from scratch, use `rnorm()` and `set.seed()`, and explore the Auto dataset — all in the browser. Work through each part in order, then take the scored quiz.
+
+**First-time load:** The interactive R environment may take 10–20 seconds to initialize. Once the Run Code buttons become active, you are ready to go.
+:::
+
+```{webr-r}
+#| label: intro-setup
+#| context: setup
+Auto <- read.csv("data/Auto.csv")
+```
+
+---
+
+### Part 1: Creating Vectors
+
+A vector is the simplest data structure in R — a set of data elements saved together as the same type.
+
+**Create a numeric vector using the `:` shortcut:**
+
+```{webr-r}
+#| label: vector-numeric
+myVector <- 1:10
+myVector
+length(myVector)
+```
+
+::: {.callout-tip}
+`1:10` is shorthand for `c(1, 2, 3, ..., 10)`. The `length()` function counts the number of elements. You do not need `c()` when using `:`.
+:::
+
+**Create a character vector of employee names:**
+
+```{webr-r}
+#| label: vector-character
+employees <- c("Alice", "Bob", "Cathy", "David")
+employees
+```
+
+::: {.callout-tip}
+Double quotes tell R that something is a character string. Single quotes also work — just be consistent with whichever you open with.
+:::
+
+**Generate random normal data with `rnorm()` and control reproducibility with `set.seed()`:**
+
+```{webr-r}
+#| label: rnorm-basic
+# 20 random numbers, mean 0, sd 1
+x <- rnorm(20)
+x
+
+# 20 random numbers, mean 50, sd 0.5
+y <- rnorm(20, mean = 50, sd = 0.5)
+y
+```
+
+```{webr-r}
+#| label: set-seed
+# set.seed() makes random results reproducible
+set.seed(1303)
+x <- rnorm(20)
+mean(x)
+var(x)
+```
+
+::: {.callout-note}
+`set.seed()` fixes the random number generator so you and your instructor get the same values. Without it, `rnorm()` produces different numbers every run. This is especially important when checking your work against provided answers.
+:::
+
+---
+
+### Part 2: Creating a Matrix
+
+A matrix is a rectangular data structure with rows and columns — but unlike a data frame, all elements must be the same type.
+
+**Create a 2×2 matrix three equivalent ways:**
+
+```{webr-r}
+#| label: matrix-basic
+# Full argument names
+x <- matrix(data = c(1, 2, 3, 4), nrow = 2, ncol = 2)
+x
+
+# Without argument names (same order)
+x <- matrix(c(1, 2, 3, 4), 2, 2)
+x
+
+# Using : shortcut
+x <- matrix(1:4, 2, 2)
+x
+```
+
+::: {.callout-tip}
+Notice how R fills the matrix — column by column, top to bottom. Value 1 goes in row 1 col 1, then 2 in row 2 col 1, then 3 in row 1 col 2, and so on.
+:::
+
+**Create a 4×5 matrix and add row/column labels:**
+
+```{webr-r}
+#| label: matrix-labels
+myMatrix <- matrix(1:20, nrow = 4, ncol = 5)
+myMatrix
+
+# Fill across rows instead of down columns
+m <- matrix(1:9, 3, 3, byrow = TRUE)
+dimnames(m) <- list(c("2020", "2021", "2022"), c("low", "medium", "high"))
+m
+```
+
+---
+
+### Part 3: Creating a Data Frame
+
+A data frame is R's core tabular structure — rows are observations, columns are variables, and each column can hold a different data type.
+
+**Build a data frame from scratch:**
+
+```{webr-r}
+#| label: dataframe-basic
+state    <- c("Alaska", "Arizona", "Arkansas")
+year     <- c(1998, 2010, 2016)
+state_lim <- c(1, 2.5, 3)
+
+state_legal <- data.frame(state, year, state_lim)
+state_legal
+```
+
+**Build a data frame from random data:**
+
+```{webr-r}
+#| label: dataframe-random
+set.seed(1303)
+x  <- rnorm(20)
+y  <- rnorm(20, mean = 50, sd = 0.5)
+df <- data.frame(x, y)
+head(df)
+```
+
+::: {.callout-tip}
+`head()` shows the first 6 rows — useful for a quick check without printing the entire data frame.
+:::
+
+---
+
+### Part 4: Loading Built-in Data and the Auto Dataset
+
+R includes many built-in datasets you can load with `data()`. The `mtcars` dataset is part of base R — no package needed.
+
+**Load and explore mtcars:**
+
+```{webr-r}
+#| label: load-mtcars
+data("cars")
+summary(cars)
+```
+
+**Load and explore the Auto dataset:**
+
+```{webr-r}
+#| label: load-auto
+summary(Auto)
+```
+
+```{webr-r}
+#| label: auto-explore
+dim(Auto)
+head(Auto)
+names(Auto)
+mean(Auto$mpg)
+```
+
+::: {.callout-note}
+`dim()` returns the number of rows and columns. `names()` lists all variable names — useful when you cannot remember exact spelling. `dataset$variable` is how you access a single column.
+:::
+
+---
+
+## Scored Quiz: Introduction to R {#intro-quiz}
+
+```{=html}
+<div id="ps512-intro-quiz" style="font-family: Georgia, serif; max-width: 720px; margin: 2rem auto; background: #fafaf8; border: 1px solid #ddd; border-radius: 8px; padding: 2rem;">
+
+  <h3 style="margin-top:0; font-size:1.2rem; background:#2c6fad; color:#ffffff; padding:0.8rem 1.2rem; border-radius:6px 6px 0 0; margin:-2rem -2rem 1.5rem -2rem;">
+    Introduction to R Quiz
+  </h3>
+
+  <div id="iquiz-progress" style="font-size:0.85rem; color:#444; margin-bottom:1.5rem;">Question 1 of 8</div>
+
+  <!-- Q1 -->
+  <div class="iquiz-q" id="iq1" style="display:block">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">1. What is the difference between <code>myVector &lt;- 1:10</code> and <code>myVector &lt;- c(1,2,3,4,5,6,7,8,9,10)</code>?</p>
+    <label class="iquiz-option"><input type="radio" name="iq1" value="a"> They produce different results — <code>:</code> creates a matrix, <code>c()</code> creates a vector.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq1" value="b"> They produce identical results — <code>:</code> is just a shortcut for consecutive integers.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq1" value="c"> <code>c()</code> is required for all vectors; <code>:</code> only works for matrices.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq1" value="d"> <code>:</code> creates a character vector; <code>c()</code> creates a numeric vector.</label>
+    <div class="iquiz-feedback" id="ifb1"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="iquiz-q" id="iq2" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">2. What does <code>set.seed(1303)</code> do before calling <code>rnorm(20)</code>?</p>
+    <label class="iquiz-option"><input type="radio" name="iq2" value="a"> It sets the mean of the normal distribution to 1303.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq2" value="b"> It fixes the random number generator so the same 20 values are produced every run.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq2" value="c"> It limits the output to values between 0 and 1303.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq2" value="d"> It rounds all random numbers to the nearest integer.</label>
+    <div class="iquiz-feedback" id="ifb2"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="iquiz-q" id="iq3" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">3. How does R fill a matrix created with <code>matrix(1:4, 2, 2)</code>?</p>
+    <label class="iquiz-option"><input type="radio" name="iq3" value="a"> Across rows first — 1 and 2 fill row 1, then 3 and 4 fill row 2.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq3" value="b"> Down columns first — 1 and 2 fill column 1, then 3 and 4 fill column 2.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq3" value="c"> Diagonally from the top left.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq3" value="d"> Randomly — the order is not guaranteed.</label>
+    <div class="iquiz-feedback" id="ifb3"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="iquiz-q" id="iq4" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">4. What is the key difference between a matrix and a data frame in R?</p>
+    <label class="iquiz-option"><input type="radio" name="iq4" value="a"> A matrix can have more rows than a data frame.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq4" value="b"> A matrix requires all elements to be the same type; a data frame allows different types per column.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq4" value="c"> A data frame can only store numeric data.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq4" value="d"> There is no difference — they are interchangeable.</label>
+    <div class="iquiz-feedback" id="ifb4"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="iquiz-q" id="iq5" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">5. To add row and column labels to a matrix <code>m</code>, you would use:</p>
+    <label class="iquiz-option"><input type="radio" name="iq5" value="a"> <code>colnames(m)</code> and <code>rownames(m)</code> only.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq5" value="b"> <code>dimnames(m) &lt;- list(rowNames, colNames)</code></label><br>
+    <label class="iquiz-option"><input type="radio" name="iq5" value="c"> <code>labels(m) &lt;- list(rowNames, colNames)</code></label><br>
+    <label class="iquiz-option"><input type="radio" name="iq5" value="d"> <code>names(m) &lt;- c(rowNames, colNames)</code></label>
+    <div class="iquiz-feedback" id="ifb5"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="iquiz-q" id="iq6" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. What does <code>dim(Auto)</code> return?</p>
+    <label class="iquiz-option"><input type="radio" name="iq6" value="a"> The data types of each column.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq6" value="b"> The number of rows and columns — observations and variables.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq6" value="c"> A summary of all numeric variables.</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq6" value="d"> The first 6 rows of the dataset.</label>
+    <div class="iquiz-feedback" id="ifb6"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="iquiz-q" id="iq7" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">7. How do you access the <code>mpg</code> variable from the <code>Auto</code> dataset?</p>
+    <label class="iquiz-option"><input type="radio" name="iq7" value="a"> <code>Auto[mpg]</code></label><br>
+    <label class="iquiz-option"><input type="radio" name="iq7" value="b"> <code>Auto$mpg</code></label><br>
+    <label class="iquiz-option"><input type="radio" name="iq7" value="c"> <code>mpg(Auto)</code></label><br>
+    <label class="iquiz-option"><input type="radio" name="iq7" value="d"> <code>get(Auto, mpg)</code></label>
+    <div class="iquiz-feedback" id="ifb7"></div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="iquiz-q" id="iq8" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">8. What is the default mean and standard deviation of <code>rnorm(n)</code> when no arguments are specified?</p>
+    <label class="iquiz-option"><input type="radio" name="iq8" value="a"> Mean = 1, SD = 0</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq8" value="b"> Mean = 0, SD = 1</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq8" value="c"> Mean = 50, SD = 10</label><br>
+    <label class="iquiz-option"><input type="radio" name="iq8" value="d"> Mean and SD are always required arguments.</label>
+    <div class="iquiz-feedback" id="ifb8"></div>
+  </div>
+
+  <!-- Navigation -->
+  <div style="display:flex; gap:1rem; margin-top:1.5rem; align-items:center; flex-wrap:wrap;">
+    <button id="iquiz-prev" onclick="iquizNav(-1)" style="display:none; padding:0.5rem 1.2rem; background:#6c757d; color:white; border:none; border-radius:5px; cursor:pointer; font-size:0.95rem;">← Previous</button>
+    <button id="iquiz-next" onclick="iquizNav(1)" style="padding:0.5rem 1.2rem; background:#4a90d9; color:white; border:none; border-radius:5px; cursor:pointer; font-size:0.95rem;">Next →</button>
+    <button id="iquiz-submit" onclick="isubmitQuiz()" style="display:none; padding:0.5rem 1.4rem; background:#27ae60; color:white; border:none; border-radius:5px; cursor:pointer; font-size:0.95rem; font-weight:600;">Submit Quiz</button>
+  </div>
+
+  <div id="iquiz-score" style="display:none; margin-top:1.5rem; padding:1rem 1.5rem; border-radius:6px; font-size:1rem;"></div>
+</div>
+
+<style>
+.iquiz-option { display:block; margin:0.4rem 0; cursor:pointer; padding:0.4rem 0.6rem; border-radius:4px; transition:background 0.15s; color:#1a1a1a; }
+.iquiz-option:hover { background:#ddeeff; border:1px solid #2c6fad; }
+.iquiz-feedback { margin-top:0.8rem; padding:0.6rem 1rem; border-radius:5px; font-size:0.9rem; display:none; }
+.icorrect-fb { background:#d4edda; color:#155724; border-left:4px solid #27ae60; }
+.iincorrect-fb { background:#f8d7da; color:#721c24; border-left:4px solid #e74c3c; }
+</style>
+
+<script>
+const iAnswers = {
+  iq1:'b', iq2:'b', iq3:'b', iq4:'b', iq5:'b', iq6:'b', iq7:'b', iq8:'b'
+};
+const iHints = {
+  iq1: "1:10 is simply a shortcut for c(1,2,3,...,10). Both create identical integer vectors — the colon operator saves typing for consecutive integers.",
+  iq2: "set.seed() fixes the random number generator to a specific starting point. Anyone using the same seed gets the same sequence of random numbers.",
+  iq3: "R fills matrices column by column by default. To fill row by row instead, add byrow = TRUE to the matrix() call.",
+  iq4: "A matrix requires all elements to be the same type — usually numeric. A data frame is more flexible and allows each column to have its own type.",
+  iq5: "dimnames() sets both row and column names at once using a list. The first element names the rows, the second names the columns.",
+  iq6: "dim() returns a two-element vector: the number of rows (observations) followed by the number of columns (variables).",
+  iq7: "The $ operator extracts a single column from a data frame by name. Auto$mpg pulls the mpg column as a vector.",
+  iq8: "rnorm(n) defaults to mean = 0 and sd = 1 — the standard normal distribution. You only need to specify mean and sd when you want different values."
+};
+let icurrent = 1;
+const itotal = 8;
+
+function iquizNav(dir) {
+  document.getElementById('iq' + icurrent).style.display = 'none';
+  icurrent += dir;
+  document.getElementById('iq' + icurrent).style.display = 'block';
+  document.getElementById('iquiz-progress').textContent = 'Question ' + icurrent + ' of ' + itotal;
+  document.getElementById('iquiz-prev').style.display = icurrent > 1 ? 'inline-block' : 'none';
+  document.getElementById('iquiz-next').style.display = icurrent < itotal ? 'inline-block' : 'none';
+  document.getElementById('iquiz-submit').style.display = icurrent === itotal ? 'inline-block' : 'none';
+}
+
+function isubmitQuiz() {
+  let score = 0;
+  for (let i = 1; i <= itotal; i++) {
+    const sel = document.querySelector('input[name="iq' + i + '"]:checked');
+    const fb  = document.getElementById('ifb' + i);
+    document.getElementById('iq' + i).style.display = 'block';
+    if (sel && sel.value === iAnswers['iq' + i]) {
+      score++;
+      fb.className = 'iquiz-feedback icorrect-fb';
+      fb.textContent = '✓ Correct! ' + iHints['iq' + i];
+    } else {
+      fb.className = 'iquiz-feedback iincorrect-fb';
+      fb.textContent = '✗ ' + (sel ? 'Not quite. ' : 'No answer selected. ') + iHints['iq' + i];
+    }
+    fb.style.display = 'block';
+  }
+  document.getElementById('iquiz-prev').style.display = 'none';
+  document.getElementById('iquiz-next').style.display = 'none';
+  document.getElementById('iquiz-submit').style.display = 'none';
+  document.getElementById('iquiz-progress').textContent = 'Quiz complete';
+  const sd = document.getElementById('iquiz-score');
+  const pct = Math.round((score / itotal) * 100);
+  sd.style.display = 'block';
+  sd.style.background = pct >= 70 ? '#d4edda' : '#fff3cd';
+  sd.style.borderLeft  = pct >= 70 ? '4px solid #27ae60' : '4px solid #f39c12';
+  sd.style.color        = pct >= 70 ? '#155724' : '#856404';
+  sd.innerHTML = '<strong>Your Score: ' + score + ' / ' + itotal + ' (' + pct + '%)</strong><br>' +
+    (pct === 100 ? 'Excellent work — perfect score!' :
+     pct >= 70  ? 'Good work! Review any missed questions above.' :
+                  'Keep reviewing the lesson material above, then try again.');
+}
+</script>
+```
+
+::: {.callout-note}
+No need to submit this quiz anywhere. This exercise is for your benefit to help you learn R. 
+:::
+
 
 ## Summary
 

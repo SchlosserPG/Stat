@@ -115,3 +115,13 @@ figcaption{text-align: center}
 #quiz-progress {
   color: #444 !important;
 }
+
+
+div.quarto-title-meta{display:none;}
+#title-block-header.quarto-title-block.default .quarto-title-meta{display:none;}
+
+
+/* Hide WebR Code Links section from TOC */
+.quarto-code-links {
+  display: none !important;
+}
