@@ -785,7 +785,7 @@ ggplot(fbi.deaths.small, aes(x = "", y = X2016, fill = Weapon)) +
   theme_void() 
 ```
 
-# Summary and Practice
+# Review and Practice
 
 ## Using AI
 

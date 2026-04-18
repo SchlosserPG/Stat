@@ -1415,7 +1415,7 @@ Washed / Wet is by far the most common processing method. Aroma and Flavor show 
 
 ## Interactive R Lesson: Data Preparation with dplyr {#interactive-dataprep-lesson}
 
-::: {.callout-note}
+::: callout-note
 You will use `filter()`, `select()`, `arrange()`, `mutate()`, the pipe operator, and `geom_point()` on the Auto dataset — all in the browser. Work through each section, then take the scored quiz.
 
 **First-time load:** The interactive R environment below may take 10–20 seconds to initialize on your first visit. This is normal — R is loading in your browser. Once ready, the "Run Code" buttons will become active.
@@ -1440,11 +1440,11 @@ Hello again! Dr. Schlosser here. This lesson covers data preparation using dplyr
 summary(Auto)
 ```
 
-::: {.callout-tip}
+::: callout-tip
 `summary()` is part of base R and gives you a quick overview — min, max, mean, median, and quartiles for numeric variables. Note that the data is mostly numerical.
 :::
 
----
+------------------------------------------------------------------------
 
 ### Part 2: Subsetting with Square Brackets
 
@@ -1457,11 +1457,11 @@ Before using dplyr functions, you can subset a data frame using `[rows, columns]
 Auto[1:4, ]
 ```
 
-::: {.callout-tip}
+::: callout-tip
 `Auto[1:4, ]` means rows 1 through 4, and the empty space after the comma means all columns. The structure `dataset[rows, columns]` is the general pattern.
 :::
 
----
+------------------------------------------------------------------------
 
 ### Part 3: filter() — Subsetting Rows by Condition
 
@@ -1475,17 +1475,17 @@ AutoFilter <- filter(Auto, horsepower > 100)
 summary(AutoFilter$horsepower)
 ```
 
-::: {.callout-note}
+::: callout-note
 Notice the minimum of `AutoFilter$horsepower` is above 100 — the filter worked. An alternate way to write the same thing using the pipe operator is:
 
-```r
+``` r
 AutoFilter <- Auto %>% filter(horsepower > 100)
 ```
 
 Both produce identical results. The pipe operator (`%>%`) passes the left-hand object as the first argument to the right-hand function — making chains of operations easier to read.
 :::
 
----
+------------------------------------------------------------------------
 
 ### Part 4: select() — Choosing Columns
 
@@ -1499,13 +1499,13 @@ AutoSelect <- select(Auto, horsepower, acceleration, year)
 summary(AutoSelect)
 ```
 
-::: {.callout-tip}
+::: callout-tip
 Notice that `AutoSelect` now contains only your three chosen columns. This is useful before running analysis so you are not carrying around variables you do not need.
 
 If you encounter conflicts with `MASS::select()`, add `dplyr::` before the function: `dplyr::select(Auto, horsepower, acceleration, year)`.
 :::
 
----
+------------------------------------------------------------------------
 
 ### Part 5: arrange() — Sorting Data
 
@@ -1527,11 +1527,11 @@ sortedByWeightDesc <- arrange(Auto, desc(weight))
 head(sortedByWeightDesc)
 ```
 
-::: {.callout-tip}
+::: callout-tip
 `desc()` wraps the variable name inside `arrange()` to reverse the sort order. You should see the heaviest cars at the top now.
 :::
 
----
+------------------------------------------------------------------------
 
 ### Part 6: mutate() — Creating New Variables
 
@@ -1545,11 +1545,11 @@ AutoMutate <- mutate(Auto, mpg_category = ifelse(mpg > 30, "high", "low"))
 summary(AutoMutate)
 ```
 
-::: {.callout-tip}
+::: callout-tip
 `ifelse(condition, value_if_true, value_if_false)` is a vectorized if-else. Any car with `mpg > 30` is labeled `"high"`, all others `"low"`. Notice `mpg_category` now appears as a new column in the summary.
 :::
 
----
+------------------------------------------------------------------------
 
 ### Part 7: Scatterplot — Visualizing Two Continuous Variables
 
@@ -1575,7 +1575,7 @@ ggplot(Auto, aes(x = horsepower, y = mpg)) +
        x = "Horsepower", y = "MPG")
 ```
 
-::: {.callout-tip}
+::: callout-tip
 `stat_smooth(method = "lm")` adds a straight linear model line. Without `method="lm"` you get a curved loess line instead. The downward slope here indicates a **negative relationship** — higher horsepower cars tend to have lower mpg.
 :::
 
@@ -1591,11 +1591,11 @@ ggplot(Credit, aes(x = Limit, y = Rating)) +
        x = "Limit", y = "Rating")
 ```
 
-::: {.callout-note}
+::: callout-note
 As Rating increases, so does the credit Limit — there is a **positive relationship** between the two variables. The upward slope of the trend line confirms this.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Scored Quiz: Data Preparation {#dataprep-quiz}
 
@@ -1740,11 +1740,11 @@ function dpsubmitQuiz() {
 </script>
 ```
 
-::: {.callout-note}
-No need to submit this quiz anywhere. This exercise is for your benefit to help you learn R.*
+::: callout-note
+No need to submit this quiz anywhere. This exercise is for your benefit to help you learn R.\*
 :::
 
----
+------------------------------------------------------------------------
 
 ## Summary
 
