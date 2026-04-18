@@ -650,6 +650,1559 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     document.getElementById('chat-send').disabled = false;
   }
 </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs/editor/editor.main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+<style type="text/css">
+.monaco-editor pre {
+  background-color: unset !important;
+}
+
+.qwebr-editor-toolbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.qwebr-editor-toolbar-left-buttons, .qwebr-editor-toolbar-right-buttons {
+  display: flex;
+}
+
+.qwebr-non-interactive-loading-container.qwebr-cell-needs-evaluation, .qwebr-non-interactive-loading-container.qwebr-cell-evaluated {
+  justify-content: center;
+  display: flex;
+  background-color: rgba(250, 250, 250, 0.65);
+  border: 1px solid rgba(233, 236, 239, 0.65);
+  border-radius: 0.5rem;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.qwebr-r-project-logo {
+  color: #2767B0; /* R Project's blue color */
+}
+
+.qwebr-icon-status-spinner {
+  color: #7894c4;
+}
+
+.qwebr-icon-run-code {
+  color: #0d9c29
+}
+
+body.quarto-light .qwebr-output-code-stdout {
+  color: #111;
+}
+
+body.quarto-dark .qwebr-output-code-stdout {
+  color: #EEE;
+}
+
+.qwebr-output-code-stderr {
+  color: #db4133;
+}
+
+body.quarto-light .qwebr-editor {
+  border: 1px solid #EEEEEE;
+}
+
+body.quarto-light .qwebr-editor-toolbar {
+  background-color: #EEEEEE;
+  padding: 0.2rem 0.5rem;
+}
+
+body.quarto-dark .qwebr-editor {
+  border: 1px solid #111;
+}
+
+body.quarto-dark .qwebr-editor-toolbar {
+  background-color: #111;
+  padding: 0.2rem 0.5rem;
+}
+
+.qwebr-button {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1;
+  text-decoration: none;
+  text-align: center;
+  padding: 0.375rem 0.75rem;
+  font-size: .9rem;
+  border-radius: 0.25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+body.quarto-light .qwebr-button {
+  background-color: #EEEEEE;
+  color: #000;
+  border-color: #dee2e6;
+  border: 1px solid rgba(0,0,0,0);
+}
+
+body.quarto-dark .qwebr-button {
+  background-color: #111;
+  color: #EEE;
+  border-color: #dee2e6;
+  border: 1px solid rgba(0,0,0,0);
+}
+
+body.quarto-light .qwebr-button:hover {
+  color: #000;
+  background-color: #d9dce0;
+  border-color: #c8ccd0;
+}
+
+body.quarto-dark .qwebr-button:hover {
+  color: #d9dce0;
+  background-color: #323232;
+  border-color: #d9dce0;
+}
+
+.qwebr-button:disabled,.qwebr-button.disabled,fieldset:disabled .qwebr-button {
+  pointer-events: none;
+  opacity: .65
+}
+
+.qwebr-button-reset {
+  color: #696969; /*#4682b4;*/
+}
+
+.qwebr-button-copy {
+  color: #696969;
+}
+
+/* Style the code highlight lines */
+body.quarto-light .qwebr-editor-highlight-line {
+  background-color: lightblue;
+}
+
+body.quarto-dark .qwebr-editor-highlight-line {
+  background-color: darkblue;
+}
+
+/* Style the modal pop-up */
+
+/* The Modal (background) */
+.qwebr-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content */
+.qwebr-modal-content {
+  background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.qwebr-modal-content-code {
+  max-height: 50vh;
+  min-height: 5vh;
+  overflow: scroll;
+  border: 1px solid #888;
+}
+
+/* The Close Button */
+.qwebr-modal-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.qwebr-modal-close:hover,
+.qwebr-modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.qwebr-download-btn {
+  margin-top: 10px;
+  text-decoration: none !important;
+}
+
+/* Styling to download image that is created */
+
+.qwebr-canvas-image {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+
+.qwebr-canvas-image-download-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
+
+figure:hover .qwebr-canvas-image-download-btn {
+  display: block;
+}
+
+/* Custom styling for RevealJS Presentations*/
+
+/* Reset the style of the interactive area */
+.reveal div.qwebr-interactive-area {
+  display: block;
+  box-shadow: none;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Provide space to entries */
+.reveal div.qwebr-output-code-area pre div {
+  margin: 1px 2px 1px 10px;
+}
+
+/* Collapse the inside code tags to avoid extra space between line outputs */
+.reveal pre div code.qwebr-output-code-stdout, .reveal pre div code.qwebr-output-code-stderr {
+  padding: 0;
+  display: contents;
+}
+
+body.reveal.quarto-light pre div code.qwebr-output-code-stdout {
+  color: #111;
+}
+
+body.reveal.quarto-dark pre div code.qwebr-output-code-stdout {
+  color: #EEEEEE;
+}
+
+.reveal pre div code.qwebr-output-code-stderr {
+  color: #db4133;
+}
+
+
+/* Create a border around console and output (does not effect graphs) */
+body.reveal.quarto-light div.qwebr-console-area {
+  border: 1px solid #EEEEEE;
+  box-shadow: 2px 2px 10px #EEEEEE;
+}
+
+body.reveal.quarto-dark div.qwebr-console-area {
+  border: 1px solid #111;
+  box-shadow: 2px 2px 10px #111;
+}
+
+
+/* Cap output height and allow text to scroll */
+/* TODO: Is there a better way to fit contents/max it parallel to the monaco editor size? */
+.reveal div.qwebr-output-code-area pre {
+  max-height: 400px;
+  overflow: scroll;
+}
+
+iframe.qwebr-output-code-browse {
+  width: 100%;
+
+  /*
+    TODO: How to make the height automatic according to the widget size,
+    or respect the quarto code block options?
+  */
+  min-height: 500px;
+}
+
+</style>
+<script type="module">
+// Document level settings ----
+
+// Determine if we need to install R packages
+globalThis.qwebrInstallRPackagesList = [''];
+
+// Specify possible locations to search for the repository
+globalThis.qwebrPackageRepoURLS = ['https://repo.r-wasm.org/'];
+
+// Check to see if we have an empty array, if we do set to skip the installation.
+globalThis.qwebrSetupRPackages = !(qwebrInstallRPackagesList.indexOf("") !== -1);
+globalThis.qwebrAutoloadRPackages = true;
+
+// Display a startup message?
+globalThis.qwebrShowStartupMessage = true;
+globalThis.qwebrShowHeaderMessage = false;
+
+// Describe the webR settings that should be used
+globalThis.qwebrCustomizedWebROptions = {
+  "baseURL": "https://webr.r-wasm.org/v0.5.7/",
+  "serviceWorkerUrl": "",
+  "homedir": "/home/web_user", 
+  "channelType": "ChannelType.Automatic"
+};
+
+// Store cell data
+globalThis.qwebrCellDetails = [{"code":"library(ggplot2)\ndata(\"ChickWeight\")\ndata(\"PlantGrowth\")\ndata(\"mtcars\")\nBoston <- MASS::Boston","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"anova-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(ChickWeight)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chick-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: all diet group means are equal\n# HA: at least one mean differs\nmodel <- aov(weight ~ Diet, ChickWeight)\nanova(model)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chick-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model)","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chick-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(PlantGrowth)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plant-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: ctrl, trt1, and trt2 all have equal mean weight\n# HA: at least one mean differs\nmodel2 <- aov(weight ~ group, PlantGrowth)\nanova(model2)","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plant-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model2)","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plant-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"mtcars$gear <- as.factor(mtcars$gear)\nmtcars$cyl  <- as.factor(mtcars$cyl)\nsummary(mtcars[, c(\"mpg\", \"gear\", \"cyl\")])","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"mtcars-prep","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0 (gear): all gear groups have equal mean mpg\n# H0 (cyl):  all cyl groups have equal mean mpg\nmodel3 <- aov(mpg ~ gear + cyl, mtcars)\nanova(model3)","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"twoway-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model3)","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"twoway-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(Boston)","id":11,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"boston-head","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Boston, aes(x = lstat, y = medv)) +\n  geom_point(alpha = 0.4, color = \"steelblue\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Low Economic Status vs. Median House Value\",\n       x = \"% Low Economic Status (lstat)\",\n       y = \"Median House Value ($000s)\")","id":12,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"scatter-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"cor(Boston$lstat, Boston$medv)","id":13,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cor-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"cor.test(Boston$lstat, Boston$medv)","id":14,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cortest-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Boston, aes(x = age, y = medv)) +\n  geom_point(alpha = 0.4, color = \"darkorange\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Age of Housing Stock vs. Median House Value\",\n       x = \"Proportion Built Before 1940 (age)\",\n       y = \"Median House Value ($000s)\")","id":15,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"scatter-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"cor.test(Boston$age, Boston$medv)","id":16,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cortest-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+
+</script>
+<script type="module">
+// Declare startupMessageQWebR globally
+globalThis.qwebrStartupMessage = document.createElement("p");
+
+// Verify if OffScreenCanvas is supported
+globalThis.qwebrOffScreenCanvasSupport = function() {
+  return typeof OffscreenCanvas !== 'undefined'
+}
+
+// Function to set the button text
+globalThis.qwebrSetInteractiveButtonState = function(buttonText, enableCodeButton = true) {
+  document.querySelectorAll(".qwebr-button-run").forEach((btn) => {
+    btn.innerHTML = buttonText;
+    btn.disabled = !enableCodeButton;
+  });
+}
+
+// Function to update the status message in non-interactive cells
+globalThis.qwebrUpdateStatusMessage = function(message) {
+  document.querySelectorAll(".qwebr-status-text.qwebr-cell-needs-evaluation").forEach((elem) => {
+    elem.innerText = message;
+  });
+}
+
+// Function to update the status message
+globalThis.qwebrUpdateStatusHeader = function(message) {
+  qwebrStartupMessage.innerHTML = `
+    <i class="fa-solid fa-spinner fa-spin qwebr-icon-status-spinner"></i>
+    <span>${message}</span>`;
+}
+
+// Function to return true if element is found, false if not
+globalThis.qwebrCheckHTMLElementExists = function(selector) {
+  const element = document.querySelector(selector);
+  return !!element;
+}
+
+// Function that detects whether reveal.js slides are present
+globalThis.qwebrIsRevealJS = function() {
+  // If the '.reveal .slides' selector exists, RevealJS is likely present
+  return qwebrCheckHTMLElementExists('.reveal .slides');
+}
+
+// Initialize the Quarto sidebar element
+function qwebrSetupQuartoSidebar() {
+  var newSideBarDiv = document.createElement('div');
+  newSideBarDiv.id = 'quarto-margin-sidebar';
+  newSideBarDiv.className = 'sidebar margin-sidebar';
+  newSideBarDiv.style.top = '0px';
+  newSideBarDiv.style.maxHeight = 'calc(0px + 100vh)';
+
+  return newSideBarDiv;
+}
+
+// Position the sidebar in the document
+function qwebrPlaceQuartoSidebar() {
+  // Get the reference to the element with id 'quarto-document-content'
+  var referenceNode = document.getElementById('quarto-document-content');
+
+  // Create the new div element
+  var newSideBarDiv = qwebrSetupQuartoSidebar();
+
+  // Insert the new div before the 'quarto-document-content' element
+  referenceNode.parentNode.insertBefore(newSideBarDiv, referenceNode);
+}
+
+function qwebrPlaceMessageContents(content, html_location = "title-block-header", revealjs_location = "title-slide") {
+
+  // Get references to header elements
+  const headerHTML = document.getElementById(html_location);
+  const headerRevealJS = document.getElementById(revealjs_location);
+
+  // Determine where to insert the quartoTitleMeta element
+  if (headerHTML || headerRevealJS) {
+    // Append to the existing "title-block-header" element or "title-slide" div
+    (headerHTML || headerRevealJS).appendChild(content);
+  } else {
+    // If neither headerHTML nor headerRevealJS is found, insert after "webr-monaco-editor-init" script
+    const monacoScript = document.getElementById("qwebr-monaco-editor-init");
+    const header = document.createElement("header");
+    header.setAttribute("id", "title-block-header");
+    header.appendChild(content);
+    monacoScript.after(header);
+  }
+}
+
+
+
+function qwebrOffScreenCanvasSupportWarningMessage() {
+  
+  // Verify canvas is supported.
+  if(qwebrOffScreenCanvasSupport()) return;
+
+  // Create the main container div
+  var calloutContainer = document.createElement('div');
+  calloutContainer.classList.add('callout', 'callout-style-default', 'callout-warning', 'callout-titled');
+
+  // Create the header div
+  var headerDiv = document.createElement('div');
+  headerDiv.classList.add('callout-header', 'd-flex', 'align-content-center');
+
+  // Create the icon container div
+  var iconContainer = document.createElement('div');
+  iconContainer.classList.add('callout-icon-container');
+
+  // Create the icon element
+  var iconElement = document.createElement('i');
+  iconElement.classList.add('callout-icon');
+
+  // Append the icon element to the icon container
+  iconContainer.appendChild(iconElement);
+
+  // Create the title container div
+  var titleContainer = document.createElement('div');
+  titleContainer.classList.add('callout-title-container', 'flex-fill');
+  titleContainer.innerText = 'Warning: Web Browser Does Not Support Graphing!';
+
+  // Append the icon container and title container to the header div
+  headerDiv.appendChild(iconContainer);
+  headerDiv.appendChild(titleContainer);
+
+  // Create the body container div
+  var bodyContainer = document.createElement('div');
+  bodyContainer.classList.add('callout-body-container', 'callout-body');
+
+  // Create the paragraph element for the body content
+  var paragraphElement = document.createElement('p');
+  paragraphElement.innerHTML = 'This web browser does not have support for displaying graphs through the <code>quarto-webr</code> extension since it lacks an <code>OffScreenCanvas</code>. Please upgrade your web browser to one that supports <code>OffScreenCanvas</code>.';
+
+  // Append the paragraph element to the body container
+  bodyContainer.appendChild(paragraphElement);
+
+  // Append the header div and body container to the main container div
+  calloutContainer.appendChild(headerDiv);
+  calloutContainer.appendChild(bodyContainer);
+
+  // Append the main container div to the document depending on format
+  qwebrPlaceMessageContents(calloutContainer, "title-block-header"); 
+
+}
+
+
+// Function that attaches the document status message and diagnostics
+function displayStartupMessage(showStartupMessage, showHeaderMessage) {
+  if (!showStartupMessage) {
+    return;
+  }
+
+  // Create the outermost div element for metadata
+  const quartoTitleMeta = document.createElement("div");
+  quartoTitleMeta.classList.add("quarto-title-meta");
+
+  // Create the first inner div element
+  const firstInnerDiv = document.createElement("div");
+  firstInnerDiv.setAttribute("id", "qwebr-status-message-area");
+
+  // Create the second inner div element for "WebR Status" heading and contents
+  const secondInnerDiv = document.createElement("div");
+  secondInnerDiv.setAttribute("id", "qwebr-status-message-title");
+  secondInnerDiv.classList.add("quarto-title-meta-heading");
+  secondInnerDiv.innerText = "WebR Status";
+
+  // Create another inner div for contents
+  const secondInnerDivContents = document.createElement("div");
+  secondInnerDivContents.setAttribute("id", "qwebr-status-message-body");
+  secondInnerDivContents.classList.add("quarto-title-meta-contents");
+
+  // Describe the WebR state
+  qwebrStartupMessage.innerText = "🟡 Loading...";
+  qwebrStartupMessage.setAttribute("id", "qwebr-status-message-text");
+  // Add `aria-live` to auto-announce the startup status to screen readers
+  qwebrStartupMessage.setAttribute("aria-live", "assertive");
+
+  // Append the startup message to the contents
+  secondInnerDivContents.appendChild(qwebrStartupMessage);
+
+  // Add a status indicator for COOP and COEP Headers if needed
+  if (showHeaderMessage) {
+    const crossOriginMessage = document.createElement("p");
+    crossOriginMessage.innerText = `${crossOriginIsolated ? '🟢' : '🟡'} COOP & COEP Headers`;
+    crossOriginMessage.setAttribute("id", "qwebr-coop-coep-header");
+    secondInnerDivContents.appendChild(crossOriginMessage);
+  }
+
+  // Combine the inner divs and contents
+  firstInnerDiv.appendChild(secondInnerDiv);
+  firstInnerDiv.appendChild(secondInnerDivContents);
+  quartoTitleMeta.appendChild(firstInnerDiv);
+
+  // Place message on webpage
+  qwebrPlaceMessageContents(quartoTitleMeta); 
+}
+
+function qwebrAddCommandHistoryModal() {
+  // Create the modal div
+  var modalDiv = document.createElement('div');
+  modalDiv.id = 'qwebr-history-modal';
+  modalDiv.className = 'qwebr-modal';
+
+  // Create the modal content div
+  var modalContentDiv = document.createElement('div');
+  modalContentDiv.className = 'qwebr-modal-content';
+
+  // Create the span for closing the modal
+  var closeSpan = document.createElement('span');
+  closeSpan.id = 'qwebr-command-history-close-btn';
+  closeSpan.className = 'qwebr-modal-close';
+  closeSpan.innerHTML = '&times;';
+
+  // Create the h1 element for the modal
+  var modalH1 = document.createElement('h1');
+  modalH1.textContent = 'R History Command Contents';
+
+  // Create an anchor element for downloading the Rhistory file 
+  var downloadLink = document.createElement('a');
+  downloadLink.href = '#';
+  downloadLink.id = 'qwebr-download-history-btn';
+  downloadLink.className = 'qwebr-download-btn';
+
+  // Create an 'i' element for the icon
+  var icon = document.createElement('i');
+  icon.className = 'bi bi-file-code';
+
+  // Append the icon to the anchor element
+  downloadLink.appendChild(icon);
+
+  // Add the text 'Download R History' to the anchor element
+  downloadLink.appendChild(document.createTextNode(' Download R History File'));
+
+  // Create the pre for command history contents
+  var commandContentsPre = document.createElement('pre');
+  commandContentsPre.id = 'qwebr-command-history-contents';
+  commandContentsPre.className = 'qwebr-modal-content-code';
+
+  // Append the close span, h1, and history contents pre to the modal content div
+  modalContentDiv.appendChild(closeSpan);
+  modalContentDiv.appendChild(modalH1);
+  modalContentDiv.appendChild(downloadLink);
+  modalContentDiv.appendChild(commandContentsPre);
+
+  // Append the modal content div to the modal div
+  modalDiv.appendChild(modalContentDiv);
+
+  // Append the modal div to the body
+  document.body.appendChild(modalDiv);
+}
+
+function qwebrRegisterRevealJSCommandHistoryModal() {
+  // Select the <ul> element inside the <div> with data-panel="Custom0"
+  let ulElement = document.querySelector('div[data-panel="Custom0"] > ul.slide-menu-items');
+
+  // Find the last <li> element with class slide-tool-item
+  let lastItem = ulElement.querySelector('li.slide-tool-item:last-child');
+
+  // Calculate the next data-item value
+  let nextItemValue = 0;
+  if (lastItem) {
+      nextItemValue = parseInt(lastItem.dataset.item) + 1;
+  }
+
+  // Create a new <li> element
+  let newListItem = document.createElement('li');
+  newListItem.className = 'slide-tool-item';
+  newListItem.dataset.item = nextItemValue.toString(); // Set the next available data-item value
+
+  // Create the <a> element inside the <li>
+  let newLink = document.createElement('a');
+  newLink.href = '#';
+  newLink.id = 'qwebrRHistoryButton'; // Set the ID for the new link
+  
+  // Create the <kbd> element inside the <a>
+  let newKbd = document.createElement('kbd');
+  newKbd.textContent = ' '; // Set to empty as we are not registering a keyboard shortcut
+
+  // Create text node for the link text
+  let newText = document.createTextNode(' View R History');
+
+  // Append <kbd> and text node to <a>
+  newLink.appendChild(newKbd);
+  newLink.appendChild(newText);
+
+  // Append <a> to <li>
+  newListItem.appendChild(newLink);
+
+  // Append <li> to <ul>
+  ulElement.appendChild(newListItem);
+}
+
+// Handle setting up the R history modal
+function qwebrCodeLinks() {
+
+  if (qwebrIsRevealJS()) {
+    qwebrRegisterRevealJSCommandHistoryModal();
+    return;
+  }
+
+  // Create the container div
+  var containerDiv = document.createElement('div');
+  containerDiv.className = 'quarto-code-links';
+
+  // Create the h2 element
+  var h2 = document.createElement('h2');
+  h2.textContent = 'webR Code Links';
+
+  // Create the ul element
+  var ul = document.createElement('ul');
+
+  // Create the li element
+  var li = document.createElement('li');
+
+  // Create the a_history_btn element
+  var a_history_btn = document.createElement('a');
+  a_history_btn.href = 'javascript:void(0)';
+  a_history_btn.setAttribute('id', 'qwebrRHistoryButton');
+
+  // Create the i_history_btn element
+  var i_history_btn = document.createElement('i');
+  i_history_btn.className = 'bi bi-file-code';
+
+  // Create the text node for the link text
+  var text_history_btn = document.createTextNode('View R History');
+
+  // Append the icon element and link text to the a element
+  a_history_btn.appendChild(i_history_btn);
+  a_history_btn.appendChild(text_history_btn);
+
+  // Append the a element to the li element
+  li.appendChild(a_history_btn);
+
+  // Append the li element to the ul element
+  ul.appendChild(li);
+
+  // Append the h2 and ul elements to the container div
+  containerDiv.appendChild(h2);
+  containerDiv.appendChild(ul);
+
+  // Append the container div to the element with the ID 'quarto-margin-sidebar'
+  var sidebar = document.getElementById('quarto-margin-sidebar');
+    
+  // If the sidebar element is not found, create it
+  if(!sidebar) {
+    qwebrPlaceQuartoSidebar();
+  }
+  
+  // Re-select the sidebar element (if it was just created)
+  sidebar = document.getElementById('quarto-margin-sidebar');   
+
+
+  // If the sidebar element exists, append the container div to it
+  if(sidebar) {
+    // Append the container div to the sidebar
+    sidebar.appendChild(containerDiv);
+    // Force the sidebar to be clickable by removing the 'zindex-bottom' class
+    // added in pre-release: https://github.com/quarto-dev/quarto-cli/commit/f0c53a1ffcaa1de4eccbf07803b096898248adcc
+    sidebar.className = 'sidebar margin-sidebar';
+  } else {
+    // Get a debugger ...
+    console.warn('Element with ID "quarto-margin-sidebar" not found.');
+  }
+}
+
+// Call the function to append the code links for qwebR into the right sidebar
+qwebrCodeLinks();
+
+// Add the command history modal
+qwebrAddCommandHistoryModal();
+
+displayStartupMessage(qwebrShowStartupMessage, qwebrShowHeaderMessage);
+qwebrOffScreenCanvasSupportWarningMessage();
+</script>
+<script type="module">
+// Define a global storage and retrieval solution ----
+
+// Store commands executed in R
+globalThis.qwebrRCommandHistory = [];
+
+// Function to retrieve the command history
+globalThis.qwebrFormatRHistory = function() {
+   return qwebrRCommandHistory.join("\n\n");
+}
+
+// Retrieve HTML Elements ----
+
+// Get the command modal
+const command_history_modal = document.getElementById("qwebr-history-modal");
+
+// Get the button that opens the command modal
+const command_history_btn = document.getElementById("qwebrRHistoryButton");
+
+// Get the <span> element that closes the command modal
+const command_history_close_span = document.getElementById("qwebr-command-history-close-btn");
+
+// Get the download button for r history information
+const command_history_download_btn = document.getElementById("qwebr-download-history-btn");
+
+// Plug in command history into modal/download button ----
+
+// Function to populate the modal with command history
+function populateCommandHistoryModal() {
+    document.getElementById("qwebr-command-history-contents").innerHTML = qwebrFormatRHistory() || "No commands have been executed yet.";
+}
+
+// Function to format the current date and time to
+// a string with the format YYYY-MM-DD-HH-MM-SS
+function formatDateTime() {
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day}-${hours}-${minutes}-${seconds}`;
+}
+
+
+// Function to convert document title with datetime to a safe filename
+function safeFileName() {
+    // Get the current page title
+    let pageTitle = document.title;
+
+    // Combine the current page title with the current date and time
+    let pageNameWithDateTime = `Rhistory-${pageTitle}-${formatDateTime()}`;
+
+    // Replace unsafe characters with safe alternatives
+    let safeFilename = pageNameWithDateTime.replace(/[\\/:\*\?! "<>\|]/g, '-');
+
+    return safeFilename;
+}
+
+
+// Function to download list contents as text file
+function downloadRHistory() {
+    // Get the current page title + datetime and use it as the filename
+    const filename = `${safeFileName()}.R`;
+
+    // Get the text contents of the R History list
+    const text = qwebrFormatRHistory();
+
+    // Create a new Blob object with the text contents
+    const blob = new Blob([text], { type: 'text/plain' });
+  
+    // Create a new anchor element for the download
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+
+    // Append the anchor to the body, click it, and remove it
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+// Register event handlers ----
+
+// When the user clicks the View R History button, open the command modal
+command_history_btn.onclick = function() {
+    populateCommandHistoryModal();
+    command_history_modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the command modal
+command_history_close_span.onclick = function() {
+    command_history_modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the command modal, close it
+window.onclick = function(event) {
+    if (event.target == command_history_modal) {
+        command_history_modal.style.display = "none";
+    }
+}
+
+// Add an onclick event listener to the download button so that
+// the user can download the R history as a text file
+command_history_download_btn.onclick = function() {
+    downloadRHistory();
+};
+</script>
+<script type="module">
+// Supported Evaluation Types for Context
+globalThis.EvalTypes = Object.freeze({
+  Interactive: 'interactive',
+  Setup: 'setup',
+  Output: 'output',
+});
+
+// Function that obtains the font size for a given element 
+globalThis.qwebrCurrentFontSizeOnElement = function(element, cssProperty = 'font-size') {
+
+  const currentFontSize = parseFloat(
+    window
+    .getComputedStyle(element)
+    .getPropertyValue(cssProperty)
+  );
+  
+  return currentFontSize;
+}
+
+// Function to determine font scaling
+globalThis.qwebrScaledFontSize = function(div, qwebrOptions) {
+  // Determine if we should compute font-size using RevealJS's `--r-main-font-size` 
+  // or if we can directly use the document's `font-size`.
+  const cssProperty = document.body.classList.contains('reveal') ? 
+    "--r-main-font-size" : "font-size";
+  
+  // Get the current font size on the div element
+  const elementFontSize = qwebrCurrentFontSizeOnElement(div, cssProperty);
+
+  // Determine the scaled font size value
+  const scaledFontSize = ((qwebrOptions['editor-font-scale'] ?? 1) * elementFontSize) ?? 17.5;
+
+  return scaledFontSize;
+}
+
+
+// Function that dispatches the creation request
+globalThis.qwebrCreateHTMLElement = function (
+  cellData
+) {
+
+  // Extract key components
+  const evalType = cellData.options.context;
+  const qwebrCounter = cellData.id;
+
+  // We make an assumption that insertion points are defined by the Lua filter as:
+  // qwebr-insertion-location-{qwebrCounter} 
+  const elementLocator = document.getElementById(`qwebr-insertion-location-${qwebrCounter}`);
+
+  // Figure out the routine to use to insert the element.
+  let qwebrElement;
+  switch ( evalType ) {
+    case EvalTypes.Interactive:
+      qwebrElement = qwebrCreateInteractiveElement(qwebrCounter, cellData.options);
+      break;
+    case EvalTypes.Output: 
+      qwebrElement = qwebrCreateNonInteractiveOutputElement(qwebrCounter, cellData.options);
+      break;
+    case EvalTypes.Setup: 
+      qwebrElement = qwebrCreateNonInteractiveSetupElement(qwebrCounter, cellData.options);
+      break;
+    default: 
+      qwebrElement = document.createElement('div');
+      qwebrElement.textContent = 'Error creating `quarto-webr` element';
+  }
+
+  // Insert the dynamically generated object at the document location.
+  elementLocator.appendChild(qwebrElement);
+};
+
+// Function that setups the interactive element creation
+globalThis.qwebrCreateInteractiveElement = function (qwebrCounter, qwebrOptions) {
+
+  // Create main div element
+  var mainDiv = document.createElement('div');
+  mainDiv.id = 'qwebr-interactive-area-' + qwebrCounter;
+  mainDiv.className = `qwebr-interactive-area`;
+  if (qwebrOptions.classes) {
+    mainDiv.className += " " + qwebrOptions.classes
+  }
+
+  // Add a unique cell identifier that users can customize
+  if (qwebrOptions.label) {
+    mainDiv.setAttribute('data-id', qwebrOptions.label);
+  }
+
+  // Create toolbar div
+  var toolbarDiv = document.createElement('div');
+  toolbarDiv.className = 'qwebr-editor-toolbar';
+  toolbarDiv.id = 'qwebr-editor-toolbar-' + qwebrCounter;
+
+  // Create a div to hold the left buttons
+  var leftButtonsDiv = document.createElement('div');
+  leftButtonsDiv.className = 'qwebr-editor-toolbar-left-buttons';
+
+  // Create a div to hold the right buttons
+  var rightButtonsDiv = document.createElement('div');
+  rightButtonsDiv.className = 'qwebr-editor-toolbar-right-buttons';
+
+  // Create Run Code button
+  var runCodeButton = document.createElement('button');
+  runCodeButton.className = 'btn btn-default qwebr-button qwebr-button-run';
+  runCodeButton.disabled = true;
+  runCodeButton.type = 'button';
+  runCodeButton.id = 'qwebr-button-run-' + qwebrCounter;
+  runCodeButton.textContent = '🟡 Loading webR...';
+  runCodeButton.title = `Run code (Shift + Enter)`;
+
+  // Append buttons to the leftButtonsDiv
+  leftButtonsDiv.appendChild(runCodeButton);
+
+  // Create Reset button
+  var resetButton = document.createElement('button');
+  resetButton.className = 'btn btn-light btn-xs qwebr-button qwebr-button-reset';
+  resetButton.type = 'button';
+  resetButton.id = 'qwebr-button-reset-' + qwebrCounter;
+  resetButton.title = 'Start over';
+  resetButton.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i>';
+
+  // Create Copy button
+  var copyButton = document.createElement('button');
+  copyButton.className = 'btn btn-light btn-xs qwebr-button qwebr-button-copy';
+  copyButton.type = 'button';
+  copyButton.id = 'qwebr-button-copy-' + qwebrCounter;
+  copyButton.title = 'Copy code';
+  copyButton.innerHTML = '<i class="fa-regular fa-copy"></i>';
+
+  // Append buttons to the rightButtonsDiv
+  rightButtonsDiv.appendChild(resetButton);
+  rightButtonsDiv.appendChild(copyButton);
+
+  // Create console area div
+  var consoleAreaDiv = document.createElement('div');
+  consoleAreaDiv.id = 'qwebr-console-area-' + qwebrCounter;
+  consoleAreaDiv.className = 'qwebr-console-area';
+
+  // Create editor div
+  var editorDiv = document.createElement('div');
+  editorDiv.id = 'qwebr-editor-' + qwebrCounter;
+  editorDiv.className = 'qwebr-editor';
+
+  // Create output code area div
+  var outputCodeAreaDiv = document.createElement('div');
+  outputCodeAreaDiv.id = 'qwebr-output-code-area-' + qwebrCounter;
+  outputCodeAreaDiv.className = 'qwebr-output-code-area';
+  outputCodeAreaDiv.setAttribute('aria-live', 'assertive');
+
+  // Create pre element inside output code area
+  var preElement = document.createElement('pre');
+  preElement.style.visibility = 'hidden';
+  outputCodeAreaDiv.appendChild(preElement);
+
+  // Create output graph area div
+  var outputGraphAreaDiv = document.createElement('div');
+  outputGraphAreaDiv.id = 'qwebr-output-graph-area-' + qwebrCounter;
+  outputGraphAreaDiv.className = 'qwebr-output-graph-area';
+
+  // Append buttons to the toolbar
+  toolbarDiv.appendChild(leftButtonsDiv);
+  toolbarDiv.appendChild(rightButtonsDiv);
+
+  // Append all elements to the main div
+  mainDiv.appendChild(toolbarDiv);
+  consoleAreaDiv.appendChild(editorDiv);
+  consoleAreaDiv.appendChild(outputCodeAreaDiv);
+  mainDiv.appendChild(consoleAreaDiv);
+  mainDiv.appendChild(outputGraphAreaDiv);
+
+  return mainDiv;
+}
+
+// Function that adds output structure for non-interactive output
+globalThis.qwebrCreateNonInteractiveOutputElement = function(qwebrCounter, qwebrOptions) {
+  // Create main div element
+  var mainDiv = document.createElement('div');
+  mainDiv.id = 'qwebr-noninteractive-area-' + qwebrCounter;
+  mainDiv.className = `qwebr-noninteractive-area`;
+  if (qwebrOptions.classes) {
+    mainDiv.className += " " + qwebrOptions.classes
+  }
+  
+  // Add a unique cell identifier that users can customize
+  if (qwebrOptions.label) {
+    mainDiv.setAttribute('data-id', qwebrOptions.label);
+  }
+  
+  // Create a status container div
+  var statusContainer = createLoadingContainer(qwebrCounter);
+
+  // Create output code area div
+  var outputCodeAreaDiv = document.createElement('div');
+  outputCodeAreaDiv.id = 'qwebr-output-code-area-' + qwebrCounter;
+  outputCodeAreaDiv.className = 'qwebr-output-code-area';
+  outputCodeAreaDiv.setAttribute('aria-live', 'assertive');
+
+  // Create pre element inside output code area
+  var preElement = document.createElement('pre');
+  preElement.style.visibility = 'hidden';
+  outputCodeAreaDiv.appendChild(preElement);
+
+  // Create output graph area div
+  var outputGraphAreaDiv = document.createElement('div');
+  outputGraphAreaDiv.id = 'qwebr-output-graph-area-' + qwebrCounter;
+  outputGraphAreaDiv.className = 'qwebr-output-graph-area';
+
+  // Append all elements to the main div
+  mainDiv.appendChild(statusContainer);
+  mainDiv.appendChild(outputCodeAreaDiv);
+  mainDiv.appendChild(outputGraphAreaDiv);
+
+  return mainDiv;
+};
+
+// Function that adds a stub in the page to indicate a setup cell was used.
+globalThis.qwebrCreateNonInteractiveSetupElement = function(qwebrCounter, qwebrOptions) {
+  // Create main div element
+  var mainDiv = document.createElement('div');
+  mainDiv.id = `qwebr-noninteractive-setup-area-${qwebrCounter}`;
+  mainDiv.className = `qwebr-noninteractive-setup-area`;
+  if (qwebrOptions.classes) {
+    mainDiv.className += " " + qwebrOptions.classes
+  }
+
+
+  // Add a unique cell identifier that users can customize
+  if (qwebrOptions.label) {
+    mainDiv.setAttribute('data-id', qwebrOptions.label);
+  }
+
+  // Create a status container div
+  var statusContainer = createLoadingContainer(qwebrCounter);
+
+  // Append status onto the main div
+  mainDiv.appendChild(statusContainer);
+
+  return mainDiv;
+}
+
+
+// Function to create loading container with specified ID
+globalThis.createLoadingContainer = function(qwebrCounter) {
+
+  // Create a status container
+  const container = document.createElement('div');
+  container.id = `qwebr-non-interactive-loading-container-${qwebrCounter}`;
+  container.className = 'qwebr-non-interactive-loading-container qwebr-cell-needs-evaluation';
+
+  // Create an R project logo to indicate its a code space
+  const rProjectIcon = document.createElement('i');
+  rProjectIcon.className = 'fa-brands fa-r-project fa-3x qwebr-r-project-logo';
+
+  // Setup a loading icon from font awesome
+  const spinnerIcon = document.createElement('i');
+  spinnerIcon.className = 'fa-solid fa-spinner fa-spin fa-1x qwebr-icon-status-spinner';
+
+  // Add a section for status text
+  const statusText = document.createElement('p');
+  statusText.id = `qwebr-status-text-${qwebrCounter}`;
+  statusText.className = `qwebr-status-text qwebr-cell-needs-evaluation`;
+  statusText.innerText = 'Loading webR...';
+
+  // Incorporate an inner container
+  const innerContainer = document.createElement('div');
+
+  // Append elements to the inner container
+  innerContainer.appendChild(spinnerIcon);
+  innerContainer.appendChild(statusText);
+
+  // Append elements to the main container
+  container.appendChild(rProjectIcon);
+  container.appendChild(innerContainer);
+
+  return container;
+}
+</script>
+<script type="module">
+// Function to install a single package
+async function qwebrInstallRPackage(packageName) {
+  await mainWebR.evalRVoid(`webr::install('${packageName}');`);
+}
+
+// Function to load a single package
+async function qwebrLoadRPackage(packageName) {
+  await mainWebR.evalRVoid(`require('${packageName}', quietly = TRUE)`);
+}
+
+// Generic function to process R packages
+async function qwebrProcessRPackagesWithStatus(packages, processType, displayStatusMessageUpdate = true) {
+  // Switch between contexts
+  const messagePrefix = processType === 'install' ? 'Installing' : 'Loading';
+
+  // Modify button state
+  qwebrSetInteractiveButtonState(`🟡 ${messagePrefix} package ...`, false);
+
+  // Iterate over packages
+  for (let i = 0; i < packages.length; i++) {
+    const activePackage = packages[i];
+    const formattedMessage = `${messagePrefix} package ${i + 1} out of ${packages.length}: ${activePackage}`;
+
+    // Display the update in header
+    if (displayStatusMessageUpdate) {
+      qwebrUpdateStatusHeader(formattedMessage);
+    }
+
+    // Display the update in non-active areas
+    qwebrUpdateStatusMessage(formattedMessage);
+
+    // Run package installation
+    if (processType === 'install') {
+      await qwebrInstallRPackage(activePackage);
+    } else {
+      await qwebrLoadRPackage(activePackage);
+    }
+  }
+
+  // Clean slate
+  if (processType === 'load') {
+    await mainWebR.flush();
+  }
+}
+
+// Start a timer
+const initializeWebRTimerStart = performance.now();
+
+// Encase with a dynamic import statement
+globalThis.qwebrInstance = import(qwebrCustomizedWebROptions.baseURL + "webr.mjs").then(
+  async ({ WebR, ChannelType }) => {
+    // Populate WebR options with defaults or new values based on `webr` meta
+    globalThis.mainWebR = new WebR(qwebrCustomizedWebROptions);
+
+    // Initialization WebR
+    await mainWebR.init();
+
+    // Setup a shelter
+    globalThis.mainWebRCodeShelter = await new mainWebR.Shelter();
+
+    // Setup a pager to allow processing help documentation
+    await mainWebR.evalRVoid('webr::pager_install()');
+
+    // Setup a viewer to allow processing htmlwidgets.
+    // This might not be available in old webr version
+    await mainWebR.evalRVoid('try({ webr::viewer_install() })');
+
+    // Override the existing install.packages() to use webr::install()
+    await mainWebR.evalRVoid('webr::shim_install()');
+
+    // Specify the repositories to pull from
+    // Note: webR does not use the `repos` option, but instead uses `webr_pkg_repos`
+    // inside of `install()`. However, other R functions still pull from `repos`.
+    await mainWebR.evalRVoid(`
+      options(
+        webr_pkg_repos = c(${qwebrPackageRepoURLS.map(repoURL => `'${repoURL}'`).join(',')}),
+        repos = c(${qwebrPackageRepoURLS.map(repoURL => `'${repoURL}'`).join(',')})
+      )
+    `);
+
+    // Check to see if any packages need to be installed
+    if (qwebrSetupRPackages) {
+      // Obtain only a unique list of packages
+      const uniqueRPackageList = Array.from(new Set(qwebrInstallRPackagesList));
+
+      // Install R packages one at a time (either silently or with a status update)
+      await qwebrProcessRPackagesWithStatus(uniqueRPackageList, 'install', qwebrShowStartupMessage);
+
+      if (qwebrAutoloadRPackages) {
+        // Load R packages one at a time (either silently or with a status update)
+        await qwebrProcessRPackagesWithStatus(uniqueRPackageList, 'load', qwebrShowStartupMessage);
+      }
+    }
+  }
+);
+
+// Stop timer
+const initializeWebRTimerEnd = performance.now();
+
+</script>
+<script type="module">
+// Function to verify a given JavaScript Object is empty
+globalThis.qwebrIsObjectEmpty = function (arr) {
+    return Object.keys(arr).length === 0;
+}
+
+// Global version of the Escape HTML function that converts HTML
+// characters to their HTML entities.
+globalThis.qwebrEscapeHTMLCharacters = function(unsafe) {
+    return unsafe
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+};
+
+// Passthrough results
+globalThis.qwebrIdentity = function(x) {
+    return x;
+};
+
+// Append a comment
+globalThis.qwebrPrefixComment = function(x, comment) {
+    return `${comment}${x}`;
+};
+
+// Function to store the code in the history
+globalThis.qwebrLogCodeToHistory = function(codeToRun, options) {
+    qwebrRCommandHistory.push(
+        `# Ran code in ${options.label} at ${new Date().toLocaleString()} ----\n${codeToRun}`
+    );
+};
+
+// Function to attach a download button onto the canvas
+// allowing the user to download the image.
+function qwebrImageCanvasDownloadButton(canvas, canvasContainer) {
+
+    // Create the download button
+    const downloadButton = document.createElement('button');
+    downloadButton.className = 'qwebr-canvas-image-download-btn';
+    downloadButton.textContent = 'Download Image';
+    canvasContainer.appendChild(downloadButton);
+
+    // Trigger a download of the image when the button is clicked
+    downloadButton.addEventListener('click', function() {
+        const image = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = image;
+        link.download = 'qwebr-canvas-image.png';
+        link.click();
+    });
+}
+
+
+// Function to parse the pager results
+globalThis.qwebrParseTypePager = async function (msg) {
+
+    // Split out the event data
+    const { path, title, deleteFile } = msg.data;
+
+    // Process the pager data by reading the information from disk
+    const paged_data = await mainWebR.FS.readFile(path).then((data) => {
+        // Obtain the file content
+        let content = new TextDecoder().decode(data);
+
+        // Remove excessive backspace characters until none remain
+        while(content.match(/.[\b]/)){
+            content = content.replace(/.[\b]/g, '');
+        }
+
+        // Returned cleaned data
+        return content;
+    });
+
+    // Unlink file if needed
+    if (deleteFile) {
+        await mainWebR.FS.unlink(path);
+    }
+
+    // Return extracted data with spaces
+    return paged_data;
+};
+
+
+// Function to parse the browse results
+globalThis.qwebrParseTypeBrowse = async function (msg) {
+
+    // msg.type === "browse"
+    const path = msg.data.url;
+
+    // Process the browse data by reading the information from disk
+    const browse_data = await mainWebR.FS.readFile(path).then((data) => {
+        // Obtain the file content
+        let content = new TextDecoder().decode(data);
+
+        return content;
+    });
+
+    // Return extracted data as-is
+    return browse_data;
+};
+
+// Function to run the code using webR and parse the output
+globalThis.qwebrComputeEngine = async function(
+    codeToRun,
+    elements,
+    options) {
+
+    // Call into the R compute engine that persists within the document scope.
+    // To be prepared for all scenarios, the following happens:
+    // 1. We setup a canvas device to write to by making a namespace call into the {webr} package
+    // 2. We use values inside of the options array to set the figure size.
+    // 3. We capture the output stream information (STDOUT and STERR)
+    // 4. We disable the current device's image creation.
+    // 5. Piece-wise parse the results into the different output areas
+
+    // Create a pager variable for help/file contents
+    let pager = [];
+
+    // Handle how output is processed
+    let showMarkup = options.results === "markup" && options.output !== "asis";
+    let processOutput;
+
+    if (showMarkup) {
+        processOutput = qwebrEscapeHTMLCharacters;
+    } else {
+        processOutput = qwebrIdentity;
+    }
+
+    // ----
+    // Convert from Inches to Pixels by using DPI (dots per inch)
+    // for bitmap devices (dpi * inches = pixels)
+    let fig_width = options["fig-width"] * options["dpi"];
+    let fig_height = options["fig-height"] * options["dpi"];
+
+    // Initialize webR
+    await mainWebR.init();
+
+    // Configure capture output
+    let captureOutputOptions = {
+        withAutoprint: true,
+        captureStreams: true,
+        captureConditions: false,
+        // env: webR.objs.emptyEnv, // maintain a global environment for webR v0.2.0
+    };
+
+    // Determine if the browser supports OffScreen
+    if (qwebrOffScreenCanvasSupport()) {
+        // Mirror default options of webr::canvas()
+        // with changes to figure height and width.
+        captureOutputOptions.captureGraphics = {
+            width: fig_width,
+            height: fig_height,
+            bg: "white", // default: transparent
+            pointsize: 12,
+            capture: true
+        };
+    }  else {
+        // Disable generating graphics
+        captureOutputOptions.captureGraphics = false;
+    }
+
+    // Store the code to run in history
+    qwebrLogCodeToHistory(codeToRun, options);
+
+    // Setup a webR canvas by making a namespace call into the {webr} package
+    // Evaluate the R code
+    // Remove the active canvas silently
+    const result = await mainWebRCodeShelter.captureR(
+        `${codeToRun}`,
+        captureOutputOptions
+    );
+
+    // -----
+
+    // Start attempting to parse the result data
+    processResultOutput:try {
+
+        // Avoid running through output processing
+        if (options.results === "hide" || options.output === "false") {
+            break processResultOutput;
+        }
+
+        // Merge output streams of STDOUT and STDErr (messages and errors are combined.)
+        // Require both `warning` and `message` to be true to display `STDErr`.
+        const out = result.output
+        .filter(
+            evt => evt.type === "stdout" ||
+            ( evt.type === "stderr" && (options.warning === "true" && options.message === "true"))
+        )
+        .map((evt, index) => {
+            const className = `qwebr-output-code-${evt.type}`;
+            const outputResult = qwebrPrefixComment(processOutput(evt.data), options.comment);
+            return `<code id="${className}-editor-${elements.id}-result-${index + 1}" class="${className}">${outputResult}</code>`;
+        })
+        .join("\n");
+
+
+        // Clean the state
+        // We're now able to process pager events.
+        // As a result, we cannot maintain a true 1-to-1 output order
+        // without individually feeding each line
+        const msgs = await mainWebR.flush();
+
+        // Use `map` to process the filtered "pager" events asynchronously
+        const pager = [];
+        const browse = [];
+
+        await Promise.all(
+            msgs.map(
+                async (msg) => {
+
+                    const msgType = msg.type || "unknown";
+
+                    switch(msgType) {
+                        case 'pager':
+                            const pager_data = await qwebrParseTypePager(msg);
+                            pager.push(pager_data);
+                            break;
+                        case 'browse':
+                            const browse_data = await qwebrParseTypeBrowse(msg);
+                            browse.push(browse_data);
+                            break;
+                    }
+                    return;
+                }
+            )
+        );
+
+        // Nullify the output area of content
+        elements.outputCodeDiv.innerHTML = "";
+        elements.outputGraphDiv.innerHTML = "";
+
+        // Design an output object for messages
+        const pre = document.createElement("pre");
+        if (/\S/.test(out)) {
+            // Display results as HTML elements to retain output styling
+            const div = document.createElement("div");
+            div.innerHTML = out;
+
+            // Calculate a scaled font-size value
+            const scaledFontSize = qwebrScaledFontSize(
+                elements.outputCodeDiv, options);
+
+            // Override output code cell size
+            pre.style.fontSize = `${scaledFontSize}px`;
+            pre.appendChild(div);
+        } else {
+            // If nothing is present, hide the element.
+            pre.style.visibility = "hidden";
+        }
+
+        elements.outputCodeDiv.appendChild(pre);
+
+        // Determine if we have graphs to display
+        if (result.images.length > 0) {
+
+            // Create figure element
+            const figureElement = document.createElement("figure");
+            figureElement.className = "qwebr-canvas-image";
+
+            // Place each rendered graphic onto a canvas element
+            result.images.forEach((img) => {
+
+                // Construct canvas for object
+                const canvas = document.createElement("canvas");
+
+                // Add an image download button
+                qwebrImageCanvasDownloadButton(canvas, figureElement);
+
+                // Set canvas size to image
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                // Apply output truncations
+                canvas.style.width = options["out-width"] ? options["out-width"] : `${fig_width}px`;
+                if (options["out-height"]) {
+                    canvas.style.height = options["out-height"];
+                }
+
+                // Apply styling
+                canvas.style.display = "block";
+                canvas.style.margin = "auto";
+
+                // Draw image onto Canvas
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                // Append canvas to figure output area
+                figureElement.appendChild(canvas);
+
+            });
+
+            if (options['fig-cap']) {
+                // Create figcaption element
+                const figcaptionElement = document.createElement('figcaption');
+                figcaptionElement.innerText = options['fig-cap'];
+                // Append figcaption to figure
+                figureElement.appendChild(figcaptionElement);
+            }
+
+            elements.outputGraphDiv.appendChild(figureElement);
+
+        }
+
+        // Display the pager data
+        if (pager.length > 0) {
+            // Use the `pre` element to preserve whitespace.
+            pager.forEach((paged_data, index) => {
+                const pre_pager = document.createElement("pre");
+                pre_pager.innerText = paged_data;
+                pre_pager.classList.add("qwebr-output-code-pager");
+                pre_pager.setAttribute("id", `qwebr-output-code-pager-editor-${elements.id}-result-${index + 1}`);
+                elements.outputCodeDiv.appendChild(pre_pager);
+            });
+        }
+
+        // Display the browse data
+        if (browse.length > 0) {
+            // Use the `pre` element to preserve whitespace.
+            browse.forEach((browse_data, index) => {
+                const iframe_browse = document.createElement('iframe');
+                iframe_browse.classList.add("qwebr-output-code-browse");
+                iframe_browse.setAttribute("id", `qwebr-output-code-browse-editor-${elements.id}-result-${index + 1}`);
+                iframe_browse.style.width = "100%";
+                iframe_browse.style.minHeight = "500px";
+                elements.outputCodeDiv.appendChild(iframe_browse);
+
+                iframe_browse.contentWindow.document.open();
+                iframe_browse.contentWindow.document.write(browse_data);
+                iframe_browse.contentWindow.document.close();
+            });
+        }
+    } finally {
+        // Clean up the remaining code
+        mainWebRCodeShelter.purge();
+    }
+};
+
+// Function to execute the code (accepts code as an argument)
+globalThis.qwebrExecuteCode = async function (
+    codeToRun,
+    id,
+    options = {}) {
+
+    // If options are not passed, we fall back on the bare minimum to handle the computation
+    if (qwebrIsObjectEmpty(options)) {
+        options = {
+            "context": "interactive",
+            "fig-width": 7, "fig-height": 5,
+            "out-width": "700px", "out-height": "",
+            "dpi": 72,
+            "results": "markup",
+            "warning": "true", "message": "true",
+        };
+    }
+
+    // Next, we access the compute areas values
+    const elements = {
+        runButton: document.getElementById(`qwebr-button-run-${id}`),
+        outputCodeDiv: document.getElementById(`qwebr-output-code-area-${id}`),
+        outputGraphDiv: document.getElementById(`qwebr-output-graph-area-${id}`),
+        id: id,
+    }
+
+    // Disallowing execution of other code cells
+    document.querySelectorAll(".qwebr-button-run").forEach((btn) => {
+        btn.disabled = true;
+    });
+
+    if (options.context == EvalTypes.Interactive) {
+        // Emphasize the active code cell
+        elements.runButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin qwebr-icon-status-spinner"></i> <span>Run Code</span>';
+    }
+
+    // Evaluate the code and parse the output into the document
+    await qwebrComputeEngine(codeToRun, elements, options);
+
+    // Switch to allowing execution of code
+    document.querySelectorAll(".qwebr-button-run").forEach((btn) => {
+        btn.disabled = false;
+    });
+
+    if (options.context == EvalTypes.Interactive) {
+        // Revert to the initial code cell state
+        elements.runButton.innerHTML = '<i class="fa-solid fa-play qwebr-icon-run-code"></i> <span>Run Code</span>';
+    }
+}
+
+</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -800,7 +2353,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#omnibus-test" id="toc-omnibus-test" class="nav-link" data-scroll-target="#omnibus-test">Omnibus test</a></li>
   <li><a href="#anova-methodology" id="toc-anova-methodology" class="nav-link" data-scroll-target="#anova-methodology">ANOVA Methodology</a></li>
-  </ul></li>
   <li><a href="#type-i-and-type-ii-errors" id="toc-type-i-and-type-ii-errors" class="nav-link" data-scroll-target="#type-i-and-type-ii-errors">Type I and Type II Errors</a>
   <ul class="collapse">
   <li><a href="#some-reasons-for-error" id="toc-some-reasons-for-error" class="nav-link" data-scroll-target="#some-reasons-for-error">Some Reasons For Error</a></li>
@@ -808,59 +2360,24 @@ window.Quarto = {
   <li><a href="#one-way-anova" id="toc-one-way-anova" class="nav-link" data-scroll-target="#one-way-anova">One-Way ANOVA</a>
   <ul class="collapse">
   <li><a href="#steps-for-conducting-a-one-way-anova" id="toc-steps-for-conducting-a-one-way-anova" class="nav-link" data-scroll-target="#steps-for-conducting-a-one-way-anova">Steps for Conducting a One-Way Anova</a></li>
-  <li><a href="#statistics-in-a-one-way-anova-table" id="toc-statistics-in-a-one-way-anova-table" class="nav-link" data-scroll-target="#statistics-in-a-one-way-anova-table">Statistics in a One-Way ANOVA Table</a>
-  <ul class="collapse">
-  <li><a href="#explained-variance" id="toc-explained-variance" class="nav-link" data-scroll-target="#explained-variance">Explained Variance</a></li>
-  <li><a href="#unexplained-variance" id="toc-unexplained-variance" class="nav-link" data-scroll-target="#unexplained-variance">Unexplained Variance</a></li>
-  <li><a href="#calculating-f" id="toc-calculating-f" class="nav-link" data-scroll-target="#calculating-f">Calculating F</a></li>
-  </ul></li>
+  <li><a href="#statistics-in-a-one-way-anova-table" id="toc-statistics-in-a-one-way-anova-table" class="nav-link" data-scroll-target="#statistics-in-a-one-way-anova-table">Statistics in a One-Way ANOVA Table</a></li>
   <li><a href="#subsetting-data-for-anova" id="toc-subsetting-data-for-anova" class="nav-link" data-scroll-target="#subsetting-data-for-anova">Subsetting Data for ANOVA</a></li>
-  <li><a href="#example-of-a-one-way-anova" id="toc-example-of-a-one-way-anova" class="nav-link" data-scroll-target="#example-of-a-one-way-anova">Example of a One-Way ANOVA</a>
-  <ul class="collapse">
-  <li><a href="#step-1-set-up-null-and-alternative-hypothesis" id="toc-step-1-set-up-null-and-alternative-hypothesis" class="nav-link" data-scroll-target="#step-1-set-up-null-and-alternative-hypothesis">Step 1: Set Up Null and Alternative Hypothesis</a></li>
-  <li><a href="#step-2-compute-the-f-test-statistic-and-p-value" id="toc-step-2-compute-the-f-test-statistic-and-p-value" class="nav-link" data-scroll-target="#step-2-compute-the-f-test-statistic-and-p-value">Step 2: Compute the F-test Statistic and p-Value</a></li>
-  <li><a href="#step-3-interpret-the-probability-and-write-a-conclusion." id="toc-step-3-interpret-the-probability-and-write-a-conclusion." class="nav-link" data-scroll-target="#step-3-interpret-the-probability-and-write-a-conclusion.">Step 3: Interpret the Probability and Write a conclusion.</a></li>
-  <li><a href="#step-4-if-model-is-significant-run-post-hoc-tests" id="toc-step-4-if-model-is-significant-run-post-hoc-tests" class="nav-link" data-scroll-target="#step-4-if-model-is-significant-run-post-hoc-tests">Step 4: If Model is Significant, Run Post-Hoc Tests</a></li>
-  <li><a href="#bonferroni-method" id="toc-bonferroni-method" class="nav-link" data-scroll-target="#bonferroni-method">Bonferroni Method</a></li>
-  <li><a href="#tukey-hsd-method" id="toc-tukey-hsd-method" class="nav-link" data-scroll-target="#tukey-hsd-method">Tukey HSD Method</a></li>
-  </ul></li>
+  <li><a href="#example-of-a-one-way-anova" id="toc-example-of-a-one-way-anova" class="nav-link" data-scroll-target="#example-of-a-one-way-anova">Example of a One-Way ANOVA</a></li>
   </ul></li>
   <li><a href="#two-way-anova" id="toc-two-way-anova" class="nav-link" data-scroll-target="#two-way-anova">Two-Way ANOVA</a>
   <ul class="collapse">
   <li><a href="#steps-for-conducting-a-two-way-anova" id="toc-steps-for-conducting-a-two-way-anova" class="nav-link" data-scroll-target="#steps-for-conducting-a-two-way-anova">Steps for Conducting a Two-Way ANOVA</a></li>
-  <li><a href="#statistics-in-a-two-way-anova-table" id="toc-statistics-in-a-two-way-anova-table" class="nav-link" data-scroll-target="#statistics-in-a-two-way-anova-table">Statistics in a Two-Way ANOVA Table</a>
-  <ul class="collapse">
-  <li><a href="#explained-variance-1" id="toc-explained-variance-1" class="nav-link" data-scroll-target="#explained-variance-1">Explained Variance</a></li>
-  <li><a href="#unexplained-variance-1" id="toc-unexplained-variance-1" class="nav-link" data-scroll-target="#unexplained-variance-1">Unexplained Variance</a></li>
-  <li><a href="#calculating-f-test-statistics" id="toc-calculating-f-test-statistics" class="nav-link" data-scroll-target="#calculating-f-test-statistics">Calculating F-test Statistics</a></li>
-  </ul></li>
+  <li><a href="#statistics-in-a-two-way-anova-table" id="toc-statistics-in-a-two-way-anova-table" class="nav-link" data-scroll-target="#statistics-in-a-two-way-anova-table">Statistics in a Two-Way ANOVA Table</a></li>
   <li><a href="#using-factor-inline-in-anova-formulas" id="toc-using-factor-inline-in-anova-formulas" class="nav-link" data-scroll-target="#using-factor-inline-in-anova-formulas">Using factor() Inline in ANOVA Formulas</a></li>
-  <li><a href="#example-of-a-two-way-anova" id="toc-example-of-a-two-way-anova" class="nav-link" data-scroll-target="#example-of-a-two-way-anova">Example of a Two-way ANOVA</a>
-  <ul class="collapse">
-  <li><a href="#step-1-set-up-null-and-alternative-hypothesis-1" id="toc-step-1-set-up-null-and-alternative-hypothesis-1" class="nav-link" data-scroll-target="#step-1-set-up-null-and-alternative-hypothesis-1">Step 1: Set Up Null and Alternative Hypothesis</a></li>
-  <li><a href="#step-2-compute-the-f-test-statistics-and-p-values" id="toc-step-2-compute-the-f-test-statistics-and-p-values" class="nav-link" data-scroll-target="#step-2-compute-the-f-test-statistics-and-p-values">Step 2: Compute the F-test Statistics and p-Values</a></li>
-  <li><a href="#step-3-interpret-the-probabilities-and-write-a-conclusion" id="toc-step-3-interpret-the-probabilities-and-write-a-conclusion" class="nav-link" data-scroll-target="#step-3-interpret-the-probabilities-and-write-a-conclusion">Step 3: Interpret the Probabilities and Write a Conclusion</a></li>
-  <li><a href="#step-4-if-model-is-significant-run-post-hoc-tests-1" id="toc-step-4-if-model-is-significant-run-post-hoc-tests-1" class="nav-link" data-scroll-target="#step-4-if-model-is-significant-run-post-hoc-tests-1">Step 4: If Model is Significant, Run Post-Hoc Tests</a></li>
-  </ul></li>
+  <li><a href="#example-of-a-two-way-anova" id="toc-example-of-a-two-way-anova" class="nav-link" data-scroll-target="#example-of-a-two-way-anova">Example of a Two-way ANOVA</a></li>
   </ul></li>
   <li><a href="#two-way-anova-with-interaction" id="toc-two-way-anova-with-interaction" class="nav-link" data-scroll-target="#two-way-anova-with-interaction">Two-Way ANOVA with Interaction</a>
   <ul class="collapse">
   <li><a href="#statistics-in-a-two-way-with-interaction-anova" id="toc-statistics-in-a-two-way-with-interaction-anova" class="nav-link" data-scroll-target="#statistics-in-a-two-way-with-interaction-anova">Statistics in a Two-Way with Interaction ANOVA</a></li>
-  <li><a href="#steps-for-conducting-a-two-way-anova-with-interaction" id="toc-steps-for-conducting-a-two-way-anova-with-interaction" class="nav-link" data-scroll-target="#steps-for-conducting-a-two-way-anova-with-interaction">Steps for Conducting a Two-Way ANOVA with Interaction</a>
-  <ul class="collapse">
-  <li><a href="#explained-variance-2" id="toc-explained-variance-2" class="nav-link" data-scroll-target="#explained-variance-2">Explained Variance</a></li>
-  <li><a href="#unexplained-variance-2" id="toc-unexplained-variance-2" class="nav-link" data-scroll-target="#unexplained-variance-2">Unexplained Variance</a></li>
-  <li><a href="#calculating-f-test-statistics-1" id="toc-calculating-f-test-statistics-1" class="nav-link" data-scroll-target="#calculating-f-test-statistics-1">Calculating F-test Statistics</a></li>
-  </ul></li>
-  <li><a href="#example-of-a-two-way-anova-with-interaction" id="toc-example-of-a-two-way-anova-with-interaction" class="nav-link" data-scroll-target="#example-of-a-two-way-anova-with-interaction">Example of a Two-way ANOVA with Interaction</a>
-  <ul class="collapse">
-  <li><a href="#step-1-write-the-null-and-alternate-hypotheses" id="toc-step-1-write-the-null-and-alternate-hypotheses" class="nav-link" data-scroll-target="#step-1-write-the-null-and-alternate-hypotheses">Step 1: Write the null and alternate hypotheses</a></li>
-  <li><a href="#step-2-compute-the-f-test-statistic-for-the-interaction-and-its-p-value." id="toc-step-2-compute-the-f-test-statistic-for-the-interaction-and-its-p-value." class="nav-link" data-scroll-target="#step-2-compute-the-f-test-statistic-for-the-interaction-and-its-p-value.">Step 2: Compute the F-test statistic for the interaction and its p-value.</a></li>
-  <li><a href="#step-3-interpret-the-probability-and-write-a-conclusion.-1" id="toc-step-3-interpret-the-probability-and-write-a-conclusion.-1" class="nav-link" data-scroll-target="#step-3-interpret-the-probability-and-write-a-conclusion.-1">Step 3: Interpret the probability and write a conclusion.</a></li>
-  <li><a href="#step-4-if-the-interaction-is-significant-examine-simple-effects-or-conduct-post-hoc-tests." id="toc-step-4-if-the-interaction-is-significant-examine-simple-effects-or-conduct-post-hoc-tests." class="nav-link" data-scroll-target="#step-4-if-the-interaction-is-significant-examine-simple-effects-or-conduct-post-hoc-tests.">Step 4: If the interaction is significant, examine simple effects or conduct post-hoc tests.</a></li>
-  </ul></li>
+  <li><a href="#example-of-a-two-way-anova-with-interaction" id="toc-example-of-a-two-way-anova-with-interaction" class="nav-link" data-scroll-target="#example-of-a-two-way-anova-with-interaction">Example of a Two-way ANOVA with Interaction</a></li>
   </ul></li>
   <li><a href="#choose-command" id="toc-choose-command" class="nav-link" data-scroll-target="#choose-command">choose() command</a></li>
+  </ul></li>
   <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation">Correlation</a>
   <ul class="collapse">
   <li><a href="#covariance" id="toc-covariance" class="nav-link" data-scroll-target="#covariance">Covariance</a></li>
@@ -881,11 +2398,19 @@ window.Quarto = {
   <li><a href="#comparing-to-t.test-and-anova" id="toc-comparing-to-t.test-and-anova" class="nav-link" data-scroll-target="#comparing-to-t.test-and-anova">Comparing to t.test and ANOVA</a></li>
   <li><a href="#limitations-of-correlation-analysis" id="toc-limitations-of-correlation-analysis" class="nav-link" data-scroll-target="#limitations-of-correlation-analysis">Limitations of Correlation Analysis</a></li>
   </ul></li>
-  <li><a href="#summary-and-review" id="toc-summary-and-review" class="nav-link" data-scroll-target="#summary-and-review">Summary and Review</a>
+  <li><a href="#review-and-practice" id="toc-review-and-practice" class="nav-link" data-scroll-target="#review-and-practice">Review and Practice</a>
   <ul class="collapse">
   <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai">Using AI</a></li>
   <li><a href="#anova-lab" id="toc-anova-lab" class="nav-link" data-scroll-target="#anova-lab">ANOVA Lab</a></li>
   <li><a href="#correlation-lab" id="toc-correlation-lab" class="nav-link" data-scroll-target="#correlation-lab">Correlation Lab</a></li>
+  <li><a href="#interactive-anova-lesson" id="toc-interactive-anova-lesson" class="nav-link" data-scroll-target="#interactive-anova-lesson">Interactive R Lesson: ANOVA and Correlation</a>
+  <ul class="collapse">
+  <li><a href="#part-1-one-way-anova-chickweight" id="toc-part-1-one-way-anova-chickweight" class="nav-link" data-scroll-target="#part-1-one-way-anova-chickweight">Part 1: One-Way ANOVA — ChickWeight</a></li>
+  <li><a href="#part-2-one-way-anova-plantgrowth" id="toc-part-2-one-way-anova-plantgrowth" class="nav-link" data-scroll-target="#part-2-one-way-anova-plantgrowth">Part 2: One-Way ANOVA — PlantGrowth</a></li>
+  <li><a href="#part-3-two-way-anova-mtcars" id="toc-part-3-two-way-anova-mtcars" class="nav-link" data-scroll-target="#part-3-two-way-anova-mtcars">Part 3: Two-Way ANOVA — mtcars</a></li>
+  <li><a href="#part-4-correlation-boston-dataset" id="toc-part-4-correlation-boston-dataset" class="nav-link" data-scroll-target="#part-4-correlation-boston-dataset">Part 4: Correlation — Boston Dataset</a></li>
+  </ul></li>
+  <li><a href="#anova-quiz" id="toc-anova-quiz" class="nav-link" data-scroll-target="#anova-quiz">Scored Quiz: ANOVA and Correlation</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
   </ul>
@@ -893,6 +2418,290 @@ window.Quarto = {
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs/loader.js"></script>
+<script type="module" id="qwebr-monaco-editor-init">
+
+  // Configure the Monaco Editor's loader
+  require.config({
+    paths: {
+      'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs'
+    }
+  });
+</script>
+<script type="module">
+// Function to update Monaco Editors when body class changes
+function updateMonacoEditorsOnBodyClassChange() {
+    // Select the body element
+    const body = document.querySelector('body');
+
+    // Options for the observer (which mutations to observe)
+    const observerOptions = {
+        attributes: true,  // Observe changes to attributes
+        attributeFilter: ['class'] // Only observe changes to the 'class' attribute
+    };
+
+    // Callback function to execute when mutations are observed
+    const bodyClassChangeCallback = function(mutationsList, observer) {
+        for(let mutation of mutationsList) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                // Class attribute has changed
+                // Update all Monaco Editors on the page
+                updateMonacoEditorTheme();
+            }
+        }
+    };
+
+    // Create an observer instance linked to the callback function
+    const observer = new MutationObserver(bodyClassChangeCallback);
+
+    // Start observing the target node for configured mutations
+    observer.observe(body, observerOptions);
+}
+
+// Function to update all instances of Monaco Editors on the page
+function updateMonacoEditorTheme() {
+    // Determine what VS Theme to use
+    const vsThemeToUse = document.body.classList.contains("quarto-dark") ? 'vs-dark' : 'vs' ;
+
+    // Iterate through all initialized Monaco Editors
+    qwebrEditorInstances.forEach( function(editorInstance) { 
+        editorInstance.updateOptions({ theme: vsThemeToUse }); 
+    });
+}
+
+// Call the function to start observing changes to body class
+updateMonacoEditorsOnBodyClassChange();
+</script>
+<script type="module">
+// Global array to store Monaco Editor instances
+globalThis.qwebrEditorInstances = [];
+
+function isValidCodeLineNumbers(stringCodeLineNumbers) {
+  // Regular expression to match valid input strings
+  const regex = /^(\d+(-\d+)?)(,\d+(-\d+)?)*$/;
+  return regex.test(stringCodeLineNumbers);
+}
+
+// Function that builds and registers a Monaco Editor instance    
+globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
+
+  const initialCode = cellData.code;
+  const qwebrCounter = cellData.id;
+  const qwebrOptions = cellData.options;
+
+  // Retrieve the previously created document elements
+  let runButton = document.getElementById(`qwebr-button-run-${qwebrCounter}`);
+  let resetButton = document.getElementById(`qwebr-button-reset-${qwebrCounter}`);
+  let copyButton = document.getElementById(`qwebr-button-copy-${qwebrCounter}`);
+  let editorDiv = document.getElementById(`qwebr-editor-${qwebrCounter}`);
+
+  // Load the Monaco Editor and create an instance
+  let editor;
+  require(['vs/editor/editor.main'], function () {
+    editor = monaco.editor.create(editorDiv, {
+      value: initialCode,
+      language: 'r',
+      theme: 'vs-light',
+      automaticLayout: true,           // Works wonderfully with RevealJS
+      scrollBeyondLastLine: false,
+      minimap: {
+        enabled: false
+      },
+      fontSize: qwebrScaledFontSize(editorDiv, qwebrOptions),         
+      renderLineHighlight: "none",      // Disable current line highlighting
+      hideCursorInOverviewRuler: true,  // Remove cursor indictor in right hand side scroll bar
+      readOnly: qwebrOptions['read-only'] ?? false,
+      quickSuggestions: qwebrOptions['editor-quick-suggestions'] ?? false,
+      wordWrap: (qwebrOptions['editor-word-wrap'] == 'true' ? "on" : "off")
+    });
+
+    // Store the official counter ID to be used in keyboard shortcuts
+    editor.__qwebrCounter = qwebrCounter;
+
+    // Store the official div container ID
+    editor.__qwebrEditorId = `qwebr-editor-${qwebrCounter}`;
+
+    // Store the initial code value and options
+    editor.__qwebrinitialCode = initialCode;
+    editor.__qwebrOptions = qwebrOptions;
+
+    // Set at the model level the preferred end of line (EOL) character to LF.
+    // This prevent `\r\n` from being given to the webR engine if the user is on Windows.
+    // See details in: https://github.com/coatless/quarto-webr/issues/94
+    // Associated error text: 
+    // Error: <text>:1:7 unexpected input
+
+    // Retrieve the underlying model
+    const model = editor.getModel();
+    // Set EOL for the model
+    model.setEOL(monaco.editor.EndOfLineSequence.LF);
+    
+    // Dynamically modify the height of the editor window if new lines are added.
+    let ignoreEvent = false;
+    const updateHeight = () => {
+      // Increment editor height by 2 to prevent vertical scroll bar from appearing
+      const contentHeight = editor.getContentHeight() + 2;
+
+      // Retrieve editor-max-height option
+      const maxEditorHeight = qwebrOptions['editor-max-height'];
+
+      // If editor-max-height is missing, allow infinite growth. Otherwise, threshold.
+      const editorHeight = !maxEditorHeight ?  contentHeight : Math.min(contentHeight, maxEditorHeight);
+
+      // We're avoiding a width change
+      //editorDiv.style.width = `${width}px`;
+      editorDiv.style.height = `${editorHeight}px`;
+      try {
+        ignoreEvent = true;
+
+        // The key to resizing is this call
+        editor.layout();
+      } finally {
+        ignoreEvent = false;
+      }
+    };
+
+    // Function to generate decorations to highlight lines
+    // in the editor based on input string.
+    function decoratorHighlightLines(codeLineNumbers) {
+      // Store the lines to be lighlight
+      let linesToHighlight = [];
+      
+      // Parse the codeLineNumbers string to get the line numbers to highlight
+      // First, split the string by commas
+      codeLineNumbers.split(',').forEach(part => {
+        // Check if we have a range of lines
+        if (part.includes('-')) {
+            // Handle range of lines (e.g., "6-8")
+            const [start, end] = part.split('-').map(Number);
+            for (let i = start; i <= end; i++) {
+                linesToHighlight.push(i);
+            }
+        } else {
+            // Handle single line (e.g., "7")
+            linesToHighlight.push(Number(part));
+        }
+      });
+  
+      // Create monaco decorations for the lines to highlight
+      const decorations = linesToHighlight.map(lineNumber => ({
+          range: new monaco.Range(lineNumber, 1, lineNumber, 1),
+          options: {
+              isWholeLine: true,
+              className: 'qwebr-editor-highlight-line'
+          }
+      }));
+  
+      // Return decorations to be applied to the editor
+      return decorations;
+    }
+
+    // Ensure that the editor-code-line-numbers option is set and valid
+    // then apply styling
+    if (qwebrOptions['editor-code-line-numbers']) {
+      // Remove all whitespace from the string
+      const codeLineNumbers = qwebrOptions['editor-code-line-numbers'].replace(/\s/g,'');
+      // Check if the string is valid for line numbers, e.g., "1,3-5,7"
+      if (isValidCodeLineNumbers(codeLineNumbers)) {
+        // Apply the decorations to the editor
+        editor.createDecorationsCollection(decoratorHighlightLines(codeLineNumbers));
+      } else {
+        // Warn the user that the input is invalid
+        console.warn(`Invalid "editor-code-line-numbers" value in code cell ${qwebrOptions['label']}: ${codeLineNumbers}`);
+      }
+    }
+
+    // Helper function to check if selected text is empty
+    function isEmptyCodeText(selectedCodeText) {
+      return (selectedCodeText === null || selectedCodeText === undefined || selectedCodeText === "");
+    }
+
+    // Registry of keyboard shortcuts that should be re-added to each editor window
+    // when focus changes.
+    const addWebRKeyboardShortCutCommands = () => {
+      // Add a keydown event listener for Shift+Enter to run all code in cell
+      editor.addCommand(monaco.KeyMod.Shift | monaco.KeyCode.Enter, () => {
+
+        // Retrieve all text inside the editor
+        qwebrExecuteCode(editor.getValue(), editor.__qwebrCounter, editor.__qwebrOptions);
+      });
+
+      // Add a keydown event listener for CMD/Ctrl+Enter to run selected code
+      editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
+
+        // Get the selected text from the editor
+        const selectedText = editor.getModel().getValueInRange(editor.getSelection());
+        // Check if no code is selected
+        if (isEmptyCodeText(selectedText)) {
+          // Obtain the current cursor position
+          let currentPosition = editor.getPosition();
+          // Retrieve the current line content
+          let currentLine = editor.getModel().getLineContent(currentPosition.lineNumber);
+
+          // Propose a new position to move the cursor to
+          let newPosition = new monaco.Position(currentPosition.lineNumber + 1, 1);
+
+          // Check if the new position is beyond the last line of the editor
+          if (newPosition.lineNumber > editor.getModel().getLineCount()) {
+            // Add a new line at the end of the editor
+            editor.executeEdits("addNewLine", [{
+            range: new monaco.Range(newPosition.lineNumber, 1, newPosition.lineNumber, 1),
+            text: "\n", 
+            forceMoveMarkers: true,
+            }]);
+          }
+          
+          // Run the entire line of code.
+          qwebrExecuteCode(currentLine, editor.__qwebrCounter, editor.__qwebrOptions);
+
+          // Move cursor to new position
+          editor.setPosition(newPosition);
+        } else {
+          // Code to run when Ctrl+Enter is pressed with selected code
+          qwebrExecuteCode(selectedText, editor.__qwebrCounter, editor.__qwebrOptions);
+        }
+      });
+    }
+
+    // Register an on focus event handler for when a code cell is selected to update
+    // what keyboard shortcut commands should work.
+    // This is a workaround to fix a regression that happened with multiple
+    // editor windows since Monaco 0.32.0 
+    // https://github.com/microsoft/monaco-editor/issues/2947
+    editor.onDidFocusEditorText(addWebRKeyboardShortCutCommands);
+
+    // Register an on change event for when new code is added to the editor window
+    editor.onDidContentSizeChange(updateHeight);
+
+    // Manually re-update height to account for the content we inserted into the call
+    updateHeight();
+
+    // Store the editor instance in the global dictionary
+    qwebrEditorInstances[editor.__qwebrCounter] = editor;
+
+  });
+
+  // Add a click event listener to the run button
+  runButton.onclick = function () {
+    qwebrExecuteCode(editor.getValue(), editor.__qwebrCounter, editor.__qwebrOptions);
+  };
+
+  // Add a click event listener to the reset button
+  copyButton.onclick = function () {
+    // Retrieve current code data
+    const data = editor.getValue();
+    
+    // Write code data onto the clipboard.
+    navigator.clipboard.writeText(data || "");
+  };
+  
+  // Add a click event listener to the copy button
+  resetButton.onclick = function () {
+    editor.setValue(editor.__qwebrinitialCode);
+  };
+  
+}
+</script>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -998,9 +2807,8 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-</section>
-<section id="type-i-and-type-ii-errors" class="level1">
-<h1>Type I and Type II Errors</h1>
+<section id="type-i-and-type-ii-errors" class="level2">
+<h2 class="anchored" data-anchor-id="type-i-and-type-ii-errors">Type I and Type II Errors</h2>
 <ul>
 <li><p>In any hypothesis test, including an ANOVA, it is important to acknowledge that there is error, and that it is possible to come up with the wrong conclusion. An important note is that we are calculating results and making conclusions based on probability calculated given the sample we have, the timing it was collected, and any biases that might have been used in designing and securing the data set. We could also be violating assumptions that make the findings less accurate if still accurate at all.<br>
 </p></li>
@@ -1067,8 +2875,8 @@ window.Quarto = {
 <li><p>In this scenario, if we made a Type I error, we would make people get vaccines that were not helpful. If we made a Type II error, we would end up not administering the vaccine when in fact it actually could help prevent the spread of COVID-19. In making the decision to give the vaccine, these types of errors were weighed (along with others) and the vaccine ended up being administered because the Type II error was considered more problematic than the Type I.</p></li>
 <li><p>Some tests are designed to minimize Type I error, while others are designed to minimize Type II error. Selecting alpha levels that are smaller will help reduce Type I error, but at the cost of Type II error. And again, increasing sample size reduces both error.</p></li>
 </ul>
-<section id="some-reasons-for-error" class="level2">
-<h2 class="anchored" data-anchor-id="some-reasons-for-error">Some Reasons For Error</h2>
+<section id="some-reasons-for-error" class="level3">
+<h3 class="anchored" data-anchor-id="some-reasons-for-error">Some Reasons For Error</h3>
 <ul>
 <li>Measurement error refers to the difference between a measured quantity and its true value which could be due to random error or systematic error.
 <ul>
@@ -1084,13 +2892,13 @@ window.Quarto = {
 </ul>
 </section>
 </section>
-<section id="one-way-anova" class="level1">
-<h1>One-Way ANOVA</h1>
+<section id="one-way-anova" class="level2">
+<h2 class="anchored" data-anchor-id="one-way-anova">One-Way ANOVA</h2>
 <ul>
 <li>One-way ANOVA compares population means based on one categorical variable.</li>
 </ul>
-<section id="steps-for-conducting-a-one-way-anova" class="level2">
-<h2 class="anchored" data-anchor-id="steps-for-conducting-a-one-way-anova">Steps for Conducting a One-Way Anova</h2>
+<section id="steps-for-conducting-a-one-way-anova" class="level3">
+<h3 class="anchored" data-anchor-id="steps-for-conducting-a-one-way-anova">Steps for Conducting a One-Way Anova</h3>
 <ol type="1">
 <li>Write the null and alternate hypotheses.</li>
 <li>Compute the F-test statistic and the probability for the test statistic (p-value).</li>
@@ -1098,8 +2906,8 @@ window.Quarto = {
 <li>If model is significant, run post-hoc tests.</li>
 </ol>
 </section>
-<section id="statistics-in-a-one-way-anova-table" class="level2">
-<h2 class="anchored" data-anchor-id="statistics-in-a-one-way-anova-table">Statistics in a One-Way ANOVA Table</h2>
+<section id="statistics-in-a-one-way-anova-table" class="level3">
+<h3 class="anchored" data-anchor-id="statistics-in-a-one-way-anova-table">Statistics in a One-Way ANOVA Table</h3>
 <ul>
 <li>There are a number of statistics being calculated with an aov() command, with the goal of producing the F-test statistic, which corresponds to a p-value that we can interpret the same way as we did in the earlier lessons (p-value &lt; alpha = significant result - reject the <span class="math inline">\(H_0\)</span>).</li>
 </ul>
@@ -1109,8 +2917,8 @@ window.Quarto = {
 <figcaption>One Way ANOVA Formulas</figcaption>
 </figure>
 </div>
-<section id="explained-variance" class="level3">
-<h3 class="anchored" data-anchor-id="explained-variance">Explained Variance</h3>
+<section id="explained-variance" class="level4">
+<h4 class="anchored" data-anchor-id="explained-variance">Explained Variance</h4>
 <ul>
 <li><p>In a one-way ANOVA, first, we compute the <em>explained variance</em>, which in a one-way ANOVA is the sum of squares due to treatments (SSTR), where the treatment is our grouping variable. The explained variance suggests that the variation in outcome can be explained by a model, or in our case, a grouping variable. In computing the SSTR, we square the deviation between each group mean (<span class="math inline">\(\bar{y}_j\)</span>) and the grand mean <span class="math inline">\(\bar{y}\)</span> and multiply it by the sample size (<span class="math inline">\(n_j\)</span>) and sum up all the values <span class="math inline">\(\sum\)</span>. This leads to the following formula:</p>
 <ul>
@@ -1127,8 +2935,8 @@ window.Quarto = {
 <li><p>Above in the overall methodology, the MSTR corresponds to the <em>between-treatments estimate</em>.</p></li>
 </ul>
 </section>
-<section id="unexplained-variance" class="level3">
-<h3 class="anchored" data-anchor-id="unexplained-variance">Unexplained Variance</h3>
+<section id="unexplained-variance" class="level4">
+<h4 class="anchored" data-anchor-id="unexplained-variance">Unexplained Variance</h4>
 <ul>
 <li><p>There is also a measure of <em>unexplained variance</em>, which we term error. In a one-way ANOVA, this unexplained variance refers to variability in the outcome that is not explained by the grouping variable. In the table, this error is called the sum of squares error (SSE). SSE is calculated by first multiplying the sample size of group and subtracting one (<span class="math inline">\(n_j-1\)</span>), and then multiplying that number by its group variance (<span class="math inline">\(\sigma^2_i\)</span>). Once all groups are calculated, we add it up (<span class="math inline">\(\sum\)</span>). This leads to the following formula:</p>
 <ul>
@@ -1150,8 +2958,8 @@ window.Quarto = {
 <li><p>There is a total sum of squares (SST) being calculated in an ANOVA, which refers to the total variance (explained and unexplained). This value is calculated as the total number of observations minus 1 (<span class="math inline">\(n_t-1\)</span>). We don’t see it explicitly in our R output, but it is needed to help understand the full model.</p></li>
 </ul>
 </section>
-<section id="calculating-f" class="level3">
-<h3 class="anchored" data-anchor-id="calculating-f">Calculating F</h3>
+<section id="calculating-f" class="level4">
+<h4 class="anchored" data-anchor-id="calculating-f">Calculating F</h4>
 <ul>
 <li>Finally, to calculate the F-test statistic, we take the MSTR (explained variability) and divide by the MSE (unexplained variability) considering the appropriate degrees of freedom (<span class="math inline">\(k-1\)</span> and <span class="math inline">\(n_t-k\)</span>).</li>
 <li>A p-value is computed from that statistic mathematically by using the correct command in R.
@@ -1161,8 +2969,8 @@ window.Quarto = {
 </ul>
 </section>
 </section>
-<section id="subsetting-data-for-anova" class="level2">
-<h2 class="anchored" data-anchor-id="subsetting-data-for-anova">Subsetting Data for ANOVA</h2>
+<section id="subsetting-data-for-anova" class="level3">
+<h3 class="anchored" data-anchor-id="subsetting-data-for-anova">Subsetting Data for ANOVA</h3>
 <ul>
 <li><p>When running an ANOVA on a subset of your data (e.g., only certain regions or categories), it is important to use <code>droplevels()</code> after subsetting to remove any unused factor levels. If you do not, the ANOVA output — and post-hoc tests like TukeyHSD — may attempt to test groups that no longer have any observations, which causes errors or misleading results.</p></li>
 <li><p>You can use <code>droplevels()</code> directly on the subsetted data frame, or use it inside a <code>mutate()</code> call on a specific column. For example:</p></li>
@@ -1176,13 +2984,13 @@ window.Quarto = {
 <li>This was introduced in Module 2 in the context of cleaning factor variables, and the same logic applies here before running an ANOVA on a subsetted dataset.</li>
 </ul>
 </section>
-<section id="example-of-a-one-way-anova" class="level2">
-<h2 class="anchored" data-anchor-id="example-of-a-one-way-anova">Example of a One-Way ANOVA</h2>
+<section id="example-of-a-one-way-anova" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-a-one-way-anova">Example of a One-Way ANOVA</h3>
 <ul>
 <li>Like the t-test, a one-way ANOVA follows 3 steps, and then includes an optional 4th step after significance is found and confirmed in step 3.</li>
 </ul>
-<section id="step-1-set-up-null-and-alternative-hypothesis" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-set-up-null-and-alternative-hypothesis">Step 1: Set Up Null and Alternative Hypothesis</h3>
+<section id="step-1-set-up-null-and-alternative-hypothesis" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-set-up-null-and-alternative-hypothesis">Step 1: Set Up Null and Alternative Hypothesis</h4>
 <ul>
 <li>The competing hypotheses for the one-way ANOVA:
 <ul>
@@ -1191,8 +2999,8 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-<section id="step-2-compute-the-f-test-statistic-and-p-value" class="level3">
-<h3 class="anchored" data-anchor-id="step-2-compute-the-f-test-statistic-and-p-value">Step 2: Compute the F-test Statistic and p-Value</h3>
+<section id="step-2-compute-the-f-test-statistic-and-p-value" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-compute-the-f-test-statistic-and-p-value">Step 2: Compute the F-test Statistic and p-Value</h4>
 <ul>
 <li><p>First, we read in the data set and give a look at what is included.</p>
 <ul>
@@ -1260,8 +3068,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="step-3-interpret-the-probability-and-write-a-conclusion." class="level3">
-<h3 class="anchored" data-anchor-id="step-3-interpret-the-probability-and-write-a-conclusion.">Step 3: Interpret the Probability and Write a conclusion.</h3>
+<section id="step-3-interpret-the-probability-and-write-a-conclusion." class="level4">
+<h4 class="anchored" data-anchor-id="step-3-interpret-the-probability-and-write-a-conclusion.">Step 3: Interpret the Probability and Write a conclusion.</h4>
 <ul>
 <li>The F-test statistic is 37.251 and the p-value is &lt; 2.2e-16 ***. This p-value is &lt; all typical alpha values like .05 or .001. This value is very close to 0. We would state that our p-value is less than .001 by looking at the table and noting the three asterisks.<br>
 </li>
@@ -1269,8 +3077,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>More specifically we reject the null hypothesis <span class="math inline">\(H_0\)</span> in support of <span class="math inline">\(H_A\)</span> and conclude that not all congestion levels are equal among the cities.</li>
 </ul>
 </section>
-<section id="step-4-if-model-is-significant-run-post-hoc-tests" class="level3">
-<h3 class="anchored" data-anchor-id="step-4-if-model-is-significant-run-post-hoc-tests">Step 4: If Model is Significant, Run Post-Hoc Tests</h3>
+<section id="step-4-if-model-is-significant-run-post-hoc-tests" class="level4">
+<h4 class="anchored" data-anchor-id="step-4-if-model-is-significant-run-post-hoc-tests">Step 4: If Model is Significant, Run Post-Hoc Tests</h4>
 <ul>
 <li><p>Pairwise comparisons: A statistical strategy for comparing different groups, often used after a statistically significant ANOVA to test hypotheses about which group means are statistically significantly different from one another.</p>
 <ol type="1">
@@ -1281,8 +3089,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><p>Planned Comparisons: also known as a priori comparisons or planned comparisons, are a statistical technique used in the analysis of variance (ANOVA) to compare specific means based on hypotheses formulated before examining the data. Unlike post hoc tests, which compare all possible pairs of means and are conducted after data collection, planned contrasts are designed to test specific hypotheses derived from theoretical considerations or previous research.</p></li>
 </ul>
 </section>
-<section id="bonferroni-method" class="level3">
-<h3 class="anchored" data-anchor-id="bonferroni-method">Bonferroni Method</h3>
+<section id="bonferroni-method" class="level4">
+<h4 class="anchored" data-anchor-id="bonferroni-method">Bonferroni Method</h4>
 <ul>
 <li>The Bonferroni method is a pairwise post-hoc test that is used after finding a statistically significant ANOVA. This method conducts a t-test for each pair of means and adjusts the threshold for statistical significance to ensure that there is a small enough risk of Type I error; it is generally considered a very conservative post hoc test that only identifies the largest differences between means as statistically significant.</li>
 <li>The function has several arguments, such as <span class="math inline">\(x =\)</span> for the continuous variable (listed first); <span class="math inline">\(g =\)</span> for the grouping or categorical variable (listed 2nd); and the p-value adjustment, <span class="math inline">\(p.adj =\)</span>, which can be set as __bonf_ for Bonferroni (listed 3rd).</li>
@@ -1310,8 +3118,8 @@ P value adjustment method: bonferroni </code></pre>
 </div>
 </div>
 </section>
-<section id="tukey-hsd-method" class="level3">
-<h3 class="anchored" data-anchor-id="tukey-hsd-method">Tukey HSD Method</h3>
+<section id="tukey-hsd-method" class="level4">
+<h4 class="anchored" data-anchor-id="tukey-hsd-method">Tukey HSD Method</h4>
 <ul>
 <li>The Tukey HSD method is another pairwise post-hoc test that is used after finding a statistically significant ANOVA.</li>
 <li>This method is used to determine which means are statistically significantly different from each other by comparing each pair of means.</li>
@@ -1348,8 +3156,8 @@ Washington, DC-San Francisco   6.40   2.740985  10.059015 0.0000373</code></pre>
 </section>
 </section>
 </section>
-<section id="two-way-anova" class="level1">
-<h1>Two-Way ANOVA</h1>
+<section id="two-way-anova" class="level2">
+<h2 class="anchored" data-anchor-id="two-way-anova">Two-Way ANOVA</h2>
 <ul>
 <li>A two-way ANOVA is called a randomized block design.</li>
 <li>The term “block” refers to a matched set of observations across the treatments.</li>
@@ -1361,8 +3169,8 @@ Washington, DC-San Francisco   6.40   2.740985  10.059015 0.0000373</code></pre>
 </ul></li>
 <li>In altering the methodology above, the row and column variability take place of the <em>between-treatment estimate</em> listed above, which still corresponds to <em>explained variance</em>. We still have one <em>within-treatment estimate</em> as before, or a measure of <em>unexplained variance</em>.</li>
 </ul>
-<section id="steps-for-conducting-a-two-way-anova" class="level2">
-<h2 class="anchored" data-anchor-id="steps-for-conducting-a-two-way-anova">Steps for Conducting a Two-Way ANOVA</h2>
+<section id="steps-for-conducting-a-two-way-anova" class="level3">
+<h3 class="anchored" data-anchor-id="steps-for-conducting-a-two-way-anova">Steps for Conducting a Two-Way ANOVA</h3>
 <ol type="1">
 <li>Write the null and alternate hypotheses for each grouping variable.</li>
 <li>Compute the F-test statistics for each grouping variable and the probability for the test statistics (2 p-values for a 2-way ANOVA).</li>
@@ -1373,8 +3181,8 @@ Washington, DC-San Francisco   6.40   2.740985  10.059015 0.0000373</code></pre>
 <li>The steps are the same as a one-way ANOVA listed above, with the exception that now we have 2 grouping variables, so we need 2 F-stats and 2 p-values.</li>
 </ul>
 </section>
-<section id="statistics-in-a-two-way-anova-table" class="level2">
-<h2 class="anchored" data-anchor-id="statistics-in-a-two-way-anova-table">Statistics in a Two-Way ANOVA Table</h2>
+<section id="statistics-in-a-two-way-anova-table" class="level3">
+<h3 class="anchored" data-anchor-id="statistics-in-a-two-way-anova-table">Statistics in a Two-Way ANOVA Table</h3>
 <ul>
 <li>We add another row to our ANOVA table when we move from a one-way ANOVA to a two-way ANOVA. The goal is the same, which is to produce a F-test statistic. In a two-way ANOVA, we will have two F-test statistics (one for each grouping variable). Each F-test statistic corresponds to a separate p-value that we can interpret the same way as we did in the last lessons (p-value &lt; alpha = significant result - reject the <span class="math inline">\(H_0\)</span>). So we can find one group significant and not the other, neither significant, or both significant with one test.</li>
 </ul>
@@ -1384,8 +3192,8 @@ Washington, DC-San Francisco   6.40   2.740985  10.059015 0.0000373</code></pre>
 <figcaption>Two Way ANOVA Formulas</figcaption>
 </figure>
 </div>
-<section id="explained-variance-1" class="level3">
-<h3 class="anchored" data-anchor-id="explained-variance-1">Explained Variance</h3>
+<section id="explained-variance-1" class="level4">
+<h4 class="anchored" data-anchor-id="explained-variance-1">Explained Variance</h4>
 <ul>
 <li><p>In a two-way ANOVA, we still start by computing the <em>explained variance</em>. Since we have an additional grouping variable, or factor, we will have two sum of squares measures, a sum of squares for factor A (SSA) and a sum of squares for factor B (SSB). Factor B is typically called a row (r) factor, while Factor A is typically called a column (c) factor. However, the order of the output will depend on the order of your formula in R.</p></li>
 <li><p>The explained variance still suggests that the variation in outcome can be explained by a model, but now it will be due to the two grouping variables. In computing the SSB, we take the number of columns (<span class="math inline">\(c\)</span>) and we multiply by the sum of the squared deviation between each group B mean (<span class="math inline">\(\bar{y_j}\)</span>) and the grand mean <span class="math inline">\(\bar{y}\)</span>.</p>
@@ -1408,8 +3216,8 @@ Washington, DC-San Francisco   6.40   2.740985  10.059015 0.0000373</code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="unexplained-variance-1" class="level3">
-<h3 class="anchored" data-anchor-id="unexplained-variance-1">Unexplained Variance</h3>
+<section id="unexplained-variance-1" class="level4">
+<h4 class="anchored" data-anchor-id="unexplained-variance-1">Unexplained Variance</h4>
 <ul>
 <li><p>In a two-way ANOVA, there is still only one measure of <em>unexplained variance</em>, which we term residual error.</p></li>
 <li><p>The SSE is calculated after deriving the total variance (SST = both explained and unexplained), and subtracting the explained variance (SSB and SSA).</p>
@@ -1428,8 +3236,8 @@ Washington, DC-San Francisco   6.40   2.740985  10.059015 0.0000373</code></pre>
 <li><p>There is also a total degrees of freedom in a two-way ANOVA, which is the total number of observations minus 1 (<span class="math inline">\(n_t-1\)</span>). We don’t see it explicitly in our R output, but it is needed to help understand the full model.</p></li>
 </ul>
 </section>
-<section id="calculating-f-test-statistics" class="level3">
-<h3 class="anchored" data-anchor-id="calculating-f-test-statistics">Calculating F-test Statistics</h3>
+<section id="calculating-f-test-statistics" class="level4">
+<h4 class="anchored" data-anchor-id="calculating-f-test-statistics">Calculating F-test Statistics</h4>
 <ul>
 <li>Finally, to calculate the 2 F-test statistics, given a two-way ANOVA, we take both the MSB (explained variability for factor B) and the MSA (explained variability for factor A) and divide both by the MSE (unexplained variability) considering the appropriate degrees of freedom (<span class="math inline">\(c-1\)</span> and <span class="math inline">\(r-1\)</span> and <span class="math inline">\(n_t-c-r+1\)</span>).</li>
 <li>This gives us two scores to evaluate. A p-value is computed from each F-test statistic mathematically by using the correct command in R.
@@ -1440,8 +3248,8 @@ Washington, DC-San Francisco   6.40   2.740985  10.059015 0.0000373</code></pre>
 </ul>
 </section>
 </section>
-<section id="using-factor-inline-in-anova-formulas" class="level2">
-<h2 class="anchored" data-anchor-id="using-factor-inline-in-anova-formulas">Using factor() Inline in ANOVA Formulas</h2>
+<section id="using-factor-inline-in-anova-formulas" class="level3">
+<h3 class="anchored" data-anchor-id="using-factor-inline-in-anova-formulas">Using factor() Inline in ANOVA Formulas</h3>
 <ul>
 <li>In a two-way ANOVA, you can convert a variable to a factor directly inside the <code>aov()</code> formula using <code>factor()</code>. For example, if <code>year</code> is stored as a numeric variable but you want to treat it as a categorical grouping variable, you can write:</li>
 </ul>
@@ -1452,13 +3260,13 @@ Washington, DC-San Francisco   6.40   2.740985  10.059015 0.0000373</code></pre>
 <li>This is equivalent to converting <code>year</code> to a factor first using <code>as.factor()</code> and then passing it to <code>aov()</code>. The inline approach is convenient when you want to test a numeric variable as a categorical factor without permanently changing the variable in your dataset.</li>
 </ul>
 </section>
-<section id="example-of-a-two-way-anova" class="level2">
-<h2 class="anchored" data-anchor-id="example-of-a-two-way-anova">Example of a Two-way ANOVA</h2>
+<section id="example-of-a-two-way-anova" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-a-two-way-anova">Example of a Two-way ANOVA</h3>
 <ul>
 <li>Let’s run an example to compare SAT scores to see if they are comparable from different instructors {Instructor 1, 2, and 3} and across 4 races {Asian.American, Black, Mexican.American, and White}.</li>
 </ul>
-<section id="step-1-set-up-null-and-alternative-hypothesis-1" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-set-up-null-and-alternative-hypothesis-1">Step 1: Set Up Null and Alternative Hypothesis</h3>
+<section id="step-1-set-up-null-and-alternative-hypothesis-1" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-set-up-null-and-alternative-hypothesis-1">Step 1: Set Up Null and Alternative Hypothesis</h4>
 <ul>
 <li><p>The competing hypotheses for the two-way ANOVA are two-fold:</p></li>
 <li><p>Hypothesis 1:</p>
@@ -1473,8 +3281,8 @@ Washington, DC-San Francisco   6.40   2.740985  10.059015 0.0000373</code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="step-2-compute-the-f-test-statistics-and-p-values" class="level3">
-<h3 class="anchored" data-anchor-id="step-2-compute-the-f-test-statistics-and-p-values">Step 2: Compute the F-test Statistics and p-Values</h3>
+<section id="step-2-compute-the-f-test-statistics-and-p-values" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-compute-the-f-test-statistics-and-p-values">Step 2: Compute the F-test Statistics and p-Values</h4>
 <ul>
 <li><p>Like a one-way ANOVA, in a two-way ANOVA, we start with an appropriate data set.</p>
 <ul>
@@ -1496,8 +3304,8 @@ Washington, DC-San Francisco   6.40   2.740985  10.059015 0.0000373</code></pre>
 </div></li>
 </ul>
 </section>
-<section id="step-3-interpret-the-probabilities-and-write-a-conclusion" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-interpret-the-probabilities-and-write-a-conclusion">Step 3: Interpret the Probabilities and Write a Conclusion</h3>
+<section id="step-3-interpret-the-probabilities-and-write-a-conclusion" class="level4">
+<h4 class="anchored" data-anchor-id="step-3-interpret-the-probabilities-and-write-a-conclusion">Step 3: Interpret the Probabilities and Write a Conclusion</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Anova2way <span class="ot">&lt;-</span> <span class="fu">aov</span>(SAT <span class="sc">~</span> Instructor <span class="sc">+</span> Race, <span class="at">data =</span> SATdata)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Anova2way)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1516,8 +3324,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><p>This means that we can conduct post-hoc tests on our Race variable. If we conduct any post-hoc tests on Instructor, we should find no differences in groups (which we already found in the ANOVA results above). This means additional testing the Instructor variable is an unnecessary step.</p></li>
 </ul>
 </section>
-<section id="step-4-if-model-is-significant-run-post-hoc-tests-1" class="level3">
-<h3 class="anchored" data-anchor-id="step-4-if-model-is-significant-run-post-hoc-tests-1">Step 4: If Model is Significant, Run Post-Hoc Tests</h3>
+<section id="step-4-if-model-is-significant-run-post-hoc-tests-1" class="level4">
+<h4 class="anchored" data-anchor-id="step-4-if-model-is-significant-run-post-hoc-tests-1">Step 4: If Model is Significant, Run Post-Hoc Tests</h4>
 <ul>
 <li>Using the pairwise.t.test() command, we can run a Bonferroni test on just race by using the command below. This result suggest that there are group differences between all groups. We can tell that because all p-values are less than alpha at .05.<br>
 </li>
@@ -1569,29 +3377,29 @@ White-Mexican.American           201.96667  166.74805  237.18528 0.0000000</code
 </section>
 </section>
 </section>
-<section id="two-way-anova-with-interaction" class="level1">
-<h1>Two-Way ANOVA with Interaction</h1>
+<section id="two-way-anova-with-interaction" class="level2">
+<h2 class="anchored" data-anchor-id="two-way-anova-with-interaction">Two-Way ANOVA with Interaction</h2>
 <ul>
 <li>A two-way ANOVA with interaction is a statistical test used to examine the effects of two independent categorical variables (factors) on a continuous dependent variable, while also assessing whether the effects of one factor depend on the levels of the other. This test includes three key components: main effects of each factor (how each variable influences the dependent variable independently) and the interaction effect (whether the effect of one factor changes depending on the level of the other factor). If a significant interaction is found, it suggests that the impact of one factor differs across levels of the second factor, meaning the combined influence of both factors is not simply additive. This interaction is visualized using interaction plots, where non-parallel lines indicate interaction. A two-way ANOVA with interaction assumes the same assumptions as a two-way ANOVA: normality, homogeneity of variances, and independence of observations.</li>
 </ul>
-<section id="statistics-in-a-two-way-with-interaction-anova" class="level2">
-<h2 class="anchored" data-anchor-id="statistics-in-a-two-way-with-interaction-anova">Statistics in a Two-Way with Interaction ANOVA</h2>
+<section id="statistics-in-a-two-way-with-interaction-anova" class="level3">
+<h3 class="anchored" data-anchor-id="statistics-in-a-two-way-with-interaction-anova">Statistics in a Two-Way with Interaction ANOVA</h3>
 <ul>
 <li><p>When performing a two-way ANOVA with interaction, we introduce an additional row to the ANOVA table to account for the interaction effect between the two grouping variables. The goal remains to compute F-test statistics, but now we have three F-statistics: one for each main effect and one for the interaction effect. Each F-statistic corresponds to a p-value, which we interpret as before (p-value &lt; alpha means a significant result, leading to rejection of <span class="math inline">\(H_o\)</span>).</p></li>
 <li><p>Depending on the results, we may find that only one main effect is significant, both are significant, neither is significant, or the interaction itself is significant.</p></li>
 <li><p>In a two-way ANOVA with interaction, we compute the explained variance by adding a new term for the interaction sum of squares (SSAB). This measures the variance explained by the interaction of factors A and B.</p></li>
 </ul>
-</section>
-<section id="steps-for-conducting-a-two-way-anova-with-interaction" class="level2">
-<h2 class="anchored" data-anchor-id="steps-for-conducting-a-two-way-anova-with-interaction">Steps for Conducting a Two-Way ANOVA with Interaction</h2>
+<section id="steps-for-conducting-a-two-way-anova-with-interaction" class="level4">
+<h4 class="anchored" data-anchor-id="steps-for-conducting-a-two-way-anova-with-interaction">Steps for Conducting a Two-Way ANOVA with Interaction</h4>
 <ol type="1">
 <li>Write the null and alternate hypotheses for each grouping variable and the interaction effect.</li>
 <li>Compute the F-test statistics for each grouping variable and the probability for the test statistics (3 p-values for a 2-way ANOVA).</li>
 <li>Interpret the probabilities and write a conclusion.</li>
 <li>If model is significant, run post-hoc tests.</li>
 </ol>
-<section id="explained-variance-2" class="level3">
-<h3 class="anchored" data-anchor-id="explained-variance-2">Explained Variance</h3>
+</section>
+<section id="explained-variance-2" class="level4">
+<h4 class="anchored" data-anchor-id="explained-variance-2">Explained Variance</h4>
 <ul>
 <li><p>In a two-way ANOVA with interaction, we compute the explained variance by adding a new term for the . This measures the variance explained by the interaction of factors A and B.</p></li>
 <li><p>The sum of squares for and are computed similarly to before:</p>
@@ -1617,8 +3425,8 @@ White-Mexican.American           201.96667  166.74805  237.18528 0.0000000</code
 </ul></li>
 </ul>
 </section>
-<section id="unexplained-variance-2" class="level3">
-<h3 class="anchored" data-anchor-id="unexplained-variance-2">Unexplained Variance</h3>
+<section id="unexplained-variance-2" class="level4">
+<h4 class="anchored" data-anchor-id="unexplained-variance-2">Unexplained Variance</h4>
 <ul>
 <li><p>The residual variance (unexplained variance) is computed as before, but now it accounts for the additional interaction term:</p>
 <ul>
@@ -1635,8 +3443,8 @@ White-Mexican.American           201.96667  166.74805  237.18528 0.0000000</code
 <li><p>There is a total sum of squares (SST) being calculated mentioned above, which again refers to the total variance (explained and unexplained). To get this calculation, we take the squared deviation between each observation and the grand mean and we sum up all of our values.</p></li>
 </ul>
 </section>
-<section id="calculating-f-test-statistics-1" class="level3">
-<h3 class="anchored" data-anchor-id="calculating-f-test-statistics-1">Calculating F-test Statistics</h3>
+<section id="calculating-f-test-statistics-1" class="level4">
+<h4 class="anchored" data-anchor-id="calculating-f-test-statistics-1">Calculating F-test Statistics</h4>
 <ul>
 <li><p>To determine the significance of each effect, we compute F-test statistics:</p>
 <ul>
@@ -1664,16 +3472,16 @@ White-Mexican.American           201.96667  166.74805  237.18528 0.0000000</code
 </ul>
 </section>
 </section>
-<section id="example-of-a-two-way-anova-with-interaction" class="level2">
-<h2 class="anchored" data-anchor-id="example-of-a-two-way-anova-with-interaction">Example of a Two-way ANOVA with Interaction</h2>
+<section id="example-of-a-two-way-anova-with-interaction" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-a-two-way-anova-with-interaction">Example of a Two-way ANOVA with Interaction</h3>
 <ul>
 <li>Let’s use the corolla car dataset to make an example of a 2 way interaction.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>corolla <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/corolla.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="step-1-write-the-null-and-alternate-hypotheses" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-write-the-null-and-alternate-hypotheses">Step 1: Write the null and alternate hypotheses</h3>
+<section id="step-1-write-the-null-and-alternate-hypotheses" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-write-the-null-and-alternate-hypotheses">Step 1: Write the null and alternate hypotheses</h4>
 <ul>
 <li>For Factor B:
 <ul>
@@ -1693,8 +3501,8 @@ White-Mexican.American           201.96667  166.74805  237.18528 0.0000000</code
 <li>In the dataset, let’s make a hypothesis between Fuel_Type and Metallic paint on Price. We would make two individual hypotheses and one interaction hypothesis between Fuel_Type and Metallic.</li>
 </ul>
 </section>
-<section id="step-2-compute-the-f-test-statistic-for-the-interaction-and-its-p-value." class="level3">
-<h3 class="anchored" data-anchor-id="step-2-compute-the-f-test-statistic-for-the-interaction-and-its-p-value.">Step 2: Compute the F-test statistic for the interaction and its p-value.</h3>
+<section id="step-2-compute-the-f-test-statistic-for-the-interaction-and-its-p-value." class="level4">
+<h4 class="anchored" data-anchor-id="step-2-compute-the-f-test-statistic-for-the-interaction-and-its-p-value.">Step 2: Compute the F-test statistic for the interaction and its p-value.</h4>
 <ul>
 <li>Use an ANOVA table to obtain the F-statistic for the interaction term.</li>
 <li>Compute the associated p-value to determine the significance of the interaction effect.</li>
@@ -1716,8 +3524,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </section>
-<section id="step-3-interpret-the-probability-and-write-a-conclusion.-1" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-interpret-the-probability-and-write-a-conclusion.-1">Step 3: Interpret the probability and write a conclusion.</h3>
+<section id="step-3-interpret-the-probability-and-write-a-conclusion.-1" class="level4">
+<h4 class="anchored" data-anchor-id="step-3-interpret-the-probability-and-write-a-conclusion.-1">Step 3: Interpret the probability and write a conclusion.</h4>
 <ul>
 <li><p>If the p-value for an effect is small (typically &lt; 0.05), reject the null hypothesis and conclude that the effect is significant.</p></li>
 <li><p>If the interaction effect is significant, this means the relationship between Factor A and the dependent variable depends on the level of Factor B (or vice versa). This interaction may change how the main effects should be interpreted.</p></li>
@@ -1727,8 +3535,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><p>There is a significant interaction between Fuel_Type and Metallic on Price (p-value &lt; .05).</p></li>
 </ul>
 </section>
-<section id="step-4-if-the-interaction-is-significant-examine-simple-effects-or-conduct-post-hoc-tests." class="level3">
-<h3 class="anchored" data-anchor-id="step-4-if-the-interaction-is-significant-examine-simple-effects-or-conduct-post-hoc-tests.">Step 4: If the interaction is significant, examine simple effects or conduct post-hoc tests.</h3>
+<section id="step-4-if-the-interaction-is-significant-examine-simple-effects-or-conduct-post-hoc-tests." class="level4">
+<h4 class="anchored" data-anchor-id="step-4-if-the-interaction-is-significant-examine-simple-effects-or-conduct-post-hoc-tests.">Step 4: If the interaction is significant, examine simple effects or conduct post-hoc tests.</h4>
 <ul>
 <li>If the interaction effect is significant, examine simple effects or run post-hoc tests.
 <ul>
@@ -1797,8 +3605,8 @@ Petrol:Yes-Diesel:Yes -1285.8392 -2359.62643 -212.052 0.0085182</code></pre>
 </section>
 </section>
 </section>
-<section id="choose-command" class="level1">
-<h1>choose() command</h1>
+<section id="choose-command" class="level2">
+<h2 class="anchored" data-anchor-id="choose-command">choose() command</h2>
 <ul>
 <li><p>The choose(n, k) function in R calculates the number of ways to choose k items from a set of n items without regard to order. It answers the question: “How many different groups of k can I make from n items?” For example, choose(5, 2) equals 10, meaning you can make 10 different pairs from a group of 5 items.</p></li>
 <li><p>The Combination function counts the number of ways to choose objects from a total of objects. The order in which the objects are listed does not matter.</p></li>
@@ -1845,6 +3653,7 @@ Petrol:Yes-Diesel:Yes -1285.8392 -2359.62643 -212.052 0.0085182</code></pre>
 </div>
 </div>
 <p>With ANOVA, we have been asking whether group membership explains differences in a continuous outcome variable. Correlation shifts that question: instead of comparing groups, we now ask how two continuous variables move together. The tools change, but the underlying logic of hypothesis testing — null hypothesis, test statistic, p-value, conclusion — carries forward exactly as before.</p>
+</section>
 </section>
 <section id="correlation" class="level1">
 <h1>Correlation</h1>
@@ -2324,8 +4133,8 @@ Residuals 397 9532496 24011.3               </code></pre>
 </ul>
 </section>
 </section>
-<section id="summary-and-review" class="level1">
-<h1>Summary and Review</h1>
+<section id="review-and-practice" class="level1">
+<h1>Review and Practice</h1>
 <section id="using-ai" class="level2">
 <h2 class="anchored" data-anchor-id="using-ai">Using AI</h2>
 <ul>
@@ -2689,6 +4498,410 @@ Show Answer
 </ul>
 <p><strong>The fix:</strong> Transforming one of the variables (e.g., using <span class="math inline">\(x^2\)</span> as a predictor in regression) or using a non-linear model would capture the relationship that <span class="math inline">\(r\)</span> missed.</p>
 </div>
+</div>
+</div>
+</section>
+<section id="interactive-anova-lesson" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-anova-lesson">Interactive R Lesson: ANOVA and Correlation</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This lesson combines the ANOVA swirl exercises and introduces correlation using the Boston dataset. Parts 1–3 cover one-way and two-way ANOVA with post-hoc tests. Part 4 covers correlation and scatterplots. All datasets are built into base R — no packages or CSV files needed.</p>
+<p><strong>First-time load:</strong> The interactive R environment may take 10–20 seconds to initialize. Once the Run Code buttons become active, you are ready to go.</p>
+</div>
+</div>
+<div id="qwebr-insertion-location-1"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<hr>
+<section id="part-1-one-way-anova-chickweight" class="level3">
+<h3 class="anchored" data-anchor-id="part-1-one-way-anova-chickweight">Part 1: One-Way ANOVA — ChickWeight</h3>
+<p>A one-way ANOVA tests whether the means of three or more groups are equal. The null hypothesis is that all group means are equal; the alternative is that at least one differs.</p>
+<p><strong>Load and summarize ChickWeight:</strong></p>
+<div id="qwebr-insertion-location-2"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>ChickWeight</code> contains chick weights over time across four diet groups. We will test whether diet affects weight.</p>
+</div>
+</div>
+<p><strong>Build the ANOVA model and view results:</strong></p>
+<div id="qwebr-insertion-location-3"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The p-value is well below 0.001 — we reject H₀ and conclude that at least one diet group has a significantly different mean weight. The omnibus test tells us <em>something</em> differs but not <em>which</em> groups. That requires a post-hoc test.</p>
+</div>
+</div>
+<p><strong>Run Tukey’s HSD to identify which groups differ:</strong></p>
+<div id="qwebr-insertion-location-4"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Each row compares two groups. A p-value below 0.05 indicates those two groups are significantly different. The <code>diff</code> score tells you the direction — a positive diff means the second group listed has a higher mean than the first. Groups 2−1, 3−2, and 4−3 are not significantly different; all other pairwise comparisons are.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="part-2-one-way-anova-plantgrowth" class="level3">
+<h3 class="anchored" data-anchor-id="part-2-one-way-anova-plantgrowth">Part 2: One-Way ANOVA — PlantGrowth</h3>
+<p><strong>Load and summarize PlantGrowth:</strong></p>
+<div id="qwebr-insertion-location-5"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p><strong>Build the ANOVA model and view results:</strong></p>
+<div id="qwebr-insertion-location-6"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p><strong>Run Tukey’s HSD:</strong></p>
+<div id="qwebr-insertion-location-7"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Only <code>trt2 − trt1</code> is significant (p &lt; 0.05). The control group does not differ significantly from either treatment. The negative diff for <code>trt1 − trt2</code> tells you that treatment 1 has a <em>lower</em> mean weight than treatment 2.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="part-3-two-way-anova-mtcars" class="level3">
+<h3 class="anchored" data-anchor-id="part-3-two-way-anova-mtcars">Part 3: Two-Way ANOVA — mtcars</h3>
+<p>A two-way ANOVA tests whether two categorical variables each independently affect a continuous outcome. Each factor has its own null hypothesis, F-statistic, and p-value.</p>
+<p><strong>Prepare the data — convert gear and cyl to factors:</strong></p>
+<div id="qwebr-insertion-location-8"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p><strong>Build the two-way ANOVA model:</strong></p>
+<div id="qwebr-insertion-location-9"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Two F-statistics and two p-values — one for each factor. Both gear and cyl are significant here, meaning each independently explains variation in mpg. A two-way ANOVA with <code>+</code> tests main effects only. To test whether the <em>interaction</em> between gear and cyl also matters, you would use <code>gear * cyl</code> instead.</p>
+</div>
+</div>
+<p><strong>Run Tukey’s HSD for both factors:</strong></p>
+<div id="qwebr-insertion-location-10"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Read the gear and cyl sections separately. For gear: groups 5−4 are not significantly different; 4−3 and 5−3 are. For cyl: groups 8−6 are not significantly different; 6−4 and 8−4 are. The diff scores confirm that gear 5 has higher mpg than gear 3, and cyl 8 has lower mpg than cyl 4.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="part-4-correlation-boston-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="part-4-correlation-boston-dataset">Part 4: Correlation — Boston Dataset</h3>
+<p>Correlation measures the strength and direction of the linear relationship between two continuous variables. The correlation coefficient <span class="math inline">\(r\)</span> ranges from −1 to +1.</p>
+<p><strong>Explore the Boston dataset:</strong></p>
+<div id="qwebr-insertion-location-11"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Key variables: <code>medv</code> = median house value (in $1,000s), <code>lstat</code> = % households with low socioeconomic status, <code>rm</code> = average rooms per house, <code>age</code> = proportion of homes built before 1940.</p>
+</div>
+</div>
+<p><strong>Visualize the relationship between lstat and medv:</strong></p>
+<div id="qwebr-insertion-location-12"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p><strong>Calculate the correlation coefficient:</strong></p>
+<div id="qwebr-insertion-location-13"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p><strong>Test whether the correlation is statistically significant:</strong></p>
+<div id="qwebr-insertion-location-14"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The correlation is approximately −0.74 — a strong negative linear relationship. As the percentage of low economic status households increases, median house value decreases. The p-value is far below 0.05, confirming the correlation is highly significant. The 95% confidence interval does not include zero, which corroborates the significant p-value.</p>
+</div>
+</div>
+<p><strong>Now try the age variable:</strong></p>
+<div id="qwebr-insertion-location-15"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div id="qwebr-insertion-location-16"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The correlation with <code>age</code> is also significant but much weaker (approximately −0.38). A higher proportion of older homes is associated with lower median values, but <code>age</code> explains far less of the variability in <code>medv</code> than <code>lstat</code> does. Always compare the <em>magnitude</em> of the correlation alongside the p-value — statistical significance does not equal practical importance.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="anova-quiz" class="level2">
+<h2 class="anchored" data-anchor-id="anova-quiz">Scored Quiz: ANOVA and Correlation</h2>
+<div id="ps512-anova-quiz" style="font-family: Georgia, serif; max-width: 720px; margin: 2rem auto; background: #fafaf8; border: 1px solid #ddd; border-radius: 8px; padding: 2rem;">
+
+  <h3 style="margin-top:0; font-size:1.2rem; background:#2c6fad; color:#ffffff; padding:0.8rem 1.2rem; border-radius:6px 6px 0 0; margin:-2rem -2rem 1.5rem -2rem;" class="anchored">
+    ANOVA and Correlation Quiz
+  </h3>
+
+  <div id="aquiz-progress" style="font-size:0.85rem; color:#444; margin-bottom:1.5rem;">Question 1 of 10</div>
+
+  <!-- Q1 -->
+  <div class="aquiz-q" id="aq1" style="display:block">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">1. The alternative hypothesis in a one-way ANOVA states:</p>
+    <label class="aquiz-option"><input type="radio" name="aq1" value="a"> All group means are equal.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq1" value="b"> At least one group mean differs from the others.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq1" value="c"> Every group mean is different from every other group mean.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq1" value="d"> The largest group mean is significantly higher than the smallest.</label>
+    <div class="aquiz-feedback" id="afb1"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="aquiz-q" id="aq2" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">2. A significant omnibus ANOVA result tells you:</p>
+    <label class="aquiz-option"><input type="radio" name="aq2" value="a"> Every pair of groups is significantly different.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq2" value="b"> At least one group differs — a post-hoc test is needed to identify which ones.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq2" value="c"> The largest group mean is significantly different from the smallest.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq2" value="d"> The null hypothesis is proven true for all but one group.</label>
+    <div class="aquiz-feedback" id="afb2"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="aquiz-q" id="aq3" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">3. In the ChickWeight ANOVA, the correct R code to build the model is:</p>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="a"> <code>aov(Diet ~ weight, ChickWeight)</code></label><br>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="b"> <code>aov(weight ~ Diet, ChickWeight)</code></label><br>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="c"> <code>lm(weight ~ Diet, ChickWeight)</code></label><br>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="d"> <code>t.test(weight ~ Diet, ChickWeight)</code></label>
+    <div class="aquiz-feedback" id="afb3"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="aquiz-q" id="aq4" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">4. In TukeyHSD output, a negative <code>diff</code> score between two groups means:</p>
+    <label class="aquiz-option"><input type="radio" name="aq4" value="a"> The comparison is not significant.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq4" value="b"> The second group listed has a higher mean than the first group listed.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq4" value="c"> The first group listed has a higher mean than the second group listed.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq4" value="d"> The two groups are equal.</label>
+    <div class="aquiz-feedback" id="afb4"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="aquiz-q" id="aq5" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">5. In the PlantGrowth Tukey output, only trt2 − trt1 is significant. This means:</p>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="a"> All three groups differ from each other.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="b"> Only treatment 2 and treatment 1 are significantly different; the control does not differ from either treatment.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="c"> The control group has the highest mean weight.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="d"> The overall ANOVA was not significant.</label>
+    <div class="aquiz-feedback" id="afb5"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="aquiz-q" id="aq6" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. Why must <code>gear</code> and <code>cyl</code> be converted to factors before running a two-way ANOVA on the mtcars dataset?</p>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="a"> R cannot read numeric variables in aov().</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="b"> They are stored as numbers but represent categories — without coercion, R treats them as continuous predictors instead of grouping variables.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="c"> Factors run faster in R than numeric variables.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="d"> TukeyHSD() only works on factor variables.</label>
+    <div class="aquiz-feedback" id="afb6"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="aquiz-q" id="aq7" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">7. A two-way ANOVA with <code>aov(mpg ~ gear + cyl, mtcars)</code> produces how many F-statistics?</p>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="a"> One — for the combined effect of gear and cyl.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="b"> Two — one for gear and one for cyl.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="c"> Three — one for each level of gear.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="d"> Four — one for each level of cyl.</label>
+    <div class="aquiz-feedback" id="afb7"></div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="aquiz-q" id="aq8" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">8. The correlation between lstat and medv in the Boston dataset is approximately −0.74. This means:</p>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="a"> A weak positive relationship — as lstat increases, medv slightly increases.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="b"> A strong negative relationship — as lstat increases, medv tends to decrease.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="c"> No linear relationship between the two variables.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="d"> lstat causes medv to decrease.</label>
+    <div class="aquiz-feedback" id="afb8"></div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="aquiz-q" id="aq9" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">9. <code>cor.test()</code> returns a p-value of 0.0000001 and r = 0.12 with n = 850. The correct interpretation is:</p>
+    <label class="aquiz-option"><input type="radio" name="aq9" value="a"> A strong and practically important relationship — both r and p confirm this.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq9" value="b"> Statistically significant but practically weak — r = 0.12 explains only about 1.4% of the variance, which is not meaningful in most contexts.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq9" value="c"> Not significant — a small r always means a non-significant test.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq9" value="d"> The result is inconclusive because n = 850 is too large.</label>
+    <div class="aquiz-feedback" id="afb9"></div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="aquiz-q" id="aq10" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">10. A scatterplot shows a clear U-shaped pattern but <code>cor.test()</code> returns r ≈ 0 and p = 0.70. The correct conclusion is:</p>
+    <label class="aquiz-option"><input type="radio" name="aq10" value="a"> There is no relationship between the two variables.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq10" value="b"> There is no linear relationship, but the scatterplot reveals a non-linear relationship that r cannot detect.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq10" value="c"> The scatterplot is misleading — always trust the correlation coefficient over the visual.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq10" value="d"> The sample size is too small to detect the relationship.</label>
+    <div class="aquiz-feedback" id="afb10"></div>
+  </div>
+
+  <!-- Navigation -->
+  <div style="display:flex; gap:1rem; margin-top:1.5rem; align-items:center; flex-wrap:wrap;">
+    <button id="aquiz-prev" onclick="aquizNav(-1)" style="display:none; padding:0.5rem 1.2rem; background:#6c757d; color:white; border:none; border-radius:5px; cursor:pointer; font-size:0.95rem;">← Previous</button>
+    <button id="aquiz-next" onclick="aquizNav(1)" style="padding:0.5rem 1.2rem; background:#4a90d9; color:white; border:none; border-radius:5px; cursor:pointer; font-size:0.95rem;">Next →</button>
+    <button id="aquiz-submit" onclick="asubmitQuiz()" style="display:none; padding:0.5rem 1.4rem; background:#27ae60; color:white; border:none; border-radius:5px; cursor:pointer; font-size:0.95rem; font-weight:600;">Submit Quiz</button>
+  </div>
+
+  <div id="aquiz-score" style="display:none; margin-top:1.5rem; padding:1rem 1.5rem; border-radius:6px; font-size:1rem;"></div>
+</div>
+
+<style>
+.aquiz-option { display:block; margin:0.4rem 0; cursor:pointer; padding:0.4rem 0.6rem; border-radius:4px; transition:background 0.15s; color:#1a1a1a; }
+.aquiz-option:hover { background:#ddeeff; border:1px solid #2c6fad; }
+.aquiz-feedback { margin-top:0.8rem; padding:0.6rem 1rem; border-radius:5px; font-size:0.9rem; display:none; }
+.acorrect-fb { background:#d4edda; color:#155724; border-left:4px solid #27ae60; }
+.aincorrect-fb { background:#f8d7da; color:#721c24; border-left:4px solid #e74c3c; }
+</style>
+
+<script>
+const aAnswers = {
+  aq1:'b', aq2:'b', aq3:'b', aq4:'b', aq5:'b',
+  aq6:'b', aq7:'b', aq8:'b', aq9:'b', aq10:'b'
+};
+const aHints = {
+  aq1:  "The alternative in ANOVA is that 'at least one' mean differs — not that all are different from each other. A single outlier group is enough to reject H₀.",
+  aq2:  "The omnibus F-test only tells you something differs somewhere. Post-hoc tests like TukeyHSD() are needed to identify the specific pairs.",
+  aq3:  "aov() uses Y ~ X format: the outcome (weight) on the left, the grouping variable (Diet) on the right, followed by the dataset.",
+  aq4:  "A negative diff means the first group listed has a lower mean than the second. For example, diff for '3-1' being positive means group 3 > group 1.",
+  aq5:  "Only the trt2 vs trt1 p-value is below 0.05. The control (ctrl) does not differ significantly from either treatment — only the two treatments differ from each other.",
+  aq6:  "Numeric variables stored as integers (3, 4, 5 gears; 4, 6, 8 cylinders) would be treated as continuous if not coerced. as.factor() tells R to treat them as discrete categories.",
+  aq7:  "A two-way ANOVA with + produces one F-statistic per grouping variable — two total. The * operator would add a third for the interaction term.",
+  aq8:  "r = −0.74 is a strong negative correlation. Direction is negative (as one goes up, the other goes down) and strength is substantial. Note: correlation is not causation.",
+  aq9:  "With n = 850, even tiny correlations become statistically significant. r = 0.12 means r² ≈ 0.014 — only 1.4% of variance explained. Statistical significance ≠ practical importance.",
+  aq10: "r only measures linear association. A U-shaped pattern cancels out — increases on the left offset decreases on the right, producing r ≈ 0. Always visualize first."
+};
+let acurrent = 1;
+const atotal = 10;
+
+function aquizNav(dir) {
+  document.getElementById('aq' + acurrent).style.display = 'none';
+  acurrent += dir;
+  document.getElementById('aq' + acurrent).style.display = 'block';
+  document.getElementById('aquiz-progress').textContent = 'Question ' + acurrent + ' of ' + atotal;
+  document.getElementById('aquiz-prev').style.display = acurrent > 1 ? 'inline-block' : 'none';
+  document.getElementById('aquiz-next').style.display = acurrent < atotal ? 'inline-block' : 'none';
+  document.getElementById('aquiz-submit').style.display = acurrent === atotal ? 'inline-block' : 'none';
+}
+
+function asubmitQuiz() {
+  let score = 0;
+  for (let i = 1; i <= atotal; i++) {
+    const sel = document.querySelector('input[name="aq' + i + '"]:checked');
+    const fb  = document.getElementById('afb' + i);
+    document.getElementById('aq' + i).style.display = 'block';
+    if (sel && sel.value === aAnswers['aq' + i]) {
+      score++;
+      fb.className = 'aquiz-feedback acorrect-fb';
+      fb.textContent = '✓ Correct! ' + aHints['aq' + i];
+    } else {
+      fb.className = 'aquiz-feedback aincorrect-fb';
+      fb.textContent = '✗ ' + (sel ? 'Not quite. ' : 'No answer selected. ') + aHints['aq' + i];
+    }
+    fb.style.display = 'block';
+  }
+  document.getElementById('aquiz-prev').style.display = 'none';
+  document.getElementById('aquiz-next').style.display = 'none';
+  document.getElementById('aquiz-submit').style.display = 'none';
+  document.getElementById('aquiz-progress').textContent = 'Quiz complete';
+  const sd = document.getElementById('aquiz-score');
+  const pct = Math.round((score / atotal) * 100);
+  sd.style.display = 'block';
+  sd.style.background = pct >= 70 ? '#d4edda' : '#fff3cd';
+  sd.style.borderLeft  = pct >= 70 ? '4px solid #27ae60' : '4px solid #f39c12';
+  sd.style.color        = pct >= 70 ? '#155724' : '#856404';
+  sd.innerHTML = '<strong>Your Score: ' + score + ' / ' + atotal + ' (' + pct + '%)</strong><br>' +
+    (pct === 100 ? 'Excellent work — perfect score!' :
+     pct >= 70  ? 'Good work! Review any missed questions above.' :
+                  'Keep reviewing the lesson material above, then try again.');
+}
+</script>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No need to submit this quiz anywhere. This exercise is for your benefit to help you learn R.</p>
 </div>
 </div>
 </section>
@@ -3201,6 +5414,122 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
+<script type="module">
+// Handle cell initialization initialization
+qwebrCellDetails.map(
+  (entry) => {
+    // Handle the creation of the element
+    qwebrCreateHTMLElement(entry);
+    // In the event of interactive, initialize the monaco editor
+    if (entry.options.context == EvalTypes.Interactive) {
+      qwebrCreateMonacoEditorInstance(entry);
+    }
+  }
+);
+
+// Identify non-interactive cells (in order)
+const filteredEntries = qwebrCellDetails.filter(entry => {
+  const contextOption = entry.options && entry.options.context;
+  return ['output', 'setup'].includes(contextOption) || (contextOption == "interactive" && entry.options && entry.options.autorun === 'true');
+});
+
+// Condition non-interactive cells to only be run after webR finishes its initialization.
+qwebrInstance.then(
+  async () => {
+    const nHiddenCells = filteredEntries.length;
+    var currentHiddenCell = 0;
+
+
+    // Modify button state
+    qwebrSetInteractiveButtonState(`🟡 Running hidden code cells ...`, false);
+
+    // Begin processing non-interactive sections
+    // Due to the iteration policy, we must use a for() loop.
+    // Otherwise, we would need to switch to using reduce with an empty
+    // starting promise
+    for (const entry of filteredEntries) {
+
+      // Determine cell being examined
+      currentHiddenCell = currentHiddenCell + 1;
+      const formattedMessage = `Evaluating hidden cell ${currentHiddenCell} out of ${nHiddenCells}`;
+
+      // Update the document status header
+      if (qwebrShowStartupMessage) {
+        qwebrUpdateStatusHeader(formattedMessage);
+      }
+
+      // Display the update in non-active areas
+      qwebrUpdateStatusMessage(formattedMessage);
+
+      // Extract details on the active cell
+      const evalType = entry.options.context;
+      const cellCode = entry.code;
+      const qwebrCounter = entry.id;
+
+      if (['output', 'setup'].includes(evalType)) {
+        // Disable further global status updates
+        const activeContainer = document.getElementById(`qwebr-non-interactive-loading-container-${qwebrCounter}`);
+        activeContainer.classList.remove('qwebr-cell-needs-evaluation');
+        activeContainer.classList.add('qwebr-cell-evaluated');
+
+        // Update status on the code cell
+        const activeStatus = document.getElementById(`qwebr-status-text-${qwebrCounter}`);
+        activeStatus.innerText = " Evaluating hidden code cell...";
+        activeStatus.classList.remove('qwebr-cell-needs-evaluation');
+        activeStatus.classList.add('qwebr-cell-evaluated');
+      }
+
+      switch (evalType) {
+        case 'interactive':
+          // TODO: Make this more standardized.
+          // At the moment, we're overriding the interactive status update by pretending its
+          // output-like. 
+          const tempOptions = entry.options;
+          tempOptions["context"] = "output"
+          // Run the code in a non-interactive state that is geared to displaying output
+          await qwebrExecuteCode(`${cellCode}`, qwebrCounter, tempOptions);
+          break;
+        case 'output':
+          // Run the code in a non-interactive state that is geared to displaying output
+          await qwebrExecuteCode(`${cellCode}`, qwebrCounter, entry.options);
+          break;
+        case 'setup':
+          const activeDiv = document.getElementById(`qwebr-noninteractive-setup-area-${qwebrCounter}`);
+
+          // Store code in history
+          qwebrLogCodeToHistory(cellCode, entry.options);
+
+          // Run the code in a non-interactive state with all output thrown away
+          await mainWebR.evalRVoid(`${cellCode}`);
+          break;
+        default: 
+          break; 
+      }
+
+      if (['output', 'setup'].includes(evalType)) {
+        // Disable further global status updates
+        const activeContainer = document.getElementById(`qwebr-non-interactive-loading-container-${qwebrCounter}`);
+        // Disable visibility
+        activeContainer.style.visibility = 'hidden';
+        activeContainer.style.display = 'none';
+      }
+    }
+  }
+).then(
+  () => {
+    // Release document status as ready
+
+    if (qwebrShowStartupMessage) {
+      qwebrStartupMessage.innerText = "🟢 Ready!"
+    }
+  
+    qwebrSetInteractiveButtonState(
+      `<i class="fa-solid fa-play qwebr-icon-run-code"></i> <span>Run Code</span>`, 
+      true
+    );  
+  }
+);
+</script>
 
 
 

@@ -71,7 +71,7 @@ By the end of this lesson, you should be able to set up and conduct one- and two
     -   Non-Negative Values: The F-distribution is only defined for positive values.
     -   Shape and Degrees of Freedom: The exact shape of the F-distribution depends on the degrees of freedom. As the degrees of freedom increase, the distribution becomes less skewed and more closely approximates a normal distribution.
 
-# Type I and Type II Errors
+## Type I and Type II Errors
 
 -   In any hypothesis test, including an ANOVA, it is important to acknowledge that there is error, and that it is possible to come up with the wrong conclusion. An important note is that we are calculating results and making conclusions based on probability calculated given the sample we have, the timing it was collected, and any biases that might have been used in designing and securing the data set. We could also be violating assumptions that make the findings less accurate if still accurate at all.\
 
@@ -121,7 +121,7 @@ By the end of this lesson, you should be able to set up and conduct one- and two
 
 -   Some tests are designed to minimize Type I error, while others are designed to minimize Type II error. Selecting alpha levels that are smaller will help reduce Type I error, but at the cost of Type II error. And again, increasing sample size reduces both error.
 
-## Some Reasons For Error
+### Some Reasons For Error
 
 -   Measurement error refers to the difference between a measured quantity and its true value which could be due to random error or systematic error.
     -   Random error refers to naturally occurring errors that are to be expected.
@@ -131,24 +131,24 @@ By the end of this lesson, you should be able to set up and conduct one- and two
     -   Non-response bias refers to a systematic difference in preferences between respondents and non-respondents to a survey or a poll.
     -   Social Desirability bias refers to a bias that refers to the systematic difference between a group’s “socially acceptable” responses to a survey or poll.
 
-# One-Way ANOVA
+## One-Way ANOVA
 
 -   One-way ANOVA compares population means based on one categorical variable.
 
-## Steps for Conducting a One-Way Anova
+### Steps for Conducting a One-Way Anova
 
 1.  Write the null and alternate hypotheses.
 2.  Compute the F-test statistic and the probability for the test statistic (p-value).
 3.  Interpret the probability and write a conclusion.
 4.  If model is significant, run post-hoc tests.
 
-## Statistics in a One-Way ANOVA Table
+### Statistics in a One-Way ANOVA Table
 
 -   There are a number of statistics being calculated with an aov() command, with the goal of producing the F-test statistic, which corresponds to a p-value that we can interpret the same way as we did in the earlier lessons (p-value \< alpha = significant result - reject the $H_0$).
 
 ![One Way ANOVA Formulas](Pictures/Ch7/1WayANOVA.PNG "Formulas for One Way ANOVA")
 
-### Explained Variance
+#### Explained Variance
 
 -   In a one-way ANOVA, first, we compute the *explained variance*, which in a one-way ANOVA is the sum of squares due to treatments (SSTR), where the treatment is our grouping variable. The explained variance suggests that the variation in outcome can be explained by a model, or in our case, a grouping variable. In computing the SSTR, we square the deviation between each group mean ($\bar{y}_j$) and the grand mean $\bar{y}$ and multiply it by the sample size ($n_j$) and sum up all the values $\sum$. This leads to the following formula:
 
@@ -164,7 +164,7 @@ By the end of this lesson, you should be able to set up and conduct one- and two
 
 -   Above in the overall methodology, the MSTR corresponds to the *between-treatments estimate*.
 
-### Unexplained Variance
+#### Unexplained Variance
 
 -   There is also a measure of *unexplained variance*, which we term error. In a one-way ANOVA, this unexplained variance refers to variability in the outcome that is not explained by the grouping variable. In the table, this error is called the sum of squares error (SSE). SSE is calculated by first multiplying the sample size of group and subtracting one ($n_j-1$), and then multiplying that number by its group variance ($\sigma^2_i$). Once all groups are calculated, we add it up ($\sum$). This leads to the following formula:
 
@@ -186,13 +186,13 @@ By the end of this lesson, you should be able to set up and conduct one- and two
 
 -   There is a total sum of squares (SST) being calculated in an ANOVA, which refers to the total variance (explained and unexplained). This value is calculated as the total number of observations minus 1 ($n_t-1$). We don't see it explicitly in our R output, but it is needed to help understand the full model.
 
-### Calculating F
+#### Calculating F
 
 -   Finally, to calculate the F-test statistic, we take the MSTR (explained variability) and divide by the MSE (unexplained variability) considering the appropriate degrees of freedom ($k-1$ and $n_t-k$).
 -   A p-value is computed from that statistic mathematically by using the correct command in R.
     -   $F_{k-1,n_t-k} = MSTR/MSE$
 
-## Subsetting Data for ANOVA
+### Subsetting Data for ANOVA
 
 -   When running an ANOVA on a subset of your data (e.g., only certain regions or categories), it is important to use `droplevels()` after subsetting to remove any unused factor levels. If you do not, the ANOVA output — and post-hoc tests like TukeyHSD — may attempt to test groups that no longer have any observations, which causes errors or misleading results.
 
@@ -206,17 +206,17 @@ subset_data <- filter(data, Region %in% c("West", "East")) %>%
 
 -   This was introduced in Module 2 in the context of cleaning factor variables, and the same logic applies here before running an ANOVA on a subsetted dataset.
 
-## Example of a One-Way ANOVA
+### Example of a One-Way ANOVA
 
 -   Like the t-test, a one-way ANOVA follows 3 steps, and then includes an optional 4th step after significance is found and confirmed in step 3.
 
-### Step 1: Set Up Null and Alternative Hypothesis
+#### Step 1: Set Up Null and Alternative Hypothesis
 
 -   The competing hypotheses for the one-way ANOVA:
     -   $H_0: \mu_{Atlanta} = \mu_{Houston}= \mu_{LosAngeles} = \mu_{SanFran} = \mu_{DC}$
     -   $H_A:$ Not all population means of congestion levels are equal among the cities
 
-### Step 2: Compute the F-test Statistic and p-Value
+#### Step 2: Compute the F-test Statistic and p-Value
 
 -   First, we read in the data set and give a look at what is included.
 
@@ -252,13 +252,13 @@ anova(Anova1way)
     -   We never say our p-value is 0, but instead say it is less than \_\_\_.
     -   We *do not* use .1 as a significance level, although some statisticians mark a p-value less than .1 as "marginally significant". There is a big debate about this, but I agree with the general consensus, so our threshold for this class is less than .05. Anything greater than or equal to .05 is not significant.
 
-### Step 3: Interpret the Probability and Write a conclusion.
+#### Step 3: Interpret the Probability and Write a conclusion.
 
 -   The F-test statistic is 37.251 and the p-value is \< 2.2e-16 \*\*\*. This p-value is \< all typical alpha values like .05 or .001. This value is very close to 0. We would state that our p-value is less than .001 by looking at the table and noting the three asterisks.\
 -   The p-value result suggests that we support the alternative $H_A$: Not all population means are equal.
 -   More specifically we reject the null hypothesis $H_0$ in support of $H_A$ and conclude that not all congestion levels are equal among the cities.
 
-### Step 4: If Model is Significant, Run Post-Hoc Tests
+#### Step 4: If Model is Significant, Run Post-Hoc Tests
 
 -   Pairwise comparisons: A statistical strategy for comparing different groups, often used after a statistically significant ANOVA to test hypotheses about which group means are statistically significantly different from one another.
 
@@ -269,7 +269,7 @@ anova(Anova1way)
 
 -   Planned Comparisons: also known as a priori comparisons or planned comparisons, are a statistical technique used in the analysis of variance (ANOVA) to compare specific means based on hypotheses formulated before examining the data. Unlike post hoc tests, which compare all possible pairs of means and are conducted after data collection, planned contrasts are designed to test specific hypotheses derived from theoretical considerations or previous research.
 
-### Bonferroni Method
+#### Bonferroni Method
 
 -   The Bonferroni method is a pairwise post-hoc test that is used after finding a statistically significant ANOVA. This method conducts a t-test for each pair of means and adjusts the threshold for statistical significance to ensure that there is a small enough risk of Type I error; it is generally considered a very conservative post hoc test that only identifies the largest differences between means as statistically significant.
 -   The function has several arguments, such as $x =$ for the continuous variable (listed first); $g =$ for the grouping or categorical variable (listed 2nd); and the p-value adjustment, $p.adj =$, which can be set as \_\_bonf\_ for Bonferroni (listed 3rd).
@@ -281,7 +281,7 @@ anova(Anova1way)
 pairwise.t.test(congestionData$CongestionRating, congestionData$City, p.adj="bonf")
 ```
 
-### Tukey HSD Method
+#### Tukey HSD Method
 
 -   The Tukey HSD method is another pairwise post-hoc test that is used after finding a statistically significant ANOVA.
 -   This method is used to determine which means are statistically significantly different from each other by comparing each pair of means.
@@ -297,7 +297,7 @@ TukeyHSD(Anova1way)
 
 -   With the TukeyHSD() command, we can also determine which group mean is higher than the other by looking at the "diff" score. If you see a negative score than the second group listed in the output is higher than the first group listed. Ignoring the insignificant p-values \> .05, we find that both San Francisco and Washington has significantly less congestion than Los Angeles. We find that Los Angeles and Washington have a significantly higher group mean than Atlanta. Los Angeles and Washington DC also have a significantly higher group mean than Houston. Finally, Washington DC has a significantly higher group mean than San Francisco.
 
-# Two-Way ANOVA
+## Two-Way ANOVA
 
 -   A two-way ANOVA is called a randomized block design.
 -   The term “block” refers to a matched set of observations across the treatments.
@@ -307,7 +307,7 @@ TukeyHSD(Anova1way)
     -   Variability due to chance or SSE.
 -   In altering the methodology above, the row and column variability take place of the *between-treatment estimate* listed above, which still corresponds to *explained variance*. We still have one *within-treatment estimate* as before, or a measure of *unexplained variance*.
 
-## Steps for Conducting a Two-Way ANOVA
+### Steps for Conducting a Two-Way ANOVA
 
 1.  Write the null and alternate hypotheses for each grouping variable.
 2.  Compute the F-test statistics for each grouping variable and the probability for the test statistics (2 p-values for a 2-way ANOVA).
@@ -316,13 +316,13 @@ TukeyHSD(Anova1way)
 
 -   The steps are the same as a one-way ANOVA listed above, with the exception that now we have 2 grouping variables, so we need 2 F-stats and 2 p-values.
 
-## Statistics in a Two-Way ANOVA Table
+### Statistics in a Two-Way ANOVA Table
 
 -   We add another row to our ANOVA table when we move from a one-way ANOVA to a two-way ANOVA. The goal is the same, which is to produce a F-test statistic. In a two-way ANOVA, we will have two F-test statistics (one for each grouping variable). Each F-test statistic corresponds to a separate p-value that we can interpret the same way as we did in the last lessons (p-value \< alpha = significant result - reject the $H_0$). So we can find one group significant and not the other, neither significant, or both significant with one test.
 
 ![Two Way ANOVA Formulas](Pictures/Ch7/2WayANOVA.PNG "Formulas for Two Way ANOVA")
 
-### Explained Variance
+#### Explained Variance
 
 -   In a two-way ANOVA, we still start by computing the *explained variance*. Since we have an additional grouping variable, or factor, we will have two sum of squares measures, a sum of squares for factor A (SSA) and a sum of squares for factor B (SSB). Factor B is typically called a row (r) factor, while Factor A is typically called a column (c) factor. However, the order of the output will depend on the order of your formula in R.
 
@@ -344,7 +344,7 @@ TukeyHSD(Anova1way)
     -   $MSB = SSB/(r-1)$
     -   $MSA = SSA/(c-1)$
 
-### Unexplained Variance
+#### Unexplained Variance
 
 -   In a two-way ANOVA, there is still only one measure of *unexplained variance*, which we term residual error.
 
@@ -364,14 +364,14 @@ TukeyHSD(Anova1way)
 
 -   There is also a total degrees of freedom in a two-way ANOVA, which is the total number of observations minus 1 ($n_t-1$). We don't see it explicitly in our R output, but it is needed to help understand the full model.
 
-### Calculating F-test Statistics
+#### Calculating F-test Statistics
 
 -   Finally, to calculate the 2 F-test statistics, given a two-way ANOVA, we take both the MSB (explained variability for factor B) and the MSA (explained variability for factor A) and divide both by the MSE (unexplained variability) considering the appropriate degrees of freedom ($c-1$ and $r-1$ and $n_t-c-r+1$).
 -   This gives us two scores to evaluate. A p-value is computed from each F-test statistic mathematically by using the correct command in R.
     -   $F1_{c-1,n_t-c-r+1 }= MSB/MSE$
     -   $F2_{r-1,n_t-c-r+1 }= MSA/MSE$
 
-## Using factor() Inline in ANOVA Formulas
+### Using factor() Inline in ANOVA Formulas
 
 -   In a two-way ANOVA, you can convert a variable to a factor directly inside the `aov()` formula using `factor()`. For example, if `year` is stored as a numeric variable but you want to treat it as a categorical grouping variable, you can write:
 
@@ -381,11 +381,11 @@ aov(Outcome ~ GroupA * factor(year), data = mydata)
 
 -   This is equivalent to converting `year` to a factor first using `as.factor()` and then passing it to `aov()`. The inline approach is convenient when you want to test a numeric variable as a categorical factor without permanently changing the variable in your dataset.
 
-## Example of a Two-way ANOVA
+### Example of a Two-way ANOVA
 
 -   Let's run an example to compare SAT scores to see if they are comparable from different instructors {Instructor 1, 2, and 3} and across 4 races {Asian.American, Black, Mexican.American, and White}.
 
-### Step 1: Set Up Null and Alternative Hypothesis
+#### Step 1: Set Up Null and Alternative Hypothesis
 
 -   The competing hypotheses for the two-way ANOVA are two-fold:
 
@@ -399,7 +399,7 @@ aov(Outcome ~ GroupA * factor(year), data = mydata)
     -   $H_0: \mu_{Asian.American} = \mu_{Black} = \mu_{Mexical.American} =  \mu_{White}$
     -   $H_A:$ Not all population means of SAT scores are equal among races
 
-### Step 2: Compute the F-test Statistics and p-Values
+#### Step 2: Compute the F-test Statistics and p-Values
 
 -   Like a one-way ANOVA, in a two-way ANOVA, we start with an appropriate data set.
 
@@ -411,7 +411,7 @@ aov(Outcome ~ GroupA * factor(year), data = mydata)
     summary(SATdata)
     ```
 
-### Step 3: Interpret the Probabilities and Write a Conclusion
+#### Step 3: Interpret the Probabilities and Write a Conclusion
 
 ```{r}
 Anova2way <- aov(SAT ~ Instructor + Race, data=SATdata) 
@@ -424,7 +424,7 @@ summary(Anova2way)
 
 -   This means that we can conduct post-hoc tests on our Race variable. If we conduct any post-hoc tests on Instructor, we should find no differences in groups (which we already found in the ANOVA results above). This means additional testing the Instructor variable is an unnecessary step.
 
-### Step 4: If Model is Significant, Run Post-Hoc Tests
+#### Step 4: If Model is Significant, Run Post-Hoc Tests
 
 -   Using the pairwise.t.test() command, we can run a Bonferroni test on just race by using the command below. This result suggest that there are group differences between all groups. We can tell that because all p-values are less than alpha at .05.\
 
@@ -439,11 +439,11 @@ pairwise.t.test(SATdata$SAT, SATdata$Race, p.adj="bonf")
 TukeyHSD(Anova2way)
 ```
 
-# Two-Way ANOVA with Interaction
+## Two-Way ANOVA with Interaction
 
 -   A two-way ANOVA with interaction is a statistical test used to examine the effects of two independent categorical variables (factors) on a continuous dependent variable, while also assessing whether the effects of one factor depend on the levels of the other. This test includes three key components: main effects of each factor (how each variable influences the dependent variable independently) and the interaction effect (whether the effect of one factor changes depending on the level of the other factor). If a significant interaction is found, it suggests that the impact of one factor differs across levels of the second factor, meaning the combined influence of both factors is not simply additive. This interaction is visualized using interaction plots, where non-parallel lines indicate interaction. A two-way ANOVA with interaction assumes the same assumptions as a two-way ANOVA: normality, homogeneity of variances, and independence of observations.
 
-## Statistics in a Two-Way with Interaction ANOVA
+### Statistics in a Two-Way with Interaction ANOVA
 
 -   When performing a two-way ANOVA with interaction, we introduce an additional row to the ANOVA table to account for the interaction effect between the two grouping variables. The goal remains to compute F-test statistics, but now we have three F-statistics: one for each main effect and one for the interaction effect. Each F-statistic corresponds to a p-value, which we interpret as before (p-value \< alpha means a significant result, leading to rejection of $H_o$).
 
@@ -451,14 +451,14 @@ TukeyHSD(Anova2way)
 
 -   In a two-way ANOVA with interaction, we compute the explained variance by adding a new term for the interaction sum of squares (SSAB). This measures the variance explained by the interaction of factors A and B.
 
-## Steps for Conducting a Two-Way ANOVA with Interaction
+#### Steps for Conducting a Two-Way ANOVA with Interaction
 
 1.  Write the null and alternate hypotheses for each grouping variable and the interaction effect.
 2.  Compute the F-test statistics for each grouping variable and the probability for the test statistics (3 p-values for a 2-way ANOVA).
 3.  Interpret the probabilities and write a conclusion.
 4.  If model is significant, run post-hoc tests.
 
-### Explained Variance
+#### Explained Variance
 
 -   In a two-way ANOVA with interaction, we compute the explained variance by adding a new term for the \textbf{interaction sum of squares (SSAB)}. This measures the variance explained by the interaction of factors A and B.
 
@@ -483,7 +483,7 @@ TukeyHSD(Anova2way)
     -   $MSA = SSA/(c-1)$
     -   $MSAB = \frac{SSAB}{(c-1)(r-1)}$
 
-### Unexplained Variance
+#### Unexplained Variance
 
 -   The residual variance (unexplained variance) is computed as before, but now it accounts for the additional interaction term:
 
@@ -499,7 +499,7 @@ TukeyHSD(Anova2way)
 
 -   There is a total sum of squares (SST) being calculated mentioned above, which again refers to the total variance (explained and unexplained). To get this calculation, we take the squared deviation between each observation and the grand mean and we sum up all of our values.
 
-### Calculating F-test Statistics
+#### Calculating F-test Statistics
 
 -   To determine the significance of each effect, we compute \textbf{three} F-test statistics:
 
@@ -520,7 +520,7 @@ TukeyHSD(Anova2way)
     -   If the interaction is significant, \textbf{post-hoc tests} (e.g., pairwise comparisons) or \textbf{simple effects analysis} are needed to examine differences at different levels of the factors.\
     -   Visualization using \textbf{interaction plots} helps in understanding the nature of the interaction.
 
-## Example of a Two-way ANOVA with Interaction
+### Example of a Two-way ANOVA with Interaction
 
 -   Let's use the corolla car dataset to make an example of a 2 way interaction.
 
@@ -529,7 +529,7 @@ corolla <- read.csv("data/corolla.csv", stringsAsFactors = TRUE)
 
 ```
 
-### Step 1: Write the null and alternate hypotheses
+#### Step 1: Write the null and alternate hypotheses
 
 -   For Factor B:
     -   Null Hypothesis ($H_o$): Factor B has no effect on the dependent variable.
@@ -542,7 +542,7 @@ corolla <- read.csv("data/corolla.csv", stringsAsFactors = TRUE)
     -   Alternative Hypothesis ($H_a$): There is an interaction between the two factors (i.e., the effect of one factor depends on the level of the other factor).
 -   In the dataset, let's make a hypothesis between Fuel_Type and Metallic paint on Price. We would make two individual hypotheses and one interaction hypothesis between Fuel_Type and Metallic.
 
-### Step 2: Compute the F-test statistic for the interaction and its p-value.
+#### Step 2: Compute the F-test statistic for the interaction and its p-value.
 
 -   Use an ANOVA table to obtain the F-statistic for the interaction term.
 -   Compute the associated p-value to determine the significance of the interaction effect.
@@ -552,7 +552,7 @@ ANOVAInteraction <- aov(Price~Fuel_Type * Metallic, data=corolla)
 anova(ANOVAInteraction)
 ```
 
-### Step 3: Interpret the probability and write a conclusion.
+#### Step 3: Interpret the probability and write a conclusion.
 
 -   If the p-value for an effect is small (typically \< 0.05), reject the null hypothesis and conclude that the effect is significant.
 
@@ -566,7 +566,7 @@ anova(ANOVAInteraction)
 
 -   There is a significant interaction between Fuel_Type and Metallic on Price (p-value \< .05).
 
-### Step 4: If the interaction is significant, examine simple effects or conduct post-hoc tests.
+#### Step 4: If the interaction is significant, examine simple effects or conduct post-hoc tests.
 
 -   If the interaction effect is significant, examine simple effects or run post-hoc tests.
     -   Conduct simple effects analysis, examining the effect of one factor at each level of the other factor.
@@ -594,7 +594,7 @@ ggplot(corolla, aes(x = Fuel_Type, y = Price, color = Metallic, group = Metallic
        color = "Metallic Paint") 
 ```
 
-# choose() command
+## choose() command
 
 -   The choose(n, k) function in R calculates the number of ways to choose k items from a set of n items without regard to order. It answers the question: "How many different groups of k can I make from n items?" For example, choose(5, 2) equals 10, meaning you can make 10 different pairs from a group of 5 items.
 
@@ -633,6 +633,7 @@ choose(3,2)
 ```
 
 With ANOVA, we have been asking whether group membership explains differences in a continuous outcome variable. Correlation shifts that question: instead of comparing groups, we now ask how two continuous variables move together. The tools change, but the underlying logic of hypothesis testing — null hypothesis, test statistic, p-value, conclusion — carries forward exactly as before.
+
 
 # Correlation
 
@@ -858,7 +859,7 @@ ggplot(Credit, aes(Ethnicity, Rating, fill=Ethnicity)) + geom_boxplot(show.legen
     -   Even if two variables are highly correlated, one does not necessarily cause the other.
 -   When interpreting results, note that lack of significance does not mean a variable X has no relationship with Y; it might suggest a more complex or non-linear relationship.
 
-# Summary and Review
+# Review and Practice
 
 ## Using AI
 
@@ -1137,7 +1138,404 @@ With $n = 850$, the test has very high statistical power — it can detect even 
 **The fix:** Transforming one of the variables (e.g., using $x^2$ as a predictor in regression) or using a non-linear model would capture the relationship that $r$ missed.
 :::
 
+## Interactive R Lesson: ANOVA and Correlation {#interactive-anova-lesson}
 
+::: {.callout-note}
+This lesson combines the ANOVA swirl exercises and introduces correlation using the Boston dataset. Parts 1–3 cover one-way and two-way ANOVA with post-hoc tests. Part 4 covers correlation and scatterplots. All datasets are built into base R — no packages or CSV files needed.
+
+**First-time load:** The interactive R environment may take 10–20 seconds to initialize. Once the Run Code buttons become active, you are ready to go.
+:::
+
+```{webr-r}
+#| label: anova-setup
+#| context: setup
+library(ggplot2)
+data("ChickWeight")
+data("PlantGrowth")
+data("mtcars")
+Boston <- MASS::Boston
+```
+
+---
+
+### Part 1: One-Way ANOVA — ChickWeight
+
+A one-way ANOVA tests whether the means of three or more groups are equal. The null hypothesis is that all group means are equal; the alternative is that at least one differs.
+
+**Load and summarize ChickWeight:**
+
+```{webr-r}
+#| label: chick-summary
+summary(ChickWeight)
+```
+
+::: {.callout-tip}
+`ChickWeight` contains chick weights over time across four diet groups. We will test whether diet affects weight.
+:::
+
+**Build the ANOVA model and view results:**
+
+```{webr-r}
+#| label: chick-anova
+# H0: all diet group means are equal
+# HA: at least one mean differs
+model <- aov(weight ~ Diet, ChickWeight)
+anova(model)
+```
+
+::: {.callout-note}
+The p-value is well below 0.001 — we reject H₀ and conclude that at least one diet group has a significantly different mean weight. The omnibus test tells us *something* differs but not *which* groups. That requires a post-hoc test.
+:::
+
+**Run Tukey's HSD to identify which groups differ:**
+
+```{webr-r}
+#| label: chick-tukey
+TukeyHSD(model)
+```
+
+::: {.callout-tip}
+Each row compares two groups. A p-value below 0.05 indicates those two groups are significantly different. The `diff` score tells you the direction — a positive diff means the second group listed has a higher mean than the first. Groups 2−1, 3−2, and 4−3 are not significantly different; all other pairwise comparisons are.
+:::
+
+---
+
+### Part 2: One-Way ANOVA — PlantGrowth
+
+**Load and summarize PlantGrowth:**
+
+```{webr-r}
+#| label: plant-summary
+summary(PlantGrowth)
+```
+
+**Build the ANOVA model and view results:**
+
+```{webr-r}
+#| label: plant-anova
+# H0: ctrl, trt1, and trt2 all have equal mean weight
+# HA: at least one mean differs
+model2 <- aov(weight ~ group, PlantGrowth)
+anova(model2)
+```
+
+**Run Tukey's HSD:**
+
+```{webr-r}
+#| label: plant-tukey
+TukeyHSD(model2)
+```
+
+::: {.callout-note}
+Only `trt2 − trt1` is significant (p < 0.05). The control group does not differ significantly from either treatment. The negative diff for `trt1 − trt2` tells you that treatment 1 has a *lower* mean weight than treatment 2.
+:::
+
+---
+
+### Part 3: Two-Way ANOVA — mtcars
+
+A two-way ANOVA tests whether two categorical variables each independently affect a continuous outcome. Each factor has its own null hypothesis, F-statistic, and p-value.
+
+**Prepare the data — convert gear and cyl to factors:**
+
+```{webr-r}
+#| label: mtcars-prep
+mtcars$gear <- as.factor(mtcars$gear)
+mtcars$cyl  <- as.factor(mtcars$cyl)
+summary(mtcars[, c("mpg", "gear", "cyl")])
+```
+
+**Build the two-way ANOVA model:**
+
+```{webr-r}
+#| label: twoway-anova
+# H0 (gear): all gear groups have equal mean mpg
+# H0 (cyl):  all cyl groups have equal mean mpg
+model3 <- aov(mpg ~ gear + cyl, mtcars)
+anova(model3)
+```
+
+::: {.callout-note}
+Two F-statistics and two p-values — one for each factor. Both gear and cyl are significant here, meaning each independently explains variation in mpg. A two-way ANOVA with `+` tests main effects only. To test whether the *interaction* between gear and cyl also matters, you would use `gear * cyl` instead.
+:::
+
+**Run Tukey's HSD for both factors:**
+
+```{webr-r}
+#| label: twoway-tukey
+TukeyHSD(model3)
+```
+
+::: {.callout-tip}
+Read the gear and cyl sections separately. For gear: groups 5−4 are not significantly different; 4−3 and 5−3 are. For cyl: groups 8−6 are not significantly different; 6−4 and 8−4 are. The diff scores confirm that gear 5 has higher mpg than gear 3, and cyl 8 has lower mpg than cyl 4.
+:::
+
+---
+
+### Part 4: Correlation — Boston Dataset
+
+Correlation measures the strength and direction of the linear relationship between two continuous variables. The correlation coefficient $r$ ranges from −1 to +1.
+
+**Explore the Boston dataset:**
+
+```{webr-r}
+#| label: boston-head
+head(Boston)
+```
+
+::: {.callout-tip}
+Key variables: `medv` = median house value (in $1,000s), `lstat` = % households with low socioeconomic status, `rm` = average rooms per house, `age` = proportion of homes built before 1940.
+:::
+
+**Visualize the relationship between lstat and medv:**
+
+```{webr-r}
+#| label: scatter-lstat
+ggplot(Boston, aes(x = lstat, y = medv)) +
+  geom_point(alpha = 0.4, color = "steelblue") +
+  stat_smooth(method = "lm", color = "red") +
+  labs(title = "Low Economic Status vs. Median House Value",
+       x = "% Low Economic Status (lstat)",
+       y = "Median House Value ($000s)")
+```
+
+**Calculate the correlation coefficient:**
+
+```{webr-r}
+#| label: cor-lstat
+cor(Boston$lstat, Boston$medv)
+```
+
+**Test whether the correlation is statistically significant:**
+
+```{webr-r}
+#| label: cortest-lstat
+cor.test(Boston$lstat, Boston$medv)
+```
+
+::: {.callout-note}
+The correlation is approximately −0.74 — a strong negative linear relationship. As the percentage of low economic status households increases, median house value decreases. The p-value is far below 0.05, confirming the correlation is highly significant. The 95% confidence interval does not include zero, which corroborates the significant p-value.
+:::
+
+**Now try the age variable:**
+
+```{webr-r}
+#| label: scatter-age
+ggplot(Boston, aes(x = age, y = medv)) +
+  geom_point(alpha = 0.4, color = "darkorange") +
+  stat_smooth(method = "lm", color = "red") +
+  labs(title = "Age of Housing Stock vs. Median House Value",
+       x = "Proportion Built Before 1940 (age)",
+       y = "Median House Value ($000s)")
+```
+
+```{webr-r}
+#| label: cortest-age
+cor.test(Boston$age, Boston$medv)
+```
+
+::: {.callout-note}
+The correlation with `age` is also significant but much weaker (approximately −0.38). A higher proportion of older homes is associated with lower median values, but `age` explains far less of the variability in `medv` than `lstat` does. Always compare the *magnitude* of the correlation alongside the p-value — statistical significance does not equal practical importance.
+:::
+
+---
+
+## Scored Quiz: ANOVA and Correlation {#anova-quiz}
+
+```{=html}
+<div id="ps512-anova-quiz" style="font-family: Georgia, serif; max-width: 720px; margin: 2rem auto; background: #fafaf8; border: 1px solid #ddd; border-radius: 8px; padding: 2rem;">
+
+  <h3 style="margin-top:0; font-size:1.2rem; background:#2c6fad; color:#ffffff; padding:0.8rem 1.2rem; border-radius:6px 6px 0 0; margin:-2rem -2rem 1.5rem -2rem;">
+    ANOVA and Correlation Quiz
+  </h3>
+
+  <div id="aquiz-progress" style="font-size:0.85rem; color:#444; margin-bottom:1.5rem;">Question 1 of 10</div>
+
+  <!-- Q1 -->
+  <div class="aquiz-q" id="aq1" style="display:block">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">1. The alternative hypothesis in a one-way ANOVA states:</p>
+    <label class="aquiz-option"><input type="radio" name="aq1" value="a"> All group means are equal.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq1" value="b"> At least one group mean differs from the others.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq1" value="c"> Every group mean is different from every other group mean.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq1" value="d"> The largest group mean is significantly higher than the smallest.</label>
+    <div class="aquiz-feedback" id="afb1"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="aquiz-q" id="aq2" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">2. A significant omnibus ANOVA result tells you:</p>
+    <label class="aquiz-option"><input type="radio" name="aq2" value="a"> Every pair of groups is significantly different.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq2" value="b"> At least one group differs — a post-hoc test is needed to identify which ones.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq2" value="c"> The largest group mean is significantly different from the smallest.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq2" value="d"> The null hypothesis is proven true for all but one group.</label>
+    <div class="aquiz-feedback" id="afb2"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="aquiz-q" id="aq3" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">3. In the ChickWeight ANOVA, the correct R code to build the model is:</p>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="a"> <code>aov(Diet ~ weight, ChickWeight)</code></label><br>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="b"> <code>aov(weight ~ Diet, ChickWeight)</code></label><br>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="c"> <code>lm(weight ~ Diet, ChickWeight)</code></label><br>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="d"> <code>t.test(weight ~ Diet, ChickWeight)</code></label>
+    <div class="aquiz-feedback" id="afb3"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="aquiz-q" id="aq4" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">4. In TukeyHSD output, a negative <code>diff</code> score between two groups means:</p>
+    <label class="aquiz-option"><input type="radio" name="aq4" value="a"> The comparison is not significant.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq4" value="b"> The second group listed has a higher mean than the first group listed.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq4" value="c"> The first group listed has a higher mean than the second group listed.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq4" value="d"> The two groups are equal.</label>
+    <div class="aquiz-feedback" id="afb4"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="aquiz-q" id="aq5" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">5. In the PlantGrowth Tukey output, only trt2 − trt1 is significant. This means:</p>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="a"> All three groups differ from each other.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="b"> Only treatment 2 and treatment 1 are significantly different; the control does not differ from either treatment.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="c"> The control group has the highest mean weight.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="d"> The overall ANOVA was not significant.</label>
+    <div class="aquiz-feedback" id="afb5"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="aquiz-q" id="aq6" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. Why must <code>gear</code> and <code>cyl</code> be converted to factors before running a two-way ANOVA on the mtcars dataset?</p>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="a"> R cannot read numeric variables in aov().</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="b"> They are stored as numbers but represent categories — without coercion, R treats them as continuous predictors instead of grouping variables.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="c"> Factors run faster in R than numeric variables.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="d"> TukeyHSD() only works on factor variables.</label>
+    <div class="aquiz-feedback" id="afb6"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="aquiz-q" id="aq7" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">7. A two-way ANOVA with <code>aov(mpg ~ gear + cyl, mtcars)</code> produces how many F-statistics?</p>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="a"> One — for the combined effect of gear and cyl.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="b"> Two — one for gear and one for cyl.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="c"> Three — one for each level of gear.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="d"> Four — one for each level of cyl.</label>
+    <div class="aquiz-feedback" id="afb7"></div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="aquiz-q" id="aq8" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">8. The correlation between lstat and medv in the Boston dataset is approximately −0.74. This means:</p>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="a"> A weak positive relationship — as lstat increases, medv slightly increases.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="b"> A strong negative relationship — as lstat increases, medv tends to decrease.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="c"> No linear relationship between the two variables.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="d"> lstat causes medv to decrease.</label>
+    <div class="aquiz-feedback" id="afb8"></div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="aquiz-q" id="aq9" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">9. <code>cor.test()</code> returns a p-value of 0.0000001 and r = 0.12 with n = 850. The correct interpretation is:</p>
+    <label class="aquiz-option"><input type="radio" name="aq9" value="a"> A strong and practically important relationship — both r and p confirm this.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq9" value="b"> Statistically significant but practically weak — r = 0.12 explains only about 1.4% of the variance, which is not meaningful in most contexts.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq9" value="c"> Not significant — a small r always means a non-significant test.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq9" value="d"> The result is inconclusive because n = 850 is too large.</label>
+    <div class="aquiz-feedback" id="afb9"></div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="aquiz-q" id="aq10" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">10. A scatterplot shows a clear U-shaped pattern but <code>cor.test()</code> returns r ≈ 0 and p = 0.70. The correct conclusion is:</p>
+    <label class="aquiz-option"><input type="radio" name="aq10" value="a"> There is no relationship between the two variables.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq10" value="b"> There is no linear relationship, but the scatterplot reveals a non-linear relationship that r cannot detect.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq10" value="c"> The scatterplot is misleading — always trust the correlation coefficient over the visual.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq10" value="d"> The sample size is too small to detect the relationship.</label>
+    <div class="aquiz-feedback" id="afb10"></div>
+  </div>
+
+  <!-- Navigation -->
+  <div style="display:flex; gap:1rem; margin-top:1.5rem; align-items:center; flex-wrap:wrap;">
+    <button id="aquiz-prev" onclick="aquizNav(-1)" style="display:none; padding:0.5rem 1.2rem; background:#6c757d; color:white; border:none; border-radius:5px; cursor:pointer; font-size:0.95rem;">← Previous</button>
+    <button id="aquiz-next" onclick="aquizNav(1)" style="padding:0.5rem 1.2rem; background:#4a90d9; color:white; border:none; border-radius:5px; cursor:pointer; font-size:0.95rem;">Next →</button>
+    <button id="aquiz-submit" onclick="asubmitQuiz()" style="display:none; padding:0.5rem 1.4rem; background:#27ae60; color:white; border:none; border-radius:5px; cursor:pointer; font-size:0.95rem; font-weight:600;">Submit Quiz</button>
+  </div>
+
+  <div id="aquiz-score" style="display:none; margin-top:1.5rem; padding:1rem 1.5rem; border-radius:6px; font-size:1rem;"></div>
+</div>
+
+<style>
+.aquiz-option { display:block; margin:0.4rem 0; cursor:pointer; padding:0.4rem 0.6rem; border-radius:4px; transition:background 0.15s; color:#1a1a1a; }
+.aquiz-option:hover { background:#ddeeff; border:1px solid #2c6fad; }
+.aquiz-feedback { margin-top:0.8rem; padding:0.6rem 1rem; border-radius:5px; font-size:0.9rem; display:none; }
+.acorrect-fb { background:#d4edda; color:#155724; border-left:4px solid #27ae60; }
+.aincorrect-fb { background:#f8d7da; color:#721c24; border-left:4px solid #e74c3c; }
+</style>
+
+<script>
+const aAnswers = {
+  aq1:'b', aq2:'b', aq3:'b', aq4:'b', aq5:'b',
+  aq6:'b', aq7:'b', aq8:'b', aq9:'b', aq10:'b'
+};
+const aHints = {
+  aq1:  "The alternative in ANOVA is that 'at least one' mean differs — not that all are different from each other. A single outlier group is enough to reject H₀.",
+  aq2:  "The omnibus F-test only tells you something differs somewhere. Post-hoc tests like TukeyHSD() are needed to identify the specific pairs.",
+  aq3:  "aov() uses Y ~ X format: the outcome (weight) on the left, the grouping variable (Diet) on the right, followed by the dataset.",
+  aq4:  "A negative diff means the first group listed has a lower mean than the second. For example, diff for '3-1' being positive means group 3 > group 1.",
+  aq5:  "Only the trt2 vs trt1 p-value is below 0.05. The control (ctrl) does not differ significantly from either treatment — only the two treatments differ from each other.",
+  aq6:  "Numeric variables stored as integers (3, 4, 5 gears; 4, 6, 8 cylinders) would be treated as continuous if not coerced. as.factor() tells R to treat them as discrete categories.",
+  aq7:  "A two-way ANOVA with + produces one F-statistic per grouping variable — two total. The * operator would add a third for the interaction term.",
+  aq8:  "r = −0.74 is a strong negative correlation. Direction is negative (as one goes up, the other goes down) and strength is substantial. Note: correlation is not causation.",
+  aq9:  "With n = 850, even tiny correlations become statistically significant. r = 0.12 means r² ≈ 0.014 — only 1.4% of variance explained. Statistical significance ≠ practical importance.",
+  aq10: "r only measures linear association. A U-shaped pattern cancels out — increases on the left offset decreases on the right, producing r ≈ 0. Always visualize first."
+};
+let acurrent = 1;
+const atotal = 10;
+
+function aquizNav(dir) {
+  document.getElementById('aq' + acurrent).style.display = 'none';
+  acurrent += dir;
+  document.getElementById('aq' + acurrent).style.display = 'block';
+  document.getElementById('aquiz-progress').textContent = 'Question ' + acurrent + ' of ' + atotal;
+  document.getElementById('aquiz-prev').style.display = acurrent > 1 ? 'inline-block' : 'none';
+  document.getElementById('aquiz-next').style.display = acurrent < atotal ? 'inline-block' : 'none';
+  document.getElementById('aquiz-submit').style.display = acurrent === atotal ? 'inline-block' : 'none';
+}
+
+function asubmitQuiz() {
+  let score = 0;
+  for (let i = 1; i <= atotal; i++) {
+    const sel = document.querySelector('input[name="aq' + i + '"]:checked');
+    const fb  = document.getElementById('afb' + i);
+    document.getElementById('aq' + i).style.display = 'block';
+    if (sel && sel.value === aAnswers['aq' + i]) {
+      score++;
+      fb.className = 'aquiz-feedback acorrect-fb';
+      fb.textContent = '✓ Correct! ' + aHints['aq' + i];
+    } else {
+      fb.className = 'aquiz-feedback aincorrect-fb';
+      fb.textContent = '✗ ' + (sel ? 'Not quite. ' : 'No answer selected. ') + aHints['aq' + i];
+    }
+    fb.style.display = 'block';
+  }
+  document.getElementById('aquiz-prev').style.display = 'none';
+  document.getElementById('aquiz-next').style.display = 'none';
+  document.getElementById('aquiz-submit').style.display = 'none';
+  document.getElementById('aquiz-progress').textContent = 'Quiz complete';
+  const sd = document.getElementById('aquiz-score');
+  const pct = Math.round((score / atotal) * 100);
+  sd.style.display = 'block';
+  sd.style.background = pct >= 70 ? '#d4edda' : '#fff3cd';
+  sd.style.borderLeft  = pct >= 70 ? '4px solid #27ae60' : '4px solid #f39c12';
+  sd.style.color        = pct >= 70 ? '#155724' : '#856404';
+  sd.innerHTML = '<strong>Your Score: ' + score + ' / ' + atotal + ' (' + pct + '%)</strong><br>' +
+    (pct === 100 ? 'Excellent work — perfect score!' :
+     pct >= 70  ? 'Good work! Review any missed questions above.' :
+                  'Keep reviewing the lesson material above, then try again.');
+}
+</script>
+```
+
+::: {.callout-note}
+No need to submit this quiz anywhere. This exercise is for your benefit to help you learn R.
+:::
 
 ## Summary
 

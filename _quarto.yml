@@ -6,6 +6,8 @@ project:
      - data/Credit.csv
      - data/College.csv
      - data/Auto.csv
+     - data/Carseats.csv
+     - data/Boston.csv
      
 include-in-header: custom-head.html
 book:
@@ -39,4 +41,4 @@ format:
 filters:
   - webr
 
-editor: visual
+editor: source
