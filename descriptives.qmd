@@ -48,10 +48,6 @@ By the end of this lesson, you should be able to choose the appropriate measures
 -   The workflow throughout is intentionally sequential: compute central tendency first, then assess spread and shape, then visualize to confirm. The histograms and boxplots you build are not decorations — they are the check on whether the numbers you computed accurately describe the data.
 -   When you reach the skewness and kurtosis section, pay attention to the sample-size thresholds for interpreting z-scores. The same z-value that is fine in a large sample may indicate a real problem in a small one.
 
-The goal of this lesson is to teach you how to summarize and visualize descriptive statistics for both quantitative and qualitative data in R. To do this well, we need to understand the difference between quantitative and qualitative data and examine data in context — context tells us how the data was collected and what it is meant to represent. In any analysis, it is critically important to understand your data before modeling or drawing conclusions.
-
-For quantitative data, you should understand how to describe a variable's center (mean, median, mode), visualize its shape with a histogram, density plot, or boxplot, and quantify its spread (variance, standard deviation, skewness, kurtosis, IQR). For qualitative data, you should know how to calculate frequencies, proportions, and cumulative distributions, and display results clearly using bar charts and pie charts.
-
 # Summarizing Quantitative Data
 
 -   Summarizing Quantitative Data is the process of reducing a large set of numbers down to a small set of meaningful values that describe what is typical, how spread out the data is, and what shape the distribution takes.
@@ -401,7 +397,7 @@ With central tendency, the next step is to visualize the distribution. The three
     -   Modularity: Layering makes it easier to add, remove, or modify parts of the plot without changing the entire structure.
     -   Combining Data Sources: Different layers can use different datasets or aesthetics, which is useful when you need to overlay one dataset on top of another.
 
-## Using ggplot() command
+## Getting Started with ggplot() command
 
 A histogram displays the distribution of a **continuous (numeric) variable** by grouping values into bins and counting how many observations fall in each bin. It is the best first chart to make when you want to understand the shape, center, and spread of a numeric variable.
 
@@ -789,7 +785,7 @@ ggplot(fbi.deaths.small, aes(x = "", y = X2016, fill = Weapon)) +
   theme_void() 
 ```
 
-# Summary and Review
+# Summary and Practice
 
 ## Using AI
 
@@ -1018,12 +1014,500 @@ ggplot(descriptive_data, aes(x = EngagementLevel, fill = LoyalCustomer)) +
 Non-loyal customers outnumber loyal customers within every engagement level: high (27 no vs. 26 yes), low (39 no vs. 28 yes), medium (47 no vs. 33 yes). Loyal customers are a consistent minority across all three groups — engagement level alone does not appear to strongly separate loyal from non-loyal customers.
 :::
 
+------------------------------------------------------------------------
+
+With the reading and lab exercises complete, the interactive lesson below lets you apply these same techniques in your browser using real datasets — no RStudio needed for this section.
+
+## Interactive R Lesson: Descriptive Statistics {#interactive-lesson}
+
+::: callout-note
+**Interactive Session**\
+You can run real R code directly in the browser — no installation needed. Work through each section in order, then test yourself with the scored quiz at the bottom.
+
+**First-time load:** The interactive R environment below may take 10–20 seconds to initialize on your first visit. This is normal — R is loading in your browser. Once ready, the "Run Code" buttons will become active.
+:::
+
+```{webr-r}
+#| label: setup
+#| context: setup
+library(ggplot2)
+College <- read.csv("data/College.csv")
+
+```
+
+### Part 1: Exploring a Categorical Variable
+
+Hello! Dr. Schlosser here. In this lesson I will show you how to calculate descriptive measures in R — measures of central tendency, measures of dispersion, and measures of association.
+
+We start with `Private`, a categorical (factor) variable in the College dataset. The `table()` function is useful for analyzing categorical variables.
+
+**Try it:** Run the code below to see the frequency breakdown of the `Private` variable.
+
+```{webr-r}
+#| label: table-private
+table(College$Private)
+```
+
+Now save that table into a variable called `Freq`, then calculate relative frequencies using `prop.table()`.
+
+```{webr-r}
+#| label: prop-table
+Freq <- table(College$Private)
+prop.table(Freq)
+```
+
+::: callout-tip
+`prop.table()` works well when you already have your table saved in a variable. You should see roughly 27% No and 73% Yes — private vs. non-private institutions.
+:::
+
+### Part 2: Central Tendency — Mean and Median
+
+Next, we work with `Grad.Rate`, a continuous numeric variable representing graduation rates.
+
+**Calculate the mean:**
+
+```{webr-r}
+#| label: mean-gradrate
+mean(College$Grad.Rate)
+```
+
+**Calculate the median:**
+
+```{webr-r}
+#| label: median-gradrate
+median(College$Grad.Rate)
+```
+
+::: callout-note
+When mean and median are close together, the distribution is likely symmetric. A large difference between them suggests skewness or outliers — we will test for this shortly.
+:::
+
+### Part 3: Measures of Spread
+
+**Variance** and **standard deviation** describe how spread out the data is around the mean.
+
+```{webr-r}
+#| label: spread-gradrate
+var(College$Grad.Rate)    # Variance
+sd(College$Grad.Rate)     # Standard deviation (square root of variance)
+range(College$Grad.Rate)  # Min and Max
+IQR(College$Grad.Rate)    # Interquartile range: Q3 - Q1
+max(College$Grad.Rate)    # Maximum
+min(College$Grad.Rate)    # Minimum
+```
+
+::: callout-important
+Note the difference: `IQR()` returns **one number** (the calculated IQR), while `range()` returns **two numbers** (min and max). To get the range value, subtract min from max manually.
+:::
+
+### Part 4: Skewness and Kurtosis
+
+Skewness and kurtosis require the `semTools` package, which depends on compiled libraries that cannot run in the browser. **Run these in RStudio instead.**
+
+::: callout-important
+**Run in RStudio — not in the browser**
+
+Copy and paste this code into your local RStudio console:
+
+``` r
+library(semTools)
+
+# Grad.Rate — expect no problematic skew (z within −7 to 7)
+skew(College$Grad.Rate)
+kurtosis(College$Grad.Rate)
+hist(College$Grad.Rate)
+
+# Enroll — expect right skew and leptokurtosis
+skew(College$Enroll)
+kurtosis(College$Enroll)
+hist(College$Enroll)
+```
+
+For large samples (n \> 300), z-values outside **−7 to 7** are considered problematic. Consult the histogram alongside the statistics to confirm.
+:::
+
+### Part 5 Visualizing Quantitative Data
+
+::: callout-note
+**Visualizations in Your Browser** You will build histograms, density plots, and boxplots using the Credit dataset directly in the browser. Work through each section in order, then complete the scored quiz.
+:::
+
+```{webr-r}
+#| label: viz-setup
+#| context: setup
+library(ggplot2)
+Credit <- read.csv("data/Credit.csv")
+```
+
+#### Base R Plot and the `cars` Dataset
+
+Before ggplot2, R had a built-in `plot()` function. It is useful for quick exploratory plots.
+
+**Load the cars dataset and take a look:**
+
+```{webr-r}
+#| label: cars-summary
+data("cars")
+summary(cars)
+head(cars)
+```
+
+**Plot speed vs. distance using base R:**
+
+```{webr-r}
+#| label: base-plot
+plot(x = cars$speed, y = cars$dist,
+     main = "Speed vs Stopping Distance",
+     xlab = "Speed (mph)", ylab = "Distance (ft)",
+     col  = "blue")
+```
+
+::: callout-tip
+`plot()` is fast for exploration. `ggplot2` gives you more control over styling, layering, and publication-quality output — which is why we use it for formal analysis.
+:::
+
+------------------------------------------------------------------------
+
+#### Histogram — Visualizing Distribution Shape
+
+A histogram reveals the **shape, center, and spread** of a numeric variable. It connects directly to the skewness statistics covered in this lesson — the chart lets you *see* what those numbers measure.
+
+**Histogram of Income from the Credit dataset:**
+
+```{webr-r}
+#| label: hist-income
+ggplot(Credit, aes(x = Income)) +
+  geom_histogram(fill = "lightblue", color = "white", bins = 30) +
+  labs(title = "Distribution of Income",
+       x = "Income ($000s)", y = "Count")
+```
+
+::: callout-note
+**Run in RStudio to check skewness formally:**
+
+``` r
+library(semTools)
+skew(Credit$Income)
+```
+
+Income is **right-skewed** — the long tail to the right produces a large positive z-score well outside the −7 to 7 range for large samples.
+:::
+
+**Now try modifying `bins =` yourself — what happens at 10 vs. 50?**
+
+```{webr-r}
+#| label: hist-explore
+# Change bins= to see how bin width affects the shape
+ggplot(Credit, aes(x = Income)) +
+  geom_histogram(fill = "tomato", color = "white", bins = 15) +
+  labs(title = "Distribution of Income (try changing bins)",
+       x = "Income", y = "Count")
+```
+
+------------------------------------------------------------------------
+
+#### Density Plot — Smooth Distribution Curve
+
+A density plot is a smoothed version of a histogram. It is especially useful for seeing the overall shape and comparing distributions.
+
+**Density plot of Limit with a red outline:**
+
+```{webr-r}
+#| label: density-limit
+ggplot(Credit, aes(x = Limit)) +
+  geom_density(color = "red") +
+  labs(title = "Density Plot of Credit Limit",
+       x = "Limit", y = "Density")
+```
+
+**Add a fill color and a mean reference line:**
+
+```{webr-r}
+#| label: density-mean-line
+ggplot(Credit, aes(x = Limit)) +
+  geom_density(fill = "lavender", color = "purple", alpha = 0.6) +
+  geom_vline(aes(xintercept = mean(Limit, na.rm = TRUE)),
+             color = "red", linetype = "dashed") +
+  labs(title = "Density of Credit Limit with Mean",
+       x = "Limit", y = "Density")
+```
+
+::: callout-note
+**Run in RStudio to check skewness on Limit:**
+
+``` r
+skew(Credit$Limit)
+```
+
+Limit has a small z-score — it is considered approximately normal despite some visual asymmetry. The density plot and the statistics should agree.
+:::
+
+------------------------------------------------------------------------
+
+#### Boxplot — Five-Number Summary and Outliers
+
+A boxplot shows Q1, median, Q3, whiskers (1.5 × IQR), and flags outliers as individual points.
+
+**Boxplot of Rating:**
+
+```{webr-r}
+#| label: boxplot-rating
+ggplot(Credit, aes(x = Rating)) +
+  geom_boxplot(fill = "lightcoral", color = "darkred") +
+  labs(title = "Boxplot of Credit Rating",
+       x = "Rating")
+```
+
+::: callout-note
+**Run in RStudio:**
+
+``` r
+skew(Credit$Rating)
+```
+
+Rating is right-skewed — you should see dots beyond the right whisker in the boxplot above. The visual and the statistic tell the same story.
+:::
+
+**Boxplot of Education with a violet fill:**
+
+```{webr-r}
+#| label: boxplot-education
+ggplot(Credit, aes(x = "", y = Education)) +
+  geom_boxplot(fill = "violet") +
+  labs(title = "Boxplot of Education",
+       x = "", y = "Years of Education")
+```
+
+::: callout-note
+**Run in RStudio:**
+
+``` r
+skew(Credit$Education)
+```
+
+Education has a z-score of approximately −2.69 — within the ±7 range for large samples. Not considered problematically skewed.
+:::
+
+------------------------------------------------------------------------
+
+### Scored Practice Quiz {#scored-quiz}
+
+Test your understanding of the lesson. Questions cover central tendency, spread, skewness, kurtosis, and visualizations.
+
+```{=html}
+<div id="ps512-quiz" style="font-family: Georgia, serif; max-width: 720px; margin: 2rem auto; background: #fafaf8; border: 1px solid #ddd; border-radius: 8px; padding: 2rem;">
+
+  <h3 style="margin-top:0; font-size:1.2rem; background:#2c6fad; color:#ffffff; padding:0.8rem 1.2rem; border-radius:6px 6px 0 0; margin:-2rem -2rem 1.5rem -2rem;">
+    Descriptive Statistics Quiz
+  </h3>
+
+  <div id="quiz-progress" style="font-size:0.85rem; color:#444; margin-bottom:1.5rem;">Question 1 of 11</div>
+
+  <!-- Q1 -->
+  <div class="quiz-q" id="q1" style="display:block">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">1. The <code>prop.table()</code> function requires that you first save your <code>table()</code> result into a variable. What is the main advantage of this approach?</p>
+    <label class="quiz-option"><input type="radio" name="q1" value="a"> It makes the code run faster.</label><br>
+    <label class="quiz-option"><input type="radio" name="q1" value="b"> It allows <code>prop.table()</code> to reuse the already-computed table object.</label><br>
+    <label class="quiz-option"><input type="radio" name="q1" value="c"> It automatically removes NA values.</label><br>
+    <label class="quiz-option"><input type="radio" name="q1" value="d"> It converts frequencies to percentages rounded to whole numbers.</label>
+    <div class="quiz-feedback" id="fb1"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="quiz-q" id="q2" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">2. What is the difference between <code>IQR()</code> and <code>range()</code> in R?</p>
+    <label class="quiz-option"><input type="radio" name="q2" value="a"> They return the same value.</label><br>
+    <label class="quiz-option"><input type="radio" name="q2" value="b"> <code>IQR()</code> returns one number (Q3 − Q1); <code>range()</code> returns two numbers (min and max).</label><br>
+    <label class="quiz-option"><input type="radio" name="q2" value="c"> <code>range()</code> returns one number; <code>IQR()</code> returns two numbers.</label><br>
+    <label class="quiz-option"><input type="radio" name="q2" value="d"> <code>IQR()</code> only works on categorical variables.</label>
+    <div class="quiz-feedback" id="fb2"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="quiz-q" id="q3" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">3. For a large sample (n &gt; 300), a skewness z-score of −1.29 would be considered:</p>
+    <label class="quiz-option"><input type="radio" name="q3" value="a"> Significantly skewed — outside the acceptable range.</label><br>
+    <label class="quiz-option"><input type="radio" name="q3" value="b"> Not problematic — within the −7 to 7 range.</label><br>
+    <label class="quiz-option"><input type="radio" name="q3" value="c"> Perfectly normal — z must be exactly 0.</label><br>
+    <label class="quiz-option"><input type="radio" name="q3" value="d"> Leptokurtic.</label>
+    <div class="quiz-feedback" id="fb3"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="quiz-q" id="q4" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">4. The <code>Enroll</code> variable has a large positive skewness z-score and a long tail to the right in its histogram. This indicates:</p>
+    <label class="quiz-option"><input type="radio" name="q4" value="a"> Left skew.</label><br>
+    <label class="quiz-option"><input type="radio" name="q4" value="b"> No skew — the histogram is bell shaped.</label><br>
+    <label class="quiz-option"><input type="radio" name="q4" value="c"> Right skew.</label><br>
+    <label class="quiz-option"><input type="radio" name="q4" value="d"> Platykurtic distribution.</label>
+    <div class="quiz-feedback" id="fb4"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="quiz-q" id="q5" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">5. A kurtosis value that is positive and has a significant z-score indicates the distribution is:</p>
+    <label class="quiz-option"><input type="radio" name="q5" value="a"> Platykurtic — heavy tails, flat peak.</label><br>
+    <label class="quiz-option"><input type="radio" name="q5" value="b"> Normally distributed.</label><br>
+    <label class="quiz-option"><input type="radio" name="q5" value="c"> Leptokurtic — sharper peak, fewer observations in tails.</label><br>
+    <label class="quiz-option"><input type="radio" name="q5" value="d"> Negatively skewed.</label>
+    <div class="quiz-feedback" id="fb5"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="quiz-q" id="q6" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. Which R function would you use to calculate the most appropriate measure of center for a variable you suspect contains outliers?</p>
+    <label class="quiz-option"><input type="radio" name="q6" value="a"> <code>mean()</code></label><br>
+    <label class="quiz-option"><input type="radio" name="q6" value="b"> <code>var()</code></label><br>
+    <label class="quiz-option"><input type="radio" name="q6" value="c"> <code>median()</code></label><br>
+    <label class="quiz-option"><input type="radio" name="q6" value="d"> <code>sd()</code></label>
+    <div class="quiz-feedback" id="fb6"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="quiz-q" id="q7" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">7. A histogram of Income shows a long tail extending to the right with most values clustered at lower incomes. This indicates:</p>
+    <label class="quiz-option"><input type="radio" name="q7" value="a"> Left skew — the tail is on the left side.</label><br>
+    <label class="quiz-option"><input type="radio" name="q7" value="b"> Right skew — the tail is on the right side.</label><br>
+    <label class="quiz-option"><input type="radio" name="q7" value="c"> Symmetric distribution — tails are equal.</label><br>
+    <label class="quiz-option"><input type="radio" name="q7" value="d"> Leptokurtic — not skewed at all.</label>
+    <div class="quiz-feedback" id="fb7"></div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="quiz-q" id="q8" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">8. What does the <code>geom_vline(aes(xintercept = mean(x)))</code> layer add to a density plot?</p>
+    <label class="quiz-option"><input type="radio" name="q8" value="a"> A smoothed curve of the distribution.</label><br>
+    <label class="quiz-option"><input type="radio" name="q8" value="b"> A vertical dashed line marking the mean of the variable.</label><br>
+    <label class="quiz-option"><input type="radio" name="q8" value="c"> A horizontal line at the median.</label><br>
+    <label class="quiz-option"><input type="radio" name="q8" value="d"> Outlier markers beyond the whiskers.</label>
+    <div class="quiz-feedback" id="fb8"></div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="quiz-q" id="q9" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">9. In a boxplot, individual dots plotted beyond the whiskers represent:</p>
+    <label class="quiz-option"><input type="radio" name="q9" value="a"> The mean and median of the variable.</label><br>
+    <label class="quiz-option"><input type="radio" name="q9" value="b"> Data errors that must be removed.</label><br>
+    <label class="quiz-option"><input type="radio" name="q9" value="c"> Potential outliers — values more than 1.5 × IQR beyond Q1 or Q3.</label><br>
+    <label class="quiz-option"><input type="radio" name="q9" value="d"> The 5th and 95th percentiles.</label>
+    <div class="quiz-feedback" id="fb9"></div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="quiz-q" id="q10" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">10. The <code>bins =</code> parameter in <code>geom_histogram()</code> controls:</p>
+    <label class="quiz-option"><input type="radio" name="q10" value="a"> The color of the bars.</label><br>
+    <label class="quiz-option"><input type="radio" name="q10" value="b"> The number of bars — more bins means narrower bars and more detail.</label><br>
+    <label class="quiz-option"><input type="radio" name="q10" value="c"> Whether the y-axis shows counts or proportions.</label><br>
+    <label class="quiz-option"><input type="radio" name="q10" value="d"> The transparency of the fill color.</label>
+    <div class="quiz-feedback" id="fb10"></div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="quiz-q" id="q11" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">11. A density plot of Credit Limit shows slight asymmetry but a skewness z-score within ±7 for a large sample. The correct interpretation is:</p>
+    <label class="quiz-option"><input type="radio" name="q11" value="a"> Limit is severely skewed and should not be used in analysis.</label><br>
+    <label class="quiz-option"><input type="radio" name="q11" value="b"> The visual and the statistic conflict — trust only the statistic.</label><br>
+    <label class="quiz-option"><input type="radio" name="q11" value="c"> Limit is approximately normal — not problematically skewed for a large sample.</label><br>
+    <label class="quiz-option"><input type="radio" name="q11" value="d"> Limit is leptokurtic because the peak is sharp.</label>
+    <div class="quiz-feedback" id="fb11"></div>
+  </div>
+
+  <!-- Navigation -->
+  <div style="display:flex; gap:1rem; margin-top:1.5rem; align-items:center; flex-wrap:wrap;">
+    <button id="quiz-prev" onclick="quizNav(-1)" style="display:none; padding:0.5rem 1.2rem; background:#6c757d; color:white; border:none; border-radius:5px; cursor:pointer; font-size:0.95rem;">← Previous</button>
+    <button id="quiz-next" onclick="quizNav(1)" style="padding:0.5rem 1.2rem; background:#4a90d9; color:white; border:none; border-radius:5px; cursor:pointer; font-size:0.95rem;">Next →</button>
+    <button id="quiz-submit" onclick="submitQuiz()" style="display:none; padding:0.5rem 1.4rem; background:#27ae60; color:white; border:none; border-radius:5px; cursor:pointer; font-size:0.95rem; font-weight:600;">Submit Quiz</button>
+  </div>
+
+  <!-- Score -->
+  <div id="quiz-score" style="display:none; margin-top:1.5rem; padding:1rem 1.5rem; border-radius:6px; font-size:1rem;"></div>
+
+</div>
+
+<style>
+.quiz-option { display:block; margin:0.4rem 0; cursor:pointer; padding:0.4rem 0.6rem; border-radius:4px; transition:background 0.15s; color:#1a1a1a; }
+.quiz-option:hover { background:#ddeeff; border:1px solid #2c6fad; }
+.quiz-feedback { margin-top:0.8rem; padding:0.6rem 1rem; border-radius:5px; font-size:0.9rem; display:none; }
+.correct-fb { background:#d4edda; color:#155724; border-left:4px solid #27ae60; }
+.incorrect-fb { background:#f8d7da; color:#721c24; border-left:4px solid #e74c3c; }
+</style>
+
+<script>
+const answers = {
+  q1:'b', q2:'b', q3:'b', q4:'c', q5:'c', q6:'c',
+  q7:'b', q8:'b', q9:'c', q10:'b', q11:'c'
+};
+const hints = {
+  q1:  "The table object is computed once and passed directly — no recalculation needed.",
+  q2:  "IQR() gives you Q3 minus Q1 as a single value. range() gives the minimum and maximum as two separate values.",
+  q3:  "For large samples (n > 300), only z-values outside −7 to 7 are considered problematic. −1.29 is well within that range.",
+  q4:  "A long tail to the right and a large positive z-score are the hallmarks of right (positive) skew.",
+  q5:  "Positive significant kurtosis = leptokurtic: a sharper peak with fewer observations in the tails compared to a normal distribution.",
+  q6:  "The median is resistant to outliers. The mean gets pulled toward extreme values, making it unreliable when outliers are present.",
+  q7:  "A tail to the right means values are stretched toward higher numbers — that is the definition of right (positive) skew.",
+  q8:  "geom_vline() draws a vertical line at the specified x position. Using xintercept = mean(x) places it exactly at the mean.",
+  q9:  "Boxplot whiskers extend 1.5 × IQR beyond Q1 and Q3. Any point outside that range is plotted individually as a potential outlier.",
+  q10: "bins= controls how many bars the histogram is divided into. Fewer bins = wider bars = less detail; more bins = narrower bars = more noise.",
+  q11: "For large samples (n > 300), only z-scores outside ±7 are considered problematic. A z-score within that range means the variable is approximately normal."
+};
+let current = 1;
+const total = 11;
+
+function quizNav(dir) {
+  document.getElementById('q' + current).style.display = 'none';
+  current += dir;
+  document.getElementById('q' + current).style.display = 'block';
+  document.getElementById('quiz-progress').textContent = 'Question ' + current + ' of ' + total;
+  document.getElementById('quiz-prev').style.display = current > 1 ? 'inline-block' : 'none';
+  document.getElementById('quiz-next').style.display = current < total ? 'inline-block' : 'none';
+  document.getElementById('quiz-submit').style.display = current === total ? 'inline-block' : 'none';
+}
+
+function submitQuiz() {
+  let score = 0;
+  for (let i = 1; i <= total; i++) {
+    const sel = document.querySelector('input[name="q' + i + '"]:checked');
+    const fb  = document.getElementById('fb' + i);
+    document.getElementById('q' + i).style.display = 'block';
+    if (sel && sel.value === answers['q' + i]) {
+      score++;
+      fb.className = 'quiz-feedback correct-fb';
+      fb.textContent = '✓ Correct! ' + hints['q' + i];
+    } else {
+      fb.className = 'quiz-feedback incorrect-fb';
+      fb.textContent = '✗ ' + (sel ? 'Not quite. ' : 'No answer selected. ') + hints['q' + i];
+    }
+    fb.style.display = 'block';
+  }
+  document.getElementById('quiz-prev').style.display = 'none';
+  document.getElementById('quiz-next').style.display = 'none';
+  document.getElementById('quiz-submit').style.display = 'none';
+  document.getElementById('quiz-progress').textContent = 'Quiz complete';
+  const scoreDiv = document.getElementById('quiz-score');
+  const pct = Math.round((score / total) * 100);
+  scoreDiv.style.display = 'block';
+  scoreDiv.style.background = pct >= 70 ? '#d4edda' : '#fff3cd';
+  scoreDiv.style.borderLeft  = pct >= 70 ? '4px solid #27ae60' : '4px solid #f39c12';
+  scoreDiv.style.color        = pct >= 70 ? '#155724' : '#856404';
+  scoreDiv.innerHTML = '<strong>Your Score: ' + score + ' / ' + total + ' (' + pct + '%)</strong><br>' +
+    (pct === 100 ? 'Excellent work — perfect score!' :
+     pct >= 70  ? 'Good work! Review any missed questions above.' :
+                  'Keep reviewing the lesson material above, then try again.');
+}
+</script>
+```
+
+::: callout-note
+No need to submit this quiz anywhere. This exercise is for your benefit to help you learn R.\*
+:::
+
 ## Summary
 
 This lesson covered descriptive statistics for both quantitative and qualitative data in R:
 
 | Topic | Key concepts |
-|----|----|
+|------------------------------------|------------------------------------|
 | Central tendency — mean | `mean()`, `weighted.mean()`; best when distribution is symmetric; sensitive to outliers |
 | Central tendency — median | `median()`; preferred when data is skewed or outliers are present; not affected by extremes |
 | Central tendency — mode | `sort(table(), decreasing=TRUE)`; most useful for categorical data or identifying the most common value |

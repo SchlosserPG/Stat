@@ -3,6 +3,10 @@ project:
   output-dir: docs
   resources: 
      - favicon.ico
+     - data/Credit.csv
+     - data/College.csv
+     - data/Auto.csv
+     
 include-in-header: custom-head.html
 book:
   title: "Probability And Business Statistics"
@@ -32,5 +36,7 @@ format:
     include-in-header: custom-head.html
     favicon: favicon.ico
 
+filters:
+  - webr
 
 editor: visual

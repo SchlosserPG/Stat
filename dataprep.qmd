@@ -1413,6 +1413,339 @@ ggplot(coffee_clean, aes(x = Aroma, y = Flavor)) +
 Washed / Wet is by far the most common processing method. Aroma and Flavor show a strong positive relationship — coffees rated highly on aroma tend to score well on flavor too.
 :::
 
+## Interactive R Lesson: Data Preparation with dplyr {#interactive-dataprep-lesson}
+
+::: {.callout-note}
+You will use `filter()`, `select()`, `arrange()`, `mutate()`, the pipe operator, and `geom_point()` on the Auto dataset — all in the browser. Work through each section, then take the scored quiz.
+
+**First-time load:** The interactive R environment below may take 10–20 seconds to initialize on your first visit. This is normal — R is loading in your browser. Once ready, the "Run Code" buttons will become active.
+:::
+
+```{webr-r}
+#| label: dataprep-setup
+#| context: setup
+library(dplyr)
+library(ggplot2)
+Auto <- read.csv("data/Auto.csv")
+```
+
+### Part 1: Loading and Summarizing Data
+
+Hello again! Dr. Schlosser here. This lesson covers data preparation using dplyr. We will work with the Auto dataset, which contains information on cars including mpg, horsepower, weight, acceleration, and more.
+
+**Summarize the Auto dataset:**
+
+```{webr-r}
+#| label: auto-summary
+summary(Auto)
+```
+
+::: {.callout-tip}
+`summary()` is part of base R and gives you a quick overview — min, max, mean, median, and quartiles for numeric variables. Note that the data is mostly numerical.
+:::
+
+---
+
+### Part 2: Subsetting with Square Brackets
+
+Before using dplyr functions, you can subset a data frame using `[rows, columns]` — base R syntax that is useful for quick slices.
+
+**Produce the first 4 rows of all columns:**
+
+```{webr-r}
+#| label: bracket-subset
+Auto[1:4, ]
+```
+
+::: {.callout-tip}
+`Auto[1:4, ]` means rows 1 through 4, and the empty space after the comma means all columns. The structure `dataset[rows, columns]` is the general pattern.
+:::
+
+---
+
+### Part 3: filter() — Subsetting Rows by Condition
+
+The `filter()` function from dplyr is more powerful than bracket subsetting for conditional row selection.
+
+**Filter cars where horsepower is above 100:**
+
+```{webr-r}
+#| label: filter-hp
+AutoFilter <- filter(Auto, horsepower > 100)
+summary(AutoFilter$horsepower)
+```
+
+::: {.callout-note}
+Notice the minimum of `AutoFilter$horsepower` is above 100 — the filter worked. An alternate way to write the same thing using the pipe operator is:
+
+```r
+AutoFilter <- Auto %>% filter(horsepower > 100)
+```
+
+Both produce identical results. The pipe operator (`%>%`) passes the left-hand object as the first argument to the right-hand function — making chains of operations easier to read.
+:::
+
+---
+
+### Part 4: select() — Choosing Columns
+
+`select()` lets you pull specific variables from a dataset, creating a smaller, focused data frame.
+
+**Select horsepower, acceleration, and year:**
+
+```{webr-r}
+#| label: select-cols
+AutoSelect <- select(Auto, horsepower, acceleration, year)
+summary(AutoSelect)
+```
+
+::: {.callout-tip}
+Notice that `AutoSelect` now contains only your three chosen columns. This is useful before running analysis so you are not carrying around variables you do not need.
+
+If you encounter conflicts with `MASS::select()`, add `dplyr::` before the function: `dplyr::select(Auto, horsepower, acceleration, year)`.
+:::
+
+---
+
+### Part 5: arrange() — Sorting Data
+
+`arrange()` sorts a data frame by one or more variables. By default it sorts ascending (smallest to largest).
+
+**Sort by weight (ascending):**
+
+```{webr-r}
+#| label: arrange-asc
+sortedByWeight <- arrange(Auto, weight)
+head(sortedByWeight)
+```
+
+**Sort by weight (descending) using `desc()`:**
+
+```{webr-r}
+#| label: arrange-desc
+sortedByWeightDesc <- arrange(Auto, desc(weight))
+head(sortedByWeightDesc)
+```
+
+::: {.callout-tip}
+`desc()` wraps the variable name inside `arrange()` to reverse the sort order. You should see the heaviest cars at the top now.
+:::
+
+---
+
+### Part 6: mutate() — Creating New Variables
+
+`mutate()` adds new columns or modifies existing ones. It is commonly used to recode variables or create calculated fields.
+
+**Create a new `mpg_category` variable using `ifelse()`:**
+
+```{webr-r}
+#| label: mutate-mpg
+AutoMutate <- mutate(Auto, mpg_category = ifelse(mpg > 30, "high", "low"))
+summary(AutoMutate)
+```
+
+::: {.callout-tip}
+`ifelse(condition, value_if_true, value_if_false)` is a vectorized if-else. Any car with `mpg > 30` is labeled `"high"`, all others `"low"`. Notice `mpg_category` now appears as a new column in the summary.
+:::
+
+---
+
+### Part 7: Scatterplot — Visualizing Two Continuous Variables
+
+A scatterplot shows the relationship between two continuous variables. Our goal is to characterize the relationship by visual inspection — positive, negative, or no relationship.
+
+**Scatterplot of Horsepower vs. MPG:**
+
+```{webr-r}
+#| label: scatter-basic
+ggplot(Auto, aes(x = horsepower, y = mpg)) +
+  geom_point() +
+  labs(title = "Horsepower vs MPG", x = "Horsepower", y = "MPG")
+```
+
+**Add a linear trend line using `stat_smooth(method="lm")`:**
+
+```{webr-r}
+#| label: scatter-smooth
+ggplot(Auto, aes(x = horsepower, y = mpg)) +
+  geom_point(alpha = 0.5, color = "steelblue") +
+  stat_smooth(method = "lm", color = "red") +
+  labs(title = "Horsepower vs MPG with Trend Line",
+       x = "Horsepower", y = "MPG")
+```
+
+::: {.callout-tip}
+`stat_smooth(method = "lm")` adds a straight linear model line. Without `method="lm"` you get a curved loess line instead. The downward slope here indicates a **negative relationship** — higher horsepower cars tend to have lower mpg.
+:::
+
+**Now try the Credit dataset relationship — Limit vs. Rating:**
+
+```{webr-r}
+#| label: scatter-credit
+Credit <- read.csv("data/Credit.csv")
+ggplot(Credit, aes(x = Limit, y = Rating)) +
+  geom_point(alpha = 0.4) +
+  stat_smooth(method = "lm", color = "blue") +
+  labs(title = "Credit Limit vs. Rating",
+       x = "Limit", y = "Rating")
+```
+
+::: {.callout-note}
+As Rating increases, so does the credit Limit — there is a **positive relationship** between the two variables. The upward slope of the trend line confirms this.
+:::
+
+---
+
+## Scored Quiz: Data Preparation {#dataprep-quiz}
+
+```{=html}
+<div id="ps512-dp-quiz" style="font-family: Georgia, serif; max-width: 720px; margin: 2rem auto; background: #fafaf8; border: 1px solid #ddd; border-radius: 8px; padding: 2rem;">
+
+  <h3 style="margin-top:0; font-size:1.2rem; background:#2c6fad; color:#ffffff; padding:0.8rem 1.2rem; border-radius:6px 6px 0 0; margin:-2rem -2rem 1.5rem -2rem;">
+    Data Preparation Quiz
+  </h3>
+
+  <div id="dpquiz-progress" style="font-size:0.85rem; color:#444; margin-bottom:1.5rem;">Question 1 of 6</div>
+
+  <!-- Q1 -->
+  <div class="dpquiz-q active" id="dpq1">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">1. What does <code>Auto[1:4, ]</code> return?</p>
+    <label class="dpquiz-option"><input type="radio" name="dpq1" value="a"> The first 4 columns of all rows.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq1" value="b"> The first 4 rows and all columns.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq1" value="c"> Rows where the index value is between 1 and 4.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq1" value="d"> A summary of 4 variables.</label>
+    <div class="dpquiz-feedback" id="dpfb1"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="dpquiz-q" id="dpq2" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">2. <code>AutoFilter &lt;- filter(Auto, horsepower &gt; 100)</code> and <code>AutoFilter &lt;- Auto %&gt;% filter(horsepower &gt; 100)</code> produce:</p>
+    <label class="dpquiz-option"><input type="radio" name="dpq2" value="a"> Different results — the pipe version includes NAs.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq2" value="b"> Identical results — the pipe just passes Auto as the first argument.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq2" value="c"> Different results — filter() sorts the data, the pipe does not.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq2" value="d"> An error — you cannot use filter() without the pipe.</label>
+    <div class="dpquiz-feedback" id="dpfb2"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="dpquiz-q" id="dpq3" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">3. What is the purpose of <code>select(Auto, horsepower, acceleration, year)</code>?</p>
+    <label class="dpquiz-option"><input type="radio" name="dpq3" value="a"> Filter rows where horsepower, acceleration, and year meet a condition.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq3" value="b"> Create a new dataset containing only those three columns.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq3" value="c"> Sort the Auto dataset by three variables.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq3" value="d"> Rename the three variables.</label>
+    <div class="dpquiz-feedback" id="dpfb3"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="dpquiz-q" id="dpq4" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">4. To sort the Auto dataset by weight from largest to smallest, you would write:</p>
+    <label class="dpquiz-option"><input type="radio" name="dpq4" value="a"> <code>arrange(Auto, weight)</code></label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq4" value="b"> <code>arrange(Auto, asc(weight))</code></label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq4" value="c"> <code>arrange(Auto, desc(weight))</code></label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq4" value="d"> <code>sort(Auto, decreasing = TRUE)</code></label>
+    <div class="dpquiz-feedback" id="dpfb4"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="dpquiz-q" id="dpq5" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">5. <code>mutate(Auto, mpg_category = ifelse(mpg &gt; 30, "high", "low"))</code> does which of the following?</p>
+    <label class="dpquiz-option"><input type="radio" name="dpq5" value="a"> Filters the dataset to keep only rows where mpg > 30.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq5" value="b"> Adds a new column called mpg_category with values "high" or "low" based on mpg.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq5" value="c"> Replaces the mpg column with a character version.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq5" value="d"> Removes all rows where mpg is missing.</label>
+    <div class="dpquiz-feedback" id="dpfb5"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="dpquiz-q" id="dpq6" style="display:none">
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. A scatterplot of Limit vs. Rating shows an upward-sloping trend line. This indicates:</p>
+    <label class="dpquiz-option"><input type="radio" name="dpq6" value="a"> A negative relationship — as Limit increases, Rating decreases.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq6" value="b"> No relationship between the two variables.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq6" value="c"> A positive relationship — as Limit increases, Rating also tends to increase.</label><br>
+    <label class="dpquiz-option"><input type="radio" name="dpq6" value="d"> Right skew in the Rating variable.</label>
+    <div class="dpquiz-feedback" id="dpfb6"></div>
+  </div>
+
+  <div style="display:flex; gap:1rem; margin-top:1.5rem; align-items:center; flex-wrap:wrap;">
+    <button id="dpquiz-prev" onclick="dpquizNav(-1)" style="display:none; padding:0.5rem 1.2rem; background:#6c757d; color:white; border:none; border-radius:5px; cursor:pointer;">← Previous</button>
+    <button id="dpquiz-next" onclick="dpquizNav(1)" style="padding:0.5rem 1.2rem; background:#4a90d9; color:white; border:none; border-radius:5px; cursor:pointer;">Next →</button>
+    <button id="dpquiz-submit" onclick="dpsubmitQuiz()" style="display:none; padding:0.5rem 1.4rem; background:#27ae60; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:600;">Submit Quiz</button>
+  </div>
+
+  <div id="dpquiz-score" style="display:none; margin-top:1.5rem; padding:1rem 1.5rem; border-radius:6px; font-size:1rem;"></div>
+</div>
+
+<style>
+.dpquiz-option { display:block; margin:0.4rem 0; cursor:pointer; padding:0.4rem 0.6rem; border-radius:4px; transition:background 0.15s; color:#1a1a1a; }
+.dpquiz-option:hover { background:#ddeeff; border:1px solid #2c6fad; }
+.dpquiz-feedback { margin-top:0.8rem; padding:0.6rem 1rem; border-radius:5px; font-size:0.9rem; display:none; }
+</style>
+
+<script>
+const dpAnswers = { dpq1:'b', dpq2:'b', dpq3:'b', dpq4:'c', dpq5:'b', dpq6:'c' };
+const dpHints = {
+  dpq1: "The [rows, columns] syntax: 1:4 in the rows position selects rows 1–4, and the empty space after the comma means all columns.",
+  dpq2: "The pipe operator (%>%) passes the object on the left as the first argument to the function on the right — the two forms are exactly equivalent.",
+  dpq3: "select() subsets columns. It creates a new dataset containing only the variables you name.",
+  dpq4: "arrange() sorts ascending by default. Wrapping the variable in desc() reverses the order to descending (largest first).",
+  dpq5: "mutate() adds or modifies columns. ifelse() assigns 'high' when mpg > 30 and 'low' otherwise — creating a new categorical column.",
+  dpq6: "An upward-sloping trend line means as x increases, y also tends to increase — that is a positive relationship."
+};
+let dpcurrent = 1;
+const dptotal = 6;
+
+function dpquizNav(dir) {
+  document.getElementById('dpq' + dpcurrent).style.display = 'none';
+  dpcurrent += dir;
+  document.getElementById('dpq' + dpcurrent).style.display = 'block';
+  document.getElementById('dpquiz-progress').textContent = 'Question ' + dpcurrent + ' of ' + dptotal;
+  document.getElementById('dpquiz-prev').style.display = dpcurrent > 1 ? 'inline-block' : 'none';
+  document.getElementById('dpquiz-next').style.display = dpcurrent < dptotal ? 'inline-block' : 'none';
+  document.getElementById('dpquiz-submit').style.display = dpcurrent === dptotal ? 'inline-block' : 'none';
+}
+
+function dpsubmitQuiz() {
+  let score = 0;
+  for (let i = 1; i <= dptotal; i++) {
+    const sel = document.querySelector('input[name="dpq' + i + '"]:checked');
+    const fb  = document.getElementById('dpfb' + i);
+    document.getElementById('dpq' + i).style.display = 'block';
+    if (sel && sel.value === dpAnswers['dpq' + i]) {
+      score++;
+      fb.className = 'dpquiz-feedback correct-fb';
+      fb.textContent = '✓ Correct! ' + dpHints['dpq' + i];
+    } else {
+      fb.className = 'dpquiz-feedback incorrect-fb';
+      fb.textContent = '✗ ' + (sel ? 'Not quite. ' : 'No answer selected. ') + dpHints['dpq' + i];
+    }
+    fb.style.display = 'block';
+  }
+  document.getElementById('dpquiz-prev').style.display = 'none';
+  document.getElementById('dpquiz-next').style.display = 'none';
+  document.getElementById('dpquiz-submit').style.display = 'none';
+  document.getElementById('dpquiz-progress').textContent = 'Quiz complete';
+  const sd = document.getElementById('dpquiz-score');
+  const pct = Math.round((score / dptotal) * 100);
+  sd.style.display = 'block';
+  sd.style.background = pct >= 70 ? '#d4edda' : '#fff3cd';
+  sd.style.borderLeft  = pct >= 70 ? '4px solid #27ae60' : '4px solid #f39c12';
+  sd.style.color       = pct >= 70 ? '#155724' : '#856404';
+  sd.innerHTML = '<strong>Your Score: ' + score + ' / ' + dptotal + ' (' + pct + '%)</strong><br>' +
+    (pct === 100 ? 'Excellent — perfect score!' :
+     pct >= 70  ? 'Good work! Review any missed questions above.' :
+                  'Keep reviewing the lesson, then try again.');
+}
+</script>
+```
+
+::: {.callout-note}
+No need to submit this quiz anywhere. This exercise is for your benefit to help you learn R.*
+:::
+
+---
+
 ## Summary
 
 In this lesson, we worked through the full data preparation and visualization workflow in R. We began with data types and coercion — understanding how R stores variables as factors, numeric, character, and logical types, and how to convert between them using as.factor(), as.numeric(), and recode(). We also covered date conversion using the lubridate package with the dataprep.csv dataset.
