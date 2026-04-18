@@ -950,7 +950,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"library(ggplot2)\nBoston  <- MASS::Boston\nCredit  <- read.csv(\"data/Credit.csv\")\nCarseats <- read.csv(\"data/Carseats.csv\")","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(Boston)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"boston-head-reg","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"firstLM <- lm(medv ~ lstat, data = Boston)\nsummary(firstLM)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"simple-lm-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Boston, aes(x = lstat, y = medv)) +\n  geom_point(alpha = 0.4, color = \"steelblue\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"% Low Economic Status vs. Median House Value\",\n       x = \"lstat\", y = \"medv ($000s)\")","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plot-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"confint(firstLM)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"confint-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"secondLM <- lm(medv ~ age, data = Boston)\nsummary(secondLM)","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"simple-lm-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Boston, aes(x = age, y = medv)) +\n  geom_point(alpha = 0.4, color = \"darkorange\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Age of Housing Stock vs. Median House Value\",\n       x = \"age\", y = \"medv ($000s)\")","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plot-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(Carseats)\nhead(Carseats)","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"carseats-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"qualReg <- lm(Sales ~ ShelveLoc, data = Carseats)\nsummary(qualReg)","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"qual-reg-shelveloc","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Carseats, aes(x = ShelveLoc, y = Sales, fill = ShelveLoc)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(title = \"Sales by Shelf Location\", x = \"Shelf Location\", y = \"Sales (000s)\")","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plot-shelveloc","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"creditlm <- lm(Limit ~ Gender, data = Credit)\nsummary(creditlm)","id":11,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"gender-credit","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Credit, aes(x = Gender, y = Limit, fill = Gender)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(title = \"Credit Limit by Gender\", x = \"Gender\", y = \"Limit\")","id":12,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plot-gender","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"multipleReg <- lm(medv ~ lstat + age, data = Boston)\nsummary(multipleReg)","id":13,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"multiple-reg","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"regAll <- lm(medv ~ ., data = Boston)\nsummary(regAll)","id":14,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-all","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"regAllnoAge <- lm(medv ~ . - age, data = Boston)\nsummary(regAllnoAge)","id":15,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-no-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"regAllnoAgeIndus <- lm(medv ~ . - age - indus, data = Boston)\nsummary(regAllnoAgeIndus)","id":16,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-no-age-indus","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"interact <- lm(medv ~ lstat * age, data = Boston)\nsummary(interact)","id":17,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"interact-boston","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"coef(interact)\nconfint(interact)","id":18,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"interact-coef","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"interact2 <- lm(Rating ~ Income * Balance, data = Credit)\nsummary(interact2)","id":19,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"interact-credit","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"library(ggplot2)\nBoston  <- MASS::Boston\nCredit  <- read.csv(\"data/Credit.csv\")\nCarseats <- read.csv(\"data/Carseats.csv\")","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(Boston)\nfirstLM <- lm(medv ~ lstat, data = Boston)\nsummary(firstLM)\nconfint(firstLM)\nggplot(Boston, aes(x = lstat, y = medv)) +\n  geom_point(alpha = 0.4, color = \"steelblue\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"% Low Economic Status vs. Median House Value\",\n       x = \"lstat\", y = \"medv ($000s)\")","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"simple-lm-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"secondLM <- lm(medv ~ age, data = Boston)\nsummary(secondLM)\nggplot(Boston, aes(x = age, y = medv)) +\n  geom_point(alpha = 0.4, color = \"darkorange\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Age of Housing Stock vs. Median House Value\",\n       x = \"age\", y = \"medv ($000s)\")","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"simple-lm-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(Carseats)\nqualReg <- lm(Sales ~ ShelveLoc, data = Carseats)\nsummary(qualReg)\nggplot(Carseats, aes(x = ShelveLoc, y = Sales, fill = ShelveLoc)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(title = \"Sales by Shelf Location\", x = \"Shelf Location\", y = \"Sales (000s)\")","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"qual-reg-shelveloc","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"creditlm <- lm(Limit ~ Gender, data = Credit)\nsummary(creditlm)\nggplot(Credit, aes(x = Gender, y = Limit, fill = Gender)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(title = \"Credit Limit by Gender\", x = \"Gender\", y = \"Limit\")","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"gender-credit","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"multipleReg <- lm(medv ~ lstat + age, data = Boston)\nsummary(multipleReg)\nregAll <- lm(medv ~ ., data = Boston)\nsummary(regAll)","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"multiple-reg","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"regAllnoAge <- lm(medv ~ . - age, data = Boston)\nsummary(regAllnoAge)\nregAllnoAgeIndus <- lm(medv ~ . - age - indus, data = Boston)\nsummary(regAllnoAgeIndus)","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-selection","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"interact <- lm(medv ~ lstat * age, data = Boston)\nsummary(interact)\ncoef(interact)\nconfint(interact)","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"interact-boston","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"interact2 <- lm(Rating ~ Income * Balance, data = Credit)\nsummary(interact2)","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"interact-credit","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -4405,9 +4405,6 @@ Note
 <section id="part-1-simple-linear-regression-boston-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="part-1-simple-linear-regression-boston-dataset">Part 1: Simple Linear Regression — Boston Dataset</h3>
 <p>Simple linear regression estimates a straight-line relationship between one predictor (X) and one continuous outcome (Y). The format is <code>lm(Y ~ X, data = dataset)</code>.</p>
-<p><strong>Explore the Boston dataset:</strong></p>
-<div id="qwebr-insertion-location-2"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -4421,8 +4418,8 @@ Tip
 <p>Key variables: <code>medv</code> = median house value ($000s), <code>lstat</code> = % households with low socioeconomic status, <code>rm</code> = average rooms per house, <code>age</code> = proportion of homes built before 1940.</p>
 </div>
 </div>
-<p><strong>Does the percentage of low economic status (lstat) affect median house value (medv)?</strong></p>
-<div id="qwebr-insertion-location-3"></div>
+<p><strong>lstat → medv: fit, summarize, visualize, and get confidence intervals:</strong></p>
+<div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4434,32 +4431,11 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Key things to read in the output: the <strong>slope estimate</strong> for lstat (negative — an inverse relationship), the <strong>p-value</strong> on lstat (significant if &lt; 0.05), the <strong>R²</strong> (how much variance in medv is explained), and the <strong>F-statistic p-value</strong> (overall model significance). Here lstat explains about 54% of variance in medv — substantial for a single predictor.</p>
+<p>The slope for lstat is negative — an inverse relationship. lstat explains about 54% of variance in medv. <code>confint()</code> gives a 95% confidence interval around the slope and intercept — because the entire interval is negative, the relationship is not a chance result.</p>
 </div>
 </div>
-<p><strong>Visualize the relationship:</strong></p>
-<div id="qwebr-insertion-location-4"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Get the 95% confidence interval for the coefficients:</strong></p>
-<div id="qwebr-insertion-location-5"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>confint()</code> gives a 95% confidence interval around the slope and intercept. We are 95% confident the true slope for lstat falls within that range. Because the entire interval is negative, we are confident the relationship is negative — not a chance result.</p>
-</div>
-</div>
-<p><strong>Now try age as a predictor:</strong></p>
-<div id="qwebr-insertion-location-6"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div id="qwebr-insertion-location-7"></div>
+<p><strong>age → medv: a weaker predictor for comparison:</strong></p>
+<div id="qwebr-insertion-location-3"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4480,10 +4456,8 @@ Note
 <h3 class="anchored" data-anchor-id="part-2-regression-with-qualitative-predictors">Part 2: Regression with Qualitative Predictors</h3>
 <p>When a predictor is categorical, R automatically creates dummy variables — one binary indicator per category, with one category held back as the reference. You write the <code>lm()</code> command the same way.</p>
 <p><strong>Load and explore the Carseats dataset:</strong></p>
-<div id="qwebr-insertion-location-8"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Does shelf location (Bad / Medium / Good) affect unit sales?</strong></p>
-<div id="qwebr-insertion-location-9"></div>
+<p><strong>ShelveLoc (3 categories) → Sales:</strong></p>
+<div id="qwebr-insertion-location-4"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4495,16 +4469,11 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>R drops one category as the reference — here <code>Bad</code> is the reference (alphabetically first). The intercept represents mean sales when <code>ShelveLoc = Bad</code>. The coefficients for <code>ShelveLocGood</code> and <code>ShelveLocMedium</code> show how much sales <em>change</em> relative to Bad. With k = 3 categories, R creates k − 1 = 2 dummy variables.</p>
+<p>R drops one category as the reference — here <code>Bad</code> is alphabetically first. The intercept represents mean sales when <code>ShelveLoc = Bad</code>. With k = 3 categories, R creates k − 1 = 2 dummy variables.</p>
 </div>
 </div>
-<p><strong>Visualize shelf location vs.&nbsp;sales:</strong></p>
-<div id="qwebr-insertion-location-10"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Does gender affect credit limit? (2-category predictor):</strong></p>
-<div id="qwebr-insertion-location-11"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div id="qwebr-insertion-location-12"></div>
+<p><strong>Gender (2 categories) → Credit Limit:</strong></p>
+<div id="qwebr-insertion-location-5"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4524,30 +4493,11 @@ Note
 <section id="part-3-multiple-regression" class="level3">
 <h3 class="anchored" data-anchor-id="part-3-multiple-regression">Part 3: Multiple Regression</h3>
 <p>Multiple regression adds two or more predictors. Use <code>+</code> to add predictors; use <code>.</code> to include all variables; use <code>.- variable</code> to exclude one.</p>
-<p><strong>Regress lstat and age together on medv:</strong></p>
-<div id="qwebr-insertion-location-13"></div>
+<p><strong>Two predictors, then all predictors:</strong></p>
+<div id="qwebr-insertion-location-6"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Compare the slopes here to the simple regressions above. The lstat slope changes from −0.95 to approximately −1.03 when age is added — this is a key feature of multiple regression. Each slope now reflects the predictor’s unique contribution <em>holding the other constant</em>. Also notice that age, which was negatively related to medv in simple regression, now shows a small positive slope — a sign that the two predictors share variance.</p>
-</div>
-</div>
-<p><strong>Run regression with all Boston predictors:</strong></p>
-<div id="qwebr-insertion-location-14"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Remove non-significant predictors one at a time — first drop <code>age</code>:</strong></p>
-<div id="qwebr-insertion-location-15"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Then drop <code>indus</code>:</strong></p>
-<div id="qwebr-insertion-location-16"></div>
+<p><strong>Variable selection — remove non-significant predictors one at a time:</strong></p>
+<div id="qwebr-insertion-location-7"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4586,9 +4536,7 @@ Important
 <h3 class="anchored" data-anchor-id="part-4-regression-with-interaction-terms">Part 4: Regression with Interaction Terms</h3>
 <p>An interaction term tests whether the effect of one predictor on the outcome <strong>depends on</strong> the value of another predictor. Use <code>*</code> between two predictors — this automatically includes both direct effects and the interaction.</p>
 <p><strong>Does the effect of lstat on medv depend on age?</strong></p>
-<div id="qwebr-insertion-location-17"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div id="qwebr-insertion-location-18"></div>
+<div id="qwebr-insertion-location-8"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4622,7 +4570,7 @@ Important
 </div>
 </div>
 <p><strong>Interaction example — Income × Balance predicting Credit Rating:</strong></p>
-<div id="qwebr-insertion-location-19"></div>
+<div id="qwebr-insertion-location-9"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">

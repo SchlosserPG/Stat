@@ -1838,43 +1838,25 @@ The binomial distribution models the probability of a discrete yes/no outcome ac
 - `pbinom(x, n, p)` — cumulative probability: P(X ≤ x)
 - `dbinom(x, n, p)` — exact probability: P(X = x)
 
-**P(X ≤ 5) given 10 trials, p = 0.5:**
+**Cumulative probabilities with `pbinom()` — all four inequality cases:**
 
 ```{webr-r}
-#| label: pbinom-leq
-pbinom(5, 10, .5)
-```
-
-**P(X < 5) — "less than" means use x = 4:**
-
-```{webr-r}
-#| label: pbinom-lt
-pbinom(4, 10, .5)
+#| label: pbinom-all
+pbinom(5, 10, .5)                      # P(X ≤ 5)
+pbinom(4, 10, .5)                      # P(X < 5) — use x=4 for strict less than
+pbinom(5, 10, .5, lower.tail = FALSE)  # P(X > 5)
+pbinom(4, 10, .5, lower.tail = FALSE)  # P(X ≥ 5) — use x=4 with upper tail
 ```
 
 ::: {.callout-important}
 **Less than vs. less than or equal to** matters in discrete distributions. `P(X < 5)` = `P(X ≤ 4)`, so use 4 as the first argument. This distinction does **not** exist in the normal distribution because `P(X = x) = 0` for any exact value.
 :::
 
-**P(X > 5) — flip the tail with `lower.tail = FALSE`:**
-
-```{webr-r}
-#| label: pbinom-gt
-pbinom(5, 10, .5, lower.tail = FALSE)
-```
-
-**P(X ≥ 5) — greater than or equal to means use x = 4 with `lower.tail = FALSE`:**
-
-```{webr-r}
-#| label: pbinom-geq
-pbinom(4, 10, .5, lower.tail = FALSE)
-```
-
-**P(X = 5) exactly — use `dbinom()`:**
+**Exact probability with `dbinom()`:**
 
 ```{webr-r}
 #| label: dbinom-exact
-dbinom(5, 10, .5)
+dbinom(5, 10, .5)  # P(X = 5) exactly — no lower.tail argument
 ```
 
 ::: {.callout-tip}
@@ -1890,33 +1872,14 @@ The normal distribution is continuous, so `P(X = x) = 0` for any exact value. We
 - `pnorm(x, mean, sd)` — P(X < x) or P(X ≤ x) — same result
 - `qnorm(p, mean, sd)` — the x value that has probability p below it
 
-**P(X < 3) with mean = 4, sd = 2:**
+**Normal probabilities with `pnorm()` and `qnorm()`:**
 
 ```{webr-r}
-#| label: pnorm-lt
-pnorm(3, 4, 2)
-```
-
-**P(X > 3) — flip the tail:**
-
-```{webr-r}
-#| label: pnorm-gt
-pnorm(3, 4, 2, lower.tail = FALSE)
-```
-
-::: {.callout-note}
-For the normal distribution, `P(X < 3)` and `P(X ≤ 3)` are identical — and likewise `P(X > 3)` and `P(X ≥ 3)` are identical. This is because the probability of any exact value is zero in a continuous distribution.
-:::
-
-**`qnorm()` — find the x value associated with a given probability:**
-
-```{webr-r}
-#| label: qnorm-95
-# What value has 95% of the distribution below it?
-qnorm(.95, 4, 2)
-
-# What value has 5% of the distribution below it (= top 5%)?
-qnorm(.05, 4, 2, lower.tail = FALSE)
+#| label: pnorm-all
+pnorm(3, 4, 2)                      # P(X < 3) — same as P(X ≤ 3)
+pnorm(3, 4, 2, lower.tail = FALSE)  # P(X > 3)
+qnorm(.95, 4, 2)                    # x value with 95% below it
+qnorm(.05, 4, 2, lower.tail = FALSE) # same point — top 5%
 ```
 
 ::: {.callout-tip}
@@ -1927,32 +1890,18 @@ Both lines above produce the same answer — the 95th percentile from the left e
 
 ### Part 3: Word Problems
 
-**Apply the correct function to each real-world scenario.**
-
-**Business survival — exactly 7 out of 20 survive (66% survival rate):**
+**Apply the correct function to each real-world scenario:**
 
 ```{webr-r}
-#| label: word-dbinom
-# Discrete outcome (survive/not survive), asking for exactly 7 → dbinom
+#| label: word-problems
+# Exactly 7 of 20 survive (66% rate) — discrete exact → dbinom
 dbinom(7, 20, .66)
-```
 
-**Business survival — more than 10 out of 20 survive:**
-
-```{webr-r}
-#| label: word-pbinom-gt
-# >10 means lower.tail = FALSE; no need to subtract 1
+# More than 10 of 20 survive — cumulative upper tail → pbinom lower.tail=FALSE
 pbinom(10, 20, .66, lower.tail = FALSE)
-```
 
-**SAT scores — probability of scoring above 1400 (mean = 1250, sd = 300):**
-
-```{webr-r}
-#| label: word-pnorm
-# Continuous variable with mean and sd → pnorm; above → lower.tail = FALSE
+# SAT score above 1400 (mean=1250, sd=300) — continuous upper tail → pnorm
 pnorm(1400, 1250, 300, lower.tail = FALSE)
-```
-
 ---
 
 ### Part 4: Contingency Tables
@@ -2014,26 +1963,17 @@ ProbabilityTable
 The center values (.20, .30, .10, .40) are **joint probabilities** — the probability of two events occurring together (the intersection). The margin values (.50, .50, .30, .70) are **marginal probabilities** — the unconditional probability of one event regardless of the other.
 :::
 
-**Addition rule — P(Group A or Outcome 1):**
+**Probability rules — addition, complement, and conditional:**
 
 ```{webr-r}
-#| label: addition-rule
-# P(A or B) = P(A) + P(B) - P(A and B)
+#| label: prob-rules
+# Addition rule: P(Group A or Outcome 1) = P(A) + P(B) - P(A and B)
 .5 + .3 - .2
-```
 
-**Complement rule — P(not Group B):**
-
-```{webr-r}
-#| label: complement-rule
+# Complement rule: P(not Group B)
 1 - .5
-```
 
-**Conditional probability — P(Outcome 1 | Group A already occurred):**
-
-```{webr-r}
-#| label: conditional-prob
-# P(Outcome 1 | Group A) = P(intersection) / P(Group A)
+# Conditional probability: P(Outcome 1 | Group A) = intersection / P(Group A)
 .2 / .5
 ```
 

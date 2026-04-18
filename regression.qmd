@@ -940,33 +940,18 @@ Carseats <- read.csv("data/Carseats.csv")
 
 Simple linear regression estimates a straight-line relationship between one predictor (X) and one continuous outcome (Y). The format is `lm(Y ~ X, data = dataset)`.
 
-**Explore the Boston dataset:**
-
-```{webr-r}
-#| label: boston-head-reg
-head(Boston)
-```
-
 ::: {.callout-tip}
 Key variables: `medv` = median house value ($000s), `lstat` = % households with low socioeconomic status, `rm` = average rooms per house, `age` = proportion of homes built before 1940.
 :::
 
-**Does the percentage of low economic status (lstat) affect median house value (medv)?**
+**lstat → medv: fit, summarize, visualize, and get confidence intervals:**
 
 ```{webr-r}
 #| label: simple-lm-lstat
+head(Boston)
 firstLM <- lm(medv ~ lstat, data = Boston)
 summary(firstLM)
-```
-
-::: {.callout-note}
-Key things to read in the output: the **slope estimate** for lstat (negative — an inverse relationship), the **p-value** on lstat (significant if < 0.05), the **R²** (how much variance in medv is explained), and the **F-statistic p-value** (overall model significance). Here lstat explains about 54% of variance in medv — substantial for a single predictor.
-:::
-
-**Visualize the relationship:**
-
-```{webr-r}
-#| label: plot-lstat
+confint(firstLM)
 ggplot(Boston, aes(x = lstat, y = medv)) +
   geom_point(alpha = 0.4, color = "steelblue") +
   stat_smooth(method = "lm", color = "red") +
@@ -974,27 +959,16 @@ ggplot(Boston, aes(x = lstat, y = medv)) +
        x = "lstat", y = "medv ($000s)")
 ```
 
-**Get the 95% confidence interval for the coefficients:**
-
-```{webr-r}
-#| label: confint-lstat
-confint(firstLM)
-```
-
-::: {.callout-tip}
-`confint()` gives a 95% confidence interval around the slope and intercept. We are 95% confident the true slope for lstat falls within that range. Because the entire interval is negative, we are confident the relationship is negative — not a chance result.
+::: {.callout-note}
+The slope for lstat is negative — an inverse relationship. lstat explains about 54% of variance in medv. `confint()` gives a 95% confidence interval around the slope and intercept — because the entire interval is negative, the relationship is not a chance result.
 :::
 
-**Now try age as a predictor:**
+**age → medv: a weaker predictor for comparison:**
 
 ```{webr-r}
 #| label: simple-lm-age
 secondLM <- lm(medv ~ age, data = Boston)
 summary(secondLM)
-```
-
-```{webr-r}
-#| label: plot-age
 ggplot(Boston, aes(x = age, y = medv)) +
   geom_point(alpha = 0.4, color = "darkorange") +
   stat_smooth(method = "lm", color = "red") +
@@ -1014,43 +988,28 @@ When a predictor is categorical, R automatically creates dummy variables — one
 
 **Load and explore the Carseats dataset:**
 
-```{webr-r}
-#| label: carseats-summary
-summary(Carseats)
-head(Carseats)
-```
-
-**Does shelf location (Bad / Medium / Good) affect unit sales?**
+**ShelveLoc (3 categories) → Sales:**
 
 ```{webr-r}
 #| label: qual-reg-shelveloc
+summary(Carseats)
 qualReg <- lm(Sales ~ ShelveLoc, data = Carseats)
 summary(qualReg)
-```
-
-::: {.callout-note}
-R drops one category as the reference — here `Bad` is the reference (alphabetically first). The intercept represents mean sales when `ShelveLoc = Bad`. The coefficients for `ShelveLocGood` and `ShelveLocMedium` show how much sales *change* relative to Bad. With k = 3 categories, R creates k − 1 = 2 dummy variables.
-:::
-
-**Visualize shelf location vs. sales:**
-
-```{webr-r}
-#| label: plot-shelveloc
 ggplot(Carseats, aes(x = ShelveLoc, y = Sales, fill = ShelveLoc)) +
   geom_boxplot(show.legend = FALSE) +
   labs(title = "Sales by Shelf Location", x = "Shelf Location", y = "Sales (000s)")
 ```
 
-**Does gender affect credit limit? (2-category predictor):**
+::: {.callout-note}
+R drops one category as the reference — here `Bad` is alphabetically first. The intercept represents mean sales when `ShelveLoc = Bad`. With k = 3 categories, R creates k − 1 = 2 dummy variables.
+:::
+
+**Gender (2 categories) → Credit Limit:**
 
 ```{webr-r}
 #| label: gender-credit
 creditlm <- lm(Limit ~ Gender, data = Credit)
 summary(creditlm)
-```
-
-```{webr-r}
-#| label: plot-gender
 ggplot(Credit, aes(x = Gender, y = Limit, fill = Gender)) +
   geom_boxplot(show.legend = FALSE) +
   labs(title = "Credit Limit by Gender", x = "Gender", y = "Limit")
@@ -1066,38 +1025,22 @@ With only 2 categories (Female / Male), R creates 1 dummy variable. Here the mod
 
 Multiple regression adds two or more predictors. Use `+` to add predictors; use `.` to include all variables; use `.- variable` to exclude one.
 
-**Regress lstat and age together on medv:**
+**Two predictors, then all predictors:**
 
 ```{webr-r}
 #| label: multiple-reg
 multipleReg <- lm(medv ~ lstat + age, data = Boston)
 summary(multipleReg)
-```
-
-::: {.callout-note}
-Compare the slopes here to the simple regressions above. The lstat slope changes from −0.95 to approximately −1.03 when age is added — this is a key feature of multiple regression. Each slope now reflects the predictor's unique contribution *holding the other constant*. Also notice that age, which was negatively related to medv in simple regression, now shows a small positive slope — a sign that the two predictors share variance.
-:::
-
-**Run regression with all Boston predictors:**
-
-```{webr-r}
-#| label: reg-all
 regAll <- lm(medv ~ ., data = Boston)
 summary(regAll)
 ```
 
-**Remove non-significant predictors one at a time — first drop `age`:**
+**Variable selection — remove non-significant predictors one at a time:**
 
 ```{webr-r}
-#| label: reg-no-age
+#| label: reg-selection
 regAllnoAge <- lm(medv ~ . - age, data = Boston)
 summary(regAllnoAge)
-```
-
-**Then drop `indus`:**
-
-```{webr-r}
-#| label: reg-no-age-indus
 regAllnoAgeIndus <- lm(medv ~ . - age - indus, data = Boston)
 summary(regAllnoAgeIndus)
 ```
@@ -1133,10 +1076,6 @@ An interaction term tests whether the effect of one predictor on the outcome **d
 #| label: interact-boston
 interact <- lm(medv ~ lstat * age, data = Boston)
 summary(interact)
-```
-
-```{webr-r}
-#| label: interact-coef
 coef(interact)
 confint(interact)
 ```

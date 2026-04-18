@@ -950,7 +950,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"Auto <- read.csv(\"data/Auto.csv\")","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"intro-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"myVector <- 1:10\nmyVector\nlength(myVector)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"vector-numeric","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"employees <- c(\"Alice\", \"Bob\", \"Cathy\", \"David\")\nemployees","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"vector-character","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# 20 random numbers, mean 0, sd 1\nx <- rnorm(20)\nx\n\n# 20 random numbers, mean 50, sd 0.5\ny <- rnorm(20, mean = 50, sd = 0.5)\ny","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"rnorm-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# set.seed() makes random results reproducible\nset.seed(1303)\nx <- rnorm(20)\nmean(x)\nvar(x)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"set-seed","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Full argument names\nx <- matrix(data = c(1, 2, 3, 4), nrow = 2, ncol = 2)\nx\n\n# Without argument names (same order)\nx <- matrix(c(1, 2, 3, 4), 2, 2)\nx\n\n# Using : shortcut\nx <- matrix(1:4, 2, 2)\nx","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"matrix-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"myMatrix <- matrix(1:20, nrow = 4, ncol = 5)\nmyMatrix\n\n# Fill across rows instead of down columns\nm <- matrix(1:9, 3, 3, byrow = TRUE)\ndimnames(m) <- list(c(\"2020\", \"2021\", \"2022\"), c(\"low\", \"medium\", \"high\"))\nm","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"matrix-labels","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"state    <- c(\"Alaska\", \"Arizona\", \"Arkansas\")\nyear     <- c(1998, 2010, 2016)\nstate_lim <- c(1, 2.5, 3)\n\nstate_legal <- data.frame(state, year, state_lim)\nstate_legal","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"dataframe-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"set.seed(1303)\nx  <- rnorm(20)\ny  <- rnorm(20, mean = 50, sd = 0.5)\ndf <- data.frame(x, y)\nhead(df)","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"dataframe-random","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"data(\"cars\")\nsummary(cars)","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"load-mtcars","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(Auto)","id":11,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"load-auto","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"dim(Auto)\nhead(Auto)\nnames(Auto)\nmean(Auto$mpg)","id":12,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"auto-explore","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"Auto <- read.csv(\"data/Auto.csv\")","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"intro-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"myVector <- 1:10\nmyVector\nlength(myVector)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"vector-numeric","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"employees <- c(\"Alice\", \"Bob\", \"Cathy\", \"David\")\nemployees","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"vector-character","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x <- rnorm(20)             # mean 0, sd 1 by default\ny <- rnorm(20, mean = 50, sd = 0.5)  # custom mean and sd\n\nset.seed(1303)             # fix random seed for reproducibility\nx <- rnorm(20)\nmean(x)\nvar(x)","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"rnorm-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Full argument names\nx <- matrix(data = c(1, 2, 3, 4), nrow = 2, ncol = 2)\nx\n\n# Without argument names (same order)\nx <- matrix(c(1, 2, 3, 4), 2, 2)\nx\n\n# Using : shortcut\nx <- matrix(1:4, 2, 2)\nx","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"matrix-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"myMatrix <- matrix(1:20, nrow = 4, ncol = 5)\nmyMatrix\n\n# Fill across rows instead of down columns\nm <- matrix(1:9, 3, 3, byrow = TRUE)\ndimnames(m) <- list(c(\"2020\", \"2021\", \"2022\"), c(\"low\", \"medium\", \"high\"))\nm","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"matrix-labels","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"state     <- c(\"Alaska\", \"Arizona\", \"Arkansas\")\nyear      <- c(1998, 2010, 2016)\nstate_lim <- c(1, 2.5, 3)\nstate_legal <- data.frame(state, year, state_lim)\nstate_legal\n\nset.seed(1303)\ndf <- data.frame(x = rnorm(20), y = rnorm(20, mean = 50, sd = 0.5))\nhead(df)","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"dataframe-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"data(\"cars\")\nsummary(cars)\nsummary(Auto)\ndim(Auto)\nhead(Auto)\nnames(Auto)\nmean(Auto$mpg)","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"load-data","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -5236,10 +5236,8 @@ Tip
 <p>Double quotes tell R that something is a character string. Single quotes also work — just be consistent with whichever you open with.</p>
 </div>
 </div>
-<p><strong>Generate random normal data with <code>rnorm()</code> and control reproducibility with <code>set.seed()</code>:</strong></p>
+<p><strong>Generate random normal data and control reproducibility with <code>set.seed()</code>:</strong></p>
 <div id="qwebr-insertion-location-4"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div id="qwebr-insertion-location-5"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -5260,7 +5258,7 @@ Note
 <h3 class="anchored" data-anchor-id="part-2-creating-a-matrix">Part 2: Creating a Matrix</h3>
 <p>A matrix is a rectangular data structure with rows and columns — but unlike a data frame, all elements must be the same type.</p>
 <p><strong>Create a 2×2 matrix three equivalent ways:</strong></p>
-<div id="qwebr-insertion-location-6"></div>
+<div id="qwebr-insertion-location-5"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -5276,44 +5274,22 @@ Tip
 </div>
 </div>
 <p><strong>Create a 4×5 matrix and add row/column labels:</strong></p>
-<div id="qwebr-insertion-location-7"></div>
+<div id="qwebr-insertion-location-6"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <hr>
 </section>
 <section id="part-3-creating-a-data-frame" class="level3">
 <h3 class="anchored" data-anchor-id="part-3-creating-a-data-frame">Part 3: Creating a Data Frame</h3>
 <p>A data frame is R’s core tabular structure — rows are observations, columns are variables, and each column can hold a different data type.</p>
-<p><strong>Build a data frame from scratch:</strong></p>
-<div id="qwebr-insertion-location-8"></div>
+<p><strong>Build data frames from scratch and from random data:</strong></p>
+<div id="qwebr-insertion-location-7"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Build a data frame from random data:</strong></p>
-<div id="qwebr-insertion-location-9"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>head()</code> shows the first 6 rows — useful for a quick check without printing the entire data frame.</p>
-</div>
-</div>
 <hr>
 </section>
 <section id="part-4-loading-built-in-data-and-the-auto-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="part-4-loading-built-in-data-and-the-auto-dataset">Part 4: Loading Built-in Data and the Auto Dataset</h3>
-<p>R includes many built-in datasets you can load with <code>data()</code>. The <code>mtcars</code> dataset is part of base R — no package needed.</p>
-<p><strong>Load and explore mtcars:</strong></p>
-<div id="qwebr-insertion-location-10"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Load and explore the Auto dataset:</strong></p>
-<div id="qwebr-insertion-location-11"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div id="qwebr-insertion-location-12"></div>
+<p><strong>Load <code>cars</code> (base R) and explore <code>Auto</code>:</strong></p>
+<div id="qwebr-insertion-location-8"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">

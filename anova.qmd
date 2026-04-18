@@ -1162,32 +1162,14 @@ Boston <- MASS::Boston
 
 A one-way ANOVA tests whether the means of three or more groups are equal. The null hypothesis is that all group means are equal; the alternative is that at least one differs.
 
-**Load and summarize ChickWeight:**
-
-```{webr-r}
-#| label: chick-summary
-summary(ChickWeight)
-```
-
-::: {.callout-tip}
-`ChickWeight` contains chick weights over time across four diet groups. We will test whether diet affects weight.
-:::
-
-**Build the ANOVA model and view results:**
+**ChickWeight — build ANOVA and run Tukey HSD:**
 
 ```{webr-r}
 #| label: chick-anova
-# H0: all diet group means are equal
-# HA: at least one mean differs
+summary(ChickWeight)
 model <- aov(weight ~ Diet, ChickWeight)
 anova(model)
 ```
-
-::: {.callout-note}
-The p-value is well below 0.001 — we reject H₀ and conclude that at least one diet group has a significantly different mean weight. The omnibus test tells us *something* differs but not *which* groups. That requires a post-hoc test.
-:::
-
-**Run Tukey's HSD to identify which groups differ:**
 
 ```{webr-r}
 #| label: chick-tukey
@@ -1202,27 +1184,13 @@ Each row compares two groups. A p-value below 0.05 indicates those two groups ar
 
 ### Part 2: One-Way ANOVA — PlantGrowth
 
-**Load and summarize PlantGrowth:**
-
-```{webr-r}
-#| label: plant-summary
-summary(PlantGrowth)
-```
-
-**Build the ANOVA model and view results:**
+**PlantGrowth — ANOVA and Tukey HSD:**
 
 ```{webr-r}
 #| label: plant-anova
-# H0: ctrl, trt1, and trt2 all have equal mean weight
-# HA: at least one mean differs
+summary(PlantGrowth)
 model2 <- aov(weight ~ group, PlantGrowth)
 anova(model2)
-```
-
-**Run Tukey's HSD:**
-
-```{webr-r}
-#| label: plant-tukey
 TukeyHSD(model2)
 ```
 
@@ -1236,33 +1204,14 @@ Only `trt2 − trt1` is significant (p < 0.05). The control group does not diffe
 
 A two-way ANOVA tests whether two categorical variables each independently affect a continuous outcome. Each factor has its own null hypothesis, F-statistic, and p-value.
 
-**Prepare the data — convert gear and cyl to factors:**
-
-```{webr-r}
-#| label: mtcars-prep
-mtcars$gear <- as.factor(mtcars$gear)
-mtcars$cyl  <- as.factor(mtcars$cyl)
-summary(mtcars[, c("mpg", "gear", "cyl")])
-```
-
-**Build the two-way ANOVA model:**
+**Prepare data and build two-way ANOVA:**
 
 ```{webr-r}
 #| label: twoway-anova
-# H0 (gear): all gear groups have equal mean mpg
-# H0 (cyl):  all cyl groups have equal mean mpg
+mtcars$gear <- as.factor(mtcars$gear)
+mtcars$cyl  <- as.factor(mtcars$cyl)
 model3 <- aov(mpg ~ gear + cyl, mtcars)
 anova(model3)
-```
-
-::: {.callout-note}
-Two F-statistics and two p-values — one for each factor. Both gear and cyl are significant here, meaning each independently explains variation in mpg. A two-way ANOVA with `+` tests main effects only. To test whether the *interaction* between gear and cyl also matters, you would use `gear * cyl` instead.
-:::
-
-**Run Tukey's HSD for both factors:**
-
-```{webr-r}
-#| label: twoway-tukey
 TukeyHSD(model3)
 ```
 
@@ -1276,62 +1225,30 @@ Read the gear and cyl sections separately. For gear: groups 5−4 are not signif
 
 Correlation measures the strength and direction of the linear relationship between two continuous variables. The correlation coefficient $r$ ranges from −1 to +1.
 
-**Explore the Boston dataset:**
+**lstat → medv: scatter, correlation, and significance test:**
 
 ```{webr-r}
-#| label: boston-head
+#| label: cor-lstat
 head(Boston)
-```
-
-::: {.callout-tip}
-Key variables: `medv` = median house value (in $1,000s), `lstat` = % households with low socioeconomic status, `rm` = average rooms per house, `age` = proportion of homes built before 1940.
-:::
-
-**Visualize the relationship between lstat and medv:**
-
-```{webr-r}
-#| label: scatter-lstat
+cor(Boston$lstat, Boston$medv)
+cor.test(Boston$lstat, Boston$medv)
 ggplot(Boston, aes(x = lstat, y = medv)) +
   geom_point(alpha = 0.4, color = "steelblue") +
   stat_smooth(method = "lm", color = "red") +
   labs(title = "Low Economic Status vs. Median House Value",
-       x = "% Low Economic Status (lstat)",
-       y = "Median House Value ($000s)")
+       x = "% Low Economic Status (lstat)", y = "Median House Value ($000s)")
 ```
 
-**Calculate the correlation coefficient:**
+**age → medv: a weaker correlation for comparison:**
 
 ```{webr-r}
-#| label: cor-lstat
-cor(Boston$lstat, Boston$medv)
-```
-
-**Test whether the correlation is statistically significant:**
-
-```{webr-r}
-#| label: cortest-lstat
-cor.test(Boston$lstat, Boston$medv)
-```
-
-::: {.callout-note}
-The correlation is approximately −0.74 — a strong negative linear relationship. As the percentage of low economic status households increases, median house value decreases. The p-value is far below 0.05, confirming the correlation is highly significant. The 95% confidence interval does not include zero, which corroborates the significant p-value.
-:::
-
-**Now try the age variable:**
-
-```{webr-r}
-#| label: scatter-age
+#| label: cor-age
+cor.test(Boston$age, Boston$medv)
 ggplot(Boston, aes(x = age, y = medv)) +
   geom_point(alpha = 0.4, color = "darkorange") +
   stat_smooth(method = "lm", color = "red") +
   labs(title = "Age of Housing Stock vs. Median House Value",
-       x = "Proportion Built Before 1940 (age)",
-       y = "Median House Value ($000s)")
-```
-
-```{webr-r}
-#| label: cortest-age
-cor.test(Boston$age, Boston$medv)
+       x = "Proportion Built Before 1940 (age)", y = "Median House Value ($000s)")
 ```
 
 ::: {.callout-note}

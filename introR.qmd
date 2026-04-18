@@ -1597,23 +1597,14 @@ employees
 Double quotes tell R that something is a character string. Single quotes also work — just be consistent with whichever you open with.
 :::
 
-**Generate random normal data with `rnorm()` and control reproducibility with `set.seed()`:**
+**Generate random normal data and control reproducibility with `set.seed()`:**
 
 ```{webr-r}
 #| label: rnorm-basic
-# 20 random numbers, mean 0, sd 1
-x <- rnorm(20)
-x
+x <- rnorm(20)             # mean 0, sd 1 by default
+y <- rnorm(20, mean = 50, sd = 0.5)  # custom mean and sd
 
-# 20 random numbers, mean 50, sd 0.5
-y <- rnorm(20, mean = 50, sd = 0.5)
-y
-```
-
-```{webr-r}
-#| label: set-seed
-# set.seed() makes random results reproducible
-set.seed(1303)
+set.seed(1303)             # fix random seed for reproducibility
 x <- rnorm(20)
 mean(x)
 var(x)
@@ -1669,56 +1660,32 @@ m
 
 A data frame is R's core tabular structure — rows are observations, columns are variables, and each column can hold a different data type.
 
-**Build a data frame from scratch:**
+**Build data frames from scratch and from random data:**
 
 ```{webr-r}
 #| label: dataframe-basic
-state    <- c("Alaska", "Arizona", "Arkansas")
-year     <- c(1998, 2010, 2016)
+state     <- c("Alaska", "Arizona", "Arkansas")
+year      <- c(1998, 2010, 2016)
 state_lim <- c(1, 2.5, 3)
-
 state_legal <- data.frame(state, year, state_lim)
 state_legal
-```
 
-**Build a data frame from random data:**
-
-```{webr-r}
-#| label: dataframe-random
 set.seed(1303)
-x  <- rnorm(20)
-y  <- rnorm(20, mean = 50, sd = 0.5)
-df <- data.frame(x, y)
+df <- data.frame(x = rnorm(20), y = rnorm(20, mean = 50, sd = 0.5))
 head(df)
 ```
-
-::: callout-tip
-`head()` shows the first 6 rows — useful for a quick check without printing the entire data frame.
-:::
 
 ------------------------------------------------------------------------
 
 ### Part 4: Loading Built-in Data and the Auto Dataset
 
-R includes many built-in datasets you can load with `data()`. The `mtcars` dataset is part of base R — no package needed.
-
-**Load and explore mtcars:**
+**Load `cars` (base R) and explore `Auto`:**
 
 ```{webr-r}
-#| label: load-mtcars
+#| label: load-data
 data("cars")
 summary(cars)
-```
-
-**Load and explore the Auto dataset:**
-
-```{webr-r}
-#| label: load-auto
 summary(Auto)
-```
-
-```{webr-r}
-#| label: auto-explore
 dim(Auto)
 head(Auto)
 names(Auto)

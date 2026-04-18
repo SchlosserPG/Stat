@@ -1507,7 +1507,7 @@ No need to submit this quiz anywhere. This exercise is for your benefit to help 
 This lesson covered descriptive statistics for both quantitative and qualitative data in R:
 
 | Topic | Key concepts |
-|------------------------------------|------------------------------------|
+|----|----|
 | Central tendency — mean | `mean()`, `weighted.mean()`; best when distribution is symmetric; sensitive to outliers |
 | Central tendency — median | `median()`; preferred when data is skewed or outliers are present; not affected by extremes |
 | Central tendency — mode | `sort(table(), decreasing=TRUE)`; most useful for categorical data or identifying the most common value |

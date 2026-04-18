@@ -950,7 +950,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"library(ggplot2)\ndata(\"ChickWeight\")\ndata(\"PlantGrowth\")\ndata(\"mtcars\")\nBoston <- MASS::Boston","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"anova-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(ChickWeight)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chick-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: all diet group means are equal\n# HA: at least one mean differs\nmodel <- aov(weight ~ Diet, ChickWeight)\nanova(model)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chick-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model)","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chick-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(PlantGrowth)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plant-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: ctrl, trt1, and trt2 all have equal mean weight\n# HA: at least one mean differs\nmodel2 <- aov(weight ~ group, PlantGrowth)\nanova(model2)","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plant-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model2)","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plant-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"mtcars$gear <- as.factor(mtcars$gear)\nmtcars$cyl  <- as.factor(mtcars$cyl)\nsummary(mtcars[, c(\"mpg\", \"gear\", \"cyl\")])","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"mtcars-prep","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0 (gear): all gear groups have equal mean mpg\n# H0 (cyl):  all cyl groups have equal mean mpg\nmodel3 <- aov(mpg ~ gear + cyl, mtcars)\nanova(model3)","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"twoway-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model3)","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"twoway-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(Boston)","id":11,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"boston-head","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Boston, aes(x = lstat, y = medv)) +\n  geom_point(alpha = 0.4, color = \"steelblue\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Low Economic Status vs. Median House Value\",\n       x = \"% Low Economic Status (lstat)\",\n       y = \"Median House Value ($000s)\")","id":12,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"scatter-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"cor(Boston$lstat, Boston$medv)","id":13,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cor-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"cor.test(Boston$lstat, Boston$medv)","id":14,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cortest-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Boston, aes(x = age, y = medv)) +\n  geom_point(alpha = 0.4, color = \"darkorange\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Age of Housing Stock vs. Median House Value\",\n       x = \"Proportion Built Before 1940 (age)\",\n       y = \"Median House Value ($000s)\")","id":15,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"scatter-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"cor.test(Boston$age, Boston$medv)","id":16,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cortest-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"library(ggplot2)\ndata(\"ChickWeight\")\ndata(\"PlantGrowth\")\ndata(\"mtcars\")\nBoston <- MASS::Boston","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"anova-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(ChickWeight)\nmodel <- aov(weight ~ Diet, ChickWeight)\nanova(model)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chick-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chick-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(PlantGrowth)\nmodel2 <- aov(weight ~ group, PlantGrowth)\nanova(model2)\nTukeyHSD(model2)","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plant-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"mtcars$gear <- as.factor(mtcars$gear)\nmtcars$cyl  <- as.factor(mtcars$cyl)\nmodel3 <- aov(mpg ~ gear + cyl, mtcars)\nanova(model3)\nTukeyHSD(model3)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"twoway-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(Boston)\ncor(Boston$lstat, Boston$medv)\ncor.test(Boston$lstat, Boston$medv)\nggplot(Boston, aes(x = lstat, y = medv)) +\n  geom_point(alpha = 0.4, color = \"steelblue\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Low Economic Status vs. Median House Value\",\n       x = \"% Low Economic Status (lstat)\", y = \"Median House Value ($000s)\")","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cor-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"cor.test(Boston$age, Boston$medv)\nggplot(Boston, aes(x = age, y = medv)) +\n  geom_point(alpha = 0.4, color = \"darkorange\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Age of Housing Stock vs. Median House Value\",\n       x = \"Proportion Built Before 1940 (age)\", y = \"Median House Value ($000s)\")","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cor-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -4523,40 +4523,10 @@ Note
 <section id="part-1-one-way-anova-chickweight" class="level3">
 <h3 class="anchored" data-anchor-id="part-1-one-way-anova-chickweight">Part 1: One-Way ANOVA — ChickWeight</h3>
 <p>A one-way ANOVA tests whether the means of three or more groups are equal. The null hypothesis is that all group means are equal; the alternative is that at least one differs.</p>
-<p><strong>Load and summarize ChickWeight:</strong></p>
+<p><strong>ChickWeight — build ANOVA and run Tukey HSD:</strong></p>
 <div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>ChickWeight</code> contains chick weights over time across four diet groups. We will test whether diet affects weight.</p>
-</div>
-</div>
-<p><strong>Build the ANOVA model and view results:</strong></p>
 <div id="qwebr-insertion-location-3"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The p-value is well below 0.001 — we reject H₀ and conclude that at least one diet group has a significantly different mean weight. The omnibus test tells us <em>something</em> differs but not <em>which</em> groups. That requires a post-hoc test.</p>
-</div>
-</div>
-<p><strong>Run Tukey’s HSD to identify which groups differ:</strong></p>
-<div id="qwebr-insertion-location-4"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4575,14 +4545,8 @@ Tip
 </section>
 <section id="part-2-one-way-anova-plantgrowth" class="level3">
 <h3 class="anchored" data-anchor-id="part-2-one-way-anova-plantgrowth">Part 2: One-Way ANOVA — PlantGrowth</h3>
-<p><strong>Load and summarize PlantGrowth:</strong></p>
-<div id="qwebr-insertion-location-5"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Build the ANOVA model and view results:</strong></p>
-<div id="qwebr-insertion-location-6"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Run Tukey’s HSD:</strong></p>
-<div id="qwebr-insertion-location-7"></div>
+<p><strong>PlantGrowth — ANOVA and Tukey HSD:</strong></p>
+<div id="qwebr-insertion-location-4"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4602,27 +4566,8 @@ Note
 <section id="part-3-two-way-anova-mtcars" class="level3">
 <h3 class="anchored" data-anchor-id="part-3-two-way-anova-mtcars">Part 3: Two-Way ANOVA — mtcars</h3>
 <p>A two-way ANOVA tests whether two categorical variables each independently affect a continuous outcome. Each factor has its own null hypothesis, F-statistic, and p-value.</p>
-<p><strong>Prepare the data — convert gear and cyl to factors:</strong></p>
-<div id="qwebr-insertion-location-8"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Build the two-way ANOVA model:</strong></p>
-<div id="qwebr-insertion-location-9"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Two F-statistics and two p-values — one for each factor. Both gear and cyl are significant here, meaning each independently explains variation in mpg. A two-way ANOVA with <code>+</code> tests main effects only. To test whether the <em>interaction</em> between gear and cyl also matters, you would use <code>gear * cyl</code> instead.</p>
-</div>
-</div>
-<p><strong>Run Tukey’s HSD for both factors:</strong></p>
-<div id="qwebr-insertion-location-10"></div>
+<p><strong>Prepare data and build two-way ANOVA:</strong></p>
+<div id="qwebr-insertion-location-5"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4642,48 +4587,11 @@ Tip
 <section id="part-4-correlation-boston-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="part-4-correlation-boston-dataset">Part 4: Correlation — Boston Dataset</h3>
 <p>Correlation measures the strength and direction of the linear relationship between two continuous variables. The correlation coefficient <span class="math inline">\(r\)</span> ranges from −1 to +1.</p>
-<p><strong>Explore the Boston dataset:</strong></p>
-<div id="qwebr-insertion-location-11"></div>
+<p><strong>lstat → medv: scatter, correlation, and significance test:</strong></p>
+<div id="qwebr-insertion-location-6"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Key variables: <code>medv</code> = median house value (in $1,000s), <code>lstat</code> = % households with low socioeconomic status, <code>rm</code> = average rooms per house, <code>age</code> = proportion of homes built before 1940.</p>
-</div>
-</div>
-<p><strong>Visualize the relationship between lstat and medv:</strong></p>
-<div id="qwebr-insertion-location-12"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Calculate the correlation coefficient:</strong></p>
-<div id="qwebr-insertion-location-13"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Test whether the correlation is statistically significant:</strong></p>
-<div id="qwebr-insertion-location-14"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The correlation is approximately −0.74 — a strong negative linear relationship. As the percentage of low economic status households increases, median house value decreases. The p-value is far below 0.05, confirming the correlation is highly significant. The 95% confidence interval does not include zero, which corroborates the significant p-value.</p>
-</div>
-</div>
-<p><strong>Now try the age variable:</strong></p>
-<div id="qwebr-insertion-location-15"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div id="qwebr-insertion-location-16"></div>
+<p><strong>age → medv: a weaker correlation for comparison:</strong></p>
+<div id="qwebr-insertion-location-7"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">

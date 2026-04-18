@@ -950,7 +950,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# No packages or data needed — all base R","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"prob-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"pbinom(5, 10, .5)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"pbinom-leq","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"pbinom(4, 10, .5)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"pbinom-lt","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"pbinom(5, 10, .5, lower.tail = FALSE)","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"pbinom-gt","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"pbinom(4, 10, .5, lower.tail = FALSE)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"pbinom-geq","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"dbinom(5, 10, .5)","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"dbinom-exact","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"pnorm(3, 4, 2)","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"pnorm-lt","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"pnorm(3, 4, 2, lower.tail = FALSE)","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"pnorm-gt","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# What value has 95% of the distribution below it?\nqnorm(.95, 4, 2)\n\n# What value has 5% of the distribution below it (= top 5%)?\nqnorm(.05, 4, 2, lower.tail = FALSE)","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"qnorm-95","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Discrete outcome (survive/not survive), asking for exactly 7 → dbinom\ndbinom(7, 20, .66)","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"word-dbinom","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# >10 means lower.tail = FALSE; no need to subtract 1\npbinom(10, 20, .66, lower.tail = FALSE)","id":11,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"word-pbinom-gt","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Continuous variable with mean and sd → pnorm; above → lower.tail = FALSE\npnorm(1400, 1250, 300, lower.tail = FALSE)","id":12,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"word-pnorm","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x <- c(20, 30, 10, 40)\nM <- matrix(x, 2, 2, byrow = TRUE)\ndimnames(M) <- list(c(\"Group A\", \"Group B\"), c(\"Outcome 1\", \"Outcome 2\"))\nM\n\n# Totals\ntotal   <- sum(M)\nrowsums <- margin.table(M, 1)   # 1 = rows\ncolsums <- margin.table(M, 2)   # 2 = columns\n\nrowsums\ncolsums","id":13,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"freq-table","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"FrequencyTable <- cbind(M, rowsums)\ncolsums        <- c(colsums, total)\nFrequencyTable <- rbind(FrequencyTable, colsums)\nFrequencyTable","id":14,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"freq-table-full","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"prob      <- prop.table(M)\ntotalProb <- sum(prob)\nrowprob   <- margin.table(prob, 1)\ncolprob   <- margin.table(prob, 2)\n\nProbabilityTable <- cbind(prob, rowprob)\ncolprob          <- c(colprob, totalProb)\nProbabilityTable <- rbind(ProbabilityTable, colprob)\nProbabilityTable","id":15,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"prob-table","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# P(A or B) = P(A) + P(B) - P(A and B)\n.5 + .3 - .2","id":16,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"addition-rule","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"1 - .5","id":17,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"complement-rule","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# P(Outcome 1 | Group A) = P(intersection) / P(Group A)\n.2 / .5","id":18,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"conditional-prob","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"chisq.test(M)","id":19,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chisq-test","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# No packages or data needed — all base R","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"prob-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"pbinom(5, 10, .5)                      # P(X ≤ 5)\npbinom(4, 10, .5)                      # P(X < 5) — use x=4 for strict less than\npbinom(5, 10, .5, lower.tail = FALSE)  # P(X > 5)\npbinom(4, 10, .5, lower.tail = FALSE)  # P(X ≥ 5) — use x=4 with upper tail","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"pbinom-all","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"dbinom(5, 10, .5)  # P(X = 5) exactly — no lower.tail argument","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"dbinom-exact","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"pnorm(3, 4, 2)                      # P(X < 3) — same as P(X ≤ 3)\npnorm(3, 4, 2, lower.tail = FALSE)  # P(X > 3)\nqnorm(.95, 4, 2)                    # x value with 95% below it\nqnorm(.05, 4, 2, lower.tail = FALSE) # same point — top 5%","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"pnorm-all","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Exactly 7 of 20 survive (66% rate) — discrete exact → dbinom\ndbinom(7, 20, .66)\n\n# More than 10 of 20 survive — cumulative upper tail → pbinom lower.tail=FALSE\npbinom(10, 20, .66, lower.tail = FALSE)\n\n# SAT score above 1400 (mean=1250, sd=300) — continuous upper tail → pnorm\npnorm(1400, 1250, 300, lower.tail = FALSE)\n---\n\n### Part 4: Contingency Tables\n\nA contingency table organizes frequencies for two categorical variables. We build one from scratch using `matrix()`, then add row and column totals.\n\n**Build the frequency table:**\n\n```{webr-r}\nx <- c(20, 30, 10, 40)\nM <- matrix(x, 2, 2, byrow = TRUE)\ndimnames(M) <- list(c(\"Group A\", \"Group B\"), c(\"Outcome 1\", \"Outcome 2\"))\nM\n\n# Totals\ntotal   <- sum(M)\nrowsums <- margin.table(M, 1)   # 1 = rows\ncolsums <- margin.table(M, 2)   # 2 = columns\n\nrowsums\ncolsums","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"freq-table","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"FrequencyTable <- cbind(M, rowsums)\ncolsums        <- c(colsums, total)\nFrequencyTable <- rbind(FrequencyTable, colsums)\nFrequencyTable","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"freq-table-full","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"prob      <- prop.table(M)\ntotalProb <- sum(prob)\nrowprob   <- margin.table(prob, 1)\ncolprob   <- margin.table(prob, 2)\n\nProbabilityTable <- cbind(prob, rowprob)\ncolprob          <- c(colprob, totalProb)\nProbabilityTable <- rbind(ProbabilityTable, colprob)\nProbabilityTable","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"prob-table","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Addition rule: P(Group A or Outcome 1) = P(A) + P(B) - P(A and B)\n.5 + .3 - .2\n\n# Complement rule: P(not Group B)\n1 - .5\n\n# Conditional probability: P(Outcome 1 | Group A) = intersection / P(Group A)\n.2 / .5","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"prob-rules","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"chisq.test(M)","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chisq-test","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -2426,7 +2426,6 @@ window.Quarto = {
   <li><a href="#part-1-binomial-probabilities" id="toc-part-1-binomial-probabilities" class="nav-link" data-scroll-target="#part-1-binomial-probabilities">Part 1: Binomial Probabilities</a></li>
   <li><a href="#part-2-normal-probabilities" id="toc-part-2-normal-probabilities" class="nav-link" data-scroll-target="#part-2-normal-probabilities">Part 2: Normal Probabilities</a></li>
   <li><a href="#part-3-word-problems" id="toc-part-3-word-problems" class="nav-link" data-scroll-target="#part-3-word-problems">Part 3: Word Problems</a></li>
-  <li><a href="#part-4-contingency-tables" id="toc-part-4-contingency-tables" class="nav-link" data-scroll-target="#part-4-contingency-tables">Part 4: Contingency Tables</a></li>
   <li><a href="#part-5-probability-table-and-probability-rules" id="toc-part-5-probability-table-and-probability-rules" class="nav-link" data-scroll-target="#part-5-probability-table-and-probability-rules">Part 5: Probability Table and Probability Rules</a></li>
   <li><a href="#part-6-chi-squared-test-of-independence" id="toc-part-6-chi-squared-test-of-independence" class="nav-link" data-scroll-target="#part-6-chi-squared-test-of-independence">Part 6: Chi-Squared Test of Independence</a></li>
   </ul></li>
@@ -5358,11 +5357,8 @@ Note
 <li><code>pbinom(x, n, p)</code> — cumulative probability: P(X ≤ x)</li>
 <li><code>dbinom(x, n, p)</code> — exact probability: P(X = x)</li>
 </ul>
-<p><strong>P(X ≤ 5) given 10 trials, p = 0.5:</strong></p>
+<p><strong>Cumulative probabilities with <code>pbinom()</code> — all four inequality cases:</strong></p>
 <div id="qwebr-insertion-location-2"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>P(X &lt; 5) — “less than” means use x = 4:</strong></p>
-<div id="qwebr-insertion-location-3"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -5377,14 +5373,8 @@ Important
 <p><strong>Less than vs.&nbsp;less than or equal to</strong> matters in discrete distributions. <code>P(X &lt; 5)</code> = <code>P(X ≤ 4)</code>, so use 4 as the first argument. This distinction does <strong>not</strong> exist in the normal distribution because <code>P(X = x) = 0</code> for any exact value.</p>
 </div>
 </div>
-<p><strong>P(X &gt; 5) — flip the tail with <code>lower.tail = FALSE</code>:</strong></p>
-<div id="qwebr-insertion-location-4"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>P(X ≥ 5) — greater than or equal to means use x = 4 with <code>lower.tail = FALSE</code>:</strong></p>
-<div id="qwebr-insertion-location-5"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>P(X = 5) exactly — use <code>dbinom()</code>:</strong></p>
-<div id="qwebr-insertion-location-6"></div>
+<p><strong>Exact probability with <code>dbinom()</code>:</strong></p>
+<div id="qwebr-insertion-location-3"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -5408,27 +5398,8 @@ Tip
 <li><code>pnorm(x, mean, sd)</code> — P(X &lt; x) or P(X ≤ x) — same result</li>
 <li><code>qnorm(p, mean, sd)</code> — the x value that has probability p below it</li>
 </ul>
-<p><strong>P(X &lt; 3) with mean = 4, sd = 2:</strong></p>
-<div id="qwebr-insertion-location-7"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>P(X &gt; 3) — flip the tail:</strong></p>
-<div id="qwebr-insertion-location-8"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>For the normal distribution, <code>P(X &lt; 3)</code> and <code>P(X ≤ 3)</code> are identical — and likewise <code>P(X &gt; 3)</code> and <code>P(X ≥ 3)</code> are identical. This is because the probability of any exact value is zero in a continuous distribution.</p>
-</div>
-</div>
-<p><strong><code>qnorm()</code> — find the x value associated with a given probability:</strong></p>
-<div id="qwebr-insertion-location-9"></div>
+<p><strong>Normal probabilities with <code>pnorm()</code> and <code>qnorm()</code>:</strong></p>
+<div id="qwebr-insertion-location-4"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -5447,23 +5418,8 @@ Tip
 </section>
 <section id="part-3-word-problems" class="level3">
 <h3 class="anchored" data-anchor-id="part-3-word-problems">Part 3: Word Problems</h3>
-<p><strong>Apply the correct function to each real-world scenario.</strong></p>
-<p><strong>Business survival — exactly 7 out of 20 survive (66% survival rate):</strong></p>
-<div id="qwebr-insertion-location-10"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Business survival — more than 10 out of 20 survive:</strong></p>
-<div id="qwebr-insertion-location-11"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>SAT scores — probability of scoring above 1400 (mean = 1250, sd = 300):</strong></p>
-<div id="qwebr-insertion-location-12"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<hr>
-</section>
-<section id="part-4-contingency-tables" class="level3">
-<h3 class="anchored" data-anchor-id="part-4-contingency-tables">Part 4: Contingency Tables</h3>
-<p>A contingency table organizes frequencies for two categorical variables. We build one from scratch using <code>matrix()</code>, then add row and column totals.</p>
-<p><strong>Build the frequency table:</strong></p>
-<div id="qwebr-insertion-location-13"></div>
+<p><strong>Apply the correct function to each real-world scenario:</strong></p>
+<div id="qwebr-insertion-location-5"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -5479,14 +5435,14 @@ Tip
 </div>
 </div>
 <p><strong>Combine into a complete frequency table using <code>cbind()</code> and <code>rbind()</code>:</strong></p>
-<div id="qwebr-insertion-location-14"></div>
+<div id="qwebr-insertion-location-6"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <hr>
 </section>
 <section id="part-5-probability-table-and-probability-rules" class="level3">
 <h3 class="anchored" data-anchor-id="part-5-probability-table-and-probability-rules">Part 5: Probability Table and Probability Rules</h3>
 <p><strong>Build the joint probability table:</strong></p>
-<div id="qwebr-insertion-location-15"></div>
+<div id="qwebr-insertion-location-7"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -5501,14 +5457,8 @@ Note
 <p>The center values (.20, .30, .10, .40) are <strong>joint probabilities</strong> — the probability of two events occurring together (the intersection). The margin values (.50, .50, .30, .70) are <strong>marginal probabilities</strong> — the unconditional probability of one event regardless of the other.</p>
 </div>
 </div>
-<p><strong>Addition rule — P(Group A or Outcome 1):</strong></p>
-<div id="qwebr-insertion-location-16"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Complement rule — P(not Group B):</strong></p>
-<div id="qwebr-insertion-location-17"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Conditional probability — P(Outcome 1 | Group A already occurred):</strong></p>
-<div id="qwebr-insertion-location-18"></div>
+<p><strong>Probability rules — addition, complement, and conditional:</strong></p>
+<div id="qwebr-insertion-location-8"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <hr>
 </section>
@@ -5519,7 +5469,7 @@ Note
 <li><strong>H₀:</strong> Group and Outcome are independent</li>
 <li><strong>Hₐ:</strong> Group and Outcome are dependent (associated)</li>
 </ul>
-<div id="qwebr-insertion-location-19"></div>
+<div id="qwebr-insertion-location-9"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">

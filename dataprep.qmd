@@ -1511,19 +1511,13 @@ If you encounter conflicts with `MASS::select()`, add `dplyr::` before the funct
 
 `arrange()` sorts a data frame by one or more variables. By default it sorts ascending (smallest to largest).
 
-**Sort by weight (ascending):**
+**Sort by weight ascending and descending:**
 
 ```{webr-r}
-#| label: arrange-asc
-sortedByWeight <- arrange(Auto, weight)
-head(sortedByWeight)
-```
-
-**Sort by weight (descending) using `desc()`:**
-
-```{webr-r}
-#| label: arrange-desc
+#| label: arrange-both
+sortedByWeight     <- arrange(Auto, weight)
 sortedByWeightDesc <- arrange(Auto, desc(weight))
+head(sortedByWeight)
 head(sortedByWeightDesc)
 ```
 

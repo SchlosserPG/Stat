@@ -950,7 +950,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"data(\"mtcars\")\ndata(\"CO2\")\ndata(\"sleep\")","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"ttest-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(mtcars)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"mtcars-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: mu = 25   HA: mu ≠ 25  (default — two-tailed)\nt.test(mtcars$mpg, mu = 25)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"onesample-twotail","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: mu >= 25   HA: mu < 25\nt.test(mtcars$mpg, mu = 25, alternative = \"less\")","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"onesample-lessthan","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: mu <= 25   HA: mu > 25\nt.test(mtcars$mpg, mu = 25, alternative = \"greater\")","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"onesample-greaterthan","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: mu_vs0 = mu_vs1   HA: mu_vs0 ≠ mu_vs1\nt.test(mtcars$mpg ~ mtcars$vs)","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"indep-vs","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"t.test(mtcars$mpg ~ mtcars$am)","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"indep-am-twotail","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# automatics coded 0 = group 1; manuals coded 1 = group 2\n# alternative=\"less\" tests whether group 1 mean < group 2 mean\nt.test(mtcars$mpg ~ mtcars$am, alternative = \"less\")","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"indep-am-lessthan","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(CO2)","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"co2-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: mu_nonchilled = mu_chilled   HA: they differ\nt.test(CO2$uptake ~ CO2$Treatment)","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"co2-twotail","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# nonchilled is listed first in the group means = group 1\n# alternative=\"greater\" tests whether group 1 mean > group 2 mean\nt.test(CO2$uptake ~ CO2$Treatment, alternative = \"greater\")","id":11,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"co2-greater","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(sleep)","id":12,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"sleep-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"sleep2 <- reshape(sleep, timevar = \"group\", idvar = \"ID\", direction = \"wide\")\nsleep2","id":13,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"sleep-reshape","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: mean difference = 0   HA: mean difference ≠ 0\nt.test(sleep2$extra.1, sleep2$extra.2, paired = TRUE)","id":14,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"paired-ttest","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"data(\"mtcars\")\ndata(\"CO2\")\ndata(\"sleep\")","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"ttest-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(mtcars)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"mtcars-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: mu = 25   HA: mu ≠ 25  (default — two-tailed)\nt.test(mtcars$mpg, mu = 25)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"onesample-twotail","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: mu >= 25   HA: mu < 25\nt.test(mtcars$mpg, mu = 25, alternative = \"less\")","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"onesample-lessthan","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: mu <= 25   HA: mu > 25\nt.test(mtcars$mpg, mu = 25, alternative = \"greater\")","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"onesample-greaterthan","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Engine type: H0: mu_vs0 = mu_vs1\nt.test(mtcars$mpg ~ mtcars$vs)\n\n# Transmission: H0: mu_am0 = mu_am1\nt.test(mtcars$mpg ~ mtcars$am)\n\n# Directional: do automatics (am=0) get less mpg than manuals (am=1)?\nt.test(mtcars$mpg ~ mtcars$am, alternative = \"less\")","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"indep-mtcars","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(CO2)\n# Two-tailed\nt.test(CO2$uptake ~ CO2$Treatment)\n# Directional: nonchilled (group 1) > chilled (group 2)?\nt.test(CO2$uptake ~ CO2$Treatment, alternative = \"greater\")","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"co2-tests","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(sleep)\nsleep2 <- reshape(sleep, timevar = \"group\", idvar = \"ID\", direction = \"wide\")\nsleep2\nt.test(sleep2$extra.1, sleep2$extra.2, paired = TRUE)","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"paired-sleep","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -3741,94 +3741,7 @@ mean difference
 <li>The syntax is as follows: reshape(data, timevar, idvar, direction, …)</li>
 <li>The direction of reshaping, either “wide” to spread the data across columns or “long” to gather the data into rows.</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"sleep"</span>)</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sleep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     extra        group        ID   
- Min.   :-1.600   1:10   1      :2  
- 1st Qu.:-0.025   2:10   2      :2  
- Median : 0.950          3      :2  
- Mean   : 1.540          4      :2  
- 3rd Qu.: 3.400          5      :2  
- Max.   : 5.500          6      :2  
-                         (Other):8  </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>sleep2 <span class="ot">&lt;-</span> <span class="fu">reshape</span>(sleep, <span class="at">timevar =</span> <span class="st">"group"</span>, <span class="at">idvar =</span> <span class="st">"ID"</span>, <span class="at">direction =</span> <span class="st">"wide"</span>)</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sleep2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       ID       extra.1          extra.2      
- 1      :1   Min.   :-1.600   Min.   :-0.100  
- 2      :1   1st Qu.:-0.175   1st Qu.: 0.875  
- 3      :1   Median : 0.350   Median : 1.750  
- 4      :1   Mean   : 0.750   Mean   : 2.330  
- 5      :1   3rd Qu.: 1.700   3rd Qu.: 4.150  
- 6      :1   Max.   : 3.700   Max.   : 5.500  
- (Other):4                                    </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sleep2<span class="sc">$</span>extra<span class="fl">.1</span>, sleep2<span class="sc">$</span>extra<span class="fl">.2</span>, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Paired t-test
-
-data:  sleep2$extra.1 and sleep2$extra.2
-t = -4.0621, df = 9, p-value = 0.002833
-alternative hypothesis: true mean difference is not equal to 0
-95 percent confidence interval:
- -2.4598858 -0.7001142
-sample estimates:
-mean difference 
-          -1.58 </code></pre>
-</div>
-</div>
-<ul>
-<li>Using tidyverse, we could get the same effect using the filter, select, and rename functions which are a part of dplyr. This method involves dividing the dataset into two separate groups based on a categorical variable. You then run the t-test on these two groups. In the code below, we use filter to divide by group and then after selecting and renaming the columns we need, we join back together using a full_join.</li>
-<li>Using full_join ensures that all IDs are included in the resulting dataset, even if they only appear in one of the groups. This can be useful if your data might have missing group entries for some IDs.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"sleep"</span>)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sleep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     extra        group        ID   
- Min.   :-1.600   1:10   1      :2  
- 1st Qu.:-0.025   2:10   2      :2  
- Median : 0.950          3      :2  
- Mean   : 1.540          4      :2  
- 3rd Qu.: 3.400          5      :2  
- Max.   : 5.500          6      :2  
-                         (Other):8  </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>group1 <span class="ot">&lt;-</span> sleep <span class="sc">%&gt;%</span></span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(group <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(ID, extra) <span class="sc">%&gt;%</span></span>
-<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">extra.1 =</span> extra)</span>
-<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>group2 <span class="ot">&lt;-</span> sleep <span class="sc">%&gt;%</span></span>
-<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(group <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(ID, extra) <span class="sc">%&gt;%</span></span>
-<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">extra.2 =</span> extra)</span>
-<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a>sleep2 <span class="ot">&lt;-</span> group1 <span class="sc">%&gt;%</span></span>
-<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">full_join</span>(group2, <span class="at">by =</span> <span class="st">"ID"</span>)</span>
-<span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sleep2<span class="sc">$</span>extra<span class="fl">.1</span>, sleep2<span class="sc">$</span>extra<span class="fl">.2</span>, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Paired t-test
-
-data:  sleep2$extra.1 and sleep2$extra.2
-t = -4.0621, df = 9, p-value = 0.002833
-alternative hypothesis: true mean difference is not equal to 0
-95 percent confidence interval:
- -2.4598858 -0.7001142
-sample estimates:
-mean difference 
-          -1.58 </code></pre>
-</div>
-</div>
-<ul>
-<li>In either case, we reject the null hypotheses and find that the type of drug does affect the sleep in patient</li>
-</ul>
+<p>The <code>sleep</code> dataset requires reshaping from long to wide format before the paired test can run. Two approaches produce the same result — <code>reshape()</code> from base R, or <code>filter()</code> + <code>full_join()</code> from tidyverse. Both create a dataset where each patient’s Drug 1 and Drug 2 measurements are in separate columns on the same row, which is what <code>paired = TRUE</code> requires. The interactive lesson below walks through this step by step.</p>
 </section>
 </section>
 <section id="review-and-practice" class="level1">
@@ -3867,7 +3780,7 @@ Show Answer
 <li><span class="math inline">\(H_A\)</span>: The mean wait time is not equal to 8 minutes. (<span class="math inline">\(\mu \neq 8\)</span>)</li>
 <li>Two-tailed because the researcher is testing for any difference, not a specific direction.</li>
 </ul>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(wait_times, <span class="at">mu =</span> <span class="dv">8</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(wait_times, <span class="at">mu =</span> <span class="dv">8</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -3945,7 +3858,7 @@ Show Answer
 <li><span class="math inline">\(H_0: \mu_1 - \mu_2 \geq 0\)</span> (participants have the same or more sick days)</li>
 <li><span class="math inline">\(H_A: \mu_1 - \mu_2 &lt; 0\)</span> (participants have <em>fewer</em> sick days — left-tailed)</li>
 </ul>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sick_days <span class="sc">~</span> group, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sick_days <span class="sc">~</span> group, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Why left-tailed?</strong> The hypothesis is directional — the researcher specifically predicts that participants will have <em>fewer</em> sick days, meaning <span class="math inline">\(\mu_1 &lt; \mu_2\)</span>, which places the rejection region in the <em>left</em> tail of the distribution. If the data showed participants had <em>more</em> sick days, the test would not reject the null regardless of the magnitude of the difference.</p>
 </div>
 </div>
@@ -3969,7 +3882,7 @@ Show Answer
 <p><span class="math display">\[\bar{d} = \frac{4 + (-1) + 6 + 3 + 5 + 2 + 0 + 7 + 3 + (-2) + 4 + 5}{12} = \frac{36}{12} = 3.0\]</span></p>
 <p>The average productivity score increased by 3.0 points after training.</p>
 <p><strong>(b) Value of <code>mu</code>:</strong></p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(after, before, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>, <span class="at">mu =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(after, before, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>, <span class="at">mu =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We use <code>mu = 0</code> because the null hypothesis for a paired test is that the mean difference is zero — meaning training had no effect on productivity. We are testing whether the observed mean difference of 3.0 is significantly different from zero.</p>
 </div>
 </div>
@@ -4068,14 +3981,8 @@ Tip
 <section id="part-2-independent-samples-t-test" class="level3">
 <h3 class="anchored" data-anchor-id="part-2-independent-samples-t-test">Part 2: Independent Samples t-Test</h3>
 <p>An independent samples t-test compares the means of two unrelated groups. When the grouping variable is in its own column, use the formula syntax <code>Y ~ X</code>.</p>
-<p><strong>Does the type of engine (vs) affect mpg?</strong></p>
+<p><strong>Does engine type (vs) or transmission (am) affect mpg?</strong></p>
 <div id="qwebr-insertion-location-6"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Does transmission type (am: 0 = automatic, 1 = manual) affect mpg?</strong></p>
-<div id="qwebr-insertion-location-7"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Do automatics get significantly less mpg than manuals (left-tailed)?</strong></p>
-<div id="qwebr-insertion-location-8"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4094,14 +4001,8 @@ Note
 </section>
 <section id="part-3-independent-samples-t-test-co2-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="part-3-independent-samples-t-test-co2-dataset">Part 3: Independent Samples t-Test — CO2 Dataset</h3>
-<p><strong>Load and summarize <code>CO2</code>:</strong></p>
-<div id="qwebr-insertion-location-9"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Does cold treatment (chilled vs.&nbsp;nonchilled) affect CO2 uptake?</strong></p>
-<div id="qwebr-insertion-location-10"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Do nonchilled plants have significantly greater uptake than chilled plants?</strong></p>
-<div id="qwebr-insertion-location-11"></div>
+<p><strong>Does cold treatment affect CO2 uptake? Two-tailed and directional:</strong></p>
+<div id="qwebr-insertion-location-7"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4121,11 +4022,8 @@ Tip
 <section id="part-4-dependent-paired-samples-t-test" class="level3">
 <h3 class="anchored" data-anchor-id="part-4-dependent-paired-samples-t-test">Part 4: Dependent (Paired) Samples t-Test</h3>
 <p>A paired samples t-test compares two related measurements — typically before/after or matched pairs. Each observation in group 1 is matched to a specific observation in group 2.</p>
-<p><strong>Load and summarize <code>sleep</code>:</strong></p>
-<div id="qwebr-insertion-location-12"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Reshape the data from long to wide so each patient has one row:</strong></p>
-<div id="qwebr-insertion-location-13"></div>
+<p><strong>Load, reshape, and run the paired t-test:</strong></p>
+<div id="qwebr-insertion-location-8"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4140,9 +4038,6 @@ Note
 <p>The <code>reshape()</code> function converts the data so that each of the 10 patients occupies one row, with <code>extra.1</code> (Drug 1) and <code>extra.2</code> (Drug 2) as separate columns. This structure is required for <code>paired = TRUE</code> in <code>t.test()</code>.</p>
 </div>
 </div>
-<p><strong>Test whether the drug affected sleep duration:</strong></p>
-<div id="qwebr-insertion-location-14"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
