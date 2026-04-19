@@ -18,7 +18,7 @@ Wilke, C. O. (2019). Fundamentals of data visualization: A primer on making info
 
 ## Summary
 
-This book is designed as the primary resource for OMSBA 512A, a graduate probability and statistics course in R. It is built around the idea that statistical tools only become meaningful when you can implement them yourself — so every concept is paired with working R code you can run, modify, and apply to real data. As long as the data is handled properly and your reasoning is sound, R gives you the flexibility to reach your analytical goals in the way that works best for you.
+This book is designed as the primary resource for BUAD 231, an undergraduate business statistics course in R. It is built around the idea that statistical tools only become meaningful when you can implement them yourself — so every concept is paired with working R code you can run, modify, and apply to real data. As long as the data is handled properly and your reasoning is sound, R gives you the flexibility to reach your analytical goals in the way that works best for you.
 
 We began with the foundations of R and RStudio — navigating the environment, writing scripts, understanding data types, loading external datasets, and handling missing values. From there we moved to descriptive statistics: summarizing qualitative and quantitative variables using measures of central tendency, spread, skewness, and kurtosis, and visualizing distributions using histograms, density plots, and boxplots.
 Data preparation gave us the dplyr toolkit — filtering, selecting, arranging, mutating, and summarizing data using the pipe operator — the practical workflow that makes every subsequent analysis possible. Probability followed, covering the binomial and normal distributions, z-scores, cumulative probabilities, and chi-squared tests for goodness of fit and independence.
@@ -27,4 +27,4 @@ With that foundation in place, we turned to inferential statistics. Hypothesis t
 
 The course closed with a module on generative AI and data visualization — covering how large language models work and where they fail, prompt engineering for statistical tasks, Wilke's visualization principles, seven reasoning errors in real-world charts, and Kaiser Fung's Trifecta Checkup applied to AI-generated output using the Zillow housing dataset.
 
-Note that several important topics — regression assumptions, transformations, effect size, and partial correlations — were intentionally reserved for future courses in the OMSBA program. The goal here was to build a solid, working foundation across the full arc of a statistics course. The rest follows from this.
+Note that several important topics — regression assumptions, transformations, effect size, and partial correlations — were intentionally reserved for future courses in the UG program. The goal here was to build a solid, working foundation across the full arc of a statistics course. The rest follows from this.

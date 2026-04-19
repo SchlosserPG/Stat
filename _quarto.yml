@@ -20,7 +20,6 @@ book:
     - regression.qmd
     - ai_viz.qmd
     - summary.qmd
-    - references.qmd
   navbar:
     right:
       - text: "Course Assistant"
