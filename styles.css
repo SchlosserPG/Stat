@@ -125,3 +125,5 @@ div.quarto-title-meta{display:none;}
 .quarto-code-links {
   display: none !important;
 }
+
+#toc-title{padding-top:20px;}
