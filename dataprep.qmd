@@ -8,9 +8,20 @@ engine: knitr
 knitr::opts_chunk$set(echo=TRUE, message=FALSE, warning=FALSE)
 ```
 
-Data rarely arrives ready for analysis. Before any modeling or visualization can happen, we typically spend considerable time inspecting, cleaning, and reshaping raw data — a process sometimes called data wrangling. This lesson walks you through that process using dplyr, a core package in R's tidyverse that provides a concise, readable set of functions for manipulating data frames and tibbles.
 
-By the end of this lesson, you will be able to evaluate variables, identify data quality issues, and prepare a dataset so that every variable is in the correct form for analysis. The techniques covered include: - Sorting data - Selecting variables - Filtering data - Counting data - Handling missing values - Summarizing data - Grouping data
+This lesson covers data preparation in R — the process of inspecting, cleaning, and reshaping a dataset so it is ready for analysis. By the end, you will be able to evaluate a dataset for quality issues, correct variable types, handle missing values, and use dplyr to filter, select, sort, create, and summarize data with confidence.
+
+We begin with **data types and coercion**: R assigns a type to every variable when a dataset is loaded, and the wrong type causes silent errors that look fine but produce wrong results. A number stored as a character will break a mean calculation without warning. A category stored as numeric will produce a meaningless average. Checking and correcting types before doing anything else is the first habit of a careful analyst.
+
+We then move to **the dplyr toolkit**: a set of functions designed to manipulate data frames in plain, readable steps. `filter()` subsets rows by condition, `select()` reduces columns to what you need, `arrange()` sorts observations, and `mutate()` creates new variables or recodes existing ones. The pipe operator (`%>%`) chains these steps together so that a sequence of transformations reads like a sentence rather than a tangle of nested functions.
+
+The lesson continues with **grouping and summarizing**: using `group_by()` with `summarize()` to compute statistics separately for each level of a categorical variable. This is one of the most frequently used patterns in real analysis — comparing means, counts, or totals across groups is the starting point for almost every business question.
+
+We close with **missing data and visualization**: identifying where values are absent and deciding whether to omit, impute, or work around them, then producing a scatterplot and grouped bar chart to confirm that the cleaned data tells a coherent story before any formal analysis begins.
+
+By the end of this lesson, you should be able to load a messy dataset, diagnose its problems, apply a dplyr cleaning workflow, and produce a visualization that reflects the prepared data. Work through every code example in your own `.R` script file alongside the reading.
+
+---
 
 # Data Types and Coercion
 
@@ -1511,13 +1522,19 @@ If you encounter conflicts with `MASS::select()`, add `dplyr::` before the funct
 
 `arrange()` sorts a data frame by one or more variables. By default it sorts ascending (smallest to largest).
 
-**Sort by weight ascending and descending:**
+**Sort by weight (ascending):**
 
 ```{webr-r}
-#| label: arrange-both
-sortedByWeight     <- arrange(Auto, weight)
-sortedByWeightDesc <- arrange(Auto, desc(weight))
+#| label: arrange-asc
+sortedByWeight <- arrange(Auto, weight)
 head(sortedByWeight)
+```
+
+**Sort by weight (descending) using `desc()`:**
+
+```{webr-r}
+#| label: arrange-desc
+sortedByWeightDesc <- arrange(Auto, desc(weight))
 head(sortedByWeightDesc)
 ```
 

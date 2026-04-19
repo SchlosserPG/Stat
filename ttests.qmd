@@ -3,6 +3,7 @@ title: "Hypothesis Testing"
 author: ""
 date: "2024-08-09"
 format: html
+engine: knitr
 ---
 
 ```{r setup, include=FALSE}
@@ -670,7 +671,38 @@ t.test(nhanes.2016.cleaned$systolic,
 -   The syntax is as follows: reshape(data, timevar, idvar, direction, ...)
 -   The direction of reshaping, either "wide" to spread the data across columns or "long" to gather the data into rows.
 
-The `sleep` dataset requires reshaping from long to wide format before the paired test can run. Two approaches produce the same result — `reshape()` from base R, or `filter()` + `full_join()` from tidyverse. Both create a dataset where each patient's Drug 1 and Drug 2 measurements are in separate columns on the same row, which is what `paired = TRUE` requires. The interactive lesson below walks through this step by step.
+```{r}
+data("sleep")
+summary(sleep)
+sleep2 <- reshape(sleep, timevar ="group", idvar = "ID", direction="wide")
+summary(sleep2)
+t.test(sleep2$extra.1, sleep2$extra.2, paired=TRUE)
+
+```
+
+-   Using tidyverse, we could get the same effect using the filter, select, and rename functions which are a part of dplyr. This method involves dividing the dataset into two separate groups based on a categorical variable. You then run the t-test on these two groups. In the code below, we use filter to divide by group and then after selecting and renaming the columns we need, we join back together using a full_join.
+-   Using full_join ensures that all IDs are included in the resulting dataset, even if they only appear in one of the groups. This can be useful if your data might have missing group entries for some IDs.
+
+```{r}
+data("sleep")
+summary(sleep)
+library(tidyverse)
+group1 <- sleep %>%
+     filter(group == 1) %>%
+     select(ID, extra) %>%
+     rename(extra.1 = extra)
+
+group2 <- sleep %>%
+     filter(group == 2) %>%
+     select(ID, extra) %>%
+     rename(extra.2 = extra)
+
+sleep2 <- group1 %>%
+     full_join(group2, by = "ID")
+t.test(sleep2$extra.1, sleep2$extra.2, paired=TRUE)
+```
+
+-   In either case, we reject the null hypotheses and find that the type of drug does affect the sleep in patient
 
 # Review and Practice
 
@@ -819,14 +851,12 @@ mean of the differences
 ## Interactive R Lesson: t-Tests {#interactive-ttest-lesson}
 
 ::: {.callout-note}
-This lesson covers the one-sample, independent samples, and dependent (paired) samples t-test using built-in R datasets. All calculations run entirely in the browser — no packages or data files needed.
+This lesson covers the one-sample, independent samples, and dependent (paired) samples t-test using built-in R datasets. All calculations use base R — no additional packages needed.
 
-**First-time load:** The interactive R environment may take 10–20 seconds to initialize. Once the Run Code buttons become active, you are ready to go.
+Copy each code block into your RStudio console and run it as you work through the lesson.
 :::
 
-```{webr-r}
-#| label: ttest-setup
-#| context: setup
+```{r, eval=FALSE}
 data("mtcars")
 data("CO2")
 data("sleep")
@@ -840,15 +870,13 @@ A one-sample t-test compares a single sample mean to a known or hypothesized pop
 
 **Load and summarize `mtcars`:**
 
-```{webr-r}
-#| label: mtcars-summary
+```{r, eval=FALSE}
 summary(mtcars)
 ```
 
 **Test whether the true mean mpg is not equal to 25 (two-tailed):**
 
-```{webr-r}
-#| label: onesample-twotail
+```{r, eval=FALSE}
 # H0: mu = 25   HA: mu ≠ 25  (default — two-tailed)
 t.test(mtcars$mpg, mu = 25)
 ```
@@ -859,16 +887,14 @@ The p-value is well below 0.05 — we reject H₀ and conclude the true mean mpg
 
 **Test whether the true mean mpg is less than 25 (left-tailed):**
 
-```{webr-r}
-#| label: onesample-lessthan
+```{r, eval=FALSE}
 # H0: mu >= 25   HA: mu < 25
 t.test(mtcars$mpg, mu = 25, alternative = "less")
 ```
 
 **Test whether the true mean mpg is greater than 25 (right-tailed):**
 
-```{webr-r}
-#| label: onesample-greaterthan
+```{r, eval=FALSE}
 # H0: mu <= 25   HA: mu > 25
 t.test(mtcars$mpg, mu = 25, alternative = "greater")
 ```
@@ -883,17 +909,24 @@ When the true mean is about 20 and we hypothesize 25, the left-tailed test is hi
 
 An independent samples t-test compares the means of two unrelated groups. When the grouping variable is in its own column, use the formula syntax `Y ~ X`.
 
-**Does engine type (vs) or transmission (am) affect mpg?**
+**Does the type of engine (vs) affect mpg?**
 
-```{webr-r}
-#| label: indep-mtcars
-# Engine type: H0: mu_vs0 = mu_vs1
+```{r, eval=FALSE}
+# H0: mu_vs0 = mu_vs1   HA: mu_vs0 ≠ mu_vs1
 t.test(mtcars$mpg ~ mtcars$vs)
+```
 
-# Transmission: H0: mu_am0 = mu_am1
+**Does transmission type (am: 0 = automatic, 1 = manual) affect mpg?**
+
+```{r, eval=FALSE}
 t.test(mtcars$mpg ~ mtcars$am)
+```
 
-# Directional: do automatics (am=0) get less mpg than manuals (am=1)?
+**Do automatics get significantly less mpg than manuals (left-tailed)?**
+
+```{r, eval=FALSE}
+# automatics coded 0 = group 1; manuals coded 1 = group 2
+# alternative="less" tests whether group 1 mean < group 2 mean
 t.test(mtcars$mpg ~ mtcars$am, alternative = "less")
 ```
 
@@ -905,14 +938,24 @@ Both the two-tailed and left-tailed tests are significant — manual transmissio
 
 ### Part 3: Independent Samples t-Test — CO2 Dataset
 
-**Does cold treatment affect CO2 uptake? Two-tailed and directional:**
+**Load and summarize `CO2`:**
 
-```{webr-r}
-#| label: co2-tests
+```{r, eval=FALSE}
 summary(CO2)
-# Two-tailed
+```
+
+**Does cold treatment (chilled vs. nonchilled) affect CO2 uptake?**
+
+```{r, eval=FALSE}
+# H0: mu_nonchilled = mu_chilled   HA: they differ
 t.test(CO2$uptake ~ CO2$Treatment)
-# Directional: nonchilled (group 1) > chilled (group 2)?
+```
+
+**Do nonchilled plants have significantly greater uptake than chilled plants?**
+
+```{r, eval=FALSE}
+# nonchilled is listed first in the group means = group 1
+# alternative="greater" tests whether group 1 mean > group 2 mean
 t.test(CO2$uptake ~ CO2$Treatment, alternative = "greater")
 ```
 
@@ -926,19 +969,29 @@ Both tests are significant. Being chilled does cause plants to take up less CO�
 
 A paired samples t-test compares two related measurements — typically before/after or matched pairs. Each observation in group 1 is matched to a specific observation in group 2.
 
-**Load, reshape, and run the paired t-test:**
+**Load and summarize `sleep`:**
 
-```{webr-r}
-#| label: paired-sleep
+```{r, eval=FALSE}
 summary(sleep)
+```
+
+**Reshape the data from long to wide so each patient has one row:**
+
+```{r, eval=FALSE}
 sleep2 <- reshape(sleep, timevar = "group", idvar = "ID", direction = "wide")
 sleep2
-t.test(sleep2$extra.1, sleep2$extra.2, paired = TRUE)
 ```
 
 ::: {.callout-note}
 The `reshape()` function converts the data so that each of the 10 patients occupies one row, with `extra.1` (Drug 1) and `extra.2` (Drug 2) as separate columns. This structure is required for `paired = TRUE` in `t.test()`.
 :::
+
+**Test whether the drug affected sleep duration:**
+
+```{r, eval=FALSE}
+# H0: mean difference = 0   HA: mean difference ≠ 0
+t.test(sleep2$extra.1, sleep2$extra.2, paired = TRUE)
+```
 
 ::: {.callout-note}
 The p-value is below 0.05 — we reject H₀ and conclude that the type of drug significantly affects sleep duration. The mean of differences tells you the direction: a negative value means Drug 1 produced less extra sleep than Drug 2 on average.

@@ -3,6 +3,7 @@ title: "Calculating Probability"
 author: ""
 date: "2024-08-09"
 format: html
+engine: knitr
 ---
 
 ```{r setup, include=FALSE}
@@ -1818,14 +1819,12 @@ The observed counts (60, 82, 58) differ from the expected (50, 90, 60), particul
 ## Interactive R Lesson: Probability and Chi-Squared {#interactive-prob-lesson}
 
 ::: {.callout-note}
-This lesson combines the two probability swirl exercises. Part 1 covers binomial and normal probability functions. Part 2 covers contingency tables, probability rules, and the chi-squared test. All calculations run entirely in the browser — no packages or data files needed.
+This lesson combines the two probability swirl exercises. Part 1 covers binomial and normal probability functions. Part 2 covers contingency tables, probability rules, and the chi-squared test. All calculations use base R — no additional packages needed.
 
-**First-time load:** The interactive R environment may take 10–20 seconds to initialize. Once the Run Code buttons become active, you are ready to go.
+Copy each code block into your RStudio console and run it as you work through the lesson.
 :::
 
-```{webr-r}
-#| label: prob-setup
-#| context: setup
+```{r, eval=FALSE}
 # No packages or data needed — all base R
 ```
 
@@ -1838,25 +1837,38 @@ The binomial distribution models the probability of a discrete yes/no outcome ac
 - `pbinom(x, n, p)` — cumulative probability: P(X ≤ x)
 - `dbinom(x, n, p)` — exact probability: P(X = x)
 
-**Cumulative probabilities with `pbinom()` — all four inequality cases:**
+**P(X ≤ 5) given 10 trials, p = 0.5:**
 
-```{webr-r}
-#| label: pbinom-all
-pbinom(5, 10, .5)                      # P(X ≤ 5)
-pbinom(4, 10, .5)                      # P(X < 5) — use x=4 for strict less than
-pbinom(5, 10, .5, lower.tail = FALSE)  # P(X > 5)
-pbinom(4, 10, .5, lower.tail = FALSE)  # P(X ≥ 5) — use x=4 with upper tail
+```{r, eval=FALSE}
+pbinom(5, 10, .5)
+```
+
+**P(X < 5) — "less than" means use x = 4:**
+
+```{r, eval=FALSE}
+pbinom(4, 10, .5)
 ```
 
 ::: {.callout-important}
 **Less than vs. less than or equal to** matters in discrete distributions. `P(X < 5)` = `P(X ≤ 4)`, so use 4 as the first argument. This distinction does **not** exist in the normal distribution because `P(X = x) = 0` for any exact value.
 :::
 
-**Exact probability with `dbinom()`:**
+**P(X > 5) — flip the tail with `lower.tail = FALSE`:**
 
-```{webr-r}
-#| label: dbinom-exact
-dbinom(5, 10, .5)  # P(X = 5) exactly — no lower.tail argument
+```{r, eval=FALSE}
+pbinom(5, 10, .5, lower.tail = FALSE)
+```
+
+**P(X ≥ 5) — greater than or equal to means use x = 4 with `lower.tail = FALSE`:**
+
+```{r, eval=FALSE}
+pbinom(4, 10, .5, lower.tail = FALSE)
+```
+
+**P(X = 5) exactly — use `dbinom()`:**
+
+```{r, eval=FALSE}
+dbinom(5, 10, .5)
 ```
 
 ::: {.callout-tip}
@@ -1872,14 +1884,30 @@ The normal distribution is continuous, so `P(X = x) = 0` for any exact value. We
 - `pnorm(x, mean, sd)` — P(X < x) or P(X ≤ x) — same result
 - `qnorm(p, mean, sd)` — the x value that has probability p below it
 
-**Normal probabilities with `pnorm()` and `qnorm()`:**
+**P(X < 3) with mean = 4, sd = 2:**
 
-```{webr-r}
-#| label: pnorm-all
-pnorm(3, 4, 2)                      # P(X < 3) — same as P(X ≤ 3)
-pnorm(3, 4, 2, lower.tail = FALSE)  # P(X > 3)
-qnorm(.95, 4, 2)                    # x value with 95% below it
-qnorm(.05, 4, 2, lower.tail = FALSE) # same point — top 5%
+```{r, eval=FALSE}
+pnorm(3, 4, 2)
+```
+
+**P(X > 3) — flip the tail:**
+
+```{r, eval=FALSE}
+pnorm(3, 4, 2, lower.tail = FALSE)
+```
+
+::: {.callout-note}
+For the normal distribution, `P(X < 3)` and `P(X ≤ 3)` are identical — and likewise `P(X > 3)` and `P(X ≥ 3)` are identical. This is because the probability of any exact value is zero in a continuous distribution.
+:::
+
+**`qnorm()` — find the x value associated with a given probability:**
+
+```{r, eval=FALSE}
+# What value has 95% of the distribution below it?
+qnorm(.95, 4, 2)
+
+# What value has 5% of the distribution below it (= top 5%)?
+qnorm(.05, 4, 2, lower.tail = FALSE)
 ```
 
 ::: {.callout-tip}
@@ -1890,18 +1918,29 @@ Both lines above produce the same answer — the 95th percentile from the left e
 
 ### Part 3: Word Problems
 
-**Apply the correct function to each real-world scenario:**
+**Apply the correct function to each real-world scenario.**
 
-```{webr-r}
-#| label: word-problems
-# Exactly 7 of 20 survive (66% rate) — discrete exact → dbinom
+**Business survival — exactly 7 out of 20 survive (66% survival rate):**
+
+```{r, eval=FALSE}
+# Discrete outcome (survive/not survive), asking for exactly 7 → dbinom
 dbinom(7, 20, .66)
+```
 
-# More than 10 of 20 survive — cumulative upper tail → pbinom lower.tail=FALSE
+**Business survival — more than 10 out of 20 survive:**
+
+```{r, eval=FALSE}
+# >10 means lower.tail = FALSE; no need to subtract 1
 pbinom(10, 20, .66, lower.tail = FALSE)
+```
 
-# SAT score above 1400 (mean=1250, sd=300) — continuous upper tail → pnorm
+**SAT scores — probability of scoring above 1400 (mean = 1250, sd = 300):**
+
+```{r, eval=FALSE}
+# Continuous variable with mean and sd → pnorm; above → lower.tail = FALSE
 pnorm(1400, 1250, 300, lower.tail = FALSE)
+```
+
 ---
 
 ### Part 4: Contingency Tables
@@ -1910,8 +1949,7 @@ A contingency table organizes frequencies for two categorical variables. We buil
 
 **Build the frequency table:**
 
-```{webr-r}
-#| label: freq-table
+```{r, eval=FALSE}
 x <- c(20, 30, 10, 40)
 M <- matrix(x, 2, 2, byrow = TRUE)
 dimnames(M) <- list(c("Group A", "Group B"), c("Outcome 1", "Outcome 2"))
@@ -1932,8 +1970,7 @@ colsums
 
 **Combine into a complete frequency table using `cbind()` and `rbind()`:**
 
-```{webr-r}
-#| label: freq-table-full
+```{r, eval=FALSE}
 FrequencyTable <- cbind(M, rowsums)
 colsums        <- c(colsums, total)
 FrequencyTable <- rbind(FrequencyTable, colsums)
@@ -1946,8 +1983,7 @@ FrequencyTable
 
 **Build the joint probability table:**
 
-```{webr-r}
-#| label: prob-table
+```{r, eval=FALSE}
 prob      <- prop.table(M)
 totalProb <- sum(prob)
 rowprob   <- margin.table(prob, 1)
@@ -1963,17 +1999,23 @@ ProbabilityTable
 The center values (.20, .30, .10, .40) are **joint probabilities** — the probability of two events occurring together (the intersection). The margin values (.50, .50, .30, .70) are **marginal probabilities** — the unconditional probability of one event regardless of the other.
 :::
 
-**Probability rules — addition, complement, and conditional:**
+**Addition rule — P(Group A or Outcome 1):**
 
-```{webr-r}
-#| label: prob-rules
-# Addition rule: P(Group A or Outcome 1) = P(A) + P(B) - P(A and B)
+```{r, eval=FALSE}
+# P(A or B) = P(A) + P(B) - P(A and B)
 .5 + .3 - .2
+```
 
-# Complement rule: P(not Group B)
+**Complement rule — P(not Group B):**
+
+```{r, eval=FALSE}
 1 - .5
+```
 
-# Conditional probability: P(Outcome 1 | Group A) = intersection / P(Group A)
+**Conditional probability — P(Outcome 1 | Group A already occurred):**
+
+```{r, eval=FALSE}
+# P(Outcome 1 | Group A) = P(intersection) / P(Group A)
 .2 / .5
 ```
 
@@ -1986,8 +2028,7 @@ The chi-squared test of independence asks: are two categorical variables associa
 - **H₀:** Group and Outcome are independent
 - **Hₐ:** Group and Outcome are dependent (associated)
 
-```{webr-r}
-#| label: chisq-test
+```{r, eval=FALSE}
 chisq.test(M)
 ```
 

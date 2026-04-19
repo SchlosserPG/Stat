@@ -3,6 +3,7 @@ title: "Introduction to R and RStudio"
 author: ""
 date: "2024-08-09"
 format: html
+engine: knitr
 ---
 
 ```{r setup, include=FALSE}
@@ -1555,14 +1556,10 @@ Why does the order matter for `age`? `as.numeric()` cannot convert `"89 OR OLDER
 ## Interactive R Lesson: Creating and Loading Data {#interactive-intro-lesson}
 
 ::: callout-note
-This lesson combines the two swirl exercises on creating and loading data in R. You will build vectors, matrices, and data frames from scratch, use `rnorm()` and `set.seed()`, and explore the Auto dataset — all in the browser. Work through each part in order, then take the scored quiz.
-
-**First-time load:** The interactive R environment may take 10–20 seconds to initialize. Once the Run Code buttons become active, you are ready to go.
+This lesson walks through the swirl exercises on creating and loading data in R. Copy each code block into your RStudio console or script file and run it as you work through the lesson.
 :::
 
-```{webr-r}
-#| label: intro-setup
-#| context: setup
+```{r, eval=FALSE}
 Auto <- read.csv("data/Auto.csv")
 ```
 
@@ -1574,8 +1571,7 @@ A vector is the simplest data structure in R — a set of data elements saved to
 
 **Create a numeric vector using the `:` shortcut:**
 
-```{webr-r}
-#| label: vector-numeric
+```{r, eval=FALSE}
 myVector <- 1:10
 myVector
 length(myVector)
@@ -1587,8 +1583,7 @@ length(myVector)
 
 **Create a character vector of employee names:**
 
-```{webr-r}
-#| label: vector-character
+```{r, eval=FALSE}
 employees <- c("Alice", "Bob", "Cathy", "David")
 employees
 ```
@@ -1597,14 +1592,21 @@ employees
 Double quotes tell R that something is a character string. Single quotes also work — just be consistent with whichever you open with.
 :::
 
-**Generate random normal data and control reproducibility with `set.seed()`:**
+**Generate random normal data with `rnorm()` and control reproducibility with `set.seed()`:**
 
-```{webr-r}
-#| label: rnorm-basic
-x <- rnorm(20)             # mean 0, sd 1 by default
-y <- rnorm(20, mean = 50, sd = 0.5)  # custom mean and sd
+```{r, eval=FALSE}
+# 20 random numbers, mean 0, sd 1
+x <- rnorm(20)
+x
 
-set.seed(1303)             # fix random seed for reproducibility
+# 20 random numbers, mean 50, sd 0.5
+y <- rnorm(20, mean = 50, sd = 0.5)
+y
+```
+
+```{r, eval=FALSE}
+# set.seed() makes random results reproducible
+set.seed(1303)
 x <- rnorm(20)
 mean(x)
 var(x)
@@ -1622,8 +1624,7 @@ A matrix is a rectangular data structure with rows and columns — but unlike a 
 
 **Create a 2×2 matrix three equivalent ways:**
 
-```{webr-r}
-#| label: matrix-basic
+```{r, eval=FALSE}
 # Full argument names
 x <- matrix(data = c(1, 2, 3, 4), nrow = 2, ncol = 2)
 x
@@ -1643,8 +1644,7 @@ Notice how R fills the matrix — column by column, top to bottom. Value 1 goes 
 
 **Create a 4×5 matrix and add row/column labels:**
 
-```{webr-r}
-#| label: matrix-labels
+```{r, eval=FALSE}
 myMatrix <- matrix(1:20, nrow = 4, ncol = 5)
 myMatrix
 
@@ -1660,32 +1660,51 @@ m
 
 A data frame is R's core tabular structure — rows are observations, columns are variables, and each column can hold a different data type.
 
-**Build data frames from scratch and from random data:**
+**Build a data frame from scratch:**
 
-```{webr-r}
-#| label: dataframe-basic
-state     <- c("Alaska", "Arizona", "Arkansas")
-year      <- c(1998, 2010, 2016)
+```{r, eval=FALSE}
+state    <- c("Alaska", "Arizona", "Arkansas")
+year     <- c(1998, 2010, 2016)
 state_lim <- c(1, 2.5, 3)
+
 state_legal <- data.frame(state, year, state_lim)
 state_legal
+```
 
+**Build a data frame from random data:**
+
+```{r, eval=FALSE}
 set.seed(1303)
-df <- data.frame(x = rnorm(20), y = rnorm(20, mean = 50, sd = 0.5))
+x  <- rnorm(20)
+y  <- rnorm(20, mean = 50, sd = 0.5)
+df <- data.frame(x, y)
 head(df)
 ```
+
+::: callout-tip
+`head()` shows the first 6 rows — useful for a quick check without printing the entire data frame.
+:::
 
 ------------------------------------------------------------------------
 
 ### Part 4: Loading Built-in Data and the Auto Dataset
 
-**Load `cars` (base R) and explore `Auto`:**
+R includes many built-in datasets you can load with `data()`. The `mtcars` dataset is part of base R — no package needed.
 
-```{webr-r}
-#| label: load-data
+**Load and explore mtcars:**
+
+```{r, eval=FALSE}
 data("cars")
 summary(cars)
+```
+
+**Load and explore the Auto dataset:**
+
+```{r, eval=FALSE}
 summary(Auto)
+```
+
+```{r, eval=FALSE}
 dim(Auto)
 head(Auto)
 names(Auto)

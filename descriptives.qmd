@@ -1032,7 +1032,7 @@ You can run real R code directly in the browser — no installation needed. Work
 #| context: setup
 library(ggplot2)
 College <- read.csv("data/College.csv")
-
+Credit  <- read.csv("data/Credit.csv")
 ```
 
 ### Part 1: Exploring a Categorical Variable
@@ -1127,17 +1127,6 @@ For large samples (n \> 300), z-values outside **−7 to 7** are considered prob
 :::
 
 ### Part 5 Visualizing Quantitative Data
-
-::: callout-note
-**Visualizations in Your Browser** You will build histograms, density plots, and boxplots using the Credit dataset directly in the browser. Work through each section in order, then complete the scored quiz.
-:::
-
-```{webr-r}
-#| label: viz-setup
-#| context: setup
-library(ggplot2)
-Credit <- read.csv("data/Credit.csv")
-```
 
 #### Base R Plot and the `cars` Dataset
 
@@ -1507,7 +1496,7 @@ No need to submit this quiz anywhere. This exercise is for your benefit to help 
 This lesson covered descriptive statistics for both quantitative and qualitative data in R:
 
 | Topic | Key concepts |
-|----|----|
+|------------------------------------|------------------------------------|
 | Central tendency — mean | `mean()`, `weighted.mean()`; best when distribution is symmetric; sensitive to outliers |
 | Central tendency — median | `median()`; preferred when data is skewed or outliers are present; not affected by extremes |
 | Central tendency — mode | `sort(table(), decreasing=TRUE)`; most useful for categorical data or identifying the most common value |
