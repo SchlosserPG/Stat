@@ -897,8 +897,20 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/GenAI.png" class="img-fluid figure-img"></p>
+<figcaption>Generative AI within the AI Landscape</figcaption>
+</figure>
+</div>
 <p>Both types are useful in a statistics course. Predictive AI is what you are building when you run a regression. Generative AI is what helps you write, code, and communicate. Understanding the difference prevents misuse.</p>
 <p>Notable tools in a business statistics context: <strong>ChatGPT</strong> and <strong>Claude</strong> (text and code generation), <strong>GitHub Copilot</strong> (code completion in your editor), and <strong>Perplexity AI</strong> (search combined with generative synthesis).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/GenAI_paradigm.png" class="img-fluid figure-img"></p>
+<figcaption>Narrow AI, General AI, and Strong AI — Where Generative AI Sits</figcaption>
+</figure>
+</div>
 </section>
 <section id="how-generative-ai-works-a-conceptual-overview" class="level2">
 <h2 class="anchored" data-anchor-id="how-generative-ai-works-a-conceptual-overview">How Generative AI Works: A Conceptual Overview</h2>
@@ -949,6 +961,12 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/LLM_vs_Rule.png" class="img-fluid figure-img"></p>
+<figcaption>LLMs vs.&nbsp;Rule-Based Systems</figcaption>
+</figure>
+</div>
 <p>This table maps directly to Kaiser Fung’s Trifecta: AI handles the <strong>V</strong> corner (visual execution) reliably. The <strong>Q</strong> (question) and <strong>D</strong> (data) corners require you.</p>
 </section>
 <section id="llm-hallucinations" class="level2">
@@ -991,14 +1009,32 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/reducing_hallucination.png" class="img-fluid figure-img"></p>
+<figcaption>Reducing Hallucinations: Prompt Strategies</figcaption>
+</figure>
+</div>
 <p><strong>Practical rule:</strong> always verify AI-generated facts, citations, and calculations against an authoritative source before using them in any deliverable.</p>
 <hr>
 </section>
 <section id="prompt-engineering" class="level2">
 <h2 class="anchored" data-anchor-id="prompt-engineering">Prompt Engineering</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/prompt_engineering.png" class="img-fluid figure-img"></p>
+<figcaption>Customizing AI: From Pre-Training to Prompt Engineering</figcaption>
+</figure>
+</div>
 <p><strong>Prompt engineering</strong> is the practice of crafting inputs to elicit reliable, specific outputs from AI systems. The core principle is direct: the quality of the prompt determines the quality of the response. A vague prompt produces a vague answer.</p>
 <section id="three-prompting-strategies" class="level3">
 <h3 class="anchored" data-anchor-id="three-prompting-strategies">Three Prompting Strategies</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/prompt_types.png" class="img-fluid figure-img"></p>
+<figcaption>Prompt Types at a Glance</figcaption>
+</figure>
+</div>
 <p><strong>Zero-shot prompting</strong> — give the task with no examples. Works well for straightforward requests.</p>
 <blockquote class="blockquote">
 <p><em>“Classify this customer review as positive, negative, or neutral: ‘The delivery was two days late and the packaging was damaged.’”</em></p>
@@ -1011,6 +1047,12 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p><em>“Classify the following review as positive, negative, or neutral. Think step by step: first identify the key sentiment signals, then determine the overall tone, then give your classification. Review: ‘The product quality is fine but customer support never responded to my three emails.’”</em></p>
 </blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/principles_of_prompting.png" class="img-fluid figure-img"></p>
+<figcaption>Eight Principles of Effective Prompting</figcaption>
+</figure>
+</div>
 </section>
 <section id="tips-for-r-and-statistics-prompts" class="level3">
 <h3 class="anchored" data-anchor-id="tips-for-r-and-statistics-prompts">Tips for R and Statistics Prompts</h3>
@@ -1029,18 +1071,24 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td>“Make a chart of my data”</td>
-<td>“Using ggplot2, create a bar chart of mean Wage by Industry from gig.csv. Use <code>fill</code> to color by Industry, sort bars from highest to lowest mean, and label the y-axis in dollars.”</td>
+<td>“Using ggplot2, create a bar chart of mean home_value by season from zillow.csv. Use <code>fill</code> to color by season, sort bars from highest to lowest mean, and label the y-axis in dollars.”</td>
 </tr>
 <tr class="even">
 <td>“Run a t-test”</td>
-<td>“Run a two-sample t-test comparing Wage between Tech and Construction workers in gig.csv. State the hypotheses, run <code>t.test()</code>, and interpret the p-value at α = 0.05.”</td>
+<td>“Run a two-sample t-test comparing home_value between Summer and Winter observations in zillow.csv. State the hypotheses, run <code>t.test()</code>, and interpret the p-value at α = 0.05.”</td>
 </tr>
 <tr class="odd">
 <td>“What does this output mean?”</td>
-<td>“I ran <code>summary(lm(Wage ~ Industry, data=gig))</code> and got these results: [paste output]. Explain what the Intercept, IndustryTech coefficient, and p-values mean in plain English for a non-statistician.”</td>
+<td>“I ran <code>summary(lm(home_value ~ season, data=zillow))</code> and got these results: [paste output]. Explain what the Intercept, seasonSpring coefficient, and p-values mean in plain English for a non-statistician.”</td>
 </tr>
 </tbody>
 </table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/prompt_iteration.png" class="img-fluid figure-img"></p>
+<figcaption>Prompt Iteration: Refining Your Inputs</figcaption>
+</figure>
+</div>
 </section>
 <section id="verifying-ai-output" class="level3">
 <h3 class="anchored" data-anchor-id="verifying-ai-output">Verifying AI Output</h3>
@@ -1105,7 +1153,7 @@ Show Answer
 <div class="callout-body-container callout-body">
 <p>A strong rewrite:</p>
 <blockquote class="blockquote">
-<p>“I have a dataset called gig.csv with a numeric variable <code>Wage</code> (hourly rate in dollars) and a factor variable <code>Industry</code> (Automotive, Construction, Tech). Using R, please: (1) calculate the mean, median, standard deviation, and IQR of Wage for the full dataset; (2) calculate the same statistics broken out by Industry using <code>tapply()</code> or <code>group_by()</code> + <code>summarise()</code>; (3) run <code>skew()</code> from the semTools package to check whether Wage is normally distributed; and (4) write a two-sentence interpretation of what the summary statistics tell us about wage variation across industries.”</p>
+<p>“I have a dataset called zillow.csv with a numeric variable <code>home_value</code> (estimated home value in dollars) and a factor variable <code>season</code> (Fall, Spring, Summer, Winter). Using R, please: (1) calculate the mean, median, standard deviation, and IQR of <code>home_value</code> for the full dataset; (2) calculate the same statistics broken out by <code>season</code> using <code>group_by()</code> + <code>summarise()</code>; (3) run <code>skew()</code> from the semTools package to check whether <code>home_value</code> is normally distributed; and (4) write a two-sentence interpretation of what the summary statistics tell us about home value variation across seasons.”</p>
 </blockquote>
 <p>This is stronger because it names the variables, specifies the exact functions, defines the scope of the analysis (four questions, not open-ended), and asks for an interpretation — not just output.</p>
 </div>
@@ -1287,7 +1335,7 @@ Show Answer
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/mono_vs_nonmono.png" class="img-fluid figure-img"></p>
-<figcaption>Monochromatic vs.&nbsp;Non-Monochromatic</figcaption>
+<figcaption>Monochromatic vs.&nbsp;Non-Monochromatic Color Scales</figcaption>
 </figure>
 </div>
 </section>
@@ -1339,7 +1387,7 @@ Show Answer
 <figcaption>Bad Proportions: Pie Chart</figcaption>
 </figure>
 </div>
-<p><strong>Bad example — Bar chart of the same data:</strong> The bar chart avoids the arithmetic error but is still <strong>bad</strong> — it hides the overlap between the two variables and leaves their relationship invisible.</p>
+<p><strong>Bad example — Bar chart of the same data:</strong> The bar chart avoids the arithmetic error but is still <strong>bad</strong> — it hides the overlap between variables and leaves their relationship invisible.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/bad_bar.png" class="img-fluid figure-img"></p>
@@ -1405,7 +1453,7 @@ Show Answer
 </table>
 <section id="arbitrary-thresholds" class="level3">
 <h3 class="anchored" data-anchor-id="arbitrary-thresholds">Arbitrary Thresholds</h3>
-<p>An arbitrary threshold is a benchmark chosen without clear justification — either as a specific number or as a visual marker on a chart — used to make a pattern appear significant when no objective threshold exists. <em>Example: drawing a horizontal line at 100 to imply that values below it represent “failure,” when 100 was chosen for convenience rather than any analytical or regulatory reason.</em></p>
+<p>An arbitrary threshold is a benchmark chosen without clear justification — either as a specific number or as a visual marker on a chart — used to make a pattern appear significant when no objective threshold exists. <em>Example: drawing a horizontal line at 100 to imply that values below it represent “failure,” when 100 was chosen for convenience rather than any analytical reason.</em></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/arbitrary.png" class="img-fluid figure-img"></p>
@@ -1415,7 +1463,7 @@ Show Answer
 </section>
 <section id="false-causal-claims" class="level3">
 <h3 class="anchored" data-anchor-id="false-causal-claims">False Causal Claims</h3>
-<p>A false causal claim occurs when someone interprets a visual pattern or correlation as evidence of cause and effect without experimental or statistical support. Cherry-picking exacerbates the problem — selecting only data that fits a desired story makes the misleading pattern look more convincing. <em>Example: a chart showing ice cream sales and drowning rates both rising in summer, presented as evidence that ice cream causes drowning. The actual confounder is temperature.</em></p>
+<p>A false causal claim occurs when someone interprets a visual pattern or correlation as evidence of cause and effect without experimental or statistical support. Cherry-picking exacerbates the problem — selecting only data that fits a desired story makes the misleading pattern look more convincing.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/false_causal_claims.png" class="img-fluid figure-img"></p>
@@ -1823,7 +1871,7 @@ Show Answer
 <h1>Activity: Build and Evaluate a Visualization with AI</h1>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>In this activity, you will use Claude AI to build an interactive visualization from your course dataset (<code>gig.csv</code>), then evaluate it systematically using the Trifecta Checkup alongside the storytelling and reasoning-error frameworks from this lesson. The goal is not to produce a perfect chart — it is to practice the critical thinking that turns a chart into an argument.</p>
+<p>In this activity, you will use Claude AI to build an interactive visualization from the Zillow housing dataset (<code>zillow.csv</code>), then evaluate it systematically using the Trifecta Checkup alongside the storytelling and reasoning-error frameworks from this lesson. The goal is not to produce a perfect chart — it is to practice the critical thinking that turns a chart into an argument.</p>
 <p><strong>Time:</strong> Approximately 60–90 minutes<br>
 <strong>Deliverable:</strong> A written critique plus an improved version of your chart<br>
 <strong>Tools:</strong> Claude AI (claude.ai), R or your preferred environment</p>
@@ -1833,9 +1881,9 @@ Show Answer
 <h2 class="anchored" data-anchor-id="part-1-build-a-visualization-with-claude-2025-minutes">Part 1: Build a Visualization with Claude (20–25 minutes)</h2>
 <section id="step-1-choose-a-question-first" class="level3">
 <h3 class="anchored" data-anchor-id="step-1-choose-a-question-first">Step 1 — Choose a Question First</h3>
-<p>Before opening Claude, write a specific business question about <code>gig.csv</code> that a visualization could answer. Your question must:</p>
+<p>Before opening Claude, write a specific business question about <code>zillow.csv</code> that a visualization could answer. Your question must:</p>
 <ul>
-<li>Name the specific variables involved (Wage, Industry, Job, etc.)</li>
+<li>Name the specific variables involved (home_value, rent, season, StateName, etc.)</li>
 <li>Specify the comparison or relationship you want to examine</li>
 <li>Have a clear audience in mind</li>
 </ul>
@@ -1870,17 +1918,27 @@ Your Question (write this before prompting AI)
 <h3 class="anchored" data-anchor-id="step-2-prompt-claude-to-build-the-chart">Step 2 — Prompt Claude to Build the Chart</h3>
 <p>Use the following prompt structure, filling in your specific question:</p>
 <pre><code>I am building a data visualization for a business statistics course.
-My dataset is called gig.csv and has these variables:
-- EmployeeID (integer)
-- Wage (numeric, hourly rate in dollars)
-- Industry (factor: Automotive, Construction, Tech)
-- Job (factor: Accountant, Analyst, Engineer, Programmer, Sales Rep)
+My dataset is called zillow.csv and has these variables:
+- RegionName (character: metro area, e.g. "New York, NY")
+- StateName (character: 2-letter state abbreviation)
+- home_value (numeric: estimated home value in dollars)
+- rent (numeric: estimated monthly rent in dollars)
+- for_sale_inventory (numeric: number of homes listed for sale)
+- market_temp (numeric: market heat index)
+- days_pending (numeric: median days a listing is pending)
+- new_construction_sales (numeric: new construction sales count)
+- income_needed (numeric: annual income needed to afford median home)
+- sales_count (numeric: total home sales)
+- forecast_1mo_pct, forecast_3mo_pct, forecast_12mo_pct (numeric: % change forecasts)
+- year (numeric: 2018-2026)
+- month (numeric: 1-12)
+- season (factor: Fall, Spring, Summer, Winter)
 
 My specific question is: [INSERT YOUR QUESTION HERE]
 
 Please write R code using ggplot2 that creates a visualization to answer
 this question. The code should:
-1. Load the dataset from "data/gig.csv"
+1. Load the dataset from "data/zillow.csv"
 2. Handle any missing values appropriately
 3. Create a clear, well-labeled chart with a descriptive title
 4. Use color to distinguish groups where helpful
