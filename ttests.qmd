@@ -188,7 +188,7 @@ With the framework for hypothesis testing established, the next three sections a
 
 -   In base R, the t.test() command discussed above is useful for getting the t for a one-sample t-test. The command arguments include the name of the variable and the hypothesized or population value ($\mu$) to compare it to. We can also include the alternative statement to signify a right-tailed, left-tailed, or two-tailed test.
 
-### Step 1: Specify Null and Alternative Hypothesis
+### One-Sample Step 1: Specify Null and Alternative Hypothesis
 
 -   In order to set up the appropriate null and alternative hypothesis, we need to determine the type of test: two-tailed, right-tailed, or left-tailed.
 
@@ -271,14 +271,14 @@ OneSampleLeft <- t.test(StudyHours$Hours, alternative="less", mu=24); OneSampleL
 ##We are 95% confident that the true mean is less than 18.43376
 ```
 
-### Step 2. Compute the Test Statistic and calculate the p-value
+### One-Sample Step 2: Compute the Test Statistic and p-value
 
 -   When the population standard deviation $\sigma$ is unknown, the test statistic for testing the population mean $\mu$ is assumed to follow the $t$ distribution with a computed degrees of freedom ($df$) based on whether population variances are assumed to be equal or not.
 -   Formula for the Test Statistic: $t = (m_x-\mu_x)/(s_x/\sqrt(n_x))$
     -   In the One-sample t-test, $m_x$ represents the mean of the variable $x$, the variable to be tested, $\mu_x$ is the population mean or hypothesized value of the variable, $s_x$ is the sample standard deviation of $s$, and $n$ is the sample size.
 -   R will compute the $df$ based on the parameters set in the t.test() command along with the test statistic, so we can rely on it to calculate this for us.
 
-### Step 3. Interpret probability and results.
+### One-Sample Step 3: Interpret and Conclude
 
 -   Set alpha ($\alpha$) to a common level, like .05, and compare it to the calculated p-value from your output in R.
 -   Reject $H_0$ if p-value is less than $\alpha$ value. This means we show support for our alternative hypothesis $H_A$, which is against status quo.
@@ -370,7 +370,7 @@ t.test(x = nhanes.2016.65plus$BPXSY1, mu = 120)
 
 -   Using the \~ symbol between variables: This method allows you to run the t-test without having to split the data manually if your data is not already split. You specify the numerical variable (your continuous measurement) on the left and the categorical variable (which identifies the two groups) on the right of the \~ symbol.
 
-### Step 1: Specify Null and Alternative Hypothesis
+### Independent Samples Step 1: Specify Null and Alternative Hypothesis
 
 -   When conducting hypothesis tests concerning $\mu_1  - \mu_2$ , the competing hypotheses will take one of the following forms:
     -   Two-tailed Test: $H_0: \mu_1  - \mu_2 =  d_0$ versus $H_A: \mu_1  - \mu_2 \neq  d_0$
@@ -438,7 +438,7 @@ t.test(Spend$MenSpend, Spend$WomenSpend, alternative= "less")
 #This test is not significant as indicated by a p-value = 0.937 which is greater than .05. 
 ```
 
-### Step 2: Compute the Test Statistic and Calculate the p-value
+### Independent Samples Step 2: Compute the Test Statistic and p-value
 
 Formula for the Test Statistic: $t = (m_1 - m_2)/\sqrt((s^2_1/n_1)+(s^2_2/n_2))$
 
@@ -452,7 +452,7 @@ Formula for the Test Statistic: $t = (m_1 - m_2)/\sqrt((s^2_1/n_1)+(s^2_2/n_2))$
 
 -   Calculate the p-value and Compare it to a Predetermined Alpha level
 
-### Step 3: Interpret the Probability and Write a Conclusion
+### Independent Samples Step 3: Interpret and Conclude
 
 ### Example of an Independent Samples t-Test in R
 
@@ -554,7 +554,7 @@ t.test(nhanes.2016.65plus.clean$systolic ~ nhanes.2016.65plus.clean$sex)
 -   **Option 2**: Manually calculate the difference between the paired values and pass that as the single variable to `t.test()`. This is equivalent to the paired approach.
 -   Summary: In a paired t-test, you're comparing two related sets of observations, such as measurements taken from the same subjects under different conditions. The key is that each observation in one group has a corresponding observation in the other group. In R, you can perform a paired t-test by either specifying paired = TRUE in the t.test function or by directly calculating the differences between the paired observations and running the t-test on those differences. If you choose the second approach, you subtract one set of values from the other and then use that result as the first argument in the t.test function (essentially calculating the $\mu_d$. This directly tests whether the mean of the differences is significantly different from zero, giving the same result as a paired t-test but with the differences calculated explicitly beforehand. Either method is fine.
 
-### Step 1: Write Null and Alternative Hypothesis
+### Paired Step 1: Specify Null and Alternative Hypothesis
 
 -   When conducting hypothesis tests concerning $\mu_d$ , the competing hypotheses will take one of the following forms:
     -   Two-tailed Test: $H_0: \mu_d  = d_0$ versus $H_A: \mu_d \neq  d_0$
@@ -613,7 +613,7 @@ t.test(nhanes.2016.65plus.clean$systolic ~ nhanes.2016.65plus.clean$sex)
     #This test is not significant as indicated by a p-value of 1, which is greater than .05.
     ```
 
-### Step 2: Compute the Test Statistic and Calculate the p-value
+### Paired Step 2: Compute the Test Statistic and p-value
 
 Formula for the Test Statistic: $t = (m_d-d_0)/\sqrt((s^2_d/n_d)$
 
@@ -621,7 +621,7 @@ Formula for the Test Statistic: $t = (m_d-d_0)/\sqrt((s^2_d/n_d)$
 
 -   Calculate the p-value and Compare it to a Predetermined Alpha level
 
-### Step 3: Interpret the Probability and Write a Conclusion
+### Paired Step 3: Interpret and Conclude
 
 -   The steps involved with setting up the null and alternative hypotheses and calculating the test statistic are based on different rules and formulas for all three t-tests, but the rest of the steps are the same.
 

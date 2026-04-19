@@ -1468,7 +1468,7 @@ chisq.test(o)
 
 -   In either case, we should see the same result. The result includes the Chi-squared statistic (X-squared = 22.529), degrees of freedom (df = 2), and a very small p-value (0.00001282), indicating a strong association between age and brand preference.
 
-## Example Using an Imported Dataset
+## Chi-Squared Test of Independence — Imported Dataset
 
 -   Import the STEM data into a data frame (table) into R.
 -   Step 1: Set up the Hypothesis:
@@ -1579,9 +1579,9 @@ chisq.test(o, p=p)
 
 -   At alpha = .05, we do not reject $H_0$ and cannot conclude that the proportions differ from the ones a year ago.
 
-## Example Using an Imported Dataset
+## Goodness-of-Fit Test — Imported Dataset
 
--   The steps are same as the Chi-Squared Test of Independence.
+-   The steps are the same as the Chi-Squared Test of Independence.
 -   Step 1: Set up the Hypothesis:
     -   $𝐻_0$: Each proportion equals a hypothesized value.
     -   $𝐻_A$: Not all proportions equal their hypothesized values.
@@ -1817,7 +1817,7 @@ The observed counts (60, 82, 58) differ from the expected (50, 90, 60), particul
 
 ## Interactive R Lesson: Probability and Chi-Squared {#interactive-prob-lesson}
 
-::: callout-note
+::: {.callout-note}
 Parts 1-3 covers binomial and normal probability functions. Parts 4-6 covers contingency tables, probability rules, and the chi-squared test. All calculations use base R — no additional packages needed.
 
 You can run real R code directly in the browser — no installation needed. Work through each section in order, then test yourself with the scored quiz at the bottom.
@@ -1852,7 +1852,7 @@ pbinom(5, 10, .5)
 pbinom(4, 10, .5)
 ```
 
-::: callout-important
+::: {.callout-important}
 **Less than vs. less than or equal to** matters in discrete distributions. `P(X < 5)` = `P(X ≤ 4)`, so use 4 as the first argument. This distinction does **not** exist in the normal distribution because `P(X = x) = 0` for any exact value.
 :::
 
@@ -1874,7 +1874,7 @@ pbinom(4, 10, .5, lower.tail = FALSE)
 dbinom(5, 10, .5)
 ```
 
-::: callout-tip
+::: {.callout-tip}
 `dbinom()` has no `lower.tail` argument — it calculates the probability of exactly one value, so there is no tail to flip.
 :::
 
@@ -1899,7 +1899,7 @@ pnorm(3, 4, 2)
 pnorm(3, 4, 2, lower.tail = FALSE)
 ```
 
-::: callout-note
+::: {.callout-note}
 For the normal distribution, `P(X < 3)` and `P(X ≤ 3)` are identical — and likewise `P(X > 3)` and `P(X ≥ 3)` are identical. This is because the probability of any exact value is zero in a continuous distribution.
 :::
 
@@ -1913,7 +1913,7 @@ qnorm(.95, 4, 2)
 qnorm(.05, 4, 2, lower.tail = FALSE)
 ```
 
-::: callout-tip
+::: {.callout-tip}
 Both lines above produce the same answer — the 95th percentile from the left equals the 5th percentile from the right. They describe the same point on the distribution.
 :::
 
@@ -1967,7 +1967,7 @@ rowsums
 colsums
 ```
 
-::: callout-tip
+::: {.callout-tip}
 `margin.table(M, 1)` sums across rows (giving row totals). `margin.table(M, 2)` sums across columns (giving column totals). The `1` and `2` refer to the margin dimension.
 :::
 
@@ -1998,7 +1998,7 @@ ProbabilityTable <- rbind(ProbabilityTable, colprob)
 ProbabilityTable
 ```
 
-::: callout-note
+::: {.callout-note}
 The center values (.20, .30, .10, .40) are **joint probabilities** — the probability of two events occurring together (the intersection). The margin values (.50, .50, .30, .70) are **marginal probabilities** — the unconditional probability of one event regardless of the other.
 :::
 
@@ -2035,7 +2035,7 @@ The chi-squared test of independence asks: are two categorical variables associa
 chisq.test(M)
 ```
 
-::: callout-note
+::: {.callout-note}
 The p-value of approximately 0.05 is at the boundary of the conventional alpha = 0.05 threshold. A p-value below 0.05 leads to rejecting H₀ and concluding dependence. Always report the exact p-value rather than just "reject" or "fail to reject."
 :::
 
@@ -2234,7 +2234,7 @@ function psubmitQuiz() {
 </script>
 ```
 
-::: callout-note
+::: {.callout-note}
 No need to submit this quiz anywhere. This exercise is for your benefit to help you learn R.
 :::
 

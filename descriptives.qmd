@@ -706,7 +706,7 @@ With quantitative variables fully described and visualized, we now turn to quali
     2.  Pie chart
 -   In any graph, it is beneficial to do any data cleaning and investigation into the variable(s) before you begin. With categorical variables, this may require recoding the factor(s) of interest.
 
-::: callout-note
+::: {.callout-note}
 The layering concept introduced in `## Layering in ggplot` above applies to all ggplot2 charts, including the bar charts and pie charts in this section. Each `+` adds another layer — graph type, labels, colors, and themes all stack the same way.
 :::
 
@@ -1020,7 +1020,7 @@ With the reading and lab exercises complete, the interactive lesson below lets y
 
 ## Interactive R Lesson: Descriptive Statistics {#interactive-lesson}
 
-::: callout-note
+::: {.callout-note}
 **Interactive Session**\
 You can run real R code directly in the browser — no installation needed. Work through each section in order, then test yourself with the scored quiz at the bottom.
 
@@ -1032,11 +1032,15 @@ You can run real R code directly in the browser — no installation needed. Work
 #| context: setup
 #| message: true
 cat("Loading R environment... please wait\n")
-
-##note, we load data a little differently when it is preloaded from the browser. Use library(ISLR); data(College);  data(Credit) on your own computer assuming the package is installed. 
+# In RStudio: library(ISLR); data(College); data(Credit)
+# In WebR: access directly via ISLR:: — no library() call needed
 College <- ISLR::College
 Credit  <- ISLR::Credit
 ```
+
+::: {.callout-tip}
+**Loading data in WebR vs. RStudio:** In this browser environment, datasets are accessed using `ISLR::College` and `ISLR::Credit`. In your own `.R` file in RStudio, use `library(ISLR)` followed by `data(College)` and `data(Credit)` instead.
+:::
 
 ### Part 1: Exploring a Categorical Variable
 
@@ -1060,7 +1064,7 @@ Freq <- table(College$Private)
 prop.table(Freq)
 ```
 
-::: callout-tip
+::: {.callout-tip}
 `prop.table()` works well when you already have your table saved in a variable. You should see roughly 27% No and 73% Yes — private vs. non-private institutions.
 :::
 
@@ -1082,7 +1086,7 @@ mean(College$Grad.Rate)
 median(College$Grad.Rate)
 ```
 
-::: callout-note
+::: {.callout-note}
 When mean and median are close together, the distribution is likely symmetric. A large difference between them suggests skewness or outliers — we will test for this shortly.
 :::
 
@@ -1100,7 +1104,7 @@ max(College$Grad.Rate)    # Maximum
 min(College$Grad.Rate)    # Minimum
 ```
 
-::: callout-important
+::: {.callout-important}
 Note the difference: `IQR()` returns **one number** (the calculated IQR), while `range()` returns **two numbers** (min and max). To get the range value, subtract min from max manually.
 :::
 
@@ -1108,7 +1112,7 @@ Note the difference: `IQR()` returns **one number** (the calculated IQR), while 
 
 Skewness and kurtosis require the `semTools` package, which depends on compiled libraries that cannot run in the browser. **Run these in RStudio instead.**
 
-::: callout-important
+::: {.callout-important}
 **Run in RStudio — not in the browser**
 
 Copy and paste this code into your local RStudio console:
@@ -1155,7 +1159,7 @@ plot(x = cars$speed, y = cars$dist,
      col  = "blue")
 ```
 
-::: callout-tip
+::: {.callout-tip}
 `plot()` is fast for exploration. `ggplot2` gives you more control over styling, layering, and publication-quality output — which is why we use it for formal analysis.
 :::
 
@@ -1175,7 +1179,7 @@ ggplot(Credit, aes(x = Income)) +
        x = "Income ($000s)", y = "Count")
 ```
 
-::: callout-note
+::: {.callout-note}
 **Run in RStudio to check skewness formally:**
 
 ``` r
@@ -1225,7 +1229,7 @@ ggplot(Credit, aes(x = Limit)) +
        x = "Limit", y = "Density")
 ```
 
-::: callout-note
+::: {.callout-note}
 **Run in RStudio to check skewness on Limit:**
 
 ``` r
@@ -1251,7 +1255,7 @@ ggplot(Credit, aes(x = Rating)) +
        x = "Rating")
 ```
 
-::: callout-note
+::: {.callout-note}
 **Run in RStudio:**
 
 ``` r
@@ -1271,7 +1275,7 @@ ggplot(Credit, aes(x = "", y = Education)) +
        x = "", y = "Years of Education")
 ```
 
-::: callout-note
+::: {.callout-note}
 **Run in RStudio:**
 
 ``` r
@@ -1491,7 +1495,7 @@ function submitQuiz() {
 </script>
 ```
 
-::: callout-note
+::: {.callout-note}
 No need to submit this quiz anywhere. This exercise is for your benefit to help you learn R.\*
 :::
 

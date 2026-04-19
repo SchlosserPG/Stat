@@ -1554,10 +1554,8 @@ Why does the order matter for `age`? `as.numeric()` cannot convert `"89 OR OLDER
 
 ## Interactive R Lesson: Creating and Loading Data {#interactive-intro-lesson}
 
-::: callout-note
-This lesson walks through the swirl exercises on creating and loading data in R. 
-
-You can run real R code directly in the browser — no installation needed. Work through each section in order, then test yourself with the scored quiz at the bottom.
+::: {.callout-note}
+This lesson walks through creating and loading data in R. You can run real R code directly in the browser — no installation needed. Work through each section in order, then test yourself with the scored quiz at the bottom.
 
 **First-time load:** The interactive R environment may take 10–20 seconds to initialize on your first visit. Once the Run Code buttons become active, you are ready to go.
 :::
@@ -1582,7 +1580,7 @@ myVector
 length(myVector)
 ```
 
-::: callout-tip
+::: {.callout-tip}
 `1:10` is shorthand for `c(1, 2, 3, ..., 10)`. The `length()` function counts the number of elements. You do not need `c()` when using `:`.
 :::
 
@@ -1593,7 +1591,7 @@ employees <- c("Alice", "Bob", "Cathy", "David")
 employees
 ```
 
-::: callout-tip
+::: {.callout-tip}
 Double quotes tell R that something is a character string. Single quotes also work — just be consistent with whichever you open with.
 :::
 
@@ -1617,7 +1615,7 @@ mean(x)
 var(x)
 ```
 
-::: callout-note
+::: {.callout-note}
 `set.seed()` fixes the random number generator so you and your instructor get the same values. Without it, `rnorm()` produces different numbers every run. This is especially important when checking your work against provided answers.
 :::
 
@@ -1643,7 +1641,7 @@ x <- matrix(1:4, 2, 2)
 x
 ```
 
-::: callout-tip
+::: {.callout-tip}
 Notice how R fills the matrix — column by column, top to bottom. Value 1 goes in row 1 col 1, then 2 in row 2 col 1, then 3 in row 1 col 2, and so on.
 :::
 
@@ -1686,7 +1684,7 @@ df <- data.frame(x, y)
 head(df)
 ```
 
-::: callout-tip
+::: {.callout-tip}
 `head()` shows the first 6 rows — useful for a quick check without printing the entire data frame.
 :::
 
@@ -1703,10 +1701,12 @@ data("cars")
 summary(cars)
 ```
 
-**Load and explore the Auto dataset from the ISLR dataset:**
+**Load and explore the Auto dataset from ISLR:**
 
 ```{webr-r}
-##instead of saying data(Auto), we use the following because the dataset is preloaded on this account. 
+#| label: load-auto
+# In a .R file you would use: library(ISLR); data(Auto)
+# In WebR we access it directly from the package using :: so no library() call is needed
 Auto <- ISLR::Auto
 summary(Auto)
 ```
@@ -1718,7 +1718,7 @@ names(Auto)
 mean(Auto$mpg)
 ```
 
-::: callout-note
+::: {.callout-note}
 `dim()` returns the number of rows and columns. `names()` lists all variable names — useful when you cannot remember exact spelling. `dataset$variable` is how you access a single column.
 :::
 
@@ -1894,7 +1894,7 @@ function isubmitQuiz() {
 </script>
 ```
 
-::: callout-note
+::: {.callout-note}
 No need to submit this quiz anywhere. This exercise is for your benefit to help you learn R.
 :::
 

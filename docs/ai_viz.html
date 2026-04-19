@@ -755,6 +755,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#evaluating-visualization-quality-good-ugly-bad-wrong" id="toc-evaluating-visualization-quality-good-ugly-bad-wrong" class="nav-link" data-scroll-target="#evaluating-visualization-quality-good-ugly-bad-wrong">Evaluating Visualization Quality: Good, Ugly, Bad, Wrong</a></li>
   <li><a href="#seven-reasoning-errors-in-data-visualization" id="toc-seven-reasoning-errors-in-data-visualization" class="nav-link" data-scroll-target="#seven-reasoning-errors-in-data-visualization">Seven Reasoning Errors in Data Visualization</a>
   <ul class="collapse">
+  <li><a href="#arbitrary-thresholds" id="toc-arbitrary-thresholds" class="nav-link" data-scroll-target="#arbitrary-thresholds">Arbitrary Thresholds</a></li>
+  <li><a href="#false-causal-claims" id="toc-false-causal-claims" class="nav-link" data-scroll-target="#false-causal-claims">False Causal Claims</a></li>
   <li><a href="#misreading-charts-aspect-ratio-and-coordinate-systems" id="toc-misreading-charts-aspect-ratio-and-coordinate-systems" class="nav-link" data-scroll-target="#misreading-charts-aspect-ratio-and-coordinate-systems">Misreading Charts: Aspect Ratio and Coordinate Systems</a></li>
   <li><a href="#cherry-picking" id="toc-cherry-picking" class="nav-link" data-scroll-target="#cherry-picking">Cherry-Picking</a></li>
   </ul></li>
@@ -1155,7 +1157,7 @@ Show Answer
 </tr>
 </tbody>
 </table>
-<p>Before building any chart, know which purpose you are serving. An explanatory chart that is mistaken for a descriptive one will be misread every time.</p>
+<p>Before building any chart, know which purpose you are serving. An explanatory chart that is mistaken for a descriptive one will be misread every time. <img src="images/visualization.png" class="img-fluid"></p>
 </section>
 <section id="aesthetics-and-types-of-data" class="level2">
 <h2 class="anchored" data-anchor-id="aesthetics-and-types-of-data">Aesthetics and Types of Data</h2>
@@ -1206,7 +1208,7 @@ Show Answer
 </tr>
 </tbody>
 </table>
-<p><strong>Position is the most perceptually precise aesthetic.</strong> Humans judge spatial position along a shared axis more accurately than any other visual property. When precision matters — and it usually does in business analytics — encode the key variable on a position axis.</p>
+<p><strong>Position is the most perceptually precise aesthetic.</strong> Humans judge spatial position along a shared axis more accurately than any other visual property. When precision matters — and it usually does in business analytics — encode the key variable on a position axis. <img src="images/aesthetics.png" class="img-fluid"></p>
 </section>
 <section id="color-in-data-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="color-in-data-visualization">Color in Data Visualization</h2>
@@ -1243,6 +1245,7 @@ Show Answer
 </tbody>
 </table>
 <p>Each purpose implies a different type of color scale. Using a multi-hue rainbow scale (designed for categories) to represent continuous data distorts perception — the viewer’s eye assigns arbitrary importance to the color boundaries. Using a monochromatic scale for categorical data makes groups hard to distinguish.</p>
+<p><img src="images/data_viz.png" class="img-fluid"></p>
 <p><strong>Four color pitfalls to avoid:</strong></p>
 <table class="caption-top table">
 <colgroup>
@@ -1280,6 +1283,13 @@ Show Answer
 </tr>
 </tbody>
 </table>
+<p>A <strong>monochromatic</strong> scale (varying shades of one hue) encodes a single ordered dimension honestly — darker reads as “more.” A <strong>non-monochromatic</strong> scale (multiple hues) is better for distinguishing unordered categories where no shade should appear more prominent than another.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/mono_vs_nonmono.png" class="img-fluid figure-img"></p>
+<figcaption>Monochromatic vs.&nbsp;Non-Monochromatic</figcaption>
+</figure>
+</div>
 </section>
 <section id="evaluating-visualization-quality-good-ugly-bad-wrong" class="level2">
 <h2 class="anchored" data-anchor-id="evaluating-visualization-quality-good-ugly-bad-wrong">Evaluating Visualization Quality: Good, Ugly, Bad, Wrong</h2>
@@ -1320,7 +1330,22 @@ Show Answer
 </tr>
 </tbody>
 </table>
+<p><img src="images/thegood_theugly.png" class="img-fluid"></p>
 <p>The taxonomy matters because the fix is different for each category. An <strong>ugly</strong> chart needs a designer; a <strong>bad</strong> chart needs a statistician; a <strong>wrong</strong> chart needs a correction before anyone sees it.</p>
+<p><strong>Wrong example — Pie chart:</strong> This chart combines two overlapping variables. Because categories are not mutually exclusive, the slices sum to more than 100% — making it mathematically invalid.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bad_pie.png" class="img-fluid figure-img"></p>
+<figcaption>Bad Proportions: Pie Chart</figcaption>
+</figure>
+</div>
+<p><strong>Bad example — Bar chart of the same data:</strong> The bar chart avoids the arithmetic error but is still <strong>bad</strong> — it hides the overlap between the two variables and leaves their relationship invisible.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bad_bar.png" class="img-fluid figure-img"></p>
+<figcaption>Bad Proportions: Bar Chart</figcaption>
+</figure>
+</div>
 <p><strong>Note on AI-generated charts:</strong> AI almost never produces <strong>wrong</strong> charts (arithmetic is rarely the failure) but frequently produces <strong>bad</strong> ones — particularly truncated axes and misleading aggregations — because it optimizes for visual plausibility rather than statistical honesty.</p>
 <hr>
 </section>
@@ -1378,10 +1403,36 @@ Show Answer
 </tr>
 </tbody>
 </table>
+<section id="arbitrary-thresholds" class="level3">
+<h3 class="anchored" data-anchor-id="arbitrary-thresholds">Arbitrary Thresholds</h3>
+<p>An arbitrary threshold is a benchmark chosen without clear justification — either as a specific number or as a visual marker on a chart — used to make a pattern appear significant when no objective threshold exists. <em>Example: drawing a horizontal line at 100 to imply that values below it represent “failure,” when 100 was chosen for convenience rather than any analytical or regulatory reason.</em></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/arbitrary.png" class="img-fluid figure-img"></p>
+<figcaption>Arbitrary Thresholds</figcaption>
+</figure>
+</div>
+</section>
+<section id="false-causal-claims" class="level3">
+<h3 class="anchored" data-anchor-id="false-causal-claims">False Causal Claims</h3>
+<p>A false causal claim occurs when someone interprets a visual pattern or correlation as evidence of cause and effect without experimental or statistical support. Cherry-picking exacerbates the problem — selecting only data that fits a desired story makes the misleading pattern look more convincing. <em>Example: a chart showing ice cream sales and drowning rates both rising in summer, presented as evidence that ice cream causes drowning. The actual confounder is temperature.</em></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/false_causal_claims.png" class="img-fluid figure-img"></p>
+<figcaption>False Causal Claims</figcaption>
+</figure>
+</div>
+</section>
 <section id="misreading-charts-aspect-ratio-and-coordinate-systems" class="level3">
 <h3 class="anchored" data-anchor-id="misreading-charts-aspect-ratio-and-coordinate-systems">Misreading Charts: Aspect Ratio and Coordinate Systems</h3>
 <p>The same data can tell completely different stories depending on how the chart is sized. A line chart that is very wide and short (10:1 aspect ratio) makes slopes appear flat — “gradual, steady change.” The same data in a tall, narrow chart (1:2) makes slopes appear steep — “rapid, dramatic change.” Neither is mathematically wrong, but both shape the conclusion the viewer draws.</p>
 <p>Wilke recommends the <strong>banking to 45°</strong> principle: choose the aspect ratio so that the average slope of the lines in the chart is approximately 45 degrees. This gives the most neutral visual impression of the rate of change.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/misreading_chart.png" class="img-fluid figure-img"></p>
+<figcaption>Misreading Charts: Aspect Ratio</figcaption>
+</figure>
+</div>
 <p><strong>A truncated y-axis</strong> is the most common bad-chart pattern in business reporting. Cutting the y-axis at 94,000 instead of 0 on a chart showing visits from 94,000 to 98,000 makes a 4% change look like a near-vertical spike. For bar charts, this is never acceptable — bar height encodes magnitude relative to zero, and truncating the axis misrepresents that encoding. For line charts showing trends, non-zero axes can be defensible, but the truncation must be visually flagged.</p>
 </section>
 <section id="cherry-picking" class="level3">
@@ -1390,6 +1441,12 @@ Show Answer
 <p><strong>Cherry-picking data points</strong> — citing the one quarter your product outperformed while omitting the six quarters of flat performance.</p>
 <p><strong>Cherry-picking time windows</strong> — showing stock performance from the trough of a recession to the peak of a recovery to make returns look spectacular, omitting the crash that preceded the trough.</p>
 <p>The fix is always the same: show the complete relevant time period and the complete relevant comparison group.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/cherry_picking.png" class="img-fluid figure-img"></p>
+<figcaption>Cherry-Picking</figcaption>
+</figure>
+</div>
 <hr>
 <p>With the common failures catalogued — visual, logical, and causal — we can now turn to what a <em>good</em> chart looks like in practice: purposeful, audience-aware, and built around a single clear finding.</p>
 </section>
@@ -1532,6 +1589,12 @@ Show Answer
 </tr>
 </tbody>
 </table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/correlation_Vs_causation.png" class="img-fluid figure-img"></p>
+<figcaption>Correlation vs.&nbsp;Causation</figcaption>
+</figure>
+</div>
 <p>Two important caveats: correlation is sensitive to outliers (one extreme point can inflate or deflate <em>r</em> substantially), and correlation says nothing about causation — regardless of magnitude.</p>
 <p>To establish <strong>causation</strong>, three conditions must all be met:</p>
 <ol type="1">
@@ -1539,8 +1602,20 @@ Show Answer
 <li>No other factors that could account for the relationship (ruling out confounds)</li>
 <li>Correct temporal ordering — the cause must precede the effect</li>
 </ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fixed.png" class="img-fluid figure-img"></p>
+<figcaption>Three Conditions for Causation</figcaption>
+</figure>
+</div>
 <p><strong>The third variable problem (confounding)</strong> is the most common reason correlations are misleading in business data. A third variable related to both X and Y creates a spurious association between them. Classic example: cities with more hospitals have higher death rates — not because hospitals cause death, but because illness severity and population size drive both variables simultaneously.</p>
 <p><strong>The directionality problem</strong> adds another layer: even when two variables are genuinely related, the causal direction may be unclear. Does exercise reduce anxiety, or do lower-anxiety people exercise more? Observational data cannot distinguish these.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/corr_vs_cause_2.png" class="img-fluid figure-img"></p>
+<figcaption>The Third Variable Problem and Directionality</figcaption>
+</figure>
+</div>
 <hr>
 </section>
 <section id="visualization-principles-lab" class="level2">

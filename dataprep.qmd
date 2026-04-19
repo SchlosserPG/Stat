@@ -793,7 +793,7 @@ Histograms, density plots, and boxplots for a single continuous variable were co
 library(tidyverse)
 ```
 
-::: callout-note
+::: {.callout-note}
 Recall that ggplot2 builds charts in layers using `+` — each layer adds a geometry, label, or theme on top of the last. The same layering concepts from the Descriptive Statistics lesson apply to every chart in this section.
 :::
 
@@ -1425,13 +1425,14 @@ Washed / Wet is by far the most common processing method. Aroma and Flavor show 
 
 ## Interactive R Lesson: Data Preparation with dplyr {#interactive-dataprep-lesson}
 
-::: callout-note
+::: {.callout-note}
 You will use `filter()`, `select()`, `arrange()`, `mutate()`, the pipe operator, and `geom_point()` on the Auto dataset — all in the browser. Work through each section, then take the scored quiz.
 
-**First-time load:** The interactive R environment below may take 10–20 seconds to initialize on your first visit. This is normal — R is loading in your browser. Once ready, the "Run Code" buttons will become active.
+**First-time load:** The interactive R environment may take 10–20 seconds to initialize on your first visit. Once the Run Code buttons become active, you are ready to go.
+:::
 
-Note that we load data a little differently when it is preloaded from the browser. Use library(ISLR); data(Auto); on your own computer assuming the package is installed and then you can summarize like we do below. 
-
+::: {.callout-tip}
+**Loading data in WebR vs. RStudio:** In this browser environment, datasets are accessed directly from the ISLR package using `ISLR::Auto`. In your own `.R` file in RStudio, you would instead use `library(ISLR)` followed by `data(Auto)`. Both approaches give you the same dataset — the syntax differs because WebR handles packages differently than a local R session.
 :::
 
 ```{webr-r}
@@ -1454,7 +1455,7 @@ We will work with the Auto dataset, which contains information on cars including
 summary(Auto)
 ```
 
-::: callout-tip
+::: {.callout-tip}
 `summary()` is part of base R and gives you a quick overview — min, max, mean, median, and quartiles for numeric variables. Note that the data is mostly numerical.
 :::
 
@@ -1471,7 +1472,7 @@ Before using dplyr functions, you can subset a data frame using `[rows, columns]
 Auto[1:4, ]
 ```
 
-::: callout-tip
+::: {.callout-tip}
 `Auto[1:4, ]` means rows 1 through 4, and the empty space after the comma means all columns. The structure `dataset[rows, columns]` is the general pattern.
 :::
 
@@ -1489,7 +1490,7 @@ AutoFilter <- filter(Auto, horsepower > 100)
 summary(AutoFilter$horsepower)
 ```
 
-::: callout-note
+::: {.callout-note}
 Notice the minimum of `AutoFilter$horsepower` is above 100 — the filter worked. An alternate way to write the same thing using the pipe operator is:
 
 ``` r
@@ -1513,7 +1514,7 @@ AutoSelect <- select(Auto, horsepower, acceleration, year)
 summary(AutoSelect)
 ```
 
-::: callout-tip
+::: {.callout-tip}
 Notice that `AutoSelect` now contains only your three chosen columns. This is useful before running analysis so you are not carrying around variables you do not need.
 
 If you encounter conflicts with `MASS::select()`, add `dplyr::` before the function: `dplyr::select(Auto, horsepower, acceleration, year)`.
@@ -1541,7 +1542,7 @@ sortedByWeightDesc <- arrange(Auto, desc(weight))
 head(sortedByWeightDesc)
 ```
 
-::: callout-tip
+::: {.callout-tip}
 `desc()` wraps the variable name inside `arrange()` to reverse the sort order. You should see the heaviest cars at the top now.
 :::
 
@@ -1559,7 +1560,7 @@ AutoMutate <- mutate(Auto, mpg_category = ifelse(mpg > 30, "high", "low"))
 summary(AutoMutate)
 ```
 
-::: callout-tip
+::: {.callout-tip}
 `ifelse(condition, value_if_true, value_if_false)` is a vectorized if-else. Any car with `mpg > 30` is labeled `"high"`, all others `"low"`. Notice `mpg_category` now appears as a new column in the summary.
 :::
 
@@ -1589,7 +1590,7 @@ ggplot(Auto, aes(x = horsepower, y = mpg)) +
        x = "Horsepower", y = "MPG")
 ```
 
-::: callout-tip
+::: {.callout-tip}
 `stat_smooth(method = "lm")` adds a straight linear model line. Without `method="lm"` you get a curved loess line instead. The downward slope here indicates a **negative relationship** — higher horsepower cars tend to have lower mpg.
 :::
 
@@ -1605,7 +1606,7 @@ ggplot(Credit, aes(x = Limit, y = Rating)) +
        x = "Limit", y = "Rating")
 ```
 
-::: callout-note
+::: {.callout-note}
 As Rating increases, so does the credit Limit — there is a **positive relationship** between the two variables. The upward slope of the trend line confirms this.
 :::
 
@@ -1754,7 +1755,7 @@ function dpsubmitQuiz() {
 </script>
 ```
 
-::: callout-note
+::: {.callout-note}
 No need to submit this quiz anywhere. This exercise is for your benefit to help you learn R.\*
 :::
 
