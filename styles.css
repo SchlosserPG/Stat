@@ -126,4 +126,4 @@ div.quarto-title-meta{display:none;}
   display: none !important;
 }
 
-#toc-title{padding-top:20px;}
+h2#toc-title{padding-top:20px;margin-top:20px;}
