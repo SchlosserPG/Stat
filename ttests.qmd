@@ -3,7 +3,6 @@ title: "Hypothesis Testing"
 author: ""
 date: "2024-08-09"
 format: html
-engine: knitr
 ---
 
 ```{r setup, include=FALSE}
@@ -853,10 +852,14 @@ mean of the differences
 ::: {.callout-note}
 This lesson covers the one-sample, independent samples, and dependent (paired) samples t-test using built-in R datasets. All calculations use base R — no additional packages needed.
 
-Copy each code block into your RStudio console and run it as you work through the lesson.
+You can run real R code directly in the browser — no installation needed. Work through each section in order, then test yourself with the scored quiz at the bottom.
+
+**First-time load:** The interactive R environment may take 10–20 seconds to initialize on your first visit. Once the Run Code buttons become active, you are ready to go.
 :::
 
-```{r, eval=FALSE}
+```{webr-r}
+#| label: ttest-setup
+#| context: setup
 data("mtcars")
 data("CO2")
 data("sleep")
@@ -870,13 +873,13 @@ A one-sample t-test compares a single sample mean to a known or hypothesized pop
 
 **Load and summarize `mtcars`:**
 
-```{r, eval=FALSE}
+```{webr-r}
 summary(mtcars)
 ```
 
 **Test whether the true mean mpg is not equal to 25 (two-tailed):**
 
-```{r, eval=FALSE}
+```{webr-r}
 # H0: mu = 25   HA: mu ≠ 25  (default — two-tailed)
 t.test(mtcars$mpg, mu = 25)
 ```
@@ -887,14 +890,14 @@ The p-value is well below 0.05 — we reject H₀ and conclude the true mean mpg
 
 **Test whether the true mean mpg is less than 25 (left-tailed):**
 
-```{r, eval=FALSE}
+```{webr-r}
 # H0: mu >= 25   HA: mu < 25
 t.test(mtcars$mpg, mu = 25, alternative = "less")
 ```
 
 **Test whether the true mean mpg is greater than 25 (right-tailed):**
 
-```{r, eval=FALSE}
+```{webr-r}
 # H0: mu <= 25   HA: mu > 25
 t.test(mtcars$mpg, mu = 25, alternative = "greater")
 ```
@@ -911,20 +914,20 @@ An independent samples t-test compares the means of two unrelated groups. When t
 
 **Does the type of engine (vs) affect mpg?**
 
-```{r, eval=FALSE}
+```{webr-r}
 # H0: mu_vs0 = mu_vs1   HA: mu_vs0 ≠ mu_vs1
 t.test(mtcars$mpg ~ mtcars$vs)
 ```
 
 **Does transmission type (am: 0 = automatic, 1 = manual) affect mpg?**
 
-```{r, eval=FALSE}
+```{webr-r}
 t.test(mtcars$mpg ~ mtcars$am)
 ```
 
 **Do automatics get significantly less mpg than manuals (left-tailed)?**
 
-```{r, eval=FALSE}
+```{webr-r}
 # automatics coded 0 = group 1; manuals coded 1 = group 2
 # alternative="less" tests whether group 1 mean < group 2 mean
 t.test(mtcars$mpg ~ mtcars$am, alternative = "less")
@@ -940,20 +943,20 @@ Both the two-tailed and left-tailed tests are significant — manual transmissio
 
 **Load and summarize `CO2`:**
 
-```{r, eval=FALSE}
+```{webr-r}
 summary(CO2)
 ```
 
 **Does cold treatment (chilled vs. nonchilled) affect CO2 uptake?**
 
-```{r, eval=FALSE}
+```{webr-r}
 # H0: mu_nonchilled = mu_chilled   HA: they differ
 t.test(CO2$uptake ~ CO2$Treatment)
 ```
 
 **Do nonchilled plants have significantly greater uptake than chilled plants?**
 
-```{r, eval=FALSE}
+```{webr-r}
 # nonchilled is listed first in the group means = group 1
 # alternative="greater" tests whether group 1 mean > group 2 mean
 t.test(CO2$uptake ~ CO2$Treatment, alternative = "greater")
@@ -971,13 +974,13 @@ A paired samples t-test compares two related measurements — typically before/a
 
 **Load and summarize `sleep`:**
 
-```{r, eval=FALSE}
+```{webr-r}
 summary(sleep)
 ```
 
 **Reshape the data from long to wide so each patient has one row:**
 
-```{r, eval=FALSE}
+```{webr-r}
 sleep2 <- reshape(sleep, timevar = "group", idvar = "ID", direction = "wide")
 sleep2
 ```
@@ -988,7 +991,7 @@ The `reshape()` function converts the data so that each of the 10 patients occup
 
 **Test whether the drug affected sleep duration:**
 
-```{r, eval=FALSE}
+```{webr-r}
 # H0: mean difference = 0   HA: mean difference ≠ 0
 t.test(sleep2$extra.1, sleep2$extra.2, paired = TRUE)
 ```

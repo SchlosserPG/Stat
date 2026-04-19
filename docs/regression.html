@@ -928,7 +928,7 @@ iframe.qwebr-output-code-browse {
 // Document level settings ----
 
 // Determine if we need to install R packages
-globalThis.qwebrInstallRPackagesList = ['ggplot2', 'dplyr'];
+globalThis.qwebrInstallRPackagesList = ['ggplot2', 'dplyr', 'ISLR'];
 
 // Specify possible locations to search for the repository
 globalThis.qwebrPackageRepoURLS = ['https://repo.r-wasm.org/'];
@@ -950,7 +950,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"Boston  <- MASS::Boston\nCredit  <- read.csv(\"data/Credit.csv\")\nCarseats <- read.csv(\"data/Carseats.csv\")","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(Boston)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"boston-head-reg","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"firstLM <- lm(medv ~ lstat, data = Boston)\nsummary(firstLM)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"simple-lm-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Boston, aes(x = lstat, y = medv)) +\n  geom_point(alpha = 0.4, color = \"steelblue\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"% Low Economic Status vs. Median House Value\",\n       x = \"lstat\", y = \"medv ($000s)\")","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plot-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"confint(firstLM)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"confint-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"secondLM <- lm(medv ~ age, data = Boston)\nsummary(secondLM)","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"simple-lm-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Boston, aes(x = age, y = medv)) +\n  geom_point(alpha = 0.4, color = \"darkorange\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Age of Housing Stock vs. Median House Value\",\n       x = \"age\", y = \"medv ($000s)\")","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plot-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(Carseats)\nhead(Carseats)","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"carseats-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"qualReg <- lm(Sales ~ ShelveLoc, data = Carseats)\nsummary(qualReg)","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"qual-reg-shelveloc","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Carseats, aes(x = ShelveLoc, y = Sales, fill = ShelveLoc)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(title = \"Sales by Shelf Location\", x = \"Shelf Location\", y = \"Sales (000s)\")","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plot-shelveloc","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"creditlm <- lm(Limit ~ Gender, data = Credit)\nsummary(creditlm)","id":11,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"gender-credit","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Credit, aes(x = Gender, y = Limit, fill = Gender)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(title = \"Credit Limit by Gender\", x = \"Gender\", y = \"Limit\")","id":12,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plot-gender","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"multipleReg <- lm(medv ~ lstat + age, data = Boston)\nsummary(multipleReg)","id":13,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"multiple-reg","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"regAll <- lm(medv ~ ., data = Boston)\nsummary(regAll)","id":14,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-all","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"regAllnoAge <- lm(medv ~ . - age, data = Boston)\nsummary(regAllnoAge)","id":15,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-no-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"regAllnoAgeIndus <- lm(medv ~ . - age - indus, data = Boston)\nsummary(regAllnoAgeIndus)","id":16,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-no-age-indus","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"interact <- lm(medv ~ lstat * age, data = Boston)\nsummary(interact)","id":17,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"interact-boston","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"coef(interact)\nconfint(interact)","id":18,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"interact-coef","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"interact2 <- lm(Rating ~ Income * Balance, data = Credit)\nsummary(interact2)","id":19,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"interact-credit","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"Hitters  <- ISLR::Hitters\nCarseats <- ISLR::Carseats\nCredit   <- ISLR::Credit\n# Remove rows with missing Salary in Hitters\nHitters <- na.omit(Hitters)","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(Hitters[, c(\"Salary\", \"Hits\", \"Years\", \"HmRun\", \"RBI\", \"Walks\")])\nsummary(Hitters[, c(\"Salary\", \"Hits\", \"Years\")])","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"hitters-head","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"firstLM <- lm(Salary ~ Hits, data = Hitters)\nsummary(firstLM)\nconfint(firstLM)\nggplot(Hitters, aes(x = Hits, y = Salary)) +\n  geom_point(alpha = 0.4, color = \"steelblue\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Hits vs. Salary\",\n       x = \"Hits (1986)\", y = \"Salary ($000s)\")","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"simple-lm-hits","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"secondLM <- lm(Salary ~ Years, data = Hitters)\nsummary(secondLM)\nggplot(Hitters, aes(x = Years, y = Salary)) +\n  geom_point(alpha = 0.4, color = \"darkorange\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Years of Experience vs. Salary\",\n       x = \"Years in Major Leagues\", y = \"Salary ($000s)\")","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"simple-lm-years","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(Carseats[, c(\"Sales\", \"ShelveLoc\", \"Price\")])\nqualReg <- lm(Sales ~ ShelveLoc, data = Carseats)\nsummary(qualReg)\nggplot(Carseats, aes(x = ShelveLoc, y = Sales, fill = ShelveLoc)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(title = \"Sales by Shelf Location\", x = \"Shelf Location\", y = \"Sales (000s)\")","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"qual-reg-shelveloc","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"creditlm <- lm(Limit ~ Gender, data = Credit)\nsummary(creditlm)\nggplot(Credit, aes(x = Gender, y = Limit, fill = Gender)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(title = \"Credit Limit by Gender\", x = \"Gender\", y = \"Limit\")","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"gender-credit","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"multipleReg <- lm(Salary ~ Hits + Years, data = Hitters)\nsummary(multipleReg)","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"multiple-reg","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Select only numeric columns for the full model\nHittersNum <- Hitters[, sapply(Hitters, is.numeric)]\nregAll <- lm(Salary ~ ., data = HittersNum)\nsummary(regAll)","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-all","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Drop the least significant predictor and refit\nregAll2 <- lm(Salary ~ Hits + Years + RBI + Walks + CAtBat + CHits + CHmRun + CRuns + CRBI + CWalks + PutOuts + Assists, data = Hitters)\nsummary(regAll2)","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"reg-selection","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"interact <- lm(Salary ~ Hits * Years, data = Hitters)\nsummary(interact)\ncoef(interact)\nconfint(interact)","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"interact-hitters","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"interact2 <- lm(Balance ~ Income * Student, data = Credit)\nsummary(interact2)","id":11,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"interact-credit","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -2396,9 +2396,9 @@ window.Quarto = {
   <li><a href="#regression-lab" id="toc-regression-lab" class="nav-link" data-scroll-target="#regression-lab">Regression Lab</a></li>
   <li><a href="#interactive-regression-lesson" id="toc-interactive-regression-lesson" class="nav-link" data-scroll-target="#interactive-regression-lesson">Interactive R Lesson: Regression</a>
   <ul class="collapse">
-  <li><a href="#part-1-simple-linear-regression-boston-dataset" id="toc-part-1-simple-linear-regression-boston-dataset" class="nav-link" data-scroll-target="#part-1-simple-linear-regression-boston-dataset">Part 1: Simple Linear Regression — Boston Dataset</a></li>
+  <li><a href="#part-1-simple-linear-regression-hitters-dataset" id="toc-part-1-simple-linear-regression-hitters-dataset" class="nav-link" data-scroll-target="#part-1-simple-linear-regression-hitters-dataset">Part 1: Simple Linear Regression — Hitters Dataset</a></li>
   <li><a href="#part-2-regression-with-qualitative-predictors" id="toc-part-2-regression-with-qualitative-predictors" class="nav-link" data-scroll-target="#part-2-regression-with-qualitative-predictors">Part 2: Regression with Qualitative Predictors</a></li>
-  <li><a href="#part-3-multiple-regression" id="toc-part-3-multiple-regression" class="nav-link" data-scroll-target="#part-3-multiple-regression">Part 3: Multiple Regression</a></li>
+  <li><a href="#part-3-multiple-regression-hitters" id="toc-part-3-multiple-regression-hitters" class="nav-link" data-scroll-target="#part-3-multiple-regression-hitters">Part 3: Multiple Regression — Hitters</a></li>
   <li><a href="#part-4-regression-with-interaction-terms" id="toc-part-4-regression-with-interaction-terms" class="nav-link" data-scroll-target="#part-4-regression-with-interaction-terms">Part 4: Regression with Interaction Terms</a></li>
   </ul></li>
   <li><a href="#regression-quiz" id="toc-regression-quiz" class="nav-link" data-scroll-target="#regression-quiz">Scored Quiz: Regression</a></li>
@@ -4395,20 +4395,17 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This lesson combines all four regression swirl exercises: simple linear regression, qualitative predictors, multiple regression, and interaction terms. All datasets are built into base R or already in your <code>data/</code> folder — no additional installation needed.</p>
-<p>Copy each code block into your RStudio console and run it as you work through the lesson.</p>
+<p>This lesson covers simple linear regression, qualitative predictors, multiple regression, and interaction terms. All examples use datasets from the ISLR package — <code>Hitters</code> for numeric regression, <code>Carseats</code> for qualitative predictors, and <code>Credit</code> for interaction terms.</p>
 <p><strong>First-time load:</strong> The interactive R environment may take 10–20 seconds to initialize. Once the Run Code buttons become active, you are ready to go.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <hr>
-<section id="part-1-simple-linear-regression-boston-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="part-1-simple-linear-regression-boston-dataset">Part 1: Simple Linear Regression — Boston Dataset</h3>
+<section id="part-1-simple-linear-regression-hitters-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="part-1-simple-linear-regression-hitters-dataset">Part 1: Simple Linear Regression — Hitters Dataset</h3>
 <p>Simple linear regression estimates a straight-line relationship between one predictor (X) and one continuous outcome (Y). The format is <code>lm(Y ~ X, data = dataset)</code>.</p>
-<p><strong>Explore the Boston dataset:</strong></p>
-<div id="qwebr-insertion-location-2"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>The <code>Hitters</code> dataset from ISLR contains performance statistics and salary data for 263 Major League Baseball players. <code>Salary</code> is our outcome variable throughout Parts 1 and 3.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -4419,10 +4416,13 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Key variables: <code>medv</code> = median house value ($000s), <code>lstat</code> = % households with low socioeconomic status, <code>rm</code> = average rooms per house, <code>age</code> = proportion of homes built before 1940.</p>
+<p>Key variables: <code>Salary</code> = 1987 annual salary in thousands of dollars, <code>Hits</code> = number of hits in 1986, <code>Years</code> = number of years in the major leagues, <code>HmRun</code> = home runs in 1986, <code>RBI</code> = runs batted in during 1986.</p>
 </div>
 </div>
-<p><strong>Does the percentage of low economic status (lstat) affect median house value (medv)?</strong></p>
+<p><strong>Explore the Hitters dataset:</strong></p>
+<div id="qwebr-insertion-location-2"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p><strong>Does the number of hits predict salary?</strong></p>
 <div id="qwebr-insertion-location-3"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -4435,32 +4435,11 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Key things to read in the output: the <strong>slope estimate</strong> for lstat (negative — an inverse relationship), the <strong>p-value</strong> on lstat (significant if &lt; 0.05), the <strong>R²</strong> (how much variance in medv is explained), and the <strong>F-statistic p-value</strong> (overall model significance). Here lstat explains about 54% of variance in medv — substantial for a single predictor.</p>
+<p>Read the output: the <strong>slope estimate</strong> for Hits (positive — more hits, higher salary), the <strong>p-value</strong> (significant if &lt; 0.05), the <strong>R²</strong> (proportion of salary variance explained by hits alone), and the <strong>F-statistic p-value</strong> (overall model significance). <code>confint()</code> gives the 95% confidence interval around the slope — if the entire interval is positive, the positive relationship is not a chance result.</p>
 </div>
 </div>
-<p><strong>Visualize the relationship:</strong></p>
+<p><strong>Now try Years as a predictor:</strong></p>
 <div id="qwebr-insertion-location-4"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Get the 95% confidence interval for the coefficients:</strong></p>
-<div id="qwebr-insertion-location-5"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>confint()</code> gives a 95% confidence interval around the slope and intercept. We are 95% confident the true slope for lstat falls within that range. Because the entire interval is negative, we are confident the relationship is negative — not a chance result.</p>
-</div>
-</div>
-<p><strong>Now try age as a predictor:</strong></p>
-<div id="qwebr-insertion-location-6"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div id="qwebr-insertion-location-7"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4472,7 +4451,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Age is also a significant predictor but far weaker — R² ≈ 0.14 compared to 0.54 for lstat. The slope is also much closer to zero. <code>age</code> here represents the <em>proportion</em> of owner-occupied homes built before 1940 — a higher proportion of older stock is associated with slightly lower median values, but the relationship is weak and scattered.</p>
+<p>Compare R² for Hits vs.&nbsp;Years. Experience (Years) tends to explain more salary variance than a single season’s hit count — players accumulate leverage and reputation over time. Both are significant but neither alone captures the full picture, which motivates multiple regression in Part 3.</p>
 </div>
 </div>
 <hr>
@@ -4480,11 +4459,8 @@ Note
 <section id="part-2-regression-with-qualitative-predictors" class="level3">
 <h3 class="anchored" data-anchor-id="part-2-regression-with-qualitative-predictors">Part 2: Regression with Qualitative Predictors</h3>
 <p>When a predictor is categorical, R automatically creates dummy variables — one binary indicator per category, with one category held back as the reference. You write the <code>lm()</code> command the same way.</p>
-<p><strong>Load and explore the Carseats dataset:</strong></p>
-<div id="qwebr-insertion-location-8"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p><strong>Does shelf location (Bad / Medium / Good) affect unit sales?</strong></p>
-<div id="qwebr-insertion-location-9"></div>
+<div id="qwebr-insertion-location-5"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4499,13 +4475,8 @@ Note
 <p>R drops one category as the reference — here <code>Bad</code> is the reference (alphabetically first). The intercept represents mean sales when <code>ShelveLoc = Bad</code>. The coefficients for <code>ShelveLocGood</code> and <code>ShelveLocMedium</code> show how much sales <em>change</em> relative to Bad. With k = 3 categories, R creates k − 1 = 2 dummy variables.</p>
 </div>
 </div>
-<p><strong>Visualize shelf location vs.&nbsp;sales:</strong></p>
-<div id="qwebr-insertion-location-10"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p><strong>Does gender affect credit limit? (2-category predictor):</strong></p>
-<div id="qwebr-insertion-location-11"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div id="qwebr-insertion-location-12"></div>
+<div id="qwebr-insertion-location-6"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4522,11 +4493,11 @@ Note
 </div>
 <hr>
 </section>
-<section id="part-3-multiple-regression" class="level3">
-<h3 class="anchored" data-anchor-id="part-3-multiple-regression">Part 3: Multiple Regression</h3>
+<section id="part-3-multiple-regression-hitters" class="level3">
+<h3 class="anchored" data-anchor-id="part-3-multiple-regression-hitters">Part 3: Multiple Regression — Hitters</h3>
 <p>Multiple regression adds two or more predictors. Use <code>+</code> to add predictors; use <code>.</code> to include all variables; use <code>.- variable</code> to exclude one.</p>
-<p><strong>Regress lstat and age together on medv:</strong></p>
-<div id="qwebr-insertion-location-13"></div>
+<p><strong>Does salary depend on both Hits and Years?</strong></p>
+<div id="qwebr-insertion-location-7"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4538,17 +4509,14 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Compare the slopes here to the simple regressions above. The lstat slope changes from −0.95 to approximately −1.03 when age is added — this is a key feature of multiple regression. Each slope now reflects the predictor’s unique contribution <em>holding the other constant</em>. Also notice that age, which was negatively related to medv in simple regression, now shows a small positive slope — a sign that the two predictors share variance.</p>
+<p>Compare the slopes here to the simple regressions in Part 1. Each slope now reflects a predictor’s unique contribution <em>holding the other constant</em>. The coefficient on Hits may shrink when Years is added — because experienced players tend to have more hits, and the two predictors share variance. Adjusted R² tells you how much the second predictor genuinely helped beyond the first.</p>
 </div>
 </div>
-<p><strong>Run regression with all Boston predictors:</strong></p>
-<div id="qwebr-insertion-location-14"></div>
+<p><strong>Run regression with all numeric Hitters predictors:</strong></p>
+<div id="qwebr-insertion-location-8"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Remove non-significant predictors one at a time — first drop <code>age</code>:</strong></p>
-<div id="qwebr-insertion-location-15"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Then drop <code>indus</code>:</strong></p>
-<div id="qwebr-insertion-location-16"></div>
+<p><strong>Remove non-significant predictors one at a time:</strong></p>
+<div id="qwebr-insertion-location-9"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4560,7 +4528,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The p-value method for variable selection: remove the predictor with the highest non-significant p-value one at a time, rerun the model, and check whether Adjusted R² holds. Here both <code>age</code> and <code>indus</code> were non-significant and were removed. All remaining predictors are now significant.</p>
+<p>The p-value method for variable selection: remove the predictor with the highest non-significant p-value one at a time, rerun the model, and check whether Adjusted R² holds. Career statistics (prefixed with C) tend to be stronger predictors than single-season counts because they reflect accumulated performance.</p>
 </div>
 </div>
 <p><strong>Check for multicollinearity using VIF:</strong></p>
@@ -4577,8 +4545,8 @@ Important
 <p><strong>Run in RStudio — not in the browser</strong></p>
 <p>The <code>car</code> package required for <code>vif()</code> cannot install in WebR. Run this in your local RStudio:</p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(regAllnoAgeIndus)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>A VIF below 5 is clean. Between 5 and 10 indicates moderate correlation. Above 10 is a problem — that predictor is too highly correlated with another and its coefficient may be unreliable. For the final Boston model, <code>rad</code> and <code>tax</code> land between 5 and 10, which is acceptable under the threshold of 10 used in this course.</p>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(regAll2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Career statistics like <code>CHits</code>, <code>CAtBat</code>, and <code>CRuns</code> are highly correlated with each other — VIF values above 10 signal a multicollinearity problem. Remove the most redundant career stats until VIF values fall below 10.</p>
 </div>
 </div>
 <hr>
@@ -4586,10 +4554,8 @@ Important
 <section id="part-4-regression-with-interaction-terms" class="level3">
 <h3 class="anchored" data-anchor-id="part-4-regression-with-interaction-terms">Part 4: Regression with Interaction Terms</h3>
 <p>An interaction term tests whether the effect of one predictor on the outcome <strong>depends on</strong> the value of another predictor. Use <code>*</code> between two predictors — this automatically includes both direct effects and the interaction.</p>
-<p><strong>Does the effect of lstat on medv depend on age?</strong></p>
-<div id="qwebr-insertion-location-17"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div id="qwebr-insertion-location-18"></div>
+<p><strong>Does the effect of Hits on Salary depend on Years of experience?</strong></p>
+<div id="qwebr-insertion-location-10"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4601,29 +4567,11 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <code>lstat:age</code> coefficient is the interaction term. A significant interaction means the effect of <code>lstat</code> on <code>medv</code> is not the same at all levels of <code>age</code> — it changes as <code>age</code> changes. A negative interaction slope here means the combined effect of both predictors together is smaller than the sum of their individual effects — the relationship flattens as both variables increase simultaneously.</p>
+<p>The <code>Hits:Years</code> coefficient is the interaction term. A significant interaction means the effect of Hits on Salary is not the same at all levels of experience — it changes as Years increases. If positive, the salary boost from hitting well is even greater for experienced players. If negative, performance hits matter less for veterans who command salary based on accumulated reputation rather than current season output.</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>3D visualization — Run in RStudio</strong></p>
-<p>The <code>scatterplot3d</code> package cannot install in WebR. To visualize the interaction surface in RStudio:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scatterplot3d)</span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(Boston)</span>
-<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot3d</span>(age, lstat, medv, <span class="at">angle =</span> <span class="dv">40</span>, <span class="at">color =</span> <span class="st">"maroon"</span>, <span class="at">pch =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Rotate to different angles (try 20, 40, 140) to see the three-dimensional relationship between all three variables.</p>
-</div>
-</div>
-<p><strong>Interaction example — Income × Balance predicting Credit Rating:</strong></p>
-<div id="qwebr-insertion-location-19"></div>
+<p><strong>Interaction example — Income × Student status predicting Credit Balance:</strong></p>
+<div id="qwebr-insertion-location-11"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4635,7 +4583,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This model has a very high R² (approximately 0.94) — Income, Balance, and their interaction together explain about 94% of variance in Credit Rating. Both direct effects are positive. The interaction is negative (small coefficient around −0.0003), meaning the positive effect each variable has on Rating becomes slightly less strong as the other variable also increases — the relationship flattens at the high end of both predictors.</p>
+<p><code>Student</code> is a categorical predictor (Yes/No), so the interaction <code>Income:StudentYes</code> asks: does the effect of income on credit balance differ between students and non-students? If significant, the slope of income on balance is steeper for one group than the other — meaning they respond differently to the same income level. A non-significant interaction means the income effect is parallel across student status.</p>
 </div>
 </div>
 <hr>
@@ -4653,28 +4601,28 @@ Note
 
   <!-- Q1 -->
   <div class="rquiz-q" id="rq1" style="display:block">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">1. In a simple linear regression of medv on lstat, the slope is −0.95. With medv measured in $000s, a 1-unit increase in lstat corresponds to:</p>
-    <label class="rquiz-option"><input type="radio" name="rq1" value="a"> An increase of $950 in median house value.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq1" value="b"> A decrease of $950 in median house value.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq1" value="c"> A decrease of $0.95 in median house value.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq1" value="d"> No change — the slope is not significant.</label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">1. In the Hitters simple regression of Salary on Hits, the slope is positive. This means:</p>
+    <label class="rquiz-option"><input type="radio" name="rq1" value="a"> Players with fewer hits earn more salary.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq1" value="b"> As the number of hits increases, predicted salary increases.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq1" value="c"> Hits causes salary to increase.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq1" value="d"> The relationship between Hits and Salary is non-linear.</label>
     <div class="rquiz-feedback" id="rfb1"></div>
   </div>
 
   <!-- Q2 -->
   <div class="rquiz-q" id="rq2" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">2. The R² for the lstat → medv model is approximately 0.54. This means:</p>
-    <label class="rquiz-option"><input type="radio" name="rq2" value="a"> lstat and medv have a correlation of 0.54.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq2" value="b"> lstat explains about 54% of the variance in medv.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq2" value="c"> 54% of the observations fall on the regression line.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq2" value="d"> The model predicts medv with 54% accuracy.</label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">2. The R² for the Hits → Salary model is, say, 0.24. This means:</p>
+    <label class="rquiz-option"><input type="radio" name="rq2" value="a"> Hits and Salary have a correlation of 0.24.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq2" value="b"> Hits explains about 24% of the variance in Salary.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq2" value="c"> 24% of the observations fall on the regression line.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq2" value="d"> The model predicts Salary with 24% accuracy.</label>
     <div class="rquiz-feedback" id="rfb2"></div>
   </div>
 
   <!-- Q3 -->
   <div class="rquiz-q" id="rq3" style="display:none">
     <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">3. What does <code>confint(firstLM)</code> produce?</p>
-    <label class="rquiz-option"><input type="radio" name="rq3" value="a"> A confidence interval for the predicted values of medv.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq3" value="a"> A confidence interval for the predicted values of Salary.</label><br>
     <label class="rquiz-option"><input type="radio" name="rq3" value="b"> A 95% confidence interval around the slope and intercept estimates.</label><br>
     <label class="rquiz-option"><input type="radio" name="rq3" value="c"> A test of whether the model is significant.</label><br>
     <label class="rquiz-option"><input type="radio" name="rq3" value="d"> The VIF scores for each predictor.</label>
@@ -4703,21 +4651,21 @@ Note
 
   <!-- Q6 -->
   <div class="rquiz-q" id="rq6" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. In multiple regression, when lstat and age are both included, the lstat slope changes from −0.95 to −1.03. Why?</p>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. In multiple regression, when Hits and Years are both included, the Hits slope changes compared to the simple regression. Why?</p>
     <label class="rquiz-option"><input type="radio" name="rq6" value="a"> A computational error — the slope should not change.</label><br>
     <label class="rquiz-option"><input type="radio" name="rq6" value="b"> Each slope in multiple regression reflects a predictor's unique contribution holding others constant — the shared variance between predictors shifts the estimates.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq6" value="c"> Adding age makes lstat more significant.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq6" value="c"> Adding Years makes Hits more significant.</label><br>
     <label class="rquiz-option"><input type="radio" name="rq6" value="d"> The dataset changes when more predictors are added.</label>
     <div class="rquiz-feedback" id="rfb6"></div>
   </div>
 
   <!-- Q7 -->
   <div class="rquiz-q" id="rq7" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">7. To run a regression on all predictors in Boston except age, you would write:</p>
-    <label class="rquiz-option"><input type="radio" name="rq7" value="a"> <code>lm(medv ~ all - age, data = Boston)</code></label><br>
-    <label class="rquiz-option"><input type="radio" name="rq7" value="b"> <code>lm(medv ~ . - age, data = Boston)</code></label><br>
-    <label class="rquiz-option"><input type="radio" name="rq7" value="c"> <code>lm(medv ~ ., data = Boston, exclude = "age")</code></label><br>
-    <label class="rquiz-option"><input type="radio" name="rq7" value="d"> <code>lm(medv - age ~ ., data = Boston)</code></label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">7. To run a regression on all predictors in HittersNum except Runs, you would write:</p>
+    <label class="rquiz-option"><input type="radio" name="rq7" value="a"> <code>lm(Salary ~ all - Runs, data = HittersNum)</code></label><br>
+    <label class="rquiz-option"><input type="radio" name="rq7" value="b"> <code>lm(Salary ~ . - Runs, data = HittersNum)</code></label><br>
+    <label class="rquiz-option"><input type="radio" name="rq7" value="c"> <code>lm(Salary ~ ., data = HittersNum, exclude = "Runs")</code></label><br>
+    <label class="rquiz-option"><input type="radio" name="rq7" value="d"> <code>lm(Salary - Runs ~ ., data = HittersNum)</code></label>
     <div class="rquiz-feedback" id="rfb7"></div>
   </div>
 
@@ -4733,10 +4681,10 @@ Note
 
   <!-- Q9 -->
   <div class="rquiz-q" id="rq9" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">9. In <code>lm(medv ~ lstat * age, data = Boston)</code>, what does the <code>*</code> produce?</p>
-    <label class="rquiz-option"><input type="radio" name="rq9" value="a"> Only the interaction term lstat:age — not the direct effects.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq9" value="b"> The direct effects of lstat and age plus the interaction term lstat:age.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq9" value="c"> lstat multiplied by age as a single new variable.</label><br>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">9. In <code>lm(Salary ~ Hits * Years, data = Hitters)</code>, what does the <code>*</code> produce?</p>
+    <label class="rquiz-option"><input type="radio" name="rq9" value="a"> Only the interaction term Hits:Years — not the direct effects.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq9" value="b"> The direct effects of Hits and Years plus the interaction term Hits:Years.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq9" value="c"> Hits multiplied by Years as a single new variable.</label><br>
     <label class="rquiz-option"><input type="radio" name="rq9" value="d"> A two-way ANOVA instead of a regression.</label>
     <div class="rquiz-feedback" id="rfb9"></div>
   </div>
@@ -4785,15 +4733,15 @@ const rAnswers = {
   rq6:'b', rq7:'b', rq8:'b', rq9:'b', rq10:'b', rq11:'b'
 };
 const rHints = {
-  rq1:  "The slope −0.95 is in the same units as medv, which is in $000s. So −0.95 × $1,000 = −$950 per 1-unit increase in lstat.",
-  rq2:  "R² (coefficient of determination) is the proportion of variance in Y explained by X. 0.54 means 54% of the variability in medv is accounted for by lstat.",
+  rq1:  "A positive slope means Y increases as X increases. In regression, the sign of the slope tells you the direction of the relationship. Correlation ≠ causation.",
+  rq2:  "R² (coefficient of determination) is the proportion of variance in Y explained by X. 0.24 means 24% of the variability in Salary is accounted for by Hits alone.",
   rq3:  "confint() returns a confidence interval around each estimated coefficient — slope and intercept. It does not test significance; it quantifies precision.",
   rq4:  "The intercept in a regression with a categorical predictor is the predicted mean for the reference category — whichever level R excluded (here, Bad).",
   rq5:  "R creates k − 1 dummy variables to avoid perfect multicollinearity. With 3 categories, that is 2 dummies. The dropped category becomes the reference.",
-  rq6:  "In multiple regression, each slope is a partial coefficient — the effect of that predictor holding all others constant. Shared variance between predictors shifts the estimates.",
-  rq7:  "The dot (.) includes all predictors. Subtracting a variable with .- removes it from the model. This is how you do backward selection one variable at a time.",
+  rq6:  "In multiple regression, each slope is a partial coefficient — the effect of that predictor holding all others constant. Hits and Years share variance (experienced players tend to have more career hits), so adding one shifts the other's slope.",
+  rq7:  "The dot (.) includes all columns as predictors. Subtracting a variable with .- removes it. This is the standard syntax for backward selection one variable at a time.",
   rq8:  "VIF measures how much a predictor's variance is inflated by correlation with other predictors. VIF ≥ 10 indicates severe multicollinearity — coefficients become unstable.",
-  rq9:  "The * operator in lm() expands to both main effects and the interaction: lstat + age + lstat:age. To include only the interaction without main effects, use : instead.",
+  rq9:  "The * operator in lm() expands to both main effects and the interaction: Hits + Years + Hits:Years. To include only the interaction term without main effects, use : instead.",
   rq10: "A negative interaction between two positive predictors means their combined effect diminishes — each variable's positive influence on Y weakens as the other increases.",
   rq11: "A non-significant p-value means we fail to reject H₀ that the slope equals zero. It is a valid finding — not an error. It means the data provides no evidence that gender predicts credit limit."
 };

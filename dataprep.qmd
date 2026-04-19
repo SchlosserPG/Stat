@@ -1,7 +1,6 @@
 ---
 title: "Data Preparation"
 format: html
-engine: knitr
 ---
 
 ```{r setup, include=FALSE}

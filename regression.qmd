@@ -919,9 +919,7 @@ Note that even though Operations has the lowest intercept, the Operations employ
 ## Interactive R Lesson: Regression {#interactive-regression-lesson}
 
 ::: {.callout-note}
-This lesson combines all four regression swirl exercises: simple linear regression, qualitative predictors, multiple regression, and interaction terms. All datasets are built into base R or already in your `data/` folder — no additional installation needed.
-
-Copy each code block into your RStudio console and run it as you work through the lesson.
+This lesson covers simple linear regression, qualitative predictors, multiple regression, and interaction terms. All examples use datasets from the ISLR package — `Hitters` for numeric regression, `Carseats` for qualitative predictors, and `Credit` for interaction terms.
 
 **First-time load:** The interactive R environment may take 10–20 seconds to initialize. Once the Run Code buttons become active, you are ready to go.
 :::
@@ -929,83 +927,66 @@ Copy each code block into your RStudio console and run it as you work through th
 ```{webr-r}
 #| label: reg-setup
 #| context: setup
-
-Boston  <- MASS::Boston
-Credit  <- read.csv("data/Credit.csv")
-Carseats <- read.csv("data/Carseats.csv")
-
+Hitters  <- ISLR::Hitters
+Carseats <- ISLR::Carseats
+Credit   <- ISLR::Credit
+# Remove rows with missing Salary in Hitters
+Hitters <- na.omit(Hitters)
 ```
 
 ---
 
-### Part 1: Simple Linear Regression — Boston Dataset
+### Part 1: Simple Linear Regression — Hitters Dataset
 
 Simple linear regression estimates a straight-line relationship between one predictor (X) and one continuous outcome (Y). The format is `lm(Y ~ X, data = dataset)`.
 
-**Explore the Boston dataset:**
-
-```{webr-r}
-#| label: boston-head-reg
-head(Boston)
-```
+The `Hitters` dataset from ISLR contains performance statistics and salary data for 263 Major League Baseball players. `Salary` is our outcome variable throughout Parts 1 and 3.
 
 ::: {.callout-tip}
-Key variables: `medv` = median house value ($000s), `lstat` = % households with low socioeconomic status, `rm` = average rooms per house, `age` = proportion of homes built before 1940.
+Key variables: `Salary` = 1987 annual salary in thousands of dollars, `Hits` = number of hits in 1986, `Years` = number of years in the major leagues, `HmRun` = home runs in 1986, `RBI` = runs batted in during 1986.
 :::
 
-**Does the percentage of low economic status (lstat) affect median house value (medv)?**
+**Explore the Hitters dataset:**
 
 ```{webr-r}
-#| label: simple-lm-lstat
-firstLM <- lm(medv ~ lstat, data = Boston)
-summary(firstLM)
+#| label: hitters-head
+head(Hitters[, c("Salary", "Hits", "Years", "HmRun", "RBI", "Walks")])
+summary(Hitters[, c("Salary", "Hits", "Years")])
 ```
 
-::: {.callout-note}
-Key things to read in the output: the **slope estimate** for lstat (negative — an inverse relationship), the **p-value** on lstat (significant if < 0.05), the **R²** (how much variance in medv is explained), and the **F-statistic p-value** (overall model significance). Here lstat explains about 54% of variance in medv — substantial for a single predictor.
-:::
-
-**Visualize the relationship:**
+**Does the number of hits predict salary?**
 
 ```{webr-r}
-#| label: plot-lstat
-ggplot(Boston, aes(x = lstat, y = medv)) +
+#| label: simple-lm-hits
+firstLM <- lm(Salary ~ Hits, data = Hitters)
+summary(firstLM)
+confint(firstLM)
+ggplot(Hitters, aes(x = Hits, y = Salary)) +
   geom_point(alpha = 0.4, color = "steelblue") +
   stat_smooth(method = "lm", color = "red") +
-  labs(title = "% Low Economic Status vs. Median House Value",
-       x = "lstat", y = "medv ($000s)")
-```
-
-**Get the 95% confidence interval for the coefficients:**
-
-```{webr-r}
-#| label: confint-lstat
-confint(firstLM)
-```
-
-::: {.callout-tip}
-`confint()` gives a 95% confidence interval around the slope and intercept. We are 95% confident the true slope for lstat falls within that range. Because the entire interval is negative, we are confident the relationship is negative — not a chance result.
-:::
-
-**Now try age as a predictor:**
-
-```{webr-r}
-#| label: simple-lm-age
-secondLM <- lm(medv ~ age, data = Boston)
-summary(secondLM)
-```
-
-```{webr-r}
-#| label: plot-age
-ggplot(Boston, aes(x = age, y = medv)) +
-  geom_point(alpha = 0.4, color = "darkorange") +
-  stat_smooth(method = "lm", color = "red") +
-  labs(title = "Age of Housing Stock vs. Median House Value",
-       x = "age", y = "medv ($000s)")
+  labs(title = "Hits vs. Salary",
+       x = "Hits (1986)", y = "Salary ($000s)")
 ```
 
 ::: {.callout-note}
-Age is also a significant predictor but far weaker — R² ≈ 0.14 compared to 0.54 for lstat. The slope is also much closer to zero. `age` here represents the *proportion* of owner-occupied homes built before 1940 — a higher proportion of older stock is associated with slightly lower median values, but the relationship is weak and scattered.
+Read the output: the **slope estimate** for Hits (positive — more hits, higher salary), the **p-value** (significant if < 0.05), the **R²** (proportion of salary variance explained by hits alone), and the **F-statistic p-value** (overall model significance). `confint()` gives the 95% confidence interval around the slope — if the entire interval is positive, the positive relationship is not a chance result.
+:::
+
+**Now try Years as a predictor:**
+
+```{webr-r}
+#| label: simple-lm-years
+secondLM <- lm(Salary ~ Years, data = Hitters)
+summary(secondLM)
+ggplot(Hitters, aes(x = Years, y = Salary)) +
+  geom_point(alpha = 0.4, color = "darkorange") +
+  stat_smooth(method = "lm", color = "red") +
+  labs(title = "Years of Experience vs. Salary",
+       x = "Years in Major Leagues", y = "Salary ($000s)")
+```
+
+::: {.callout-note}
+Compare R² for Hits vs. Years. Experience (Years) tends to explain more salary variance than a single season's hit count — players accumulate leverage and reputation over time. Both are significant but neither alone captures the full picture, which motivates multiple regression in Part 3.
 :::
 
 ---
@@ -1014,34 +995,21 @@ Age is also a significant predictor but far weaker — R² ≈ 0.14 compared to 
 
 When a predictor is categorical, R automatically creates dummy variables — one binary indicator per category, with one category held back as the reference. You write the `lm()` command the same way.
 
-**Load and explore the Carseats dataset:**
-
-```{webr-r}
-#| label: carseats-summary
-summary(Carseats)
-head(Carseats)
-```
-
 **Does shelf location (Bad / Medium / Good) affect unit sales?**
 
 ```{webr-r}
 #| label: qual-reg-shelveloc
+summary(Carseats[, c("Sales", "ShelveLoc", "Price")])
 qualReg <- lm(Sales ~ ShelveLoc, data = Carseats)
 summary(qualReg)
+ggplot(Carseats, aes(x = ShelveLoc, y = Sales, fill = ShelveLoc)) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(title = "Sales by Shelf Location", x = "Shelf Location", y = "Sales (000s)")
 ```
 
 ::: {.callout-note}
 R drops one category as the reference — here `Bad` is the reference (alphabetically first). The intercept represents mean sales when `ShelveLoc = Bad`. The coefficients for `ShelveLocGood` and `ShelveLocMedium` show how much sales *change* relative to Bad. With k = 3 categories, R creates k − 1 = 2 dummy variables.
 :::
-
-**Visualize shelf location vs. sales:**
-
-```{webr-r}
-#| label: plot-shelveloc
-ggplot(Carseats, aes(x = ShelveLoc, y = Sales, fill = ShelveLoc)) +
-  geom_boxplot(show.legend = FALSE) +
-  labs(title = "Sales by Shelf Location", x = "Shelf Location", y = "Sales (000s)")
-```
 
 **Does gender affect credit limit? (2-category predictor):**
 
@@ -1049,10 +1017,6 @@ ggplot(Carseats, aes(x = ShelveLoc, y = Sales, fill = ShelveLoc)) +
 #| label: gender-credit
 creditlm <- lm(Limit ~ Gender, data = Credit)
 summary(creditlm)
-```
-
-```{webr-r}
-#| label: plot-gender
 ggplot(Credit, aes(x = Gender, y = Limit, fill = Gender)) +
   geom_boxplot(show.legend = FALSE) +
   labs(title = "Credit Limit by Gender", x = "Gender", y = "Limit")
@@ -1064,48 +1028,43 @@ With only 2 categories (Female / Male), R creates 1 dummy variable. Here the mod
 
 ---
 
-### Part 3: Multiple Regression
+### Part 3: Multiple Regression — Hitters
 
 Multiple regression adds two or more predictors. Use `+` to add predictors; use `.` to include all variables; use `.- variable` to exclude one.
 
-**Regress lstat and age together on medv:**
+**Does salary depend on both Hits and Years?**
 
 ```{webr-r}
 #| label: multiple-reg
-multipleReg <- lm(medv ~ lstat + age, data = Boston)
+multipleReg <- lm(Salary ~ Hits + Years, data = Hitters)
 summary(multipleReg)
 ```
 
 ::: {.callout-note}
-Compare the slopes here to the simple regressions above. The lstat slope changes from −0.95 to approximately −1.03 when age is added — this is a key feature of multiple regression. Each slope now reflects the predictor's unique contribution *holding the other constant*. Also notice that age, which was negatively related to medv in simple regression, now shows a small positive slope — a sign that the two predictors share variance.
+Compare the slopes here to the simple regressions in Part 1. Each slope now reflects a predictor's unique contribution *holding the other constant*. The coefficient on Hits may shrink when Years is added — because experienced players tend to have more hits, and the two predictors share variance. Adjusted R² tells you how much the second predictor genuinely helped beyond the first.
 :::
 
-**Run regression with all Boston predictors:**
+**Run regression with all numeric Hitters predictors:**
 
 ```{webr-r}
 #| label: reg-all
-regAll <- lm(medv ~ ., data = Boston)
+# Select only numeric columns for the full model
+HittersNum <- Hitters[, sapply(Hitters, is.numeric)]
+regAll <- lm(Salary ~ ., data = HittersNum)
 summary(regAll)
 ```
 
-**Remove non-significant predictors one at a time — first drop `age`:**
+**Remove non-significant predictors one at a time:**
 
 ```{webr-r}
-#| label: reg-no-age
-regAllnoAge <- lm(medv ~ . - age, data = Boston)
-summary(regAllnoAge)
-```
-
-**Then drop `indus`:**
-
-```{webr-r}
-#| label: reg-no-age-indus
-regAllnoAgeIndus <- lm(medv ~ . - age - indus, data = Boston)
-summary(regAllnoAgeIndus)
+#| label: reg-selection
+# Drop the least significant predictor and refit
+regAll2 <- lm(Salary ~ Hits + Years + RBI + Walks + CAtBat + CHits + CHmRun + CRuns + CRBI + CWalks + PutOuts + Assists, data = Hitters)
+summary(regAll2)
 ```
 
 ::: {.callout-tip}
-The p-value method for variable selection: remove the predictor with the highest non-significant p-value one at a time, rerun the model, and check whether Adjusted R² holds. Here both `age` and `indus` were non-significant and were removed. All remaining predictors are now significant.
+The p-value method for variable selection: remove the predictor with the highest non-significant p-value one at a time, rerun the model, and check whether Adjusted R² holds. Career statistics (prefixed with C) tend to be stronger predictors than single-season counts because they reflect accumulated performance.
 :::
 
 **Check for multicollinearity using VIF:**
@@ -1117,10 +1076,10 @@ The `car` package required for `vif()` cannot install in WebR. Run this in your 
 
 ```r
 library(car)
-vif(regAllnoAgeIndus)
+vif(regAll2)
 ```
 
-A VIF below 5 is clean. Between 5 and 10 indicates moderate correlation. Above 10 is a problem — that predictor is too highly correlated with another and its coefficient may be unreliable. For the final Boston model, `rad` and `tax` land between 5 and 10, which is acceptable under the threshold of 10 used in this course.
+Career statistics like `CHits`, `CAtBat`, and `CRuns` are highly correlated with each other — VIF values above 10 signal a multicollinearity problem. Remove the most redundant career stats until VIF values fall below 10.
 :::
 
 ---
@@ -1129,48 +1088,30 @@ A VIF below 5 is clean. Between 5 and 10 indicates moderate correlation. Above 1
 
 An interaction term tests whether the effect of one predictor on the outcome **depends on** the value of another predictor. Use `*` between two predictors — this automatically includes both direct effects and the interaction.
 
-**Does the effect of lstat on medv depend on age?**
+**Does the effect of Hits on Salary depend on Years of experience?**
 
 ```{webr-r}
-#| label: interact-boston
-interact <- lm(medv ~ lstat * age, data = Boston)
+#| label: interact-hitters
+interact <- lm(Salary ~ Hits * Years, data = Hitters)
 summary(interact)
-```
-
-```{webr-r}
-#| label: interact-coef
 coef(interact)
 confint(interact)
 ```
 
 ::: {.callout-note}
-The `lstat:age` coefficient is the interaction term. A significant interaction means the effect of `lstat` on `medv` is not the same at all levels of `age` — it changes as `age` changes. A negative interaction slope here means the combined effect of both predictors together is smaller than the sum of their individual effects — the relationship flattens as both variables increase simultaneously.
+The `Hits:Years` coefficient is the interaction term. A significant interaction means the effect of Hits on Salary is not the same at all levels of experience — it changes as Years increases. If positive, the salary boost from hitting well is even greater for experienced players. If negative, performance hits matter less for veterans who command salary based on accumulated reputation rather than current season output.
 :::
 
-::: {.callout-important}
-**3D visualization — Run in RStudio**
-
-The `scatterplot3d` package cannot install in WebR. To visualize the interaction surface in RStudio:
-
-```r
-library(scatterplot3d)
-attach(Boston)
-scatterplot3d(age, lstat, medv, angle = 40, color = "maroon", pch = 3)
-```
-
-Rotate to different angles (try 20, 40, 140) to see the three-dimensional relationship between all three variables.
-:::
-
-**Interaction example — Income × Balance predicting Credit Rating:**
+**Interaction example — Income × Student status predicting Credit Balance:**
 
 ```{webr-r}
 #| label: interact-credit
-interact2 <- lm(Rating ~ Income * Balance, data = Credit)
+interact2 <- lm(Balance ~ Income * Student, data = Credit)
 summary(interact2)
 ```
 
 ::: {.callout-note}
-This model has a very high R² (approximately 0.94) — Income, Balance, and their interaction together explain about 94% of variance in Credit Rating. Both direct effects are positive. The interaction is negative (small coefficient around −0.0003), meaning the positive effect each variable has on Rating becomes slightly less strong as the other variable also increases — the relationship flattens at the high end of both predictors.
+`Student` is a categorical predictor (Yes/No), so the interaction `Income:StudentYes` asks: does the effect of income on credit balance differ between students and non-students? If significant, the slope of income on balance is steeper for one group than the other — meaning they respond differently to the same income level. A non-significant interaction means the income effect is parallel across student status.
 :::
 
 ---
@@ -1188,28 +1129,28 @@ This model has a very high R² (approximately 0.94) — Income, Balance, and the
 
   <!-- Q1 -->
   <div class="rquiz-q" id="rq1" style="display:block">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">1. In a simple linear regression of medv on lstat, the slope is −0.95. With medv measured in $000s, a 1-unit increase in lstat corresponds to:</p>
-    <label class="rquiz-option"><input type="radio" name="rq1" value="a"> An increase of $950 in median house value.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq1" value="b"> A decrease of $950 in median house value.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq1" value="c"> A decrease of $0.95 in median house value.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq1" value="d"> No change — the slope is not significant.</label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">1. In the Hitters simple regression of Salary on Hits, the slope is positive. This means:</p>
+    <label class="rquiz-option"><input type="radio" name="rq1" value="a"> Players with fewer hits earn more salary.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq1" value="b"> As the number of hits increases, predicted salary increases.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq1" value="c"> Hits causes salary to increase.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq1" value="d"> The relationship between Hits and Salary is non-linear.</label>
     <div class="rquiz-feedback" id="rfb1"></div>
   </div>
 
   <!-- Q2 -->
   <div class="rquiz-q" id="rq2" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">2. The R² for the lstat → medv model is approximately 0.54. This means:</p>
-    <label class="rquiz-option"><input type="radio" name="rq2" value="a"> lstat and medv have a correlation of 0.54.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq2" value="b"> lstat explains about 54% of the variance in medv.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq2" value="c"> 54% of the observations fall on the regression line.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq2" value="d"> The model predicts medv with 54% accuracy.</label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">2. The R² for the Hits → Salary model is, say, 0.24. This means:</p>
+    <label class="rquiz-option"><input type="radio" name="rq2" value="a"> Hits and Salary have a correlation of 0.24.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq2" value="b"> Hits explains about 24% of the variance in Salary.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq2" value="c"> 24% of the observations fall on the regression line.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq2" value="d"> The model predicts Salary with 24% accuracy.</label>
     <div class="rquiz-feedback" id="rfb2"></div>
   </div>
 
   <!-- Q3 -->
   <div class="rquiz-q" id="rq3" style="display:none">
     <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">3. What does <code>confint(firstLM)</code> produce?</p>
-    <label class="rquiz-option"><input type="radio" name="rq3" value="a"> A confidence interval for the predicted values of medv.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq3" value="a"> A confidence interval for the predicted values of Salary.</label><br>
     <label class="rquiz-option"><input type="radio" name="rq3" value="b"> A 95% confidence interval around the slope and intercept estimates.</label><br>
     <label class="rquiz-option"><input type="radio" name="rq3" value="c"> A test of whether the model is significant.</label><br>
     <label class="rquiz-option"><input type="radio" name="rq3" value="d"> The VIF scores for each predictor.</label>
@@ -1238,21 +1179,21 @@ This model has a very high R² (approximately 0.94) — Income, Balance, and the
 
   <!-- Q6 -->
   <div class="rquiz-q" id="rq6" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. In multiple regression, when lstat and age are both included, the lstat slope changes from −0.95 to −1.03. Why?</p>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. In multiple regression, when Hits and Years are both included, the Hits slope changes compared to the simple regression. Why?</p>
     <label class="rquiz-option"><input type="radio" name="rq6" value="a"> A computational error — the slope should not change.</label><br>
     <label class="rquiz-option"><input type="radio" name="rq6" value="b"> Each slope in multiple regression reflects a predictor's unique contribution holding others constant — the shared variance between predictors shifts the estimates.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq6" value="c"> Adding age makes lstat more significant.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq6" value="c"> Adding Years makes Hits more significant.</label><br>
     <label class="rquiz-option"><input type="radio" name="rq6" value="d"> The dataset changes when more predictors are added.</label>
     <div class="rquiz-feedback" id="rfb6"></div>
   </div>
 
   <!-- Q7 -->
   <div class="rquiz-q" id="rq7" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">7. To run a regression on all predictors in Boston except age, you would write:</p>
-    <label class="rquiz-option"><input type="radio" name="rq7" value="a"> <code>lm(medv ~ all - age, data = Boston)</code></label><br>
-    <label class="rquiz-option"><input type="radio" name="rq7" value="b"> <code>lm(medv ~ . - age, data = Boston)</code></label><br>
-    <label class="rquiz-option"><input type="radio" name="rq7" value="c"> <code>lm(medv ~ ., data = Boston, exclude = "age")</code></label><br>
-    <label class="rquiz-option"><input type="radio" name="rq7" value="d"> <code>lm(medv - age ~ ., data = Boston)</code></label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">7. To run a regression on all predictors in HittersNum except Runs, you would write:</p>
+    <label class="rquiz-option"><input type="radio" name="rq7" value="a"> <code>lm(Salary ~ all - Runs, data = HittersNum)</code></label><br>
+    <label class="rquiz-option"><input type="radio" name="rq7" value="b"> <code>lm(Salary ~ . - Runs, data = HittersNum)</code></label><br>
+    <label class="rquiz-option"><input type="radio" name="rq7" value="c"> <code>lm(Salary ~ ., data = HittersNum, exclude = "Runs")</code></label><br>
+    <label class="rquiz-option"><input type="radio" name="rq7" value="d"> <code>lm(Salary - Runs ~ ., data = HittersNum)</code></label>
     <div class="rquiz-feedback" id="rfb7"></div>
   </div>
 
@@ -1268,10 +1209,10 @@ This model has a very high R² (approximately 0.94) — Income, Balance, and the
 
   <!-- Q9 -->
   <div class="rquiz-q" id="rq9" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">9. In <code>lm(medv ~ lstat * age, data = Boston)</code>, what does the <code>*</code> produce?</p>
-    <label class="rquiz-option"><input type="radio" name="rq9" value="a"> Only the interaction term lstat:age — not the direct effects.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq9" value="b"> The direct effects of lstat and age plus the interaction term lstat:age.</label><br>
-    <label class="rquiz-option"><input type="radio" name="rq9" value="c"> lstat multiplied by age as a single new variable.</label><br>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">9. In <code>lm(Salary ~ Hits * Years, data = Hitters)</code>, what does the <code>*</code> produce?</p>
+    <label class="rquiz-option"><input type="radio" name="rq9" value="a"> Only the interaction term Hits:Years — not the direct effects.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq9" value="b"> The direct effects of Hits and Years plus the interaction term Hits:Years.</label><br>
+    <label class="rquiz-option"><input type="radio" name="rq9" value="c"> Hits multiplied by Years as a single new variable.</label><br>
     <label class="rquiz-option"><input type="radio" name="rq9" value="d"> A two-way ANOVA instead of a regression.</label>
     <div class="rquiz-feedback" id="rfb9"></div>
   </div>
@@ -1320,15 +1261,15 @@ const rAnswers = {
   rq6:'b', rq7:'b', rq8:'b', rq9:'b', rq10:'b', rq11:'b'
 };
 const rHints = {
-  rq1:  "The slope −0.95 is in the same units as medv, which is in $000s. So −0.95 × $1,000 = −$950 per 1-unit increase in lstat.",
-  rq2:  "R² (coefficient of determination) is the proportion of variance in Y explained by X. 0.54 means 54% of the variability in medv is accounted for by lstat.",
+  rq1:  "A positive slope means Y increases as X increases. In regression, the sign of the slope tells you the direction of the relationship. Correlation ≠ causation.",
+  rq2:  "R² (coefficient of determination) is the proportion of variance in Y explained by X. 0.24 means 24% of the variability in Salary is accounted for by Hits alone.",
   rq3:  "confint() returns a confidence interval around each estimated coefficient — slope and intercept. It does not test significance; it quantifies precision.",
   rq4:  "The intercept in a regression with a categorical predictor is the predicted mean for the reference category — whichever level R excluded (here, Bad).",
   rq5:  "R creates k − 1 dummy variables to avoid perfect multicollinearity. With 3 categories, that is 2 dummies. The dropped category becomes the reference.",
-  rq6:  "In multiple regression, each slope is a partial coefficient — the effect of that predictor holding all others constant. Shared variance between predictors shifts the estimates.",
-  rq7:  "The dot (.) includes all predictors. Subtracting a variable with .- removes it from the model. This is how you do backward selection one variable at a time.",
+  rq6:  "In multiple regression, each slope is a partial coefficient — the effect of that predictor holding all others constant. Hits and Years share variance (experienced players tend to have more career hits), so adding one shifts the other's slope.",
+  rq7:  "The dot (.) includes all columns as predictors. Subtracting a variable with .- removes it. This is the standard syntax for backward selection one variable at a time.",
   rq8:  "VIF measures how much a predictor's variance is inflated by correlation with other predictors. VIF ≥ 10 indicates severe multicollinearity — coefficients become unstable.",
-  rq9:  "The * operator in lm() expands to both main effects and the interaction: lstat + age + lstat:age. To include only the interaction without main effects, use : instead.",
+  rq9:  "The * operator in lm() expands to both main effects and the interaction: Hits + Years + Hits:Years. To include only the interaction term without main effects, use : instead.",
   rq10: "A negative interaction between two positive predictors means their combined effect diminishes — each variable's positive influence on Y weakens as the other increases.",
   rq11: "A non-significant p-value means we fail to reject H₀ that the slope equals zero. It is a valid finding — not an error. It means the data provides no evidence that gender predicts credit limit."
 };

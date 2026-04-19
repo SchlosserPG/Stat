@@ -928,7 +928,7 @@ iframe.qwebr-output-code-browse {
 // Document level settings ----
 
 // Determine if we need to install R packages
-globalThis.qwebrInstallRPackagesList = ['ggplot2', 'dplyr'];
+globalThis.qwebrInstallRPackagesList = ['ggplot2', 'dplyr', 'ISLR'];
 
 // Specify possible locations to search for the repository
 globalThis.qwebrPackageRepoURLS = ['https://repo.r-wasm.org/'];
@@ -950,7 +950,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"data(\"ChickWeight\")\ndata(\"PlantGrowth\")\ndata(\"mtcars\")\nBoston <- MASS::Boston","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"anova-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(ChickWeight)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chick-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: all diet group means are equal\n# HA: at least one mean differs\nmodel <- aov(weight ~ Diet, ChickWeight)\nanova(model)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chick-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model)","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"chick-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(PlantGrowth)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plant-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: ctrl, trt1, and trt2 all have equal mean weight\n# HA: at least one mean differs\nmodel2 <- aov(weight ~ group, PlantGrowth)\nanova(model2)","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plant-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model2)","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"plant-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"mtcars$gear <- as.factor(mtcars$gear)\nmtcars$cyl  <- as.factor(mtcars$cyl)\nsummary(mtcars[, c(\"mpg\", \"gear\", \"cyl\")])","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"mtcars-prep","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0 (gear): all gear groups have equal mean mpg\n# H0 (cyl):  all cyl groups have equal mean mpg\nmodel3 <- aov(mpg ~ gear + cyl, mtcars)\nanova(model3)","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"twoway-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model3)","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"twoway-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(Boston)","id":11,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"boston-head","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Boston, aes(x = lstat, y = medv)) +\n  geom_point(alpha = 0.4, color = \"steelblue\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Low Economic Status vs. Median House Value\",\n       x = \"% Low Economic Status (lstat)\",\n       y = \"Median House Value ($000s)\")","id":12,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"scatter-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"cor(Boston$lstat, Boston$medv)","id":13,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cor-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"cor.test(Boston$lstat, Boston$medv)","id":14,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cortest-lstat","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(Boston, aes(x = age, y = medv)) +\n  geom_point(alpha = 0.4, color = \"darkorange\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Age of Housing Stock vs. Median House Value\",\n       x = \"Proportion Built Before 1940 (age)\",\n       y = \"Median House Value ($000s)\")","id":15,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"scatter-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"cor.test(Boston$age, Boston$medv)","id":16,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cortest-age","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"Carseats <- ISLR::Carseats\nWage     <- ISLR::Wage\nCredit   <- ISLR::Credit","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"anova-setup","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(Carseats[, c(\"Sales\", \"ShelveLoc\", \"Price\", \"Income\")])","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"carseats-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0: mean Sales is equal across all three ShelveLoc groups\n# HA: at least one ShelveLoc group has a different mean Sales\nmodel1 <- aov(Sales ~ ShelveLoc, data = Carseats)\nanova(model1)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"carseats-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model1)\nggplot(Carseats, aes(x = ShelveLoc, y = Sales, fill = ShelveLoc)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(title = \"Car Seat Sales by Shelf Location\",\n       x = \"Shelf Location\", y = \"Sales (thousands)\")","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"carseats-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(Wage[, c(\"wage\", \"education\")])\n# H0: mean wage is equal across all education levels\n# HA: at least one education level has a different mean wage\nmodel2 <- aov(wage ~ education, data = Wage)\nanova(model2)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"wage-edu-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model2)\nggplot(Wage, aes(x = education, y = wage, fill = education)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(title = \"Wage by Education Level\",\n       x = \"Education\", y = \"Wage ($000s)\") +\n  theme(axis.text.x = element_text(angle = 15, hjust = 1))","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"wage-edu-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# H0 (education): all education groups have equal mean wage\n# H0 (jobclass):  Industrial and Information workers have equal mean wage\nmodel3 <- aov(wage ~ education + jobclass, data = Wage)\nanova(model3)","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"twoway-wage-anova","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"TukeyHSD(model3)\nggplot(Wage, aes(x = jobclass, y = wage, fill = education)) +\n  geom_boxplot() +\n  labs(title = \"Wage by Job Class and Education\",\n       x = \"Job Class\", y = \"Wage ($000s)\")","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"twoway-wage-tukey","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(Wage[, c(\"wage\", \"age\", \"year\", \"education\")])\ncor(Wage$age, Wage$wage)\ncor.test(Wage$age, Wage$wage)\nggplot(Wage, aes(x = age, y = wage)) +\n  geom_point(alpha = 0.2, color = \"steelblue\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Age vs. Wage\",\n       x = \"Age (years)\", y = \"Wage ($000s)\")","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cor-wage","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"cor(Credit$Limit, Credit$Rating)\ncor.test(Credit$Limit, Credit$Rating)\nggplot(Credit, aes(x = Limit, y = Rating)) +\n  geom_point(alpha = 0.4, color = \"darkorange\") +\n  stat_smooth(method = \"lm\", color = \"red\") +\n  labs(title = \"Credit Limit vs. Credit Rating\",\n       x = \"Credit Limit ($)\", y = \"Credit Rating\")","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"cor-credit","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -2405,10 +2405,10 @@ window.Quarto = {
   <li><a href="#correlation-lab" id="toc-correlation-lab" class="nav-link" data-scroll-target="#correlation-lab">Correlation Lab</a></li>
   <li><a href="#interactive-anova-lesson" id="toc-interactive-anova-lesson" class="nav-link" data-scroll-target="#interactive-anova-lesson">Interactive R Lesson: ANOVA and Correlation</a>
   <ul class="collapse">
-  <li><a href="#part-1-one-way-anova-chickweight" id="toc-part-1-one-way-anova-chickweight" class="nav-link" data-scroll-target="#part-1-one-way-anova-chickweight">Part 1: One-Way ANOVA — ChickWeight</a></li>
-  <li><a href="#part-2-one-way-anova-plantgrowth" id="toc-part-2-one-way-anova-plantgrowth" class="nav-link" data-scroll-target="#part-2-one-way-anova-plantgrowth">Part 2: One-Way ANOVA — PlantGrowth</a></li>
-  <li><a href="#part-3-two-way-anova-mtcars" id="toc-part-3-two-way-anova-mtcars" class="nav-link" data-scroll-target="#part-3-two-way-anova-mtcars">Part 3: Two-Way ANOVA — mtcars</a></li>
-  <li><a href="#part-4-correlation-boston-dataset" id="toc-part-4-correlation-boston-dataset" class="nav-link" data-scroll-target="#part-4-correlation-boston-dataset">Part 4: Correlation — Boston Dataset</a></li>
+  <li><a href="#part-1-one-way-anova-carseats" id="toc-part-1-one-way-anova-carseats" class="nav-link" data-scroll-target="#part-1-one-way-anova-carseats">Part 1: One-Way ANOVA — Carseats</a></li>
+  <li><a href="#part-2-one-way-anova-wage-by-education" id="toc-part-2-one-way-anova-wage-by-education" class="nav-link" data-scroll-target="#part-2-one-way-anova-wage-by-education">Part 2: One-Way ANOVA — Wage by Education</a></li>
+  <li><a href="#part-3-two-way-anova-wage-by-education-and-job-class" id="toc-part-3-two-way-anova-wage-by-education-and-job-class" class="nav-link" data-scroll-target="#part-3-two-way-anova-wage-by-education-and-job-class">Part 3: Two-Way ANOVA — Wage by Education and Job Class</a></li>
+  <li><a href="#part-4-correlation-wage-and-credit-datasets" id="toc-part-4-correlation-wage-and-credit-datasets" class="nav-link" data-scroll-target="#part-4-correlation-wage-and-credit-datasets">Part 4: Correlation — Wage and Credit Datasets</a></li>
   </ul></li>
   <li><a href="#anova-quiz" id="toc-anova-quiz" class="nav-link" data-scroll-target="#anova-quiz">Scored Quiz: ANOVA and Correlation</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
@@ -4513,17 +4513,18 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This lesson combines the ANOVA swirl exercises and introduces correlation using the Boston dataset. Parts 1–3 cover one-way and two-way ANOVA with post-hoc tests. Part 4 covers correlation and scatterplots. All datasets are built into base R — no packages or CSV files needed.</p>
+<p>This lesson covers one-way and two-way ANOVA with post-hoc tests, and correlation analysis. All examples use datasets from the ISLR package — the same package used in the regression lesson.</p>
 <p><strong>First-time load:</strong> The interactive R environment may take 10–20 seconds to initialize. Once the Run Code buttons become active, you are ready to go.</p>
 </div>
 </div>
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <hr>
-<section id="part-1-one-way-anova-chickweight" class="level3">
-<h3 class="anchored" data-anchor-id="part-1-one-way-anova-chickweight">Part 1: One-Way ANOVA — ChickWeight</h3>
+<section id="part-1-one-way-anova-carseats" class="level3">
+<h3 class="anchored" data-anchor-id="part-1-one-way-anova-carseats">Part 1: One-Way ANOVA — Carseats</h3>
 <p>A one-way ANOVA tests whether the means of three or more groups are equal. The null hypothesis is that all group means are equal; the alternative is that at least one differs.</p>
-<p><strong>Load and summarize ChickWeight:</strong></p>
+<p>The <code>Carseats</code> dataset from ISLR contains sales data for child car seats at 400 store locations. <code>ShelveLoc</code> has three levels — Bad, Good, and Medium — representing the quality of the shelving location in the store.</p>
+<p><strong>Explore the Carseats dataset:</strong></p>
 <div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -4536,10 +4537,10 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>ChickWeight</code> contains chick weights over time across four diet groups. We will test whether diet affects weight.</p>
+<p><code>Sales</code> is unit sales in thousands at each location. <code>ShelveLoc</code> is our grouping variable — we want to know whether shelf placement quality affects sales.</p>
 </div>
 </div>
-<p><strong>Build the ANOVA model and view results:</strong></p>
+<p><strong>Does shelf location affect car seat sales?</strong></p>
 <div id="qwebr-insertion-location-3"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -4552,10 +4553,10 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The p-value is well below 0.001 — we reject H₀ and conclude that at least one diet group has a significantly different mean weight. The omnibus test tells us <em>something</em> differs but not <em>which</em> groups. That requires a post-hoc test.</p>
+<p>The p-value is well below 0.001 — we reject H₀ and conclude that shelf location significantly affects sales. The omnibus F-test tells us <em>something</em> differs but not <em>which</em> groups. That requires a post-hoc test.</p>
 </div>
 </div>
-<p><strong>Run Tukey’s HSD to identify which groups differ:</strong></p>
+<p><strong>Run Tukey’s HSD to identify which shelf locations differ:</strong></p>
 <div id="qwebr-insertion-location-4"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -4568,20 +4569,39 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Each row compares two groups. A p-value below 0.05 indicates those two groups are significantly different. The <code>diff</code> score tells you the direction — a positive diff means the second group listed has a higher mean than the first. Groups 2−1, 3−2, and 4−3 are not significantly different; all other pairwise comparisons are.</p>
+<p>All three pairwise comparisons should be significant — Good locations sell substantially more than Medium, which sell more than Bad. The positive diff scores confirm the direction.</p>
 </div>
 </div>
 <hr>
 </section>
-<section id="part-2-one-way-anova-plantgrowth" class="level3">
-<h3 class="anchored" data-anchor-id="part-2-one-way-anova-plantgrowth">Part 2: One-Way ANOVA — PlantGrowth</h3>
-<p><strong>Load and summarize PlantGrowth:</strong></p>
+<section id="part-2-one-way-anova-wage-by-education" class="level3">
+<h3 class="anchored" data-anchor-id="part-2-one-way-anova-wage-by-education">Part 2: One-Way ANOVA — Wage by Education</h3>
+<p><strong>Does education level affect wage?</strong></p>
+<p>The <code>Wage</code> dataset contains wage and demographic information for 3,000 male workers in the Mid-Atlantic region. <code>education</code> has five ordered levels from <code>1. &lt; HS Grad</code> through <code>5. Advanced Degree</code>.</p>
 <div id="qwebr-insertion-location-5"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Build the ANOVA model and view results:</strong></p>
+<p><strong>Run Tukey’s HSD and visualize:</strong></p>
 <div id="qwebr-insertion-location-6"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Run Tukey’s HSD:</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Education level is a significant predictor of wage. Most adjacent pairs differ significantly — each step up in education is associated with meaningfully higher pay. The boxplot reveals increasing medians and widening spreads at higher education levels.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="part-3-two-way-anova-wage-by-education-and-job-class" class="level3">
+<h3 class="anchored" data-anchor-id="part-3-two-way-anova-wage-by-education-and-job-class">Part 3: Two-Way ANOVA — Wage by Education and Job Class</h3>
+<p>A two-way ANOVA tests whether two categorical variables each independently affect a continuous outcome. Each factor has its own null hypothesis, F-statistic, and p-value.</p>
+<p><strong>Does wage depend on both education level and job class (Industrial vs.&nbsp;Information)?</strong></p>
 <div id="qwebr-insertion-location-7"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -4594,18 +4614,31 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Only <code>trt2 − trt1</code> is significant (p &lt; 0.05). The control group does not differ significantly from either treatment. The negative diff for <code>trt1 − trt2</code> tells you that treatment 1 has a <em>lower</em> mean weight than treatment 2.</p>
+<p>Two F-statistics and two p-values — one for each factor. Both education and jobclass are expected to be significant, meaning each independently explains variation in wage. A two-way ANOVA with <code>+</code> tests main effects only — to test whether the <em>interaction</em> between education and jobclass matters, use <code>education * jobclass</code> instead.</p>
+</div>
+</div>
+<p><strong>Run Tukey’s HSD and visualize:</strong></p>
+<div id="qwebr-insertion-location-8"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Tukey output has two sections — one for education pairwise comparisons and one for jobclass. Information sector workers earn significantly more than Industrial workers even after accounting for education level.</p>
 </div>
 </div>
 <hr>
 </section>
-<section id="part-3-two-way-anova-mtcars" class="level3">
-<h3 class="anchored" data-anchor-id="part-3-two-way-anova-mtcars">Part 3: Two-Way ANOVA — mtcars</h3>
-<p>A two-way ANOVA tests whether two categorical variables each independently affect a continuous outcome. Each factor has its own null hypothesis, F-statistic, and p-value.</p>
-<p><strong>Prepare the data — convert gear and cyl to factors:</strong></p>
-<div id="qwebr-insertion-location-8"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Build the two-way ANOVA model:</strong></p>
+<section id="part-4-correlation-wage-and-credit-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="part-4-correlation-wage-and-credit-datasets">Part 4: Correlation — Wage and Credit Datasets</h3>
+<p>Correlation measures the strength and direction of the linear relationship between two continuous variables. The correlation coefficient <span class="math inline">\(r\)</span> ranges from −1 to +1.</p>
+<p><strong>Does age predict wage?</strong></p>
 <div id="qwebr-insertion-location-9"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -4618,55 +4651,12 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Two F-statistics and two p-values — one for each factor. Both gear and cyl are significant here, meaning each independently explains variation in mpg. A two-way ANOVA with <code>+</code> tests main effects only. To test whether the <em>interaction</em> between gear and cyl also matters, you would use <code>gear * cyl</code> instead.</p>
+<p>The correlation between age and wage is positive but moderate — older workers earn more on average, but age alone explains only a fraction of wage variation. The p-value confirms the relationship is statistically significant. Notice the wide scatter in the plot — age is a real but weak predictor by itself.</p>
 </div>
 </div>
-<p><strong>Run Tukey’s HSD for both factors:</strong></p>
+<p><strong>Does credit limit predict credit rating?</strong></p>
 <div id="qwebr-insertion-location-10"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Read the gear and cyl sections separately. For gear: groups 5−4 are not significantly different; 4−3 and 5−3 are. For cyl: groups 8−6 are not significantly different; 6−4 and 8−4 are. The diff scores confirm that gear 5 has higher mpg than gear 3, and cyl 8 has lower mpg than cyl 4.</p>
-</div>
-</div>
-<hr>
-</section>
-<section id="part-4-correlation-boston-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="part-4-correlation-boston-dataset">Part 4: Correlation — Boston Dataset</h3>
-<p>Correlation measures the strength and direction of the linear relationship between two continuous variables. The correlation coefficient <span class="math inline">\(r\)</span> ranges from −1 to +1.</p>
-<p><strong>Explore the Boston dataset:</strong></p>
-<div id="qwebr-insertion-location-11"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Key variables: <code>medv</code> = median house value (in $1,000s), <code>lstat</code> = % households with low socioeconomic status, <code>rm</code> = average rooms per house, <code>age</code> = proportion of homes built before 1940.</p>
-</div>
-</div>
-<p><strong>Visualize the relationship between lstat and medv:</strong></p>
-<div id="qwebr-insertion-location-12"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Calculate the correlation coefficient:</strong></p>
-<div id="qwebr-insertion-location-13"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Test whether the correlation is statistically significant:</strong></p>
-<div id="qwebr-insertion-location-14"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -4677,25 +4667,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The correlation is approximately −0.74 — a strong negative linear relationship. As the percentage of low economic status households increases, median house value decreases. The p-value is far below 0.05, confirming the correlation is highly significant. The 95% confidence interval does not include zero, which corroborates the significant p-value.</p>
-</div>
-</div>
-<p><strong>Now try the age variable:</strong></p>
-<div id="qwebr-insertion-location-15"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div id="qwebr-insertion-location-16"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The correlation with <code>age</code> is also significant but much weaker (approximately −0.38). A higher proportion of older homes is associated with lower median values, but <code>age</code> explains far less of the variability in <code>medv</code> than <code>lstat</code> does. Always compare the <em>magnitude</em> of the correlation alongside the p-value — statistical significance does not equal practical importance.</p>
+<p>The correlation between <code>Limit</code> and <code>Rating</code> is very strong and positive — nearly 1. This means these two variables move almost perfectly together. In regression, having two predictors with a correlation this high causes multicollinearity — they are measuring nearly the same thing and cannot both be included reliably in the same model.</p>
 </div>
 </div>
 <hr>
@@ -4733,11 +4705,11 @@ Note
 
   <!-- Q3 -->
   <div class="aquiz-q" id="aq3" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">3. In the ChickWeight ANOVA, the correct R code to build the model is:</p>
-    <label class="aquiz-option"><input type="radio" name="aq3" value="a"> <code>aov(Diet ~ weight, ChickWeight)</code></label><br>
-    <label class="aquiz-option"><input type="radio" name="aq3" value="b"> <code>aov(weight ~ Diet, ChickWeight)</code></label><br>
-    <label class="aquiz-option"><input type="radio" name="aq3" value="c"> <code>lm(weight ~ Diet, ChickWeight)</code></label><br>
-    <label class="aquiz-option"><input type="radio" name="aq3" value="d"> <code>t.test(weight ~ Diet, ChickWeight)</code></label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">3. In the Carseats ANOVA, the correct R code to test whether <code>ShelveLoc</code> affects <code>Sales</code> is:</p>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="a"> <code>aov(ShelveLoc ~ Sales, Carseats)</code></label><br>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="b"> <code>aov(Sales ~ ShelveLoc, Carseats)</code></label><br>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="c"> <code>lm(Sales ~ ShelveLoc, Carseats)</code></label><br>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="d"> <code>t.test(Sales ~ ShelveLoc, Carseats)</code></label>
     <div class="aquiz-feedback" id="afb3"></div>
   </div>
 
@@ -4753,41 +4725,41 @@ Note
 
   <!-- Q5 -->
   <div class="aquiz-q" id="aq5" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">5. In the PlantGrowth Tukey output, only trt2 − trt1 is significant. This means:</p>
-    <label class="aquiz-option"><input type="radio" name="aq5" value="a"> All three groups differ from each other.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq5" value="b"> Only treatment 2 and treatment 1 are significantly different; the control does not differ from either treatment.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq5" value="c"> The control group has the highest mean weight.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq5" value="d"> The overall ANOVA was not significant.</label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">5. In the Wage two-way ANOVA with <code>education + jobclass</code>, the output shows two significant p-values. This means:</p>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="a"> Education and jobclass interact with each other.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="b"> Each factor independently explains a significant portion of wage variation, above and beyond the other factor.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="c"> The model is overfit and should be simplified.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="d"> Both factors must be combined into a single variable before the ANOVA is valid.</label>
     <div class="aquiz-feedback" id="afb5"></div>
   </div>
 
   <!-- Q6 -->
   <div class="aquiz-q" id="aq6" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. Why must <code>gear</code> and <code>cyl</code> be converted to factors before running a two-way ANOVA on the mtcars dataset?</p>
-    <label class="aquiz-option"><input type="radio" name="aq6" value="a"> R cannot read numeric variables in aov().</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq6" value="b"> They are stored as numbers but represent categories — without coercion, R treats them as continuous predictors instead of grouping variables.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq6" value="c"> Factors run faster in R than numeric variables.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq6" value="d"> TukeyHSD() only works on factor variables.</label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. In the Carseats one-way ANOVA, all three pairwise Tukey comparisons between ShelveLoc groups are significant. What does this tell you?</p>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="a"> The ANOVA was not necessary — a t-test would have been sufficient.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="b"> Every shelf location differs from every other — Bad, Medium, and Good each produce significantly different mean sales.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="c"> The result is a Type I error — three significant comparisons is suspicious.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="d"> The Tukey test is only valid when all pairwise comparisons are significant.</label>
     <div class="aquiz-feedback" id="afb6"></div>
   </div>
 
   <!-- Q7 -->
   <div class="aquiz-q" id="aq7" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">7. A two-way ANOVA with <code>aov(mpg ~ gear + cyl, mtcars)</code> produces how many F-statistics?</p>
-    <label class="aquiz-option"><input type="radio" name="aq7" value="a"> One — for the combined effect of gear and cyl.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq7" value="b"> Two — one for gear and one for cyl.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq7" value="c"> Three — one for each level of gear.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq7" value="d"> Four — one for each level of cyl.</label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">7. A two-way ANOVA with <code>aov(wage ~ education + jobclass, Wage)</code> produces how many F-statistics?</p>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="a"> One — for the combined effect of education and jobclass.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="b"> Two — one for education and one for jobclass.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="c"> Three — one for each level of jobclass.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="d"> Five — one for each level of education.</label>
     <div class="aquiz-feedback" id="afb7"></div>
   </div>
 
   <!-- Q8 -->
   <div class="aquiz-q" id="aq8" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">8. The correlation between lstat and medv in the Boston dataset is approximately −0.74. This means:</p>
-    <label class="aquiz-option"><input type="radio" name="aq8" value="a"> A weak positive relationship — as lstat increases, medv slightly increases.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq8" value="b"> A strong negative relationship — as lstat increases, medv tends to decrease.</label><br>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">8. The correlation between <code>Limit</code> and <code>Rating</code> in the Credit dataset is approximately 0.997. This means:</p>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="a"> A weak positive relationship — the two variables are barely related.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="b"> A near-perfect positive relationship — both variables move almost identically together.</label><br>
     <label class="aquiz-option"><input type="radio" name="aq8" value="c"> No linear relationship between the two variables.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq8" value="d"> lstat causes medv to decrease.</label>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="d"> Credit Limit causes Credit Rating to increase.</label>
     <div class="aquiz-feedback" id="afb8"></div>
   </div>
 
@@ -4837,12 +4809,12 @@ const aAnswers = {
 const aHints = {
   aq1:  "The alternative in ANOVA is that 'at least one' mean differs — not that all are different from each other. A single outlier group is enough to reject H₀.",
   aq2:  "The omnibus F-test only tells you something differs somewhere. Post-hoc tests like TukeyHSD() are needed to identify the specific pairs.",
-  aq3:  "aov() uses Y ~ X format: the outcome (weight) on the left, the grouping variable (Diet) on the right, followed by the dataset.",
-  aq4:  "A negative diff means the first group listed has a lower mean than the second. For example, diff for '3-1' being positive means group 3 > group 1.",
-  aq5:  "Only the trt2 vs trt1 p-value is below 0.05. The control (ctrl) does not differ significantly from either treatment — only the two treatments differ from each other.",
-  aq6:  "Numeric variables stored as integers (3, 4, 5 gears; 4, 6, 8 cylinders) would be treated as continuous if not coerced. as.factor() tells R to treat them as discrete categories.",
-  aq7:  "A two-way ANOVA with + produces one F-statistic per grouping variable — two total. The * operator would add a third for the interaction term.",
-  aq8:  "r = −0.74 is a strong negative correlation. Direction is negative (as one goes up, the other goes down) and strength is substantial. Note: correlation is not causation.",
+  aq3:  "aov() uses Y ~ X format: the outcome (Sales) on the left, the grouping variable (ShelveLoc) on the right, followed by the dataset.",
+  aq4:  "A negative diff means the first group listed has a lower mean than the second. For example, diff for 'Good-Bad' being positive means Good > Bad.",
+  aq5:  "Two significant p-values mean each factor independently explains wage variation. This is the main value of two-way ANOVA — you can assess each predictor's contribution while controlling for the other.",
+  aq6:  "When all pairwise Tukey comparisons are significant, every group is meaningfully different from every other. ShelveLoc is a strong predictor — each level of shelf quality produces a distinct sales outcome.",
+  aq7:  "A two-way ANOVA with + produces one F-statistic per grouping variable — two total. Using * instead of + would add a third for the interaction term.",
+  aq8:  "r = 0.997 is a near-perfect positive correlation — Limit and Rating move almost identically. In regression this would cause severe multicollinearity. Note: high correlation does not imply causation.",
   aq9:  "With n = 850, even tiny correlations become statistically significant. r = 0.12 means r² ≈ 0.014 — only 1.4% of variance explained. Statistical significance ≠ practical importance.",
   aq10: "r only measures linear association. A U-shaped pattern cancels out — increases on the left offset decreases on the right, producing r ≈ 0. Always visualize first."
 };

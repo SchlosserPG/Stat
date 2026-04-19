@@ -1141,7 +1141,7 @@ With $n = 850$, the test has very high statistical power — it can detect even 
 ## Interactive R Lesson: ANOVA and Correlation {#interactive-anova-lesson}
 
 ::: {.callout-note}
-This lesson combines the ANOVA swirl exercises and introduces correlation using the Boston dataset. Parts 1–3 cover one-way and two-way ANOVA with post-hoc tests. Part 4 covers correlation and scatterplots. All datasets are built into base R — no packages or CSV files needed.
+This lesson covers one-way and two-way ANOVA with post-hoc tests, and correlation analysis. All examples use datasets from the ISLR package — the same package used in the regression lesson.
 
 **First-time load:** The interactive R environment may take 10–20 seconds to initialize. Once the Run Code buttons become active, you are ready to go.
 :::
@@ -1150,193 +1150,166 @@ This lesson combines the ANOVA swirl exercises and introduces correlation using 
 #| label: anova-setup
 #| context: setup
 #| message: true
-
-data("ChickWeight")
-data("PlantGrowth")
-data("mtcars")
-Boston <- MASS::Boston
+Carseats <- ISLR::Carseats
+Wage     <- ISLR::Wage
+Credit   <- ISLR::Credit
 ```
 
 ---
 
-### Part 1: One-Way ANOVA — ChickWeight
+### Part 1: One-Way ANOVA — Carseats
 
 A one-way ANOVA tests whether the means of three or more groups are equal. The null hypothesis is that all group means are equal; the alternative is that at least one differs.
 
-**Load and summarize ChickWeight:**
+The `Carseats` dataset from ISLR contains sales data for child car seats at 400 store locations. `ShelveLoc` has three levels — Bad, Good, and Medium — representing the quality of the shelving location in the store.
+
+**Explore the Carseats dataset:**
 
 ```{webr-r}
-#| label: chick-summary
-summary(ChickWeight)
+#| label: carseats-summary
+summary(Carseats[, c("Sales", "ShelveLoc", "Price", "Income")])
 ```
 
 ::: {.callout-tip}
-`ChickWeight` contains chick weights over time across four diet groups. We will test whether diet affects weight.
+`Sales` is unit sales in thousands at each location. `ShelveLoc` is our grouping variable — we want to know whether shelf placement quality affects sales.
 :::
 
-**Build the ANOVA model and view results:**
+**Does shelf location affect car seat sales?**
 
 ```{webr-r}
-#| label: chick-anova
-# H0: all diet group means are equal
-# HA: at least one mean differs
-model <- aov(weight ~ Diet, ChickWeight)
-anova(model)
+#| label: carseats-anova
+# H0: mean Sales is equal across all three ShelveLoc groups
+# HA: at least one ShelveLoc group has a different mean Sales
+model1 <- aov(Sales ~ ShelveLoc, data = Carseats)
+anova(model1)
 ```
 
 ::: {.callout-note}
-The p-value is well below 0.001 — we reject H₀ and conclude that at least one diet group has a significantly different mean weight. The omnibus test tells us *something* differs but not *which* groups. That requires a post-hoc test.
+The p-value is well below 0.001 — we reject H₀ and conclude that shelf location significantly affects sales. The omnibus F-test tells us *something* differs but not *which* groups. That requires a post-hoc test.
 :::
 
-**Run Tukey's HSD to identify which groups differ:**
+**Run Tukey's HSD to identify which shelf locations differ:**
 
 ```{webr-r}
-#| label: chick-tukey
-TukeyHSD(model)
+#| label: carseats-tukey
+TukeyHSD(model1)
+ggplot(Carseats, aes(x = ShelveLoc, y = Sales, fill = ShelveLoc)) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(title = "Car Seat Sales by Shelf Location",
+       x = "Shelf Location", y = "Sales (thousands)")
 ```
 
 ::: {.callout-tip}
-Each row compares two groups. A p-value below 0.05 indicates those two groups are significantly different. The `diff` score tells you the direction — a positive diff means the second group listed has a higher mean than the first. Groups 2−1, 3−2, and 4−3 are not significantly different; all other pairwise comparisons are.
+All three pairwise comparisons should be significant — Good locations sell substantially more than Medium, which sell more than Bad. The positive diff scores confirm the direction.
 :::
 
 ---
 
-### Part 2: One-Way ANOVA — PlantGrowth
+### Part 2: One-Way ANOVA — Wage by Education
 
-**Load and summarize PlantGrowth:**
+**Does education level affect wage?**
 
-```{webr-r}
-#| label: plant-summary
-summary(PlantGrowth)
-```
-
-**Build the ANOVA model and view results:**
+The `Wage` dataset contains wage and demographic information for 3,000 male workers in the Mid-Atlantic region. `education` has five ordered levels from `1. < HS Grad` through `5. Advanced Degree`.
 
 ```{webr-r}
-#| label: plant-anova
-# H0: ctrl, trt1, and trt2 all have equal mean weight
-# HA: at least one mean differs
-model2 <- aov(weight ~ group, PlantGrowth)
+#| label: wage-edu-anova
+summary(Wage[, c("wage", "education")])
+# H0: mean wage is equal across all education levels
+# HA: at least one education level has a different mean wage
+model2 <- aov(wage ~ education, data = Wage)
 anova(model2)
 ```
 
-**Run Tukey's HSD:**
+**Run Tukey's HSD and visualize:**
 
 ```{webr-r}
-#| label: plant-tukey
+#| label: wage-edu-tukey
 TukeyHSD(model2)
+ggplot(Wage, aes(x = education, y = wage, fill = education)) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(title = "Wage by Education Level",
+       x = "Education", y = "Wage ($000s)") +
+  theme(axis.text.x = element_text(angle = 15, hjust = 1))
 ```
 
 ::: {.callout-note}
-Only `trt2 − trt1` is significant (p < 0.05). The control group does not differ significantly from either treatment. The negative diff for `trt1 − trt2` tells you that treatment 1 has a *lower* mean weight than treatment 2.
+Education level is a significant predictor of wage. Most adjacent pairs differ significantly — each step up in education is associated with meaningfully higher pay. The boxplot reveals increasing medians and widening spreads at higher education levels.
 :::
 
 ---
 
-### Part 3: Two-Way ANOVA — mtcars
+### Part 3: Two-Way ANOVA — Wage by Education and Job Class
 
 A two-way ANOVA tests whether two categorical variables each independently affect a continuous outcome. Each factor has its own null hypothesis, F-statistic, and p-value.
 
-**Prepare the data — convert gear and cyl to factors:**
+**Does wage depend on both education level and job class (Industrial vs. Information)?**
 
 ```{webr-r}
-#| label: mtcars-prep
-mtcars$gear <- as.factor(mtcars$gear)
-mtcars$cyl  <- as.factor(mtcars$cyl)
-summary(mtcars[, c("mpg", "gear", "cyl")])
-```
-
-**Build the two-way ANOVA model:**
-
-```{webr-r}
-#| label: twoway-anova
-# H0 (gear): all gear groups have equal mean mpg
-# H0 (cyl):  all cyl groups have equal mean mpg
-model3 <- aov(mpg ~ gear + cyl, mtcars)
+#| label: twoway-wage-anova
+# H0 (education): all education groups have equal mean wage
+# H0 (jobclass):  Industrial and Information workers have equal mean wage
+model3 <- aov(wage ~ education + jobclass, data = Wage)
 anova(model3)
 ```
 
 ::: {.callout-note}
-Two F-statistics and two p-values — one for each factor. Both gear and cyl are significant here, meaning each independently explains variation in mpg. A two-way ANOVA with `+` tests main effects only. To test whether the *interaction* between gear and cyl also matters, you would use `gear * cyl` instead.
+Two F-statistics and two p-values — one for each factor. Both education and jobclass are expected to be significant, meaning each independently explains variation in wage. A two-way ANOVA with `+` tests main effects only — to test whether the *interaction* between education and jobclass matters, use `education * jobclass` instead.
 :::
 
-**Run Tukey's HSD for both factors:**
+**Run Tukey's HSD and visualize:**
 
 ```{webr-r}
-#| label: twoway-tukey
+#| label: twoway-wage-tukey
 TukeyHSD(model3)
+ggplot(Wage, aes(x = jobclass, y = wage, fill = education)) +
+  geom_boxplot() +
+  labs(title = "Wage by Job Class and Education",
+       x = "Job Class", y = "Wage ($000s)")
 ```
 
 ::: {.callout-tip}
-Read the gear and cyl sections separately. For gear: groups 5−4 are not significantly different; 4−3 and 5−3 are. For cyl: groups 8−6 are not significantly different; 6−4 and 8−4 are. The diff scores confirm that gear 5 has higher mpg than gear 3, and cyl 8 has lower mpg than cyl 4.
+The Tukey output has two sections — one for education pairwise comparisons and one for jobclass. Information sector workers earn significantly more than Industrial workers even after accounting for education level.
 :::
 
 ---
 
-### Part 4: Correlation — Boston Dataset
+### Part 4: Correlation — Wage and Credit Datasets
 
 Correlation measures the strength and direction of the linear relationship between two continuous variables. The correlation coefficient $r$ ranges from −1 to +1.
 
-**Explore the Boston dataset:**
+**Does age predict wage?**
 
 ```{webr-r}
-#| label: boston-head
-head(Boston)
-```
-
-::: {.callout-tip}
-Key variables: `medv` = median house value (in $1,000s), `lstat` = % households with low socioeconomic status, `rm` = average rooms per house, `age` = proportion of homes built before 1940.
-:::
-
-**Visualize the relationship between lstat and medv:**
-
-```{webr-r}
-#| label: scatter-lstat
-ggplot(Boston, aes(x = lstat, y = medv)) +
-  geom_point(alpha = 0.4, color = "steelblue") +
+#| label: cor-wage
+head(Wage[, c("wage", "age", "year", "education")])
+cor(Wage$age, Wage$wage)
+cor.test(Wage$age, Wage$wage)
+ggplot(Wage, aes(x = age, y = wage)) +
+  geom_point(alpha = 0.2, color = "steelblue") +
   stat_smooth(method = "lm", color = "red") +
-  labs(title = "Low Economic Status vs. Median House Value",
-       x = "% Low Economic Status (lstat)",
-       y = "Median House Value ($000s)")
-```
-
-**Calculate the correlation coefficient:**
-
-```{webr-r}
-#| label: cor-lstat
-cor(Boston$lstat, Boston$medv)
-```
-
-**Test whether the correlation is statistically significant:**
-
-```{webr-r}
-#| label: cortest-lstat
-cor.test(Boston$lstat, Boston$medv)
+  labs(title = "Age vs. Wage",
+       x = "Age (years)", y = "Wage ($000s)")
 ```
 
 ::: {.callout-note}
-The correlation is approximately −0.74 — a strong negative linear relationship. As the percentage of low economic status households increases, median house value decreases. The p-value is far below 0.05, confirming the correlation is highly significant. The 95% confidence interval does not include zero, which corroborates the significant p-value.
+The correlation between age and wage is positive but moderate — older workers earn more on average, but age alone explains only a fraction of wage variation. The p-value confirms the relationship is statistically significant. Notice the wide scatter in the plot — age is a real but weak predictor by itself.
 :::
 
-**Now try the age variable:**
+**Does credit limit predict credit rating?**
 
 ```{webr-r}
-#| label: scatter-age
-ggplot(Boston, aes(x = age, y = medv)) +
+#| label: cor-credit
+cor(Credit$Limit, Credit$Rating)
+cor.test(Credit$Limit, Credit$Rating)
+ggplot(Credit, aes(x = Limit, y = Rating)) +
   geom_point(alpha = 0.4, color = "darkorange") +
   stat_smooth(method = "lm", color = "red") +
-  labs(title = "Age of Housing Stock vs. Median House Value",
-       x = "Proportion Built Before 1940 (age)",
-       y = "Median House Value ($000s)")
-```
-
-```{webr-r}
-#| label: cortest-age
-cor.test(Boston$age, Boston$medv)
+  labs(title = "Credit Limit vs. Credit Rating",
+       x = "Credit Limit ($)", y = "Credit Rating")
 ```
 
 ::: {.callout-note}
-The correlation with `age` is also significant but much weaker (approximately −0.38). A higher proportion of older homes is associated with lower median values, but `age` explains far less of the variability in `medv` than `lstat` does. Always compare the *magnitude* of the correlation alongside the p-value — statistical significance does not equal practical importance.
+The correlation between `Limit` and `Rating` is very strong and positive — nearly 1. This means these two variables move almost perfectly together. In regression, having two predictors with a correlation this high causes multicollinearity — they are measuring nearly the same thing and cannot both be included reliably in the same model.
 :::
 
 ---
@@ -1374,11 +1347,11 @@ The correlation with `age` is also significant but much weaker (approximately �
 
   <!-- Q3 -->
   <div class="aquiz-q" id="aq3" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">3. In the ChickWeight ANOVA, the correct R code to build the model is:</p>
-    <label class="aquiz-option"><input type="radio" name="aq3" value="a"> <code>aov(Diet ~ weight, ChickWeight)</code></label><br>
-    <label class="aquiz-option"><input type="radio" name="aq3" value="b"> <code>aov(weight ~ Diet, ChickWeight)</code></label><br>
-    <label class="aquiz-option"><input type="radio" name="aq3" value="c"> <code>lm(weight ~ Diet, ChickWeight)</code></label><br>
-    <label class="aquiz-option"><input type="radio" name="aq3" value="d"> <code>t.test(weight ~ Diet, ChickWeight)</code></label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">3. In the Carseats ANOVA, the correct R code to test whether <code>ShelveLoc</code> affects <code>Sales</code> is:</p>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="a"> <code>aov(ShelveLoc ~ Sales, Carseats)</code></label><br>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="b"> <code>aov(Sales ~ ShelveLoc, Carseats)</code></label><br>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="c"> <code>lm(Sales ~ ShelveLoc, Carseats)</code></label><br>
+    <label class="aquiz-option"><input type="radio" name="aq3" value="d"> <code>t.test(Sales ~ ShelveLoc, Carseats)</code></label>
     <div class="aquiz-feedback" id="afb3"></div>
   </div>
 
@@ -1394,41 +1367,41 @@ The correlation with `age` is also significant but much weaker (approximately �
 
   <!-- Q5 -->
   <div class="aquiz-q" id="aq5" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">5. In the PlantGrowth Tukey output, only trt2 − trt1 is significant. This means:</p>
-    <label class="aquiz-option"><input type="radio" name="aq5" value="a"> All three groups differ from each other.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq5" value="b"> Only treatment 2 and treatment 1 are significantly different; the control does not differ from either treatment.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq5" value="c"> The control group has the highest mean weight.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq5" value="d"> The overall ANOVA was not significant.</label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">5. In the Wage two-way ANOVA with <code>education + jobclass</code>, the output shows two significant p-values. This means:</p>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="a"> Education and jobclass interact with each other.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="b"> Each factor independently explains a significant portion of wage variation, above and beyond the other factor.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="c"> The model is overfit and should be simplified.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq5" value="d"> Both factors must be combined into a single variable before the ANOVA is valid.</label>
     <div class="aquiz-feedback" id="afb5"></div>
   </div>
 
   <!-- Q6 -->
   <div class="aquiz-q" id="aq6" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. Why must <code>gear</code> and <code>cyl</code> be converted to factors before running a two-way ANOVA on the mtcars dataset?</p>
-    <label class="aquiz-option"><input type="radio" name="aq6" value="a"> R cannot read numeric variables in aov().</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq6" value="b"> They are stored as numbers but represent categories — without coercion, R treats them as continuous predictors instead of grouping variables.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq6" value="c"> Factors run faster in R than numeric variables.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq6" value="d"> TukeyHSD() only works on factor variables.</label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">6. In the Carseats one-way ANOVA, all three pairwise Tukey comparisons between ShelveLoc groups are significant. What does this tell you?</p>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="a"> The ANOVA was not necessary — a t-test would have been sufficient.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="b"> Every shelf location differs from every other — Bad, Medium, and Good each produce significantly different mean sales.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="c"> The result is a Type I error — three significant comparisons is suspicious.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq6" value="d"> The Tukey test is only valid when all pairwise comparisons are significant.</label>
     <div class="aquiz-feedback" id="afb6"></div>
   </div>
 
   <!-- Q7 -->
   <div class="aquiz-q" id="aq7" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">7. A two-way ANOVA with <code>aov(mpg ~ gear + cyl, mtcars)</code> produces how many F-statistics?</p>
-    <label class="aquiz-option"><input type="radio" name="aq7" value="a"> One — for the combined effect of gear and cyl.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq7" value="b"> Two — one for gear and one for cyl.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq7" value="c"> Three — one for each level of gear.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq7" value="d"> Four — one for each level of cyl.</label>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">7. A two-way ANOVA with <code>aov(wage ~ education + jobclass, Wage)</code> produces how many F-statistics?</p>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="a"> One — for the combined effect of education and jobclass.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="b"> Two — one for education and one for jobclass.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="c"> Three — one for each level of jobclass.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq7" value="d"> Five — one for each level of education.</label>
     <div class="aquiz-feedback" id="afb7"></div>
   </div>
 
   <!-- Q8 -->
   <div class="aquiz-q" id="aq8" style="display:none">
-    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">8. The correlation between lstat and medv in the Boston dataset is approximately −0.74. This means:</p>
-    <label class="aquiz-option"><input type="radio" name="aq8" value="a"> A weak positive relationship — as lstat increases, medv slightly increases.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq8" value="b"> A strong negative relationship — as lstat increases, medv tends to decrease.</label><br>
+    <p style="font-weight:600; color:#1a1a1a; margin-bottom:1rem;">8. The correlation between <code>Limit</code> and <code>Rating</code> in the Credit dataset is approximately 0.997. This means:</p>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="a"> A weak positive relationship — the two variables are barely related.</label><br>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="b"> A near-perfect positive relationship — both variables move almost identically together.</label><br>
     <label class="aquiz-option"><input type="radio" name="aq8" value="c"> No linear relationship between the two variables.</label><br>
-    <label class="aquiz-option"><input type="radio" name="aq8" value="d"> lstat causes medv to decrease.</label>
+    <label class="aquiz-option"><input type="radio" name="aq8" value="d"> Credit Limit causes Credit Rating to increase.</label>
     <div class="aquiz-feedback" id="afb8"></div>
   </div>
 
@@ -1478,12 +1451,12 @@ const aAnswers = {
 const aHints = {
   aq1:  "The alternative in ANOVA is that 'at least one' mean differs — not that all are different from each other. A single outlier group is enough to reject H₀.",
   aq2:  "The omnibus F-test only tells you something differs somewhere. Post-hoc tests like TukeyHSD() are needed to identify the specific pairs.",
-  aq3:  "aov() uses Y ~ X format: the outcome (weight) on the left, the grouping variable (Diet) on the right, followed by the dataset.",
-  aq4:  "A negative diff means the first group listed has a lower mean than the second. For example, diff for '3-1' being positive means group 3 > group 1.",
-  aq5:  "Only the trt2 vs trt1 p-value is below 0.05. The control (ctrl) does not differ significantly from either treatment — only the two treatments differ from each other.",
-  aq6:  "Numeric variables stored as integers (3, 4, 5 gears; 4, 6, 8 cylinders) would be treated as continuous if not coerced. as.factor() tells R to treat them as discrete categories.",
-  aq7:  "A two-way ANOVA with + produces one F-statistic per grouping variable — two total. The * operator would add a third for the interaction term.",
-  aq8:  "r = −0.74 is a strong negative correlation. Direction is negative (as one goes up, the other goes down) and strength is substantial. Note: correlation is not causation.",
+  aq3:  "aov() uses Y ~ X format: the outcome (Sales) on the left, the grouping variable (ShelveLoc) on the right, followed by the dataset.",
+  aq4:  "A negative diff means the first group listed has a lower mean than the second. For example, diff for 'Good-Bad' being positive means Good > Bad.",
+  aq5:  "Two significant p-values mean each factor independently explains wage variation. This is the main value of two-way ANOVA — you can assess each predictor's contribution while controlling for the other.",
+  aq6:  "When all pairwise Tukey comparisons are significant, every group is meaningfully different from every other. ShelveLoc is a strong predictor — each level of shelf quality produces a distinct sales outcome.",
+  aq7:  "A two-way ANOVA with + produces one F-statistic per grouping variable — two total. Using * instead of + would add a third for the interaction term.",
+  aq8:  "r = 0.997 is a near-perfect positive correlation — Limit and Rating move almost identically. In regression this would cause severe multicollinearity. Note: high correlation does not imply causation.",
   aq9:  "With n = 850, even tiny correlations become statistically significant. r = 0.12 means r² ≈ 0.014 — only 1.4% of variance explained. Statistical significance ≠ practical importance.",
   aq10: "r only measures linear association. A U-shaped pattern cancels out — increases on the left offset decreases on the right, producing r ≈ 0. Always visualize first."
 };

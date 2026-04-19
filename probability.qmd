@@ -3,7 +3,6 @@ title: "Calculating Probability"
 author: ""
 date: "2024-08-09"
 format: html
-engine: knitr
 ---
 
 ```{r setup, include=FALSE}
@@ -1819,13 +1818,17 @@ The observed counts (60, 82, 58) differ from the expected (50, 90, 60), particul
 ## Interactive R Lesson: Probability and Chi-Squared {#interactive-prob-lesson}
 
 ::: {.callout-note}
-This lesson combines the two probability swirl exercises. Part 1 covers binomial and normal probability functions. Part 2 covers contingency tables, probability rules, and the chi-squared test. All calculations use base R — no additional packages needed.
+Parts 1-3 covers binomial and normal probability functions. Parts 4-6 covers contingency tables, probability rules, and the chi-squared test. All calculations use base R — no additional packages needed.
 
-Copy each code block into your RStudio console and run it as you work through the lesson.
+You can run real R code directly in the browser — no installation needed. Work through each section in order, then test yourself with the scored quiz at the bottom.
+
+**First-time load:** The interactive R environment may take 10–20 seconds to initialize on your first visit. Once the Run Code buttons become active, you are ready to go.
 :::
 
-```{r, eval=FALSE}
-# No packages or data needed — all base R
+```{webr-r}
+#| label: prob-setup
+#| context: setup
+# Base R only — no datasets to load
 ```
 
 ---
@@ -1839,13 +1842,13 @@ The binomial distribution models the probability of a discrete yes/no outcome ac
 
 **P(X ≤ 5) given 10 trials, p = 0.5:**
 
-```{r, eval=FALSE}
+```{webr-r}
 pbinom(5, 10, .5)
 ```
 
 **P(X < 5) — "less than" means use x = 4:**
 
-```{r, eval=FALSE}
+```{webr-r}
 pbinom(4, 10, .5)
 ```
 
@@ -1855,19 +1858,19 @@ pbinom(4, 10, .5)
 
 **P(X > 5) — flip the tail with `lower.tail = FALSE`:**
 
-```{r, eval=FALSE}
+```{webr-r}
 pbinom(5, 10, .5, lower.tail = FALSE)
 ```
 
 **P(X ≥ 5) — greater than or equal to means use x = 4 with `lower.tail = FALSE`:**
 
-```{r, eval=FALSE}
+```{webr-r}
 pbinom(4, 10, .5, lower.tail = FALSE)
 ```
 
 **P(X = 5) exactly — use `dbinom()`:**
 
-```{r, eval=FALSE}
+```{webr-r}
 dbinom(5, 10, .5)
 ```
 
@@ -1886,13 +1889,13 @@ The normal distribution is continuous, so `P(X = x) = 0` for any exact value. We
 
 **P(X < 3) with mean = 4, sd = 2:**
 
-```{r, eval=FALSE}
+```{webr-r}
 pnorm(3, 4, 2)
 ```
 
 **P(X > 3) — flip the tail:**
 
-```{r, eval=FALSE}
+```{webr-r}
 pnorm(3, 4, 2, lower.tail = FALSE)
 ```
 
@@ -1902,7 +1905,7 @@ For the normal distribution, `P(X < 3)` and `P(X ≤ 3)` are identical — and l
 
 **`qnorm()` — find the x value associated with a given probability:**
 
-```{r, eval=FALSE}
+```{webr-r}
 # What value has 95% of the distribution below it?
 qnorm(.95, 4, 2)
 
@@ -1922,21 +1925,21 @@ Both lines above produce the same answer — the 95th percentile from the left e
 
 **Business survival — exactly 7 out of 20 survive (66% survival rate):**
 
-```{r, eval=FALSE}
+```{webr-r}
 # Discrete outcome (survive/not survive), asking for exactly 7 → dbinom
 dbinom(7, 20, .66)
 ```
 
 **Business survival — more than 10 out of 20 survive:**
 
-```{r, eval=FALSE}
+```{webr-r}
 # >10 means lower.tail = FALSE; no need to subtract 1
 pbinom(10, 20, .66, lower.tail = FALSE)
 ```
 
 **SAT scores — probability of scoring above 1400 (mean = 1250, sd = 300):**
 
-```{r, eval=FALSE}
+```{webr-r}
 # Continuous variable with mean and sd → pnorm; above → lower.tail = FALSE
 pnorm(1400, 1250, 300, lower.tail = FALSE)
 ```
@@ -1949,7 +1952,7 @@ A contingency table organizes frequencies for two categorical variables. We buil
 
 **Build the frequency table:**
 
-```{r, eval=FALSE}
+```{webr-r}
 x <- c(20, 30, 10, 40)
 M <- matrix(x, 2, 2, byrow = TRUE)
 dimnames(M) <- list(c("Group A", "Group B"), c("Outcome 1", "Outcome 2"))
@@ -1970,7 +1973,7 @@ colsums
 
 **Combine into a complete frequency table using `cbind()` and `rbind()`:**
 
-```{r, eval=FALSE}
+```{webr-r}
 FrequencyTable <- cbind(M, rowsums)
 colsums        <- c(colsums, total)
 FrequencyTable <- rbind(FrequencyTable, colsums)
@@ -1983,7 +1986,7 @@ FrequencyTable
 
 **Build the joint probability table:**
 
-```{r, eval=FALSE}
+```{webr-r}
 prob      <- prop.table(M)
 totalProb <- sum(prob)
 rowprob   <- margin.table(prob, 1)
@@ -2001,20 +2004,20 @@ The center values (.20, .30, .10, .40) are **joint probabilities** — the proba
 
 **Addition rule — P(Group A or Outcome 1):**
 
-```{r, eval=FALSE}
+```{webr-r}
 # P(A or B) = P(A) + P(B) - P(A and B)
 .5 + .3 - .2
 ```
 
 **Complement rule — P(not Group B):**
 
-```{r, eval=FALSE}
+```{webr-r}
 1 - .5
 ```
 
 **Conditional probability — P(Outcome 1 | Group A already occurred):**
 
-```{r, eval=FALSE}
+```{webr-r}
 # P(Outcome 1 | Group A) = P(intersection) / P(Group A)
 .2 / .5
 ```
@@ -2028,7 +2031,7 @@ The chi-squared test of independence asks: are two categorical variables associa
 - **H₀:** Group and Outcome are independent
 - **Hₐ:** Group and Outcome are dependent (associated)
 
-```{r, eval=FALSE}
+```{webr-r}
 chisq.test(M)
 ```
 
