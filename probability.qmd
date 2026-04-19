@@ -1817,7 +1817,7 @@ The observed counts (60, 82, 58) differ from the expected (50, 90, 60), particul
 
 ## Interactive R Lesson: Probability and Chi-Squared {#interactive-prob-lesson}
 
-::: {.callout-note}
+::: callout-note
 Parts 1-3 covers binomial and normal probability functions. Parts 4-6 covers contingency tables, probability rules, and the chi-squared test. All calculations use base R — no additional packages needed.
 
 You can run real R code directly in the browser — no installation needed. Work through each section in order, then test yourself with the scored quiz at the bottom.
@@ -1831,14 +1831,14 @@ You can run real R code directly in the browser — no installation needed. Work
 # Base R only — no datasets to load
 ```
 
----
+------------------------------------------------------------------------
 
 ### Part 1: Binomial Probabilities
 
 The binomial distribution models the probability of a discrete yes/no outcome across a fixed number of trials. Two key functions:
 
-- `pbinom(x, n, p)` — cumulative probability: P(X ≤ x)
-- `dbinom(x, n, p)` — exact probability: P(X = x)
+-   `pbinom(x, n, p)` — cumulative probability: P(X ≤ x)
+-   `dbinom(x, n, p)` — exact probability: P(X = x)
 
 **P(X ≤ 5) given 10 trials, p = 0.5:**
 
@@ -1846,17 +1846,17 @@ The binomial distribution models the probability of a discrete yes/no outcome ac
 pbinom(5, 10, .5)
 ```
 
-**P(X < 5) — "less than" means use x = 4:**
+**P(X \< 5) — "less than" means use x = 4:**
 
 ```{webr-r}
 pbinom(4, 10, .5)
 ```
 
-::: {.callout-important}
+::: callout-important
 **Less than vs. less than or equal to** matters in discrete distributions. `P(X < 5)` = `P(X ≤ 4)`, so use 4 as the first argument. This distinction does **not** exist in the normal distribution because `P(X = x) = 0` for any exact value.
 :::
 
-**P(X > 5) — flip the tail with `lower.tail = FALSE`:**
+**P(X \> 5) — flip the tail with `lower.tail = FALSE`:**
 
 ```{webr-r}
 pbinom(5, 10, .5, lower.tail = FALSE)
@@ -1874,32 +1874,32 @@ pbinom(4, 10, .5, lower.tail = FALSE)
 dbinom(5, 10, .5)
 ```
 
-::: {.callout-tip}
+::: callout-tip
 `dbinom()` has no `lower.tail` argument — it calculates the probability of exactly one value, so there is no tail to flip.
 :::
 
----
+------------------------------------------------------------------------
 
 ### Part 2: Normal Probabilities
 
 The normal distribution is continuous, so `P(X = x) = 0` for any exact value. We always work with ranges using:
 
-- `pnorm(x, mean, sd)` — P(X < x) or P(X ≤ x) — same result
-- `qnorm(p, mean, sd)` — the x value that has probability p below it
+-   `pnorm(x, mean, sd)` — P(X \< x) or P(X ≤ x) — same result
+-   `qnorm(p, mean, sd)` — the x value that has probability p below it
 
-**P(X < 3) with mean = 4, sd = 2:**
+**P(X \< 3) with mean = 4, sd = 2:**
 
 ```{webr-r}
 pnorm(3, 4, 2)
 ```
 
-**P(X > 3) — flip the tail:**
+**P(X \> 3) — flip the tail:**
 
 ```{webr-r}
 pnorm(3, 4, 2, lower.tail = FALSE)
 ```
 
-::: {.callout-note}
+::: callout-note
 For the normal distribution, `P(X < 3)` and `P(X ≤ 3)` are identical — and likewise `P(X > 3)` and `P(X ≥ 3)` are identical. This is because the probability of any exact value is zero in a continuous distribution.
 :::
 
@@ -1913,11 +1913,11 @@ qnorm(.95, 4, 2)
 qnorm(.05, 4, 2, lower.tail = FALSE)
 ```
 
-::: {.callout-tip}
+::: callout-tip
 Both lines above produce the same answer — the 95th percentile from the left equals the 5th percentile from the right. They describe the same point on the distribution.
 :::
 
----
+------------------------------------------------------------------------
 
 ### Part 3: Word Problems
 
@@ -1944,7 +1944,7 @@ pbinom(10, 20, .66, lower.tail = FALSE)
 pnorm(1400, 1250, 300, lower.tail = FALSE)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Part 4: Contingency Tables
 
@@ -1967,7 +1967,7 @@ rowsums
 colsums
 ```
 
-::: {.callout-tip}
+::: callout-tip
 `margin.table(M, 1)` sums across rows (giving row totals). `margin.table(M, 2)` sums across columns (giving column totals). The `1` and `2` refer to the margin dimension.
 :::
 
@@ -1980,7 +1980,7 @@ FrequencyTable <- rbind(FrequencyTable, colsums)
 FrequencyTable
 ```
 
----
+------------------------------------------------------------------------
 
 ### Part 5: Probability Table and Probability Rules
 
@@ -1998,7 +1998,7 @@ ProbabilityTable <- rbind(ProbabilityTable, colprob)
 ProbabilityTable
 ```
 
-::: {.callout-note}
+::: callout-note
 The center values (.20, .30, .10, .40) are **joint probabilities** — the probability of two events occurring together (the intersection). The margin values (.50, .50, .30, .70) are **marginal probabilities** — the unconditional probability of one event regardless of the other.
 :::
 
@@ -2015,31 +2015,31 @@ The center values (.20, .30, .10, .40) are **joint probabilities** — the proba
 1 - .5
 ```
 
-**Conditional probability — P(Outcome 1 | Group A already occurred):**
+**Conditional probability — P(Outcome 1 \| Group A already occurred):**
 
 ```{webr-r}
 # P(Outcome 1 | Group A) = P(intersection) / P(Group A)
 .2 / .5
 ```
 
----
+------------------------------------------------------------------------
 
 ### Part 6: Chi-Squared Test of Independence
 
 The chi-squared test of independence asks: are two categorical variables associated, or are they independent?
 
-- **H₀:** Group and Outcome are independent
-- **Hₐ:** Group and Outcome are dependent (associated)
+-   **H₀:** Group and Outcome are independent
+-   **Hₐ:** Group and Outcome are dependent (associated)
 
 ```{webr-r}
 chisq.test(M)
 ```
 
-::: {.callout-note}
+::: callout-note
 The p-value of approximately 0.05 is at the boundary of the conventional alpha = 0.05 threshold. A p-value below 0.05 leads to rejecting H₀ and concluding dependence. Always report the exact p-value rather than just "reject" or "fail to reject."
 :::
 
----
+------------------------------------------------------------------------
 
 ## Scored Quiz: Probability and Chi-Squared {#prob-quiz}
 
@@ -2234,10 +2234,9 @@ function psubmitQuiz() {
 </script>
 ```
 
-::: {.callout-note}
+::: callout-note
 No need to submit this quiz anywhere. This exercise is for your benefit to help you learn R.
 :::
-
 
 ## Summary
 

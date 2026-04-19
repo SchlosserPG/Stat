@@ -1033,8 +1033,9 @@ You can run real R code directly in the browser — no installation needed. Work
 #| message: true
 cat("Loading R environment... please wait\n")
 
-College <- read.csv("data/College.csv")
-Credit  <- read.csv("data/Credit.csv")
+##note, we load data a little differently when it is preloaded from the browser. Use library(ISLR); data(College);  data(Credit) on your own computer assuming the package is installed. 
+College <- ISLR::College
+Credit  <- ISLR::Credit
 ```
 
 ### Part 1: Exploring a Categorical Variable

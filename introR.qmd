@@ -1565,7 +1565,7 @@ You can run real R code directly in the browser — no installation needed. Work
 ```{webr-r}
 #| label: intro-setup
 #| context: setup
-Auto <- read.csv("data/Auto.csv")
+
 ```
 
 ------------------------------------------------------------------------
@@ -1703,9 +1703,11 @@ data("cars")
 summary(cars)
 ```
 
-**Load and explore the Auto dataset:**
+**Load and explore the Auto dataset from the ISLR dataset:**
 
 ```{webr-r}
+##instead of saying data(Auto), we use the following because the dataset is preloaded on this account. 
+Auto <- ISLR::Auto
 summary(Auto)
 ```
 

@@ -1437,7 +1437,7 @@ You will use `filter()`, `select()`, `arrange()`, `mutate()`, the pipe operator,
 #| message: true
 cat("Loading R environment... please wait\n")
 
-Auto <- read.csv("data/Auto.csv")
+Auto <- ISLR::Auto
 ```
 
 ### Part 1: Loading and Summarizing Data
