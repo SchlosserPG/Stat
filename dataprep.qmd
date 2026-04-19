@@ -1435,14 +1435,15 @@ You will use `filter()`, `select()`, `arrange()`, `mutate()`, the pipe operator,
 ```{webr-r}
 #| label: dataprep-setup
 #| context: setup
-library(dplyr)
-library(ggplot2)
+#| message: true
+cat("Loading R environment... please wait\n")
+
 Auto <- read.csv("data/Auto.csv")
 ```
 
 ### Part 1: Loading and Summarizing Data
 
-Hello again! Dr. Schlosser here. This lesson covers data preparation using dplyr. We will work with the Auto dataset, which contains information on cars including mpg, horsepower, weight, acceleration, and more.
+We will work with the Auto dataset, which contains information on cars including mpg, horsepower, weight, acceleration, and more.
 
 **Summarize the Auto dataset:**
 

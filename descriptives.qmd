@@ -1030,16 +1030,19 @@ You can run real R code directly in the browser — no installation needed. Work
 ```{webr-r}
 #| label: setup
 #| context: setup
-library(ggplot2)
+#| message: true
+cat("Loading R environment... please wait\n")
+
 College <- read.csv("data/College.csv")
 Credit  <- read.csv("data/Credit.csv")
 ```
 
 ### Part 1: Exploring a Categorical Variable
 
-Hello! Dr. Schlosser here. In this lesson I will show you how to calculate descriptive measures in R — measures of central tendency, measures of dispersion, and measures of association.
+In this lesson I will show you how to calculate descriptive measures in R — measures of central tendency, measures of dispersion, and measures of association.
 
 We start with `Private`, a categorical (factor) variable in the College dataset. The `table()` function is useful for analyzing categorical variables.
+
 
 **Try it:** Run the code below to see the frequency breakdown of the `Private` variable.
 

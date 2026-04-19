@@ -2,14 +2,13 @@ project:
   type: book
   output-dir: docs
   resources: 
-     - favicon.ico
-     - data/Credit.csv
-     - data/College.csv
-     - data/Auto.csv
-     - data/Carseats.csv
-     - data/Boston.csv
-     
-include-in-header: custom-head.html
+    - favicon.ico
+    - data/Credit.csv
+    - data/College.csv
+    - data/Auto.csv
+    - data/Carseats.csv
+    - data/Boston.csv
+
 book:
   title: "Probability And Business Statistics"
   author: "Pamela Schlosser"
@@ -37,6 +36,11 @@ format:
     number-sections: false
     include-in-header: custom-head.html
     favicon: favicon.ico
+
+webr:
+  packages:
+    - ggplot2
+    - dplyr
 
 filters:
   - webr

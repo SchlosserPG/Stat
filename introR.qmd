@@ -1556,7 +1556,9 @@ Why does the order matter for `age`? `as.numeric()` cannot convert `"89 OR OLDER
 ## Interactive R Lesson: Creating and Loading Data {#interactive-intro-lesson}
 
 ::: callout-note
-This lesson walks through the swirl exercises on creating and loading data in R. Copy each code block into your RStudio console or script file and run it as you work through the lesson.
+This lesson walks through the swirl exercises on creating and loading data in R. 
+
+Copy each code block into your RStudio console and run it as you work through the lesson.
 :::
 
 ```{r, eval=FALSE}

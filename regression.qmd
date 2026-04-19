@@ -921,13 +921,15 @@ Note that even though Operations has the lowest intercept, the Operations employ
 ::: {.callout-note}
 This lesson combines all four regression swirl exercises: simple linear regression, qualitative predictors, multiple regression, and interaction terms. All datasets are built into base R or already in your `data/` folder — no additional installation needed.
 
+Copy each code block into your RStudio console and run it as you work through the lesson.
+
 **First-time load:** The interactive R environment may take 10–20 seconds to initialize. Once the Run Code buttons become active, you are ready to go.
 :::
 
 ```{webr-r}
 #| label: reg-setup
 #| context: setup
-library(ggplot2)
+
 Boston  <- MASS::Boston
 Credit  <- read.csv("data/Credit.csv")
 Carseats <- read.csv("data/Carseats.csv")

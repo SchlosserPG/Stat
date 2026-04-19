@@ -1149,7 +1149,8 @@ This lesson combines the ANOVA swirl exercises and introduces correlation using 
 ```{webr-r}
 #| label: anova-setup
 #| context: setup
-library(ggplot2)
+#| message: true
+
 data("ChickWeight")
 data("PlantGrowth")
 data("mtcars")
