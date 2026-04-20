@@ -744,7 +744,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#tips-for-r-and-statistics-prompts" id="toc-tips-for-r-and-statistics-prompts" class="nav-link" data-scroll-target="#tips-for-r-and-statistics-prompts">Tips for R and Statistics Prompts</a></li>
   <li><a href="#verifying-ai-output" id="toc-verifying-ai-output" class="nav-link" data-scroll-target="#verifying-ai-output">Verifying AI Output</a></li>
   </ul></li>
-  <li><a href="#generative-ai-lab" id="toc-generative-ai-lab" class="nav-link" data-scroll-target="#generative-ai-lab">Generative AI Lab</a></li>
   </ul></li>
   <li><a href="#data-visualization-principles" id="toc-data-visualization-principles" class="nav-link" data-scroll-target="#data-visualization-principles">Data Visualization Principles</a>
   <ul class="collapse">
@@ -766,7 +765,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#the-six-step-storytelling-workflow" id="toc-the-six-step-storytelling-workflow" class="nav-link" data-scroll-target="#the-six-step-storytelling-workflow">The Six-Step Storytelling Workflow</a></li>
   </ul></li>
   <li><a href="#correlation-vs.-causation" id="toc-correlation-vs.-causation" class="nav-link" data-scroll-target="#correlation-vs.-causation">Correlation vs.&nbsp;Causation</a></li>
-  <li><a href="#visualization-principles-lab" id="toc-visualization-principles-lab" class="nav-link" data-scroll-target="#visualization-principles-lab">Visualization Principles Lab</a></li>
   </ul></li>
   <li><a href="#kaiser-fungs-trifecta-checkup" id="toc-kaiser-fungs-trifecta-checkup" class="nav-link" data-scroll-target="#kaiser-fungs-trifecta-checkup">Kaiser Fung’s Trifecta Checkup</a>
   <ul class="collapse">
@@ -799,6 +797,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#summary-and-review" id="toc-summary-and-review" class="nav-link" data-scroll-target="#summary-and-review">Summary and Review</a>
   <ul class="collapse">
   <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai">Using AI</a></li>
+  <li><a href="#generative-ai-lab" id="toc-generative-ai-lab" class="nav-link" data-scroll-target="#generative-ai-lab">Generative AI Lab</a></li>
+  <li><a href="#visualization-principles-lab" id="toc-visualization-principles-lab" class="nav-link" data-scroll-target="#visualization-principles-lab">Visualization Principles Lab</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
   </ul>
@@ -1127,65 +1127,6 @@ ul.task-list li input[type="checkbox"] {
 <p>Step 3 is where statistical knowledge is irreplaceable. An AI can produce a confidence interval and write a plausible-sounding sentence about it — but you need to know whether the sentence is correct.</p>
 <hr>
 </section>
-</section>
-<section id="generative-ai-lab" class="level2">
-<h2 class="anchored" data-anchor-id="generative-ai-lab">Generative AI Lab</h2>
-<p><strong>1.</strong> What is the fundamental difference between generative and predictive AI? Give one example of each that a marketing analyst might use, and explain which type you are building when you run a regression in this course.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>Predictive AI</strong> forecasts outcomes from historical data — a churn model that scores each customer’s probability of cancellation is predictive. <strong>Generative AI</strong> creates new content — a tool that drafts personalized email copy for each segment is generative. When you run a regression in this course, you are building a <strong>predictive</strong> model: you are using past values of X to estimate Y, not generating new content. Many students assume “AI” refers only to generative tools; regression and classification models are AI too, just not the generative kind.</p>
-</div>
-</div>
-</div>
-<p><strong>2.</strong> A colleague shows you an AI-generated analysis that includes this sentence: “According to the 2023 Nielsen Consumer Confidence Index (Vol. 12, pp.&nbsp;34–41), customers aged 25–34 are 2.3× more likely to switch brands after a single negative service experience.” Which hallucination warning signs should you check, and what is the most efficient way to verify this claim?</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Two warning signs are present: <strong>unverified specificity</strong> (the precise multiplier of 2.3×, the specific volume and page numbers) and <strong>invented sources</strong> (the “Nielsen Consumer Confidence Index” with that specific citation does not correspond to a known Nielsen publication). The most efficient verification: search Nielsen’s official publications database for the exact report title and volume. If it does not appear, the citation is fabricated. A secondary check: search for the specific “2.3× more likely” statistic in media coverage of Nielsen research — legitimate statistics of that precision tend to get cited widely. If neither check turns up the claim, do not use it.</p>
-</div>
-</div>
-</div>
-<p><strong>3.</strong> Rewrite the following weak prompt as a specific, well-structured prompt that would produce useful output for a business statistics course: <em>“Tell me about wages in my dataset.”</em></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>A strong rewrite:</p>
-<blockquote class="blockquote">
-<p>“I have a dataset called zillow.csv with a numeric variable <code>home_value</code> (estimated home value in dollars) and a factor variable <code>season</code> (Fall, Spring, Summer, Winter). Using R, please: (1) calculate the mean, median, standard deviation, and IQR of <code>home_value</code> for the full dataset; (2) calculate the same statistics broken out by <code>season</code> using <code>group_by()</code> + <code>summarise()</code>; (3) run <code>skew()</code> from the semTools package to check whether <code>home_value</code> is normally distributed; and (4) write a two-sentence interpretation of what the summary statistics tell us about home value variation across seasons.”</p>
-</blockquote>
-<p>This is stronger because it names the variables, specifies the exact functions, defines the scope of the analysis (four questions, not open-ended), and asks for an interpretation — not just output.</p>
-</div>
-</div>
-</div>
-<hr>
 </section>
 </section>
 <section id="data-visualization-principles" class="level1">
@@ -1691,62 +1632,6 @@ Show Answer
 </figure>
 </div>
 <hr>
-</section>
-<section id="visualization-principles-lab" class="level2">
-<h2 class="anchored" data-anchor-id="visualization-principles-lab">Visualization Principles Lab</h2>
-<p><strong>1.</strong> A bar chart shows website traffic across five marketing channels. The y-axis runs from 280,000 to 310,000 visits, making the lowest channel appear to have nearly zero traffic compared to the highest. Classify this chart using Wilke’s taxonomy (Good, Ugly, Bad, Wrong) and explain the correct fix.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>This is <strong>Bad</strong> — not Wrong. The numbers are accurate, but the visual is perceptually misleading. A truncated y-axis on a bar chart distorts the encoding: bar <em>height</em> represents magnitude relative to zero, and starting the y-axis at 280,000 makes the smallest channel look negligible when the actual difference is less than 10%. Most viewers read the visual pattern before the axis — which is exactly what the truncation exploits. <strong>Fix:</strong> set the y-axis to start at 0 for any bar chart. If the actual range (280K–310K) is the relevant information, switch to a line chart or dot plot where a non-zero baseline is acceptable, and annotate the axis break visually.</p>
-</div>
-</div>
-</div>
-<p><strong>2.</strong> A health journalist reports: “Cities with more fast food restaurants per capita have higher obesity rates — our data from 200 cities confirms that fast food causes obesity.” Identify which reasoning error(s) from Schmidt et al.’s list are present and explain the correct interpretation.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Two errors are present. <strong>False causal claims</strong> — the journalist infers causation from an observational correlation. No experimental design is described, and no confounds are ruled out. <strong>Ignoring statistical nuance</strong> — the correlation across 200 cities does not establish that fast food <em>causes</em> obesity at the individual level; there are obvious confounds (income, urban density, food access, physical activity infrastructure) that are correlated with both fast food availability and obesity rates.</p>
-<p>The correct interpretation: cities with more fast food restaurants <em>also tend to have</em> higher obesity rates. This association is worth investigating but is consistent with multiple explanations — fast food availability, socioeconomic factors, or a third variable like urban food deserts that predicts both simultaneously. Causation would require ruling out these confounds through experimental design or rigorous natural experiment methods.</p>
-</div>
-</div>
-</div>
-<p><strong>3.</strong> Write a strong Big Idea sentence for the following scenario, then identify which of the six workflow steps the analyst most likely skipped: A data team presents a chart titled “Customer Satisfaction Survey Results Q3” showing 12 metrics in a radar chart with no annotations, and the only takeaway the leadership team reaches is “some scores went up and some went down.”</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>Strong Big Idea:</strong> “Net Promoter Score dropped 18 points in Q3 — the sharpest single-quarter decline in two years — driven entirely by customers who contacted support more than twice, indicating that repeat service contacts are the primary driver of dissatisfaction.”</p>
-<p><strong>Steps most likely skipped:</strong> Step 1 (Understand the context) — the analyst did not define what decision the chart was meant to support, so no finding was prioritized. Step 4 (Focus attention) — with 12 metrics on a radar chart and no highlighting, the viewer’s eye has no guide. Step 6 (Tell a story) — no annotation communicates the key takeaway, forcing the leadership team to draw their own (weak) conclusions. A radar chart with 12 metrics is also a poor choice for Step 2 (Choose the right visual) — radar charts make comparison across categories difficult and are generally not recommended for more than 5–6 metrics.</p>
-</div>
-</div>
-</div>
 <hr>
 </section>
 </section>
@@ -2141,6 +2026,120 @@ Write 2–3 sentences on what role human statistical judgment plays when AI gene
 <li>A chart passes V but fails D in Kaiser Fung’s framework. Describe what this looks like in practice — what kind of chart would be visually polished but analytically misleading?</li>
 <li>What specific types of failures should you expect when AI generates a data visualization? Which corners of the Trifecta are AI’s weak points and why?</li>
 </ul>
+</section>
+<section id="generative-ai-lab" class="level2">
+<h2 class="anchored" data-anchor-id="generative-ai-lab">Generative AI Lab</h2>
+<p><strong>1.</strong> What is the fundamental difference between generative and predictive AI? Give one example of each that a marketing analyst might use, and explain which type you are building when you run a regression in this course.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Predictive AI</strong> forecasts outcomes from historical data — a churn model that scores each customer’s probability of cancellation is predictive. <strong>Generative AI</strong> creates new content — a tool that drafts personalized email copy for each segment is generative. When you run a regression in this course, you are building a <strong>predictive</strong> model: you are using past values of X to estimate Y, not generating new content. Many students assume “AI” refers only to generative tools; regression and classification models are AI too, just not the generative kind.</p>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> A colleague shows you an AI-generated analysis that includes this sentence: “According to the 2023 Nielsen Consumer Confidence Index (Vol. 12, pp.&nbsp;34–41), customers aged 25–34 are 2.3× more likely to switch brands after a single negative service experience.” Which hallucination warning signs should you check, and what is the most efficient way to verify this claim?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Two warning signs are present: <strong>unverified specificity</strong> (the precise multiplier of 2.3×, the specific volume and page numbers) and <strong>invented sources</strong> (the “Nielsen Consumer Confidence Index” with that specific citation does not correspond to a known Nielsen publication). The most efficient verification: search Nielsen’s official publications database for the exact report title and volume. If it does not appear, the citation is fabricated. A secondary check: search for the specific “2.3× more likely” statistic in media coverage of Nielsen research — legitimate statistics of that precision tend to get cited widely. If neither check turns up the claim, do not use it.</p>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Rewrite the following weak prompt as a specific, well-structured prompt that would produce useful output for a business statistics course: <em>“Tell me about wages in my dataset.”</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A strong rewrite:</p>
+<blockquote class="blockquote">
+<p>“I have a dataset called zillow.csv with a numeric variable <code>home_value</code> (estimated home value in dollars) and a factor variable <code>season</code> (Fall, Spring, Summer, Winter). Using R, please: (1) calculate the mean, median, standard deviation, and IQR of <code>home_value</code> for the full dataset; (2) calculate the same statistics broken out by <code>season</code> using <code>group_by()</code> + <code>summarise()</code>; (3) run <code>skew()</code> from the semTools package to check whether <code>home_value</code> is normally distributed; and (4) write a two-sentence interpretation of what the summary statistics tell us about home value variation across seasons.”</p>
+</blockquote>
+<p>This is stronger because it names the variables, specifies the exact functions, defines the scope of the analysis (four questions, not open-ended), and asks for an interpretation — not just output.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="visualization-principles-lab" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-principles-lab">Visualization Principles Lab</h2>
+<p><strong>1.</strong> A bar chart shows website traffic across five marketing channels. The y-axis runs from 280,000 to 310,000 visits, making the lowest channel appear to have nearly zero traffic compared to the highest. Classify this chart using Wilke’s taxonomy (Good, Ugly, Bad, Wrong) and explain the correct fix.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is <strong>Bad</strong> — not Wrong. The numbers are accurate, but the visual is perceptually misleading. A truncated y-axis on a bar chart distorts the encoding: bar <em>height</em> represents magnitude relative to zero, and starting the y-axis at 280,000 makes the smallest channel look negligible when the actual difference is less than 10%. Most viewers read the visual pattern before the axis — which is exactly what the truncation exploits. <strong>Fix:</strong> set the y-axis to start at 0 for any bar chart. If the actual range (280K–310K) is the relevant information, switch to a line chart or dot plot where a non-zero baseline is acceptable, and annotate the axis break visually.</p>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> A health journalist reports: “Cities with more fast food restaurants per capita have higher obesity rates — our data from 200 cities confirms that fast food causes obesity.” Identify which reasoning error(s) from Schmidt et al.’s list are present and explain the correct interpretation.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Two errors are present. <strong>False causal claims</strong> — the journalist infers causation from an observational correlation. No experimental design is described, and no confounds are ruled out. <strong>Ignoring statistical nuance</strong> — the correlation across 200 cities does not establish that fast food <em>causes</em> obesity at the individual level; there are obvious confounds (income, urban density, food access, physical activity infrastructure) that are correlated with both fast food availability and obesity rates.</p>
+<p>The correct interpretation: cities with more fast food restaurants <em>also tend to have</em> higher obesity rates. This association is worth investigating but is consistent with multiple explanations — fast food availability, socioeconomic factors, or a third variable like urban food deserts that predicts both simultaneously. Causation would require ruling out these confounds through experimental design or rigorous natural experiment methods.</p>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Write a strong Big Idea sentence for the following scenario, then identify which of the six workflow steps the analyst most likely skipped: A data team presents a chart titled “Customer Satisfaction Survey Results Q3” showing 12 metrics in a radar chart with no annotations, and the only takeaway the leadership team reaches is “some scores went up and some went down.”</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Strong Big Idea:</strong> “Net Promoter Score dropped 18 points in Q3 — the sharpest single-quarter decline in two years — driven entirely by customers who contacted support more than twice, indicating that repeat service contacts are the primary driver of dissatisfaction.”</p>
+<p><strong>Steps most likely skipped:</strong> Step 1 (Understand the context) — the analyst did not define what decision the chart was meant to support, so no finding was prioritized. Step 4 (Focus attention) — with 12 metrics on a radar chart and no highlighting, the viewer’s eye has no guide. Step 6 (Tell a story) — no annotation communicates the key takeaway, forcing the leadership team to draw their own (weak) conclusions. A radar chart with 12 metrics is also a poor choice for Step 2 (Choose the right visual) — radar charts make comparison across categories difficult and are generally not recommended for more than 5–6 metrics.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
