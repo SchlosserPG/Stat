@@ -730,8 +730,12 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#consider-while-reading" id="toc-consider-while-reading" class="nav-link" data-scroll-target="#consider-while-reading">Consider While Reading</a></li>
   <li><a href="#understanding-generative-ai" id="toc-understanding-generative-ai" class="nav-link" data-scroll-target="#understanding-generative-ai">Understanding Generative AI</a>
   <ul class="collapse">
-  <li><a href="#what-is-generative-ai" id="toc-what-is-generative-ai" class="nav-link" data-scroll-target="#what-is-generative-ai">What Is Generative AI?</a></li>
+  <li><a href="#what-is-generative-ai" id="toc-what-is-generative-ai" class="nav-link" data-scroll-target="#what-is-generative-ai">What Is Generative AI?</a>
+  <ul class="collapse">
+  <li><a href="#where-does-generative-ai-fit-in-the-broader-ai-spectrum" id="toc-where-does-generative-ai-fit-in-the-broader-ai-spectrum" class="nav-link" data-scroll-target="#where-does-generative-ai-fit-in-the-broader-ai-spectrum">Where Does Generative AI Fit in the Broader AI Spectrum?</a></li>
+  </ul></li>
   <li><a href="#how-generative-ai-works-a-conceptual-overview" id="toc-how-generative-ai-works-a-conceptual-overview" class="nav-link" data-scroll-target="#how-generative-ai-works-a-conceptual-overview">How Generative AI Works: A Conceptual Overview</a></li>
+  <li><a href="#generative-ai-in-a-business-analytics-context" id="toc-generative-ai-in-a-business-analytics-context" class="nav-link" data-scroll-target="#generative-ai-in-a-business-analytics-context">Generative AI in a Business Analytics Context</a></li>
   <li><a href="#the-limits-of-generative-ai" id="toc-the-limits-of-generative-ai" class="nav-link" data-scroll-target="#the-limits-of-generative-ai">The Limits of Generative AI</a></li>
   <li><a href="#llm-hallucinations" id="toc-llm-hallucinations" class="nav-link" data-scroll-target="#llm-hallucinations">LLM Hallucinations</a></li>
   <li><a href="#prompt-engineering" id="toc-prompt-engineering" class="nav-link" data-scroll-target="#prompt-engineering">Prompt Engineering</a>
@@ -865,7 +869,17 @@ ul.task-list li input[type="checkbox"] {
 <h1>Understanding Generative AI</h1>
 <section id="what-is-generative-ai" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-generative-ai">What Is Generative AI?</h2>
-<p><strong>Generative AI</strong> refers to AI systems that create new content — text, code, images, audio, and video — based on patterns learned from training data. It is distinct from <strong>predictive AI</strong>, which forecasts outcomes from historical data without producing new content.</p>
+<p>When most people hear “AI” today, they think immediately of generative AI — ChatGPT, Claude, image generators, code assistants. But generative AI is one piece of a much larger field, and understanding where it sits in that field will help you use it more effectively and avoid overstating what it can do.</p>
+<p><strong>Artificial Intelligence</strong> is the broad effort to create systems that can mimic human intelligence — reasoning, learning, adapting. Within that, <strong>Machine Learning</strong> is one of the most important approaches: algorithms that learn from data to make predictions or recommendations. When Netflix suggests your next show or a bank predicts loan default risk, that is machine learning in action.</p>
+<p>A subset of ML is <strong>Deep Learning</strong> — neural networks with many layers that power image recognition, speech recognition, and voice assistants. Deep learning is what enabled autonomous vehicles to identify pedestrians and what made large-scale language modeling possible.</p>
+<p>And then there is <strong>Generative AI</strong>, which sits within deep learning but represents a new kind of capability. Instead of classifying or predicting, generative models <em>create</em> — producing text, images, code, and audio that did not exist before. If predictive AI tells you what is likely to happen, generative AI produces something new.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/GenAI.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Generative AI within the AI Landscape</figcaption>
+</figure>
+</div>
+<p><strong>Generative AI</strong> refers specifically to AI systems that create new content — text, code, images, audio, and video — based on patterns learned from training data. It is distinct from <strong>predictive AI</strong>, which forecasts outcomes from historical data without producing new content.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -892,20 +906,25 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/GenAI.png" class="img-fluid figure-img"></p>
-<figcaption>Generative AI within the AI Landscape</figcaption>
-</figure>
-</div>
 <p>Both types are useful in a statistics course. Predictive AI is what you are building when you run a regression. Generative AI is what helps you write, code, and communicate. Understanding the difference prevents misuse.</p>
 <p>Notable tools in a business statistics context: <strong>ChatGPT</strong> and <strong>Claude</strong> (text and code generation), <strong>GitHub Copilot</strong> (code completion in your editor), and <strong>Perplexity AI</strong> (search combined with generative synthesis).</p>
+<section id="where-does-generative-ai-fit-in-the-broader-ai-spectrum" class="level3">
+<h3 class="anchored" data-anchor-id="where-does-generative-ai-fit-in-the-broader-ai-spectrum">Where Does Generative AI Fit in the Broader AI Spectrum?</h3>
+<p>It is worth pausing on a common source of confusion: generative AI <em>feels</em> general because it handles so many different kinds of tasks. But even the most capable tools like ChatGPT or Claude are still forms of <strong>Narrow AI</strong> — systems designed to perform well within a defined domain (language, in this case) without genuine general reasoning.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/GenAI_paradigm.png" class="img-fluid figure-img"></p>
 <figcaption>Narrow AI, General AI, and Strong AI — Where Generative AI Sits</figcaption>
 </figure>
 </div>
+<p>The three levels of AI capability are:</p>
+<ul>
+<li><p><strong>Narrow AI</strong> — systems designed to do one thing, or a small set of related tasks, extremely well. Spam filters, recommendation engines, facial recognition, and medical imaging classifiers are all narrow AI. Generative AI tools belong here too — they are extraordinarily capable within the domain of language, but they do not generalize outside it the way a human reasoner does.</p></li>
+<li><p><strong>General AI (AGI)</strong> — a hypothetical system that could understand, learn, and apply knowledge across any domain at human level or beyond. AGI remains aspirational; researchers continue to debate whether current approaches can ever reach it.</p></li>
+<li><p><strong>Strong AI</strong> — a further hypothetical: AI that surpasses human intelligence across all domains, including creativity, problem-solving, and decision-making. This is more philosophical than technical at present.</p></li>
+</ul>
+<p>You can think of generative AI as <strong>broad narrow AI</strong>: remarkably versatile within the domain of language and content generation, but still limited outside of it. A large language model cannot reason about an entirely new domain the way a human expert can — it pattern-matches against its training data. Understanding this distinction is what allows you to use these tools confidently and critically.</p>
+</section>
 </section>
 <section id="how-generative-ai-works-a-conceptual-overview" class="level2">
 <h2 class="anchored" data-anchor-id="how-generative-ai-works-a-conceptual-overview">How Generative AI Works: A Conceptual Overview</h2>
@@ -914,6 +933,18 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Tokenization</strong> — the model does not read words; it reads <em>tokens</em>, which are chunks of text (often subwords). “Unbelievable” might become <code>["un", "believ", "able"]</code>. The model learns statistical relationships between token sequences across enormous amounts of text.</p>
 <p><strong>Attention mechanisms</strong> — instead of processing text strictly left-to-right, the model can attend to any prior token when predicting the next one. This is what allows it to understand that “bank” means something different in “river bank” and “savings bank.”</p>
 <p>The key insight for a business analyst: <strong>the model is predicting language, not computing truth.</strong> When it writes <code>mean(x) = sum(x) / length(x)</code>, it is not running a calculation — it is recognizing that this string follows that kind of prompt in training data. Usually this is correct. Sometimes it is not.</p>
+</section>
+<section id="generative-ai-in-a-business-analytics-context" class="level2">
+<h2 class="anchored" data-anchor-id="generative-ai-in-a-business-analytics-context">Generative AI in a Business Analytics Context</h2>
+<p>Before diving into the limits of generative AI, it is worth placing it in the broader analytics context you will encounter in business settings. Traditional analytics follows a familiar progression:</p>
+<ul>
+<li><strong>Descriptive analytics</strong> — what happened (reports, summaries, visualizations)</li>
+<li><strong>Diagnostic analytics</strong> — why it happened (exploring relationships and causes)</li>
+<li><strong>Predictive analytics</strong> — what will happen (forecasting models, regression)</li>
+<li><strong>Prescriptive analytics</strong> — what we should do (recommendations, optimization)</li>
+</ul>
+<p>These four categories have shaped how organizations approach data for decades, and they remain the core of what you are learning in this course. AI does not replace this progression — it <em>supercharges</em> it. AI makes the traditional analytics cycle faster, deeper, and more dynamic: rather than producing static reports or one-off models, AI-enabled systems can continuously learn from new data, make real-time decisions, personalize at scale, and in some cases take autonomous action.</p>
+<p>The key distinction for this course is between <strong>AI as a tool you use</strong> and <strong>AI as a system an organization embeds</strong>. When you use Claude or ChatGPT to write R code or interpret output, you are using AI as a productivity tool — it handles mechanical execution while you supply the question, the data, and the judgment. When a hospital embeds an AI model that flags patient deterioration in real time, or when Netflix personalizes recommendations at scale, AI is woven into the workflow itself. Both are valid uses, but they require different skills. This module focuses on the first — using AI effectively and critically as an analytical assistant.</p>
 </section>
 <section id="the-limits-of-generative-ai" class="level2">
 <h2 class="anchored" data-anchor-id="the-limits-of-generative-ai">The Limits of Generative AI</h2>
@@ -1251,7 +1282,7 @@ Show Answer
 </tr>
 </tbody>
 </table>
-<p><strong>Position is the most perceptually precise aesthetic.</strong> Humans judge spatial position along a shared axis more accurately than any other visual property. When precision matters — and it usually does in business analytics — encode the key variable on a position axis. <img src="images/aesthetics.png" class="img-fluid"></p>
+<p><strong>Position is the most perceptually precise aesthetic.</strong> Humans judge spatial position along a shared axis more accurately than any other visual property. When precision matters — and it usually does in business analytics — encode the key variable on a position axis. <img src="images/aesthetics.png" style="width:95.0%" height="600" alt="Visual Aesthetics in Data Visualization"></p>
 </section>
 <section id="color-in-data-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="color-in-data-visualization">Color in Data Visualization</h2>

@@ -50,20 +50,42 @@ By the end of this lesson, you should be able to explain what generative AI is a
 
 ## What Is Generative AI?
 
-**Generative AI** refers to AI systems that create new content — text, code, images, audio, and video — based on patterns learned from training data. It is distinct from **predictive AI**, which forecasts outcomes from historical data without producing new content.
+When most people hear "AI" today, they think immediately of generative AI — ChatGPT, Claude, image generators, code assistants. But generative AI is one piece of a much larger field, and understanding where it sits in that field will help you use it more effectively and avoid overstating what it can do.
+
+**Artificial Intelligence** is the broad effort to create systems that can mimic human intelligence — reasoning, learning, adapting. Within that, **Machine Learning** is one of the most important approaches: algorithms that learn from data to make predictions or recommendations. When Netflix suggests your next show or a bank predicts loan default risk, that is machine learning in action.
+
+A subset of ML is **Deep Learning** — neural networks with many layers that power image recognition, speech recognition, and voice assistants. Deep learning is what enabled autonomous vehicles to identify pedestrians and what made large-scale language modeling possible.
+
+And then there is **Generative AI**, which sits within deep learning but represents a new kind of capability. Instead of classifying or predicting, generative models *create* — producing text, images, code, and audio that did not exist before. If predictive AI tells you what is likely to happen, generative AI produces something new.
+
+![Generative AI within the AI Landscape](images/GenAI.png){width=90%}
+
+**Generative AI** refers specifically to AI systems that create new content — text, code, images, audio, and video — based on patterns learned from training data. It is distinct from **predictive AI**, which forecasts outcomes from historical data without producing new content.
 
 | Type | Goal | Business example |
 |------------------------|------------------------|------------------------|
 | Generative AI | Create new content | Drafting a report, writing R code, generating chart titles |
 | Predictive AI | Forecast outcomes | Customer churn model, demand forecasting, credit scoring |
 
-![Generative AI within the AI Landscape](images/GenAI.png)
-
 Both types are useful in a statistics course. Predictive AI is what you are building when you run a regression. Generative AI is what helps you write, code, and communicate. Understanding the difference prevents misuse.
 
 Notable tools in a business statistics context: **ChatGPT** and **Claude** (text and code generation), **GitHub Copilot** (code completion in your editor), and **Perplexity AI** (search combined with generative synthesis).
 
+### Where Does Generative AI Fit in the Broader AI Spectrum?
+
+It is worth pausing on a common source of confusion: generative AI *feels* general because it handles so many different kinds of tasks. But even the most capable tools like ChatGPT or Claude are still forms of **Narrow AI** — systems designed to perform well within a defined domain (language, in this case) without genuine general reasoning.
+
 ![Narrow AI, General AI, and Strong AI — Where Generative AI Sits](images/GenAI_paradigm.png)
+
+The three levels of AI capability are:
+
+-   **Narrow AI** — systems designed to do one thing, or a small set of related tasks, extremely well. Spam filters, recommendation engines, facial recognition, and medical imaging classifiers are all narrow AI. Generative AI tools belong here too — they are extraordinarily capable within the domain of language, but they do not generalize outside it the way a human reasoner does.
+
+-   **General AI (AGI)** — a hypothetical system that could understand, learn, and apply knowledge across any domain at human level or beyond. AGI remains aspirational; researchers continue to debate whether current approaches can ever reach it.
+
+-   **Strong AI** — a further hypothetical: AI that surpasses human intelligence across all domains, including creativity, problem-solving, and decision-making. This is more philosophical than technical at present.
+
+You can think of generative AI as **broad narrow AI**: remarkably versatile within the domain of language and content generation, but still limited outside of it. A large language model cannot reason about an entirely new domain the way a human expert can — it pattern-matches against its training data. Understanding this distinction is what allows you to use these tools confidently and critically.
 
 ## How Generative AI Works: A Conceptual Overview
 
@@ -76,6 +98,19 @@ Two concepts explain most of what you will observe when using these tools:
 **Attention mechanisms** — instead of processing text strictly left-to-right, the model can attend to any prior token when predicting the next one. This is what allows it to understand that "bank" means something different in "river bank" and "savings bank."
 
 The key insight for a business analyst: **the model is predicting language, not computing truth.** When it writes `mean(x) = sum(x) / length(x)`, it is not running a calculation — it is recognizing that this string follows that kind of prompt in training data. Usually this is correct. Sometimes it is not.
+
+## Generative AI in a Business Analytics Context
+
+Before diving into the limits of generative AI, it is worth placing it in the broader analytics context you will encounter in business settings. Traditional analytics follows a familiar progression:
+
+-   **Descriptive analytics** — what happened (reports, summaries, visualizations)
+-   **Diagnostic analytics** — why it happened (exploring relationships and causes)
+-   **Predictive analytics** — what will happen (forecasting models, regression)
+-   **Prescriptive analytics** — what we should do (recommendations, optimization)
+
+These four categories have shaped how organizations approach data for decades, and they remain the core of what you are learning in this course. AI does not replace this progression — it *supercharges* it. AI makes the traditional analytics cycle faster, deeper, and more dynamic: rather than producing static reports or one-off models, AI-enabled systems can continuously learn from new data, make real-time decisions, personalize at scale, and in some cases take autonomous action.
+
+The key distinction for this course is between **AI as a tool you use** and **AI as a system an organization embeds**. When you use Claude or ChatGPT to write R code or interpret output, you are using AI as a productivity tool — it handles mechanical execution while you supply the question, the data, and the judgment. When a hospital embeds an AI model that flags patient deterioration in real time, or when Netflix personalizes recommendations at scale, AI is woven into the workflow itself. Both are valid uses, but they require different skills. This module focuses on the first — using AI effectively and critically as an analytical assistant.
 
 ## The Limits of Generative AI
 
@@ -234,8 +269,7 @@ Before building any chart, know which purpose you are serving. An explanatory ch
 
 
 **Position is the most perceptually precise aesthetic.** Humans judge spatial position along a shared axis more accurately than any other visual property. When precision matters — and it usually does in business analytics — encode the key variable on a position axis.
-![](images/aesthetics.png)
-
+![Visual Aesthetics in Data Visualization](images/aesthetics.png){width=95% height=600px}
 
 
 ## Color in Data Visualization
