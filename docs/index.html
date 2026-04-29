@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2024-08-09">
+<meta name="dcterms.date" content="2026-04-29">
 
 <title>Probability And Business Statistics</title>
 <style>
@@ -103,15 +103,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+
 <!-- Google tag (gtag.js) -->
-     <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4MST1J29YB"></script>
-          <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          
-          gtag('config', 'G-4MST1J29YB');
-          </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4MST1J29YB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  // Default: analytics tracking is denied until the user accepts
+  gtag('consent', 'default', {
+    analytics_storage: 'denied'
+  });
+
+  gtag('js', new Date());
+
+  // GA config for page views and session engagement only
+  gtag('config', 'G-4MST1J29YB', {
+    anonymize_ip: true
+  });
+</script>
+
+<style>
+#cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #181c27;
+  color: #e8eaf0;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+  font-size: 13px;
+  font-family: -apple-system, sans-serif;
+}
+#cookie-banner button {
+  background: #4f8ef7;
+  border: none;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+</style>
+
+</head><body class="nav-sidebar floating nav-fixed"><div id="cookie-banner">
+  <span>This site uses analytics to measure page views and engagement.</span>
+  <button onclick="acceptCookies()">Accept</button>
+</div>
+
+<script>
+function acceptCookies() {
+  gtag('consent', 'update', {
+    analytics_storage: 'granted'
+  });
+
+  localStorage.setItem('cookie_consent_G-4MST1J29YB', 'true');
+
+  var banner = document.getElementById('cookie-banner');
+  if (banner) banner.style.display = 'none';
+}
+
+// Restore consent if previously accepted
+if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
+  gtag('consent', 'update', {
+    analytics_storage: 'granted'
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var banner = document.getElementById('cookie-banner');
+    if (banner) banner.style.display = 'none';
+  });
+}
+</script>
+
+
 
 <!-- ============================================================
      Statistics Course Assistant — Floating Chat Bubble
@@ -451,7 +519,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 <!-- Floating Action Button -->
-</head><body class="nav-sidebar floating nav-fixed"><button id="chat-fab" onclick="toggleChat()" title="Course Assistant" aria-label="Open course assistant">
+<button id="chat-fab" onclick="toggleChat()" title="Course Assistant" aria-label="Open course assistant">
   <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
   </svg>
@@ -838,7 +906,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 9, 2024</p>
+      <p class="date">April 29, 2026</p>
     </div>
   </div>
   
@@ -850,6 +918,20 @@ window.Quarto = {
 </header>
 
 
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+A Note on These Materials
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This course book is a living document. Content, code examples, and tools are reviewed and updated each year to reflect the evolving landscape of business analytics and data science. The version you are reading reflects the most recent revision at the time of publication, but specific chapters, libraries, or examples may be updated before or during the course. Always refer to the version posted on Blackboard for the most current content. If you notice an error or have a suggested improvement, please let your instructor know. Many aspects of this material will be further clarified and expanded upon during sessions to help address any gaps.</p>
+<p>This site used Google Analytics 4 only to measure aggregate page views and session engagement. Advertising features, remarketing, and demographic reporting were not used. User consent was handled through Google Consent Mode before analytics cookies were enabled.</p>
+</div>
+</div>
 <section id="why-r" class="level1">
 <h1>Why R?</h1>
 <ul>
