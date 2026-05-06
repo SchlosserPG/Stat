@@ -52,6 +52,8 @@ By the end of this lesson, you should be able to calculate binomial and normal p
 
 -   When selecting a sample, we hope to select a *representative sample* from the population, and use properties of the normal distribution to understand what is likely happening in the whole population. A *normal distribution* is one of the most fundamental distributions to use in calculating probabilities. We will look at both discrete and normal distributions, but also seek to understand how a normal distribution and the central limit theorem can help us shed light on many statistics we are inferring.
 
+-   The same sampling limitations you are learning in this chapter apply directly to the AI tools you use every day. No AI training dataset is a perfectly representative sample of all human knowledge — every training corpus reflects biases in what text was collected, when it was collected, and whose perspectives it captured. This is why AI models have systematic blind spots and why hallucinations occur: when the correct answer is underrepresented in the training data, the model generates whatever is statistically most likely rather than whatever is true. The probabilistic reasoning you are learning here is foundational to understanding why.
+
 ## Probability Distribution
 
 -   A probability distribution is the numeric or visual representation of the set of probabilities that each value or range of values of a variable occurs.
@@ -1610,6 +1612,8 @@ chisq.test(STEMGOF$RecentNumbers,p=STEMGOF$X2010Proportions)
 ## Using AI
 
 Use the following prompts with our chatbot (bottom right of this page) to explore more about probability and contingency tables.
+
+**Important verification note:** When using AI to calculate binomial or normal probabilities, always verify the result using R's `dbinom()`, `pbinom()`, `pnorm()`, or `qnorm()` functions directly. AI frequently gets multi-step probability calculations wrong — it is doing language prediction, not arithmetic. For any probability problem with more than one calculation step, treat AI as a starting point and run the code yourself to confirm the answer.
 
 -   What is a contingency table, and how is it used to represent the relationship between two categorical variables in probability calculations?
 

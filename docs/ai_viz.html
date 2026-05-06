@@ -512,7 +512,7 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 
   <div id="chat-messages">
     <div class="panel-welcome" id="panel-welcome">
-      <p>Ask me anything about R, statistics concepts, or your code.</p>
+      <p>Ask me anything about R, statistics concepts, or your code. Please note that AI tools can make mistakes, so always double-check responses against the course materials and your own work.</p>
       <div class="panel-chips">
         <div class="panel-chip" onclick="chipSend(this)">mean vs median?</div>
         <div class="panel-chip" onclick="chipSend(this)">What is skewness?</div>
@@ -799,14 +799,11 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
   <li><a href="#consider-while-reading" id="toc-consider-while-reading" class="nav-link" data-scroll-target="#consider-while-reading">Consider While Reading</a></li>
   <li><a href="#understanding-generative-ai" id="toc-understanding-generative-ai" class="nav-link" data-scroll-target="#understanding-generative-ai">Understanding Generative AI</a>
   <ul class="collapse">
-  <li><a href="#what-is-generative-ai" id="toc-what-is-generative-ai" class="nav-link" data-scroll-target="#what-is-generative-ai">What Is Generative AI?</a>
-  <ul class="collapse">
-  <li><a href="#where-does-generative-ai-fit-in-the-broader-ai-spectrum" id="toc-where-does-generative-ai-fit-in-the-broader-ai-spectrum" class="nav-link" data-scroll-target="#where-does-generative-ai-fit-in-the-broader-ai-spectrum">Where Does Generative AI Fit in the Broader AI Spectrum?</a></li>
-  </ul></li>
+  <li><a href="#a-quick-recap-the-ai-landscape" id="toc-a-quick-recap-the-ai-landscape" class="nav-link" data-scroll-target="#a-quick-recap-the-ai-landscape">A Quick Recap: The AI Landscape</a></li>
   <li><a href="#how-generative-ai-works-a-conceptual-overview" id="toc-how-generative-ai-works-a-conceptual-overview" class="nav-link" data-scroll-target="#how-generative-ai-works-a-conceptual-overview">How Generative AI Works: A Conceptual Overview</a></li>
   <li><a href="#generative-ai-in-a-business-analytics-context" id="toc-generative-ai-in-a-business-analytics-context" class="nav-link" data-scroll-target="#generative-ai-in-a-business-analytics-context">Generative AI in a Business Analytics Context</a></li>
   <li><a href="#the-limits-of-generative-ai" id="toc-the-limits-of-generative-ai" class="nav-link" data-scroll-target="#the-limits-of-generative-ai">The Limits of Generative AI</a></li>
-  <li><a href="#llm-hallucinations" id="toc-llm-hallucinations" class="nav-link" data-scroll-target="#llm-hallucinations">LLM Hallucinations</a></li>
+  <li><a href="#llm-hallucinations-a-recap" id="toc-llm-hallucinations-a-recap" class="nav-link" data-scroll-target="#llm-hallucinations-a-recap">LLM Hallucinations: A Recap</a></li>
   <li><a href="#prompt-engineering" id="toc-prompt-engineering" class="nav-link" data-scroll-target="#prompt-engineering">Prompt Engineering</a>
   <ul class="collapse">
   <li><a href="#three-prompting-strategies" id="toc-three-prompting-strategies" class="nav-link" data-scroll-target="#three-prompting-strategies">Three Prompting Strategies</a></li>
@@ -833,7 +830,7 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
   <li><a href="#exploratory-vs.-explanatory-analysis" id="toc-exploratory-vs.-explanatory-analysis" class="nav-link" data-scroll-target="#exploratory-vs.-explanatory-analysis">Exploratory vs.&nbsp;Explanatory Analysis</a></li>
   <li><a href="#the-six-step-storytelling-workflow" id="toc-the-six-step-storytelling-workflow" class="nav-link" data-scroll-target="#the-six-step-storytelling-workflow">The Six-Step Storytelling Workflow</a></li>
   </ul></li>
-  <li><a href="#correlation-vs.-causation" id="toc-correlation-vs.-causation" class="nav-link" data-scroll-target="#correlation-vs.-causation">Correlation vs.&nbsp;Causation</a></li>
+  <li><a href="#correlation-vs.-causation-applied-to-visualization" id="toc-correlation-vs.-causation-applied-to-visualization" class="nav-link" data-scroll-target="#correlation-vs.-causation-applied-to-visualization">Correlation vs.&nbsp;Causation: Applied to Visualization</a></li>
   </ul></li>
   <li><a href="#kaiser-fungs-trifecta-checkup" id="toc-kaiser-fungs-trifecta-checkup" class="nav-link" data-scroll-target="#kaiser-fungs-trifecta-checkup">Kaiser Fung’s Trifecta Checkup</a>
   <ul class="collapse">
@@ -901,54 +898,50 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 </header>
 
 
-<p>This lesson sits at the intersection of two skills that every business analyst needs right now: knowing how to use generative AI responsibly, and knowing how to communicate data honestly through visualization. It comes before the inferential statistics modules — hypothesis testing, ANOVA, and regression — because both skills are prerequisites for using those tools well. AI will write your code and generate your charts; visualization principles determine whether those charts actually answer the right question.</p>
-<p>We begin with <strong>generative AI</strong>: what it is, how it works at a conceptual level, what its limitations are, and how to use it effectively through prompt engineering. The goal is not to understand the architecture of a neural network — it is to understand what AI can do reliably, what it cannot, and what judgment you must supply. A business statistics student using AI without this foundation will produce fast, confident, and potentially wrong analysis.</p>
-<p>We then move to <strong>data visualization principles</strong>: the perceptual science behind why some charts communicate and others mislead, the aesthetic channels through which data is encoded, the taxonomy of visualization failures (Good, Ugly, Bad, Wrong), seven reasoning errors that show up in real-world charts, and the relationship between correlation and causation. These concepts apply directly to the outputs AI will generate for you throughout this course.</p>
+<p>This lesson sits at the intersection of two skills that every business analyst needs: knowing how to use generative AI responsibly, and knowing how to communicate data honestly through visualization. The AI concepts introduced in earlier chapters — what generative AI is, how it differs from predictive AI, the four analytics categories, hallucination warning signs, and prompt specificity — have been building toward this lesson. Here, those threads come together and are applied to their most important practical output: data visualizations.</p>
+<p>We begin with a <strong>compact review of generative AI</strong> — sharpening the concepts you have encountered throughout the course with a focus on how LLMs work at a mechanical level, the full prompt engineering toolkit, and verification practices. The goal is consolidation, not repetition: you will apply these skills immediately in the lab.</p>
+<p>We then move to <strong>data visualization principles</strong>: the perceptual science behind why some charts communicate and others mislead, the aesthetic channels through which data is encoded, the taxonomy of visualization failures (Good, Ugly, Bad, Wrong), seven reasoning errors that show up in real-world charts, and the relationship between correlation and causation. These concepts apply directly to every chart AI generates for you.</p>
 <p>The lesson closes with the <strong>Kaiser Fung Trifecta Checkup</strong> — a three-corner framework for evaluating any data visualization on question quality, data quality, and visual execution — applied as a hands-on activity in which you use AI to build a chart and then critique it systematically. The activity is designed to make the limits of AI concrete: AI almost always passes the visual corner by default; the question and data corners require your statistical judgment.</p>
-<p>By the end of this lesson, you should be able to explain what generative AI is and is not, write effective prompts for data analysis tasks, identify hallucinations and verify AI output, apply Wilke’s visualization principles to evaluate and improve charts, recognize the seven reasoning errors in real data graphics, and use the Trifecta Checkup to diagnose any visualization. This foundation will carry through every subsequent lesson in the course.</p>
 <section id="at-a-glance" class="level3">
 <h3 class="anchored" data-anchor-id="at-a-glance">At a Glance</h3>
 <ul>
-<li>This lesson connects two themes that run through the entire course: using AI as a tool, and communicating data honestly. Neither is optional for a modern business analyst. Pay close attention to what AI can and cannot do — especially the distinction between tasks that are mechanical (AI handles well) and tasks that require statistical judgment (AI cannot substitute for you). The same applies to visualization: a chart can be visually polished and analytically wrong at the same time.</li>
+<li>This lesson synthesizes two threads that have run through the entire course: using AI as a tool, and communicating data honestly. The AI concepts you have encountered in every prior chapter — hallucinations, prompt specificity, the handles/requires-judgment division — come together here and are applied to visualization, the output type you have been producing all semester. Pay close attention to how the Trifecta Checkup formalizes the analytical judgment you have been exercising informally since the first lesson.</li>
 </ul>
 </section>
 <section id="lesson-objectives" class="level3">
 <h3 class="anchored" data-anchor-id="lesson-objectives">Lesson Objectives</h3>
 <ul>
-<li>Define generative AI and distinguish it from predictive AI, with business examples of each.</li>
-<li>Explain the concept of hallucination and apply the five warning signs to evaluate AI output.</li>
-<li>Write effective prompts using zero-shot, few-shot, and chain-of-thought techniques.</li>
+<li>Consolidate understanding of generative AI: LLM mechanics, hallucination warning signs applied to chart output, and the three prompting strategies.</li>
+<li>Write effective prompts for data visualization tasks using zero-shot, few-shot, and chain-of-thought techniques.</li>
 <li>Describe the six visual aesthetics and identify which is most perceptually precise.</li>
 <li>Apply Wilke’s Good/Ugly/Bad/Wrong taxonomy to classify a visualization failure.</li>
 <li>Identify at least four of the seven reasoning errors in a real data graphic.</li>
-<li>Explain the difference between correlation and causation and name the three conditions required for the latter.</li>
+<li>Apply the correlation vs.&nbsp;causation distinction — covered in the ANOVA lesson — specifically to chart titles, annotations, and AI-generated interpretation language.</li>
 <li>Apply the Kaiser Fung Trifecta Checkup to evaluate an AI-generated visualization.</li>
 </ul>
 </section>
 <section id="consider-while-reading" class="level3">
 <h3 class="anchored" data-anchor-id="consider-while-reading">Consider While Reading</h3>
 <ul>
-<li>As you read the AI section, keep one question in mind: <em>what am I responsible for that the AI is not?</em> AI handles mechanical execution — it runs code, generates text, selects chart types. You are responsible for the question, the data, the interpretation, and the verification. Every concept in this lesson maps to one of those responsibilities.</li>
-<li>In the visualization section, notice that every pitfall has an underlying perceptual or logical mechanism. Understanding why a chart misleads is more useful than memorizing a list of rules — it lets you catch problems in novel situations the rules do not cover.</li>
-<li>The Kaiser Fung activity is deliberately structured so that the AI will make at least one mistake worth catching. The goal is not to produce a perfect chart; it is to practice the diagnostic thinking that turns chart generation into chart argument.</li>
+<li>As you read the AI section, treat it as consolidation, not new material. The goal is to sharpen and connect concepts you have been using all semester — especially the question of what you are responsible for that AI is not.</li>
+<li>In the visualization section, notice that every pitfall has an underlying perceptual or logical mechanism. Understanding <em>why</em> a chart misleads is more useful than memorizing a list of rules — it lets you catch problems in novel situations the rules do not cover.</li>
+<li>The Kaiser Fung activity is deliberately structured so that the AI will make at least one mistake worth catching. The goal is not to produce a perfect chart; it is to practice the diagnostic thinking that turns chart generation into a chart argument.</li>
 </ul>
 <hr>
 </section>
 <section id="understanding-generative-ai" class="level1">
 <h1>Understanding Generative AI</h1>
-<section id="what-is-generative-ai" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-generative-ai">What Is Generative AI?</h2>
-<p>When most people hear “AI” today, they think immediately of generative AI — ChatGPT, Claude, image generators, code assistants. But generative AI is one piece of a much larger field, and understanding where it sits in that field will help you use it more effectively and avoid overstating what it can do.</p>
-<p><strong>Artificial Intelligence</strong> is the broad effort to create systems that can mimic human intelligence — reasoning, learning, adapting. Within that, <strong>Machine Learning</strong> is one of the most important approaches: algorithms that learn from data to make predictions or recommendations. When Netflix suggests your next show or a bank predicts loan default risk, that is machine learning in action.</p>
-<p>A subset of ML is <strong>Deep Learning</strong> — neural networks with many layers that power image recognition, speech recognition, and voice assistants. Deep learning is what enabled autonomous vehicles to identify pedestrians and what made large-scale language modeling possible.</p>
-<p>And then there is <strong>Generative AI</strong>, which sits within deep learning but represents a new kind of capability. Instead of classifying or predicting, generative models <em>create</em> — producing text, images, code, and audio that did not exist before. If predictive AI tells you what is likely to happen, generative AI produces something new.</p>
+<section id="a-quick-recap-the-ai-landscape" class="level2">
+<h2 class="anchored" data-anchor-id="a-quick-recap-the-ai-landscape">A Quick Recap: The AI Landscape</h2>
+<p>You were introduced to the AI landscape in the first lesson of this course. Here is the framework as a quick reference before we go deeper on mechanics and prompting.</p>
+<p><strong>Artificial Intelligence → Machine Learning → Deep Learning → Generative AI.</strong> Generative AI sits within deep learning, and deep learning within ML, and ML within AI. Generative AI is the layer that <em>creates</em> — text, code, images, audio — rather than classifying or predicting.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/GenAI.png" class="img-fluid figure-img" style="width:90.0%"></p>
 <figcaption>Generative AI within the AI Landscape</figcaption>
 </figure>
 </div>
-<p><strong>Generative AI</strong> refers specifically to AI systems that create new content — text, code, images, audio, and video — based on patterns learned from training data. It is distinct from <strong>predictive AI</strong>, which forecasts outcomes from historical data without producing new content.</p>
+<p><strong>Generative vs.&nbsp;predictive AI — the most important distinction for this course:</strong></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -975,25 +968,23 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 </tr>
 </tbody>
 </table>
-<p>Both types are useful in a statistics course. Predictive AI is what you are building when you run a regression. Generative AI is what helps you write, code, and communicate. Understanding the difference prevents misuse.</p>
-<p>Notable tools in a business statistics context: <strong>ChatGPT</strong> and <strong>Claude</strong> (text and code generation), <strong>GitHub Copilot</strong> (code completion in your editor), and <strong>Perplexity AI</strong> (search combined with generative synthesis).</p>
-<section id="where-does-generative-ai-fit-in-the-broader-ai-spectrum" class="level3">
-<h3 class="anchored" data-anchor-id="where-does-generative-ai-fit-in-the-broader-ai-spectrum">Where Does Generative AI Fit in the Broader AI Spectrum?</h3>
-<p>It is worth pausing on a common source of confusion: generative AI <em>feels</em> general because it handles so many different kinds of tasks. But even the most capable tools like ChatGPT or Claude are still forms of <strong>Narrow AI</strong> — systems designed to perform well within a defined domain (language, in this case) without genuine general reasoning.</p>
+<p>When you run a regression, you are building a <strong>predictive</strong> model. When you use Claude or ChatGPT to write R code, you are using a <strong>generative</strong> model.</p>
+<p><strong>Narrow vs.&nbsp;General vs.&nbsp;Strong AI — why it matters:</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/GenAI_paradigm.png" class="img-fluid figure-img"></p>
 <figcaption>Narrow AI, General AI, and Strong AI — Where Generative AI Sits</figcaption>
 </figure>
 </div>
-<p>The three levels of AI capability are:</p>
+<p>Even the most capable generative AI tools are <strong>Narrow AI</strong> — extraordinary within the domain of language but unable to generalize outside it the way a human expert can. A large language model pattern-matches against its training data. It does not reason from first principles. This is why it can write confident-sounding code that is subtly wrong, and why your verification skills matter.</p>
+<p><strong>The four analytics categories — where this course fits:</strong></p>
 <ul>
-<li><p><strong>Narrow AI</strong> — systems designed to do one thing, or a small set of related tasks, extremely well. Spam filters, recommendation engines, facial recognition, and medical imaging classifiers are all narrow AI. Generative AI tools belong here too — they are extraordinarily capable within the domain of language, but they do not generalize outside it the way a human reasoner does.</p></li>
-<li><p><strong>General AI (AGI)</strong> — a hypothetical system that could understand, learn, and apply knowledge across any domain at human level or beyond. AGI remains aspirational; researchers continue to debate whether current approaches can ever reach it.</p></li>
-<li><p><strong>Strong AI</strong> — a further hypothetical: AI that surpasses human intelligence across all domains, including creativity, problem-solving, and decision-making. This is more philosophical than technical at present.</p></li>
+<li><strong>Descriptive analytics</strong> — what happened (the first half of this course)</li>
+<li><strong>Diagnostic analytics</strong> — why it happened (correlation, ANOVA)</li>
+<li><strong>Predictive analytics</strong> — what will happen (regression — the final modeling lesson)</li>
+<li><strong>Prescriptive analytics</strong> — what we should do (beyond this course’s scope)</li>
 </ul>
-<p>You can think of generative AI as <strong>broad narrow AI</strong>: remarkably versatile within the domain of language and content generation, but still limited outside of it. A large language model cannot reason about an entirely new domain the way a human expert can — it pattern-matches against its training data. Understanding this distinction is what allows you to use these tools confidently and critically.</p>
-</section>
+<p>AI accelerates all four categories. Your job throughout the course has been to supply the question, the data context, and the judgment that AI cannot.</p>
 </section>
 <section id="how-generative-ai-works-a-conceptual-overview" class="level2">
 <h2 class="anchored" data-anchor-id="how-generative-ai-works-a-conceptual-overview">How Generative AI Works: A Conceptual Overview</h2>
@@ -1005,15 +996,8 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 </section>
 <section id="generative-ai-in-a-business-analytics-context" class="level2">
 <h2 class="anchored" data-anchor-id="generative-ai-in-a-business-analytics-context">Generative AI in a Business Analytics Context</h2>
-<p>Before diving into the limits of generative AI, it is worth placing it in the broader analytics context you will encounter in business settings. Traditional analytics follows a familiar progression:</p>
-<ul>
-<li><strong>Descriptive analytics</strong> — what happened (reports, summaries, visualizations)</li>
-<li><strong>Diagnostic analytics</strong> — why it happened (exploring relationships and causes)</li>
-<li><strong>Predictive analytics</strong> — what will happen (forecasting models, regression)</li>
-<li><strong>Prescriptive analytics</strong> — what we should do (recommendations, optimization)</li>
-</ul>
-<p>These four categories have shaped how organizations approach data for decades, and they remain the core of what you are learning in this course. AI does not replace this progression — it <em>supercharges</em> it. AI makes the traditional analytics cycle faster, deeper, and more dynamic: rather than producing static reports or one-off models, AI-enabled systems can continuously learn from new data, make real-time decisions, personalize at scale, and in some cases take autonomous action.</p>
-<p>The key distinction for this course is between <strong>AI as a tool you use</strong> and <strong>AI as a system an organization embeds</strong>. When you use Claude or ChatGPT to write R code or interpret output, you are using AI as a productivity tool — it handles mechanical execution while you supply the question, the data, and the judgment. When a hospital embeds an AI model that flags patient deterioration in real time, or when Netflix personalizes recommendations at scale, AI is woven into the workflow itself. Both are valid uses, but they require different skills. This module focuses on the first — using AI effectively and critically as an analytical assistant.</p>
+<p>The four analytics categories (Descriptive → Diagnostic → Predictive → Prescriptive) were introduced in the first lesson of this course and have been the organizing framework for the entire semester. By this point, you have worked across all four: descriptive statistics and data prep covered the first category; correlation and ANOVA addressed the second; regression addressed the third. AI has been a tool throughout — accelerating mechanical execution at each stage while you supplied the question, the data, and the judgment.</p>
+<p>This lesson focuses on one output that AI generates at every stage: <strong>visualizations</strong>. A chart is the most common deliverable in a business analytics workflow, and it is also where AI fails most characteristically — passing visual execution while missing the question and data quality that make a chart analytically honest. The Trifecta Checkup you will apply in the activity formalizes the Q–D–V framework that has run implicitly through every prior chapter.</p>
 </section>
 <section id="the-limits-of-generative-ai" class="level2">
 <h2 class="anchored" data-anchor-id="the-limits-of-generative-ai">The Limits of Generative AI</h2>
@@ -1064,12 +1048,11 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 </div>
 <p>This table maps directly to Kaiser Fung’s Trifecta: AI handles the <strong>V</strong> corner (visual execution) reliably. The <strong>Q</strong> (question) and <strong>D</strong> (data) corners require you.</p>
 </section>
-<section id="llm-hallucinations" class="level2">
-<h2 class="anchored" data-anchor-id="llm-hallucinations">LLM Hallucinations</h2>
-<p><strong>Hallucinations</strong> occur when an LLM generates plausible-sounding but factually incorrect content. The model does not know it is wrong — it produces the statistically most likely continuation of the prompt, which can be entirely fabricated.</p>
-<p>A real example: a lawyer asked ChatGPT to provide legal cases supporting an argument. The model returned several cases with plausible names, courts, years, and rulings. None of them existed. The lawyer submitted them to a federal court and faced disciplinary proceedings.</p>
-<p>Hallucinations are not a fixable bug — they are a structural property of how language prediction works. When the correct answer is rare or absent in training data, the model produces whatever is statistically likely, not whatever is true.</p>
-<p><strong>Five warning signs:</strong></p>
+<section id="llm-hallucinations-a-recap" class="level2">
+<h2 class="anchored" data-anchor-id="llm-hallucinations-a-recap">LLM Hallucinations: A Recap</h2>
+<p>Hallucinations were introduced in the first lesson of this course. Here is the key framework as a reference before the visualization lab — because hallucinations appear in AI-generated charts just as they appear in AI-generated text.</p>
+<p><strong>Hallucinations</strong> occur when an LLM generates plausible-sounding but factually incorrect content. The model does not know it is wrong — it produces the statistically most likely continuation of the prompt. This is a structural property, not a fixable bug.</p>
+<p><strong>Five warning signs — applied to visualization output:</strong></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -1078,29 +1061,29 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 <thead>
 <tr class="header">
 <th>Warning sign</th>
-<th>Example</th>
+<th>In a chart context</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><strong>Unverified specificity</strong></td>
-<td>Exact statistics cited without a source</td>
+<td>Exact percentages or statistics in chart labels without a traceable source</td>
 </tr>
 <tr class="even">
 <td><strong>Invented sources</strong></td>
-<td>Journal articles, court cases, or datasets that do not exist</td>
+<td>Dataset names or variable descriptions that do not match your actual data</td>
 </tr>
 <tr class="odd">
 <td><strong>Internal contradictions</strong></td>
-<td>Two claims within the same response that conflict</td>
+<td>Chart title claims one thing, data pattern shows another</td>
 </tr>
 <tr class="even">
 <td><strong>Overconfident language</strong></td>
-<td>“This is definitively true” on an uncertain or contested topic</td>
+<td>Interpretation comment says “X causes Y” when only correlation exists</td>
 </tr>
 <tr class="odd">
 <td><strong>Failures of common sense</strong></td>
-<td>Physically or logically impossible claims</td>
+<td>Values outside a plausible range, proportions that do not sum to 100%</td>
 </tr>
 </tbody>
 </table>
@@ -1110,7 +1093,7 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 <figcaption>Reducing Hallucinations: Prompt Strategies</figcaption>
 </figure>
 </div>
-<p><strong>Practical rule:</strong> always verify AI-generated facts, citations, and calculations against an authoritative source before using them in any deliverable.</p>
+<p><strong>Practical rule:</strong> always run AI-generated chart code yourself and verify that the data being plotted is the data you intended. Never submit a visualization you have not executed, checked, and interpreted.</p>
 <hr>
 </section>
 <section id="prompt-engineering" class="level2">
@@ -1636,72 +1619,26 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 </tbody>
 </table>
 <hr>
-<hr>
-<p>Before applying the storytelling framework in the lab, it is worth pausing on the reasoning error that causes the most damage in business reporting: false causal claims. Correlation and causation are often conflated in charts and presentations, and understanding the distinction precisely is what separates a statistically honest chart from a misleading one.</p>
+<p>Before applying the storytelling framework in the lab, it is worth pausing on the reasoning error that causes the most damage in business reporting: false causal claims. The full treatment of correlation vs.&nbsp;causation — including the r-value interpretation table, the three conditions for causation, the third variable (confounding) problem, and the directionality problem — is covered in the ANOVA and Correlation lesson. Here is the essential recap for applying these ideas to visualization.</p>
 </section>
 </section>
-<section id="correlation-vs.-causation" class="level2">
-<h2 class="anchored" data-anchor-id="correlation-vs.-causation">Correlation vs.&nbsp;Causation</h2>
-<p><strong>Correlation</strong> measures the strength and direction of the linear relationship between two variables. The correlation coefficient <em>r</em> ranges from −1 to +1.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th><em>r</em> value</th>
-<th>Interpretation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>±0.9 to ±1.0</td>
-<td>Very strong linear relationship</td>
-</tr>
-<tr class="even">
-<td>±0.7 to ±0.9</td>
-<td>Strong</td>
-</tr>
-<tr class="odd">
-<td>±0.5 to ±0.7</td>
-<td>Moderate</td>
-</tr>
-<tr class="even">
-<td>±0.3 to ±0.5</td>
-<td>Weak</td>
-</tr>
-<tr class="odd">
-<td>0.0 to ±0.3</td>
-<td>Little to no linear relationship</td>
-</tr>
-</tbody>
-</table>
+<section id="correlation-vs.-causation-applied-to-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-vs.-causation-applied-to-visualization">Correlation vs.&nbsp;Causation: Applied to Visualization</h2>
+<p><strong>The core rule:</strong> a chart can show a correlation with perfect technical accuracy and still make a false causal claim — through its title, its annotation, or the language used to present it. “Ice cream sales and drowning rates rise together” is a true correlation; “ice cream causes drowning” is a false causal claim. Both can appear in the same chart depending on how it is labeled.</p>
+<p>To establish causation, three conditions must all be met: a statistically significant relationship exists, no confounding variables can account for the association, and the cause precedes the effect in time. Observational data — which is almost everything you will visualize in a business context — rarely meets all three.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/correlation_Vs_causation.png" class="img-fluid figure-img"></p>
 <figcaption>Correlation vs.&nbsp;Causation</figcaption>
 </figure>
 </div>
-<p>Two important caveats: correlation is sensitive to outliers (one extreme point can inflate or deflate <em>r</em> substantially), and correlation says nothing about causation — regardless of magnitude.</p>
-<p>To establish <strong>causation</strong>, three conditions must all be met:</p>
-<ol type="1">
-<li>A statistically significant relationship between the variables</li>
-<li>No other factors that could account for the relationship (ruling out confounds)</li>
-<li>Correct temporal ordering — the cause must precede the effect</li>
-</ol>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/fixed.png" class="img-fluid figure-img"></p>
-<figcaption>Three Conditions for Causation</figcaption>
-</figure>
-</div>
-<p><strong>The third variable problem (confounding)</strong> is the most common reason correlations are misleading in business data. A third variable related to both X and Y creates a spurious association between them. Classic example: cities with more hospitals have higher death rates — not because hospitals cause death, but because illness severity and population size drive both variables simultaneously.</p>
-<p><strong>The directionality problem</strong> adds another layer: even when two variables are genuinely related, the causal direction may be unclear. Does exercise reduce anxiety, or do lower-anxiety people exercise more? Observational data cannot distinguish these.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/corr_vs_cause_2.png" class="img-fluid figure-img"></p>
 <figcaption>The Third Variable Problem and Directionality</figcaption>
 </figure>
 </div>
-<hr>
-<hr>
+<p><strong>Why this matters for AI-generated charts:</strong> AI frequently produces titles and interpretation comments that imply causation from correlational data. A chart titled “Marketing Spend Drives Revenue” based on a scatterplot of two correlated variables is making a causal claim the data does not support. When you apply the Trifecta Checkup in the lab activity, checking for false causal language is one of the most reliable ways to find a <strong>D</strong> failure — the data do not actually support what the visual implies.</p>
 </section>
 </section>
 <section id="kaiser-fungs-trifecta-checkup" class="level1">

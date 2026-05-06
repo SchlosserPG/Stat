@@ -546,7 +546,7 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 
   <div id="chat-messages">
     <div class="panel-welcome" id="panel-welcome">
-      <p>Ask me anything about R, statistics concepts, or your code.</p>
+      <p>Ask me anything about R, statistics concepts, or your code. Please note that AI tools can make mistakes, so always double-check responses against the course materials and your own work.</p>
       <div class="panel-chips">
         <div class="panel-chip" onclick="chipSend(this)">mean vs median?</div>
         <div class="panel-chip" onclick="chipSend(this)">What is skewness?</div>
@@ -2853,6 +2853,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li><p><em>Statistical inference</em> is one of the foundational ideas in statistics. Since it is often impossible to collect information on every single person or organization, scientists take samples of people or organizations and examine the observations in the sample. Inferential statistics are then used to take the information from the sample and use it to understand (or infer to) the population. In conducting probability calculations, we can make inferences to understand the probability associated with the population.</p></li>
 <li><p>Researchers often work with <em>samples</em> instead of <em>populations</em>, where samples are subsets of different populations. In the case of the state data on opioid policies that your book discusses, all states are included, so this is the entire population of states. Statisticians sample from the population to understand the probabilities associated with it.</p></li>
 <li><p>When selecting a sample, we hope to select a <em>representative sample</em> from the population, and use properties of the normal distribution to understand what is likely happening in the whole population. A <em>normal distribution</em> is one of the most fundamental distributions to use in calculating probabilities. We will look at both discrete and normal distributions, but also seek to understand how a normal distribution and the central limit theorem can help us shed light on many statistics we are inferring.</p></li>
+<li><p>The same sampling limitations you are learning in this chapter apply directly to the AI tools you use every day. No AI training dataset is a perfectly representative sample of all human knowledge — every training corpus reflects biases in what text was collected, when it was collected, and whose perspectives it captured. This is why AI models have systematic blind spots and why hallucinations occur: when the correct answer is underrepresented in the training data, the model generates whatever is statistically most likely rather than whatever is true. The probabilistic reasoning you are learning here is foundational to understanding why.</p></li>
 </ul>
 </section>
 <section id="probability-distribution" class="level2">
@@ -5166,6 +5167,7 @@ X-squared = 21.526, df = 5, p-value = 0.0006441</code></pre>
 <section id="using-ai" class="level2">
 <h2 class="anchored" data-anchor-id="using-ai">Using AI</h2>
 <p>Use the following prompts with our chatbot (bottom right of this page) to explore more about probability and contingency tables.</p>
+<p><strong>Important verification note:</strong> When using AI to calculate binomial or normal probabilities, always verify the result using R’s <code>dbinom()</code>, <code>pbinom()</code>, <code>pnorm()</code>, or <code>qnorm()</code> functions directly. AI frequently gets multi-step probability calculations wrong — it is doing language prediction, not arithmetic. For any probability problem with more than one calculation step, treat AI as a starting point and run the code yourself to confirm the answer.</p>
 <ul>
 <li><p>What is a contingency table, and how is it used to represent the relationship between two categorical variables in probability calculations?</p></li>
 <li><p>How do you calculate joint, marginal, and conditional probabilities using a contingency table, and what is the significance of each type of probability?</p></li>
