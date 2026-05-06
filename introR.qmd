@@ -910,7 +910,7 @@ summarize(Insurance, mean(Holders))
 
 Reading data into R is only the first step — R must also interpret each column correctly. A number stored as text will not calculate. A category stored as a number will not group. This section covers R's five core data types, how to detect them, and how to fix them when they are wrong.
 
-## Data Types in R
+# Data Types in R
 
 R is dynamically typed — every variable receives a type based on what you assign to it. Wrong types cause silent errors: a number stored as text will not calculate.
 
