@@ -704,7 +704,7 @@ Write 2–3 sentences on what role human statistical judgment plays when AI gene
 
 ## Using AI
 
-Use the following prompts with a generative AI tool to explore these concepts further.
+Use the following prompts with our chatbot (bottom right of this page) to explore these concepts further.
 
 -   What is the difference between generative and predictive AI? At what point in a business analytics workflow would you use each?
 -   Why do LLMs hallucinate, and why is this a structural property rather than a fixable bug? What does it tell you about the relationship between language prediction and factual accuracy?
