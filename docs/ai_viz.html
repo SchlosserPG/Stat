@@ -741,7 +741,7 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./introR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to R and RStudio</span></a>
+  <a href="./introR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to Analytics using R and AI</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -799,11 +799,10 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
   <li><a href="#consider-while-reading" id="toc-consider-while-reading" class="nav-link" data-scroll-target="#consider-while-reading">Consider While Reading</a></li>
   <li><a href="#understanding-generative-ai" id="toc-understanding-generative-ai" class="nav-link" data-scroll-target="#understanding-generative-ai">Understanding Generative AI</a>
   <ul class="collapse">
-  <li><a href="#a-quick-recap-the-ai-landscape" id="toc-a-quick-recap-the-ai-landscape" class="nav-link" data-scroll-target="#a-quick-recap-the-ai-landscape">A Quick Recap: The AI Landscape</a></li>
   <li><a href="#how-generative-ai-works-a-conceptual-overview" id="toc-how-generative-ai-works-a-conceptual-overview" class="nav-link" data-scroll-target="#how-generative-ai-works-a-conceptual-overview">How Generative AI Works: A Conceptual Overview</a></li>
   <li><a href="#generative-ai-in-a-business-analytics-context" id="toc-generative-ai-in-a-business-analytics-context" class="nav-link" data-scroll-target="#generative-ai-in-a-business-analytics-context">Generative AI in a Business Analytics Context</a></li>
   <li><a href="#the-limits-of-generative-ai" id="toc-the-limits-of-generative-ai" class="nav-link" data-scroll-target="#the-limits-of-generative-ai">The Limits of Generative AI</a></li>
-  <li><a href="#llm-hallucinations-a-recap" id="toc-llm-hallucinations-a-recap" class="nav-link" data-scroll-target="#llm-hallucinations-a-recap">LLM Hallucinations: A Recap</a></li>
+  <li><a href="#hallucinations-in-a-visualization-context" id="toc-hallucinations-in-a-visualization-context" class="nav-link" data-scroll-target="#hallucinations-in-a-visualization-context">Hallucinations in a Visualization Context</a></li>
   <li><a href="#prompt-engineering" id="toc-prompt-engineering" class="nav-link" data-scroll-target="#prompt-engineering">Prompt Engineering</a>
   <ul class="collapse">
   <li><a href="#three-prompting-strategies" id="toc-three-prompting-strategies" class="nav-link" data-scroll-target="#three-prompting-strategies">Three Prompting Strategies</a></li>
@@ -838,27 +837,6 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
   <li><a href="#the-eight-outcomes" id="toc-the-eight-outcomes" class="nav-link" data-scroll-target="#the-eight-outcomes">The Eight Outcomes</a></li>
   <li><a href="#why-this-framework-matters-for-ai-generated-charts" id="toc-why-this-framework-matters-for-ai-generated-charts" class="nav-link" data-scroll-target="#why-this-framework-matters-for-ai-generated-charts">Why This Framework Matters for AI-Generated Charts</a></li>
   <li><a href="#worked-example" id="toc-worked-example" class="nav-link" data-scroll-target="#worked-example">Worked Example</a></li>
-  </ul></li>
-  <li><a href="#activity-build-and-evaluate-a-visualization-with-ai" id="toc-activity-build-and-evaluate-a-visualization-with-ai" class="nav-link" data-scroll-target="#activity-build-and-evaluate-a-visualization-with-ai">Activity: Build and Evaluate a Visualization with AI</a>
-  <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#part-1-build-a-visualization-with-claude-2025-minutes" id="toc-part-1-build-a-visualization-with-claude-2025-minutes" class="nav-link" data-scroll-target="#part-1-build-a-visualization-with-claude-2025-minutes">Part 1: Build a Visualization with Claude (20–25 minutes)</a>
-  <ul class="collapse">
-  <li><a href="#step-1-choose-a-question-first" id="toc-step-1-choose-a-question-first" class="nav-link" data-scroll-target="#step-1-choose-a-question-first">Step 1 — Choose a Question First</a></li>
-  <li><a href="#step-2-prompt-claude-to-build-the-chart" id="toc-step-2-prompt-claude-to-build-the-chart" class="nav-link" data-scroll-target="#step-2-prompt-claude-to-build-the-chart">Step 2 — Prompt Claude to Build the Chart</a></li>
-  <li><a href="#step-3-iterate-once" id="toc-step-3-iterate-once" class="nav-link" data-scroll-target="#step-3-iterate-once">Step 3 — Iterate Once</a></li>
-  </ul></li>
-  <li><a href="#part-2-apply-the-trifecta-checkup-2530-minutes" id="toc-part-2-apply-the-trifecta-checkup-2530-minutes" class="nav-link" data-scroll-target="#part-2-apply-the-trifecta-checkup-2530-minutes">Part 2: Apply the Trifecta Checkup (25–30 minutes)</a>
-  <ul class="collapse">
-  <li><a href="#corner-q-the-question" id="toc-corner-q-the-question" class="nav-link" data-scroll-target="#corner-q-the-question">Corner Q — The Question</a></li>
-  <li><a href="#corner-d-the-data" id="toc-corner-d-the-data" class="nav-link" data-scroll-target="#corner-d-the-data">Corner D — The Data</a></li>
-  <li><a href="#corner-v-the-visual" id="toc-corner-v-the-visual" class="nav-link" data-scroll-target="#corner-v-the-visual">Corner V — The Visual</a></li>
-  <li><a href="#final-diagnosis" id="toc-final-diagnosis" class="nav-link" data-scroll-target="#final-diagnosis">Final Diagnosis</a></li>
-  </ul></li>
-  <li><a href="#part-3-the-fix-1520-minutes" id="toc-part-3-the-fix-1520-minutes" class="nav-link" data-scroll-target="#part-3-the-fix-1520-minutes">Part 3: The Fix (15–20 minutes)</a></li>
-  <li><a href="#part-4-reflection-10-minutes" id="toc-part-4-reflection-10-minutes" class="nav-link" data-scroll-target="#part-4-reflection-10-minutes">Part 4: Reflection (10 minutes)</a></li>
-  <li><a href="#submission-checklist" id="toc-submission-checklist" class="nav-link" data-scroll-target="#submission-checklist">Submission Checklist</a></li>
-  <li><a href="#grading-rubric" id="toc-grading-rubric" class="nav-link" data-scroll-target="#grading-rubric">Grading Rubric</a></li>
   </ul></li>
   <li><a href="#summary-and-review" id="toc-summary-and-review" class="nav-link" data-scroll-target="#summary-and-review">Summary and Review</a>
   <ul class="collapse">
@@ -898,20 +876,20 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 </header>
 
 
-<p>This lesson sits at the intersection of two skills that every business analyst needs: knowing how to use generative AI responsibly, and knowing how to communicate data honestly through visualization. The AI concepts introduced in earlier chapters — what generative AI is, how it differs from predictive AI, the four analytics categories, hallucination warning signs, and prompt specificity — have been building toward this lesson. Here, those threads come together and are applied to their most important practical output: data visualizations.</p>
-<p>We begin with a <strong>compact review of generative AI</strong> — sharpening the concepts you have encountered throughout the course with a focus on how LLMs work at a mechanical level, the full prompt engineering toolkit, and verification practices. The goal is consolidation, not repetition: you will apply these skills immediately in the lab.</p>
+<p>This lesson sits at the intersection of two skills that every business analyst needs: knowing how to use generative AI responsibly, and knowing how to communicate data honestly through visualization. The AI concepts introduced in earlier chapters — what generative AI is, how it differs from predictive AI, the four analytics categories, hallucination warning signs, and the three prompting strategies — have been building toward this lesson. Here, those threads come together and are applied to their most important practical output: data visualizations.</p>
+<p>We begin with <strong>generative AI applied to visualization</strong> — going deeper on how LLMs work at a mechanical level and applying the hallucination warning signs and prompt engineering toolkit specifically to chart output. These are the same skills you have been practicing all semester, now focused on their most visible deliverable.</p>
 <p>We then move to <strong>data visualization principles</strong>: the perceptual science behind why some charts communicate and others mislead, the aesthetic channels through which data is encoded, the taxonomy of visualization failures (Good, Ugly, Bad, Wrong), seven reasoning errors that show up in real-world charts, and the relationship between correlation and causation. These concepts apply directly to every chart AI generates for you.</p>
 <p>The lesson closes with the <strong>Kaiser Fung Trifecta Checkup</strong> — a three-corner framework for evaluating any data visualization on question quality, data quality, and visual execution — applied as a hands-on activity in which you use AI to build a chart and then critique it systematically. The activity is designed to make the limits of AI concrete: AI almost always passes the visual corner by default; the question and data corners require your statistical judgment.</p>
 <section id="at-a-glance" class="level3">
 <h3 class="anchored" data-anchor-id="at-a-glance">At a Glance</h3>
 <ul>
-<li>This lesson synthesizes two threads that have run through the entire course: using AI as a tool, and communicating data honestly. The AI concepts you have encountered in every prior chapter — hallucinations, prompt specificity, the handles/requires-judgment division — come together here and are applied to visualization, the output type you have been producing all semester. Pay close attention to how the Trifecta Checkup formalizes the analytical judgment you have been exercising informally since the first lesson.</li>
+<li>This lesson synthesizes two threads that have run through the entire course: using AI as a tool, and communicating data honestly. The AI concepts you have practiced all semester — hallucinations, prompt strategies, the handles/requires-judgment division — are applied here to visualization, the output type you have been producing all semester. Pay close attention to how the Trifecta Checkup formalizes the analytical judgment you have been exercising informally since the first lesson.</li>
 </ul>
 </section>
 <section id="lesson-objectives" class="level3">
 <h3 class="anchored" data-anchor-id="lesson-objectives">Lesson Objectives</h3>
 <ul>
-<li>Consolidate understanding of generative AI: LLM mechanics, hallucination warning signs applied to chart output, and the three prompting strategies.</li>
+<li>Apply LLM mechanics and hallucination warning signs specifically to chart output.</li>
 <li>Write effective prompts for data visualization tasks using zero-shot, few-shot, and chain-of-thought techniques.</li>
 <li>Describe the six visual aesthetics and identify which is most perceptually precise.</li>
 <li>Apply Wilke’s Good/Ugly/Bad/Wrong taxonomy to classify a visualization failure.</li>
@@ -923,7 +901,7 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 <section id="consider-while-reading" class="level3">
 <h3 class="anchored" data-anchor-id="consider-while-reading">Consider While Reading</h3>
 <ul>
-<li>As you read the AI section, treat it as consolidation, not new material. The goal is to sharpen and connect concepts you have been using all semester — especially the question of what you are responsible for that AI is not.</li>
+<li>In the AI section, focus on how the concepts you have been using all semester — hallucinations, prompt specificity, the handles/requires-judgment division — apply in new ways when the output is a chart rather than code or text.</li>
 <li>In the visualization section, notice that every pitfall has an underlying perceptual or logical mechanism. Understanding <em>why</em> a chart misleads is more useful than memorizing a list of rules — it lets you catch problems in novel situations the rules do not cover.</li>
 <li>The Kaiser Fung activity is deliberately structured so that the AI will make at least one mistake worth catching. The goal is not to produce a perfect chart; it is to practice the diagnostic thinking that turns chart generation into a chart argument.</li>
 </ul>
@@ -931,61 +909,6 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 </section>
 <section id="understanding-generative-ai" class="level1">
 <h1>Understanding Generative AI</h1>
-<section id="a-quick-recap-the-ai-landscape" class="level2">
-<h2 class="anchored" data-anchor-id="a-quick-recap-the-ai-landscape">A Quick Recap: The AI Landscape</h2>
-<p>You were introduced to the AI landscape in the first lesson of this course. Here is the framework as a quick reference before we go deeper on mechanics and prompting.</p>
-<p><strong>Artificial Intelligence → Machine Learning → Deep Learning → Generative AI.</strong> Generative AI sits within deep learning, and deep learning within ML, and ML within AI. Generative AI is the layer that <em>creates</em> — text, code, images, audio — rather than classifying or predicting.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/GenAI.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<figcaption>Generative AI within the AI Landscape</figcaption>
-</figure>
-</div>
-<p><strong>Generative vs.&nbsp;predictive AI — the most important distinction for this course:</strong></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Goal</th>
-<th>Business example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Generative AI</td>
-<td>Create new content</td>
-<td>Drafting a report, writing R code, generating chart titles</td>
-</tr>
-<tr class="even">
-<td>Predictive AI</td>
-<td>Forecast outcomes</td>
-<td>Customer churn model, demand forecasting, credit scoring</td>
-</tr>
-</tbody>
-</table>
-<p>When you run a regression, you are building a <strong>predictive</strong> model. When you use Claude or ChatGPT to write R code, you are using a <strong>generative</strong> model.</p>
-<p><strong>Narrow vs.&nbsp;General vs.&nbsp;Strong AI — why it matters:</strong></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/GenAI_paradigm.png" class="img-fluid figure-img"></p>
-<figcaption>Narrow AI, General AI, and Strong AI — Where Generative AI Sits</figcaption>
-</figure>
-</div>
-<p>Even the most capable generative AI tools are <strong>Narrow AI</strong> — extraordinary within the domain of language but unable to generalize outside it the way a human expert can. A large language model pattern-matches against its training data. It does not reason from first principles. This is why it can write confident-sounding code that is subtly wrong, and why your verification skills matter.</p>
-<p><strong>The four analytics categories — where this course fits:</strong></p>
-<ul>
-<li><strong>Descriptive analytics</strong> — what happened (the first half of this course)</li>
-<li><strong>Diagnostic analytics</strong> — why it happened (correlation, ANOVA)</li>
-<li><strong>Predictive analytics</strong> — what will happen (regression — the final modeling lesson)</li>
-<li><strong>Prescriptive analytics</strong> — what we should do (beyond this course’s scope)</li>
-</ul>
-<p>AI accelerates all four categories. Your job throughout the course has been to supply the question, the data context, and the judgment that AI cannot.</p>
-</section>
 <section id="how-generative-ai-works-a-conceptual-overview" class="level2">
 <h2 class="anchored" data-anchor-id="how-generative-ai-works-a-conceptual-overview">How Generative AI Works: A Conceptual Overview</h2>
 <p>Generative AI systems — specifically <strong>large language models (LLMs)</strong> like GPT-4 and Claude — are trained on massive text corpora to predict the most likely next word given a sequence of prior words. This sounds simple, but at sufficient scale (billions of parameters, trillions of training tokens) it produces systems capable of reasoning, code generation, summarization, and dialogue.</p>
@@ -1048,11 +971,9 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 </div>
 <p>This table maps directly to Kaiser Fung’s Trifecta: AI handles the <strong>V</strong> corner (visual execution) reliably. The <strong>Q</strong> (question) and <strong>D</strong> (data) corners require you.</p>
 </section>
-<section id="llm-hallucinations-a-recap" class="level2">
-<h2 class="anchored" data-anchor-id="llm-hallucinations-a-recap">LLM Hallucinations: A Recap</h2>
-<p>Hallucinations were introduced in the first lesson of this course. Here is the key framework as a reference before the visualization lab — because hallucinations appear in AI-generated charts just as they appear in AI-generated text.</p>
-<p><strong>Hallucinations</strong> occur when an LLM generates plausible-sounding but factually incorrect content. The model does not know it is wrong — it produces the statistically most likely continuation of the prompt. This is a structural property, not a fixable bug.</p>
-<p><strong>Five warning signs — applied to visualization output:</strong></p>
+<section id="hallucinations-in-a-visualization-context" class="level2">
+<h2 class="anchored" data-anchor-id="hallucinations-in-a-visualization-context">Hallucinations in a Visualization Context</h2>
+<p>You have been working with the hallucination warning signs since the first lesson of this course. Here they are applied specifically to chart output, where they take distinct and consequential forms:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -1781,240 +1702,6 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 <p><strong>V:</strong> The y-axis starts at 0, bars are cleanly labeled, colors are distinct. The visual execution is fine. <strong>V passes.</strong></p>
 <p><strong>Diagnosis: qd</strong> — the question is vague and the data metric is wrong, but the visual is well-constructed.</p>
 <p><strong>Fix:</strong> restate the question as “What share of each age group uses social media?” and switch the y-axis to percentage of population. The chart type (bar chart) remains correct for the redesign.</p>
-<hr>
-</section>
-</section>
-<section id="activity-build-and-evaluate-a-visualization-with-ai" class="level1">
-<h1>Activity: Build and Evaluate a Visualization with AI</h1>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>In this activity, you will use Claude AI to build an interactive visualization from the Zillow housing dataset (<code>zillow.csv</code>), then evaluate it systematically using the Trifecta Checkup alongside the storytelling and reasoning-error frameworks from this lesson. The goal is not to produce a perfect chart — it is to practice the critical thinking that turns a chart into an argument.</p>
-<p><strong>Time:</strong> Approximately 60–90 minutes<br>
-<strong>Deliverable:</strong> A written critique plus an improved version of your chart<br>
-<strong>Tools:</strong> Claude AI (claude.ai), R or your preferred environment</p>
-<hr>
-</section>
-<section id="part-1-build-a-visualization-with-claude-2025-minutes" class="level2">
-<h2 class="anchored" data-anchor-id="part-1-build-a-visualization-with-claude-2025-minutes">Part 1: Build a Visualization with Claude (20–25 minutes)</h2>
-<section id="step-1-choose-a-question-first" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-choose-a-question-first">Step 1 — Choose a Question First</h3>
-<p>Before opening Claude, write a specific business question about <code>zillow.csv</code> that a visualization could answer. Your question must:</p>
-<ul>
-<li>Name the specific variables involved (home_value, rent, season, StateName, etc.)</li>
-<li>Specify the comparison or relationship you want to examine</li>
-<li>Have a clear audience in mind</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Your Question (write this before prompting AI)
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>[Write your question here before proceeding]</em></p>
-</div>
-</div>
-<p><strong>Strong question examples:</strong></p>
-<ul>
-<li>“Do workers in Tech earn higher wages than Construction workers, and is that difference consistent across job types?”</li>
-<li>“Which job titles show the widest spread in wages within each industry?”</li>
-<li>“Is there a relationship between Industry and the presence of outlier wages?”</li>
-</ul>
-<p><strong>Weak question examples</strong> (rewrite before using):</p>
-<ul>
-<li>“Show me wages by industry” — not a question, no comparison</li>
-<li>“Tell me about the data” — too broad for a single chart</li>
-<li>“Make a nice visualization” — no analytical purpose</li>
-</ul>
-<hr>
-</section>
-<section id="step-2-prompt-claude-to-build-the-chart" class="level3">
-<h3 class="anchored" data-anchor-id="step-2-prompt-claude-to-build-the-chart">Step 2 — Prompt Claude to Build the Chart</h3>
-<p>Use the following prompt structure, filling in your specific question:</p>
-<pre><code>I am building a data visualization for a business statistics course.
-My dataset is called zillow.csv and has these variables:
-- RegionName (character: metro area, e.g. "New York, NY")
-- StateName (character: 2-letter state abbreviation)
-- home_value (numeric: estimated home value in dollars)
-- rent (numeric: estimated monthly rent in dollars)
-- for_sale_inventory (numeric: number of homes listed for sale)
-- market_temp (numeric: market heat index)
-- days_pending (numeric: median days a listing is pending)
-- new_construction_sales (numeric: new construction sales count)
-- income_needed (numeric: annual income needed to afford median home)
-- sales_count (numeric: total home sales)
-- forecast_1mo_pct, forecast_3mo_pct, forecast_12mo_pct (numeric: % change forecasts)
-- year (numeric: 2018-2026)
-- month (numeric: 1-12)
-- season (factor: Fall, Spring, Summer, Winter)
-
-My specific question is: [INSERT YOUR QUESTION HERE]
-
-Please write R code using ggplot2 that creates a visualization to answer
-this question. The code should:
-1. Load the dataset from "data/zillow.csv"
-2. Handle any missing values appropriately
-3. Create a clear, well-labeled chart with a descriptive title
-4. Use color to distinguish groups where helpful
-5. Include a one-sentence interpretation comment in the code
-
-Show me only the R code and one line explaining what the chart shows.</code></pre>
-<p>Run the code Claude provides in R.</p>
-<hr>
-</section>
-<section id="step-3-iterate-once" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-iterate-once">Step 3 — Iterate Once</h3>
-<p>After seeing the first chart, send one targeted follow-up prompt to improve it. Choose one specific issue — do not ask for a general improvement.</p>
-<p>Examples: - “The bars are hard to compare across groups. Switch to a faceted layout.” - “Add the median wage as a horizontal reference line to each panel.” - “Sort the bars from highest to lowest mean wage instead of alphabetically.”</p>
-<p>Run the revised code. This is your chart for evaluation.</p>
-<hr>
-</section>
-</section>
-<section id="part-2-apply-the-trifecta-checkup-2530-minutes" class="level2">
-<h2 class="anchored" data-anchor-id="part-2-apply-the-trifecta-checkup-2530-minutes">Part 2: Apply the Trifecta Checkup (25–30 minutes)</h2>
-<p>Evaluate your final chart using each corner. Reference specific features of your chart in every answer.</p>
-<section id="corner-q-the-question" class="level3">
-<h3 class="anchored" data-anchor-id="corner-q-the-question">Corner Q — The Question</h3>
-<p>Answer in 2–4 sentences:</p>
-<ol type="1">
-<li>What question does your chart appear to answer to a reader seeing it for the first time?</li>
-<li>Is that the same as the question you wrote in Step 1? Where did any drift happen?</li>
-<li>Is the question specific enough that the chart can give a definitive answer?</li>
-</ol>
-<p><strong>Q assessment:</strong> PASS / WEAK PASS / FAIL<br>
-Justification: _______________________________________________</p>
-<hr>
-</section>
-<section id="corner-d-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="corner-d-the-data">Corner D — The Data</h3>
-<p>Answer in 3–5 sentences:</p>
-<ol type="1">
-<li>Is the variable being plotted the right metric for your question? (If comparing inequality, mean wage may be worse than IQR.)</li>
-<li>Are all relevant groups represented? Would including a missing group change your conclusion?</li>
-<li>Is anything aggregated in a way that hides variation? Two groups with identical means can have very different distributions.</li>
-<li>Does the chart imply a causal claim? Is that claim supported?</li>
-</ol>
-<p><strong>D assessment:</strong> PASS / WEAK PASS / FAIL<br>
-Justification: _______________________________________________</p>
-<hr>
-</section>
-<section id="corner-v-the-visual" class="level3">
-<h3 class="anchored" data-anchor-id="corner-v-the-visual">Corner V — The Visual</h3>
-<p>Answer in 3–5 sentences:</p>
-<ol type="1">
-<li>Is this the right chart type? Name one alternative and explain whether it would be better or worse.</li>
-<li>Do visual elements accurately encode data values? Check bar heights, areas, and color encoding.</li>
-<li>What is the first thing your eye goes to? Is that the most important finding?</li>
-<li>What is missing — axis label, unit, sample size, note about missing values?</li>
-</ol>
-<p><strong>V assessment:</strong> PASS / WEAK PASS / FAIL<br>
-Justification: _______________________________________________</p>
-<hr>
-</section>
-<section id="final-diagnosis" class="level3">
-<h3 class="anchored" data-anchor-id="final-diagnosis">Final Diagnosis</h3>
-<p>Assign your chart one of the eight labels: ✓, q, d, v, qd, qv, dv, or qdv.</p>
-<p><strong>My chart’s label:</strong> _______</p>
-<p>In one paragraph, explain your diagnosis. Name the specific failures and what effect each has on conclusions a reader might draw.</p>
-<hr>
-</section>
-</section>
-<section id="part-3-the-fix-1520-minutes" class="level2">
-<h2 class="anchored" data-anchor-id="part-3-the-fix-1520-minutes">Part 3: The Fix (15–20 minutes)</h2>
-<p>Complete this sentence: <em>“The most important problem with my chart is _______, and fixing it would change the chart by _______.”</em></p>
-<p>Then go back to Claude with a targeted prompt:</p>
-<pre><code>My current chart shows [describe it].
-The problem is [describe the exact Q, D, or V failure].
-Please rewrite the code to fix this by [describe the specific change].
-Keep everything else the same.</code></pre>
-<p>Run the revised code and include both versions in your submission.</p>
-<hr>
-</section>
-<section id="part-4-reflection-10-minutes" class="level2">
-<h2 class="anchored" data-anchor-id="part-4-reflection-10-minutes">Part 4: Reflection (10 minutes)</h2>
-<p><strong>1. What did Claude get right without being asked?</strong><br>
-Identify one decision Claude made (labeling, chart type, aggregation, color) that was a good choice and explain why.</p>
-<p><strong>2. What did Claude get wrong that required your judgment?</strong><br>
-Identify the specific failure the AI made that you would not have caught without the Trifecta framework. What statistical knowledge was required to catch it?</p>
-<p><strong>3. What does this tell you about using AI for data analysis?</strong><br>
-Write 2–3 sentences on what role human statistical judgment plays when AI generates the analysis.</p>
-<hr>
-</section>
-<section id="submission-checklist" class="level2">
-<h2 class="anchored" data-anchor-id="submission-checklist">Submission Checklist</h2>
-<ul class="task-list">
-<li><label><input type="checkbox">Question written before prompting AI (Part 1, Step 1)</label></li>
-<li><label><input type="checkbox">Original AI-generated chart and final revised chart both included</label></li>
-<li><label><input type="checkbox">Q, D, and V assessments completed with specific justifications</label></li>
-<li><label><input type="checkbox">Trifecta label assigned with a paragraph-length explanation</label></li>
-<li><label><input type="checkbox">All three reflection questions answered</label></li>
-<li><label><input type="checkbox">R code for both chart versions included</label></li>
-</ul>
-<hr>
-</section>
-<section id="grading-rubric" class="level2">
-<h2 class="anchored" data-anchor-id="grading-rubric">Grading Rubric</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Component</th>
-<th>Points</th>
-<th>What earns full credit</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Question formulation</td>
-<td>10</td>
-<td>Specific, analytical, names variables and comparison</td>
-</tr>
-<tr class="even">
-<td>Q assessment</td>
-<td>15</td>
-<td>Identifies whether question drifted; specific chart evidence cited</td>
-</tr>
-<tr class="odd">
-<td>D assessment</td>
-<td>20</td>
-<td>Identifies metric appropriateness, missing comparisons, or aggregation issues</td>
-</tr>
-<tr class="even">
-<td>V assessment</td>
-<td>15</td>
-<td>Identifies chart type fit, encoding accuracy, and one alternative with reasoning</td>
-</tr>
-<tr class="odd">
-<td>Trifecta diagnosis</td>
-<td>10</td>
-<td>Correct label with paragraph linking failures to reader impact</td>
-</tr>
-<tr class="even">
-<td>The Fix</td>
-<td>20</td>
-<td>Targets the most important failure; revised chart demonstrably better</td>
-</tr>
-<tr class="odd">
-<td>Reflection</td>
-<td>10</td>
-<td>Specific, not generic; names actual AI decisions; statistical reasoning evident</td>
-</tr>
-<tr class="even">
-<td><strong>Total</strong></td>
-<td><strong>100</strong></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Note:</strong> A chart earning ✓ on all three corners is not worth more points than one earning qdv — as long as the critique is honest and accurate. You are graded on the quality of your statistical thinking, not on producing a perfect chart.</p>
-<hr>
 </section>
 </section>
 <section id="summary-and-review" class="level1">
@@ -2037,6 +1724,23 @@ Write 2–3 sentences on what role human statistical judgment plays when AI gene
 <h2 class="anchored" data-anchor-id="generative-ai-lab">Generative AI Lab</h2>
 <p><strong>1.</strong> What is the fundamental difference between generative and predictive AI? Give one example of each that a marketing analyst might use, and explain which type you are building when you run a regression in this course.</p>
 <div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Predictive AI</strong> forecasts outcomes from historical data — a churn model that scores each customer’s probability of cancellation is predictive. <strong>Generative AI</strong> creates new content — a tool that drafts personalized email copy for each segment is generative. When you run a regression in this course, you are building a <strong>predictive</strong> model: you are using past values of X to estimate Y, not generating new content. Many students assume “AI” refers only to generative tools; regression and classification models are AI too, just not the generative kind.</p>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> A colleague shows you an AI-generated analysis that includes this sentence: “According to the 2023 Nielsen Consumer Confidence Index (Vol. 12, pp.&nbsp;34–41), customers aged 25–34 are 2.3× more likely to switch brands after a single negative service experience.” Which hallucination warning signs should you check, and what is the most efficient way to verify this claim?</p>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -2048,11 +1752,11 @@ Show Answer
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Predictive AI</strong> forecasts outcomes from historical data — a churn model that scores each customer’s probability of cancellation is predictive. <strong>Generative AI</strong> creates new content — a tool that drafts personalized email copy for each segment is generative. When you run a regression in this course, you are building a <strong>predictive</strong> model: you are using past values of X to estimate Y, not generating new content. Many students assume “AI” refers only to generative tools; regression and classification models are AI too, just not the generative kind.</p>
+<p>Two warning signs are present: <strong>unverified specificity</strong> (the precise multiplier of 2.3×, the specific volume and page numbers) and <strong>invented sources</strong> (the “Nielsen Consumer Confidence Index” with that specific citation does not correspond to a known Nielsen publication). The most efficient verification: search Nielsen’s official publications database for the exact report title and volume. If it does not appear, the citation is fabricated. A secondary check: search for the specific “2.3× more likely” statistic in media coverage of Nielsen research — legitimate statistics of that precision tend to get cited widely. If neither check turns up the claim, do not use it.</p>
 </div>
 </div>
 </div>
-<p><strong>2.</strong> A colleague shows you an AI-generated analysis that includes this sentence: “According to the 2023 Nielsen Consumer Confidence Index (Vol. 12, pp.&nbsp;34–41), customers aged 25–34 are 2.3× more likely to switch brands after a single negative service experience.” Which hallucination warning signs should you check, and what is the most efficient way to verify this claim?</p>
+<p><strong>3.</strong> Rewrite the following weak prompt as a specific, well-structured prompt that would produce useful output for a business statistics course: <em>“Tell me about wages in my dataset.”</em></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2064,23 +1768,6 @@ Show Answer
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Two warning signs are present: <strong>unverified specificity</strong> (the precise multiplier of 2.3×, the specific volume and page numbers) and <strong>invented sources</strong> (the “Nielsen Consumer Confidence Index” with that specific citation does not correspond to a known Nielsen publication). The most efficient verification: search Nielsen’s official publications database for the exact report title and volume. If it does not appear, the citation is fabricated. A secondary check: search for the specific “2.3× more likely” statistic in media coverage of Nielsen research — legitimate statistics of that precision tend to get cited widely. If neither check turns up the claim, do not use it.</p>
-</div>
-</div>
-</div>
-<p><strong>3.</strong> Rewrite the following weak prompt as a specific, well-structured prompt that would produce useful output for a business statistics course: <em>“Tell me about wages in my dataset.”</em></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>A strong rewrite:</p>
 <blockquote class="blockquote">
@@ -2095,6 +1782,23 @@ Show Answer
 <h2 class="anchored" data-anchor-id="visualization-principles-lab">Visualization Principles Lab</h2>
 <p><strong>1.</strong> A bar chart shows website traffic across five marketing channels. The y-axis runs from 280,000 to 310,000 visits, making the lowest channel appear to have nearly zero traffic compared to the highest. Classify this chart using Wilke’s taxonomy (Good, Ugly, Bad, Wrong) and explain the correct fix.</p>
 <div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is <strong>Bad</strong> — not Wrong. The numbers are accurate, but the visual is perceptually misleading. A truncated y-axis on a bar chart distorts the encoding: bar <em>height</em> represents magnitude relative to zero, and starting the y-axis at 280,000 makes the smallest channel look negligible when the actual difference is less than 10%. Most viewers read the visual pattern before the axis — which is exactly what the truncation exploits. <strong>Fix:</strong> set the y-axis to start at 0 for any bar chart. If the actual range (280K–310K) is the relevant information, switch to a line chart or dot plot where a non-zero baseline is acceptable, and annotate the axis break visually.</p>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> A health journalist reports: “Cities with more fast food restaurants per capita have higher obesity rates — our data from 200 cities confirms that fast food causes obesity.” Identify which reasoning error(s) from Schmidt et al.’s list are present and explain the correct interpretation.</p>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -2106,11 +1810,12 @@ Show Answer
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>This is <strong>Bad</strong> — not Wrong. The numbers are accurate, but the visual is perceptually misleading. A truncated y-axis on a bar chart distorts the encoding: bar <em>height</em> represents magnitude relative to zero, and starting the y-axis at 280,000 makes the smallest channel look negligible when the actual difference is less than 10%. Most viewers read the visual pattern before the axis — which is exactly what the truncation exploits. <strong>Fix:</strong> set the y-axis to start at 0 for any bar chart. If the actual range (280K–310K) is the relevant information, switch to a line chart or dot plot where a non-zero baseline is acceptable, and annotate the axis break visually.</p>
+<p>Two errors are present. <strong>False causal claims</strong> — the journalist infers causation from an observational correlation. No experimental design is described, and no confounds are ruled out. <strong>Ignoring statistical nuance</strong> — the correlation across 200 cities does not establish that fast food <em>causes</em> obesity at the individual level; there are obvious confounds (income, urban density, food access, physical activity infrastructure) that are correlated with both fast food availability and obesity rates.</p>
+<p>The correct interpretation: cities with more fast food restaurants <em>also tend to have</em> higher obesity rates. This association is worth investigating but is consistent with multiple explanations — fast food availability, socioeconomic factors, or a third variable like urban food deserts that predicts both simultaneously. Causation would require ruling out these confounds through experimental design or rigorous natural experiment methods.</p>
 </div>
 </div>
 </div>
-<p><strong>2.</strong> A health journalist reports: “Cities with more fast food restaurants per capita have higher obesity rates — our data from 200 cities confirms that fast food causes obesity.” Identify which reasoning error(s) from Schmidt et al.’s list are present and explain the correct interpretation.</p>
+<p><strong>3.</strong> Write a strong Big Idea sentence for the following scenario, then identify which of the six workflow steps the analyst most likely skipped: A data team presents a chart titled “Customer Satisfaction Survey Results Q3” showing 12 metrics in a radar chart with no annotations, and the only takeaway the leadership team reaches is “some scores went up and some went down.”</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2122,24 +1827,6 @@ Show Answer
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Two errors are present. <strong>False causal claims</strong> — the journalist infers causation from an observational correlation. No experimental design is described, and no confounds are ruled out. <strong>Ignoring statistical nuance</strong> — the correlation across 200 cities does not establish that fast food <em>causes</em> obesity at the individual level; there are obvious confounds (income, urban density, food access, physical activity infrastructure) that are correlated with both fast food availability and obesity rates.</p>
-<p>The correct interpretation: cities with more fast food restaurants <em>also tend to have</em> higher obesity rates. This association is worth investigating but is consistent with multiple explanations — fast food availability, socioeconomic factors, or a third variable like urban food deserts that predicts both simultaneously. Causation would require ruling out these confounds through experimental design or rigorous natural experiment methods.</p>
-</div>
-</div>
-</div>
-<p><strong>3.</strong> Write a strong Big Idea sentence for the following scenario, then identify which of the six workflow steps the analyst most likely skipped: A data team presents a chart titled “Customer Satisfaction Survey Results Q3” showing 12 metrics in a radar chart with no annotations, and the only takeaway the leadership team reaches is “some scores went up and some went down.”</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Strong Big Idea:</strong> “Net Promoter Score dropped 18 points in Q3 — the sharpest single-quarter decline in two years — driven entirely by customers who contacted support more than twice, indicating that repeat service contacts are the primary driver of dissatisfaction.”</p>
 <p><strong>Steps most likely skipped:</strong> Step 1 (Understand the context) — the analyst did not define what decision the chart was meant to support, so no finding was prioritized. Step 4 (Focus attention) — with 12 metrics on a radar chart and no highlighting, the viewer’s eye has no guide. Step 6 (Tell a story) — no annotation communicates the key takeaway, forcing the leadership team to draw their own (weak) conclusions. A radar chart with 12 metrics is also a poor choice for Step 2 (Choose the right visual) — radar charts make comparison across categories difficult and are generally not recommended for more than 5–6 metrics.</p>

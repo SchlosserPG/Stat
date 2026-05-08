@@ -13,9 +13,9 @@ execute:
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
 ```
 
-This lesson sits at the intersection of two skills that every business analyst needs: knowing how to use generative AI responsibly, and knowing how to communicate data honestly through visualization. The AI concepts introduced in earlier chapters — what generative AI is, how it differs from predictive AI, the four analytics categories, hallucination warning signs, and prompt specificity — have been building toward this lesson. Here, those threads come together and are applied to their most important practical output: data visualizations.
+This lesson sits at the intersection of two skills that every business analyst needs: knowing how to use generative AI responsibly, and knowing how to communicate data honestly through visualization. The AI concepts introduced in earlier chapters — what generative AI is, how it differs from predictive AI, the four analytics categories, hallucination warning signs, and the three prompting strategies — have been building toward this lesson. Here, those threads come together and are applied to their most important practical output: data visualizations.
 
-We begin with a **compact review of generative AI** — sharpening the concepts you have encountered throughout the course with a focus on how LLMs work at a mechanical level, the full prompt engineering toolkit, and verification practices. The goal is consolidation, not repetition: you will apply these skills immediately in the lab.
+We begin with **generative AI applied to visualization** — going deeper on how LLMs work at a mechanical level and applying the hallucination warning signs and prompt engineering toolkit specifically to chart output. These are the same skills you have been practicing all semester, now focused on their most visible deliverable.
 
 We then move to **data visualization principles**: the perceptual science behind why some charts communicate and others mislead, the aesthetic channels through which data is encoded, the taxonomy of visualization failures (Good, Ugly, Bad, Wrong), seven reasoning errors that show up in real-world charts, and the relationship between correlation and causation. These concepts apply directly to every chart AI generates for you.
 
@@ -23,11 +23,11 @@ The lesson closes with the **Kaiser Fung Trifecta Checkup** — a three-corner f
 
 ### At a Glance
 
--   This lesson synthesizes two threads that have run through the entire course: using AI as a tool, and communicating data honestly. The AI concepts you have encountered in every prior chapter — hallucinations, prompt specificity, the handles/requires-judgment division — come together here and are applied to visualization, the output type you have been producing all semester. Pay close attention to how the Trifecta Checkup formalizes the analytical judgment you have been exercising informally since the first lesson.
+-   This lesson synthesizes two threads that have run through the entire course: using AI as a tool, and communicating data honestly. The AI concepts you have practiced all semester — hallucinations, prompt strategies, the handles/requires-judgment division — are applied here to visualization, the output type you have been producing all semester. Pay close attention to how the Trifecta Checkup formalizes the analytical judgment you have been exercising informally since the first lesson.
 
 ### Lesson Objectives
 
--   Consolidate understanding of generative AI: LLM mechanics, hallucination warning signs applied to chart output, and the three prompting strategies.
+-   Apply LLM mechanics and hallucination warning signs specifically to chart output.
 -   Write effective prompts for data visualization tasks using zero-shot, few-shot, and chain-of-thought techniques.
 -   Describe the six visual aesthetics and identify which is most perceptually precise.
 -   Apply Wilke's Good/Ugly/Bad/Wrong taxonomy to classify a visualization failure.
@@ -37,45 +37,13 @@ The lesson closes with the **Kaiser Fung Trifecta Checkup** — a three-corner f
 
 ### Consider While Reading
 
--   As you read the AI section, treat it as consolidation, not new material. The goal is to sharpen and connect concepts you have been using all semester — especially the question of what you are responsible for that AI is not.
+-   In the AI section, focus on how the concepts you have been using all semester — hallucinations, prompt specificity, the handles/requires-judgment division — apply in new ways when the output is a chart rather than code or text.
 -   In the visualization section, notice that every pitfall has an underlying perceptual or logical mechanism. Understanding *why* a chart misleads is more useful than memorizing a list of rules — it lets you catch problems in novel situations the rules do not cover.
 -   The Kaiser Fung activity is deliberately structured so that the AI will make at least one mistake worth catching. The goal is not to produce a perfect chart; it is to practice the diagnostic thinking that turns chart generation into a chart argument.
 
 ------------------------------------------------------------------------
 
 # Understanding Generative AI
-
-## A Quick Recap: The AI Landscape
-
-You were introduced to the AI landscape in the first lesson of this course. Here is the framework as a quick reference before we go deeper on mechanics and prompting.
-
-**Artificial Intelligence → Machine Learning → Deep Learning → Generative AI.** Generative AI sits within deep learning, and deep learning within ML, and ML within AI. Generative AI is the layer that *creates* — text, code, images, audio — rather than classifying or predicting.
-
-![Generative AI within the AI Landscape](images/GenAI.png){width=90%}
-
-**Generative vs. predictive AI — the most important distinction for this course:**
-
-| Type | Goal | Business example |
-|------------------------|------------------------|------------------------|
-| Generative AI | Create new content | Drafting a report, writing R code, generating chart titles |
-| Predictive AI | Forecast outcomes | Customer churn model, demand forecasting, credit scoring |
-
-When you run a regression, you are building a **predictive** model. When you use Claude or ChatGPT to write R code, you are using a **generative** model.
-
-**Narrow vs. General vs. Strong AI — why it matters:**
-
-![Narrow AI, General AI, and Strong AI — Where Generative AI Sits](images/GenAI_paradigm.png)
-
-Even the most capable generative AI tools are **Narrow AI** — extraordinary within the domain of language but unable to generalize outside it the way a human expert can. A large language model pattern-matches against its training data. It does not reason from first principles. This is why it can write confident-sounding code that is subtly wrong, and why your verification skills matter.
-
-**The four analytics categories — where this course fits:**
-
--   **Descriptive analytics** — what happened (the first half of this course)
--   **Diagnostic analytics** — why it happened (correlation, ANOVA)
--   **Predictive analytics** — what will happen (regression — the final modeling lesson)
--   **Prescriptive analytics** — what we should do (beyond this course's scope)
-
-AI accelerates all four categories. Your job throughout the course has been to supply the question, the data context, and the judgment that AI cannot.
 
 ## How Generative AI Works: A Conceptual Overview
 
@@ -112,13 +80,9 @@ Understanding what AI does reliably versus what it struggles with is the most pr
 
 This table maps directly to Kaiser Fung's Trifecta: AI handles the **V** corner (visual execution) reliably. The **Q** (question) and **D** (data) corners require you.
 
-## LLM Hallucinations: A Recap
+## Hallucinations in a Visualization Context
 
-Hallucinations were introduced in the first lesson of this course. Here is the key framework as a reference before the visualization lab — because hallucinations appear in AI-generated charts just as they appear in AI-generated text.
-
-**Hallucinations** occur when an LLM generates plausible-sounding but factually incorrect content. The model does not know it is wrong — it produces the statistically most likely continuation of the prompt. This is a structural property, not a fixable bug.
-
-**Five warning signs — applied to visualization output:**
+You have been working with the hallucination warning signs since the first lesson of this course. Here they are applied specifically to chart output, where they take distinct and consequential forms:
 
 | Warning sign | In a chart context |
 |------------------------------------|------------------------------------|
@@ -448,211 +412,6 @@ A bar chart is titled *"Social Media Usage by Age Group"* with five bars for age
 
 **Fix:** restate the question as "What share of each age group uses social media?" and switch the y-axis to percentage of population. The chart type (bar chart) remains correct for the redesign.
 
-------------------------------------------------------------------------
-
-# Activity: Build and Evaluate a Visualization with AI
-
-## Overview
-
-In this activity, you will use Claude AI to build an interactive visualization from the Zillow housing dataset (`zillow.csv`), then evaluate it systematically using the Trifecta Checkup alongside the storytelling and reasoning-error frameworks from this lesson. The goal is not to produce a perfect chart — it is to practice the critical thinking that turns a chart into an argument.
-
-**Time:** Approximately 60–90 minutes\
-**Deliverable:** A written critique plus an improved version of your chart\
-**Tools:** Claude AI (claude.ai), R or your preferred environment
-
-------------------------------------------------------------------------
-
-## Part 1: Build a Visualization with Claude (20–25 minutes)
-
-### Step 1 — Choose a Question First
-
-Before opening Claude, write a specific business question about `zillow.csv` that a visualization could answer. Your question must:
-
--   Name the specific variables involved (home_value, rent, season, StateName, etc.)
--   Specify the comparison or relationship you want to examine
--   Have a clear audience in mind
-
-::: callout-tip
-### Your Question (write this before prompting AI)
-
-*\[Write your question here before proceeding\]*
-:::
-
-**Strong question examples:**
-
--   "Do workers in Tech earn higher wages than Construction workers, and is that difference consistent across job types?"
--   "Which job titles show the widest spread in wages within each industry?"
--   "Is there a relationship between Industry and the presence of outlier wages?"
-
-**Weak question examples** (rewrite before using):
-
--   "Show me wages by industry" — not a question, no comparison
--   "Tell me about the data" — too broad for a single chart
--   "Make a nice visualization" — no analytical purpose
-
-------------------------------------------------------------------------
-
-### Step 2 — Prompt Claude to Build the Chart
-
-Use the following prompt structure, filling in your specific question:
-
-```         
-I am building a data visualization for a business statistics course.
-My dataset is called zillow.csv and has these variables:
-- RegionName (character: metro area, e.g. "New York, NY")
-- StateName (character: 2-letter state abbreviation)
-- home_value (numeric: estimated home value in dollars)
-- rent (numeric: estimated monthly rent in dollars)
-- for_sale_inventory (numeric: number of homes listed for sale)
-- market_temp (numeric: market heat index)
-- days_pending (numeric: median days a listing is pending)
-- new_construction_sales (numeric: new construction sales count)
-- income_needed (numeric: annual income needed to afford median home)
-- sales_count (numeric: total home sales)
-- forecast_1mo_pct, forecast_3mo_pct, forecast_12mo_pct (numeric: % change forecasts)
-- year (numeric: 2018-2026)
-- month (numeric: 1-12)
-- season (factor: Fall, Spring, Summer, Winter)
-
-My specific question is: [INSERT YOUR QUESTION HERE]
-
-Please write R code using ggplot2 that creates a visualization to answer
-this question. The code should:
-1. Load the dataset from "data/zillow.csv"
-2. Handle any missing values appropriately
-3. Create a clear, well-labeled chart with a descriptive title
-4. Use color to distinguish groups where helpful
-5. Include a one-sentence interpretation comment in the code
-
-Show me only the R code and one line explaining what the chart shows.
-```
-
-Run the code Claude provides in R.
-
-------------------------------------------------------------------------
-
-### Step 3 — Iterate Once
-
-After seeing the first chart, send one targeted follow-up prompt to improve it. Choose one specific issue — do not ask for a general improvement.
-
-Examples: - "The bars are hard to compare across groups. Switch to a faceted layout." - "Add the median wage as a horizontal reference line to each panel." - "Sort the bars from highest to lowest mean wage instead of alphabetically."
-
-Run the revised code. This is your chart for evaluation.
-
-------------------------------------------------------------------------
-
-## Part 2: Apply the Trifecta Checkup (25–30 minutes)
-
-Evaluate your final chart using each corner. Reference specific features of your chart in every answer.
-
-### Corner Q — The Question
-
-Answer in 2–4 sentences:
-
-1.  What question does your chart appear to answer to a reader seeing it for the first time?
-2.  Is that the same as the question you wrote in Step 1? Where did any drift happen?
-3.  Is the question specific enough that the chart can give a definitive answer?
-
-**Q assessment:** PASS / WEAK PASS / FAIL\
-Justification: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-------------------------------------------------------------------------
-
-### Corner D — The Data
-
-Answer in 3–5 sentences:
-
-1.  Is the variable being plotted the right metric for your question? (If comparing inequality, mean wage may be worse than IQR.)
-2.  Are all relevant groups represented? Would including a missing group change your conclusion?
-3.  Is anything aggregated in a way that hides variation? Two groups with identical means can have very different distributions.
-4.  Does the chart imply a causal claim? Is that claim supported?
-
-**D assessment:** PASS / WEAK PASS / FAIL\
-Justification: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-------------------------------------------------------------------------
-
-### Corner V — The Visual
-
-Answer in 3–5 sentences:
-
-1.  Is this the right chart type? Name one alternative and explain whether it would be better or worse.
-2.  Do visual elements accurately encode data values? Check bar heights, areas, and color encoding.
-3.  What is the first thing your eye goes to? Is that the most important finding?
-4.  What is missing — axis label, unit, sample size, note about missing values?
-
-**V assessment:** PASS / WEAK PASS / FAIL\
-Justification: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-------------------------------------------------------------------------
-
-### Final Diagnosis
-
-Assign your chart one of the eight labels: ✓, q, d, v, qd, qv, dv, or qdv.
-
-**My chart's label:** \_\_\_\_\_\_\_
-
-In one paragraph, explain your diagnosis. Name the specific failures and what effect each has on conclusions a reader might draw.
-
-------------------------------------------------------------------------
-
-## Part 3: The Fix (15–20 minutes)
-
-Complete this sentence: *"The most important problem with my chart is \_\_\_\_\_\_\_, and fixing it would change the chart by \_\_\_\_\_\_\_."*
-
-Then go back to Claude with a targeted prompt:
-
-```         
-My current chart shows [describe it].
-The problem is [describe the exact Q, D, or V failure].
-Please rewrite the code to fix this by [describe the specific change].
-Keep everything else the same.
-```
-
-Run the revised code and include both versions in your submission.
-
-------------------------------------------------------------------------
-
-## Part 4: Reflection (10 minutes)
-
-**1. What did Claude get right without being asked?**\
-Identify one decision Claude made (labeling, chart type, aggregation, color) that was a good choice and explain why.
-
-**2. What did Claude get wrong that required your judgment?**\
-Identify the specific failure the AI made that you would not have caught without the Trifecta framework. What statistical knowledge was required to catch it?
-
-**3. What does this tell you about using AI for data analysis?**\
-Write 2–3 sentences on what role human statistical judgment plays when AI generates the analysis.
-
-------------------------------------------------------------------------
-
-## Submission Checklist
-
--   [ ] Question written before prompting AI (Part 1, Step 1)
--   [ ] Original AI-generated chart and final revised chart both included
--   [ ] Q, D, and V assessments completed with specific justifications
--   [ ] Trifecta label assigned with a paragraph-length explanation
--   [ ] All three reflection questions answered
--   [ ] R code for both chart versions included
-
-------------------------------------------------------------------------
-
-## Grading Rubric
-
-| Component | Points | What earns full credit |
-|------------------------|------------------------|------------------------|
-| Question formulation | 10 | Specific, analytical, names variables and comparison |
-| Q assessment | 15 | Identifies whether question drifted; specific chart evidence cited |
-| D assessment | 20 | Identifies metric appropriateness, missing comparisons, or aggregation issues |
-| V assessment | 15 | Identifies chart type fit, encoding accuracy, and one alternative with reasoning |
-| Trifecta diagnosis | 10 | Correct label with paragraph linking failures to reader impact |
-| The Fix | 20 | Targets the most important failure; revised chart demonstrably better |
-| Reflection | 10 | Specific, not generic; names actual AI decisions; statistical reasoning evident |
-| **Total** | **100** |  |
-
-**Note:** A chart earning ✓ on all three corners is not worth more points than one earning qdv — as long as the critique is honest and accurate. You are graded on the quality of your statistical thinking, not on producing a perfect chart.
-
-------------------------------------------------------------------------
 
 # Summary and Review
 
