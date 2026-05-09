@@ -836,7 +836,6 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
   <li><a href="#what-is-the-trifecta-checkup" id="toc-what-is-the-trifecta-checkup" class="nav-link" data-scroll-target="#what-is-the-trifecta-checkup">What Is the Trifecta Checkup?</a></li>
   <li><a href="#the-eight-outcomes" id="toc-the-eight-outcomes" class="nav-link" data-scroll-target="#the-eight-outcomes">The Eight Outcomes</a></li>
   <li><a href="#why-this-framework-matters-for-ai-generated-charts" id="toc-why-this-framework-matters-for-ai-generated-charts" class="nav-link" data-scroll-target="#why-this-framework-matters-for-ai-generated-charts">Why This Framework Matters for AI-Generated Charts</a></li>
-  <li><a href="#worked-example" id="toc-worked-example" class="nav-link" data-scroll-target="#worked-example">Worked Example</a></li>
   </ul></li>
   <li><a href="#summary-and-review" id="toc-summary-and-review" class="nav-link" data-scroll-target="#summary-and-review">Summary and Review</a>
   <ul class="collapse">
@@ -1693,15 +1692,6 @@ if (localStorage.getItem('cookie_consent_G-4MST1J29YB') === 'true') {
 <li>AI cannot tell you whether your sample is biased, your time window cherry-picked, or your comparison groups incompatible</li>
 </ul>
 <p>This is why the Trifecta is the right framework for AI output evaluation. You are not checking whether AI can make a pretty chart — it can. You are checking whether Q–D–V hold together.</p>
-</section>
-<section id="worked-example" class="level2">
-<h2 class="anchored" data-anchor-id="worked-example">Worked Example</h2>
-<p>A bar chart is titled <em>“Social Media Usage by Age Group”</em> with five bars for ages 13–17, 18–29, 30–49, 50–64, and 65+. The y-axis shows “Number of Users (millions).”</p>
-<p><strong>Q:</strong> The chart seems to ask “which age group uses social media most?” but does not specify the platform, year, or definition of “usage.” The question is too vague. <strong>Q fails.</strong></p>
-<p><strong>D:</strong> The bars show absolute user counts, not rates. Older age groups are larger populations — raw counts inflate their apparent usage relative to younger groups. The right metric is <em>percentage of each age group</em> that uses social media. The metric is wrong for the question. <strong>D fails.</strong></p>
-<p><strong>V:</strong> The y-axis starts at 0, bars are cleanly labeled, colors are distinct. The visual execution is fine. <strong>V passes.</strong></p>
-<p><strong>Diagnosis: qd</strong> — the question is vague and the data metric is wrong, but the visual is well-constructed.</p>
-<p><strong>Fix:</strong> restate the question as “What share of each age group uses social media?” and switch the y-axis to percentage of population. The chart type (bar chart) remains correct for the redesign.</p>
 </section>
 </section>
 <section id="summary-and-review" class="level1">

@@ -398,19 +398,6 @@ The failures will almost always be in **Q and D** — and these are the exact fa
 
 This is why the Trifecta is the right framework for AI output evaluation. You are not checking whether AI can make a pretty chart — it can. You are checking whether Q–D–V hold together.
 
-## Worked Example
-
-A bar chart is titled *"Social Media Usage by Age Group"* with five bars for ages 13–17, 18–29, 30–49, 50–64, and 65+. The y-axis shows "Number of Users (millions)."
-
-**Q:** The chart seems to ask "which age group uses social media most?" but does not specify the platform, year, or definition of "usage." The question is too vague. **Q fails.**
-
-**D:** The bars show absolute user counts, not rates. Older age groups are larger populations — raw counts inflate their apparent usage relative to younger groups. The right metric is *percentage of each age group* that uses social media. The metric is wrong for the question. **D fails.**
-
-**V:** The y-axis starts at 0, bars are cleanly labeled, colors are distinct. The visual execution is fine. **V passes.**
-
-**Diagnosis: qd** — the question is vague and the data metric is wrong, but the visual is well-constructed.
-
-**Fix:** restate the question as "What share of each age group uses social media?" and switch the y-axis to percentage of population. The chart type (bar chart) remains correct for the redesign.
 
 
 # Summary and Review
