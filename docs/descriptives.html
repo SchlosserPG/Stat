@@ -3091,6 +3091,27 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li><span class="math inline">\(\bar{x}\)</span> = sample mean</li>
 <li><span class="math inline">\(s\)</span> = sample standard deviation</li>
 <li><span class="math inline">\(n\)</span> = sample size</li>
+</ul>
+<p><strong>What the formula is actually doing:</strong> For each observation, it computes how many standard deviations that value sits away from the mean — <span class="math inline">\((x_i - \bar{x})/s\)</span> — and then <strong>cubes</strong> that distance. Cubing is the key step: it preserves the sign (positive values stay positive, negative stay negative) and amplifies large deviations far more than small ones. The result is then averaged over all <span class="math inline">\(n\)</span> observations. If the large deviations are mostly on the right of the distribution, the positive cubed terms outweigh the negative ones and the result is positive (right skew). If they are mostly on the left, the result is negative (left skew). A result near zero means the large deviations are balanced on both sides — a symmetric distribution.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Interpreting the sign:</strong></p>
+<ul>
+<li><strong>Positive skew (+):</strong> longer tail on the right; mean is pulled above the median by the high-end outliers.</li>
+<li><strong>Negative skew (−):</strong> longer tail on the left; mean is pulled below the median by the low-end outliers.</li>
+<li><strong>Zero (≈ 0):</strong> roughly symmetric; mean and median are close.</li>
+</ul>
+</div>
+</div>
+<ul>
 <li>This formula measures the asymmetry of the distribution:
 <ul>
 <li>Positive skew (right-skewed): longer tail on the right</li>
@@ -3943,26 +3964,6 @@ Note
 <p>Use the <code>descriptive_data</code> dataset loaded earlier in this lesson. It contains the following quantitative variables: <code>ServiceScore</code>, <code>DeliveryTime</code>, <code>ReturnRate</code>, and <code>CustomerValue</code>. Make sure <code>tidyverse</code> and <code>semTools</code> are loaded.</p>
 <p><strong>1.</strong> Compute the mean and median for both <code>ServiceScore</code> and <code>DeliveryTime</code>. Based on the relationship between those two values for each variable, which one appears skewed and which appears symmetric? Which measure of central tendency is more appropriate for each?</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(descriptive_data<span class="sc">$</span>ServiceScore);   <span class="fu">median</span>(descriptive_data<span class="sc">$</span>ServiceScore)</span>
-<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(descriptive_data<span class="sc">$</span>DeliveryTime);   <span class="fu">median</span>(descriptive_data<span class="sc">$</span>DeliveryTime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><code>ServiceScore</code>: mean ≈ 50.0, median = 50 — nearly identical, indicating a symmetric distribution. The mean is a reliable summary here.</p>
-<p><code>DeliveryTime</code>: mean is notably higher than the median, indicating right skew — a few very long deliveries are pulling the mean upward. The <strong>median</strong> is the more appropriate measure of center for <code>DeliveryTime</code>.</p>
-</div>
-</div>
-</div>
-<p><strong>2.</strong> Run <code>skew()</code> and <code>kurtosis()</code> from <code>semTools</code> on <code>ServiceScore</code> and <code>DeliveryTime</code>. Record the z-values for each and interpret them using the correct threshold for this sample size (n = 200).</p>
-<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -3974,15 +3975,14 @@ Show Answer
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skew</span>(descriptive_data<span class="sc">$</span>ServiceScore);     <span class="fu">kurtosis</span>(descriptive_data<span class="sc">$</span>ServiceScore)</span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skew</span>(descriptive_data<span class="sc">$</span>DeliveryTime);     <span class="fu">kurtosis</span>(descriptive_data<span class="sc">$</span>DeliveryTime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>With n = 200, the relevant threshold is <strong>±3.29</strong>.</p>
-<p><code>ServiceScore</code>: both z-values fall well within ±3.29 — approximately symmetric and mesokurtic. Ready to use in analyses that assume normality.</p>
-<p><code>DeliveryTime</code>: the skewness z-value exceeds 3.29 — significant right skew confirmed. The kurtosis z-value is also elevated, indicating heavy tails (leptokurtic). <code>DeliveryTime</code> should be transformed before use in parametric analyses.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(descriptive_data<span class="sc">$</span>ServiceScore);   <span class="fu">median</span>(descriptive_data<span class="sc">$</span>ServiceScore)</span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(descriptive_data<span class="sc">$</span>DeliveryTime);   <span class="fu">median</span>(descriptive_data<span class="sc">$</span>DeliveryTime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>ServiceScore</code>: mean ≈ 50.0, median = 50 — nearly identical, indicating a symmetric distribution. The mean is a reliable summary here.</p>
+<p><code>DeliveryTime</code>: mean is notably higher than the median, indicating right skew — a few very long deliveries are pulling the mean upward. The <strong>median</strong> is the more appropriate measure of center for <code>DeliveryTime</code>.</p>
 </div>
 </div>
 </div>
-<p><strong>3.</strong> Calculate the standard deviation, variance, IQR, and range for <code>ServiceScore</code> and <code>ReturnRate</code>. Then explain: if both variables had similar means, what would a much larger standard deviation for one of them tell you?</p>
+<p><strong>2.</strong> Run <code>skew()</code> and <code>kurtosis()</code> from <code>semTools</code> on <code>ServiceScore</code> and <code>DeliveryTime</code>. Record the z-values for each and interpret them using the correct threshold for this sample size (n = 200).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -3994,6 +3994,27 @@ Show Answer
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skew</span>(descriptive_data<span class="sc">$</span>ServiceScore);     <span class="fu">kurtosis</span>(descriptive_data<span class="sc">$</span>ServiceScore)</span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skew</span>(descriptive_data<span class="sc">$</span>DeliveryTime);     <span class="fu">kurtosis</span>(descriptive_data<span class="sc">$</span>DeliveryTime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>With n = 200, the relevant threshold is <strong>±3.29</strong>.</p>
+<p><code>ServiceScore</code>: both z-values fall well within ±3.29 — approximately symmetric and mesokurtic. Ready to use in analyses that assume normality.</p>
+<p><code>DeliveryTime</code>: the skewness z-value exceeds 3.29 — significant right skew confirmed. The kurtosis z-value is also elevated, indicating heavy tails (leptokurtic). <code>DeliveryTime</code> should be transformed before use in parametric analyses.</p>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> Calculate the standard deviation, variance, IQR, and range for <code>ServiceScore</code> and <code>ReturnRate</code>. Then explain: if both variables had similar means, what would a much larger standard deviation for one of them tell you?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="sourceCode" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(descriptive_data<span class="sc">$</span>ServiceScore);    <span class="fu">var</span>(descriptive_data<span class="sc">$</span>ServiceScore)</span>
 <span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(descriptive_data<span class="sc">$</span>ServiceScore);   <span class="fu">diff</span>(<span class="fu">range</span>(descriptive_data<span class="sc">$</span>ServiceScore))</span>
@@ -4008,7 +4029,7 @@ Show Answer
 </div>
 <p><strong>4.</strong> Compute the IQR-based outlier bounds for <code>DeliveryTime</code> and list any flagged values. Does finding an outlier mean that value is wrong?</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -4017,7 +4038,7 @@ Show Answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="sourceCode" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>Q1  <span class="ot">&lt;-</span> <span class="fu">quantile</span>(descriptive_data<span class="sc">$</span>DeliveryTime, <span class="fl">0.25</span>)</span>
 <span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>Q3  <span class="ot">&lt;-</span> <span class="fu">quantile</span>(descriptive_data<span class="sc">$</span>DeliveryTime, <span class="fl">0.75</span>)</span>
@@ -4033,7 +4054,7 @@ Show Answer
 </div>
 <p><strong>5.</strong> Create a histogram of <code>ServiceScore</code> (binwidth = 5) and a separate histogram of <code>DeliveryTime</code> (binwidth = 25), each with an informative title and a non-black fill. Compare the shapes — does each histogram match what the skewness statistics showed?</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -4042,7 +4063,7 @@ Show Answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="sourceCode" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(descriptive_data, <span class="fu">aes</span>(<span class="at">x =</span> ServiceScore)) <span class="sc">+</span></span>
 <span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">fill =</span> <span class="st">"mediumseagreen"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
@@ -4057,7 +4078,7 @@ Show Answer
 </div>
 <p><strong>6.</strong> Create boxplots for <code>ServiceScore</code> and <code>DeliveryTime</code>. For each, identify whether outliers appear as individual points. Then explain what the relative lengths of the whiskers tell you about symmetry.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -4066,7 +4087,7 @@ Show Answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="sourceCode" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(descriptive_data, <span class="fu">aes</span>(<span class="at">x =</span> DeliveryTime)) <span class="sc">+</span></span>
 <span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"tomato"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
@@ -4082,7 +4103,7 @@ Show Answer
 </div>
 <p><strong>7.</strong> Create a density plot of <code>CustomerValue</code> with a dashed vertical line at the mean. Based on where the mean line falls relative to the peak, is the distribution symmetric or skewed?</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -4091,7 +4112,7 @@ Show Answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="sourceCode" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(descriptive_data, <span class="fu">aes</span>(<span class="at">x =</span> CustomerValue)) <span class="sc">+</span></span>
 <span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"navy"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
@@ -4108,7 +4129,7 @@ Show Answer
 <p>Use the <code>descriptive_data</code> dataset. The two qualitative variables are <code>EngagementLevel</code> (high, medium, low) and <code>LoyalCustomer</code> (yes, no).</p>
 <p><strong>1.</strong> Build a complete frequency summary for <code>EngagementLevel</code>: frequency, relative frequency, cumulative frequency, and cumulative proportion. Combine them into a single transposed data frame, then fill in the table below from your output.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -4117,7 +4138,7 @@ Show Answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="sourceCode" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>frequencies      <span class="ot">&lt;-</span> <span class="fu">table</span>(descriptive_data<span class="sc">$</span>EngagementLevel)</span>
 <span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>proportions      <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(frequencies)</span>
@@ -4166,7 +4187,7 @@ Show Answer
 </div>
 <p><strong>2.</strong> Run the same frequency analysis on <code>LoyalCustomer</code>. What percentage of customers are loyal? Which <code>rbind()</code> row tells you this most directly?</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -4175,7 +4196,7 @@ Show Answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="sourceCode" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>frequencies      <span class="ot">&lt;-</span> <span class="fu">table</span>(descriptive_data<span class="sc">$</span>LoyalCustomer)</span>
 <span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>proportions      <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(frequencies)</span>
@@ -4189,7 +4210,7 @@ Show Answer
 </div>
 <p><strong>3.</strong> Create a bar chart of <code>EngagementLevel</code> showing counts, then a second version showing proportions on the y-axis. What does switching from counts to proportions change about what the chart communicates?</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -4198,7 +4219,7 @@ Show Answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="sourceCode" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Counts</span></span>
 <span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(descriptive_data, <span class="fu">aes</span>(<span class="at">x =</span> EngagementLevel)) <span class="sc">+</span></span>
@@ -4218,7 +4239,7 @@ Show Answer
 </div>
 <p><strong>4.</strong> Create a grouped bar chart with <code>EngagementLevel</code> on the x-axis and bars colored by <code>LoyalCustomer</code>. Use <code>position = "dodge"</code> and add a <code>scale_fill_manual()</code> with two colors of your choice. What pattern do you see in the loyalty split across engagement levels?</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -4227,7 +4248,7 @@ Show Answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="sourceCode" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(descriptive_data, <span class="fu">aes</span>(<span class="at">x =</span> EngagementLevel, <span class="at">fill =</span> LoyalCustomer)) <span class="sc">+</span></span>
 <span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>

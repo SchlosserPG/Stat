@@ -2389,9 +2389,16 @@ globalThis.qwebrExecuteCode = async function (
   <li><a href="#definition-of-ai" id="toc-definition-of-ai" class="nav-link" data-scroll-target="#definition-of-ai">Definition of AI</a></li>
   <li><a href="#two-main-branches-of-statistics" id="toc-two-main-branches-of-statistics" class="nav-link" data-scroll-target="#two-main-branches-of-statistics">Two Main Branches of Statistics</a></li>
   <li><a href="#ai-and-the-analytics-workflow" id="toc-ai-and-the-analytics-workflow" class="nav-link" data-scroll-target="#ai-and-the-analytics-workflow">AI and the Analytics Workflow</a></li>
+  </ul></li>
+  <li><a href="#understanding-generative-ai" id="toc-understanding-generative-ai" class="nav-link" data-scroll-target="#understanding-generative-ai">Understanding Generative AI</a>
+  <ul class="collapse">
+  <li><a href="#how-generative-ai-works-a-conceptual-overview" id="toc-how-generative-ai-works-a-conceptual-overview" class="nav-link" data-scroll-target="#how-generative-ai-works-a-conceptual-overview">How Generative AI Works: A Conceptual Overview</a></li>
+  <li><a href="#the-limits-of-generative-ai" id="toc-the-limits-of-generative-ai" class="nav-link" data-scroll-target="#the-limits-of-generative-ai">The Limits of Generative AI</a>
+  <ul class="collapse">
   <li><a href="#ai-hallucinations-what-to-watch-for-before-you-start" id="toc-ai-hallucinations-what-to-watch-for-before-you-start" class="nav-link" data-scroll-target="#ai-hallucinations-what-to-watch-for-before-you-start">AI Hallucinations: What to Watch For Before You Start</a></li>
   <li><a href="#prompt-engineering-getting-better-output-from-ai" id="toc-prompt-engineering-getting-better-output-from-ai" class="nav-link" data-scroll-target="#prompt-engineering-getting-better-output-from-ai">Prompt Engineering: Getting Better Output from AI</a></li>
   <li><a href="#what-makes-you-fluent-in-r-with-or-without-ai" id="toc-what-makes-you-fluent-in-r-with-or-without-ai" class="nav-link" data-scroll-target="#what-makes-you-fluent-in-r-with-or-without-ai">What makes you fluent in R — with or without AI:</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#setting-up-r" id="toc-setting-up-r" class="nav-link" data-scroll-target="#setting-up-r">Setting up R</a>
   <ul class="collapse">
@@ -2455,32 +2462,6 @@ globalThis.qwebrExecuteCode = async function (
   </ul></li>
   <li><a href="#summarize-data" id="toc-summarize-data" class="nav-link" data-scroll-target="#summarize-data">Summarize Data</a></li>
   <li><a href="#explicit-use-of-libraries" id="toc-explicit-use-of-libraries" class="nav-link" data-scroll-target="#explicit-use-of-libraries">Explicit Use of Libraries</a></li>
-  <li><a href="#data-types-in-r" id="toc-data-types-in-r" class="nav-link" data-scroll-target="#data-types-in-r">Data Types in R</a>
-  <ul class="collapse">
-  <li><a href="#factor-nominal-variable" id="toc-factor-nominal-variable" class="nav-link" data-scroll-target="#factor-nominal-variable">Factor: Nominal Variable</a></li>
-  <li><a href="#factor-ordinal-variable" id="toc-factor-ordinal-variable" class="nav-link" data-scroll-target="#factor-ordinal-variable">Factor: Ordinal Variable</a></li>
-  <li><a href="#numeric-real-continuous-variable" id="toc-numeric-real-continuous-variable" class="nav-link" data-scroll-target="#numeric-real-continuous-variable">Numeric: Real (Continuous) Variable</a></li>
-  <li><a href="#numeric-integer-discrete-variable" id="toc-numeric-integer-discrete-variable" class="nav-link" data-scroll-target="#numeric-integer-discrete-variable">Numeric: Integer (Discrete) Variable</a></li>
-  <li><a href="#character-text-variable" id="toc-character-text-variable" class="nav-link" data-scroll-target="#character-text-variable">Character: Text Variable</a></li>
-  <li><a href="#logical-true-false-variable" id="toc-logical-true-false-variable" class="nav-link" data-scroll-target="#logical-true-false-variable">Logical: TRUE / FALSE Variable</a></li>
-  <li><a href="#date-variable" id="toc-date-variable" class="nav-link" data-scroll-target="#date-variable">Date Variable</a></li>
-  <li><a href="#checking-types-the-full-workflow" id="toc-checking-types-the-full-workflow" class="nav-link" data-scroll-target="#checking-types-the-full-workflow">Checking Types: The Full Workflow</a></li>
-  <li><a href="#real-example-fixing-types-in-gss.2016" id="toc-real-example-fixing-types-in-gss.2016" class="nav-link" data-scroll-target="#real-example-fixing-types-in-gss.2016">Real Example: Fixing Types in gss.2016</a>
-  <ul class="collapse">
-  <li><a href="#date-data-type" id="toc-date-data-type" class="nav-link" data-scroll-target="#date-data-type">Date data type</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#handling-missing-data" id="toc-handling-missing-data" class="nav-link" data-scroll-target="#handling-missing-data">Handling Missing Data</a>
-  <ul class="collapse">
-  <li><a href="#limitations-of-using-a-missing-data-technique" id="toc-limitations-of-using-a-missing-data-technique" class="nav-link" data-scroll-target="#limitations-of-using-a-missing-data-technique">Limitations of Using a Missing Data Technique</a></li>
-  <li><a href="#na.rm" id="toc-na.rm" class="nav-link" data-scroll-target="#na.rm">na.rm</a>
-  <ul class="collapse">
-  <li><a href="#na.rm-in-a-dataset" id="toc-na.rm-in-a-dataset" class="nav-link" data-scroll-target="#na.rm-in-a-dataset">na.rm in a dataset</a></li>
-  </ul></li>
-  <li><a href="#is.na" id="toc-is.na" class="nav-link" data-scroll-target="#is.na">is.na()</a></li>
-  <li><a href="#na_if" id="toc-na_if" class="nav-link" data-scroll-target="#na_if">na_if()</a></li>
-  <li><a href="#na.omit-vs.-drop_na" id="toc-na.omit-vs.-drop_na" class="nav-link" data-scroll-target="#na.omit-vs.-drop_na">na.omit() vs.&nbsp;drop_na()</a></li>
-  </ul></li>
   <li><a href="#review-and-practice" id="toc-review-and-practice" class="nav-link" data-scroll-target="#review-and-practice">Review and Practice</a>
   <ul class="collapse">
   <li><a href="#using-ai" id="toc-using-ai" class="nav-link" data-scroll-target="#using-ai">Using AI</a></li>
@@ -2811,23 +2792,27 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </header>
 
 
-<p>This lesson introduces R and RStudio — the statistical computing environment used throughout this course. By the end, you will be able to navigate RStudio, write and run R code, create and name objects, load data from external files, understand R’s core data types, and handle missing values.</p>
+<p>This lesson introduces R and RStudio — the statistical computing environment used throughout this course — alongside the generative AI concepts you will rely on from your first assignment onward. By the end, you will be able to navigate RStudio, write and run R code, create and name objects, load data from external files, and use AI tools responsibly.</p>
 <p>We begin with <strong>the foundations of statistics and AI</strong>: what descriptive and inferential statistics are, where AI fits into each branch, and what it means to be fluent in R in an age when AI can write code on demand. Understanding the “why” behind each command is what separates an analyst from someone who just runs code.</p>
+<p>We then move to <strong>understanding generative AI</strong>: how large language models work mechanically, what they handle reliably versus what they get wrong, how hallucinations arise and what warning signs to watch for, and how to write effective prompts for R and statistics tasks. These concepts apply to every AI interaction throughout the course and are built on directly in the Generative AI and Data Visualization lesson.</p>
 <p>We then move to <strong>setting up and using R</strong>: creating script files, writing comments and a prolog, performing arithmetic, assigning values to objects, naming those objects consistently, working with built-in functions, installing and loading packages, and troubleshooting errors. These are the mechanical building blocks every subsequent lesson relies on.</p>
-<p>The lesson continues with <strong>entering and loading data</strong>: building vectors, matrices, and data frames from scratch, setting a working directory, and reading in external files with <code>read.csv()</code> and <code>read_csv()</code>. Understanding the difference between absolute and relative file paths — and why relative paths are preferred — is a practical skill that prevents a large share of beginner errors.</p>
-<p>We close with two critical data-quality topics: <strong>data types</strong> and <strong>missing data</strong>. R assigns a type to every variable — factor, numeric, integer, character, logical, or date — and the wrong type causes silent errors that look fine but produce wrong results. Missing data is equally common in real datasets and requires a deliberate strategy: omit, impute, or handle with <code>na.rm</code>. Neither topic is glamorous, but both are essential before any analysis can be trusted.</p>
-<p>By the end of this lesson, you should be comfortable writing and running basic R code, loading a dataset, checking and correcting variable types, and identifying and handling missing values. Work through every code example in your own <code>.R</code> script file alongside the reading.</p>
+<p>We close with <strong>entering and loading data</strong>: building vectors, matrices, and data frames from scratch, setting a working directory, and reading in external files with <code>read.csv()</code> and <code>read_csv()</code>. Understanding the difference between absolute and relative file paths — and why relative paths are preferred — is a practical skill that prevents a large share of beginner errors.</p>
+<p>By the end of this lesson, you should be comfortable writing and running basic R code, loading a dataset, and applying the hallucination warning signs and prompting strategies to AI-generated output. Data types, coercion, and missing data handling are covered in depth in the Data Preparation lesson, where they are taught alongside real cleaning workflows. Work through every code example in your own <code>.R</code> script file alongside the reading.</p>
 <section id="at-a-glance" class="level3">
 <h3 class="anchored" data-anchor-id="at-a-glance">At a Glance</h3>
 <ul>
 <li>In order to succeed in this lesson, you will need to have both R and RStudio downloaded and open. The only way to learn R is to use it — type every code example yourself rather than just reading it. Pay attention not just to <em>what</em> you are typing but <em>why</em> the code is written that way, and what other forms would produce the same result.</li>
 <li>This is a statistics course, and R is a statistical computing tool. The two are inseparable here. Every command you learn connects to a statistical concept, and understanding that connection is what makes the code meaningful rather than mechanical.</li>
+<li>The generative AI section is not a detour — it is prerequisite knowledge for using AI tools responsibly throughout the course. Pay close attention to the hallucination warning signs and the three-step verification check; you will apply both in every subsequent lesson.</li>
 </ul>
 </section>
 <section id="lesson-objectives" class="level3">
 <h3 class="anchored" data-anchor-id="lesson-objectives">Lesson Objectives</h3>
 <ul>
 <li>Explain the difference between descriptive and inferential statistics and identify where AI assists versus where human judgment is required.</li>
+<li>Describe how large language models work at a mechanical level (tokenization, attention mechanisms, language prediction vs.&nbsp;truth verification).</li>
+<li>Identify the five hallucination warning signs and apply the three-step verification check to AI-generated R output.</li>
+<li>Write effective zero-shot, few-shot, and chain-of-thought prompts for R and statistics tasks.</li>
 <li>Create and run an R script file with a prolog, comments, and code.</li>
 <li>Assign values to objects using the <code>&lt;-</code> operator and follow consistent naming conventions.</li>
 <li>Use built-in functions with single and multiple arguments, including default values.</li>
@@ -2835,15 +2820,15 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li>Troubleshoot common R errors using a systematic approach.</li>
 <li>Create vectors, matrices, and data frames from scratch.</li>
 <li>Set a working directory and load data using <code>read.csv()</code> and <code>read_csv()</code>.</li>
-<li>Identify and correct variable data types using <code>str()</code>, <code>class()</code>, and coercion functions.</li>
-<li>Handle missing values using <code>na.rm</code>, <code>is.na()</code>, <code>na.omit()</code>, and <code>drop_na()</code>.</li>
+<li>Load a dataset, run <code>str()</code> and <code>summary()</code> to inspect it, and access columns with <code>$</code>.</li>
 </ul>
 </section>
 <section id="consider-while-reading" class="level3">
 <h3 class="anchored" data-anchor-id="consider-while-reading">Consider While Reading</h3>
 <ul>
+<li>In the generative AI section, focus on the mechanical explanation of how LLMs work — not to become an AI engineer, but because understanding that the model is predicting language (not computing truth) changes how you read and verify its output. The hallucination warning signs follow directly from this mechanism.</li>
 <li>R has a steep learning curve, but the curve flattens fast once you start recognising patterns. Every error message is information — read it before asking AI to fix it. Every function has a help page — check it before guessing at arguments.</li>
-<li>As you read, notice how the lesson is structured as a workflow: set up → write code → create data → load data → fix types → handle missing values. Each section is a prerequisite for the next. By the time you reach missing data, you will have seen every piece needed to make sense of it.</li>
+<li>As you read, notice how the lesson is structured as a workflow: statistics foundations → generative AI → set up R → write code → create data → load data. Each section is a prerequisite for the next.</li>
 <li>AI tools like ChatGPT and GitHub Copilot can write R code for you. The goal of this lesson is to build enough understanding that you can <em>read, verify, and own</em> that code — not just run it and hope for the best.</li>
 </ul>
 </section>
@@ -2981,6 +2966,64 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </ul>
 <p>These four categories have shaped how organizations approach data for decades, and they remain the core of what you are learning in this course. AI does not replace this progression — it <em>supercharges</em> it. AI makes the traditional analytics cycle faster, deeper, and more dynamic. The key distinction for this course is between <strong>AI as a tool you use</strong> and <strong>AI as a system an organization embeds</strong>. When you use Claude or ChatGPT to write R code or interpret output, you are using AI as a productivity tool — it handles mechanical execution while you supply the question, the data, and the judgment. You will return to this framework throughout the course as you move from descriptive statistics all the way through regression.</p>
 </section>
+</section>
+<section id="understanding-generative-ai" class="level1">
+<h1>Understanding Generative AI</h1>
+<section id="how-generative-ai-works-a-conceptual-overview" class="level2">
+<h2 class="anchored" data-anchor-id="how-generative-ai-works-a-conceptual-overview">How Generative AI Works: A Conceptual Overview</h2>
+<p>Generative AI systems — specifically <strong>large language models (LLMs)</strong> like GPT-4 and Claude — are trained on massive text corpora to predict the most likely next word given a sequence of prior words. This sounds simple, but at sufficient scale (billions of parameters, trillions of training tokens) it produces systems capable of reasoning, code generation, summarization, and dialogue.</p>
+<p>Two concepts explain most of what you will observe when using these tools:</p>
+<p><strong>Tokenization</strong> — the model does not read words; it reads <em>tokens</em>, which are chunks of text (often subwords). “Unbelievable” might become <code>["un", "believ", "able"]</code>. The model learns statistical relationships between token sequences across enormous amounts of text.</p>
+<p><strong>Attention mechanisms</strong> — instead of processing text strictly left-to-right, the model can attend to any prior token when predicting the next one. This is what allows it to understand that “bank” means something different in “river bank” and “savings bank.”</p>
+<p>The key insight for a business analyst: <strong>the model is predicting language, not computing truth.</strong> When it writes <code>mean(x) = sum(x) / length(x)</code>, it is not running a calculation — it is recognizing that this string follows that kind of prompt in training data. Usually this is correct. Sometimes it is not.</p>
+</section>
+<section id="the-limits-of-generative-ai" class="level2">
+<h2 class="anchored" data-anchor-id="the-limits-of-generative-ai">The Limits of Generative AI</h2>
+<p>Understanding what AI does reliably versus what it struggles with is the most practical thing in this section.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>AI handles well</th>
+<th>Requires your judgment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Writing and editing code syntax</td>
+<td>Verifying that the code answers your question</td>
+</tr>
+<tr class="even">
+<td>Generating chart boilerplate</td>
+<td>Evaluating whether the chart is analytically honest</td>
+</tr>
+<tr class="odd">
+<td>Summarizing text and documents</td>
+<td>Checking whether the summary is accurate</td>
+</tr>
+<tr class="even">
+<td>Explaining statistical concepts</td>
+<td>Deciding whether the explanation applies to your context</td>
+</tr>
+<tr class="odd">
+<td>Formatting and structuring output</td>
+<td>Determining whether the structure serves your audience</td>
+</tr>
+<tr class="even">
+<td>Arithmetic in simple expressions</td>
+<td>Any multi-step calculation (AI approximates, not computes)</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/LLM_vs_Rule.png" class="img-fluid figure-img"></p>
+<figcaption>LLMs vs.&nbsp;Rule-Based Systems</figcaption>
+</figure>
+</div>
 <section id="ai-hallucinations-what-to-watch-for-before-you-start" class="level3">
 <h3 class="anchored" data-anchor-id="ai-hallucinations-what-to-watch-for-before-you-start">AI Hallucinations: What to Watch For Before You Start</h3>
 <p>Because you will be using AI to help write and debug R code from your very first assignment, it is important to understand one critical limitation before you begin: <strong>hallucinations</strong>.</p>
@@ -3025,8 +3068,15 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </section>
 <section id="prompt-engineering-getting-better-output-from-ai" class="level3">
 <h3 class="anchored" data-anchor-id="prompt-engineering-getting-better-output-from-ai">Prompt Engineering: Getting Better Output from AI</h3>
-<p>Because you will be using AI to write and debug R code throughout this course, the quality of what AI returns depends directly on the quality of what you ask. <strong>Prompt engineering</strong> is the practice of crafting inputs to elicit reliable, specific outputs from AI systems. A vague prompt produces a vague answer.</p>
+<p>Because you will be using AI to write and debug R code throughout this course, the quality of what AI returns depends directly on the quality of what you ask.</p>
+<p><strong>Prompt engineering</strong> is the practice of crafting inputs to elicit reliable, specific outputs from AI systems. The core principle is direct: the quality of the prompt determines the quality of the response. A vague prompt produces a vague answer.</p>
 <p><strong>Three prompting strategies</strong> — each suited to different types of tasks:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/prompt_types.png" class="img-fluid figure-img"></p>
+<figcaption>Prompt Types</figcaption>
+</figure>
+</div>
 <p><strong>Zero-shot prompting</strong> — give the task with no examples. Works well for straightforward requests where the task is clear.</p>
 <blockquote class="blockquote">
 <p><em>“Classify this customer review as positive, negative, or neutral: ‘The delivery was two days late and the packaging was damaged.’”</em></p>
@@ -3073,10 +3123,17 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li><strong>Verify the interpretation</strong> — does the AI’s explanation match the statistical meaning of the output?</li>
 </ol>
 <p>Step 3 is where statistical knowledge is irreplaceable. AI can produce a confidence interval and write a plausible-sounding sentence about it — but you need to know whether the sentence is correct. You will apply these strategies throughout the course; the Generative AI and Data Visualization chapter will build on them further.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/principles_of_prompting.png" class="img-fluid figure-img"></p>
+<figcaption>Eight Principles of Effective Prompting</figcaption>
+</figure>
+</div>
 </section>
 <section id="what-makes-you-fluent-in-r-with-or-without-ai" class="level3">
 <h3 class="anchored" data-anchor-id="what-makes-you-fluent-in-r-with-or-without-ai">What makes you fluent in R — with or without AI:</h3>
 <p>The skills that matter most in this course — and that AI cannot fully substitute for — are: troubleshooting errors by reading them carefully, understanding the environment and what objects are loaded, using the assignment operator and built-in functions correctly, reading data, loading packages, and prompting and verifying AI-generated code. R is also a <strong>dynamically typed language</strong>, meaning it figures out a variable’s data type automatically based on what you assign to it — you do not have to declare types upfront, but you do have to check them, which is covered in the Data Types section below.</p>
+</section>
 </section>
 </section>
 <section id="setting-up-r" class="level1">
@@ -4166,807 +4223,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 </div>
 <hr>
-<p>Reading data into R is only the first step — R must also interpret each column correctly. A number stored as text will not calculate. A category stored as a number will not group. This section covers R’s five core data types, how to detect them, and how to fix them when they are wrong.</p>
-</section>
-<section id="data-types-in-r" class="level1">
-<h1>Data Types in R</h1>
-<p>R is dynamically typed — every variable receives a type based on what you assign to it. Wrong types cause silent errors: a number stored as text will not calculate.</p>
-<p>The five types you will use most often:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>What it stores</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>factor</code></td>
-<td>Categories (nominal or ordinal)</td>
-<td>Industry, Grade</td>
-</tr>
-<tr class="even">
-<td><code>numeric</code></td>
-<td>Real numbers or integers</td>
-<td>Wage, GPA</td>
-</tr>
-<tr class="odd">
-<td><code>character</code></td>
-<td>Text strings</td>
-<td>Name, ZIP code</td>
-</tr>
-<tr class="even">
-<td><code>logical</code></td>
-<td>TRUE or FALSE</td>
-<td>Is loyal? Did churn?</td>
-</tr>
-<tr class="odd">
-<td><code>Date</code></td>
-<td>Calendar dates</td>
-<td>Hire date</td>
-</tr>
-</tbody>
-</table>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in gig dataset — required for examples in the data types</span></span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="co"># section</span></span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>gig <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/gig.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>, <span class="at">na.strings =</span> <span class="st">""</span>)</span>
-<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick confirmation the import worked</span></span>
-<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(gig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 604   4</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  EmployeeID  Wage     Industry        Job
-1          1 32.81 Construction    Analyst
-2          2 46.00   Automotive   Engineer
-3          3 43.13 Construction  Sales Rep
-4          4 48.09   Automotive      Other
-5          5 43.62   Automotive Accountant
-6          6 46.98 Construction   Engineer</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check types from the gig dataset</span></span>
-<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gig<span class="sc">$</span>Industry)  <span class="do">## 'character'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gig<span class="sc">$</span>Wage)  <span class="do">## 'numeric'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "numeric"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gig<span class="sc">$</span>EmployeeID)  <span class="do">## 'integer'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "integer"</code></pre>
-</div>
-</div>
-<section id="factor-nominal-variable" class="level2">
-<h2 class="anchored" data-anchor-id="factor-nominal-variable">Factor: Nominal Variable</h2>
-<p>A nominal variable has categories with <strong>no meaningful order</strong>.</p>
-<p>Examples: Industry, Job title, Gender, State</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Small example first</span></span>
-<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>industry <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Automotive"</span>, <span class="st">"Tech"</span>, <span class="st">"Construction"</span>, <span class="st">"Automotive"</span>)</span>
-<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(industry)  <span class="do">## 'character'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Coerce to factor</span></span>
-<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>industry <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(industry)</span>
-<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(industry)  <span class="do">## 'factor'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "factor"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(industry)  <span class="do">## alphabetical: 'Automotive' 'Construction' 'Tech'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Automotive"   "Construction" "Tech"        </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the same fix to the gig dataset</span></span>
-<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>gig<span class="sc">$</span>Industry <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(gig<span class="sc">$</span>Industry)</span>
-<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>gig<span class="sc">$</span>Job <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(gig<span class="sc">$</span>Job)</span>
-<span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb117-5"><a href="#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gig<span class="sc">$</span>Industry)  <span class="do">## confirm: 'factor'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "factor"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(gig<span class="sc">$</span>Industry)  <span class="do">## see all categories</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Automotive"   "Construction" "Tech"        </code></pre>
-</div>
-</div>
-<p>R will treat each unique value as a level. Use <code>as.factor()</code> whenever you load categorical data.</p>
-</section>
-<section id="factor-ordinal-variable" class="level2">
-<h2 class="anchored" data-anchor-id="factor-ordinal-variable">Factor: Ordinal Variable</h2>
-<p>An ordinal variable has categories with a <strong>meaningful order</strong>.</p>
-<p>Examples: course grade (A &gt; B &gt; C), satisfaction (High &gt; Medium &gt; Low)</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Small example</span></span>
-<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a>satisfaction <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"High"</span>, <span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>, <span class="st">"Low"</span>)</span>
-<span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(satisfaction)</span>
-<span id="cb121-6"><a href="#cb121-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb121-7"><a href="#cb121-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb121-8"><a href="#cb121-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">satisfaction =</span> <span class="fu">recode</span>(satisfaction, <span class="at">High =</span> <span class="dv">3</span>, <span class="at">Medium =</span> <span class="dv">2</span>, <span class="at">Low =</span> <span class="dv">1</span>))</span>
-<span id="cb121-9"><a href="#cb121-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb121-10"><a href="#cb121-10" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>satisfaction  <span class="do">## [1] 3 1 2 3 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 3 1 2 3 1</code></pre>
-</div>
-</div>
-</section>
-<section id="numeric-real-continuous-variable" class="level2">
-<h2 class="anchored" data-anchor-id="numeric-real-continuous-variable">Numeric: Real (Continuous) Variable</h2>
-<p>A continuous numeric variable can take <strong>any value along a range</strong>.</p>
-<p>Examples: Wage, GPA, Temperature, Sales revenue</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wage is already numeric in gig</span></span>
-<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gig<span class="sc">$</span>Wage)  <span class="do">## 'numeric'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "numeric"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What if a number comes in as text?</span></span>
-<span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a>wage_text <span class="ot">&lt;-</span> <span class="st">"42.75"</span></span>
-<span id="cb125-3"><a href="#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(wage_text)  <span class="do">## 'character'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>wage_num <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(wage_text)</span>
-<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(wage_num)  <span class="do">## 'numeric'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "numeric"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a>wage_num <span class="sc">+</span> <span class="dv">10</span>  <span class="do">## [1] 52.75</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 52.75</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: as.numeric() returns NA if text cannot be converted</span></span>
-<span id="cb131-2"><a href="#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Always check for NAs after coercion</span></span>
-<span id="cb131-3"><a href="#cb131-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(<span class="fu">as.numeric</span>(gig<span class="sc">$</span>Wage)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-</div>
-<blockquote class="blockquote">
-<p><strong>Note:</strong> <code>as.numeric()</code> returns <code>NA</code> if the text cannot be converted — always check for NAs after coercion.</p>
-</blockquote>
-</section>
-<section id="numeric-integer-discrete-variable" class="level2">
-<h2 class="anchored" data-anchor-id="numeric-integer-discrete-variable">Numeric: Integer (Discrete) Variable</h2>
-<p>An integer variable holds <strong>whole numbers only</strong> — counts, rankings, IDs.</p>
-<p>Examples: Number of children, Points scored, Employee ID</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an integer directly</span></span>
-<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>children <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="dv">3</span>)</span>
-<span id="cb133-3"><a href="#cb133-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(children)  <span class="do">## 'integer'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "integer"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The L suffix also creates an integer</span></span>
-<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>children <span class="ot">&lt;-</span> <span class="dv">3</span>L</span>
-<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(children)  <span class="do">## 'integer'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "integer"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: as.integer() truncates — it does NOT round</span></span>
-<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>(<span class="fl">4.9</span>)  <span class="do">## [1] 4  (not 5)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>(<span class="fl">4.1</span>)  <span class="do">## [1] 4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># EmployeeID in gig is integer — makes sense, no decimals needed</span></span>
-<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gig<span class="sc">$</span>EmployeeID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "integer"</code></pre>
-</div>
-</div>
-<p>Use integer when the variable can only take whole number values.</p>
-</section>
-<section id="character-text-variable" class="level2">
-<h2 class="anchored" data-anchor-id="character-text-variable">Character: Text Variable</h2>
-<p>A character variable stores <strong>text</strong> — names, labels, codes, descriptions.</p>
-<p>Examples: Employee name, ZIP code, Email address</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="st">"Alice Johnson"</span></span>
-<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a>zip <span class="ot">&lt;-</span> <span class="st">"23185"</span></span>
-<span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(name)  <span class="do">## 'character'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(zip)  <span class="do">## 'character'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert a number to character when needed</span></span>
-<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>id_num <span class="ot">&lt;-</span> <span class="dv">1042</span></span>
-<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a>id_char <span class="ot">&lt;-</span> <span class="fu">as.character</span>(id_num)</span>
-<span id="cb147-4"><a href="#cb147-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(id_char)  <span class="do">## 'character'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>id_char  <span class="do">## [1] '1042'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "1042"</code></pre>
-</div>
-</div>
-<blockquote class="blockquote">
-<p><strong>Important:</strong> ZIP codes look like numbers but must stay as character. If you convert <code>"02134"</code> to numeric it becomes <code>2134</code> — the leading zero is permanently lost.</p>
-</blockquote>
-</section>
-<section id="logical-true-false-variable" class="level2">
-<h2 class="anchored" data-anchor-id="logical-true-false-variable">Logical: TRUE / FALSE Variable</h2>
-<p>A logical variable stores <code>TRUE</code> or <code>FALSE</code> — the result of any comparison.</p>
-<p>Examples: Is the customer loyal? Did the employee churn? Is the order complete?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>loyal <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
-<span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a>churned <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
-<span id="cb151-3"><a href="#cb151-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(loyal)  <span class="do">## 'logical'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "logical"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparisons produce logical values</span></span>
-<span id="cb153-2"><a href="#cb153-2" aria-hidden="true" tabindex="-1"></a>wage <span class="ot">&lt;-</span> <span class="dv">45</span></span>
-<span id="cb153-3"><a href="#cb153-3" aria-hidden="true" tabindex="-1"></a>wage <span class="sc">&gt;</span> <span class="dv">40</span>  <span class="do">## [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>wage <span class="sc">==</span> <span class="dv">50</span>  <span class="do">## [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine conditions with logical operators</span></span>
-<span id="cb157-2"><a href="#cb157-2" aria-hidden="true" tabindex="-1"></a>wage <span class="sc">&gt;</span> <span class="dv">30</span> <span class="sc">&amp;</span> loyal  <span class="do">## TRUE AND TRUE  = TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a>wage <span class="sc">&gt;</span> <span class="dv">60</span> <span class="sc">|</span> loyal  <span class="do">## FALSE OR TRUE  = TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>loyal  <span class="do">## NOT TRUE       = FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Practical use on gig dataset</span></span>
-<span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(gig<span class="sc">$</span>Wage <span class="sc">&gt;</span> <span class="dv">40</span>)  <span class="do">## how many employees earn over $40/hr?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 373</code></pre>
-</div>
-</div>
-</section>
-<section id="date-variable" class="level2">
-<h2 class="anchored" data-anchor-id="date-variable">Date Variable</h2>
-<p>A Date variable stores calendar dates so R can sort, filter, and calculate time differences. Without coercion, dates load as character and <strong>cannot be used for date math</strong>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Without coercion, a date is just text</span></span>
-<span id="cb165-2"><a href="#cb165-2" aria-hidden="true" tabindex="-1"></a>hired <span class="ot">&lt;-</span> <span class="st">"2021-06-15"</span></span>
-<span id="cb165-3"><a href="#cb165-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(hired)  <span class="do">## 'character'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Coerce to Date with as.Date()</span></span>
-<span id="cb167-2"><a href="#cb167-2" aria-hidden="true" tabindex="-1"></a>hired <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-06-15"</span>)</span>
-<span id="cb167-3"><a href="#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(hired)  <span class="do">## 'Date'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Date"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now you can do date arithmetic</span></span>
-<span id="cb169-2"><a href="#cb169-2" aria-hidden="true" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>()</span>
-<span id="cb169-3"><a href="#cb169-3" aria-hidden="true" tabindex="-1"></a>days_employed <span class="ot">&lt;-</span> today <span class="sc">-</span> hired</span>
-<span id="cb169-4"><a href="#cb169-4" aria-hidden="true" tabindex="-1"></a>days_employed  <span class="do">## Time difference in days</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 1789 days</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb171"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For year-month formats, use lubridate lubridate::ym('2021-06')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="checking-types-the-full-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="checking-types-the-full-workflow">Checking Types: The Full Workflow</h2>
-<p>Always run these three steps on <strong>any new dataset</strong> before analysis.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb172"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a>gig <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/gig.csv"</span>)</span>
-<span id="cb172-2"><a href="#cb172-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb172-3"><a href="#cb172-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1 — See all types at once</span></span>
-<span id="cb172-4"><a href="#cb172-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(gig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   604 obs. of  4 variables:
- $ EmployeeID: int  1 2 3 4 5 6 7 8 9 10 ...
- $ Wage      : num  32.8 46 43.1 48.1 43.6 ...
- $ Industry  : chr  "Construction" "Automotive" "Construction" "Automotive" ...
- $ Job       : chr  "Analyst" "Engineer" "Sales Rep" "Other" ...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2 — Fix what is wrong</span></span>
-<span id="cb174-2"><a href="#cb174-2" aria-hidden="true" tabindex="-1"></a>gig<span class="sc">$</span>Industry <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(gig<span class="sc">$</span>Industry)</span>
-<span id="cb174-3"><a href="#cb174-3" aria-hidden="true" tabindex="-1"></a>gig<span class="sc">$</span>Job <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(gig<span class="sc">$</span>Job)</span>
-<span id="cb174-4"><a href="#cb174-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb174-5"><a href="#cb174-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3 — Confirm</span></span>
-<span id="cb174-6"><a href="#cb174-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gig<span class="sc">$</span>Industry)  <span class="do">## 'factor'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "factor"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gig<span class="sc">$</span>Job)  <span class="do">## 'factor'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "factor"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Final sanity check</span></span>
-<span id="cb178-2"><a href="#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   EmployeeID         Wage               Industry           Job     
- Min.   :  1.0   Min.   :24.28               : 10   Engineer  :191  
- 1st Qu.:151.8   1st Qu.:34.19   Automotive  :190   Other     : 88  
- Median :302.5   Median :41.88   Construction:366   Accountant: 83  
- Mean   :302.5   Mean   :40.08   Tech        : 38   Programmer: 80  
- 3rd Qu.:453.2   3rd Qu.:45.87                      Sales Rep : 77  
- Max.   :604.0   Max.   :51.00                      Consultant: 68  
-                                                    (Other)   : 17  </code></pre>
-</div>
-</div>
-</section>
-<section id="real-example-fixing-types-in-gss.2016" class="level2">
-<h2 class="anchored" data-anchor-id="real-example-fixing-types-in-gss.2016">Real Example: Fixing Types in gss.2016</h2>
-<p>The <code>gss.2016</code> dataset has two type problems when loaded:</p>
-<ol type="1">
-<li><code>grass</code> is stored as character — needs to be a factor</li>
-<li><code>age</code> contains <code>"89 OR OLDER"</code> — prevents numeric coercion</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span> <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/gss2016.csv"</span>)</span>
-<span id="cb180-2"><a href="#cb180-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb180-3"><a href="#cb180-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Problem 1: grass is character — fix by coercing to factor</span></span>
-<span id="cb180-4"><a href="#cb180-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gss<span class="fl">.2016</span><span class="sc">$</span>grass)  <span class="do">## 'character'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb182"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb182-1"><a href="#cb182-1" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span><span class="sc">$</span>grass <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(gss<span class="fl">.2016</span><span class="sc">$</span>grass)</span>
-<span id="cb182-2"><a href="#cb182-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gss<span class="fl">.2016</span><span class="sc">$</span>grass)  <span class="do">## 'factor'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "factor"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb184"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb184-1"><a href="#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Problem 2: age contains '89 OR OLDER' — recode first, then coerce</span></span>
-<span id="cb184-2"><a href="#cb184-2" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span><span class="sc">$</span>age <span class="ot">&lt;-</span> <span class="fu">recode</span>(gss<span class="fl">.2016</span><span class="sc">$</span>age, <span class="st">`</span><span class="at">89 OR OLDER</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"89"</span>)</span>
-<span id="cb184-3"><a href="#cb184-3" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span><span class="sc">$</span>age <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(gss<span class="fl">.2016</span><span class="sc">$</span>age)</span>
-<span id="cb184-4"><a href="#cb184-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gss<span class="fl">.2016</span><span class="sc">$</span>age)  <span class="do">## 'numeric'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "numeric"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb186"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb186-1"><a href="#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Final check — confirm all types are correct</span></span>
-<span id="cb186-2"><a href="#cb186-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gss<span class="fl">.2016</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       grass           age       
- DK       : 110   Min.   :18.00  
- IAP      : 911   1st Qu.:34.00  
- LEGAL    :1126   Median :49.00  
- NOT LEGAL: 717   Mean   :49.16  
- NA's     :   3   3rd Qu.:62.00  
-                  Max.   :89.00  
-                  NA's   :10     </code></pre>
-</div>
-</div>
-<section id="date-data-type" class="level3">
-<h3 class="anchored" data-anchor-id="date-data-type">Date data type</h3>
-<ul>
-<li>The date data type in R is used to represent calendar dates, allowing for accurate storage and manipulation of time-related data. Dates in R are typically stored as objects of class Date, which internally represent the number of days since January 1, 1970. This format facilitates arithmetic operations, such as calculating differences between dates or adding/subtracting days. Dates can be created and manipulated using functions like as.Date() for converting character strings to date objects, or Sys.Date() for retrieving the current date. Handling dates correctly is essential in time series analysis, scheduling, and any task involving chronological data, as improper formatting or assumptions can lead to errors in analysis.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb188"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb188-1"><a href="#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert date info in format 'mm/dd/yyyy' using as.Date</span></span>
-<span id="cb188-2"><a href="#cb188-2" aria-hidden="true" tabindex="-1"></a>strDates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"01/05/1965"</span>, <span class="st">"08/16/1975"</span>)</span>
-<span id="cb188-3"><a href="#cb188-3" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(strDates, <span class="st">"%m/%d/%Y"</span>)</span>
-<span id="cb188-4"><a href="#cb188-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> Date[1:2], format: "1965-01-05" "1975-08-16"</code></pre>
-</div>
-</div>
-<ul>
-<li>The lubridate package provides additional tools for working with dates, such as parsing and extracting components like year, month, and day. This package makes dates a lot easier to work with.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb190"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb190-1"><a href="#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert date info in format 'mm/dd/yyyy' using lubridate</span></span>
-<span id="cb190-2"><a href="#cb190-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb190-3"><a href="#cb190-3" aria-hidden="true" tabindex="-1"></a>strDates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"01/05/1965"</span>, <span class="st">"08/16/1975"</span>)</span>
-<span id="cb190-4"><a href="#cb190-4" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">mdy</span>(strDates)</span>
-<span id="cb190-5"><a href="#cb190-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> Date[1:2], format: "1965-01-05" "1975-08-16"</code></pre>
-</div>
-</div>
-<ul>
-<li>If you are only given a year and a month, you can use the ym() command to turn it to a date. But take note that it will add a day to the value as a placeholder.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb192"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb192-1"><a href="#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert date info in format 'yyyymm' using lubridate</span></span>
-<span id="cb192-2"><a href="#cb192-2" aria-hidden="true" tabindex="-1"></a>stryyyymm <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"202201"</span>, <span class="st">"202003"</span>, <span class="st">"202204"</span>)</span>
-<span id="cb192-3"><a href="#cb192-3" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">ym</span>(stryyyymm)</span>
-<span id="cb192-4"><a href="#cb192-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> Date[1:3], format: "2022-01-01" "2020-03-01" "2022-04-01"</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb194"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb194-1"><a href="#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert date info in format 'mm/dd/yyyy' using as.Date</span></span>
-<span id="cb194-2"><a href="#cb194-2" aria-hidden="true" tabindex="-1"></a>strDates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"01/05/1965"</span>, <span class="st">"08/16/1975"</span>)</span>
-<span id="cb194-3"><a href="#cb194-3" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(strDates, <span class="st">"%m/%d/%Y"</span>)</span>
-<span id="cb194-4"><a href="#cb194-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> Date[1:2], format: "1965-01-05" "1975-08-16"</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb196"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb196-1"><a href="#cb196-1" aria-hidden="true" tabindex="-1"></a>UseDates <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/Lubridate.csv"</span>)</span>
-<span id="cb196-2"><a href="#cb196-2" aria-hidden="true" tabindex="-1"></a>UseDates<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">ym</span>(UseDates<span class="sc">$</span>Date)</span>
-<span id="cb196-3"><a href="#cb196-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb196-4"><a href="#cb196-4" aria-hidden="true" tabindex="-1"></a><span class="co"># You can use the month or year function to access the month or year</span></span>
-<span id="cb196-5"><a href="#cb196-5" aria-hidden="true" tabindex="-1"></a><span class="co"># from the date</span></span>
-<span id="cb196-6"><a href="#cb196-6" aria-hidden="true" tabindex="-1"></a>UseDates<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">month</span>(UseDates<span class="sc">$</span>Date)</span>
-<span id="cb196-7"><a href="#cb196-7" aria-hidden="true" tabindex="-1"></a>UseDates<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">year</span>(UseDates<span class="sc">$</span>Date)</span>
-<span id="cb196-8"><a href="#cb196-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb196-9"><a href="#cb196-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Now, you can access months or year numerically</span></span>
-<span id="cb196-10"><a href="#cb196-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(UseDates<span class="sc">$</span>month)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  1.000   4.000   7.000   6.538   9.000  12.000 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb198"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb198-1"><a href="#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(UseDates<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   2019    2020    2021    2021    2021    2022 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb200"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb200-1"><a href="#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="do">## You could code the seasons using a mutate function making a new</span></span>
-<span id="cb200-2"><a href="#cb200-2" aria-hidden="true" tabindex="-1"></a><span class="do">## variable 'season'</span></span>
-<span id="cb200-3"><a href="#cb200-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb200-4"><a href="#cb200-4" aria-hidden="true" tabindex="-1"></a>UseDates <span class="ot">&lt;-</span> UseDates <span class="sc">%&gt;%</span></span>
-<span id="cb200-5"><a href="#cb200-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">season =</span> <span class="fu">case_when</span>(month <span class="sc">%in%</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span> <span class="sc">~</span> <span class="st">"Spring"</span>, month <span class="sc">%in%</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">8</span> <span class="sc">~</span></span>
-<span id="cb200-6"><a href="#cb200-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Summer"</span>, month <span class="sc">%in%</span> <span class="dv">9</span><span class="sc">:</span><span class="dv">11</span> <span class="sc">~</span> <span class="st">"Fall"</span>, <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Winter"</span>))</span>
-<span id="cb200-7"><a href="#cb200-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb200-8"><a href="#cb200-8" aria-hidden="true" tabindex="-1"></a>UseDates<span class="sc">$</span>season <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(UseDates<span class="sc">$</span>season)</span>
-<span id="cb200-9"><a href="#cb200-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(UseDates<span class="sc">$</span>season)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Fall Spring Summer Winter 
-     9      9     12      9 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb202"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb202-1"><a href="#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="do">## You could use a filter statement to select a particular year.  In</span></span>
-<span id="cb202-2"><a href="#cb202-2" aria-hidden="true" tabindex="-1"></a><span class="do">## the example below, I save the filtered data into a new data frame</span></span>
-<span id="cb202-3"><a href="#cb202-3" aria-hidden="true" tabindex="-1"></a><span class="do">## UseDate2022.</span></span>
-<span id="cb202-4"><a href="#cb202-4" aria-hidden="true" tabindex="-1"></a>UseDate2022 <span class="ot">&lt;-</span> <span class="fu">filter</span>(UseDates, year <span class="sc">==</span> <span class="dv">2022</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<hr>
-<p>After fixing data types, the next common problem is missing values. Real datasets almost always have gaps — understanding what causes them and how to handle them is an essential part of any analysis workflow.</p>
-</section>
-</section>
-</section>
-<section id="handling-missing-data" class="level1">
-<h1>Handling Missing Data</h1>
-<ul>
-<li><p>Missing data is a common issue in data analysis and can arise for various reasons, such as data collection errors, non-responses in surveys, or data corruption. In R, handling missing data is crucial to ensure accurate and reliable analysis. Missing values are typically represented by NA (Not Available) in R.</p></li>
-<li><p>Missing data needs to be closely evaluated and verified within each variable whether the data is truly blank, has no answer, or is marked with a character value such as the text N/A.</p></li>
-<li><p>Missing data needs to be closely evaluated to see if the missing value is meaningful or not. If the variable that has many missing values is deemed unimportant or can be represented using a proxy variable that does not have missing values, the variable may be excluded from the analysis.</p></li>
-<li><p>After a data set is loaded, there are three common strategies for dealing with missing values.</p></li>
-</ul>
-<ol type="1">
-<li><p>The omission strategy recommends that observations with missing values be excluded from subsequent analysis.</p></li>
-<li><p>The imputation strategy recommends that the missing values be replaced with some reasonable imputed values. For example, imputing missing values using techniques like mean/median substitution or regression models can be considered.</p>
-<ul>
-<li>Numeric variables: replace with the average.</li>
-<li>Categorical variables: replace with the predominant category.</li>
-</ul></li>
-<li><p>Ignore your missing data if the function works without it.</p>
-<ul>
-<li>When you ignore missing data because your function works without it, the missing values are typically excluded from the calculations by default. In R, many functions, such as mean(), sum(), or lm(), have arguments like na.rm = TRUE to explicitly remove missing values during computation. Ignoring missing data can simplify the analysis, but it comes with potential consequences.</li>
-</ul></li>
-</ol>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Strategy</th>
-<th>When to use</th>
-<th>R approach</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Omit</strong></td>
-<td>Few missing values; missingness is random</td>
-<td><code>na.omit()</code>, <code>drop_na()</code></td>
-</tr>
-<tr class="even">
-<td><strong>Impute</strong></td>
-<td>Many missing values; can’t afford to lose rows</td>
-<td>Replace with mean/median/mode or a model</td>
-</tr>
-<tr class="odd">
-<td><strong>Ignore</strong></td>
-<td>Function supports it and impact is minimal</td>
-<td><code>na.rm = TRUE</code> in <code>mean()</code>, <code>sd()</code>, etc.</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>The choice of approach depends on the nature of the missingness, which can be categorized as Missing Completely at Random, Missing at Random, or Missing Not at Random. Addressing missing data appropriately is essential to maintain the validity of statistical analyses and avoid biases.</li>
-</ul>
-<section id="limitations-of-using-a-missing-data-technique" class="level2">
-<h2 class="anchored" data-anchor-id="limitations-of-using-a-missing-data-technique">Limitations of Using a Missing Data Technique</h2>
-<ul>
-<li><p>Always recommend a closer evaluation of missing data.</p></li>
-<li><p>There are limitations of the techniques listed above (omission, imputation, and ignore).</p></li>
-<li><p>Reduction in Sample Size: Ignoring missing data leads to a smaller effective sample size, which may reduce the power of your analysis and the reliability of the results.</p></li>
-<li><p>Bias: If the missing data are not Missing Completely at Random, ignoring them may introduce bias. For example, if specific groups or patterns are overrepresented in the remaining data, the results may not generalize to the full dataset.</p></li>
-<li><p>Distorted Metrics: Calculations that ignore missing values (e.g., averages, sums) might not reflect the true population parameters, especially if the missing data are systematically different from the observed data. In addition, if a large number of values are missing, mean imputation will likely distort the relationships among variables, leading to biased results.</p></li>
-<li><p>Incorrect Inferences: Ignoring missing data without considering its nature could lead to incorrect conclusions, as the analysis only reflects the subset of available data.</p></li>
-<li><p>Consider a dataset used to predict factors that lead to intubation due to COVID-19. Suppose one variable, “Number of pregnancies,” contains missing data (NAs) for all men, as the question is not applicable to them. If we were to compare this variable with another, “Intubated due to COVID-19: Yes/No,” simply omitting the rows with blanks (NAs) could lead to the exclusion of an entire gender, distorting the analysis. In this case, a different approach to handling missing data would be more appropriate to ensure the dataset remains representative. Additionally, if a value is not blank but is considered missing for analysis purposes, the data should be consistently processed (e.g., mutated or recoded) to align with the chosen technique for handling true missing values.</p></li>
-</ul>
-</section>
-<section id="na.rm" class="level2">
-<h2 class="anchored" data-anchor-id="na.rm">na.rm</h2>
-<ul>
-<li>The na.rm parameter in R is a convenient way to handle missing values (NA) within functions that perform calculations on datasets. The parameter stands for “NA remove” and, when set to TRUE, instructs the function to exclude missing values from the computation.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb203"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb203-1"><a href="#cb203-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="cn">NA</span>)</span>
-<span id="cb203-2"><a href="#cb203-2" aria-hidden="true" tabindex="-1"></a><span class="co"># These lines runs, but do not give you anything useful.</span></span>
-<span id="cb203-3"><a href="#cb203-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb205"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb205-1"><a href="#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
-</div>
-</div>
-<ul>
-<li><p>Many functions in R include parameters that will ignore NAs for you.</p></li>
-<li><p>sum() and mean() are examples of this, and most summary statistics like median() and var() and max() also use the na.rm parameter to ignore the NAs. Always check the help to determine if na.rm is a parameter.</p></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb207"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb207-1"><a href="#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(y, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 10</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb209"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb209-1"><a href="#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(y, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.5</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb211"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb211-1"><a href="#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="co"># na.omit removes the NAs from the vector of dataset. Here, it works</span></span>
-<span id="cb211-2"><a href="#cb211-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for removing NAs from the vector.</span></span>
-<span id="cb211-3"><a href="#cb211-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="na.rm-in-a-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="na.rm-in-a-dataset">na.rm in a dataset</h3>
-<ul>
-<li>Using a dataset, we need the <code>data$variable</code> format, like <code>mean(data$column, na.rm = TRUE)</code> calculates the mean of the non-missing values in the specified column or variable. This approach is straightforward and useful when the presence of missing values would otherwise cause an error or return an NA result.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb212"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb212-1"><a href="#cb212-1" aria-hidden="true" tabindex="-1"></a>gig <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/gig.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>, <span class="at">na.strings =</span> <span class="st">""</span>)</span>
-<span id="cb212-2"><a href="#cb212-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   EmployeeID         Wage               Industry           Job     
- Min.   :  1.0   Min.   :24.28   Automotive  :190   Engineer  :191  
- 1st Qu.:151.8   1st Qu.:34.19   Construction:366   Other     : 88  
- Median :302.5   Median :41.88   Tech        : 38   Accountant: 83  
- Mean   :302.5   Mean   :40.08   NA's        : 10   Programmer: 80  
- 3rd Qu.:453.2   3rd Qu.:45.87                      Sales Rep : 77  
- Max.   :604.0   Max.   :51.00                      (Other)   : 69  
-                                                    NA's      : 16  </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb214"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb214-1"><a href="#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(gig<span class="sc">$</span>Wage, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 40.0828</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="is.na" class="level2">
-<h2 class="anchored" data-anchor-id="is.na">is.na()</h2>
-<ul>
-<li>In R, the is.na() function is used to check for missing (NA) values in objects like vectors, data frames, or arrays. It returns a logical vector of the same length as the input object, where TRUE indicates a missing value and FALSE indicates a non-missing value.</li>
-<li>To conduct an example, read in the data set called gig.csv from your working directory.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb216"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb216-1"><a href="#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Counts the number of all NA values in the entire dataset</span></span>
-<span id="cb216-2"><a href="#cb216-2" aria-hidden="true" tabindex="-1"></a>CountAllBlanks <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(gig))</span>
-<span id="cb216-3"><a href="#cb216-3" aria-hidden="true" tabindex="-1"></a>CountAllBlanks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 26</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb218"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb218-1"><a href="#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gives the observation number of the observations that include NA</span></span>
-<span id="cb218-2"><a href="#cb218-2" aria-hidden="true" tabindex="-1"></a><span class="co"># values</span></span>
-<span id="cb218-3"><a href="#cb218-3" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">is.na</span>(gig<span class="sc">$</span>Industry))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1]  24 139 361 378 441 446 479 500 531 565</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb220"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb220-1"><a href="#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Produces a dataset with observations that have NA values in the</span></span>
-<span id="cb220-2"><a href="#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Industry field.</span></span>
-<span id="cb220-3"><a href="#cb220-3" aria-hidden="true" tabindex="-1"></a>ShowBlankObservations <span class="ot">&lt;-</span> gig <span class="sc">%&gt;%</span></span>
-<span id="cb220-4"><a href="#cb220-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">is.na</span>(Industry))</span>
-<span id="cb220-5"><a href="#cb220-5" aria-hidden="true" tabindex="-1"></a>ShowBlankObservations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   EmployeeID  Wage Industry        Job
-1          24 42.58     &lt;NA&gt;  Sales Rep
-2         139 42.18     &lt;NA&gt;   Engineer
-3         361 31.33     &lt;NA&gt;      Other
-4         378 48.09     &lt;NA&gt;      Other
-5         441 32.35     &lt;NA&gt; Accountant
-6         446 30.76     &lt;NA&gt; Accountant
-7         479 42.85     &lt;NA&gt; Consultant
-8         500 43.13     &lt;NA&gt;  Sales Rep
-9         531 43.13     &lt;NA&gt;   Engineer
-10        565 38.98     &lt;NA&gt; Accountant</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb222"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb222-1"><a href="#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Counts the number of observations that have NA values in the</span></span>
-<span id="cb222-2"><a href="#cb222-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Industry field. Industry is categorical, so we can count values</span></span>
-<span id="cb222-3"><a href="#cb222-3" aria-hidden="true" tabindex="-1"></a><span class="co"># based on it.</span></span>
-<span id="cb222-4"><a href="#cb222-4" aria-hidden="true" tabindex="-1"></a>CountBlanks <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(gig<span class="sc">$</span>Industry))</span>
-<span id="cb222-5"><a href="#cb222-5" aria-hidden="true" tabindex="-1"></a>CountBlanks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 10</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb224"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb224-1"><a href="#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb224-2"><a href="#cb224-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Counts the number of observations that have NA values in the Wage</span></span>
-<span id="cb224-3"><a href="#cb224-3" aria-hidden="true" tabindex="-1"></a><span class="co"># field.</span></span>
-<span id="cb224-4"><a href="#cb224-4" aria-hidden="true" tabindex="-1"></a>CountBlanks <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(gig<span class="sc">$</span>Wage))</span>
-<span id="cb224-5"><a href="#cb224-5" aria-hidden="true" tabindex="-1"></a>CountBlanks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-</div>
-</section>
-<section id="na_if" class="level2">
-<h2 class="anchored" data-anchor-id="na_if">na_if()</h2>
-<ul>
-<li>The na_if() function in tidyr is used to replace specific values in a column with NA (missing) values. This function can be particularly useful when you want to standardize missing values across a dataset or when you want to replace certain values with NA for further data processing</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb226"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a>TurnNA <span class="ot">&lt;-</span> gig <span class="sc">%&gt;%</span></span>
-<span id="cb226-2"><a href="#cb226-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Job =</span> <span class="fu">na_if</span>(Job, <span class="st">"Other"</span>))</span>
-<span id="cb226-3"><a href="#cb226-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(TurnNA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  EmployeeID  Wage     Industry        Job
-1          1 32.81 Construction    Analyst
-2          2 46.00   Automotive   Engineer
-3          3 43.13 Construction  Sales Rep
-4          4 48.09   Automotive       &lt;NA&gt;
-5          5 43.62   Automotive Accountant
-6          6 46.98 Construction   Engineer</code></pre>
-</div>
-</div>
-</section>
-<section id="na.omit-vs.-drop_na" class="level2">
-<h2 class="anchored" data-anchor-id="na.omit-vs.-drop_na">na.omit() vs.&nbsp;drop_na()</h2>
-<ul>
-<li><p>Both functions return a new object with the rows containing missing values removed.</p></li>
-<li><p>na.omit() is a base R function, so it doesn’t require any additional package installation where drop_na() requires loading the tidyr package, which is part of the tidyverse ecosystem.</p></li>
-<li><p>drop_na() fits well into tidyverse pipelines, making it easy to integrate with other tidyverse functions where na.omit() can also be used in pipelines but might require additional steps to fit seamlessly.</p></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb228"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb228-1"><a href="#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('Amelia')</span></span>
-<span id="cb228-2"><a href="#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Amelia)</span>
-<span id="cb228-3"><a href="#cb228-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"africa"</span>)</span>
-<span id="cb228-4"><a href="#cb228-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(africa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      year              country       gdp_pc            infl        
- Min.   :1972   Burkina Faso:20   Min.   : 376.0   Min.   : -8.400  
- 1st Qu.:1977   Burundi     :20   1st Qu.: 513.8   1st Qu.:  4.760  
- Median :1982   Cameroon    :20   Median :1035.5   Median :  8.725  
- Mean   :1982   Congo       :20   Mean   :1058.4   Mean   : 12.753  
- 3rd Qu.:1986   Senegal     :20   3rd Qu.:1244.8   3rd Qu.: 13.560  
- Max.   :1991   Zambia      :20   Max.   :2723.0   Max.   :127.890  
-                                  NA's   :2                         
-     trade            civlib         population      
- Min.   : 24.35   Min.   :0.0000   Min.   : 1332490  
- 1st Qu.: 38.52   1st Qu.:0.1667   1st Qu.: 4332190  
- Median : 59.59   Median :0.1667   Median : 5853565  
- Mean   : 62.60   Mean   :0.2889   Mean   : 5765594  
- 3rd Qu.: 81.16   3rd Qu.:0.3333   3rd Qu.: 7355000  
- Max.   :134.11   Max.   :0.6667   Max.   :11825390  
- NA's   :5                                           </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb230"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb230-1"><a href="#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(africa<span class="sc">$</span>gdp_pc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-  376.0   513.8  1035.5  1058.4  1244.8  2723.0       2 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb232"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb232-1"><a href="#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(africa<span class="sc">$</span>trade)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-  24.35   38.52   59.59   62.60   81.16  134.11       5 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb234"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb234-1"><a href="#cb234-1" aria-hidden="true" tabindex="-1"></a>africa1 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(africa)</span>
-<span id="cb234-2"><a href="#cb234-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(africa1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      year              country       gdp_pc            infl       
- Min.   :1972   Burkina Faso:20   Min.   : 376.0   Min.   : -8.40  
- 1st Qu.:1976   Burundi     :17   1st Qu.: 511.5   1st Qu.:  4.67  
- Median :1981   Cameroon    :18   Median :1062.0   Median :  8.72  
- Mean   :1981   Congo       :20   Mean   :1071.8   Mean   : 12.91  
- 3rd Qu.:1986   Senegal     :20   3rd Qu.:1266.0   3rd Qu.: 13.57  
- Max.   :1991   Zambia      :20   Max.   :2723.0   Max.   :127.89  
-     trade            civlib         population      
- Min.   : 24.35   Min.   :0.0000   Min.   : 1332490  
- 1st Qu.: 38.52   1st Qu.:0.1667   1st Qu.: 4186485  
- Median : 59.59   Median :0.1667   Median : 5858750  
- Mean   : 62.60   Mean   :0.2899   Mean   : 5749761  
- 3rd Qu.: 81.16   3rd Qu.:0.3333   3rd Qu.: 7383000  
- Max.   :134.11   Max.   :0.6667   Max.   :11825390  </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb236"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb236-1"><a href="#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="do">## to drop all at once.</span></span>
-<span id="cb236-2"><a href="#cb236-2" aria-hidden="true" tabindex="-1"></a>africa2 <span class="ot">&lt;-</span> africa <span class="sc">%&gt;%</span></span>
-<span id="cb236-3"><a href="#cb236-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>()</span>
-<span id="cb236-4"><a href="#cb236-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(africa2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      year              country       gdp_pc            infl       
- Min.   :1972   Burkina Faso:20   Min.   : 376.0   Min.   : -8.40  
- 1st Qu.:1976   Burundi     :17   1st Qu.: 511.5   1st Qu.:  4.67  
- Median :1981   Cameroon    :18   Median :1062.0   Median :  8.72  
- Mean   :1981   Congo       :20   Mean   :1071.8   Mean   : 12.91  
- 3rd Qu.:1986   Senegal     :20   3rd Qu.:1266.0   3rd Qu.: 13.57  
- Max.   :1991   Zambia      :20   Max.   :2723.0   Max.   :127.89  
-     trade            civlib         population      
- Min.   : 24.35   Min.   :0.0000   Min.   : 1332490  
- 1st Qu.: 38.52   1st Qu.:0.1667   1st Qu.: 4186485  
- Median : 59.59   Median :0.1667   Median : 5858750  
- Mean   : 62.60   Mean   :0.2899   Mean   : 5749761  
- 3rd Qu.: 81.16   3rd Qu.:0.3333   3rd Qu.: 7383000  
- Max.   :134.11   Max.   :0.6667   Max.   :11825390  </code></pre>
-</div>
-</div>
-<ul>
-<li><p>You try to load the airquality dataset from base R and look at a summary of the dataset.</p>
-<ul>
-<li>Sum the number of NAs in airquality.</li>
-<li>Omit all the NAs from airquality and save it in a new data object called airqual and take a new summary of it.</li>
-</ul>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>     Ozone           Solar.R           Wind             Temp      
- Min.   :  1.00   Min.   :  7.0   Min.   : 1.700   Min.   :56.00  
- 1st Qu.: 18.00   1st Qu.:115.8   1st Qu.: 7.400   1st Qu.:72.00  
- Median : 31.50   Median :205.0   Median : 9.700   Median :79.00  
- Mean   : 42.13   Mean   :185.9   Mean   : 9.958   Mean   :77.88  
- 3rd Qu.: 63.25   3rd Qu.:258.8   3rd Qu.:11.500   3rd Qu.:85.00  
- Max.   :168.00   Max.   :334.0   Max.   :20.700   Max.   :97.00  
- NA's   :37       NA's   :7                                       
-     Month            Day      
- Min.   :5.000   Min.   : 1.0  
- 1st Qu.:6.000   1st Qu.: 8.0  
- Median :7.000   Median :16.0  
- Mean   :6.993   Mean   :15.8  
- 3rd Qu.:8.000   3rd Qu.:23.0  
- Max.   :9.000   Max.   :31.0  
-</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 44</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     Ozone          Solar.R           Wind            Temp      
- Min.   :  1.0   Min.   :  7.0   Min.   : 2.30   Min.   :57.00  
- 1st Qu.: 18.0   1st Qu.:113.5   1st Qu.: 7.40   1st Qu.:71.00  
- Median : 31.0   Median :207.0   Median : 9.70   Median :79.00  
- Mean   : 42.1   Mean   :184.8   Mean   : 9.94   Mean   :77.79  
- 3rd Qu.: 62.0   3rd Qu.:255.5   3rd Qu.:11.50   3rd Qu.:84.50  
- Max.   :168.0   Max.   :334.0   Max.   :20.70   Max.   :97.00  
-     Month            Day       
- Min.   :5.000   Min.   : 1.00  
- 1st Qu.:6.000   1st Qu.: 9.00  
- Median :7.000   Median :16.00  
- Mean   :7.216   Mean   :15.95  
- 3rd Qu.:9.000   3rd Qu.:22.50  
- Max.   :9.000   Max.   :31.00  </code></pre>
-</div>
-</div></li>
-</ul>
-</section>
+<p>Data types, coercion functions, and missing data handling are covered in full in the <strong>Data Preparation</strong> lesson, where they are taught in the context of real cleaning workflows using the <code>gig.csv</code> and <code>gss.2016</code> datasets. If you want a preview now, the five core types are <code>factor</code>, <code>numeric</code>, <code>character</code>, <code>logical</code>, and <code>Date</code> — use <code>str()</code> to check them all at once on any dataset you load.</p>
 </section>
 <section id="review-and-practice" class="level1">
 <h1>Review and Practice</h1>
@@ -4990,9 +4247,6 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li><p>Write a script that reads a CSV file into R using <code>read.csv()</code>. Summarize the dataset and explain how the columns and rows are structured.</p></li>
 <li><p>How can you access specific columns of a data frame using the <code>$</code> operator? Provide an example using a sample dataset in R.</p></li>
 <li><p>Explain how to use the <code>summary()</code> function in R to summarize a dataset. Write a script that loads a dataset and runs <code>summary()</code> on it.</p></li>
-<li><p>What is the difference between ordinal and nominal variables, and how can you recode these data types in R?</p></li>
-<li><p>Explain the steps to coerce a character variable into a factor using the <code>as.factor()</code> function in R.</p></li>
-<li><p>What strategies can you use to handle missing data in R, and how does <code>na.omit()</code> differ from <code>drop_na()</code>?</p></li>
 </ul>
 </section>
 <section id="intro-lab" class="level2">
@@ -5011,20 +4265,20 @@ Show Answer
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb241"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb241-1"><a href="#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span>
-<span id="cb241-2"><a href="#cb241-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Project name: Intro Lab</span></span>
-<span id="cb241-3"><a href="#cb241-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Project purpose: Practice basic R from the Intro lesson</span></span>
-<span id="cb241-4"><a href="#cb241-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Code author name: [Your Name]</span></span>
-<span id="cb241-5"><a href="#cb241-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Date last edited: [Today's Date]</span></span>
-<span id="cb241-6"><a href="#cb241-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Data used: gig.csv, gss2016.csv</span></span>
-<span id="cb241-7"><a href="#cb241-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries used: tidyverse</span></span>
-<span id="cb241-8"><a href="#cb241-8" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span>
-<span id="cb241-9"><a href="#cb241-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb241-10"><a href="#cb241-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The &lt;- operator assigns the value on the right to the object on the left</span></span>
-<span id="cb241-11"><a href="#cb241-11" aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="dv">42</span></span>
-<span id="cb241-12"><a href="#cb241-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb241-13"><a href="#cb241-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(answer)   <span class="co"># explicit print</span></span>
-<span id="cb241-14"><a href="#cb241-14" aria-hidden="true" tabindex="-1"></a>answer          <span class="co"># implicit print — R prints the value when you type the name</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Project name: Intro Lab</span></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Project purpose: Practice basic R from the Intro lesson</span></span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Code author name: [Your Name]</span></span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Date last edited: [Today's Date]</span></span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Data used: gig.csv, gss2016.csv</span></span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries used: tidyverse</span></span>
+<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a><span class="do">####################################</span></span>
+<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The &lt;- operator assigns the value on the right to the object on the left</span></span>
+<span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="dv">42</span></span>
+<span id="cb101-12"><a href="#cb101-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-13"><a href="#cb101-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(answer)   <span class="co"># explicit print</span></span>
+<span id="cb101-14"><a href="#cb101-14" aria-hidden="true" tabindex="-1"></a>answer          <span class="co"># implicit print — R prints the value when you type the name</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Both lines produce <code>[1] 42</code>. The <code>[1]</code> is R’s way of indicating this is the first (and only) element of the result. Note that <code>print()</code> is rarely needed in a script — typing the object name is idiomatic R.</p>
 </div>
 </div>
@@ -5047,157 +4301,30 @@ Show Answer
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb242"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb242-1"><a href="#cb242-1" aria-hidden="true" tabindex="-1"></a>name       <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Carol"</span>)</span>
-<span id="cb242-2"><a href="#cb242-2" aria-hidden="true" tabindex="-1"></a>department <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Finance"</span>, <span class="st">"HR"</span>, <span class="st">"Finance"</span>)</span>
-<span id="cb242-3"><a href="#cb242-3" aria-hidden="true" tabindex="-1"></a>salary     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">72000</span>, <span class="dv">58000</span>, <span class="dv">81000</span>)</span>
-<span id="cb242-4"><a href="#cb242-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb242-5"><a href="#cb242-5" aria-hidden="true" tabindex="-1"></a>employees <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(name, department, salary)</span>
-<span id="cb242-6"><a href="#cb242-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb242-7"><a href="#cb242-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(employees)   <span class="co"># 3 — three variables</span></span>
-<span id="cb242-8"><a href="#cb242-8" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(employees)   <span class="co"># 3 — three observations</span></span>
-<span id="cb242-9"><a href="#cb242-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(employees)    <span class="co"># 3 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>name       <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Carol"</span>)</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>department <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Finance"</span>, <span class="st">"HR"</span>, <span class="st">"Finance"</span>)</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>salary     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">72000</span>, <span class="dv">58000</span>, <span class="dv">81000</span>)</span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>employees <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(name, department, salary)</span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(employees)   <span class="co"># 3 — three variables</span></span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(employees)   <span class="co"># 3 — three observations</span></span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(employees)    <span class="co"># 3 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In a data frame, rows are observations (one row per employee) and columns are variables (name, department, salary). <code>dim()</code> returns both at once as <code>[rows, columns]</code>.</p>
 </div>
 </div>
 </div>
-<p><strong>3.</strong> Load <code>gig.csv</code> using <code>read.csv()</code> with <code>stringsAsFactors = TRUE</code> and <code>na.strings = ""</code>. Run <code>str()</code> on the result. List every variable, its type as R loaded it, and whether the type is correct for what the variable represents.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Show Answer
+Note
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb243"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb243-1"><a href="#cb243-1" aria-hidden="true" tabindex="-1"></a>gig <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/gig.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>, <span class="at">na.strings =</span> <span class="st">""</span>)</span>
-<span id="cb243-2"><a href="#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(gig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Expected output will vary by dataset, but the evaluation follows this logic:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Variable</th>
-<th>Type R assigned</th>
-<th>Correct?</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>EmployeeID</td>
-<td>integer</td>
-<td>✅</td>
-<td>Whole-number ID — integer is fine</td>
-</tr>
-<tr class="even">
-<td>Industry</td>
-<td>factor</td>
-<td>✅</td>
-<td>Categorical — factor is correct</td>
-</tr>
-<tr class="odd">
-<td>Job</td>
-<td>factor</td>
-<td>✅</td>
-<td>Categorical — factor is correct</td>
-</tr>
-<tr class="even">
-<td>Wage</td>
-<td>numeric</td>
-<td>✅</td>
-<td>Continuous measurement — numeric is correct</td>
-</tr>
-</tbody>
-</table>
-<p>Any variable showing <code>chr</code> (character) that represents a category needs <code>as.factor()</code>. Any numeric field that loaded as <code>chr</code> needs <code>as.numeric()</code> — always check for NAs introduced by coercion.</p>
-</div>
-</div>
-</div>
-<p><strong>4.</strong> Using the <code>gig</code> dataset, identify the total number of missing values in the entire dataset, then count the missing values in the <code>Wage</code> column specifically. Use two different approaches for the column count.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb244"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb244-1"><a href="#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Total NAs in the entire dataset</span></span>
-<span id="cb244-2"><a href="#cb244-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(gig))</span>
-<span id="cb244-3"><a href="#cb244-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb244-4"><a href="#cb244-4" aria-hidden="true" tabindex="-1"></a><span class="co"># NAs in Wage — approach 1: sum of logical vector</span></span>
-<span id="cb244-5"><a href="#cb244-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(gig<span class="sc">$</span>Wage))</span>
-<span id="cb244-6"><a href="#cb244-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb244-7"><a href="#cb244-7" aria-hidden="true" tabindex="-1"></a><span class="co"># NAs in Wage — approach 2: count rows where Wage is NA</span></span>
-<span id="cb244-8"><a href="#cb244-8" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(gig[<span class="fu">is.na</span>(gig<span class="sc">$</span>Wage), ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><code>is.na()</code> returns <code>TRUE</code> for each missing value. <code>sum()</code> treats <code>TRUE</code> as 1 and <code>FALSE</code> as 0, so the total is a count of NAs. The two approaches for <code>Wage</code> give the same answer — the first is more concise, the second makes the filtering logic explicit.</p>
-</div>
-</div>
-</div>
-<p><strong>5.</strong> Load <code>gss2016.csv</code>. Fix the two known type problems: coerce <code>grass</code> to a factor, and recode <code>"89 OR OLDER"</code> in the <code>age</code> column to <code>"89"</code> before converting <code>age</code> to numeric. Confirm both fixes with <code>class()</code>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb245"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb245-1"><a href="#cb245-1" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span> <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/gss2016.csv"</span>)</span>
-<span id="cb245-2"><a href="#cb245-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb245-3"><a href="#cb245-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix 1: grass should be a factor, not character</span></span>
-<span id="cb245-4"><a href="#cb245-4" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span><span class="sc">$</span>grass <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(gss<span class="fl">.2016</span><span class="sc">$</span>grass)</span>
-<span id="cb245-5"><a href="#cb245-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gss<span class="fl">.2016</span><span class="sc">$</span>grass)   <span class="co"># "factor"</span></span>
-<span id="cb245-6"><a href="#cb245-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb245-7"><a href="#cb245-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix 2: age has a text entry that blocks numeric coercion</span></span>
-<span id="cb245-8"><a href="#cb245-8" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span><span class="sc">$</span>age <span class="ot">&lt;-</span> <span class="fu">recode</span>(gss<span class="fl">.2016</span><span class="sc">$</span>age, <span class="st">"89 OR OLDER"</span> <span class="ot">=</span> <span class="st">"89"</span>)</span>
-<span id="cb245-9"><a href="#cb245-9" aria-hidden="true" tabindex="-1"></a>gss<span class="fl">.2016</span><span class="sc">$</span>age <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(gss<span class="fl">.2016</span><span class="sc">$</span>age)</span>
-<span id="cb245-10"><a href="#cb245-10" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gss<span class="fl">.2016</span><span class="sc">$</span>age)     <span class="co"># "numeric"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Why does the order matter for <code>age</code>? <code>as.numeric()</code> cannot convert <code>"89 OR OLDER"</code> — it would return <code>NA</code> and you would silently lose data. Recoding first, then converting, preserves the value. Always recode text anomalies before numeric coercion and check <code>sum(is.na(gss.2016$age))</code> afterwards to confirm no NAs were introduced unexpectedly.</p>
-</div>
-</div>
-</div>
-<p><strong>6.</strong> The three strategies for handling missing data are omit, impute, and ignore. For each scenario below, identify the most appropriate strategy and explain why.</p>
-<ul>
-<li><ol type="a">
-<li>A survey dataset has 2 rows out of 500 with missing income values. The analysis does not focus on income specifically.</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li>A clinical dataset tracks pregnancy-related complications. The variable “number of previous pregnancies” is missing for all male patients.</li>
-</ol></li>
-<li><ol start="3" type="a">
-<li>You are computing the mean satisfaction score for a customer survey. A few respondents left the question blank.</li>
-</ol></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Show Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<ul>
-<li><p><strong>a. Ignore (or omit).</strong> With only 2 missing rows out of 500 and income not being the focus, using <code>na.rm = TRUE</code> when income appears in calculations is sensible. Omitting those 2 rows entirely would also be defensible — the impact on results is negligible.</p></li>
-<li><p><strong>b. Neither omit nor impute — investigate first.</strong> Removing all male rows would introduce severe selection bias, distorting the entire analysis. The missing values are <em>systematically</em> missing (not random), and the variable may simply not apply to part of the population. The right approach is to understand the data structure and consider whether this variable should be included at all, or whether a subset analysis is more appropriate.</p></li>
-<li><p><strong>c.&nbsp;Ignore with <code>na.rm = TRUE</code>.</strong> For a straightforward mean calculation, <code>mean(data$satisfaction, na.rm = TRUE)</code> is appropriate. The missing values represent non-responses, which are common in surveys. If a large proportion of responses were missing, further investigation would be warranted — but for a few blanks, <code>na.rm</code> is the practical and defensible choice.</p></li>
-</ul>
-</div>
+<p>Questions 3–6 on data types, coercion, and missing data have moved to the <strong>Data Preparation lab</strong>, where they are practiced in the context of real cleaning workflows. If you want a head start, try loading <code>gig.csv</code> with <code>str()</code> and see what types R assigns before the next lesson.</p>
 </div>
 </div>
 </section>
@@ -5707,10 +4834,10 @@ Note
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>This lesson covered the foundations of R and RStudio:</p>
+<p>This lesson covered the foundations of R, RStudio, and generative AI:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 50%">
+<col style="width: 49%">
 <col style="width: 50%">
 </colgroup>
 <thead>
@@ -5729,72 +4856,76 @@ Note
 <td>AI automates descriptive work; inferential judgment — population definition, sampling validity, interpretation — remains human</td>
 </tr>
 <tr class="odd">
+<td>LLM mechanics</td>
+<td>Models predict the next token, not truth; attention mechanisms enable context-aware generation</td>
+</tr>
+<tr class="even">
+<td>AI strengths and limits</td>
+<td>Handles code syntax, boilerplate, summarisation; requires your judgment on correctness, question framing, and data quality</td>
+</tr>
+<tr class="odd">
+<td>Hallucinations</td>
+<td>Structural property of language prediction; five warning signs: unverified specificity, invented sources, internal contradictions, overconfident language, failures of common sense</td>
+</tr>
+<tr class="even">
+<td>Prompt engineering</td>
+<td>Zero-shot (direct task), few-shot (with examples), chain-of-thought (step-by-step reasoning); specificity is the most important lever for R tasks</td>
+</tr>
+<tr class="odd">
+<td>Verifying AI output</td>
+<td>Three-step check: run the code, sanity-check output, verify the interpretation — step 3 requires your statistical knowledge</td>
+</tr>
+<tr class="even">
 <td>R script files</td>
 <td><code>.R</code> files save and rerun code; always include a prolog; comment with <code>#</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Assignment operator</td>
 <td><code>&lt;-</code> assigns values to objects; <code>=</code> works but is discouraged for clarity</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Naming conventions</td>
 <td>Constants: <code>kName</code>; functions: <code>CamelCase</code>; variables: <code>dot.case</code> or <code>camelCase</code>; no spaces, case-sensitive</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Built-in functions</td>
 <td><code>functionName(argument)</code>; arguments have defaults; use <code>?function</code> to see all parameters</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Packages</td>
 <td><code>install.packages()</code> once; <code>library()</code> every session; <code>package::function()</code> for single-use access</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Troubleshooting</td>
 <td>Read the error; check spelling and capitalisation; use AI for error interpretation but verify every fix</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Vectors</td>
 <td><code>c()</code>, <code>:</code>, <code>seq()</code>, <code>rep()</code> — the building blocks of all R data structures</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Matrices</td>
 <td><code>matrix(data, nrow, ncol, byrow)</code>; same data type throughout; <code>dimnames()</code> for labels</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Data frames</td>
 <td><code>data.frame()</code>; rows = observations, columns = variables; mixed types allowed</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Working directories</td>
 <td><code>getwd()</code>, <code>setwd()</code>; relative paths (<code>"data/file.csv"</code>) preferred over absolute</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Reading data</td>
 <td><code>read.csv()</code> (base R) vs.&nbsp;<code>read_csv()</code> (readr/tidyverse); <code>data()</code> for built-in datasets</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>summary()</code> vs <code>summarize()</code></td>
 <td><code>summary()</code> gives automatic overview; <code>summarize()</code> from dplyr gives custom grouped summaries</td>
 </tr>
-<tr class="odd">
-<td>Data types</td>
-<td>factor (nominal/ordinal), numeric, integer, character, logical, Date; use <code>str()</code> to check all at once</td>
-</tr>
-<tr class="even">
-<td>Type coercion</td>
-<td><code>as.factor()</code>, <code>as.numeric()</code>, <code>as.integer()</code>, <code>as.character()</code>, <code>as.Date()</code>; always check for NAs after</td>
-</tr>
-<tr class="odd">
-<td>Missing data strategies</td>
-<td>Omit (<code>na.omit()</code>, <code>drop_na()</code>), impute, or ignore (<code>na.rm = TRUE</code>); choice depends on why values are missing</td>
-</tr>
-<tr class="even">
-<td><code>is.na()</code></td>
-<td>Returns <code>TRUE</code> for each NA; <code>sum(is.na(x))</code> counts missing values</td>
-</tr>
 </tbody>
 </table>
-<p><strong>What comes next:</strong> The Descriptive Statistics lesson builds directly on this foundation — using the loading, typing, and summarising tools introduced here to describe the shape, center, and spread of real variables. Every line of code in that lesson assumes you can open RStudio, load a dataset, and check that variables are the right type.</p>
+<p><strong>What comes next:</strong> The Descriptive Statistics lesson uses the loading and summarising tools introduced here. Data types, coercion functions, and missing data handling are covered in full in the <strong>Data Preparation</strong> lesson — that is where they are most meaningful, because you will be applying them inside real cleaning workflows the moment you learn them. The hallucination warning signs, prompt strategies, and verification check introduced in the generative AI section of this lesson are applied directly to data visualization output in the <strong>Generative AI and Data Visualization</strong> lesson at the end of the course.</p>
 
 
 </section>

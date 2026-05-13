@@ -9,26 +9,30 @@ format: html
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
 ```
 
-This lesson introduces R and RStudio — the statistical computing environment used throughout this course. By the end, you will be able to navigate RStudio, write and run R code, create and name objects, load data from external files, understand R's core data types, and handle missing values.
+This lesson introduces R and RStudio — the statistical computing environment used throughout this course — alongside the generative AI concepts you will rely on from your first assignment onward. By the end, you will be able to navigate RStudio, write and run R code, create and name objects, load data from external files, and use AI tools responsibly.
 
 We begin with **the foundations of statistics and AI**: what descriptive and inferential statistics are, where AI fits into each branch, and what it means to be fluent in R in an age when AI can write code on demand. Understanding the "why" behind each command is what separates an analyst from someone who just runs code.
 
+We then move to **understanding generative AI**: how large language models work mechanically, what they handle reliably versus what they get wrong, how hallucinations arise and what warning signs to watch for, and how to write effective prompts for R and statistics tasks. These concepts apply to every AI interaction throughout the course and are built on directly in the Generative AI and Data Visualization lesson.
+
 We then move to **setting up and using R**: creating script files, writing comments and a prolog, performing arithmetic, assigning values to objects, naming those objects consistently, working with built-in functions, installing and loading packages, and troubleshooting errors. These are the mechanical building blocks every subsequent lesson relies on.
 
-The lesson continues with **entering and loading data**: building vectors, matrices, and data frames from scratch, setting a working directory, and reading in external files with `read.csv()` and `read_csv()`. Understanding the difference between absolute and relative file paths — and why relative paths are preferred — is a practical skill that prevents a large share of beginner errors.
+We close with **entering and loading data**: building vectors, matrices, and data frames from scratch, setting a working directory, and reading in external files with `read.csv()` and `read_csv()`. Understanding the difference between absolute and relative file paths — and why relative paths are preferred — is a practical skill that prevents a large share of beginner errors.
 
-We close with two critical data-quality topics: **data types** and **missing data**. R assigns a type to every variable — factor, numeric, integer, character, logical, or date — and the wrong type causes silent errors that look fine but produce wrong results. Missing data is equally common in real datasets and requires a deliberate strategy: omit, impute, or handle with `na.rm`. Neither topic is glamorous, but both are essential before any analysis can be trusted.
-
-By the end of this lesson, you should be comfortable writing and running basic R code, loading a dataset, checking and correcting variable types, and identifying and handling missing values. Work through every code example in your own `.R` script file alongside the reading.
+By the end of this lesson, you should be comfortable writing and running basic R code, loading a dataset, and applying the hallucination warning signs and prompting strategies to AI-generated output. Data types, coercion, and missing data handling are covered in depth in the Data Preparation lesson, where they are taught alongside real cleaning workflows. Work through every code example in your own `.R` script file alongside the reading.
 
 ### At a Glance
 
 -   In order to succeed in this lesson, you will need to have both R and RStudio downloaded and open. The only way to learn R is to use it — type every code example yourself rather than just reading it. Pay attention not just to *what* you are typing but *why* the code is written that way, and what other forms would produce the same result.
 -   This is a statistics course, and R is a statistical computing tool. The two are inseparable here. Every command you learn connects to a statistical concept, and understanding that connection is what makes the code meaningful rather than mechanical.
+-   The generative AI section is not a detour — it is prerequisite knowledge for using AI tools responsibly throughout the course. Pay close attention to the hallucination warning signs and the three-step verification check; you will apply both in every subsequent lesson.
 
 ### Lesson Objectives
 
 -   Explain the difference between descriptive and inferential statistics and identify where AI assists versus where human judgment is required.
+-   Describe how large language models work at a mechanical level (tokenization, attention mechanisms, language prediction vs. truth verification).
+-   Identify the five hallucination warning signs and apply the three-step verification check to AI-generated R output.
+-   Write effective zero-shot, few-shot, and chain-of-thought prompts for R and statistics tasks.
 -   Create and run an R script file with a prolog, comments, and code.
 -   Assign values to objects using the `<-` operator and follow consistent naming conventions.
 -   Use built-in functions with single and multiple arguments, including default values.
@@ -36,13 +40,13 @@ By the end of this lesson, you should be comfortable writing and running basic R
 -   Troubleshoot common R errors using a systematic approach.
 -   Create vectors, matrices, and data frames from scratch.
 -   Set a working directory and load data using `read.csv()` and `read_csv()`.
--   Identify and correct variable data types using `str()`, `class()`, and coercion functions.
--   Handle missing values using `na.rm`, `is.na()`, `na.omit()`, and `drop_na()`.
+-   Load a dataset, run `str()` and `summary()` to inspect it, and access columns with `$`.
 
 ### Consider While Reading
 
+-   In the generative AI section, focus on the mechanical explanation of how LLMs work — not to become an AI engineer, but because understanding that the model is predicting language (not computing truth) changes how you read and verify its output. The hallucination warning signs follow directly from this mechanism.
 -   R has a steep learning curve, but the curve flattens fast once you start recognising patterns. Every error message is information — read it before asking AI to fix it. Every function has a help page — check it before guessing at arguments.
--   As you read, notice how the lesson is structured as a workflow: set up → write code → create data → load data → fix types → handle missing values. Each section is a prerequisite for the next. By the time you reach missing data, you will have seen every piece needed to make sense of it.
+-   As you read, notice how the lesson is structured as a workflow: statistics foundations → generative AI → set up R → write code → create data → load data. Each section is a prerequisite for the next.
 -   AI tools like ChatGPT and GitHub Copilot can write R code for you. The goal of this lesson is to build enough understanding that you can *read, verify, and own* that code — not just run it and hope for the best.
 
 ## What is Statistics?
@@ -135,6 +139,35 @@ Before diving into R, it is worth situating AI within the broader analytics work
 
 These four categories have shaped how organizations approach data for decades, and they remain the core of what you are learning in this course. AI does not replace this progression — it *supercharges* it. AI makes the traditional analytics cycle faster, deeper, and more dynamic. The key distinction for this course is between **AI as a tool you use** and **AI as a system an organization embeds**. When you use Claude or ChatGPT to write R code or interpret output, you are using AI as a productivity tool — it handles mechanical execution while you supply the question, the data, and the judgment. You will return to this framework throughout the course as you move from descriptive statistics all the way through regression.
 
+# Understanding Generative AI
+
+## How Generative AI Works: A Conceptual Overview
+
+Generative AI systems — specifically **large language models (LLMs)** like GPT-4 and Claude — are trained on massive text corpora to predict the most likely next word given a sequence of prior words. This sounds simple, but at sufficient scale (billions of parameters, trillions of training tokens) it produces systems capable of reasoning, code generation, summarization, and dialogue.
+
+Two concepts explain most of what you will observe when using these tools:
+
+**Tokenization** — the model does not read words; it reads *tokens*, which are chunks of text (often subwords). "Unbelievable" might become `["un", "believ", "able"]`. The model learns statistical relationships between token sequences across enormous amounts of text.
+
+**Attention mechanisms** — instead of processing text strictly left-to-right, the model can attend to any prior token when predicting the next one. This is what allows it to understand that "bank" means something different in "river bank" and "savings bank."
+
+The key insight for a business analyst: **the model is predicting language, not computing truth.** When it writes `mean(x) = sum(x) / length(x)`, it is not running a calculation — it is recognizing that this string follows that kind of prompt in training data. Usually this is correct. Sometimes it is not.
+
+## The Limits of Generative AI
+
+Understanding what AI does reliably versus what it struggles with is the most practical thing in this section.
+
+| AI handles well | Requires your judgment |
+|------------------------------------|------------------------------------|
+| Writing and editing code syntax | Verifying that the code answers your question |
+| Generating chart boilerplate | Evaluating whether the chart is analytically honest |
+| Summarizing text and documents | Checking whether the summary is accurate |
+| Explaining statistical concepts | Deciding whether the explanation applies to your context |
+| Formatting and structuring output | Determining whether the structure serves your audience |
+| Arithmetic in simple expressions | Any multi-step calculation (AI approximates, not computes) |
+
+![LLMs vs. Rule-Based Systems](images/LLM_vs_Rule.png)
+
 ### AI Hallucinations: What to Watch For Before You Start
 
 Because you will be using AI to help write and debug R code from your very first assignment, it is important to understand one critical limitation before you begin: **hallucinations**.
@@ -157,9 +190,14 @@ Hallucinations are not a fixable bug — they are a structural property of how l
 
 ### Prompt Engineering: Getting Better Output from AI
 
-Because you will be using AI to write and debug R code throughout this course, the quality of what AI returns depends directly on the quality of what you ask. **Prompt engineering** is the practice of crafting inputs to elicit reliable, specific outputs from AI systems. A vague prompt produces a vague answer.
+Because you will be using AI to write and debug R code throughout this course, the quality of what AI returns depends directly on the quality of what you ask. 
+
+**Prompt engineering** is the practice of crafting inputs to elicit reliable, specific outputs from AI systems. The core principle is direct: the quality of the prompt determines the quality of the response. A vague prompt produces a vague answer.
+
 
 **Three prompting strategies** — each suited to different types of tasks:
+
+![Prompt Types](images/prompt_types.png)
 
 **Zero-shot prompting** — give the task with no examples. Works well for straightforward requests where the task is clear.
 
@@ -191,6 +229,11 @@ Because you will be using AI to write and debug R code throughout this course, t
 3. **Verify the interpretation** — does the AI's explanation match the statistical meaning of the output?
 
 Step 3 is where statistical knowledge is irreplaceable. AI can produce a confidence interval and write a plausible-sounding sentence about it — but you need to know whether the sentence is correct. You will apply these strategies throughout the course; the Generative AI and Data Visualization chapter will build on them further.
+
+
+![Eight Principles of Effective Prompting](images/principles_of_prompting.png)
+
+
 
 ### What makes you fluent in R — with or without AI:
 
@@ -893,479 +936,9 @@ library(dplyr)
 summarize(Insurance, mean(Holders))
 ```
 
-------------------------------------------------------------------------
+---
 
-Reading data into R is only the first step — R must also interpret each column correctly. A number stored as text will not calculate. A category stored as a number will not group. This section covers R's five core data types, how to detect them, and how to fix them when they are wrong.
-
-# Data Types in R
-
-R is dynamically typed — every variable receives a type based on what you assign to it. Wrong types cause silent errors: a number stored as text will not calculate.
-
-The five types you will use most often:
-
-| Type        | What it stores                  | Example              |
-|-------------|---------------------------------|----------------------|
-| `factor`    | Categories (nominal or ordinal) | Industry, Grade      |
-| `numeric`   | Real numbers or integers        | Wage, GPA            |
-| `character` | Text strings                    | Name, ZIP code       |
-| `logical`   | TRUE or FALSE                   | Is loyal? Did churn? |
-| `Date`      | Calendar dates                  | Hire date            |
-
-```{r}
-# Read in gig dataset — required for examples in the data types section
-gig <- read.csv("data/gig.csv",
-                stringsAsFactors = FALSE,
-                na.strings = "")
-
-# Quick confirmation the import worked
-dim(gig)
-head(gig)
-```
-
-```{r data-types-check}
-# Check types from the gig dataset
-class(gig$Industry)    ## "character"
-class(gig$Wage)        ## "numeric"
-class(gig$EmployeeID)  ## "integer"
-```
-
-## Factor: Nominal Variable
-
-A nominal variable has categories with **no meaningful order**.
-
-Examples: Industry, Job title, Gender, State
-
-```{r nominal-factor}
-# Small example first
-industry <- c("Automotive", "Tech", "Construction", "Automotive")
-class(industry)                  ## "character"
-
-# Coerce to factor
-industry <- as.factor(industry)
-class(industry)                  ## "factor"
-levels(industry)                 ## alphabetical: "Automotive" "Construction" "Tech"
-
-# Apply the same fix to the gig dataset
-gig$Industry <- as.factor(gig$Industry)
-gig$Job      <- as.factor(gig$Job)
-
-class(gig$Industry)              ## confirm: "factor"
-levels(gig$Industry)             ## see all categories
-```
-
-R will treat each unique value as a level. Use `as.factor()` whenever you load categorical data.
-
-## Factor: Ordinal Variable
-
-An ordinal variable has categories with a **meaningful order**.
-
-Examples: course grade (A \> B \> C), satisfaction (High \> Medium \> Low)
-
-```{r ordinal-factor}
-library(tidyverse)
-
-# Small example
-satisfaction <- c("High", "Low", "Medium", "High", "Low")
-data <- data.frame(satisfaction)
-
-data <- data %>%
-  mutate(satisfaction = recode(satisfaction,
-           "High"   = 3,
-           "Medium" = 2,
-           "Low"    = 1))
-
-data$satisfaction    ## [1] 3 1 2 3 1
-```
-
-## Numeric: Real (Continuous) Variable
-
-A continuous numeric variable can take **any value along a range**.
-
-Examples: Wage, GPA, Temperature, Sales revenue
-
-```{r numeric-continuous}
-# Wage is already numeric in gig
-class(gig$Wage)      ## "numeric"
-
-# What if a number comes in as text?
-wage_text <- "42.75"
-class(wage_text)     ## "character"
-
-wage_num <- as.numeric(wage_text)
-class(wage_num)      ## "numeric"
-wage_num + 10        ## [1] 52.75
-
-# IMPORTANT: as.numeric() returns NA if text cannot be converted
-# Always check for NAs after coercion
-sum(is.na(as.numeric(gig$Wage)))
-```
-
-> **Note:** `as.numeric()` returns `NA` if the text cannot be converted — always check for NAs after coercion.
-
-## Numeric: Integer (Discrete) Variable
-
-An integer variable holds **whole numbers only** — counts, rankings, IDs.
-
-Examples: Number of children, Points scored, Employee ID
-
-```{r integer}
-# Create an integer directly
-children <- as.integer(3)
-class(children)       ## "integer"
-
-# The L suffix also creates an integer
-children <- 3L
-class(children)       ## "integer"
-
-# IMPORTANT: as.integer() truncates — it does NOT round
-as.integer(4.9)       ## [1] 4  (not 5)
-as.integer(4.1)       ## [1] 4
-
-# EmployeeID in gig is integer — makes sense, no decimals needed
-class(gig$EmployeeID)
-```
-
-Use integer when the variable can only take whole number values.
-
-## Character: Text Variable
-
-A character variable stores **text** — names, labels, codes, descriptions.
-
-Examples: Employee name, ZIP code, Email address
-
-```{r character}
-name <- "Alice Johnson"
-zip  <- "23185"
-class(name)           ## "character"
-class(zip)            ## "character"
-
-# Convert a number to character when needed
-id_num  <- 1042
-id_char <- as.character(id_num)
-class(id_char)        ## "character"
-id_char               ## [1] "1042"
-```
-
-> **Important:** ZIP codes look like numbers but must stay as character. If you convert `"02134"` to numeric it becomes `2134` — the leading zero is permanently lost.
-
-## Logical: TRUE / FALSE Variable
-
-A logical variable stores `TRUE` or `FALSE` — the result of any comparison.
-
-Examples: Is the customer loyal? Did the employee churn? Is the order complete?
-
-```{r logical}
-loyal   <- TRUE
-churned <- FALSE
-class(loyal)          ## "logical"
-
-# Comparisons produce logical values
-wage <- 45.00
-wage > 40             ## [1] TRUE
-wage == 50            ## [1] FALSE
-
-# Combine conditions with logical operators
-wage > 30 & loyal     ## TRUE AND TRUE  = TRUE
-wage > 60 | loyal     ## FALSE OR TRUE  = TRUE
-!loyal                ## NOT TRUE       = FALSE
-
-# Practical use on gig dataset
-sum(gig$Wage > 40)    ## how many employees earn over $40/hr?
-```
-
-## Date Variable
-
-A Date variable stores calendar dates so R can sort, filter, and calculate time differences. Without coercion, dates load as character and **cannot be used for date math**.
-
-```{r date}
-# Without coercion, a date is just text
-hired <- "2021-06-15"
-class(hired)          ## "character"
-
-# Coerce to Date with as.Date()
-hired <- as.Date("2021-06-15")
-class(hired)          ## "Date"
-
-# Now you can do date arithmetic
-today <- Sys.Date()
-days_employed <- today - hired
-days_employed         ## Time difference in days
-
-# For year-month formats, use lubridate
-# lubridate::ym("2021-06")
-```
-
-## Checking Types: The Full Workflow
-
-Always run these three steps on **any new dataset** before analysis.
-
-```{r type-workflow}
-gig <- read.csv("data/gig.csv")
-
-# Step 1 — See all types at once
-str(gig)
-
-# Step 2 — Fix what is wrong
-gig$Industry <- as.factor(gig$Industry)
-gig$Job      <- as.factor(gig$Job)
-
-# Step 3 — Confirm
-class(gig$Industry)   ## "factor"
-class(gig$Job)        ## "factor"
-
-# Final sanity check
-summary(gig)
-```
-
-## Real Example: Fixing Types in gss.2016
-
-The `gss.2016` dataset has two type problems when loaded:
-
-1.  `grass` is stored as character — needs to be a factor
-2.  `age` contains `"89 OR OLDER"` — prevents numeric coercion
-
-```{r gss-type-fix}
-gss.2016 <- read.csv("data/gss2016.csv")
-
-# Problem 1: grass is character — fix by coercing to factor
-class(gss.2016$grass)              ## "character"
-gss.2016$grass <- as.factor(gss.2016$grass)
-class(gss.2016$grass)              ## "factor"
-
-# Problem 2: age contains "89 OR OLDER" — recode first, then coerce
-gss.2016$age <- recode(gss.2016$age, "89 OR OLDER" = "89")
-gss.2016$age <- as.numeric(gss.2016$age)
-class(gss.2016$age)                ## "numeric"
-
-# Final check — confirm all types are correct
-summary(gss.2016)
-```
-
-### Date data type
-
--   The date data type in R is used to represent calendar dates, allowing for accurate storage and manipulation of time-related data. Dates in R are typically stored as objects of class Date, which internally represent the number of days since January 1, 1970. This format facilitates arithmetic operations, such as calculating differences between dates or adding/subtracting days. Dates can be created and manipulated using functions like as.Date() for converting character strings to date objects, or Sys.Date() for retrieving the current date. Handling dates correctly is essential in time series analysis, scheduling, and any task involving chronological data, as improper formatting or assumptions can lead to errors in analysis.
-
-```{r}
-# Convert date info in format 'mm/dd/yyyy' using as.Date
-strDates <- c("01/05/1965", "08/16/1975")
-dates <- as.Date(strDates, "%m/%d/%Y") 
-str(dates)
-```
-
--   The lubridate package provides additional tools for working with dates, such as parsing and extracting components like year, month, and day. This package makes dates a lot easier to work with.
-
-```{r}
-# Convert date info in format 'mm/dd/yyyy' using lubridate
-library(lubridate)
-strDates <- c("01/05/1965", "08/16/1975")
-dates <- mdy(strDates) 
-str(dates)
-```
-
--   If you are only given a year and a month, you can use the ym() command to turn it to a date. But take note that it will add a day to the value as a placeholder.
-
-```{r}
-# Convert date info in format 'yyyymm' using lubridate
-stryyyymm <- c("202201", "202003", "202204")
-dates <- ym(stryyyymm)
-str(dates)
-```
-
-```{r}
-# Convert date info in format 'mm/dd/yyyy' using as.Date
-strDates <- c("01/05/1965", "08/16/1975")
-dates <- as.Date(strDates, "%m/%d/%Y") 
-str(dates)
-```
-
-```{r}
-UseDates <- read.csv("data/Lubridate.csv")
-UseDates$Date <- ym(UseDates$Date)
-
-#You can use the month or year function to access the month or year from the date
-UseDates$month <- month(UseDates$Date)
-UseDates$year <- year(UseDates$Date)
-
-##Now, you can access months or year numerically
-summary(UseDates$month) 
-summary(UseDates$year)
-
-##You could code the seasons using a mutate function making a new variable "season"
-library(tidyverse)
-UseDates <- UseDates %>% 
-  mutate(season = case_when(
-    month %in% 3:5 ~ "Spring",
-    month %in% 6:8 ~ "Summer",
-    month %in% 9:11 ~ "Fall",
-    TRUE ~ "Winter"
-  ))
-
-UseDates$season <- as.factor(UseDates$season)
-summary(UseDates$season)
-
-##You could use a filter statement to select a particular year. 
-#In the example below, I save the filtered data into a new data frame UseDate2022. 
-UseDate2022 <- filter(UseDates, year==2022)
-
-```
-
-------------------------------------------------------------------------
-
-After fixing data types, the next common problem is missing values. Real datasets almost always have gaps — understanding what causes them and how to handle them is an essential part of any analysis workflow.
-
-# Handling Missing Data
-
--   Missing data is a common issue in data analysis and can arise for various reasons, such as data collection errors, non-responses in surveys, or data corruption. In R, handling missing data is crucial to ensure accurate and reliable analysis. Missing values are typically represented by NA (Not Available) in R.
-
--   Missing data needs to be closely evaluated and verified within each variable whether the data is truly blank, has no answer, or is marked with a character value such as the text N/A.
-
--   Missing data needs to be closely evaluated to see if the missing value is meaningful or not. If the variable that has many missing values is deemed unimportant or can be represented using a proxy variable that does not have missing values, the variable may be excluded from the analysis.
-
--   After a data set is loaded, there are three common strategies for dealing with missing values.
-
-1.  The omission strategy recommends that observations with missing values be excluded from subsequent analysis.
-
-2.  The imputation strategy recommends that the missing values be replaced with some reasonable imputed values. For example, imputing missing values using techniques like mean/median substitution or regression models can be considered.
-
-    -   Numeric variables: replace with the average.
-    -   Categorical variables: replace with the predominant category.
-
-3.  Ignore your missing data if the function works without it.
-
-    -   When you ignore missing data because your function works without it, the missing values are typically excluded from the calculations by default. In R, many functions, such as mean(), sum(), or lm(), have arguments like na.rm = TRUE to explicitly remove missing values during computation. Ignoring missing data can simplify the analysis, but it comes with potential consequences.
-
-| Strategy | When to use | R approach |
-|------------------------|------------------------|------------------------|
-| **Omit** | Few missing values; missingness is random | `na.omit()`, `drop_na()` |
-| **Impute** | Many missing values; can't afford to lose rows | Replace with mean/median/mode or a model |
-| **Ignore** | Function supports it and impact is minimal | `na.rm = TRUE` in `mean()`, `sd()`, etc. |
-
--   The choice of approach depends on the nature of the missingness, which can be categorized as Missing Completely at Random, Missing at Random, or Missing Not at Random. Addressing missing data appropriately is essential to maintain the validity of statistical analyses and avoid biases.
-
-## Limitations of Using a Missing Data Technique
-
--   Always recommend a closer evaluation of missing data.
-
--   There are limitations of the techniques listed above (omission, imputation, and ignore).
-
--   Reduction in Sample Size: Ignoring missing data leads to a smaller effective sample size, which may reduce the power of your analysis and the reliability of the results.
-
--   Bias: If the missing data are not Missing Completely at Random, ignoring them may introduce bias. For example, if specific groups or patterns are overrepresented in the remaining data, the results may not generalize to the full dataset.
-
--   Distorted Metrics: Calculations that ignore missing values (e.g., averages, sums) might not reflect the true population parameters, especially if the missing data are systematically different from the observed data. In addition, if a large number of values are missing, mean imputation will likely distort the relationships among variables, leading to biased results.
-
--   Incorrect Inferences: Ignoring missing data without considering its nature could lead to incorrect conclusions, as the analysis only reflects the subset of available data.
-
--   Consider a dataset used to predict factors that lead to intubation due to COVID-19. Suppose one variable, "Number of pregnancies," contains missing data (NAs) for all men, as the question is not applicable to them. If we were to compare this variable with another, "Intubated due to COVID-19: Yes/No," simply omitting the rows with blanks (NAs) could lead to the exclusion of an entire gender, distorting the analysis. In this case, a different approach to handling missing data would be more appropriate to ensure the dataset remains representative. Additionally, if a value is not blank but is considered missing for analysis purposes, the data should be consistently processed (e.g., mutated or recoded) to align with the chosen technique for handling true missing values.
-
-## na.rm
-
--   The na.rm parameter in R is a convenient way to handle missing values (NA) within functions that perform calculations on datasets. The parameter stands for "NA remove" and, when set to TRUE, instructs the function to exclude missing values from the computation.
-
-```{r}
-y <- c(1, 2, NA, 3, 4, NA)
-# These lines runs, but do not give you anything useful.
-sum(y) 
-mean(y)
-```
-
--   Many functions in R include parameters that will ignore NAs for you.
-
--   sum() and mean() are examples of this, and most summary statistics like median() and var() and max() also use the na.rm parameter to ignore the NAs. Always check the help to determine if na.rm is a parameter.
-
-```{r}
-sum(y, na.rm=TRUE) 
-mean(y, na.rm=TRUE)
-# na.omit removes the NAs from the vector of dataset. Here, it works for removing NAs from the vector.  
-y <- na.omit(y) 
-```
-
-### na.rm in a dataset
-
--   Using a dataset, we need the `data$variable` format, like `mean(data$column, na.rm = TRUE)` calculates the mean of the non-missing values in the specified column or variable. This approach is straightforward and useful when the presence of missing values would otherwise cause an error or return an NA result.
-
-```{r}
-gig <- read.csv("data/gig.csv", stringsAsFactors = TRUE, na.strings="")
-summary(gig)
-mean(gig$Wage, na.rm=TRUE)
-```
-
-## is.na()
-
--   In R, the is.na() function is used to check for missing (NA) values in objects like vectors, data frames, or arrays. It returns a logical vector of the same length as the input object, where TRUE indicates a missing value and FALSE indicates a non-missing value.
--   To conduct an example, read in the data set called gig.csv from your working directory.
-
-```{r}
-
-#Counts the number of all NA values in the entire dataset
-CountAllBlanks <- sum(is.na(gig)); CountAllBlanks 
-
-#Gives the observation number of the observations that include NA values
-which(is.na(gig$Industry))
-
-#Produces a dataset with observations that have NA values in the Industry field. 
-ShowBlankObservations <- gig %>%
-     filter(is.na(Industry))
-ShowBlankObservations
-
-#Counts the number of observations that have NA values in the Industry field. Industry is categorical, so we can count values based on it. 
-CountBlanks <- sum(is.na(gig$Industry)); CountBlanks 
-
-library(tidyverse)
-#Counts the number of observations that have NA values in the Wage field. 
-CountBlanks <- sum(is.na(gig$Wage)); CountBlanks 
-
-```
-
-## na_if()
-
--   The na_if() function in tidyr is used to replace specific values in a column with NA (missing) values. This function can be particularly useful when you want to standardize missing values across a dataset or when you want to replace certain values with NA for further data processing
-
-```{r}
-TurnNA <- gig %>%
-     mutate(Job = na_if(Job, "Other"))
-head(TurnNA)
-```
-
-## na.omit() vs. drop_na()
-
--   Both functions return a new object with the rows containing missing values removed.
-
--   na.omit() is a base R function, so it doesn't require any additional package installation where drop_na() requires loading the tidyr package, which is part of the tidyverse ecosystem.
-
--   drop_na() fits well into tidyverse pipelines, making it easy to integrate with other tidyverse functions where na.omit() can also be used in pipelines but might require additional steps to fit seamlessly.
-
-```{r}
-#install.packages("Amelia")
-library(Amelia)
-data("africa")
-summary(africa)
-summary(africa$gdp_pc)
-summary(africa$trade)
-
-africa1 <- na.omit(africa)
-summary(africa1)
-
-##to drop all at once. 
-africa2 <- africa %>% drop_na()
-summary(africa2)
-
-```
-
--   You try to load the airquality dataset from base R and look at a summary of the dataset.
-
-    -   Sum the number of NAs in airquality.
-    -   Omit all the NAs from airquality and save it in a new data object called airqual and take a new summary of it.
-
-    ```{r, echo=FALSE}
-    data("airquality")
-    summary(airquality)
-    sum(is.na(airquality))
-    #37 + 7
-    airqual <- na.omit(airquality)
-    #153-111
-    summary(airqual)
-    ```
+Data types, coercion functions, and missing data handling are covered in full in the **Data Preparation** lesson, where they are taught in the context of real cleaning workflows using the `gig.csv` and `gss.2016` datasets. If you want a preview now, the five core types are `factor`, `numeric`, `character`, `logical`, and `Date` — use `str()` to check them all at once on any dataset you load.
 
 # Review and Practice
 
@@ -1400,12 +973,6 @@ Use the following prompts with our chatbot (bottom right of this page) to explor
 -   How can you access specific columns of a data frame using the `$` operator? Provide an example using a sample dataset in R.
 
 -   Explain how to use the `summary()` function in R to summarize a dataset. Write a script that loads a dataset and runs `summary()` on it.
-
--   What is the difference between ordinal and nominal variables, and how can you recode these data types in R?
-
--   Explain the steps to coerce a character variable into a factor using the `as.factor()` function in R.
-
--   What strategies can you use to handle missing data in R, and how does `na.omit()` differ from `drop_na()`?
 
 ## Intro Lab
 
@@ -1460,90 +1027,8 @@ dim(employees)    # 3 3
 In a data frame, rows are observations (one row per employee) and columns are variables (name, department, salary). `dim()` returns both at once as `[rows, columns]`.
 :::
 
-**3.** Load `gig.csv` using `read.csv()` with `stringsAsFactors = TRUE` and `na.strings = ""`. Run `str()` on the result. List every variable, its type as R loaded it, and whether the type is correct for what the variable represents.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-gig <- read.csv("data/gig.csv", stringsAsFactors = TRUE, na.strings = "")
-str(gig)
-```
-
-Expected output will vary by dataset, but the evaluation follows this logic:
-
-| Variable | Type R assigned | Correct? | Notes |
-|----|----|----|----|
-| EmployeeID | integer | ✅ | Whole-number ID — integer is fine |
-| Industry | factor | ✅ | Categorical — factor is correct |
-| Job | factor | ✅ | Categorical — factor is correct |
-| Wage | numeric | ✅ | Continuous measurement — numeric is correct |
-
-Any variable showing `chr` (character) that represents a category needs `as.factor()`. Any numeric field that loaded as `chr` needs `as.numeric()` — always check for NAs introduced by coercion.
-:::
-
-**4.** Using the `gig` dataset, identify the total number of missing values in the entire dataset, then count the missing values in the `Wage` column specifically. Use two different approaches for the column count.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-# Total NAs in the entire dataset
-sum(is.na(gig))
-
-# NAs in Wage — approach 1: sum of logical vector
-sum(is.na(gig$Wage))
-
-# NAs in Wage — approach 2: count rows where Wage is NA
-nrow(gig[is.na(gig$Wage), ])
-```
-
-`is.na()` returns `TRUE` for each missing value. `sum()` treats `TRUE` as 1 and `FALSE` as 0, so the total is a count of NAs. The two approaches for `Wage` give the same answer — the first is more concise, the second makes the filtering logic explicit.
-:::
-
-**5.** Load `gss2016.csv`. Fix the two known type problems: coerce `grass` to a factor, and recode `"89 OR OLDER"` in the `age` column to `"89"` before converting `age` to numeric. Confirm both fixes with `class()`.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
-``` r
-gss.2016 <- read.csv("data/gss2016.csv")
-
-# Fix 1: grass should be a factor, not character
-gss.2016$grass <- as.factor(gss.2016$grass)
-class(gss.2016$grass)   # "factor"
-
-# Fix 2: age has a text entry that blocks numeric coercion
-gss.2016$age <- recode(gss.2016$age, "89 OR OLDER" = "89")
-gss.2016$age <- as.numeric(gss.2016$age)
-class(gss.2016$age)     # "numeric"
-```
-
-Why does the order matter for `age`? `as.numeric()` cannot convert `"89 OR OLDER"` — it would return `NA` and you would silently lose data. Recoding first, then converting, preserves the value. Always recode text anomalies before numeric coercion and check `sum(is.na(gss.2016$age))` afterwards to confirm no NAs were introduced unexpectedly.
-:::
-
-**6.** The three strategies for handling missing data are omit, impute, and ignore. For each scenario below, identify the most appropriate strategy and explain why.
-
--   
-
-    a.  A survey dataset has 2 rows out of 500 with missing income values. The analysis does not focus on income specifically.
-
--   
-
-    b.  A clinical dataset tracks pregnancy-related complications. The variable "number of previous pregnancies" is missing for all male patients.
-
--   
-
-    c.  You are computing the mean satisfaction score for a customer survey. A few respondents left the question blank.
-
-::: {.callout-note collapse="true"}
-### Show Answer
-
--   **a. Ignore (or omit).** With only 2 missing rows out of 500 and income not being the focus, using `na.rm = TRUE` when income appears in calculations is sensible. Omitting those 2 rows entirely would also be defensible — the impact on results is negligible.
-
--   **b. Neither omit nor impute — investigate first.** Removing all male rows would introduce severe selection bias, distorting the entire analysis. The missing values are *systematically* missing (not random), and the variable may simply not apply to part of the population. The right approach is to understand the data structure and consider whether this variable should be included at all, or whether a subset analysis is more appropriate.
-
--   **c. Ignore with `na.rm = TRUE`.** For a straightforward mean calculation, `mean(data$satisfaction, na.rm = TRUE)` is appropriate. The missing values represent non-responses, which are common in surveys. If a large proportion of responses were missing, further investigation would be warranted — but for a few blanks, `na.rm` is the practical and defensible choice.
+::: {.callout-note}
+Questions 3–6 on data types, coercion, and missing data have moved to the **Data Preparation lab**, where they are practiced in the context of real cleaning workflows. If you want a head start, try loading `gig.csv` with `str()` and see what types R assigns before the next lesson.
 :::
 
 ## Interactive R Lesson: Creating and Loading Data {#interactive-intro-lesson}
@@ -2084,12 +1569,17 @@ No need to submit this quiz anywhere. This exercise is for your benefit to help 
 
 ## Summary
 
-This lesson covered the foundations of R and RStudio:
+This lesson covered the foundations of R, RStudio, and generative AI:
 
 | Topic | Key concepts |
-|------------------------------------|------------------------------------|
+|------------------------------------|-------------------------------------|
 | Statistics overview | Descriptive (summarising data) vs. inferential (drawing conclusions); both use samples |
 | AI and statistics | AI automates descriptive work; inferential judgment — population definition, sampling validity, interpretation — remains human |
+| LLM mechanics | Models predict the next token, not truth; attention mechanisms enable context-aware generation |
+| AI strengths and limits | Handles code syntax, boilerplate, summarisation; requires your judgment on correctness, question framing, and data quality |
+| Hallucinations | Structural property of language prediction; five warning signs: unverified specificity, invented sources, internal contradictions, overconfident language, failures of common sense |
+| Prompt engineering | Zero-shot (direct task), few-shot (with examples), chain-of-thought (step-by-step reasoning); specificity is the most important lever for R tasks |
+| Verifying AI output | Three-step check: run the code, sanity-check output, verify the interpretation — step 3 requires your statistical knowledge |
 | R script files | `.R` files save and rerun code; always include a prolog; comment with `#` |
 | Assignment operator | `<-` assigns values to objects; `=` works but is discouraged for clarity |
 | Naming conventions | Constants: `kName`; functions: `CamelCase`; variables: `dot.case` or `camelCase`; no spaces, case-sensitive |
@@ -2102,9 +1592,5 @@ This lesson covered the foundations of R and RStudio:
 | Working directories | `getwd()`, `setwd()`; relative paths (`"data/file.csv"`) preferred over absolute |
 | Reading data | `read.csv()` (base R) vs. `read_csv()` (readr/tidyverse); `data()` for built-in datasets |
 | `summary()` vs `summarize()` | `summary()` gives automatic overview; `summarize()` from dplyr gives custom grouped summaries |
-| Data types | factor (nominal/ordinal), numeric, integer, character, logical, Date; use `str()` to check all at once |
-| Type coercion | `as.factor()`, `as.numeric()`, `as.integer()`, `as.character()`, `as.Date()`; always check for NAs after |
-| Missing data strategies | Omit (`na.omit()`, `drop_na()`), impute, or ignore (`na.rm = TRUE`); choice depends on why values are missing |
-| `is.na()` | Returns `TRUE` for each NA; `sum(is.na(x))` counts missing values |
 
-**What comes next:** The Descriptive Statistics lesson builds directly on this foundation — using the loading, typing, and summarising tools introduced here to describe the shape, center, and spread of real variables. Every line of code in that lesson assumes you can open RStudio, load a dataset, and check that variables are the right type.
+**What comes next:** The Descriptive Statistics lesson uses the loading and summarising tools introduced here. Data types, coercion functions, and missing data handling are covered in full in the **Data Preparation** lesson — that is where they are most meaningful, because you will be applying them inside real cleaning workflows the moment you learn them. The hallucination warning signs, prompt strategies, and verification check introduced in the generative AI section of this lesson are applied directly to data visualization output in the **Generative AI and Data Visualization** lesson at the end of the course.

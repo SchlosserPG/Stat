@@ -241,6 +241,17 @@ where:
 -   $\bar{x}$ = sample mean
 -   $s$ = sample standard deviation
 -   $n$ = sample size
+
+**What the formula is actually doing:** For each observation, it computes how many standard deviations that value sits away from the mean — $(x_i - \bar{x})/s$ — and then **cubes** that distance. Cubing is the key step: it preserves the sign (positive values stay positive, negative stay negative) and amplifies large deviations far more than small ones. The result is then averaged over all $n$ observations. If the large deviations are mostly on the right of the distribution, the positive cubed terms outweigh the negative ones and the result is positive (right skew). If they are mostly on the left, the result is negative (left skew). A result near zero means the large deviations are balanced on both sides — a symmetric distribution.
+
+::: {.callout-note}
+**Interpreting the sign:**
+
+-   **Positive skew (+):** longer tail on the right; mean is pulled above the median by the high-end outliers.
+-   **Negative skew (−):** longer tail on the left; mean is pulled below the median by the low-end outliers.
+-   **Zero (≈ 0):** roughly symmetric; mean and median are close.
+:::
+
 -   This formula measures the asymmetry of the distribution:
     -   Positive skew (right-skewed): longer tail on the right
     -   Negative skew (left-skewed): longer tail on the left

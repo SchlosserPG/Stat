@@ -8,15 +8,15 @@ knitr::opts_chunk$set(echo=TRUE, message=FALSE, warning=FALSE)
 ```
 
 
-This lesson covers data preparation in R — the process of inspecting, cleaning, and reshaping a dataset so it is ready for analysis. By the end, you will be able to evaluate a dataset for quality issues, correct variable types, handle missing values, and use dplyr to filter, select, sort, create, and summarize data with confidence.
+This lesson covers data preparation in R — the full workflow for inspecting, cleaning, and reshaping a dataset so it is ready for analysis. Data types, coercion, and missing data handling move here from the Intro lesson, where they belong: taught in the context of real cleaning problems rather than as isolated concepts.
 
-We begin with **data types and coercion**: R assigns a type to every variable when a dataset is loaded, and the wrong type causes silent errors that look fine but produce wrong results. A number stored as a character will break a mean calculation without warning. A category stored as numeric will produce a meaningless average. Checking and correcting types before doing anything else is the first habit of a careful analyst.
+We begin with **data types and coercion**: R assigns a type to every variable when a dataset is loaded, and the wrong type causes silent errors that look fine but produce wrong results. A number stored as a character will break a mean calculation without warning. A category stored as numeric will produce a meaningless average. Checking and correcting types — including dates with `lubridate` — before doing anything else is the first habit of a careful analyst.
 
-We then move to **the dplyr toolkit**: a set of functions designed to manipulate data frames in plain, readable steps. `filter()` subsets rows by condition, `select()` reduces columns to what you need, `arrange()` sorts observations, and `mutate()` creates new variables or recodes existing ones. The pipe operator (`%>%`) chains these steps together so that a sequence of transformations reads like a sentence rather than a tangle of nested functions.
+We then move to **missing data**: identifying where values are absent, understanding whether they are missing at random or systematically, and deciding whether to omit, impute, or work around them. This is where most analytical errors enter a dataset — AI will execute whatever you ask without flagging structural bias introduced by removing the wrong rows.
 
-The lesson continues with **grouping and summarizing**: using `group_by()` with `summarize()` to compute statistics separately for each level of a categorical variable. This is one of the most frequently used patterns in real analysis — comparing means, counts, or totals across groups is the starting point for almost every business question.
+The lesson continues with **the dplyr toolkit**: `filter()`, `select()`, `arrange()`, `mutate()`, `group_by()`, and `summarize()` — chained with `%>%`. These are the functions you will use in every subsequent lesson to prepare data before modeling or visualization.
 
-We close with **missing data and visualization**: identifying where values are absent and deciding whether to omit, impute, or work around them, then producing a scatterplot and grouped bar chart to confirm that the cleaned data tells a coherent story before any formal analysis begins.
+We close with **advanced visualization**: single-variable bar charts that require cleaning first (recoding, dropping NAs), multi-variable grouped and stacked charts, boxplots by group, and scatterplots with trend lines — all using cleaned data.
 
 By the end of this lesson, you should be able to load a messy dataset, diagnose its problems, apply a dplyr cleaning workflow, and produce a visualization that reflects the prepared data. Work through every code example in your own `.R` script file alongside the reading.
 
@@ -40,169 +40,291 @@ The critical insight: removing missing data is not automatically "cleaning." If 
 
 ### Lesson Objectives
 
--   Load a dataset, evaluate variable types using `class()` and `summary()`, and apply coercion functions (`as.factor()`, `as.numeric()`, `as.character()`) to correct type mismatches before analysis begins.
--   Use the core dplyr verbs — `filter()`, `select()`, `arrange()`, `mutate()`, and `group_by()` with `summarize()` — to clean, reshape, and aggregate a data frame, chaining steps together with the pipe operator (`%>%`).
--   Identify and handle missing values using `is.na()`, `sum(is.na())`, and `na.omit()`, and explain the implications of removing versus retaining missing observations.
--   Produce a scatterplot and a grouped bar chart from a prepared dataset and interpret the visual output as a quality check on the cleaning workflow.
+-   Load a dataset, evaluate variable types using `class()` and `str()`, and apply coercion functions (`as.factor()`, `as.numeric()`, `as.character()`, `as.Date()`, and `lubridate` helpers) to correct type mismatches before analysis begins.
+-   Identify and handle missing values using `is.na()`, `sum(is.na())`, `na_if()`, `na.omit()`, and `drop_na()`, and explain the analytical implications of each strategy — including when removing rows introduces selection bias.
+-   Use the core dplyr verbs — `filter()`, `select()`, `arrange()`, `mutate()`, `case_when()`, and `group_by()` with `summarize()` — to clean, reshape, and aggregate a data frame, chaining steps together with the pipe operator (`%>%`).
+-   Apply `recode()` for direct value replacement and `case_when()` for conditional logic; use `droplevels()` after `na_if()` to remove empty factor levels.
+-   Produce a scatterplot, grouped bar chart, and boxplot from a prepared dataset and interpret the visual output as a quality check on the cleaning workflow.
 
 ### Consider While Reading
 
--   Every dplyr function in this module does one thing and does it cleanly — the power comes from chaining them. As you work through each function individually, keep asking: how would I combine this with the previous step using `%>%`? The pipe is not just a convenience; it is the habit that makes your code readable and your workflow reproducible.
--   Data preparation is where most analytical errors are introduced, not in the modeling steps that follow. A wrong data type, an undetected missing value, or a miscoded category will silently corrupt every result downstream. Get in the habit of running `summary()` and `str()` on your dataset before touching anything else — these two commands together will surface most problems immediately.
--   When you use `group_by()` with `summarize()`, you are shifting from thinking about individual rows to thinking about groups. This is one of the most important conceptual transitions in data analysis. Notice how the same variable — say, `AnnualSpend` — means something different when you look at its overall mean versus its mean broken out by `Region` or `Churned`. The grouped summary is where business questions actually get answered.
+-   Data types and missing data come first in this lesson for a reason: every dplyr operation you run afterward depends on the data being correct. A wrong type or an unhandled NA will silently corrupt grouped summaries, recoding logic, and visualizations without any error message. Get in the habit of running `str()` and `summary()` before touching anything else.
+-   Every dplyr function does one thing cleanly — the power comes from chaining them. As you work through each function, keep asking: how would I combine this with the previous step using `%>%`? The pipe is not just a convenience; it is the habit that makes your code readable and your workflow reproducible.
+-   When you use `group_by()` with `summarize()`, you are shifting from thinking about individual rows to thinking about groups. Notice how the same variable — say, `AnnualSpend` — means something different when you look at its overall mean versus its mean broken out by `Region` or `Churned`. The grouped summary is where business questions actually get answered.
+-   The choice of how to handle missing data is an analytical decision, not a technical one. AI will execute `na.omit()` or `drop_na()` instantly and without warning — but only you can judge whether the rows being removed are a random handful or an entire demographic group. Make that judgment explicitly before running any removal code.
 
 # Data Types and Coercion
 
 Before cleaning or transforming a dataset, you need to confirm that R is treating each variable as the correct type. A variable stored as text when it should be numeric will silently break calculations; a number stored as a factor will produce the wrong chart. This section covers how to identify data types and how to convert between them — skills you will use immediately in the dplyr examples that follow.
 
-## Evaluating Data Types
+R is **dynamically typed** — every variable receives a type based on what you assign to it. Wrong types cause silent errors: a number stored as text will not calculate.
 
--   A data type of a variable specifies the type of data that is stored inside that variable. R is Called a Dynamically Typed Language, meaning that a variable itself is not declared of any data type. Rather it receives the data type of the R object that is assigned to it. We can change a variable’s data type if we want through coercion, but it will inherit one based on the object assigned to it. We will learn some common ways to do this in the data preparation section.
--   Evaluating data types in R is crucial for understanding and managing datasets effectively, as different data types require specific handling and operations. R provides several functions to identify and evaluate data types, such as class() to check an object's class, typeof() to determine its internal storage mode, and is.numeric(), is.character(), or is.factor() to test for specific types. These functions help ensure that data is in the correct format for analysis or modeling tasks. For instance, numeric data types are essential for calculations, while factors or characters are used for categorical data.
--   There are a number of data types in R that are common to programming and statistical analysis.
-    -   Factor (Nominal or Ordinal)
-    -   Numeric (Real or Discrete (Integer))
-    -   Character
-    -   Logical
-    -   Date
+The five types you will use most often:
 
-## Coercing Data Types
+| Type        | What it stores                  | Example              |
+|-------------|---------------------------------|----------------------|
+| `factor`    | Categories (nominal or ordinal) | Industry, Grade      |
+| `numeric`   | Real numbers or integers        | Wage, GPA            |
+| `character` | Text strings                    | Name, ZIP code       |
+| `logical`   | TRUE or FALSE                   | Is loyal? Did churn? |
+| `Date`      | Calendar dates                  | Hire date            |
 
--   In R, coercion is the process of converting one data type to another, often done automatically by R when necessary. For example, if you combine numeric and character data in a vector, R will coerce the numeric values to characters, as seen in c(1, "A"), which results in c("1", "A"). Coercion can also be done manually using functions like as.numeric() or as.factor() to change data types explicitly.
--   To determine whether a variable is numeric or categorical (factor), you can use the class() function. For example, if you have a variable age, running class(age) will tell you if it is stored as "numeric" or "factor". Numeric variables represent quantities, such as continuous or discrete numbers, while categorical variables represent groups or categories, typically stored as factors. For example, a variable with levels like "Male" and "Female" would be a categorical (factor) variable.
--   Sometimes when you read in a dataset all the variables are already in the correct type. Other times, you need to force it into the type you need to conduct the analysis through a process called coercion.
+```{r}
+# Read in gig dataset — required for examples in the data types section
+gig <- read.csv("data/gig.csv",
+                stringsAsFactors = FALSE,
+                na.strings = "")
+dim(gig)
+head(gig)
+```
 
-### Factor Data Type
+```{r data-types-check}
+# Check types from the gig dataset
+class(gig$Industry)    ## "character"
+class(gig$Wage)        ## "numeric"
+class(gig$EmployeeID)  ## "integer"
+```
 
--   Factor data types can be ordinal or nominal. Ordinal and nominal variables are both types of categorical variables but differ in their characteristics. Ordinal variables have a meaningful order or ranking among categories (e.g., "low," "medium," "high"), but the intervals between ranks are not necessarily equal. Nominal variables, on the other hand, represent categories without any inherent order (e.g., "red," "blue," "green"). Understanding this distinction is essential for selecting appropriate statistical methods, as ordinal variables often allow for rank-based analyses, while nominal variables do not.
-    -   Ordinal: Contain categories that have some logical order (e.g. categories of age).
-    -   Nominal: Have categories that have no logical order (e.g., religious affiliation and marital status).
--   R will treat each unique value of a factor as a different level.
+## Factor: Nominal Variable
 
-#### Ordinal Variable
+A nominal variable has categories with **no meaningful order**.
 
--   Ordinal data may be categorized and ranked with respect to some characteristic or trait.
-    -   For example, instructors are often evaluated on an ordinal scale (excellent, good, fair, poor).
-    -   A scale allows us to code the data based on order, assuming equal distance between scale items (aka likert items).
-    -   You can make an ordinal factor data type in R or you can convert the order to meaningful numbers.
--   To recode numbers in R, we would code poor to excellent = 1, 2, 3, 4 respectively.
--   The recode() function from the dplyr package within the tidyverse ecosystem is used to replace specific values in a vector or variable with new values.
--   It allows you to map old values to new ones in a simple and readable manner.
+Examples: Industry, Job title, Gender, State
 
-```{r, tidy=FALSE}
+```{r nominal-factor}
+# Small example first
+industry <- c("Automotive", "Tech", "Construction", "Automotive")
+class(industry)                  ## "character"
+
+# Coerce to factor
+industry <- as.factor(industry)
+class(industry)                  ## "factor"
+levels(industry)                 ## alphabetical: "Automotive" "Construction" "Tech"
+
+# Apply the same fix to the gig dataset
+gig$Industry <- as.factor(gig$Industry)
+gig$Job      <- as.factor(gig$Job)
+
+class(gig$Industry)              ## confirm: "factor"
+levels(gig$Industry)             ## see all categories
+```
+
+R will treat each unique value as a level. Use `as.factor()` whenever you load categorical data.
+
+## Factor: Ordinal Variable
+
+An ordinal variable has categories with a **meaningful order**.
+
+Examples: course grade (A > B > C), satisfaction (High > Medium > Low)
+
+```{r ordinal-factor}
 library(tidyverse)
-# Take a vector representing evaluation scores, named evaluate 
-evaluate <- c("excellent", "good", "fair", "poor", "excellent", "good")
 
-data <- data.frame(evaluate)
+# Small example
+satisfaction <- c("High", "Low", "Medium", "High", "Low")
+data <- data.frame(satisfaction)
+
 data <- data %>%
-     mutate(evaluate = recode(evaluate,
-            "excellent" = 4,
-            "good" = 3,
-            "fair" = 2,
-            "poor" = 1))
-data
+  mutate(satisfaction = recode(satisfaction,
+           "High"   = 3,
+           "Medium" = 2,
+           "Low"    = 1))
 
+data$satisfaction    ## [1] 3 1 2 3 1
 ```
 
-#### Nominal Variable
+## Numeric: Real (Continuous) Variable
 
--   With nominal variables, data are simply categories for grouping.
--   For example, coding race/ethnicity might have a category value of White, Black, Native American, Asian/Pacific Islander, Other.
--   Qualitative values may be converted to quantitative values for analysis purposes. + White = 1, Black = 2, etc. This conversion to numerical representation of the category would be needed to run some analysis.
-    -   Sometimes, R does this on our behalf depending on commands used.
--   We can force a variable into a factor data type using the as.factor() command.
--   If we use the read.csv() command, we can sometimes do this by setting an argument $stringsAsFactors=TRUE$. We will do this later in the lesson.
+A continuous numeric variable can take **any value along a range**.
 
-### Numeric Data Type
+Examples: Wage, GPA, Temperature, Sales revenue
 
--   The as.numeric() function in R is used to convert data into numeric format, allowing for mathematical and statistical operations. It takes an input vector, such as characters or factors, and attempts to coerce it into numeric values. For instance, as.numeric(c("1", "2", "3")) returns a numeric vector of 1, 2, and 3. If applied to factors, it returns the underlying integer codes, not the original levels, so caution is needed to avoid misinterpretation. When conversion is not possible (e.g., as.numeric("abc")), it results in NA with a warning.
+```{r numeric-continuous}
+# Wage is already numeric in gig
+class(gig$Wage)      ## "numeric"
 
--   A numerical data type is a vector of numbers that can be Real or Integer, where continuous (Real) variables can take any value along some continuum, and integers take on whole numbers.
+# What if a number comes in as text?
+wage_text <- "42.75"
+class(wage_text)     ## "character"
 
--   Two ways to create:
+wage_num <- as.numeric(wage_text)
+class(wage_num)      ## "numeric"
+wage_num + 10        ## [1] 52.75
 
-    -   We can create a numeric variable by ensuring our value we assign is a number!
-    -   We can force a variable into an real number data type by using the as.numeric() command.
-
-    ```{r}
-    # Assign Rhode Island limit for medical marijuana in ounces per person
-    kOuncesRhode <- 2.5
-    #Identify the data type 
-    class(x = kOuncesRhode) 
-    ```
-
--   Discrete (Integer) Variables: In R, integer discrete data types represent whole numbers, making them ideal for scenarios where only non-fractional values are meaningful, such as counts, rankings, or categorical levels encoded as numbers. Integer values are stored more efficiently than numeric (floating-point) values, providing performance benefits in memory usage and computations. Integers can be explicitly created using the L suffix (e.g., x \<- 5L) or by coercing other data types with as.integer(). Operations on integers, such as arithmetic, comparisons, or indexing, behave consistently with their discrete nature. Integer data types are particularly useful for tasks like looping, array indexing, or when working with data where precision beyond whole numbers is unnecessary or irrelevant.
-
--   For an example of a discrete variable, we could collect information on the number of children in a family or number of points scored in a basketball game.
-
-```{r}
-# Assign the value of 4 to a constant called kTestInteger and set as an integer
-kTestInteger <- as.integer(4)
-class(kTestInteger) #Confirm the data type is an integer 
-
-#Use as.integer() to truncate the variable ouncesRhode
-Trunc <- as.integer(kOuncesRhode); Trunc
-
+# IMPORTANT: as.numeric() returns NA if text cannot be converted
+# Always check for NAs after coercion
+sum(is.na(as.numeric(gig$Wage)))
 ```
 
-### Character Data Type
+> **Note:** `as.numeric()` returns `NA` if the text cannot be converted — always check for NAs after coercion.
 
--   The character data type in R is used to store text or string data, making it essential for handling names, labels, descriptions, or any non-numeric information. Character data is represented as sequences of characters enclosed in quotes (e.g., "hello" or 'world').
--   Character data types can be wrapped in either single or double quotation marks (e.g, "hello" or 'hello').
--   Character data types can include letters, words, or numbers that cannot logically be included in calculations (e.g., a zip code).
-    -   A quick example is below that shows how to assign a character value to a variable.
+## Numeric: Integer (Discrete) Variable
 
-```{r}
-# Make string constants 
-Q1 <- "A"
-Q2 <- 'B'
-# Check the data type
-class(x = Q1)
+An integer variable holds **whole numbers only** — counts, rankings, IDs.
+
+Examples: Number of children, Points scored, Employee ID
+
+```{r integer}
+# Create an integer directly
+children <- as.integer(3)
+class(children)       ## "integer"
+
+# The L suffix also creates an integer
+children <- 3L
+class(children)       ## "integer"
+
+# IMPORTANT: as.integer() truncates — it does NOT round
+as.integer(4.9)       ## [1] 4  (not 5)
+as.integer(4.1)       ## [1] 4
+
+# EmployeeID in gig is integer — makes sense, no decimals needed
+class(gig$EmployeeID)
 ```
 
-### Logical Data Type
+Use integer when the variable can only take whole number values.
 
--   Logical data types in R represent values that are either TRUE or FALSE, often used for conditional operations and data filtering. Logical values can be the result of comparisons (e.g., x \> 10) or explicitly assigned. Logical vectors are particularly useful in subsetting data; for instance, data\[data\$column \> 5, \] selects rows where the column values are greater than 5. Logical operators like & (and), \| (or), and ! (not) allow for more complex conditions. Logical data is also essential in control structures such as if, else, and loops. By enabling dynamic and conditional programming, logical types play a key role in efficient data manipulation and analysis.
+## Character: Text Variable
 
-    -   A quick example is below that shows how to assign a logical value to a variable.
+A character variable stores **text** — names, labels, codes, descriptions.
 
-    ```{r}
-    # Store the result of 6 > 8 in a constant called kSixEight
-    kSixEight <- 6 > 8 
-    # Can use comparison tests with the following == >= <= > < <> != 
-    kSixEight # Print kSixEight
-    # Determine the data type of kSixEight
-    class(x = kSixEight)
-    ```
+Examples: Employee name, ZIP code, Email address
 
-### Nominal Example with Dataset
+```{r character}
+name <- "Alice Johnson"
+zip  <- "23185"
+class(name)           ## "character"
+class(zip)            ## "character"
 
-```{r, message=FALSE}
-library(tidyverse)
-gss.2016 <- read_csv(file = "data/gss2016.csv") 
+# Convert a number to character when needed
+id_num  <- 1042
+id_char <- as.character(id_num)
+class(id_char)        ## "character"
+id_char               ## [1] "1042"
 ```
 
-```{r}
-#Examine the variable types with summary and class functions.
-summary(gss.2016)
-class(gss.2016$grass) #Check the data type.
-gss.2016$grass <- as.factor(gss.2016$grass) #Turn to a factor.
-class(gss.2016$grass) #Confirming it is now correct.
+> **Important:** ZIP codes look like numbers but must stay as character. If you convert `"02134"` to numeric it becomes `2134` — the leading zero is permanently lost.
+
+## Logical: TRUE / FALSE Variable
+
+A logical variable stores `TRUE` or `FALSE` — the result of any comparison.
+
+Examples: Is the customer loyal? Did the employee churn? Is the order complete?
+
+```{r logical}
+loyal   <- TRUE
+churned <- FALSE
+class(loyal)          ## "logical"
+
+# Comparisons produce logical values
+wage <- 45.00
+wage > 40             ## [1] TRUE
+wage == 50            ## [1] FALSE
+
+# Combine conditions with logical operators
+wage > 30 & loyal     ## TRUE AND TRUE  = TRUE
+wage > 60 | loyal     ## FALSE OR TRUE  = TRUE
+!loyal                ## NOT TRUE       = FALSE
+
+# Practical use on gig dataset
+sum(gig$Wage > 40)    ## how many employees earn over $40/hr?
 ```
 
-### Numerical Example with Dataset
+## Date Variable
 
--   We need to ensure data can be coded as numeric before using the as.numeric() command. For example, to handle the variable age, it seems like numerical values except one value of "89 OR OLDER". If as.numeric() command was used on this variable, it would put all the 89 and older observations as NAs. To force it to be a numerical variable, and keep that the sample participants were the oldest value, we need to recode it and then use the as.numeric() command to coerce it into a number.
--   Recoding the 89 and older to 89 does cause the data to lack integrity in its current form because it will treat the people over 89 years old as 89. But, we are limited here because this needs to be a numerical variable for us to proceed. We will learn a step later on in this section to transform the age variable into categories so that we bring back our data integrity.
+A Date variable stores calendar dates so R can sort, filter, and calculate time differences. Without coercion, dates load as character and **cannot be used for date math**.
 
-```{r}
-class(gss.2016$age)
-#Recode "89 OR OLDER" into just "89"
+```{r date}
+# Without coercion, a date is just text
+hired <- "2021-06-15"
+class(hired)          ## "character"
+
+# Coerce to Date with as.Date()
+hired <- as.Date("2021-06-15")
+class(hired)          ## "Date"
+
+# Now you can do date arithmetic
+today <- Sys.Date()
+days_employed <- today - hired
+days_employed         ## Time difference in days
+```
+
+The `lubridate` package makes date parsing much easier, especially for non-standard formats. Use `mdy()` for month/day/year strings, `ym()` for year-month strings (it adds a placeholder day), and `ymd()` for ISO format. Once parsed, `month()` and `year()` extract components for grouping or filtering.
+
+```{r lubridate-dates}
+library(lubridate)
+
+# Parse mm/dd/yyyy strings
+strDates <- c("01/05/1965", "08/16/1975")
+dates_mdy <- mdy(strDates)
+str(dates_mdy)
+
+# Parse year-month strings (e.g. from the Lubridate.csv dataset)
+UseDates <- read.csv("data/Lubridate.csv")
+UseDates$Date <- ym(UseDates$Date)
+
+# Extract month and year as numbers for grouping
+UseDates$month <- month(UseDates$Date)
+UseDates$year  <- year(UseDates$Date)
+
+# Create a season variable using case_when
+UseDates <- UseDates %>%
+  mutate(season = as.factor(case_when(
+    month %in% 3:5  ~ "Spring",
+    month %in% 6:8  ~ "Summer",
+    month %in% 9:11 ~ "Fall",
+    TRUE            ~ "Winter"
+  )))
+
+summary(UseDates$season)
+
+# Filter to a single year
+UseDate2022 <- filter(UseDates, year == 2022)
+```
+
+## Checking Types: The Full Workflow
+
+Always run these three steps on **any new dataset** before analysis.
+
+```{r type-workflow}
+gig <- read.csv("data/gig.csv")
+
+# Step 1 — See all types at once
+str(gig)
+
+# Step 2 — Fix what is wrong
+gig$Industry <- as.factor(gig$Industry)
+gig$Job      <- as.factor(gig$Job)
+
+# Step 3 — Confirm
+class(gig$Industry)   ## "factor"
+class(gig$Job)        ## "factor"
+
+# Final sanity check
+summary(gig)
+```
+
+## Real Example: Fixing Types in gss.2016
+
+The `gss.2016` dataset has two type problems when loaded:
+
+1.  `grass` is stored as character — needs to be a factor
+2.  `age` contains `"89 OR OLDER"` — prevents numeric coercion
+
+```{r gss-type-fix}
+gss.2016 <- read.csv("data/gss2016.csv")
+
+# Problem 1: grass is character — fix by coercing to factor
+class(gss.2016$grass)              ## "character"
+gss.2016$grass <- as.factor(gss.2016$grass)
+class(gss.2016$grass)              ## "factor"
+
+# Problem 2: age contains "89 OR OLDER" — recode first, then coerce
 gss.2016$age <- recode(gss.2016$age, "89 OR OLDER" = "89")
-# Convert to numeric data type
-gss.2016$age <- as.numeric(gss.2016$age) 
-summary(gss.2016) #Conduct final check confirming correct data types
+gss.2016$age <- as.numeric(gss.2016$age)
+class(gss.2016$age)                ## "numeric"
+
+# Final check — confirm all types are correct
+summary(gss.2016)
 ```
 
 # Common dplyr Functions
@@ -568,17 +690,33 @@ groupedData
 
 ## case_when()
 
-One of the most common data preparation tasks is creating or transforming variables based on conditions — for example, converting a numeric score into a letter grade, or grouping continuous values into labeled categories. The case_when() function from the dplyr package is used to create new variables based on multiple conditions. It works like a series of if...else if...else statements and is especially useful for assigning values based on ranges or logical categories. - The case_when() and recode() functions in R both allow you to transform or recode values in a vector, but they differ in flexibility and use cases. recode() is best for straightforward value replacement, where each input value maps directly to a new value—such as turning "good" into 3. - In contrast, case_when() is more flexible and powerful, allowing you to specify complex conditional logic, including comparisons and ranges (e.g., x \> 100 \~ "High"). case_when() evaluates conditions in order and is particularly useful when the transformation depends on logical expressions rather than exact matching. For categorical data that maps cleanly one-to-one, recode() is convenient; for anything requiring conditional logic, case_when() is preferred.
+One of the most common data preparation tasks is creating or transforming variables based on conditions — converting a numeric score into a letter grade, or grouping a continuous variable into labeled categories. Two functions handle this in dplyr: `recode()` and `case_when()`. Knowing which to use matters.
 
-```{r, echo=FALSE, include=TRUE}
-#data <- data %>%
-#  mutate(NewVariable = case_when(
-#    condition1 ~ value1,
-#    condition2 ~ value2,
-#    TRUE ~ default_value  # optional default
+**The practical decision rule:**
+
+| Situation | Use | Why |
+|---|---|---|
+| You know the exact old value and the exact new value | `recode()` | Clean one-to-one replacement; no logic needed |
+| You need a comparison, a range, or multiple conditions | `case_when()` | Evaluates conditions in order; first `TRUE` wins |
+
+`recode()` is best for direct value substitution — turning `"good"` into `3`, or `1` into `"Yes"`. `case_when()` is required whenever the assignment depends on a logical expression: `score > 8 ~ "High"`, `age >= 60 & age <= 74 ~ "60–74"`. A common mistake is using `recode()` when conditions are needed, or `case_when()` when a simple lookup would do. Use the table above as your first check.
+
+::: {.callout-important}
+**`case_when()` evaluates conditions in order — the first `TRUE` wins.** This means more specific conditions must come before more general ones. If `score > 8 ~ "High"` appeared after `score >= 5 ~ "Medium"`, a score of 9 would be classified as Medium because the Medium condition fires first.
+:::
+
+The general template:
+
+```{r, echo=TRUE, eval=FALSE}
+data <- data %>%
+  mutate(NewVariable = case_when(
+    condition1 ~ value1,
+    condition2 ~ value2,
+    TRUE ~ default_value  # optional catch-all for anything not matched above
+  ))
 ```
 
--   From recoding to ordinal Variables
+-   From recoding to ordinal variables
 
 ```{r}
 evaluate <- c("excellent", "good", "fair", "poor", "excellent", "good")
@@ -751,12 +889,14 @@ gss.2016 <- read.csv(file = "data/gss2016.csv")
 
 The `grass` variable captures whether respondents believe marijuana should be legal, but it arrives as a character and contains placeholder codes (`"DK"`, `"IAP"`) that need to be converted to `NA`. The `age` variable has the value `"89 OR OLDER"` which prevents numeric coercion. We handle all of this in a single pipeline and create an age category variable at the end.
 
+**Why `droplevels()` is needed here:** When a factor variable is coerced from character and then values are replaced with `NA` using `na_if()`, the factor levels that no longer appear in the data are *not* automatically removed — they linger invisibly. This matters because any subsequent `summary()`, `table()`, or `ggplot2` bar chart will still list those empty levels, creating phantom categories in output and plots. `droplevels()` removes any levels that have zero observations, so only the levels that actually appear in the data are retained.
+
 ```{r}
 gss.2016.cleaned <- gss.2016 %>%
   mutate(grass = as.factor(grass)) %>%
-  mutate(grass = na_if(x = grass, y = "DK")) %>%
-  mutate(grass = na_if(x = grass, y = "IAP")) %>%
-  mutate(grass = droplevels(x = grass)) %>%
+  mutate(grass = na_if(x = grass, y = "DK")) %>%   # recode "DK" → NA
+  mutate(grass = na_if(x = grass, y = "IAP")) %>%  # recode "IAP" → NA
+  mutate(grass = droplevels(x = grass)) %>%         # remove now-empty levels
   mutate(age = recode(age, "89 OR OLDER" = "89")) %>%
   mutate(age = as.numeric(x = age)) %>%
   mutate(age.cat = as.factor(case_when(
@@ -1172,11 +1312,27 @@ Use the following prompts in our chatbot below to explore more about data prepar
 
 **Prompting AI effectively for data preparation tasks:**
 
+AI can write dplyr pipelines quickly and correctly — but only if you give it enough context. A vague prompt produces generic code that may not match your dataset, your variable names, or your analytical goal. Specificity is the single most important lever. The table below shows the same request written two ways.
+
+::: {.callout-tip}
+**Four things that make a data prep prompt specific:**
+
+1. **Name the dataset and the variable** — `gig$Industry`, not "my categorical column"
+2. **Name the function you expect** — `as.factor()`, `drop_na()`, `group_by()`
+3. **State what the output should look like** — "return a tibble with one row per Industry"
+4. **Tell AI what to check** — "run `summary()` afterward and flag any remaining NAs"
+:::
+
 | Vague prompt | Specific prompt |
-|-----------------------------------|------------------------------------------|
+|---|---|
 | "Clean my data" | "In my `customer_data` dataframe, coerce `PurchaseDate` to Date using `as.Date()`, recode `Region` from numeric (1, 2, 3) to factor with levels East, West, Central using `mutate()` and `recode()`, and use `drop_na(AnnualSpend)` to remove rows where the outcome variable is missing. Then run `summary()` and report any remaining type mismatches." |
 | "Summarize by group" | "Using `group_by()` and `summarize()`, calculate the mean, median, and count of `AnnualSpend` broken out by `Region` and `Churned` in `customer_data`. Arrange the output from highest to lowest mean spend." |
 | "Fix missing values" | "In `customer_data`, identify which columns have missing values using `sum(is.na())` applied to each column. For `AnnualSpend`, impute missing values with the column median. For `Region`, print the rows with missing values so I can review them before deciding whether to remove or impute." |
+| "Recode this variable" | "In the `gig` dataset, use `mutate()` and `case_when()` to create a new factor variable `WageTier`: 'Low' for Wage < 32, 'Mid' for 32 ≤ Wage < 44, 'High' for Wage ≥ 44. Then run `table(gig$WageTier)` to confirm the counts." |
+
+::: {.callout-warning}
+**After AI generates code, always:** (1) run it, (2) check the output matches your expectation, (3) verify the logic is analytically sound — not just syntactically correct. AI will not warn you if a cleaning step introduces bias.
+:::
 
 **Visualization prompts:**
 
@@ -1249,6 +1405,86 @@ head(houseprices$BuildDay)
 ```
 
 `ym()` parses year-month formatted strings. After conversion, `BuildDay` is a proper `Date` column that R can sort, filter, and compute differences on correctly.
+:::
+
+**5.** Load `gig.csv` using `read.csv()` with `stringsAsFactors = TRUE` and `na.strings = ""`. Run `str()` on the result. List every variable, its type as R loaded it, and whether the type is correct for what the variable represents.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+gig <- read.csv("data/gig.csv", stringsAsFactors = TRUE, na.strings = "")
+str(gig)
+```
+
+Expected output will vary, but the evaluation follows this logic:
+
+| Variable   | Type R assigned | Correct? | Notes                                      |
+|------------|-----------------|----------|--------------------------------------------|
+| EmployeeID | integer         | ✅        | Whole-number ID — integer is fine          |
+| Industry   | factor          | ✅        | Categorical — factor is correct            |
+| Job        | factor          | ✅        | Categorical — factor is correct            |
+| Wage       | numeric         | ✅        | Continuous measurement — numeric is correct |
+
+Any variable showing `chr` that represents a category needs `as.factor()`. Any numeric field that loaded as `chr` needs `as.numeric()` — always check for NAs introduced by coercion.
+:::
+
+**6.** Using the `gig` dataset, identify the total number of missing values in the entire dataset, then count the missing values in the `Wage` column specifically. Use two different approaches for the column count.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+# Total NAs in the entire dataset
+sum(is.na(gig))
+
+# NAs in Wage — approach 1: sum of logical vector
+sum(is.na(gig$Wage))
+
+# NAs in Wage — approach 2: count rows where Wage is NA
+nrow(gig[is.na(gig$Wage), ])
+```
+
+`is.na()` returns `TRUE` for each missing value. `sum()` treats `TRUE` as 1 and `FALSE` as 0, so the total is a count of NAs. Both approaches for `Wage` give the same answer — the first is more concise, the second makes the filtering logic explicit.
+:::
+
+**7.** Load `gss2016.csv`. Fix the two known type problems: coerce `grass` to a factor, and recode `"89 OR OLDER"` in the `age` column to `"89"` before converting `age` to numeric. Confirm both fixes with `class()`.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+``` r
+gss.2016 <- read.csv("data/gss2016.csv")
+
+# Fix 1: grass should be a factor, not character
+gss.2016$grass <- as.factor(gss.2016$grass)
+class(gss.2016$grass)   # "factor"
+
+# Fix 2: age has a text entry that blocks numeric coercion
+gss.2016$age <- recode(gss.2016$age, "89 OR OLDER" = "89")
+gss.2016$age <- as.numeric(gss.2016$age)
+class(gss.2016$age)     # "numeric"
+```
+
+Why does the order matter for `age`? `as.numeric()` cannot convert `"89 OR OLDER"` — it would return `NA` and you would silently lose data. Recoding first, then converting, preserves the value. Always check `sum(is.na(gss.2016$age))` afterwards to confirm no NAs were introduced unexpectedly.
+:::
+
+**8.** The three strategies for handling missing data are omit, impute, and ignore. For each scenario below, identify the most appropriate strategy and explain why.
+
+a.  A survey dataset has 2 rows out of 500 with missing income values. The analysis does not focus on income specifically.
+
+b.  A clinical dataset tracks pregnancy-related complications. The variable "number of previous pregnancies" is missing for all male patients.
+
+c.  You are computing the mean satisfaction score for a customer survey. A few respondents left the question blank.
+
+::: {.callout-note collapse="true"}
+### Show Answer
+
+-   **a. Ignore (or omit).** With only 2 missing rows out of 500 and income not being the focus, using `na.rm = TRUE` when income appears in calculations is sensible. Omitting those 2 rows entirely would also be defensible — the impact on results is negligible.
+
+-   **b. Neither omit nor impute — investigate first.** Removing all male rows would introduce severe selection bias, distorting the entire analysis. The missing values are *systematically* missing (not random) and the variable may simply not apply to part of the population. The right approach is to understand the data structure and consider whether this variable should be included at all, or whether a subset analysis is more appropriate.
+
+-   **c. Ignore with `na.rm = TRUE`.** For a straightforward mean calculation, `mean(data$satisfaction, na.rm = TRUE)` is appropriate. The missing values represent non-responses, which are common in surveys. If a large proportion of responses were missing, further investigation would be warranted — but for a few blanks, `na.rm` is the practical and defensible choice.
 :::
 
 ## Using dplyr Lab
@@ -1812,10 +2048,19 @@ No need to submit this quiz anywhere. This exercise is for your benefit to help 
 
 ## Summary
 
-In this lesson, we worked through the full data preparation and visualization workflow in R. We began with data types and coercion — understanding how R stores variables as factors, numeric, character, and logical types, and how to convert between them using as.factor(), as.numeric(), and recode(). We also covered date conversion using the lubridate package with the dataprep.csv dataset.
+This lesson covered the complete data preparation workflow in R:
 
-The core of the lesson covered the dplyr toolkit: arrange() to sort data, filter() to subset rows, select() to choose columns, and the pipe operator (%\>%) to chain operations cleanly. We used count() and length() to tally observations, worked through the full range of missing data techniques including na.rm, is.na(), na_if(), na.omit(), and drop_na(), and used summarise() and group_by() to compute grouped statistics. case_when() and mutate() handle recoding and creating new variables.
+| Topic | Key concepts |
+|---|---|
+| Data types | `factor` (nominal/ordinal), `numeric`, `integer`, `character`, `logical`, `Date`; use `str()` to inspect all at once |
+| Type coercion | `as.factor()`, `as.numeric()`, `as.integer()`, `as.character()`, `as.Date()`; always check for NAs after coercion |
+| lubridate | `mdy()`, `ym()`, `ymd()` for parsing; `month()`, `year()` for extracting components; `case_when()` for season variables |
+| Missing data | Three strategies: omit (`na.omit()`, `drop_na()`), impute (mean/mode), ignore (`na.rm = TRUE`); choice depends on *why* values are missing |
+| Missing data functions | `is.na()` detects NAs; `sum(is.na())` counts them; `na_if()` converts values to NA; `droplevels()` removes empty factor levels after `na_if()` |
+| recode() vs case_when() | `recode()` for direct one-to-one replacement; `case_when()` for conditions, comparisons, and ranges — first TRUE wins |
+| dplyr verbs | `filter()` subsets rows; `select()` reduces columns; `arrange()` sorts; `mutate()` creates/recodes variables; `group_by()` + `summarize()` computes grouped statistics |
+| Pipe operator | `%>%` chains operations left-to-right; makes multi-step workflows readable and reproducible |
+| AI and data prep | AI handles syntax; you supply the judgment — especially on whether removing rows introduces selection bias |
+| Visualization | Single-variable bar charts with recoding; grouped/stacked bar charts; boxplots by group; scatterplots with `geom_smooth()` |
 
-The visualization section is organized by complexity. Single-variable bar charts that require data cleaning (recoding factor levels, handling missing values) are covered first using the nhanes and GSS datasets — these show how data preparation and visualization connect in practice. Multi-variable charts follow: grouped and stacked bar charts for two categorical variables, boxplots by group, and scatterplots with `geom_smooth()` for two continuous variables. Full worked examples using the nhanes and BRFSS datasets tie everything together.
-
-**What comes next:** The Hypothesis Testing lesson introduces t-tests — the first formal inferential tool in the course. The visualization and reasoning-error principles from this lesson apply directly: a t-test result is only meaningful if the question was well-posed, the data are appropriate, and the output is communicated honestly. The Trifecta Checkup extends naturally to interpreting statistical output: does the analysis answer the right question, with the right data, communicated clearly?
+**What comes next:** The Hypothesis Testing lesson introduces t-tests — the first formal inferential tool in the course. A t-test result is only meaningful if the data have been correctly typed, cleaned, and prepared — the workflow from this lesson applies directly to every analysis that follows.

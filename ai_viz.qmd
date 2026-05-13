@@ -13,9 +13,9 @@ execute:
 knitr::opts_chunk$set(echo=TRUE, tidy.opts = list(width.cutoff = 70), tidy = TRUE, message=FALSE, warning=FALSE)
 ```
 
-This lesson sits at the intersection of two skills that every business analyst needs: knowing how to use generative AI responsibly, and knowing how to communicate data honestly through visualization. The AI concepts introduced in earlier chapters — what generative AI is, how it differs from predictive AI, the four analytics categories, hallucination warning signs, and the three prompting strategies — have been building toward this lesson. Here, those threads come together and are applied to their most important practical output: data visualizations.
+This lesson sits at the intersection of two skills that every business analyst needs: knowing how to use generative AI responsibly, and knowing how to communicate data honestly through visualization. The AI concepts you built in the first lesson of this course — what generative AI is, how it differs from predictive AI, the four analytics categories, hallucination warning signs, and the three prompting strategies — are applied here to their most important practical output: data visualizations.
 
-We begin with **generative AI applied to visualization** — going deeper on how LLMs work at a mechanical level and applying the hallucination warning signs and prompt engineering toolkit specifically to chart output. These are the same skills you have been practicing all semester, now focused on their most visible deliverable.
+We begin with **generative AI applied to visualization** — taking the hallucination warning signs and prompt engineering toolkit you already know and focusing them specifically on chart output. The failure modes are the same; what changes is where to look for them.
 
 We then move to **data visualization principles**: the perceptual science behind why some charts communicate and others mislead, the aesthetic channels through which data is encoded, the taxonomy of visualization failures (Good, Ugly, Bad, Wrong), seven reasoning errors that show up in real-world charts, and the relationship between correlation and causation. These concepts apply directly to every chart AI generates for you.
 
@@ -23,7 +23,7 @@ The lesson closes with the **Kaiser Fung Trifecta Checkup** — a three-corner f
 
 ### At a Glance
 
--   This lesson synthesizes two threads that have run through the entire course: using AI as a tool, and communicating data honestly. The AI concepts you have practiced all semester — hallucinations, prompt strategies, the handles/requires-judgment division — are applied here to visualization, the output type you have been producing all semester. Pay close attention to how the Trifecta Checkup formalizes the analytical judgment you have been exercising informally since the first lesson.
+-   This lesson applies two threads you have been building all semester: using AI as a tool, and communicating data honestly. The AI concepts from the first lesson — hallucinations, prompt strategies, the handles/requires-judgment division — are applied here to visualization, the output type you have been producing all semester. Pay close attention to how the Trifecta Checkup formalizes the analytical judgment you have been exercising informally since the first lesson.
 
 ### Lesson Objectives
 
@@ -37,25 +37,13 @@ The lesson closes with the **Kaiser Fung Trifecta Checkup** — a three-corner f
 
 ### Consider While Reading
 
--   In the AI section, focus on how the concepts you have been using all semester — hallucinations, prompt specificity, the handles/requires-judgment division — apply in new ways when the output is a chart rather than code or text.
+-   In the AI section, the focus is not on re-teaching how LLMs work — you covered that in the first lesson. Focus instead on how the same warning signs and judgment calls translate when the output is a chart rather than code or text. The failure modes are identical; the surface they appear on is different.
 -   In the visualization section, notice that every pitfall has an underlying perceptual or logical mechanism. Understanding *why* a chart misleads is more useful than memorizing a list of rules — it lets you catch problems in novel situations the rules do not cover.
 -   The Kaiser Fung activity is deliberately structured so that the AI will make at least one mistake worth catching. The goal is not to produce a perfect chart; it is to practice the diagnostic thinking that turns chart generation into a chart argument.
 
 ------------------------------------------------------------------------
 
-# Understanding Generative AI
 
-## How Generative AI Works: A Conceptual Overview
-
-Generative AI systems — specifically **large language models (LLMs)** like GPT-4 and Claude — are trained on massive text corpora to predict the most likely next word given a sequence of prior words. This sounds simple, but at sufficient scale (billions of parameters, trillions of training tokens) it produces systems capable of reasoning, code generation, summarization, and dialogue.
-
-Two concepts explain most of what you will observe when using these tools:
-
-**Tokenization** — the model does not read words; it reads *tokens*, which are chunks of text (often subwords). "Unbelievable" might become `["un", "believ", "able"]`. The model learns statistical relationships between token sequences across enormous amounts of text.
-
-**Attention mechanisms** — instead of processing text strictly left-to-right, the model can attend to any prior token when predicting the next one. This is what allows it to understand that "bank" means something different in "river bank" and "savings bank."
-
-The key insight for a business analyst: **the model is predicting language, not computing truth.** When it writes `mean(x) = sum(x) / length(x)`, it is not running a calculation — it is recognizing that this string follows that kind of prompt in training data. Usually this is correct. Sometimes it is not.
 
 ## Generative AI in a Business Analytics Context
 
@@ -63,12 +51,10 @@ The four analytics categories (Descriptive → Diagnostic → Predictive → Pre
 
 This lesson focuses on one output that AI generates at every stage: **visualizations**. A chart is the most common deliverable in a business analytics workflow, and it is also where AI fails most characteristically — passing visual execution while missing the question and data quality that make a chart analytically honest. The Trifecta Checkup you will apply in the activity formalizes the Q–D–V framework that has run implicitly through every prior chapter.
 
-## The Limits of Generative AI
-
-Understanding what AI does reliably versus what it struggles with is the most practical thing in this section.
+The same handles/requires-judgment division from the first lesson applies directly here:
 
 | AI handles well | Requires your judgment |
-|------------------------------------|------------------------------------|
+|------------------------------------|------------------------------------||
 | Writing and editing code syntax | Verifying that the code answers your question |
 | Generating chart boilerplate | Evaluating whether the chart is analytically honest |
 | Summarizing text and documents | Checking whether the summary is accurate |
@@ -76,13 +62,11 @@ Understanding what AI does reliably versus what it struggles with is the most pr
 | Formatting and structuring output | Determining whether the structure serves your audience |
 | Arithmetic in simple expressions | Any multi-step calculation (AI approximates, not computes) |
 
-![LLMs vs. Rule-Based Systems](images/LLM_vs_Rule.png)
-
 This table maps directly to Kaiser Fung's Trifecta: AI handles the **V** corner (visual execution) reliably. The **Q** (question) and **D** (data) corners require you.
 
 ## Hallucinations in a Visualization Context
 
-You have been working with the hallucination warning signs since the first lesson of this course. Here they are applied specifically to chart output, where they take distinct and consequential forms:
+You covered the five hallucination warning signs in the first lesson. Here they take on specific, consequential forms when the output is a chart:
 
 | Warning sign | In a chart context |
 |------------------------------------|------------------------------------|
@@ -95,58 +79,6 @@ You have been working with the hallucination warning signs since the first lesso
 ![Reducing Hallucinations: Prompt Strategies](images/reducing_hallucination.png)
 
 **Practical rule:** always run AI-generated chart code yourself and verify that the data being plotted is the data you intended. Never submit a visualization you have not executed, checked, and interpreted.
-
-------------------------------------------------------------------------
-
-## Prompt Engineering
-
-![Customizing AI: From Pre-Training to Prompt Engineering](images/prompt_engineering.png)
-
-**Prompt engineering** is the practice of crafting inputs to elicit reliable, specific outputs from AI systems. The core principle is direct: the quality of the prompt determines the quality of the response. A vague prompt produces a vague answer.
-
-### Three Prompting Strategies
-
-![Prompt Types at a Glance](images/prompt_types.png)
-
-**Zero-shot prompting** — give the task with no examples. Works well for straightforward requests.
-
-> *"Classify this customer review as positive, negative, or neutral: 'The delivery was two days late and the packaging was damaged.'"*
-
-**Few-shot prompting** — provide a small number of labeled examples before the target. Useful when the format or classification scheme needs to be demonstrated.
-
-> *"Classify each as positive, negative, or neutral.* *'Great service, arrived early' → positive* *'Wrong item sent' → negative* \*'Package arrived on time' → \_\_\_"\*
-
-**Chain-of-thought prompting** — instruct the model to reason through steps before answering. Significantly improves accuracy on multi-step or ambiguous tasks.
-
-> *"Classify the following review as positive, negative, or neutral. Think step by step: first identify the key sentiment signals, then determine the overall tone, then give your classification. Review: 'The product quality is fine but customer support never responded to my three emails.'"*
-
-![Eight Principles of Effective Prompting](images/principles_of_prompting.png)
-
-### Tips for R and Statistics Prompts
-
-When using AI to help with R code or statistical analysis, specificity dramatically improves output quality:
-
-| Vague prompt | Specific prompt |
-|------------------------------------|------------------------------------|
-| "Make a chart of my data" | "Using ggplot2, create a bar chart of mean home_value by season from zillow.csv. Use `fill` to color by season, sort bars from highest to lowest mean, and label the y-axis in dollars." |
-| "Run a t-test" | "Run a two-sample t-test comparing home_value between Summer and Winter observations in zillow.csv. State the hypotheses, run `t.test()`, and interpret the p-value at α = 0.05." |
-| "What does this output mean?" | "I ran `summary(lm(home_value ~ season, data=zillow))` and got these results: \[paste output\]. Explain what the Intercept, seasonSpring coefficient, and p-values mean in plain English for a non-statistician." |
-
-![Prompt Iteration: Refining Your Inputs](images/prompt_iteration.png)
-
-### Verifying AI Output
-
-No AI-generated R code or statistical interpretation should be submitted without verification. Three-step check:
-
-1.  **Run the code** — does it execute without errors?
-2.  **Sanity-check the output** — do the numbers make sense given what you know about the data?
-3.  **Verify the interpretation** — does the AI's explanation match the statistical meaning of the output?
-
-Step 3 is where statistical knowledge is irreplaceable. An AI can produce a confidence interval and write a plausible-sounding sentence about it — but you need to know whether the sentence is correct.
-
-
-
-------------------------------------------------------------------------
 
 # Data Visualization Principles
 
@@ -418,32 +350,36 @@ Use the following prompts with our chatbot (bottom right of this page) to explor
 
 ## Generative AI Lab
 
-**1.** What is the fundamental difference between generative and predictive AI? Give one example of each that a marketing analyst might use, and explain which type you are building when you run a regression in this course.
+**1.** You ask an AI tool to "make a chart of home values by season" and it returns a bar chart with a y-axis starting at $280,000. The chart's title reads: "Seasonal variation in home values is dramatic." Identify every hallucination warning sign and visualization failure present, and explain what a corrected version would look like.
 
 ::: {.callout-note collapse="true"}
 ### Show Answer
 
-**Predictive AI** forecasts outcomes from historical data — a churn model that scores each customer's probability of cancellation is predictive. **Generative AI** creates new content — a tool that drafts personalized email copy for each segment is generative. When you run a regression in this course, you are building a **predictive** model: you are using past values of X to estimate Y, not generating new content. Many students assume "AI" refers only to generative tools; regression and classification models are AI too, just not the generative kind.
+Two problems are present. **Hallucination — overconfident language:** the word "dramatic" makes a causal or magnitude claim the data may not support; the actual range might be a few percent. **Visualization failure — truncated y-axis (Bad):** starting the bar chart at $280,000 instead of $0 visually exaggerates differences that may be small in absolute terms. A corrected version would: (1) reset the y-axis to 0; (2) replace the title with a neutral, accurate description such as "Mean home value by season, 2016–2023"; and (3) add a data label showing the actual mean for each bar so the viewer can assess the magnitude directly, rather than inferring it from bar height alone.
 :::
 
-**2.** A colleague shows you an AI-generated analysis that includes this sentence: "According to the 2023 Nielsen Consumer Confidence Index (Vol. 12, pp. 34–41), customers aged 25–34 are 2.3× more likely to switch brands after a single negative service experience." Which hallucination warning signs should you check, and what is the most efficient way to verify this claim?
+**2.** An AI generates a visualization with the title "Marketing Spend Drives Revenue" based on a scatterplot showing a positive correlation between the two variables. Apply the Trifecta Checkup: which corners pass, which fail, and why?
 
 ::: {.callout-note collapse="true"}
 ### Show Answer
 
-Two warning signs are present: **unverified specificity** (the precise multiplier of 2.3×, the specific volume and page numbers) and **invented sources** (the "Nielsen Consumer Confidence Index" with that specific citation does not correspond to a known Nielsen publication). The most efficient verification: search Nielsen's official publications database for the exact report title and volume. If it does not appear, the citation is fabricated. A secondary check: search for the specific "2.3× more likely" statistic in media coverage of Nielsen research — legitimate statistics of that precision tend to get cited widely. If neither check turns up the claim, do not use it.
+- **Q (question):** Passes on the surface — the question is clear. But the question as implied by the title ("does marketing spend *drive* revenue?") is a causal question that a scatterplot cannot answer. If the intended question is actually "are these two variables correlated?", the question corner passes; if it is causal, it fails.
+- **D (data):** Fails. Correlation data does not answer a causal question. The AI has used observational data to imply an experimental result. This is a **D** failure — the data do not support what the title claims.
+- **V (visual):** Passes. A scatterplot is the correct chart type for displaying the relationship between two continuous variables.
+
+**Trifecta label: d** (or **qd** if the question is evaluated as causal) — clear visual, but the data corner fails because the implied claim is not supported. Fix: retitle the chart "Correlation between marketing spend and revenue (r = ___)", which accurately describes what the data show.
 :::
 
-**3.** Rewrite the following weak prompt as a specific, well-structured prompt that would produce useful output for a business statistics course: *"Tell me about wages in my dataset."*
+**3.** Rewrite the following weak visualization prompt so that it would produce a chart you could submit without editing: *"Make a chart of the zillow data."*
 
 ::: {.callout-note collapse="true"}
 ### Show Answer
 
 A strong rewrite:
 
-> "I have a dataset called zillow.csv with a numeric variable `home_value` (estimated home value in dollars) and a factor variable `season` (Fall, Spring, Summer, Winter). Using R, please: (1) calculate the mean, median, standard deviation, and IQR of `home_value` for the full dataset; (2) calculate the same statistics broken out by `season` using `group_by()` + `summarise()`; (3) run `skew()` from the semTools package to check whether `home_value` is normally distributed; and (4) write a two-sentence interpretation of what the summary statistics tell us about home value variation across seasons."
+> "Using ggplot2 and the zillow.csv dataset, create a bar chart showing mean `home_value` (y-axis, labeled in dollars, starting at 0) for each level of `season` (x-axis). Sort bars from highest to lowest mean. Add a title that describes what the chart shows without implying causation. Use a minimal theme with no gridlines on the x-axis. Do not truncate the y-axis."
 
-This is stronger because it names the variables, specifies the exact functions, defines the scope of the analysis (four questions, not open-ended), and asks for an interpretation — not just output.
+This is stronger because it: names the dataset and variables; specifies the chart type and axis requirements; requires a zero-based y-axis explicitly; asks for a neutral, non-causal title; and defines visual style. The original prompt leaves every consequential decision to the AI — and AI will make at least one of them wrong.
 :::
 ## Visualization Principles Lab
 
@@ -481,11 +417,9 @@ This lesson covered the responsible use of generative AI and the principles of h
 
 | Topic | Key concepts |
 |------------------------------------|------------------------------------|
-| Generative vs. predictive AI | Generative creates new content; predictive forecasts from historical data; regression is predictive |
-| LLM mechanics | Token prediction, not truth verification; attention mechanisms enable context-aware generation |
+| AI applied to visualization | Hallucinations, prompt strategies, and the handles/requires-judgment division — introduced in the first lesson — applied specifically to chart output |
 | AI strengths and limits | Reliable on V (visual execution, code syntax); unreliable on Q (question framing) and D (data quality) |
-| Hallucinations | Structural property of language prediction; five warning signs; always verify citations and calculations |
-| Prompt engineering | Zero-shot, few-shot, chain-of-thought; specificity drives output quality |
+| Hallucinations in charts | Unverified labels, invented sources, contradictory titles, causal language, implausible values |
 | Four visualization purposes | Describe, predict, explain, understand — each demands different design choices |
 | Six aesthetics | Position (most precise), color (hue/value), size, shape, line width, line type |
 | Three color purposes | Distinguish categories, represent values, highlight — use the wrong one and the chart misleads |
