@@ -51,16 +51,14 @@ The four analytics categories (Descriptive → Diagnostic → Predictive → Pre
 
 This lesson focuses on one output that AI generates at every stage: **visualizations**. A chart is the most common deliverable in a business analytics workflow, and it is also where AI fails most characteristically — passing visual execution while missing the question and data quality that make a chart analytically honest. The Trifecta Checkup you will apply in the activity formalizes the Q–D–V framework that has run implicitly through every prior chapter.
 
-The same handles/requires-judgment division from the first lesson applies directly here:
-
 | AI handles well | Requires your judgment |
-|------------------------------------|------------------------------------||
+|-------------------------------------|--------------------------------------|
 | Writing and editing code syntax | Verifying that the code answers your question |
 | Generating chart boilerplate | Evaluating whether the chart is analytically honest |
 | Summarizing text and documents | Checking whether the summary is accurate |
 | Explaining statistical concepts | Deciding whether the explanation applies to your context |
 | Formatting and structuring output | Determining whether the structure serves your audience |
-| Arithmetic in simple expressions | Any multi-step calculation (AI approximates, not computes) |
+| Arithmetic in simple expressions | Any multi-step calculation<br>(AI approximates, not computes) |
 
 This table maps directly to Kaiser Fung's Trifecta: AI handles the **V** corner (visual execution) reliably. The **Q** (question) and **D** (data) corners require you.
 
